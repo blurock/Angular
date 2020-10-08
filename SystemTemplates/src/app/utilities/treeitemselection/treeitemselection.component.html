@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div *ngIf="data.freechoice">{{subtitleplusfree}}</div>
+<div *ngIf="!data.freechoice">{{subtitle}}</div>
+<mat-dialog-content>
+	<tree-root [focused]="true" [nodes]="data.tree" [options]="options"></tree-root>
+	<input class="title" matInput type="text" #titleField value="{{freechoicetitle}}"
+		(keyup.enter)="freeChoiceEntered($event)" *ngIf="data.freechoice">
+</mat-dialog-content>
+<mat-dialog-actions>
+	<button mat-button (onclick)="cancel($event)">Cancel</button>
+</mat-dialog-actions>

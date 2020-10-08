@@ -1,0 +1,18 @@
+.title {
+  flex-grow: 10;
+  
+}
+.paragraph {
+  flex-grow: 11;
+  
+  background-color: #2196F3;
+}
+.checkbox {
+  flex-grow: 1
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 90% auto;
+  background-color: #2196F0;
+  height: 100%;
+}

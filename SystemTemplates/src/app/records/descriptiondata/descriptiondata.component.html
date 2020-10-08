@@ -1,0 +1,26 @@
+<div class="titlediv">
+  <app-inputline [parameters]="titleparam" [subchecked]="true" [textarea]="false"
+    (changeTitleEvent)="valueChanged($event)" (checkboxchanged)="toggleRest($event)">
+  </app-inputline>
+  <mat-grid-list cols="1" rowHeight="30px" *ngIf="show">
+    <mat-grid-tile colspan="1" rowspan="6">
+      <app-inputline class="descriptiontile" [parameters]="descrparam" [subchecked]="false" [textarea]="true"
+        (changeTitleEvent)="valueChanged($event)" (checkboxchanged)="toggleRest($event)" class="descriptiontile">
+      </app-inputline>
+    </mat-grid-tile>
+    <mat-grid-tile  colspan="1">
+      <app-classificationchooser class="conceptclass" [treeobs]="classifications" [classificationTitle]="classificationtitle"
+        [allowFreeChoice]="true" [classification]="defaultvalue"></app-classificationchooser>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1">
+      <app-classificationchooser class="conceptclass" [treeobs]="classifications" [classificationTitle]="classificationtitle"
+        [allowFreeChoice]="true" [classification]="defaultvalue"></app-classificationchooser>
+   </mat-grid-tile>
+    <mat-grid-tile colspan="1">
+      <button class="conceptclass" mat-raised-button (click)="chooseDate()">{{datevalue}}</button>
+    </mat-grid-tile>
+    <mat-grid-tile  colspan="1" rowspan="2">
+      <app-keywordlist class="keyclass" [keywordparameter]="keywordparam"></app-keywordlist>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

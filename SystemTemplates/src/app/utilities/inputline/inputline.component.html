@@ -1,0 +1,16 @@
+<div class="grid-container" >
+  <mat-form-field >
+  <mat-label>{{linelabel}}</mat-label>
+  <input class="title"  matInput type="text" #titleField 
+  value="{{linetitle}}" 
+  (keyup)="onChange($event)"
+  *ngIf="!textarea">
+<textarea class="paragraph" matInput type="text" #titleField 
+  value="{{linetitle}}" 
+  (keyup)="onChange($event)"
+  *ngIf="textarea"></textarea>
+  </mat-form-field>
+  <mat-checkbox (click)="toggle($event)" *ngIf="subchecked">
+  </mat-checkbox>
+</div>
+
