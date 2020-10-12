@@ -3313,14 +3313,64 @@ Under the general type of is the actual data object referenced by the ChemConnec
                           rdfs:subClassOf :DataTypeInterpretationProtocol .
 
 
+###  http://www.esblurock.info/dataset#ConceptCatalogHierarchy
+:ConceptCatalogHierarchy rdf:type owl:Class ;
+                         rdfs:subClassOf :DataTypeConcept ;
+                         <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
+                         <http://purl.org/dc/terms/identifier> "dataset:dataconcept-hier" ;
+                         rdfs:comment "The concept associated with this branch of the catalog hierarchy" ;
+                         rdfs:label "Catalog Hierarchy Concept" ;
+                         <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-hier" .
+
+
 ###  http://www.esblurock.info/dataset#ConceptCombustionInstrument
 :ConceptCombustionInstrument rdf:type owl:Class ;
                              rdfs:subClassOf :InstrumentConcept .
 
 
+###  http://www.esblurock.info/dataset#ConceptConsortium
+:ConceptConsortium rdf:type owl:Class ;
+                   rdfs:subClassOf :ConceptUserInfo ;
+                   <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
+                   <http://purl.org/dc/terms/identifier> "dataset:dataconcept-consortium" ;
+                   rdfs:comment "The concept associated with consortium definition" ;
+                   rdfs:label "Consortium Concept" ;
+                   <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-consortium" .
+
+
+###  http://www.esblurock.info/dataset#ConceptDatasetImage
+:ConceptDatasetImage rdf:type owl:Class ;
+                     rdfs:subClassOf :DataTypeConcept ;
+                     <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
+                     <http://purl.org/dc/terms/identifier> "dataset:dataconcept-datasetimg" ;
+                     rdfs:comment "The concept associated with a database image" ;
+                     rdfs:label "Dataset Image Concept" ;
+                     <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-datasetimg" .
+
+
 ###  http://www.esblurock.info/dataset#ConceptEvaporator
 :ConceptEvaporator rdf:type owl:Class ;
                    rdfs:subClassOf :ChemConnectConceptComponent .
+
+
+###  http://www.esblurock.info/dataset#ConceptFileSource
+:ConceptFileSource rdf:type owl:Class ;
+                   rdfs:subClassOf :DataTypeConcept ;
+                   <http://purl.org/dc/elements/1.1/type> "DataTypeSource" ;
+                   <http://purl.org/dc/terms/identifier> "dataset:dataconcept-filesource" ;
+                   rdfs:comment "The concept associated with file source" ;
+                   rdfs:label "File Source Concept" ;
+                   <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-filesource" .
+
+
+###  http://www.esblurock.info/dataset#ConceptFileStaging
+:ConceptFileStaging rdf:type owl:Class ;
+                    rdfs:subClassOf :ConceptFileSource ;
+                    <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
+                    <http://purl.org/dc/terms/identifier> "dataset:dataconcept-staging" ;
+                    rdfs:comment "The concept associated with staging a file" ;
+                    rdfs:label "Concept File Staging" ;
+                    <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-staging" .
 
 
 ###  http://www.esblurock.info/dataset#ConceptKeywords
@@ -3631,14 +3681,74 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                  rdfs:subClassOf :ConceptMassFlowController .
 
 
+###  http://www.esblurock.info/dataset#ConceptOrganization
+:ConceptOrganization rdf:type owl:Class ;
+                     rdfs:subClassOf :ConceptUserInfo ;
+                     <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
+                     <http://purl.org/dc/terms/identifier> "dataset:dataconcept-org" ;
+                     rdfs:comment "The concept associated with an organization" ;
+                     rdfs:label "Organization Concept" ;
+                     <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-org" .
+
+
+###  http://www.esblurock.info/dataset#ConceptPerson
+:ConceptPerson rdf:type owl:Class ;
+               rdfs:subClassOf :ConceptUserInfo ;
+               <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
+               <http://purl.org/dc/terms/identifier> "dataset:dataconcept-person" ;
+               rdfs:comment "The concept associated with a person" ;
+               rdfs:label "Person Concept" ;
+               <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-person" .
+
+
 ###  http://www.esblurock.info/dataset#ConceptPowerGenerator
 :ConceptPowerGenerator rdf:type owl:Class ;
                        rdfs:subClassOf :InstrumentConcept .
 
 
+###  http://www.esblurock.info/dataset#ConceptRepositoryFile
+:ConceptRepositoryFile rdf:type owl:Class ;
+                       rdfs:subClassOf :ConceptFileSource ;
+                       <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
+                       <http://purl.org/dc/terms/identifier> "dataset:dataconcept-repository" ;
+                       rdfs:comment "The concept associated with setting up a respository file in the catalog hierarchy" ;
+                       rdfs:label "Repository File Concept" ;
+                       <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-repository" .
+
+
 ###  http://www.esblurock.info/dataset#ConceptSpectrometer
 :ConceptSpectrometer rdf:type owl:Class ;
                      rdfs:subClassOf :InstrumentConcept .
+
+
+###  http://www.esblurock.info/dataset#ConceptTransaction
+:ConceptTransaction rdf:type owl:Class ;
+                    rdfs:subClassOf :DataTypeConcept ;
+                    <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
+                    <http://purl.org/dc/terms/identifier> "dataset:dataconcept-trans" ;
+                    rdfs:comment "The concept associated with a transaction" ;
+                    rdfs:label "Transaction Concept" ;
+                    <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-trans" .
+
+
+###  http://www.esblurock.info/dataset#ConceptUserAccount
+:ConceptUserAccount rdf:type owl:Class ;
+                    rdfs:subClassOf :ConceptUserInfo ;
+                    <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
+                    <http://purl.org/dc/terms/identifier> "dataset:dataconcept-account" ;
+                    rdfs:comment "The concept associated a user account" ;
+                    rdfs:label "User Account Concept" ;
+                    <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-account" .
+
+
+###  http://www.esblurock.info/dataset#ConceptUserInfo
+:ConceptUserInfo rdf:type owl:Class ;
+                 rdfs:subClassOf :DataTypeConcept ;
+                 <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
+                 <http://purl.org/dc/terms/identifier> "dataset:dataconcept-userinfo" ;
+                 rdfs:comment "The concept associated with user info" ;
+                 rdfs:label "Concept User Info" ;
+                 <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-userinfo" .
 
 
 ###  http://www.esblurock.info/dataset#Consortium
@@ -3930,6 +4040,266 @@ Under the general type of is the actual data object referenced by the ChemConnec
                  <http://purl.org/dc/terms/type> "DatabaseID" .
 
 
+###  http://www.esblurock.info/dataset#DataDescriptionCatalogHierarchy
+:DataDescriptionCatalogHierarchy rdf:type owl:Class ;
+                                 rdfs:subClassOf :DescriptionDataData ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                   owl:onClass :DescriptionAbstractCatalogHierarchy
+                                                 ] ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                   owl:onClass :DescriptionKeywordCatalogHierarchy
+                                                 ] ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                   owl:onClass :DescriptionTitleCatalogHierarchy
+                                                 ] ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                   owl:onClass :PurposeConceptCatalogHierarchy
+                                                 ] ;
+                                 <http://purl.org/dc/elements/1.1/type> "DescriptionDataData" ;
+                                 <http://purl.org/dc/terms/identifier> "dataset:descr-hier" ;
+                                 rdfs:comment "Description of a catalog hierarchy tree" ;
+                                 rdfs:label "Catalog Hierarchy Description" ;
+                                 <http://www.w3.org/2004/02/skos/core#altLabel> "descr-hier" .
+
+
+###  http://www.esblurock.info/dataset#DataDescriptionConsortium
+:DataDescriptionConsortium rdf:type owl:Class ;
+                           rdfs:subClassOf :DataDescriptionUserInfo ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :DescriptionAbstractConsortium
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :DescriptionKeywordConsortium
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :DescriptionTitleConsortium
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :PurposeConceptConsortium
+                                           ] ;
+                           <http://purl.org/dc/elements/1.1/type> "DescriptionDataData" ;
+                           <http://purl.org/dc/terms/identifier> "dataset:descr-consortium" ;
+                           rdfs:comment "Consortium Description" ;
+                           rdfs:label "Consortium Description" ;
+                           <http://www.w3.org/2004/02/skos/core#altLabel> "descr-consortium" .
+
+
+###  http://www.esblurock.info/dataset#DataDescriptionFileSource
+:DataDescriptionFileSource rdf:type owl:Class ;
+                           rdfs:subClassOf :DescriptionDataData ;
+                           <http://purl.org/dc/elements/1.1/type> "DescriptionDataData" ;
+                           <http://purl.org/dc/terms/identifier> "dataset:descr-filesource" ;
+                           rdfs:comment "File source information" ;
+                           rdfs:label "File Source Information" ;
+                           <http://www.w3.org/2004/02/skos/core#altLabel> "descr-filesource" .
+
+
+###  http://www.esblurock.info/dataset#DataDescriptionFileStaging
+:DataDescriptionFileStaging rdf:type owl:Class ;
+                            rdfs:subClassOf :DataDescriptionFileSource ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :DescriptionAbstractFileStaging
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :DescriptionKeywordFileStaging
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :DescriptionTitleFileStaging
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :PurposeConceptPairFileStaging
+                                            ] ;
+                            <http://purl.org/dc/elements/1.1/type> "DescriptionDataData" ;
+                            <http://purl.org/dc/terms/identifier> "descr-filestaging" ;
+                            rdfs:comment "The initial source of data description" ;
+                            rdfs:label "File Staging Description" ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "descr-filestaging" .
+
+
+###  http://www.esblurock.info/dataset#DataDescriptionOrganization
+:DataDescriptionOrganization rdf:type owl:Class ;
+                             rdfs:subClassOf :DataDescriptionUserInfo ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                               owl:onClass :DescriptionAbstractOrganization
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                               owl:onClass :DescriptionKeywordOrganization
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                               owl:onClass :DescriptionTitleOrganization
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                               owl:onClass :PurposeConceptOrganization
+                                             ] ;
+                             <http://purl.org/dc/elements/1.1/type> "DescriptionDataData" ;
+                             <http://purl.org/dc/terms/identifier> "dataset:descr-org" ;
+                             rdfs:comment "Organization Description" ,
+                                          "The description of an organization" ;
+                             <http://www.w3.org/2004/02/skos/core#altLabel> "descr-org" .
+
+
+###  http://www.esblurock.info/dataset#DataDescriptionPerson
+:DataDescriptionPerson rdf:type owl:Class ;
+                       rdfs:subClassOf :DataDescriptionUserInfo ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onClass :DescriptionAbstractPerson
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onClass :DescriptionKeywordPerson
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onClass :DescriptionTitlePerson
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onClass :PurposeConceptPerson
+                                       ] ;
+                       <http://purl.org/dc/elements/1.1/type> "DescriptionDataData" ;
+                       <http://purl.org/dc/terms/identifier> "dataset:descr-person" ;
+                       rdfs:comment "Description associated with an individual" ;
+                       rdfs:label "Individual Description" ;
+                       <http://www.w3.org/2004/02/skos/core#altLabel> "descr-person" .
+
+
+###  http://www.esblurock.info/dataset#DataDescriptionRepositoryFile
+:DataDescriptionRepositoryFile rdf:type owl:Class ;
+                               rdfs:subClassOf :DataDescriptionFileSource ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onClass :DescriptionAbstractRepositoryFile
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onClass :DescriptionKeywordRepositoryFile
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onClass :DescriptionTitleRepositoryFile
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onClass :PurposeConceptRepositoryfile
+                                               ] ;
+                               <http://purl.org/dc/elements/1.1/type> "DescriptionDataData" ;
+                               <http://purl.org/dc/terms/identifier> "dataset:descr-repository" ;
+                               rdfs:comment "The information associated with the transfer of a source file to within the catagory hierarchy" ;
+                               rdfs:label "Repository File Description" ;
+                               <http://www.w3.org/2004/02/skos/core#altLabel> "descr-repository" .
+
+
+###  http://www.esblurock.info/dataset#DataDescriptionTransaction
+:DataDescriptionTransaction rdf:type owl:Class ;
+                            rdfs:subClassOf :DescriptionDataData ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :DescriptionAbstractTransaction
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :DescriptionKeywordTransaction
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :DescriptionTitleTransaction
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :PurposeConceptTransaction
+                                            ] ;
+                            <http://purl.org/dc/elements/1.1/type> "DescriptionDataData" ;
+                            <http://purl.org/dc/terms/identifier> "dataset:descr-trans" ;
+                            rdfs:comment "The information assoicated with a transaction" ;
+                            rdfs:label "Transaction Description" ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "descr-trans" .
+
+
+###  http://www.esblurock.info/dataset#DataDescriptionUserAccount
+:DataDescriptionUserAccount rdf:type owl:Class ;
+                            rdfs:subClassOf :DataDescriptionUserInfo ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :DescriptionAbstractUserAccount
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :DescriptionKeywordUserAccount
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :DescriptionTitleUserAccount
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :PurposeConceptUserAccount
+                                            ] ;
+                            <http://purl.org/dc/elements/1.1/type> "DescriptionDataData" ;
+                            <http://purl.org/dc/terms/identifier> "dataset:descr-account" ;
+                            rdfs:label "The user account information" ,
+                                       "User account description" ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "descr-account" .
+
+
+###  http://www.esblurock.info/dataset#DataDescriptionUserInfo
+:DataDescriptionUserInfo rdf:type owl:Class ;
+                         rdfs:subClassOf :DescriptionDataData ;
+                         <http://purl.org/dc/elements/1.1/type> "DescriptionDataData" ;
+                         <http://purl.org/dc/terms/identifier> "dataset:descr-userinfo" ;
+                         rdfs:comment "The description of information relating to a person" ;
+                         rdfs:label "User Info Description" ;
+                         <http://www.w3.org/2004/02/skos/core#altLabel> "descr-userinfo" .
+
+
 ###  http://www.esblurock.info/dataset#DataFileChemicalInformation
 :DataFileChemicalInformation rdf:type owl:Class ;
                              rdfs:subClassOf :DataFileInformationStructure .
@@ -4105,7 +4475,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DataTypeConcept
 :DataTypeConcept rdf:type owl:Class ;
-                 rdfs:subClassOf :ConceptKeywords ;
+                 rdfs:subClassOf :Classification ;
                  <http://purl.org/dc/elements/1.1/type> "Concept" ;
                  <http://purl.org/dc/terms/identifier> "qb:concept"^^xsd:string ;
                  rdfs:comment "The data type concept. This is a concept in the concept hierarchy." ;
@@ -4492,38 +4862,109 @@ Under the general type of is the actual data object referenced by the ChemConnec
                      rdfs:subClassOf :Paragraph .
 
 
+###  http://www.esblurock.info/dataset#DescriptionAbstractCatalogHierarchy
+:DescriptionAbstractCatalogHierarchy rdf:type owl:Class ;
+                                     rdfs:subClassOf :DescriptionAbstract ;
+                                     <http://purl.org/dc/terms/identifier> "dataset:abstract-hier" ;
+                                     <http://www.w3.org/2004/02/skos/core#altLabel> "abstract-hier" .
+
+
+###  http://www.esblurock.info/dataset#DescriptionAbstractConsortium
+:DescriptionAbstractConsortium rdf:type owl:Class ;
+                               rdfs:subClassOf :DescriptionAbstractUserInfo ;
+                               <http://purl.org/dc/terms/identifier> "dataset:abstract-consortium" ;
+                               <http://www.w3.org/2004/02/skos/core#altLabel> "abstract-consortium" .
+
+
+###  http://www.esblurock.info/dataset#DescriptionAbstractDatasetImage
+:DescriptionAbstractDatasetImage rdf:type owl:Class ;
+                                 rdfs:subClassOf :DescriptionAbstract .
+
+
+###  http://www.esblurock.info/dataset#DescriptionAbstractFileSource
+:DescriptionAbstractFileSource rdf:type owl:Class ;
+                               rdfs:subClassOf :DescriptionAbstract .
+
+
+###  http://www.esblurock.info/dataset#DescriptionAbstractFileStaging
+:DescriptionAbstractFileStaging rdf:type owl:Class ;
+                                rdfs:subClassOf :DescriptionAbstractFileSource ,
+                                                :DescriptionAbstractFileStaging .
+
+
+###  http://www.esblurock.info/dataset#DescriptionAbstractOrganization
+:DescriptionAbstractOrganization rdf:type owl:Class ;
+                                 rdfs:subClassOf :DescriptionAbstractUserInfo .
+
+
+###  http://www.esblurock.info/dataset#DescriptionAbstractPerson
+:DescriptionAbstractPerson rdf:type owl:Class ;
+                           rdfs:subClassOf :DescriptionAbstractUserInfo .
+
+
+###  http://www.esblurock.info/dataset#DescriptionAbstractRepositoryFile
+:DescriptionAbstractRepositoryFile rdf:type owl:Class ;
+                                   rdfs:subClassOf :DescriptionAbstractFileSource .
+
+
+###  http://www.esblurock.info/dataset#DescriptionAbstractTransaction
+:DescriptionAbstractTransaction rdf:type owl:Class ;
+                                rdfs:subClassOf :DescriptionAbstract .
+
+
+###  http://www.esblurock.info/dataset#DescriptionAbstractUserAccount
+:DescriptionAbstractUserAccount rdf:type owl:Class ;
+                                rdfs:subClassOf :DescriptionAbstractUserInfo .
+
+
+###  http://www.esblurock.info/dataset#DescriptionAbstractUserInfo
+:DescriptionAbstractUserInfo rdf:type owl:Class ;
+                             rdfs:subClassOf :DescriptionAbstract .
+
+
 ###  http://www.esblurock.info/dataset#DescriptionDataData
 :DescriptionDataData rdf:type owl:Class ;
                      rdfs:subClassOf :ChemConnectCompoundBase ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                       owl:someValuesFrom :DescriptionKeyword
-                                     ] ,
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                        owl:onClass :DateCreated
                                      ] ,
                                      [ rdf:type owl:Restriction ;
-                                       owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                       owl:onClass :DescriptionAbstract
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                       owl:onClass :DescriptionTitle
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
                                        owl:onProperty <http://www.w3.org/2004/02/skos/core#mappingRelation> ;
                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                        owl:onClass :RDFDescriptionKeyword
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                       owl:onClass :PurposeConceptPair
                                      ] .
+
+
+###  http://www.esblurock.info/dataset#DescriptionDataDatasetImage
+:DescriptionDataDatasetImage rdf:type owl:Class ;
+                             rdfs:subClassOf :DescriptionDataData ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                               owl:onClass :DescriptionAbstractDatasetImage
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                               owl:onClass :DescriptionKeywordDatasetImage
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                               owl:onClass :DescriptionTitleDatasetImage
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                               owl:onClass :PurposeConceptDatasetImage
+                                             ] ;
+                             <http://purl.org/dc/elements/1.1/type> "DescriptionDataData" ;
+                             <http://purl.org/dc/terms/identifier> "dataset:descr-datasetimg" ;
+                             rdfs:comment "The information associated with a data image (picture or document)" ;
+                             rdfs:label "Dataset Image" ;
+                             <http://www.w3.org/2004/02/skos/core#altLabel> "descr-datasetimg" .
 
 
 ###  http://www.esblurock.info/dataset#DescriptionKeyword
@@ -4531,9 +4972,148 @@ Under the general type of is the actual data object referenced by the ChemConnec
                     rdfs:subClassOf :ShortStringLabel .
 
 
+###  http://www.esblurock.info/dataset#DescriptionKeywordCatalogHierarchy
+:DescriptionKeywordCatalogHierarchy rdf:type owl:Class ;
+                                    rdfs:subClassOf :DescriptionKeyword ;
+                                    <http://purl.org/dc/terms/identifier> "dataset:keyword-hier" ;
+                                    <http://www.w3.org/2004/02/skos/core#altLabel> "keyword-hier" .
+
+
+###  http://www.esblurock.info/dataset#DescriptionKeywordConsortium
+:DescriptionKeywordConsortium rdf:type owl:Class ;
+                              rdfs:subClassOf :DescriptionKeywordUserInfo ;
+                              <http://purl.org/dc/terms/identifier> "dataset:keyword-consortium" ;
+                              <http://www.w3.org/2004/02/skos/core#altLabel> "keyword-consortium" .
+
+
+###  http://www.esblurock.info/dataset#DescriptionKeywordDatasetImage
+:DescriptionKeywordDatasetImage rdf:type owl:Class ;
+                                rdfs:subClassOf :DescriptionKeyword ;
+                                <http://purl.org/dc/terms/identifier> "dataset:keyword-datasetimg" ;
+                                <http://www.w3.org/2004/02/skos/core#altLabel> "keyword-datasetimg" .
+
+
+###  http://www.esblurock.info/dataset#DescriptionKeywordFileSource
+:DescriptionKeywordFileSource rdf:type owl:Class ;
+                              rdfs:subClassOf :DescriptionKeyword ;
+                              <http://purl.org/dc/terms/identifier> "dataset:keyword-filesource" ;
+                              <http://www.w3.org/2004/02/skos/core#altLabel> "keyword-filesource" .
+
+
+###  http://www.esblurock.info/dataset#DescriptionKeywordFileStaging
+:DescriptionKeywordFileStaging rdf:type owl:Class ;
+                               rdfs:subClassOf :DescriptionKeywordFileSource ;
+                               <http://purl.org/dc/terms/identifier> "dataset:keyword-filestaging" ;
+                               <http://www.w3.org/2004/02/skos/core#altLabel> "keyword-filestaging" .
+
+
+###  http://www.esblurock.info/dataset#DescriptionKeywordOrganization
+:DescriptionKeywordOrganization rdf:type owl:Class ;
+                                rdfs:subClassOf :DescriptionKeywordUserInfo ;
+                                <http://purl.org/dc/terms/identifier> "dataset:keyword-org" ;
+                                <http://www.w3.org/2004/02/skos/core#altLabel> "keyword-org" .
+
+
+###  http://www.esblurock.info/dataset#DescriptionKeywordPerson
+:DescriptionKeywordPerson rdf:type owl:Class ;
+                          rdfs:subClassOf :DescriptionKeywordUserInfo ;
+                          <http://purl.org/dc/terms/identifier> "dataset:keyword-person" ;
+                          <http://www.w3.org/2004/02/skos/core#altLabel> "keyword-person" .
+
+
+###  http://www.esblurock.info/dataset#DescriptionKeywordRepositoryFile
+:DescriptionKeywordRepositoryFile rdf:type owl:Class ;
+                                  rdfs:subClassOf :DescriptionKeywordFileSource ;
+                                  <http://purl.org/dc/terms/identifier> "dataset:keyword-repository" ;
+                                  <http://www.w3.org/2004/02/skos/core#altLabel> "keyword-repository" .
+
+
+###  http://www.esblurock.info/dataset#DescriptionKeywordTransaction
+:DescriptionKeywordTransaction rdf:type owl:Class ;
+                               rdfs:subClassOf :DescriptionKeyword ;
+                               <http://purl.org/dc/terms/identifier> "dataset:keyword-trans" ;
+                               <http://www.w3.org/2004/02/skos/core#altLabel> "keyword-trans" .
+
+
+###  http://www.esblurock.info/dataset#DescriptionKeywordUserAccount
+:DescriptionKeywordUserAccount rdf:type owl:Class ;
+                               rdfs:subClassOf :DescriptionKeywordUserInfo ;
+                               <http://purl.org/dc/terms/identifier> "keyword-account" ;
+                               <http://www.w3.org/2004/02/skos/core#altLabel> "keyword-account" .
+
+
+###  http://www.esblurock.info/dataset#DescriptionKeywordUserInfo
+:DescriptionKeywordUserInfo rdf:type owl:Class ;
+                            rdfs:subClassOf :DescriptionKeyword ;
+                            <http://purl.org/dc/terms/identifier> "keyword-userinfo" ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "keyword-userinfo" .
+
+
 ###  http://www.esblurock.info/dataset#DescriptionTitle
 :DescriptionTitle rdf:type owl:Class ;
                   rdfs:subClassOf :OneLine .
+
+
+###  http://www.esblurock.info/dataset#DescriptionTitleCatalogHierarchy
+:DescriptionTitleCatalogHierarchy rdf:type owl:Class ;
+                                  rdfs:subClassOf :DescriptionTitle ;
+                                  <http://purl.org/dc/terms/identifier> "dataset:title-hier" ;
+                                  <http://www.w3.org/2004/02/skos/core#altLabel> "title-hier" .
+
+
+###  http://www.esblurock.info/dataset#DescriptionTitleConsortium
+:DescriptionTitleConsortium rdf:type owl:Class ;
+                            rdfs:subClassOf :DescriptionTitleUserInfo ;
+                            <http://purl.org/dc/terms/identifier> "title-consortium" ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "title-consortium" .
+
+
+###  http://www.esblurock.info/dataset#DescriptionTitleDatasetImage
+:DescriptionTitleDatasetImage rdf:type owl:Class ;
+                              rdfs:subClassOf :DescriptionTitle ;
+                              <http://www.w3.org/2004/02/skos/core#altLabel> "title-datasetimg" .
+
+
+###  http://www.esblurock.info/dataset#DescriptionTitleFileSource
+:DescriptionTitleFileSource rdf:type owl:Class ;
+                            rdfs:subClassOf :DescriptionTitle ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "title-filesource" .
+
+
+###  http://www.esblurock.info/dataset#DescriptionTitleFileStaging
+:DescriptionTitleFileStaging rdf:type owl:Class ;
+                             rdfs:subClassOf :DescriptionTitleFileSource .
+
+
+###  http://www.esblurock.info/dataset#DescriptionTitleOrganization
+:DescriptionTitleOrganization rdf:type owl:Class ;
+                              rdfs:subClassOf :DescriptionTitleUserInfo .
+
+
+###  http://www.esblurock.info/dataset#DescriptionTitlePerson
+:DescriptionTitlePerson rdf:type owl:Class ;
+                        rdfs:subClassOf :DescriptionTitleUserInfo .
+
+
+###  http://www.esblurock.info/dataset#DescriptionTitleRepositoryFile
+:DescriptionTitleRepositoryFile rdf:type owl:Class ;
+                                rdfs:subClassOf :DescriptionTitleFileSource .
+
+
+###  http://www.esblurock.info/dataset#DescriptionTitleTransaction
+:DescriptionTitleTransaction rdf:type owl:Class ;
+                             rdfs:subClassOf :DescriptionTitle .
+
+
+###  http://www.esblurock.info/dataset#DescriptionTitleUserAccount
+:DescriptionTitleUserAccount rdf:type owl:Class ;
+                             rdfs:subClassOf :DescriptionTitleUserInfo .
+
+
+###  http://www.esblurock.info/dataset#DescriptionTitleUserInfo
+:DescriptionTitleUserInfo rdf:type owl:Class ;
+                          rdfs:subClassOf :DescriptionTitle ;
+                          <http://www.w3.org/2004/02/skos/core#altLabel> "title-userinfo" .
 
 
 ###  http://www.esblurock.info/dataset#DescriptionUnit
@@ -10136,19 +10716,94 @@ Under the general type of is the actual data object referenced by the ChemConnec
                rdfs:subClassOf :ChemConnectContact .
 
 
+###  http://www.esblurock.info/dataset#PurposeCatalogHierarchy
+:PurposeCatalogHierarchy rdf:type owl:Class ;
+                         rdfs:subClassOf :PurposeKeyword ;
+                         <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
+                         <http://purl.org/dc/terms/identifier> "dataset:purposekey-hier" ;
+                         rdfs:comment "The purpose of the catagory branch" ;
+                         rdfs:label "Catagory Hierarchy Purpose" ;
+                         <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-hier" .
+
+
+###  http://www.esblurock.info/dataset#PurposeConceptCatalogHierarchy
+:PurposeConceptCatalogHierarchy rdf:type owl:Class ;
+                                rdfs:subClassOf :PurposeConceptPair ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :ConceptCatalogHierarchy
+                                                ] ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :PurposeCatalogHierarchy
+                                                ] ;
+                                <http://purl.org/dc/terms/identifier> "dataset:purpose-hier" ;
+                                <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-hier" .
+
+
+###  http://www.esblurock.info/dataset#PurposeConceptConsortium
+:PurposeConceptConsortium rdf:type owl:Class ;
+                          rdfs:subClassOf :PurposeConceptUserInfo ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onClass :ConceptConsortium
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onClass :PurposeConsortium
+                                          ] ;
+                          <http://purl.org/dc/terms/identifier> "dataset:purpose-consortium" ;
+                          <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-consortium" .
+
+
+###  http://www.esblurock.info/dataset#PurposeConceptDatasetImage
+:PurposeConceptDatasetImage rdf:type owl:Class ;
+                            rdfs:subClassOf :PurposeConceptPair ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :ConceptDatasetImage
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :PurposeDatasetImage
+                                            ] ;
+                            <http://purl.org/dc/terms/identifier> "dataset:purpose-datasetimg" ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-datasetimg" .
+
+
+###  http://www.esblurock.info/dataset#PurposeConceptFileSource
+:PurposeConceptFileSource rdf:type owl:Class ;
+                          rdfs:subClassOf :PurposeConceptPair ;
+                          <http://purl.org/dc/terms/identifier> "dataset:purpose-filesource" ;
+                          <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-filesource" .
+
+
+###  http://www.esblurock.info/dataset#PurposeConceptOrganization
+:PurposeConceptOrganization rdf:type owl:Class ;
+                            rdfs:subClassOf :PurposeConceptUserInfo ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :ConceptOrganization
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :PurposeOrganization
+                                            ] ;
+                            <http://purl.org/dc/terms/identifier> "dataset:purpose-org" ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-org" .
+
+
 ###  http://www.esblurock.info/dataset#PurposeConceptPair
 :PurposeConceptPair rdf:type owl:Class ;
                     rdfs:subClassOf :ChemConnectCompoundBase ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                      owl:onClass :DataTypeConcept
-                                    ] ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                      owl:onClass :PurposeKeyword
-                                    ] ,
                                     [ rdf:type owl:Restriction ;
                                       owl:onProperty <http://www.w3.org/2004/02/skos/core#mappingRelation> ;
                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -10166,20 +10821,178 @@ Under the general type of is the actual data object referenced by the ChemConnec
                     <http://www.w3.org/2004/02/skos/core#altLabel> "purpose" .
 
 
+###  http://www.esblurock.info/dataset#PurposeConceptPairFileStaging
+:PurposeConceptPairFileStaging rdf:type owl:Class ;
+                               rdfs:subClassOf :PurposeConceptFileSource ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onClass :ConceptFileStaging
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onClass :PurposeFileStaging
+                                               ] ;
+                               <http://purl.org/dc/terms/identifier> "dataset:purpose-filestaging" ;
+                               <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-filestaging" .
+
+
+###  http://www.esblurock.info/dataset#PurposeConceptPerson
+:PurposeConceptPerson rdf:type owl:Class ;
+                      rdfs:subClassOf :PurposeConceptUserInfo ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :ConceptPerson
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :PurposePerson
+                                      ] ;
+                      <http://purl.org/dc/terms/identifier> "dataset:purpose-person" ;
+                      <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-person" .
+
+
+###  http://www.esblurock.info/dataset#PurposeConceptRepositoryfile
+:PurposeConceptRepositoryfile rdf:type owl:Class ;
+                              rdfs:subClassOf :PurposeConceptFileSource ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                owl:onClass :ConceptRepositoryFile
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                owl:onClass :PurposeFileRepository
+                                              ] ;
+                              <http://purl.org/dc/terms/identifier> "dataset:purpose-repository" ;
+                              <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-repository" .
+
+
+###  http://www.esblurock.info/dataset#PurposeConceptTransaction
+:PurposeConceptTransaction rdf:type owl:Class ;
+                           rdfs:subClassOf :PurposeConceptPair ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :ConceptTransaction
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :PurposeTransaction
+                                           ] ;
+                           <http://purl.org/dc/terms/identifier> "dataset:purpose-trans" ;
+                           <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-trans" .
+
+
+###  http://www.esblurock.info/dataset#PurposeConceptUserAccount
+:PurposeConceptUserAccount rdf:type owl:Class ;
+                           rdfs:subClassOf :PurposeConceptUserInfo ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :ConceptUserAccount
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :PurposeUserAccount
+                                           ] ;
+                           <http://www.w3.org/2004/02/skos/core#altLabel> "dataset:purpose-account" ,
+                                                                          "purpose-acount" .
+
+
+###  http://www.esblurock.info/dataset#PurposeConceptUserInfo
+:PurposeConceptUserInfo rdf:type owl:Class ;
+                        rdfs:subClassOf :PurposeConceptPair ;
+                        <http://purl.org/dc/terms/identifier> "dataset:purpose-userinfo" ;
+                        <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-userinfo" .
+
+
+###  http://www.esblurock.info/dataset#PurposeConsortium
+:PurposeConsortium rdf:type owl:Class ;
+                   rdfs:subClassOf :PurposeUserInfo ;
+                   <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
+                   <http://purl.org/dc/terms/identifier> "dataset:purposekey-consortium" ;
+                   rdfs:comment "The purpose of the consortium" ;
+                   rdfs:label "Consortium Purpose" ;
+                   <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-consortium" .
+
+
+###  http://www.esblurock.info/dataset#PurposeDatasetImage
+:PurposeDatasetImage rdf:type owl:Class ;
+                     rdfs:subClassOf :PurposeKeyword ;
+                     <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
+                     <http://purl.org/dc/terms/identifier> "dataset:purposekey-datasetimg" ;
+                     rdfs:comment "The purpose of a dataset image" ;
+                     rdfs:label "Dataset Image Purpose" ;
+                     <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-datasetimg" .
+
+
+###  http://www.esblurock.info/dataset#PurposeFileRepository
+:PurposeFileRepository rdf:type owl:Class ;
+                       rdfs:subClassOf :PurposeFileSource ;
+                       <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
+                       <http://purl.org/dc/terms/identifier> "dataset:purposekey-repository" ;
+                       rdfs:comment "The purpose of the file set in the repository" ;
+                       rdfs:label "File Repository Purpose" ;
+                       <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-repository" .
+
+
+###  http://www.esblurock.info/dataset#PurposeFileSource
+:PurposeFileSource rdf:type owl:Class ;
+                   rdfs:subClassOf :PurposeKeyword ;
+                   <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
+                   <http://purl.org/dc/terms/identifier> "dataset:purposekey-filesource" ;
+                   rdfs:comment "The purpose associated file source" ;
+                   rdfs:label "File Source Purpose" ;
+                   <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-filesource" .
+
+
+###  http://www.esblurock.info/dataset#PurposeFileStaging
+:PurposeFileStaging rdf:type owl:Class ;
+                    rdfs:subClassOf :PurposeFileSource ;
+                    <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
+                    <http://purl.org/dc/terms/identifier> "dataset:purposekey-filestaging" ;
+                    rdfs:comment "The purpose of the file staging" ;
+                    rdfs:label "File Staging Purpose" ;
+                    <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-filestaging" .
+
+
 ###  http://www.esblurock.info/dataset#PurposeKeyword
 :PurposeKeyword rdf:type owl:Class ;
                 rdfs:subClassOf :Classification ;
                 <http://purl.org/dc/elements/1.1/type> "Classification" ;
-                <http://purl.org/dc/terms/identifier> :purpose ;
+                <http://purl.org/dc/terms/identifier> "dataset:purposekey" ;
                 rdfs:comment "The keyword denoting the purpose of the described entity" ;
                 rdfs:isDefinedBy :ChemConnectPurpose ;
                 rdfs:label "Purpose Keyword" ;
-                <http://www.w3.org/2004/02/skos/core#altLabel> "purpose" .
+                <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey" .
 
 
 ###  http://www.esblurock.info/dataset#PurposeOrganization
 :PurposeOrganization rdf:type owl:Class ;
-                     rdfs:subClassOf :ChemConnectContact .
+                     rdfs:subClassOf :ChemConnectContact ,
+                                     :PurposeUserInfo ;
+                     <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
+                     <http://purl.org/dc/terms/identifier> "dataset:purposekey-org" ;
+                     rdfs:comment "The purpose of the organization" ;
+                     rdfs:label "Organization Purpose" ;
+                     <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-org" .
+
+
+###  http://www.esblurock.info/dataset#PurposePerson
+:PurposePerson rdf:type owl:Class ;
+               rdfs:subClassOf :PurposeUserInfo ;
+               <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
+               <http://purl.org/dc/terms/identifier> "dataset:purposekey-person" ;
+               rdfs:comment "The purpose of the person" ;
+               rdfs:label "Person Purpose" ;
+               <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-person" .
 
 
 ###  http://www.esblurock.info/dataset#PurposeResearcher
@@ -10187,9 +11000,39 @@ Under the general type of is the actual data object referenced by the ChemConnec
                    rdfs:subClassOf :ChemConnectContact .
 
 
+###  http://www.esblurock.info/dataset#PurposeTransaction
+:PurposeTransaction rdf:type owl:Class ;
+                    rdfs:subClassOf :PurposeKeyword ;
+                    <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
+                    <http://purl.org/dc/terms/identifier> "dataset:purposekey-trans" ;
+                    rdfs:comment "The purpose of the transaction" ;
+                    rdfs:label "Transaction Purpose" ;
+                    <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-trans" .
+
+
 ###  http://www.esblurock.info/dataset#PurposeUser
 :PurposeUser rdf:type owl:Class ;
              rdfs:subClassOf :ChemConnectContact .
+
+
+###  http://www.esblurock.info/dataset#PurposeUserAccount
+:PurposeUserAccount rdf:type owl:Class ;
+                    rdfs:subClassOf :PurposeUserInfo ;
+                    <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
+                    <http://purl.org/dc/terms/identifier> "dataset:purposekey-account" ;
+                    rdfs:comment "The purpose associated with the user account" ;
+                    rdfs:label "User Account Purpose" ;
+                    <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-account" .
+
+
+###  http://www.esblurock.info/dataset#PurposeUserInfo
+:PurposeUserInfo rdf:type owl:Class ;
+                 rdfs:subClassOf :PurposeKeyword ;
+                 <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
+                 <http://purl.org/dc/terms/identifier> "dataset:purposekey-userinfo" ;
+                 rdfs:comment "The purpose assocated with the user info" ;
+                 rdfs:label "User Info Purpose" ;
+                 <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-userinfo" .
 
 
 ###  http://www.esblurock.info/dataset#QuartzMaterialProbe
