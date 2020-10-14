@@ -16,7 +16,6 @@
                                                  <http://www.w3.org/ns/ssn/> ,
                                                  <http://xmlns.com/foaf/0.1/> ,
                                                  <http://www.w3.org/2004/02/skos/core> ;
-                                     <http://purl.org/dc/terms/publisher> <http://purl.org/dc/aboutdcmi#DCMI> ;
                                      <http://purl.org/dc/terms/title> "DCMI Type Vocabulary"@en ;
                                      <http://purl.org/dc/terms/modified> "2012-06-14"^^xsd:date ;
                                      <http://purl.org/dc/terms/title> "DCMI Metadata Terms - other"@en .
@@ -410,6 +409,10 @@
 
 ###  http://www.esblurock.info/dataset#objectconcept
 :objectconcept rdf:type owl:AnnotationProperty .
+
+
+###  http://www.esblurock.info/dataset#objectpurpose
+:objectpurpose rdf:type owl:AnnotationProperty .
 
 
 ###  http://www.esblurock.info/dataset#organizationID
@@ -3261,12 +3264,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#Company
 :Company rdf:type owl:Class ;
-         rdfs:subClassOf :OrganizationClassifications .
+         rdfs:subClassOf :OrganizationClassifications ;
+         rdfs:comment "Any company, corporation, etc." ;
+         rdfs:label "Company" .
 
 
 ###  http://www.esblurock.info/dataset#CompanyDepartment
 :CompanyDepartment rdf:type owl:Class ;
-                   rdfs:subClassOf :OrganizationClassifications .
+                   rdfs:subClassOf :OrganizationClassifications ;
+                   rdfs:comment "A department with a company" ;
+                   rdfs:label "Company Department" .
 
 
 ###  http://www.esblurock.info/dataset#CompanyHomepage
@@ -3313,11 +3320,19 @@ Under the general type of is the actual data object referenced by the ChemConnec
                           rdfs:subClassOf :DataTypeInterpretationProtocol .
 
 
+###  http://www.esblurock.info/dataset#ConceptCEO
+:ConceptCEO rdf:type owl:Class ;
+            rdfs:subClassOf :PersonClassification ;
+            rdfs:comment "The owner of the company. This could be used if the person is not necessarity involved in research" ;
+            rdfs:label "CEO" .
+
+
 ###  http://www.esblurock.info/dataset#ConceptCatalogHierarchy
 :ConceptCatalogHierarchy rdf:type owl:Class ;
                          rdfs:subClassOf :DataTypeConcept ;
                          <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
                          <http://purl.org/dc/terms/identifier> "dataset:dataconcept-hier" ;
+                         :objectconcept :CatagoryTypeChoices ;
                          rdfs:comment "The concept associated with this branch of the catalog hierarchy" ;
                          rdfs:label "Catalog Hierarchy Concept" ;
                          <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-hier" .
@@ -3333,6 +3348,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                    rdfs:subClassOf :ConceptUserInfo ;
                    <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
                    <http://purl.org/dc/terms/identifier> "dataset:dataconcept-consortium" ;
+                   :objectconcept :ConsortiumTypeChoice ;
                    rdfs:comment "The concept associated with consortium definition" ;
                    rdfs:label "Consortium Concept" ;
                    <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-consortium" .
@@ -3343,9 +3359,17 @@ Under the general type of is the actual data object referenced by the ChemConnec
                      rdfs:subClassOf :DataTypeConcept ;
                      <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
                      <http://purl.org/dc/terms/identifier> "dataset:dataconcept-datasetimg" ;
+                     :objectconcept :ImageClassification ;
                      rdfs:comment "The concept associated with a database image" ;
                      rdfs:label "Dataset Image Concept" ;
                      <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-datasetimg" .
+
+
+###  http://www.esblurock.info/dataset#ConceptDocturalStudent
+:ConceptDocturalStudent rdf:type owl:Class ;
+                        rdfs:subClassOf :PersonClassification ;
+                        rdfs:comment "Doctural Student" ;
+                        rdfs:label "Doctural Student" .
 
 
 ###  http://www.esblurock.info/dataset#ConceptEvaporator
@@ -3368,9 +3392,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                     rdfs:subClassOf :ConceptFileSource ;
                     <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
                     <http://purl.org/dc/terms/identifier> "dataset:dataconcept-staging" ;
+                    :objectconcept :FileSourceTypes ;
                     rdfs:comment "The concept associated with staging a file" ;
                     rdfs:label "Concept File Staging" ;
                     <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-staging" .
+
+
+###  http://www.esblurock.info/dataset#ConceptHeadOfDepartment
+:ConceptHeadOfDepartment rdf:type owl:Class ;
+                         rdfs:subClassOf :PersonClassification ;
+                         rdfs:comment "The head of a department within a university" .
 
 
 ###  http://www.esblurock.info/dataset#ConceptKeywords
@@ -3686,6 +3717,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                      rdfs:subClassOf :ConceptUserInfo ;
                      <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
                      <http://purl.org/dc/terms/identifier> "dataset:dataconcept-org" ;
+                     :objectconcept :OrganizationClassifications ;
                      rdfs:comment "The concept associated with an organization" ;
                      rdfs:label "Organization Concept" ;
                      <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-org" .
@@ -3696,9 +3728,17 @@ Under the general type of is the actual data object referenced by the ChemConnec
                rdfs:subClassOf :ConceptUserInfo ;
                <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
                <http://purl.org/dc/terms/identifier> "dataset:dataconcept-person" ;
+               :objectconcept "" ;
                rdfs:comment "The concept associated with a person" ;
                rdfs:label "Person Concept" ;
                <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-person" .
+
+
+###  http://www.esblurock.info/dataset#ConceptPostDocturalStudent
+:ConceptPostDocturalStudent rdf:type owl:Class ;
+                            rdfs:subClassOf :PersonClassification ;
+                            rdfs:comment "A post graduate" ;
+                            rdfs:label "Post-Doctural student with a degree" .
 
 
 ###  http://www.esblurock.info/dataset#ConceptPowerGenerator
@@ -3706,19 +3746,62 @@ Under the general type of is the actual data object referenced by the ChemConnec
                        rdfs:subClassOf :InstrumentConcept .
 
 
+###  http://www.esblurock.info/dataset#ConceptPrivatePerson
+:ConceptPrivatePerson rdf:type owl:Class ;
+                      rdfs:subClassOf :PersonClassification ;
+                      rdfs:comment "Private Person" ;
+                      rdfs:label "Private Person" .
+
+
+###  http://www.esblurock.info/dataset#ConceptProfessor
+:ConceptProfessor rdf:type owl:Class ;
+                  rdfs:subClassOf :PersonClassification ;
+                  rdfs:label "Professor" ,
+                             "University or College Professor" .
+
+
+###  http://www.esblurock.info/dataset#ConceptProgrammer
+:ConceptProgrammer rdf:type owl:Class ;
+                   rdfs:subClassOf :PersonClassification ;
+                   rdfs:comment "A programmer (that is not any of the other classifications)" ;
+                   rdfs:label "Programmer" .
+
+
 ###  http://www.esblurock.info/dataset#ConceptRepositoryFile
 :ConceptRepositoryFile rdf:type owl:Class ;
                        rdfs:subClassOf :ConceptFileSource ;
                        <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
                        <http://purl.org/dc/terms/identifier> "dataset:dataconcept-repository" ;
+                       :objectconcept :FileSourceTypes ;
                        rdfs:comment "The concept associated with setting up a respository file in the catalog hierarchy" ;
                        rdfs:label "Repository File Concept" ;
                        <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-repository" .
 
 
+###  http://www.esblurock.info/dataset#ConceptResearcher
+:ConceptResearcher rdf:type owl:Class ;
+                   rdfs:subClassOf :PersonClassification ;
+                   rdfs:comment "A generic researcher" ;
+                   rdfs:label "Researcher" .
+
+
 ###  http://www.esblurock.info/dataset#ConceptSpectrometer
 :ConceptSpectrometer rdf:type owl:Class ;
                      rdfs:subClassOf :InstrumentConcept .
+
+
+###  http://www.esblurock.info/dataset#ConceptStudent
+:ConceptStudent rdf:type owl:Class ;
+                rdfs:subClassOf :PersonClassification ;
+                rdfs:comment "A student within a research group" ;
+                rdfs:label "Student" .
+
+
+###  http://www.esblurock.info/dataset#ConceptTechnician
+:ConceptTechnician rdf:type owl:Class ;
+                   rdfs:subClassOf :PersonClassification ;
+                   rdfs:comment "A technian, that is not necessarily a researcher" ;
+                   rdfs:label "Technician" .
 
 
 ###  http://www.esblurock.info/dataset#ConceptTransaction
@@ -3736,6 +3819,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                     rdfs:subClassOf :ConceptUserInfo ;
                     <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
                     <http://purl.org/dc/terms/identifier> "dataset:dataconcept-account" ;
+                    :objectconcept :UserRoleChoices ;
                     rdfs:comment "The concept associated a user account" ;
                     rdfs:label "User Account Concept" ;
                     <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-account" .
@@ -4382,7 +4466,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DataOriginCatagory
 :DataOriginCatagory rdf:type owl:Class ;
-                    rdfs:subClassOf :CatagoryTypeChoices .
+                    rdfs:subClassOf :CatagoryTypeChoices ;
+                    rdfs:comment "Catalog Hierarchy about the origin of the data." ;
+                    rdfs:label "Data Origin" .
 
 
 ###  http://www.esblurock.info/dataset#DataPointUncertainty
@@ -4844,7 +4930,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#Department
 :Department rdf:type owl:Class ;
-            rdfs:subClassOf :OrganizationClassifications .
+            rdfs:subClassOf :OrganizationClassifications ;
+            rdfs:comment "A department representing a larger portion of an educational entity that can have multiple research groups, such as chemistry, engineering," ;
+            rdfs:label "Educational Department" .
 
 
 ###  http://www.esblurock.info/dataset#DepartmentConsortiumType
@@ -5137,7 +5225,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DeviceCatagory
 :DeviceCatagory rdf:type owl:Class ;
-                rdfs:subClassOf :CatagoryTypeChoices .
+                rdfs:subClassOf :CatagoryTypeChoices ;
+                rdfs:comment "Catagory Hierarchy holding information about devices" ;
+                rdfs:label "Device" .
 
 
 ###  http://www.esblurock.info/dataset#DeviceComponentModel
@@ -5663,7 +5753,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ExperimentalSetDataCatagory
 :ExperimentalSetDataCatagory rdf:type owl:Class ;
-                             rdfs:subClassOf :CatagoryTypeChoices .
+                             rdfs:subClassOf :CatagoryTypeChoices ;
+                             rdfs:comment "Catalog having experimental data" ;
+                             rdfs:label "Experimental Data" .
 
 
 ###  http://www.esblurock.info/dataset#ExperimentalTemperature
@@ -5691,7 +5783,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ExperimentalTypeCatagory
 :ExperimentalTypeCatagory rdf:type owl:Class ;
-                          rdfs:subClassOf :CatagoryTypeChoices .
+                          rdfs:subClassOf :CatagoryTypeChoices ;
+                          rdfs:comment "Catagory having different experiment devices" ;
+                          rdfs:label "Experiment Types" .
 
 
 ###  http://www.esblurock.info/dataset#ExtractionProtocolApplication
@@ -6775,8 +6869,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#GraphicConcept
 :GraphicConcept rdf:type owl:Class ;
-                rdfs:subClassOf :ChemConnectClassifications ,
-                                :ImageClassification ;
+                rdfs:subClassOf :ChemConnectClassifications ;
                 rdfs:comment "This is an illustration from a journal article" ;
                 rdfs:label "Graphic Concept" .
 
@@ -8094,8 +8187,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#InstrumentationConcept
 :InstrumentationConcept rdf:type owl:Class ;
-                        rdfs:subClassOf :ChemConnectClassifications ,
-                                        :ImageClassification ;
+                        rdfs:subClassOf :ChemConnectClassifications ;
                         rdfs:comment "These are instrumentation objects" ;
                         rdfs:label "Instrumentation Concept" .
 
@@ -10022,8 +10114,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#OrganizationClassifications
 :OrganizationClassifications rdf:type owl:Class ;
-                             rdfs:subClassOf :ChemConnectClassifications ,
-                                             :ImageClassification .
+                             rdfs:subClassOf :ChemConnectClassifications .
 
 
 ###  http://www.esblurock.info/dataset#OrganizationConsoritiumType
@@ -10033,7 +10124,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#OrganizationDataCatagory
 :OrganizationDataCatagory rdf:type owl:Class ;
-                          rdfs:subClassOf :CatagoryTypeChoices .
+                          rdfs:subClassOf :CatagoryTypeChoices ;
+                          rdfs:comment "Catalog describing organizations" ;
+                          rdfs:label "Organization" .
 
 
 ###  http://www.esblurock.info/dataset#OrganizationDescription
@@ -10287,6 +10380,13 @@ Under the general type of is the actual data object referenced by the ChemConnec
                          rdfs:label "Perfectly Stirred Reactor" .
 
 
+###  http://www.esblurock.info/dataset#PersonClassification
+:PersonClassification rdf:type owl:Class ;
+                      rdfs:subClassOf :ChemConnectClassifications ;
+                      rdfs:comment "The classification representing the 'main' role of the person (in terms of research)" ;
+                      rdfs:label "Person Classification" .
+
+
 ###  http://www.esblurock.info/dataset#PersonalDescription
 :PersonalDescription rdf:type owl:Class ;
                      rdfs:subClassOf :ChemConnectCompoundBase ,
@@ -10309,8 +10409,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#PhotographicImage
 :PhotographicImage rdf:type owl:Class ;
-                   rdfs:subClassOf :ChemConnectClassifications ,
-                                   :ImageClassification .
+                   rdfs:subClassOf :GraphicConcept .
 
 
 ###  http://www.esblurock.info/dataset#PistonBoreDiameter
@@ -10554,6 +10653,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
                             rdfs:subClassOf :TemperatureRegulation .
 
 
+###  http://www.esblurock.info/dataset#PrimaryPurposeOfPerson
+:PrimaryPurposeOfPerson rdf:type owl:Class ;
+                        rdfs:subClassOf :ChemConnectPurpose .
+
+
 ###  http://www.esblurock.info/dataset#ProbeAngleBase
 :ProbeAngleBase rdf:type owl:Class ;
                 rdfs:subClassOf :ProbeAngleParameters .
@@ -10697,7 +10801,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#PublishedResultsCatagory
 :PublishedResultsCatagory rdf:type owl:Class ;
-                          rdfs:subClassOf :CatagoryTypeChoices .
+                          rdfs:subClassOf :CatagoryTypeChoices ;
+                          rdfs:comment "Catagory for published results" ;
+                          rdfs:label "Published Results" .
 
 
 ###  http://www.esblurock.info/dataset#PublishedResultsReportingProtocol
@@ -10711,9 +10817,51 @@ Under the general type of is the actual data object referenced by the ChemConnec
                 rdfs:subClassOf :ReportedValue .
 
 
+###  http://www.esblurock.info/dataset#PurposeAcademic
+:PurposeAcademic rdf:type owl:Class ;
+                 rdfs:subClassOf :PurposeOfOrganization ;
+                 rdfs:comment "Academic institution" ;
+                 rdfs:label "Academic" .
+
+
+###  http://www.esblurock.info/dataset#PurposeAddNewCatalogData
+:PurposeAddNewCatalogData rdf:type owl:Class ;
+                          rdfs:subClassOf :PurposeOfTransaction ;
+                          rdfs:comment "Add new data to catalog object" ;
+                          rdfs:label "Add New Data" .
+
+
+###  http://www.esblurock.info/dataset#PurposeAdministrative
+:PurposeAdministrative rdf:type owl:Class ;
+                       rdfs:subClassOf :PurposeConsortiumFormation ;
+                       rdfs:comment "Consortium formed for administrative purposes" ;
+                       rdfs:label "Administrative" .
+
+
+###  http://www.esblurock.info/dataset#PurposeAppendNewData
+:PurposeAppendNewData rdf:type owl:Class ;
+                      rdfs:subClassOf :PurposeOfTransaction ;
+                      rdfs:comment "Transaction to append new data to a catalog item" ;
+                      rdfs:label "AppendNewData" .
+
+
+###  http://www.esblurock.info/dataset#PurposeArchivedData
+:PurposeArchivedData rdf:type owl:Class ;
+                     rdfs:subClassOf :PurposeObjectCatagory ;
+                     rdfs:comment "Archived data not necessarily associated with a fill experimental description" ;
+                     rdfs:label "Archived Data" .
+
+
 ###  http://www.esblurock.info/dataset#PurposeAuthor
 :PurposeAuthor rdf:type owl:Class ;
                rdfs:subClassOf :ChemConnectContact .
+
+
+###  http://www.esblurock.info/dataset#PurposeBackgroundInformation
+:PurposeBackgroundInformation rdf:type owl:Class ;
+                              rdfs:subClassOf :PurposeObjectCatagory ;
+                              rdfs:comment "This could also be data that is used (needed) by several experiments" ;
+                              rdfs:label "Background Information" .
 
 
 ###  http://www.esblurock.info/dataset#PurposeCatalogHierarchy
@@ -10721,9 +10869,17 @@ Under the general type of is the actual data object referenced by the ChemConnec
                          rdfs:subClassOf :PurposeKeyword ;
                          <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
                          <http://purl.org/dc/terms/identifier> "dataset:purposekey-hier" ;
+                         :objectpurpose :PurposeObjectCatagory ;
                          rdfs:comment "The purpose of the catagory branch" ;
                          rdfs:label "Catagory Hierarchy Purpose" ;
                          <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-hier" .
+
+
+###  http://www.esblurock.info/dataset#PurposeChemicalEntity
+:PurposeChemicalEntity rdf:type owl:Class ;
+                       rdfs:subClassOf :PurposeImage ;
+                       rdfs:comment "A picture representing a chemical entity, such as a molecule, setup of molecules, crystal structure, etc." ;
+                       rdfs:label "Chemical Entity" .
 
 
 ###  http://www.esblurock.info/dataset#PurposeConceptCatalogHierarchy
@@ -10777,11 +10933,21 @@ Under the general type of is the actual data object referenced by the ChemConnec
                             <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-datasetimg" .
 
 
+###  http://www.esblurock.info/dataset#PurposeConceptFileRepository
+:PurposeConceptFileRepository rdf:type owl:Class ;
+                              rdfs:subClassOf :ChemConnectPurpose .
+
+
 ###  http://www.esblurock.info/dataset#PurposeConceptFileSource
 :PurposeConceptFileSource rdf:type owl:Class ;
                           rdfs:subClassOf :PurposeConceptPair ;
                           <http://purl.org/dc/terms/identifier> "dataset:purpose-filesource" ;
                           <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-filesource" .
+
+
+###  http://www.esblurock.info/dataset#PurposeConceptFileStaging
+:PurposeConceptFileStaging rdf:type owl:Class ;
+                           rdfs:subClassOf :ChemConnectPurpose .
 
 
 ###  http://www.esblurock.info/dataset#PurposeConceptOrganization
@@ -10918,9 +11084,29 @@ Under the general type of is the actual data object referenced by the ChemConnec
                    rdfs:subClassOf :PurposeUserInfo ;
                    <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
                    <http://purl.org/dc/terms/identifier> "dataset:purposekey-consortium" ;
+                   :objectpurpose :PurposeConsortiumFormation ;
                    rdfs:comment "The purpose of the consortium" ;
                    rdfs:label "Consortium Purpose" ;
                    <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-consortium" .
+
+
+###  http://www.esblurock.info/dataset#PurposeConsortiumFormation
+:PurposeConsortiumFormation rdf:type owl:Class ;
+                            rdfs:subClassOf :ChemConnectPurpose .
+
+
+###  http://www.esblurock.info/dataset#PurposeDataGenerator
+:PurposeDataGenerator rdf:type owl:Class ;
+                      rdfs:subClassOf :PurposeOfAccount ;
+                      rdfs:comment "Can generate data and access data" ;
+                      rdfs:label "Data Generator" .
+
+
+###  http://www.esblurock.info/dataset#PurposeDataUser
+:PurposeDataUser rdf:type owl:Class ;
+                 rdfs:subClassOf :PurposeOfAccount ;
+                 rdfs:comment "Can only query data" ;
+                 rdfs:label "Data User" .
 
 
 ###  http://www.esblurock.info/dataset#PurposeDatasetImage
@@ -10928,9 +11114,59 @@ Under the general type of is the actual data object referenced by the ChemConnec
                      rdfs:subClassOf :PurposeKeyword ;
                      <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
                      <http://purl.org/dc/terms/identifier> "dataset:purposekey-datasetimg" ;
+                     :objectpurpose :PurposeImage ;
                      rdfs:comment "The purpose of a dataset image" ;
                      rdfs:label "Dataset Image Purpose" ;
                      <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-datasetimg" .
+
+
+###  http://www.esblurock.info/dataset#PurposeDeleteCatalogData
+:PurposeDeleteCatalogData rdf:type owl:Class ;
+                          rdfs:subClassOf :PurposeOfTransaction ;
+                          rdfs:comment "Transaction to delete catalog data" ;
+                          rdfs:label "Delete Catalog Data" .
+
+
+###  http://www.esblurock.info/dataset#PurposeExperimentalDescription
+:PurposeExperimentalDescription rdf:type owl:Class ;
+                                rdfs:subClassOf :PurposeObjectCatagory ;
+                                rdfs:comment "Subcatagories are associated with a single experimental condition (possibly amoung many)" ;
+                                rdfs:label "Experiment Description" .
+
+
+###  http://www.esblurock.info/dataset#PurposeExperimentalDevice
+:PurposeExperimentalDevice rdf:type owl:Class ;
+                           rdfs:subClassOf :PurposeConsortiumFormation ;
+                           rdfs:comment "Consortium made up of researchers associated with a particular device (most likely in the same lab)" ;
+                           rdfs:label "Experimental Device" .
+
+
+###  http://www.esblurock.info/dataset#PurposeExperimentalProtocol
+:PurposeExperimentalProtocol rdf:type owl:Class ;
+                             rdfs:subClassOf :PurposeConsortiumFormation ;
+                             rdfs:comment "Consortium formed a group using the same experimental protocol." ;
+                             rdfs:label "Experimental Protocol" .
+
+
+###  http://www.esblurock.info/dataset#PurposeExperimentalProtocolExplanation
+:PurposeExperimentalProtocolExplanation rdf:type owl:Class ;
+                                        rdfs:subClassOf :PurposeImage ;
+                                        rdfs:comment "Explanitory image of the protocol being used" ;
+                                        rdfs:label "Experimental Protocol Explanation" .
+
+
+###  http://www.esblurock.info/dataset#PurposeExperimentalResult
+:PurposeExperimentalResult rdf:type owl:Class ;
+                           rdfs:subClassOf :PurposeImage ;
+                           rdfs:comment "An image assocated with an experimental result, typically a graph." ;
+                           rdfs:label "Experimental Result" .
+
+
+###  http://www.esblurock.info/dataset#PurposeExperimentalSetupExplanation
+:PurposeExperimentalSetupExplanation rdf:type owl:Class ;
+                                     rdfs:subClassOf :PurposeImage ;
+                                     rdfs:comment "An image that helps illustrate the experimental setup, such as a photo or a schematic." ;
+                                     rdfs:label "Experimental Setup" .
 
 
 ###  http://www.esblurock.info/dataset#PurposeFileRepository
@@ -10938,6 +11174,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                        rdfs:subClassOf :PurposeFileSource ;
                        <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
                        <http://purl.org/dc/terms/identifier> "dataset:purposekey-repository" ;
+                       :objectpurpose :PurposeConceptFileRepository ;
                        rdfs:comment "The purpose of the file set in the repository" ;
                        rdfs:label "File Repository Purpose" ;
                        <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-repository" .
@@ -10958,9 +11195,64 @@ Under the general type of is the actual data object referenced by the ChemConnec
                     rdfs:subClassOf :PurposeFileSource ;
                     <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
                     <http://purl.org/dc/terms/identifier> "dataset:purposekey-filestaging" ;
+                    :objectpurpose :PurposeConceptFileStaging ;
                     rdfs:comment "The purpose of the file staging" ;
                     rdfs:label "File Staging Purpose" ;
                     <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-filestaging" .
+
+
+###  http://www.esblurock.info/dataset#PurposeFileStagingExperimentalSetup
+:PurposeFileStagingExperimentalSetup rdf:type owl:Class ;
+                                     rdfs:subClassOf :PurposeConceptFileStaging ;
+                                     rdfs:comment "Staged file representing a experimental setup" ;
+                                     rdfs:label "Experimental Setup" .
+
+
+###  http://www.esblurock.info/dataset#PurposeFileStagingFlowChart
+:PurposeFileStagingFlowChart rdf:type owl:Class ;
+                             rdfs:subClassOf :PurposeConceptFileStaging ;
+                             rdfs:comment "Staged file representing a flow chart" ;
+                             rdfs:label "Flow Chart" .
+
+
+###  http://www.esblurock.info/dataset#PurposeFileStagingGraph
+:PurposeFileStagingGraph rdf:type owl:Class ;
+                         rdfs:subClassOf :PurposeConceptFileStaging ;
+                         rdfs:comment "Staged file representing a graph" ;
+                         rdfs:label "Graph" .
+
+
+###  http://www.esblurock.info/dataset#PurposeFileStagingOrganization
+:PurposeFileStagingOrganization rdf:type owl:Class ;
+                                rdfs:subClassOf :PurposeConceptFileStaging ;
+                                rdfs:comment "Staged file representing an organization" ;
+                                rdfs:label "Organization" .
+
+
+###  http://www.esblurock.info/dataset#PurposeFileStagingPerson
+:PurposeFileStagingPerson rdf:type owl:Class ;
+                          rdfs:subClassOf :PurposeConceptFileStaging ;
+                          rdfs:comment "Staged file representing a person" ;
+                          rdfs:label "Person" .
+
+
+###  http://www.esblurock.info/dataset#PurposeFileStagingSchematic
+:PurposeFileStagingSchematic rdf:type owl:Class ;
+                             rdfs:subClassOf :PurposeConceptFileStaging ;
+                             rdfs:comment "Staged file representing a schematic" ;
+                             rdfs:label "Schematic" .
+
+
+###  http://www.esblurock.info/dataset#PurposeImage
+:PurposeImage rdf:type owl:Class ;
+              rdfs:subClassOf :ChemConnectPurpose .
+
+
+###  http://www.esblurock.info/dataset#PurposeIndustrial
+:PurposeIndustrial rdf:type owl:Class ;
+                   rdfs:subClassOf :PurposeOfOrganization ;
+                   rdfs:comment "Industrial organization" ;
+                   rdfs:label "Industrial" .
 
 
 ###  http://www.esblurock.info/dataset#PurposeKeyword
@@ -10974,12 +11266,82 @@ Under the general type of is the actual data object referenced by the ChemConnec
                 <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey" .
 
 
+###  http://www.esblurock.info/dataset#PurposeLocation
+:PurposeLocation rdf:type owl:Class ;
+                 rdfs:subClassOf :PurposeImage ;
+                 rdfs:comment "A map, picture of a building, etc." ;
+                 rdfs:label "Location" .
+
+
+###  http://www.esblurock.info/dataset#PurposeModelDescription
+:PurposeModelDescription rdf:type owl:Class ;
+                         rdfs:subClassOf :PurposeImage ;
+                         rdfs:comment "An explanatory image of a model" ;
+                         rdfs:label "Model Description" .
+
+
+###  http://www.esblurock.info/dataset#PurposeModifyCatalogData
+:PurposeModifyCatalogData rdf:type owl:Class ;
+                          rdfs:subClassOf :PurposeOfTransaction ;
+                          rdfs:comment "Modify fields within a catalog object" ;
+                          rdfs:label "Modify Catalog Object" .
+
+
+###  http://www.esblurock.info/dataset#PurposeMoveData
+:PurposeMoveData rdf:type owl:Class ;
+                 rdfs:subClassOf :PurposeOfTransaction ;
+                 rdfs:comment "Move data from one place to another" ;
+                 rdfs:label "Move Data" .
+
+
+###  http://www.esblurock.info/dataset#PurposeMultiGroupConsortium
+:PurposeMultiGroupConsortium rdf:type owl:Class ;
+                             rdfs:subClassOf :PurposeConsortiumFormation ;
+                             rdfs:comment "Consortium made up of several members across several groups (such as different universities)" ;
+                             rdfs:label "Multi-Group" .
+
+
+###  http://www.esblurock.info/dataset#PurposeMultipleExperiments
+:PurposeMultipleExperiments rdf:type owl:Class ;
+                            rdfs:subClassOf :PurposeObjectCatagory ;
+                            rdfs:comment "This is the top level of carrying out multiple related experiments" ;
+                            rdfs:label "Multiple Experiments" .
+
+
+###  http://www.esblurock.info/dataset#PurposeNonProfit
+:PurposeNonProfit rdf:type owl:Class ;
+                  rdfs:subClassOf :PurposeOfOrganization ;
+                  rdfs:comment "Non-Profit organization" ;
+                  rdfs:label "Non-Profit" .
+
+
+###  http://www.esblurock.info/dataset#PurposeObjectCatagory
+:PurposeObjectCatagory rdf:type owl:Class ;
+                       rdfs:subClassOf :ChemConnectPurpose .
+
+
+###  http://www.esblurock.info/dataset#PurposeOfAccount
+:PurposeOfAccount rdf:type owl:Class ;
+                  rdfs:subClassOf :ChemConnectPurpose .
+
+
+###  http://www.esblurock.info/dataset#PurposeOfOrganization
+:PurposeOfOrganization rdf:type owl:Class ;
+                       rdfs:subClassOf :ChemConnectPurpose .
+
+
+###  http://www.esblurock.info/dataset#PurposeOfTransaction
+:PurposeOfTransaction rdf:type owl:Class ;
+                      rdfs:subClassOf :ChemConnectPurpose .
+
+
 ###  http://www.esblurock.info/dataset#PurposeOrganization
 :PurposeOrganization rdf:type owl:Class ;
                      rdfs:subClassOf :ChemConnectContact ,
                                      :PurposeUserInfo ;
                      <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
                      <http://purl.org/dc/terms/identifier> "dataset:purposekey-org" ;
+                     :objectpurpose :PurposeOfOrganization ;
                      rdfs:comment "The purpose of the organization" ;
                      rdfs:label "Organization Purpose" ;
                      <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-org" .
@@ -10990,14 +11352,130 @@ Under the general type of is the actual data object referenced by the ChemConnec
                rdfs:subClassOf :PurposeUserInfo ;
                <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
                <http://purl.org/dc/terms/identifier> "dataset:purposekey-person" ;
+               :objectpurpose :PrimaryPurposeOfPerson ;
                rdfs:comment "The purpose of the person" ;
                rdfs:label "Person Purpose" ;
                <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-person" .
 
 
+###  http://www.esblurock.info/dataset#PurposePersonPhoto
+:PurposePersonPhoto rdf:type owl:Class ;
+                    rdfs:subClassOf :PurposeImage ;
+                    rdfs:comment "A photo of an individual" ;
+                    rdfs:label "Person" .
+
+
+###  http://www.esblurock.info/dataset#PurposePrincipleInvestigator
+:PurposePrincipleInvestigator rdf:type owl:Class ;
+                              rdfs:subClassOf :PrimaryPurposeOfPerson ;
+                              rdfs:comment "Primary role as principle investigator" ;
+                              rdfs:label "Principle Investigator" .
+
+
+###  http://www.esblurock.info/dataset#PurposePrivate
+:PurposePrivate rdf:type owl:Class ;
+                rdfs:subClassOf :PurposeOfOrganization ;
+                rdfs:comment "Private" ;
+                rdfs:label "Private" .
+
+
+###  http://www.esblurock.info/dataset#PurposePublishedData
+:PurposePublishedData rdf:type owl:Class ;
+                      rdfs:subClassOf :PurposeObjectCatagory ;
+                      rdfs:comment "Published data that doesn't necessarily have the full experimental description as backing" ;
+                      rdfs:label "Published Data" .
+
+
+###  http://www.esblurock.info/dataset#PurposeRepositoryDataOrigin
+:PurposeRepositoryDataOrigin rdf:type owl:Class ;
+                             rdfs:subClassOf :PurposeConceptFileRepository ;
+                             rdfs:comment "File representing the origin of the data" ;
+                             rdfs:label "Data Origin" .
+
+
+###  http://www.esblurock.info/dataset#PurposeRepositoryDevice
+:PurposeRepositoryDevice rdf:type owl:Class ;
+                         rdfs:subClassOf :PurposeConceptFileRepository ;
+                         rdfs:comment "File staging representing a device" ;
+                         rdfs:label "Device" .
+
+
+###  http://www.esblurock.info/dataset#PurposeRepositoryExperimental
+:PurposeRepositoryExperimental rdf:type owl:Class ;
+                               rdfs:subClassOf :PurposeConceptFileRepository ;
+                               rdfs:comment "Repository file representing experimental results" ;
+                               rdfs:label "Experimental Results" .
+
+
+###  http://www.esblurock.info/dataset#PurposeRepositoryOrganization
+:PurposeRepositoryOrganization rdf:type owl:Class ;
+                               rdfs:subClassOf :PurposeConceptFileRepository ;
+                               rdfs:comment "File representing an organization" ;
+                               rdfs:label "Organization" .
+
+
+###  http://www.esblurock.info/dataset#PurposeRepositoryPublishedResults
+:PurposeRepositoryPublishedResults rdf:type owl:Class ;
+                                   rdfs:subClassOf :PurposeConceptFileRepository ;
+                                   rdfs:comment "Repository file for published results" ;
+                                   rdfs:label "Published Results" .
+
+
+###  http://www.esblurock.info/dataset#PurposeRepositorySingleExperiment
+:PurposeRepositorySingleExperiment rdf:type owl:Class ;
+                                   rdfs:subClassOf :PurposeConceptFileRepository ;
+                                   rdfs:comment "File representing or about a Single experiment" ;
+                                   rdfs:label "Single Experiment" .
+
+
+###  http://www.esblurock.info/dataset#PurposeRepositoryUserData
+:PurposeRepositoryUserData rdf:type owl:Class ;
+                           rdfs:subClassOf :PurposeConceptFileRepository ;
+                           rdfs:comment "Repository file representing user data" ;
+                           rdfs:label "User Data" .
+
+
+###  http://www.esblurock.info/dataset#PurposeResearchGroup
+:PurposeResearchGroup rdf:type owl:Class ;
+                      rdfs:subClassOf :PurposeConsortiumFormation ;
+                      rdfs:comment "Consortium made up of a research group (or even part of a research group)" ;
+                      rdfs:label "Research Group" .
+
+
 ###  http://www.esblurock.info/dataset#PurposeResearcher
 :PurposeResearcher rdf:type owl:Class ;
-                   rdfs:subClassOf :ChemConnectContact .
+                   rdfs:subClassOf :ChemConnectContact ,
+                                   :PrimaryPurposeOfPerson ;
+                   rdfs:comment "Primary role as researcher" ;
+                   rdfs:label "Researcher" .
+
+
+###  http://www.esblurock.info/dataset#PurposeSingleExperimentalProtocol
+:PurposeSingleExperimentalProtocol rdf:type owl:Class ;
+                                   rdfs:subClassOf :PurposeObjectCatagory ;
+                                   rdfs:comment "Data acquired using a given experimental protocol" ,
+                                                "Single Protocol" .
+
+
+###  http://www.esblurock.info/dataset#PurposeSuperUser
+:PurposeSuperUser rdf:type owl:Class ;
+                  rdfs:subClassOf :PurposeOfAccount ;
+                  rdfs:comment "Super user account" ;
+                  rdfs:label "SuperUser" .
+
+
+###  http://www.esblurock.info/dataset#PurposeSupplementaryData
+:PurposeSupplementaryData rdf:type owl:Class ;
+                          rdfs:subClassOf :PurposeObjectCatagory ;
+                          rdfs:comment "Supplementary data not necessarily connected to a experimental procedure." ;
+                          rdfs:label "Supplementary Data" .
+
+
+###  http://www.esblurock.info/dataset#PurposeTechician
+:PurposeTechician rdf:type owl:Class ;
+                  rdfs:subClassOf :PrimaryPurposeOfPerson ;
+                  rdfs:comment "Primary role as technician" ;
+                  rdfs:label "Technician" .
 
 
 ###  http://www.esblurock.info/dataset#PurposeTransaction
@@ -11005,9 +11483,17 @@ Under the general type of is the actual data object referenced by the ChemConnec
                     rdfs:subClassOf :PurposeKeyword ;
                     <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
                     <http://purl.org/dc/terms/identifier> "dataset:purposekey-trans" ;
+                    :objectpurpose "" ;
                     rdfs:comment "The purpose of the transaction" ;
                     rdfs:label "Transaction Purpose" ;
                     <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-trans" .
+
+
+###  http://www.esblurock.info/dataset#PurposeTransformData
+:PurposeTransformData rdf:type owl:Class ;
+                      rdfs:subClassOf :PurposeOfTransaction ;
+                      rdfs:comment "Transform a catalog object to another catalog object" ;
+                      rdfs:label "Transform Data" .
 
 
 ###  http://www.esblurock.info/dataset#PurposeUser
@@ -11020,6 +11506,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                     rdfs:subClassOf :PurposeUserInfo ;
                     <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
                     <http://purl.org/dc/terms/identifier> "dataset:purposekey-account" ;
+                    :objectpurpose :PurposeOfAccount ;
                     rdfs:comment "The purpose associated with the user account" ;
                     rdfs:label "User Account Purpose" ;
                     <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-account" .
@@ -12005,7 +12492,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ResearchGroup
 :ResearchGroup rdf:type owl:Class ;
-               rdfs:subClassOf :OrganizationClassifications .
+               rdfs:subClassOf :OrganizationClassifications ;
+               rdfs:comment "A group (associated with one or more professors) with a educational entity., usually with a common interest." ;
+               rdfs:label "Research Group" .
 
 
 ###  http://www.esblurock.info/dataset#ResearchGroupConsortiumType
@@ -12015,7 +12504,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ResearchInstitute
 :ResearchInstitute rdf:type owl:Class ;
-                   rdfs:subClassOf :OrganizationClassifications .
+                   rdfs:subClassOf :OrganizationClassifications ;
+                   rdfs:comment "A research organization whose sole goal is research" ;
+                   rdfs:label "Research Institute" .
 
 
 ###  http://www.esblurock.info/dataset#SampleFlameSpecies
@@ -12215,7 +12706,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#SingleExperimentDataCatagory
 :SingleExperimentDataCatagory rdf:type owl:Class ;
-                              rdfs:subClassOf :CatagoryTypeChoices .
+                              rdfs:subClassOf :CatagoryTypeChoices ;
+                              rdfs:comment "Catagory holding a single experiment" ;
+                              rdfs:label "Single Experiments" .
 
 
 ###  http://www.esblurock.info/dataset#SingleFuelEquivalenceRatioObservable
@@ -13444,7 +13937,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#Univerisity
 :Univerisity rdf:type owl:Class ;
-             rdfs:subClassOf :OrganizationClassifications .
+             rdfs:subClassOf :OrganizationClassifications ;
+             rdfs:comment "A university" ;
+             rdfs:label "University" .
 
 
 ###  http://www.esblurock.info/dataset#UniversityHomepage
@@ -13532,7 +14027,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#UserDataCatagory
 :UserDataCatagory rdf:type owl:Class ;
-                  rdfs:subClassOf :CatagoryTypeChoices .
+                  rdfs:subClassOf :CatagoryTypeChoices ;
+                  rdfs:comment "Catagory holding user data" ;
+                  rdfs:label "User Data" .
 
 
 ###  http://www.esblurock.info/dataset#UserRoleChoices
@@ -14290,7 +14787,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 
 ###  http://www.esblurock.info/dataset
-<http://www.esblurock.info/dataset> rdf:type owl:NamedIndividual .
+<http://www.esblurock.info/dataset> rdf:type owl:NamedIndividual ;
+                                    <http://purl.org/dc/terms/publisher> <http://purl.org/dc/aboutdcmi#DCMI> .
 
 
 ###  http://www.esblurock.info/dataset#AMU
@@ -15342,8 +15840,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                     <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date .
 
 
-<http://purl.org/dc/terms/rights> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
-                                  <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
+<http://purl.org/dc/terms/rights> <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
+                                  rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                   rdfs:label "Rights"@en ;
                                   rdfs:comment "Information about rights held in and over the resource."@en ;
                                   <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
@@ -15351,8 +15849,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                   <http://purl.org/dc/terms/description> "Typically, rights information includes a statement about various property rights associated with the resource, including intellectual property rights."@en .
 
 
-<http://purl.org/dc/terms/rightsHolder> <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#rightsHolder-002> ;
-                                        rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+<http://purl.org/dc/terms/rightsHolder> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+                                        <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#rightsHolder-002> ;
                                         <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                         rdfs:comment "A person or organization owning or managing rights over the resource."@en ;
                                         <http://purl.org/dc/terms/issued> "2004-06-14"^^xsd:date ;
