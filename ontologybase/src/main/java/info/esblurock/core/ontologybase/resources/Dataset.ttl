@@ -3878,7 +3878,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                             ] ;
             <http://purl.org/dc/elements/1.1/type> "Consortium"^^xsd:string ;
             <http://purl.org/dc/terms/identifier> "dataset:Consortium"^^xsd:string ;
-            :objectconcept :ConsortiumTypeChoice ;
             rdfs:comment "This is the Consortium catalog object. It holds the information about the consortium. The consortium is defined by the consortium name and the set of members." ;
             rdfs:label "Consortium of users"^^xsd:string ;
             <http://www.w3.org/2004/02/skos/core#altLabel> "consortium"^^xsd:string .
@@ -4957,7 +4956,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                          ] ;
                          <http://purl.org/dc/elements/1.1/type> "DatasetCatalogHierarchy"^^xsd:string ;
                          <http://purl.org/dc/terms/identifier> "dataset:DatasetCatalogHierarchy"^^xsd:string ;
-                         :objectconcept :CatagoryTypeChoices ;
                          rdfs:comment "The catalog hierarchy node" ;
                          rdfs:label "Data set hierarchy structure"^^xsd:string ;
                          <http://www.w3.org/2004/02/skos/core#altLabel> "sethier"^^xsd:string .
@@ -4978,7 +4976,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                               ] ;
               <http://purl.org/dc/elements/1.1/type> "DatasetImage"^^xsd:string ;
               <http://purl.org/dc/terms/identifier> "foaf:Image"^^xsd:string ;
-              :objectconcept :ImageClassification ;
               rdfs:comment "The information about an image" ;
               rdfs:label "Image"^^xsd:string ;
               <http://www.w3.org/2004/02/skos/core#altLabel> "img"^^xsd:string .
@@ -5035,20 +5032,31 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#DescriptionAbstractCatalogHierarchy
 :DescriptionAbstractCatalogHierarchy rdf:type owl:Class ;
                                      rdfs:subClassOf :DescriptionAbstract ;
+                                     <http://purl.org/dc/elements/1.1/type> "Paragraph" ;
                                      <http://purl.org/dc/terms/identifier> "dataset:abstract-hier" ;
+                                     rdfs:comment "A description of the catalog hierarchy" ;
+                                     rdfs:label "Catalog Hierarchy Abstract" ;
                                      <http://www.w3.org/2004/02/skos/core#altLabel> "abstract-hier" .
 
 
 ###  http://www.esblurock.info/dataset#DescriptionAbstractConsortium
 :DescriptionAbstractConsortium rdf:type owl:Class ;
                                rdfs:subClassOf :DescriptionAbstractUserInfo ;
+                               <http://purl.org/dc/elements/1.1/type> "Paragraph" ;
                                <http://purl.org/dc/terms/identifier> "dataset:abstract-consortium" ;
+                               rdfs:comment "A description of the consortium" ;
+                               rdfs:label "Consortium Abstract" ;
                                <http://www.w3.org/2004/02/skos/core#altLabel> "abstract-consortium" .
 
 
 ###  http://www.esblurock.info/dataset#DescriptionAbstractDatasetImage
 :DescriptionAbstractDatasetImage rdf:type owl:Class ;
-                                 rdfs:subClassOf :DescriptionAbstract .
+                                 rdfs:subClassOf :DescriptionAbstract ;
+                                 <http://purl.org/dc/elements/1.1/type> "Paragraph" ;
+                                 <http://purl.org/dc/terms/identifier> "dataset:abstract-image" ;
+                                 rdfs:comment "A description of the image" ;
+                                 rdfs:label "Image Abstract" ;
+                                 <http://www.w3.org/2004/02/skos/core#altLabel> "abstract-image" .
 
 
 ###  http://www.esblurock.info/dataset#DescriptionAbstractFileSource
@@ -5069,12 +5077,22 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DescriptionAbstractOrganization
 :DescriptionAbstractOrganization rdf:type owl:Class ;
-                                 rdfs:subClassOf :DescriptionAbstractUserInfo .
+                                 rdfs:subClassOf :DescriptionAbstractUserInfo ;
+                                 <http://purl.org/dc/elements/1.1/type> "Paragraph" ;
+                                 <http://purl.org/dc/terms/identifier> "dataset:abstract-org" ;
+                                 rdfs:comment "A description of the organization" ;
+                                 rdfs:label "Organization Abstract" ;
+                                 <http://www.w3.org/2004/02/skos/core#altLabel> "abstract-org" .
 
 
 ###  http://www.esblurock.info/dataset#DescriptionAbstractPerson
 :DescriptionAbstractPerson rdf:type owl:Class ;
-                           rdfs:subClassOf :DescriptionAbstractUserInfo .
+                           rdfs:subClassOf :DescriptionAbstractUserInfo ;
+                           <http://purl.org/dc/elements/1.1/type> "Paragraph" ;
+                           <http://purl.org/dc/terms/identifier> "dataset:abstract-person" ;
+                           rdfs:comment "A description of the person" ;
+                           rdfs:label "Person Abstract" ;
+                           <http://www.w3.org/2004/02/skos/core#altLabel> "abstract-person" .
 
 
 ###  http://www.esblurock.info/dataset#DescriptionAbstractRepositoryFile
@@ -5089,12 +5107,22 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DescriptionAbstractTransaction
 :DescriptionAbstractTransaction rdf:type owl:Class ;
-                                rdfs:subClassOf :DescriptionAbstract .
+                                rdfs:subClassOf :DescriptionAbstract ;
+                                <http://purl.org/dc/elements/1.1/type> "Paragraph" ;
+                                <http://purl.org/dc/terms/identifier> "dataset:abstract-transaction" ;
+                                rdfs:comment "A description of the transaction" ;
+                                rdfs:label "Transaction Abstract" ;
+                                <http://www.w3.org/2004/02/skos/core#altLabel> "abstraction-transaction" .
 
 
 ###  http://www.esblurock.info/dataset#DescriptionAbstractUserAccount
 :DescriptionAbstractUserAccount rdf:type owl:Class ;
-                                rdfs:subClassOf :DescriptionAbstractUserInfo .
+                                rdfs:subClassOf :DescriptionAbstractUserInfo ;
+                                <http://purl.org/dc/elements/1.1/type> "Paragraph" ;
+                                <http://purl.org/dc/terms/identifier> "dataset:abstract-useraccount" ;
+                                rdfs:comment "A description of the user account" ;
+                                rdfs:label "User Account Abstract" ;
+                                <http://www.w3.org/2004/02/skos/core#altLabel> "abstract-useraccount" .
 
 
 ###  http://www.esblurock.info/dataset#DescriptionAbstractUserInfo
@@ -14195,7 +14223,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                              ] ;
              <http://purl.org/dc/elements/1.1/type> "UserAccount"^^xsd:string ;
              <http://purl.org/dc/terms/identifier> "prov:SoftwareAgent"^^xsd:string ;
-             :objectconcept :UserRoleChoices ;
              rdfs:comment "The user account information" ;
              rdfs:label "User Account" ;
              <http://www.w3.org/2004/02/skos/core#altLabel> "usraccnt"^^xsd:string .
@@ -16282,7 +16309,6 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 
 :Organization rdfs:comment "All the descriptive information about an organization" ;
-              :objectconcept :OrganizationClassifications ;
               <http://purl.org/dc/elements/1.1/type> "Organization"^^xsd:string ;
               rdfs:label "Organization"^^xsd:string ;
               <http://www.w3.org/2004/02/skos/core#altLabel> "org"^^xsd:string ;
