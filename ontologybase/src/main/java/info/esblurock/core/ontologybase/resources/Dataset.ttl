@@ -5292,7 +5292,10 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#DescriptionTitleCatalogHierarchy
 :DescriptionTitleCatalogHierarchy rdf:type owl:Class ;
                                   rdfs:subClassOf :DescriptionTitle ;
+                                  <http://purl.org/dc/elements/1.1/type> "OneLine" ;
                                   <http://purl.org/dc/terms/identifier> "dataset:title-hier" ;
+                                  rdfs:comment "The catalog hierarchy title" ;
+                                  rdfs:label "Catalog Hierarchy Title" ;
                                   <http://www.w3.org/2004/02/skos/core#altLabel> "title-hier" .
 
 
@@ -11098,7 +11101,10 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                   owl:onClass :PurposeCatalogHierarchy
                                                 ] ;
+                                <http://purl.org/dc/elements/1.1/type> "PurposeConceptPair" ;
                                 <http://purl.org/dc/terms/identifier> "dataset:purpose-hier" ;
+                                rdfs:comment "The concept and purpose keywords" ;
+                                rdfs:label "Catalog Hierarchy Concepts" ;
                                 <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-hier" .
 
 
@@ -11115,7 +11121,10 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                             owl:onClass :PurposeConsortium
                                           ] ;
+                          <http://purl.org/dc/elements/1.1/type> "PurposeConceptPair" ;
                           <http://purl.org/dc/terms/identifier> "dataset:purpose-consortium" ;
+                          rdfs:comment "The purpose and concept of the consortium" ;
+                          rdfs:label "Consortium Concepts" ;
                           <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-consortium" .
 
 
@@ -11132,7 +11141,10 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                               owl:onClass :PurposeDatasetImage
                                             ] ;
+                            <http://purl.org/dc/elements/1.1/type> "PurposeConceptPair" ;
                             <http://purl.org/dc/terms/identifier> "dataset:purpose-datasetimg" ;
+                            rdfs:comment "The image purpose and concept keywords" ;
+                            rdfs:label "Image Concept" ;
                             <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-datasetimg" .
 
 
@@ -11144,6 +11156,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#PurposeConceptFileSource
 :PurposeConceptFileSource rdf:type owl:Class ;
                           rdfs:subClassOf :PurposeConceptPair ;
+                          <http://purl.org/dc/elements/1.1/type> "PurposeConceptPair" ;
                           <http://purl.org/dc/terms/identifier> "dataset:purpose-filesource" ;
                           <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-filesource" .
 
@@ -11166,7 +11179,10 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                               owl:onClass :PurposeOrganization
                                             ] ;
+                            <http://purl.org/dc/elements/1.1/type> "PurposeConceptPair" ;
                             <http://purl.org/dc/terms/identifier> "dataset:purpose-org" ;
+                            rdfs:comment "The purpose and concept of the organization" ;
+                            rdfs:label "Organization Concepts" ;
                             <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-org" .
 
 
@@ -11203,7 +11219,10 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                  owl:onClass :PurposeFileStaging
                                                ] ;
+                               <http://purl.org/dc/elements/1.1/type> "PurposeConceptPair" ;
                                <http://purl.org/dc/terms/identifier> "dataset:purpose-filestaging" ;
+                               rdfs:comment "The concept and purpose of the staged file" ;
+                               rdfs:label "File Staging Concepts" ;
                                <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-filestaging" .
 
 
@@ -11220,7 +11239,10 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                         owl:onClass :PurposePerson
                                       ] ;
+                      <http://purl.org/dc/elements/1.1/type> "PurposeConceptPair" ;
                       <http://purl.org/dc/terms/identifier> "dataset:purpose-person" ;
+                      rdfs:comment "The purpose and concept of the person" ;
+                      rdfs:label "Person Concepts" ;
                       <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-person" .
 
 
@@ -11237,7 +11259,10 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                 owl:onClass :PurposeFileRepository
                                               ] ;
+                              <http://purl.org/dc/elements/1.1/type> "PurposeConceptPair" ;
                               <http://purl.org/dc/terms/identifier> "dataset:purpose-repository" ;
+                              rdfs:comment "The purpose and concept of the repository file" ;
+                              rdfs:label "Repository File Concepts" ;
                               <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-repository" .
 
 
@@ -11254,7 +11279,10 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                              owl:onClass :PurposeTransaction
                                            ] ;
+                           <http://purl.org/dc/elements/1.1/type> "PurposeConceptPair" ;
                            <http://purl.org/dc/terms/identifier> "dataset:purpose-trans" ;
+                           rdfs:comment "The purpose and concept of the transaction" ;
+                           rdfs:label "Transaction Concepts" ;
                            <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-trans" .
 
 
@@ -11271,6 +11299,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                              owl:onClass :PurposeUserAccount
                                            ] ;
+                           <http://purl.org/dc/elements/1.1/type> "PurposeConceptPair" ;
+                           rdfs:comment "The purpose and concept of the user account" ;
+                           rdfs:label "User Account Concepts" ;
                            <http://www.w3.org/2004/02/skos/core#altLabel> "dataset:purpose-account" ,
                                                                           "purpose-acount" .
 
