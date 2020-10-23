@@ -2356,11 +2356,6 @@ One important piece of information is the associated catalog objects that were c
 :ChemConnectCompoundDataStructure rdf:type owl:Class ;
                                   rdfs:subClassOf <http://www.w3.org/ns/dcat#CatalogRecord> ,
                                                   [ rdf:type owl:Restriction ;
-                                                    owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                    owl:onClass :ParentLinkToDataStructure
-                                                  ] ,
-                                                  [ rdf:type owl:Restriction ;
                                                     owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                     owl:onClass :ChemConnectModule
@@ -4241,7 +4236,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                               owl:onClass :DescriptionTitleFileStaging
                                             ] ,
                                             [ rdf:type owl:Restriction ;
-                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                               owl:onClass :PurposeConceptPairFileStaging
                                             ] ;
@@ -5329,10 +5324,10 @@ Under the general type of is the actual data object referenced by the ChemConnec
 :DescriptionTitleFileStaging rdf:type owl:Class ;
                              rdfs:subClassOf :DescriptionTitleFileSource ;
                              <http://purl.org/dc/elements/1.1/type> "OneLine" ;
-                             <http://purl.org/dc/terms/identifier> "dataset:dataset-staging" ;
+                             <http://purl.org/dc/terms/identifier> "dataset:title-staging" ;
                              rdfs:comment "The title of the staged file" ;
                              rdfs:label "File Staging Title" ;
-                             <http://www.w3.org/2004/02/skos/core#altLabel> "staging" .
+                             <http://www.w3.org/2004/02/skos/core#altLabel> "title-staging" .
 
 
 ###  http://www.esblurock.info/dataset#DescriptionTitleOrganization
@@ -14222,11 +14217,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                     owl:onClass :FileSourceTypes
                                   ] ;
                   <http://purl.org/dc/elements/1.1/type> "Classification"^^xsd:string ;
-                  <http://purl.org/dc/terms/identifier> "dataset:UploadFileSource"^^xsd:string ;
+                  <http://purl.org/dc/terms/identifier> "dataset:uploadsrc"^^xsd:string ;
                   rdfs:comment "This keyword is the transaction event of the file's origin. The transaction is of type: InitialReadInOfRepositoryFile"^^xsd:string ;
                   rdfs:isDefinedBy :FileSourceTypes ;
                   rdfs:label "UploadFileSource"^^xsd:string ;
-                  <http://www.w3.org/2004/02/skos/core#altLabel> "UploadFileSource" .
+                  <http://www.w3.org/2004/02/skos/core#altLabel> "uploadsrc" .
 
 
 ###  http://www.esblurock.info/dataset#UserAccount
