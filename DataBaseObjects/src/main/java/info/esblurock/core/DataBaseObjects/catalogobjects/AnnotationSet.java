@@ -18,6 +18,8 @@ public class AnnotationSet extends BaseObjectJSONInterface {
 	}
 	
 	public void fill(StandardOntologyCatalogElementHierarchy hierarchy) {
+		BaseAnnotationObjects ann = hierarchy.getAnnotations();
+		annotations.add(ann);
 		fill(hierarchy.getSubComponentsSinglet());
 		fill(hierarchy.getSubRecordsSinglet());
 		fill(hierarchy.getSubRecordsMultiple());	
@@ -26,8 +28,7 @@ public class AnnotationSet extends BaseObjectJSONInterface {
 	public void fill(SetOfStandardOntologyCatalogElementHierarchy compset) {
 		Set<StandardOntologyCatalogElementHierarchy> compcatset = compset.getSetOfCatalogElements();
 		for(StandardOntologyCatalogElementHierarchy comp : compcatset) {
-			BaseAnnotationObjects ann = comp.getAnnotations();
-			annotations.add(ann);
+			fill(comp);
 		}
 	}
 	
