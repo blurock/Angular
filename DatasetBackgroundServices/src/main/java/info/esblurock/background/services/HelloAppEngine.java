@@ -1,0 +1,34 @@
+package info.esblurock.background.services;
+
+import java.io.IOException;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(
+    name = "HelloAppEngine",
+    urlPatterns = {"/firebase"}
+)
+public class HelloAppEngine extends HttpServlet {
+
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) 
+      throws IOException {
+
+	  String operation = request.getParameter("operation");
+	  String parameter = request.getParameter("argument");
+    response.setContentType("text/plain");
+    response.setCharacterEncoding("UTF-8");
+    
+    Quickstart db = new Quickstart();
+    try {
+		db.run();
+	} catch (Exception e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+
+  }
+}

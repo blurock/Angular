@@ -6,7 +6,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.Response;
 
 import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
 import info.esblurock.core.ontologybase.dataset.DatasetOntologyParseBase;

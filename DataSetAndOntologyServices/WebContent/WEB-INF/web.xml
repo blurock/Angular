@@ -45,12 +45,12 @@
   <url-pattern>/*</url-pattern>
 </filter-mapping>
 	<servlet>
-		<servlet-name>Jersey Web Application</servlet-name>
-		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
-		<load-on-startup>1</load-on-startup>
+		<servlet-name>catinfo</servlet-name>
+		<servlet-class>info.esblurock.core.services.catalog.ontology.CatalogObjectInfoWithAnnotations</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Jersey Web Application</servlet-name>
-		<url-pattern>/ontology/*</url-pattern>
+		<servlet-name>catinfo</servlet-name>
+		<url-pattern>/catinfo</url-pattern>
 	</servlet-mapping>
+
 </web-app>

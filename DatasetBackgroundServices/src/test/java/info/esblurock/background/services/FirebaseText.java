@@ -1,0 +1,64 @@
+package info.esblurock.background.services;
+
+import static org.junit.Assert.*;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+
+import org.json.JSONObject;
+import org.junit.Test;
+
+import com.google.api.core.ApiFuture;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.FirestoreOptions;
+import com.google.cloud.firestore.WriteResult;
+
+import info.esblurock.background.core.objects.ontology.BaseAnnotationObjects;
+import info.esblurock.background.core.ontology.dataset.DatasetOntologyParseBase;
+import info.esblurock.background.core.ontology.utilities.JSONToMap;
+
+public class FirebaseText {
+
+	@Test
+	public void test() throws IOException, InterruptedException, ExecutionException {
+		
+		String projectId = "blurock-firebase";
+		
+	    FirestoreOptions firestoreOptions =
+	            FirestoreOptions.getDefaultInstance().toBuilder()
+	                .setProjectId(projectId)
+	                .setHost("localhost:8000")
+	                .setCredentials(GoogleCredentials.getApplicationDefault())
+	                .build();
+	        Firestore db = firestoreOptions.getService();
+		
+		System.out.println("Initialize database");
+		
+		DocumentReference docRef = db.collection("users").document("alovelace");
+        Map<String, Object> data = new HashMap<>();
+        data.put("first", "Ada");
+        data.put("last", "Lovelace");
+        data.put("born", 1815);
+        //asynchronously write data
+        ApiFuture<WriteResult> result = docRef.set(data);
+        // ...
+        // result.get() blocks on response
+        System.out.println("Update time : " + result.get().getUpdateTime());
+        
+        String catalogname = "dataset:RepositoryFileStaging";
+		BaseAnnotationObjects hierarchy = 
+				DatasetOntologyParseBase.getAnnotationStructureFromIDObject(catalogname);
+		JSONObject json = hierarchy.toJSONObject();
+		DocumentReference docRef2 = db.collection("users").document(catalogname);
+		System.out.println(json);
+		Map<String,Object> m = JSONToMap.ConvertJSONToMap(json);
+		docRef2.set(m);
+		
+
+	}
+
+}
