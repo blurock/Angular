@@ -20,10 +20,10 @@ export class HeaderComponent {
     private readonly snackBar: MatSnackBar,
     private readonly router: Router,
   ) {
-   console.log('Header App logging');
+   //console.log('Header App logging');
     alert("Hi there");
   }
-/*
+
   login() {
     this.auth
       .loginViaGoogle()
@@ -60,5 +60,5 @@ export class HeaderComponent {
         });
       });
   }
-  */
+  
 }

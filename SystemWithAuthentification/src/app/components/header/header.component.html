@@ -1,17 +1,12 @@
-<h1>Top</h1>
-<!--mat-toolbar color="primary">
-  <mat-toolbar-row 
+<mat-toolbar color="primary">
+  <mat-toolbar-row >
     <button 
       mat-button 
       routerLink="/feed"
       matTooltip="🐱Gram Home"
-      >
-      🐱Gram
-    </button>
-    
+      >Gram</button>
     <span class="spacer"></span>
     <ng-container *ngIf="user$ | async as user; else loginIcon">
-
       <button 
         mat-icon-button
         routerLink="/create"
@@ -45,7 +40,5 @@
         </mat-icon>
       </button>
     </ng-template>
-    
   </mat-toolbar-row>
 </mat-toolbar>
--->

@@ -14,15 +14,15 @@ const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([FEED]);
 const routes: Routes = [
   {
     path: BASE,
-    redirectTo: `/${FEED}`,
+    redirectTo: `/feed`,
     pathMatch: 'full',
   },
   {
-    path: FEED,
+    path: 'feed',
     component: FeedComponent,
   },
   {
-    path: CREATE,
+    path: 'create',
     component: CreateComponent,
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin },

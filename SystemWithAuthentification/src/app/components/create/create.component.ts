@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(private readonly snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
 
+  call() {
+ this.snackBar.open(`Call 😢`, 'Close', {
+            duration: 4000,
+          });   
+  }
 }

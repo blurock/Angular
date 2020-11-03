@@ -6,14 +6,14 @@
   <img 
     [alt]="user.displayName"
     [src]="user.photoURL"
-    class="avatar" />
+    class="avatar">
 </button>
 <mat-menu #beforeMenu="matMenu" xPosition="before">
   <div class="profile-card">
     <img 
       [alt]="user.displayName"
       [src]="user.photoURL" 
-      class="big-avatar" />
+      class="small-avatar" />
     <h4>{{ user.displayName }}</h4>
     <p>{{ user.email }}</p>
     <mat-divider></mat-divider>
