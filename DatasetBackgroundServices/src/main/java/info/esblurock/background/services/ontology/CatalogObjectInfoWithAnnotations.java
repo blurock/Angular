@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.Path;
 
 import org.json.JSONObject;
 
@@ -37,25 +36,7 @@ public class CatalogObjectInfoWithAnnotations extends HttpServlet {
 	               throws IOException, ServletException {
 	      response.setContentType("application/json");
 	      String catalogname = request.getParameter("catalogname");
-
-	    Enumeration<String> headnames = request.getHeaderNames();
-	    while(headnames.hasMoreElements()) {
-	    	String name = headnames.nextElement();
-	    	System.out.println(name);
-	    	System.out.println(request.getHeader(name));
-	    }
-	    
-	    HttpSession session = request.getSession();
-	    Enumeration<String> names = session.getAttributeNames();
-	    while(names.hasMoreElements()) {
-	    	String name =names.nextElement();
-	    	System.out.println(name +  ": " + session.getAttribute(name));
-	    }
-	    
-	    System.out.println(session.getId());
-	    
-
-	    
+	      
 		Date today = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
 		String strDate = dateFormat.format(today);  

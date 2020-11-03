@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ModelParameterAnnotations } from '../models/modelparameterannotations';
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { catchError, retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OntoogyannotationinfoService {
+  [x: string]: any;
 
   annotations: Map<string, ModelParameterAnnotations>;
   titleparameters: ModelParameterAnnotations;
@@ -50,13 +52,43 @@ export class OntoogyannotationinfoService {
 
   public getAnnotationsFromID(id: string) {
 
-    const annotationshttp = 'http://localhost:8080/DataSetAndOntologyServices/annotation';
+    const annotationshttp = 'http://localhost:8000/catalogannotation';
     const annwithid = annotationshttp + "?catalogname=" + id;
-    return this.httpClient.get(annwithid);
+
+    alert(annwithid);
+
+    return this.httpClient.get(annwithid)
+                    .pipe(
+                    catchError(error => {
+                        if (error.error instanceof ErrorEvent) {
+                            this.errorMsg = `Error: ${error.error.message}`;
+                        } else {
+                            this.errorMsg = this.getServerErrorMessage(error);
+                        }
+                        return of(this.errorMsg);
+                    }));
+
 
     //return of(this.annotations.get(id));
   }
 
+  private getServerErrorMessage(error: HttpErrorResponse): string {
+        switch (error.status) {
+            case 404: {
+                return `Not Found: ${error.message}`;
+            }
+            case 403: {
+                return `Access Denied: ${error.message}`;
+            }
+            case 500: {
+                return `Internal Server Error: ${error.message}`;
+            }
+            default: {
+                return `Unknown Server Error: ${error.message}`;
+            }
+
+        }
+    }
   getClassificationTree(top: string): Observable<object> {
     const nodes = [
       {

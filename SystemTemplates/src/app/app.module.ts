@@ -36,6 +36,28 @@ import { KeywordlistComponent } from './utilities/keywordlist/keywordlist.compon
 import { ClassificationchooserComponent } from './utilities/classificationchooser/classificationchooser.component';
 import { TreeitemselectionComponent } from './utilities/treeitemselection/treeitemselection.component';
 
+import { DashboardComponent } from './toppage/toppage/dashboard/dashboard.component';
+import {LoginComponent} from './toppage/login/login.component';
+import {AuthServiceConfig} from 'angular-6-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider, AuthService } from 'angular-6-social-login';
+
+
+export function socialConfigs() {
+  const config = new AuthServiceConfig (
+    [
+      {
+        id: FacebookLoginProvider.PROVIDER_ID,
+        provider: new FacebookLoginProvider('app -id')
+      },
+      {
+        id: GoogleLoginProvider.PROVIDER_ID,
+        provider: new GoogleLoginProvider('app-id')
+      }
+    ]
+  );
+  return config;
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +69,9 @@ import { TreeitemselectionComponent } from './utilities/treeitemselection/treeit
     ClassificationchooserComponent,
     TreeitemselectionComponent,
     NewsComponent,
-    ToppageComponent
+    ToppageComponent,
+    DashboardComponent,
+    LoginComponent
   ],
   imports: [
     HttpClientModule,
@@ -72,8 +96,6 @@ import { TreeitemselectionComponent } from './utilities/treeitemselection/treeit
     MatTreeModule,
     TreeModule,
     MatDialogModule,
-    BrowserModule, 
-    FormsModule, 
     BrowserAnimationsModule,
     MatTabsModule,
     AppRoutingModule
@@ -82,7 +104,14 @@ import { TreeitemselectionComponent } from './utilities/treeitemselection/treeit
     TreeitemselectionComponent,
     GenericdatapickerComponent
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: socialConfigs
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

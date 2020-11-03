@@ -27,6 +27,7 @@ export class ToppageComponent implements OnInit {
   }
 
   getAnnot(): void {
+    alert("Top page");
     this.keywordparameters = this.ontologyservice.getAnnotationsFromID('dataset:DescriptionKeyword');
     this.titleparameters = this.ontologyservice.getAnnotationsFromID('dataset:DescriptionTitle');
     this.descrparameters = this.ontologyservice.getAnnotationsFromID('dataset:DescriptionAbstract');

@@ -22,13 +22,7 @@ public class HelloAppEngine extends HttpServlet {
     response.setContentType("text/plain");
     response.setCharacterEncoding("UTF-8");
     
-    Quickstart db = new Quickstart();
-    try {
-		db.run();
-	} catch (Exception e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
+    
 
   }
 }

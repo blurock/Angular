@@ -1,0 +1,21 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+handlers:
+- url: /
+  static_files: dist/SystemTemplates/index.html
+  upload: dist/SystemTemplates/index.html
+- url: /
+  static_dir: dist/SystemTemplates
+
+skip_files:
+  - e2e/
+  - node_modules/
+  - src/
+  - coverage
+  - ^(.*/)?\..*$
+  - ^(.*/)?.*\.json$
+  - ^(.*/)?.*\.md$
+  - ^(.*/)?.*\.yaml$
+  - ^LICENSE
+  

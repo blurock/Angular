@@ -24,7 +24,10 @@ export class InputlineComponent implements OnInit {
   @ViewChild('titleField') titleField: ElementRef;
   
   ngOnInit(): void {
+    alert("input line");
     this.parameters.subscribe(val => {
+      alert("Val: ");
+      alert(val);
       this.linelabel = val["rdfs:label"];
       this.linetitle = val["rdfs:comment"];
     })
