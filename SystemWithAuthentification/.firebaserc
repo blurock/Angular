@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "blurock-firebase": {
+      "hosting": {
+        "SystemWithAuthentification": [
+          "blurock-firebase"
+        ]
+      }
+    }
+  }
+}
