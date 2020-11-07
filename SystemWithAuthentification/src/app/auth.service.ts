@@ -16,7 +16,6 @@ export class AuthService {
     .pipe(switchMap((user: Observable<firebase.User>) => user));
 
   constructor(private afAuth: AngularFireAuth) {
-    alert("AuthService");
     this.user.next(this.afAuth.authState);
   }
 

@@ -37,7 +37,7 @@ public class BaseRecordObject extends BaseObjectJSONInterface {
 		Set<StandardOntologyCatalogElementHierarchy> compcatset = compset.getSetOfCatalogElements();
 		for(StandardOntologyCatalogElementHierarchy comp : compcatset) {
 			BaseAnnotationObjects annotations = comp.getAnnotations();
-			PropertyValuePairs pair = new PropertyValuePairs(annotations.getAltlabel());
+			PropertyValuePairs pair = new PropertyValuePairs(annotations.getAltlabel(), annotations.getAltlabel());
 			pairs.add(pair);
 		}		
 	}

@@ -37,6 +37,8 @@ public class CatalogObjectInfoWithAnnotations extends HttpServlet {
 	      response.setContentType("application/json");
 	      String catalogname = request.getParameter("catalogname");
 	      
+	      System.out.println("CatalogObjectInfoWithAnnotations");
+	      
 		Date today = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
 		String strDate = dateFormat.format(today);  
@@ -46,6 +48,7 @@ public class CatalogObjectInfoWithAnnotations extends HttpServlet {
 		bascat.fillBaseInfo("1", strDate, "Public", "blurock", catalogname);
 		bascat.fill(hierarchy);
 
+		System.out.println(hierarchy);
 		AnnotationSet set = new AnnotationSet();
 		set.fill(hierarchy);
 

@@ -1,0 +1,16 @@
+<div>
+	<button mat-button matTooltip="type" placement="top" width="20%">
+		{{simpleName}}
+	</button>
+	<button mat-button width="70%" matTooltip="type" placement="top">
+		{{title}}
+	</button>
+	<button mat-icon-button width="10%" matTooltip="more details" (click)="toggleExtra()">
+	<mat-icon >
+		remove_red_eye
+	</mat-icon>
+	</button>
+</div>
+<div *ngIf="showExtra">
+	<app-catalogbaseextra #extracatinfo></app-catalogbaseextra>
+</div>

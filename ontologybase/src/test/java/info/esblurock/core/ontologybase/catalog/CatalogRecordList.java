@@ -20,11 +20,11 @@ public class CatalogRecordList {
 		//StandardOntologyCatalogElement catalog = GenerateCatalogObject.generateSingleCatalogObject("dataset:RepositoryFileStaging");
 		//System.out.println(catalog.toString(""));
 		
-		StandardOntologyCatalogElementHierarchy hierarchy = GenerateCatalogObject.generateSetOfStandardOntologyCatalogElement("dataset:RepositoryFileStaging");
+		StandardOntologyCatalogElementHierarchy hierarchy = GenerateCatalogObject.generateSetOfStandardOntologyCatalogElement("dataset:RepositoryDataFile");
 		System.out.println(hierarchy.toString(""));
 		
 		BaseCatalogObject bascat = new BaseCatalogObject();
-		bascat.fillBaseInfo("1", "2020", "Public", "blurock", "dataset:RepositoryFileStaging");
+		bascat.fillBaseInfo("1", "2020", "Public", "blurock", "dataset:RepositoryDataFile");
 		bascat.fill(hierarchy);
 		
 		System.out.println(bascat.toString(""));

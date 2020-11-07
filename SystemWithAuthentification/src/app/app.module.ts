@@ -20,6 +20,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { RepositorydatafileComponent } from './catalogobjects/repository/repositorydatafile/repositorydatafile.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
+
+import { CatalogbaseextraComponent } from './catalogobjects/catalogbaseextra/catalogbaseextra.component';
+import { CatalogbasedataComponent } from './catalogobjects/catalogbasedata/catalogbasedata.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +35,10 @@ import { environment } from '../environments/environment';
     CreateComponent,
     FeedComponent,
     ProfileCardComponent,
-    HeaderComponent
+    HeaderComponent,
+    RepositorydatafileComponent,
+    CatalogbasedataComponent,
+    CatalogbaseextraComponent
   ],
   imports: [
     AppFirebaseModule,
@@ -44,6 +55,10 @@ import { environment } from '../environments/environment';
     MatMenuModule,
     MatTooltipModule,
     MatSnackBarModule,
+    HttpClientModule,
+    MatCardModule,
+    RouterModule,
+    MatGridListModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
   exports: [AngularFireModule, AngularFireAuthModule],

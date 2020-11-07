@@ -1,0 +1,21 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+handlers:
+- url: /
+  static_files: dist/SystemWithAuthentification/index.html
+  upload: dist/SystemWithAuthentification/index.html
+- url: /
+  static_dir: dist/SystemWithAuthentification
+
+skip_files:
+  - e2e/
+  - node_modules/
+  - src/
+  - coverage
+  - ^(.*/)?\..*$
+  - ^(.*/)?.*\.json$
+  - ^(.*/)?.*\.md$
+  - ^(.*/)?.*\.yaml$
+  - ^LICENSE
+  
