@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit, ViewChild } from '@angular/core';
 import { CatalogbaseextraComponent } from '../catalogbaseextra/catalogbaseextra.component';
+import { DatadatadescriptionComponent } from '../datadatadescription/datadatadescription.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-catalogbasedata',
@@ -13,16 +15,21 @@ export class CatalogbasedataComponent implements OnInit, AfterViewInit {
   title = 'one line description';
 
   @Input() descriptionsuffix: string;
+  @Input() baseobjdata: Observable<any>;
 
   showExtra = false;
   @ViewChild('extracatinfo') extra: CatalogbaseextraComponent;
+  @ViewChild('datadescription') description: DatadatadescriptionComponent;
   constructor() { }
   ngAfterViewInit(): void {
 
   }
 
   ngOnInit(): void {
-
+    this.baseobjdata.subscribe({
+      next: (catalog: any) => {this.setData(catalog)},
+      error: (info: any) => {alert('Get CatalogbasedataComponent failed:' + info); }
+    })
   }
 
   toggleExtra(): void {
@@ -35,27 +42,18 @@ export class CatalogbasedataComponent implements OnInit, AfterViewInit {
   setData(info: any): void {
     alert('setData: CatalogbasedataComponent');
     this.type = info.type;
-    alert(this.type);
-    alert(JSON.stringify(info.catid));
     const catidJ = info.catid;
-    alert('const catidJ = info.catid;  ' + JSON.stringify(catidJ) + 'catidJ.simple   ' + JSON.stringify(catidJ.simple));
-
-    
     if (info.catid != null) {
       this.simpleName = info.catid.simpleName;
     }
     this.simpleName = catidJ.simple;
-    alert(JSON.stringify(this.simpleName));
     const descriptionloc = 'descr-' + this.descriptionsuffix;
     const titleloc = 'title-' + this.descriptionsuffix;
-    alert(JSON.stringify(descriptionloc));
-    alert(JSON.stringify(info[descriptionloc]));
     if (info[descriptionloc] != null) {
       this.title = info[descriptionloc][titleloc];
     }
-
     this.extra.setData(info);
-
+    alert('setData: CatalogbasedataComponent Done');
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
+
 @Component({
   selector: 'app-catalogbaseextra',
   templateUrl: './catalogbaseextra.component.html',
@@ -23,7 +24,7 @@ export class CatalogbaseextraComponent implements OnInit {
 
   setData(info: any): void {
     this.dateS = info.date;
-    this.sourceID =info.sourceID;
+    this.sourceID = info.sourceID;
     this.owner = info.owner;
     this.access = info.access;
   }

@@ -25,9 +25,16 @@ import { RouterModule } from '@angular/router';
 import { RepositorydatafileComponent } from './catalogobjects/repository/repositorydatafile/repositorydatafile.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatFormFieldModule} from '@angular/material/form-field'; 
+import {MatInputModule} from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { CatalogbaseextraComponent } from './catalogobjects/catalogbaseextra/catalogbaseextra.component';
 import { CatalogbasedataComponent } from './catalogobjects/catalogbasedata/catalogbasedata.component';
+import { DatadatadescriptionComponent } from './catalogobjects/datadatadescription/datadatadescription.component';
+import { OnelineprimitiveComponent } from './primitives/onelineprimitive/onelineprimitive.component';
+import { TextareaprimitiveComponent } from './primitives/textareaprimitive/textareaprimitive.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +45,10 @@ import { CatalogbasedataComponent } from './catalogobjects/catalogbasedata/catal
     HeaderComponent,
     RepositorydatafileComponent,
     CatalogbasedataComponent,
-    CatalogbaseextraComponent
+    CatalogbaseextraComponent,
+    DatadatadescriptionComponent,
+    OnelineprimitiveComponent,
+    TextareaprimitiveComponent
   ],
   imports: [
     AppFirebaseModule,
@@ -46,6 +56,7 @@ import { CatalogbasedataComponent } from './catalogobjects/catalogbasedata/catal
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatInputModule,
     MatDividerModule,
     MatIconModule,
     MatToolbarModule,
@@ -59,6 +70,9 @@ import { CatalogbasedataComponent } from './catalogobjects/catalogbasedata/catal
     MatCardModule,
     RouterModule,
     MatGridListModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
   exports: [AngularFireModule, AngularFireAuthModule],

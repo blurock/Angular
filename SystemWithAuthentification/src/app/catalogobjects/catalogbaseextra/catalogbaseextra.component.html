@@ -1,14 +1,32 @@
-<div>
-<button mat-button matTooltip="Source ID" placement="top">
-			{{sourceID}}
-		</button>
-		<button mat-button matTooltip="Owner" placement="top">
-			{{owner}}
-		</button>
-		<button mat-button matTooltip="Priviledges" placement="top">
-			{{access}}
-		</button>
-		<button mat-button matTooltip="Creation Date" placement="top">
-			{{dateS}}
-		</button>
+<div class="extra">
+	<mat-grid-list cols="11" rowHeight="30px">
+		<mat-grid-tile colspan="2">
+			<button mat-button class="sourceID" matTooltip="Source ID" placement="top" color="primary">
+				{{sourceID}}
+			</button>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<button mat-button class="ower" matTooltip="Owner" placement="top" color="primary">
+				{{owner}}
+			</button>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="2">
+			<button mat-button class="access" matTooltip="Priviledges" placement="top" color="primary">
+				{{access}}
+			</button>
+		</mat-grid-tile>
+		<mat-grid-tile colspan="5">
+			<!--button mat-button matTooltip="Creation Date" placement="top" color="primary">
+				{{dateS}}
+			</button -->
+			<mat-form-field class="example-full-width" appearance="fill">
+				<mat-label>{{dateS}}</mat-label>
+				<input matInput [matDatepicker]="picker">
+				<mat-datepicker-toggle matSuffix [for]="picker">
+					<mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+				</mat-datepicker-toggle>
+				<mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+		</mat-grid-tile>
+	</mat-grid-list>
 </div>
