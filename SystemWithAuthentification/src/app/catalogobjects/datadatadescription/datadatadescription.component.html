@@ -1,6 +1,19 @@
-<div class="description">
-<app-onelineprimitive class="title" [oneline]="title" [linelength]="fieldwidth"></app-onelineprimitive>
-</div>
-<div>
-<app-textareaprimitive class="abstract" [textarea]="abstracttext" [textwidth]="fieldwidth"></app-textareaprimitive>
-</div>
+<mat-grid-list cols="2" rows="4" rowHeight="50px">
+	<mat-grid-tile colspan="1" rowspan="4">
+		<app-textareaprimitive class="abstract" [textarea]="abstracttext" [textwidth]="fieldwidth">
+		</app-textareaprimitive>
+	</mat-grid-tile>
+	<mat-grid-tile>
+		<app-catalogbaseextra #extracatinfo></app-catalogbaseextra>
+	</mat-grid-tile>
+	<mat-grid-tile colspan="1" rowspan="1" >
+		<app-onelineprimitive class="title" [oneline]="title" [linelength]="fieldwidth" width="100%"></app-onelineprimitive>
+	</mat-grid-tile>
+	<mat-grid-tile colspan="1" rowspan="1">
+		<app-catalogconceptpurpose class="conpurp" [descriptionsuffix]="descriptionsuffix"
+			[purpcondata]="purposeconcept"></app-catalogconceptpurpose>
+	</mat-grid-tile>
+	<mat-grid-tile colspan="1" rowspan="2">
+		<app-keywordlistprimitive [keywordparameter]="keywords"></app-keywordlistprimitive>
+	</mat-grid-tile>
+</mat-grid-list>

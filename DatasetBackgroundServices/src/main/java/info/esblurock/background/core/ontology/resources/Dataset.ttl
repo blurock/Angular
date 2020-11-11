@@ -4167,7 +4167,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                    owl:onClass :DescriptionTitleCatalogHierarchy
                                                  ] ,
                                                  [ rdf:type owl:Restriction ;
-                                                   owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                   owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                    owl:onClass :PurposeConceptCatalogHierarchy
                                                  ] ;
@@ -4197,7 +4197,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                              owl:onClass :DescriptionTitleConsortium
                                            ] ,
                                            [ rdf:type owl:Restriction ;
-                                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                             owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                              owl:onClass :PurposeConceptConsortium
                                            ] ;
@@ -4267,7 +4267,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                owl:onClass :DescriptionTitleOrganization
                                              ] ,
                                              [ rdf:type owl:Restriction ;
-                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                               owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                owl:onClass :PurposeConceptOrganization
                                              ] ;
@@ -4297,7 +4297,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                          owl:onClass :DescriptionTitlePerson
                                        ] ,
                                        [ rdf:type owl:Restriction ;
-                                         owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                         owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                          owl:onClass :PurposeConceptPerson
                                        ] ;
@@ -4327,7 +4327,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                  owl:onClass :DescriptionTitleRepositoryFile
                                                ] ,
                                                [ rdf:type owl:Restriction ;
-                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                 owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                  owl:onClass :PurposeConceptRepositoryfile
                                                ] ;
@@ -4357,7 +4357,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                               owl:onClass :DescriptionTitleTransaction
                                             ] ,
                                             [ rdf:type owl:Restriction ;
-                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                               owl:onClass :PurposeConceptTransaction
                                             ] ;
@@ -4387,7 +4387,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                               owl:onClass :DescriptionTitleUserAccount
                                             ] ,
                                             [ rdf:type owl:Restriction ;
-                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                               owl:onClass :PurposeConceptUserAccount
                                             ] ;
@@ -5160,7 +5160,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                owl:onClass :DescriptionTitleDatasetImage
                                              ] ,
                                              [ rdf:type owl:Restriction ;
-                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                               owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                owl:onClass :PurposeConceptDatasetImage
                                              ] ;

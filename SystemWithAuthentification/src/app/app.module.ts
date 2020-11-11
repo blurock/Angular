@@ -29,12 +29,31 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatChipsModule} from '@angular/material/chips';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {CdkScrollableModule} from '@angular/cdk/scrolling';
+import { CommonModule } from '@angular/common';
+
+import {MatTreeModule} from '@angular/material/tree';
+import {MatDialogModule} from '@angular/material/dialog';
+import { MatTabsModule} from '@angular/material/tabs';
+
+
 
 import { CatalogbaseextraComponent } from './catalogobjects/catalogbaseextra/catalogbaseextra.component';
 import { CatalogbasedataComponent } from './catalogobjects/catalogbasedata/catalogbasedata.component';
 import { DatadatadescriptionComponent } from './catalogobjects/datadatadescription/datadatadescription.component';
 import { OnelineprimitiveComponent } from './primitives/onelineprimitive/onelineprimitive.component';
 import { TextareaprimitiveComponent } from './primitives/textareaprimitive/textareaprimitive.component';
+import { CatalogconceptpurposeComponent } from './catalogobjects/catalogconceptpurpose/catalogconceptpurpose.component';
+import { KeywordlistprimitiveComponent } from './primitives/keywordlistprimitive/keywordlistprimitive.component';
+import { CatalogidComponent } from './catalogobjects/catalogid/catalogid.component';
+
+
 
 @NgModule({
   declarations: [
@@ -48,7 +67,10 @@ import { TextareaprimitiveComponent } from './primitives/textareaprimitive/texta
     CatalogbaseextraComponent,
     DatadatadescriptionComponent,
     OnelineprimitiveComponent,
-    TextareaprimitiveComponent
+    TextareaprimitiveComponent,
+    CatalogconceptpurposeComponent,
+    KeywordlistprimitiveComponent,
+    CatalogidComponent
   ],
   imports: [
     AppFirebaseModule,
@@ -73,6 +95,16 @@ import { TextareaprimitiveComponent } from './primitives/textareaprimitive/texta
     MatFormFieldModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatChipsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatExpansionModule,
+    MatCheckboxModule,
+    CdkScrollableModule,
+    MatTreeModule,
+    MatDialogModule,
+    MatTabsModule,
+    CommonModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
   exports: [AngularFireModule, AngularFireAuthModule],

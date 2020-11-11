@@ -20,6 +20,7 @@ export class CatalogbasedataComponent implements OnInit, AfterViewInit {
   showExtra = false;
   @ViewChild('extracatinfo') extra: CatalogbaseextraComponent;
   @ViewChild('datadescription') description: DatadatadescriptionComponent;
+
   constructor() { }
   ngAfterViewInit(): void {
 
@@ -40,7 +41,6 @@ export class CatalogbasedataComponent implements OnInit, AfterViewInit {
       }
   }
   setData(info: any): void {
-    alert('setData: CatalogbasedataComponent');
     this.type = info.type;
     const catidJ = info.catid;
     if (info.catid != null) {
@@ -53,7 +53,7 @@ export class CatalogbasedataComponent implements OnInit, AfterViewInit {
       this.title = info[descriptionloc][titleloc];
     }
     this.extra.setData(info);
-    alert('setData: CatalogbasedataComponent Done');
+
   }
 
 }

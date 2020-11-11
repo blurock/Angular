@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { OnelineprimitiveComponent } from 'src/app/primitives/onelineprimitive/onelineprimitive.component';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-datadatadescription',
@@ -11,6 +11,8 @@ export class DatadatadescriptionComponent implements OnInit {
 
   title: string;
   abstracttext: string;
+  purposeconcept: string;
+  keywords: string;
   fieldwidth = 'full';
 
   @Input() descriptiondata: any;
@@ -27,5 +29,9 @@ setData(info: any): void {
   this.title = info[descr];
   const abst = 'abstract-' + this.descriptionsuffix;
   this.abstracttext = info[abst];
+  const purconloc = 'purpose-' + this.descriptionsuffix;
+  this.purposeconcept = info[purconloc];
+  const keywordloc = 'keyword-' + this.descriptionsuffix;
+  this.keywords = info[keywordloc];
 }
 }
