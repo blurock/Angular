@@ -13,7 +13,7 @@ import { CatalogidComponent } from '../../catalogid/catalogid.component';
 export class RepositorydatafileComponent implements OnInit {
 
   parameters: Observable<any>;
-  baseobjdata: Observable<any>;
+  baseobjdata: any;
   descriptionsuffix = 'repositoryfile';
   descriptiondata: any;
   catidobj: any;
@@ -31,7 +31,7 @@ export class RepositorydatafileComponent implements OnInit {
       next: (catalog: any) => {
         this.catalogobj = catalog.catalog;
         this.annotationlist = catalog.annotations;
-        this.baseobjdata = of(this.catalogobj);
+        this.baseobjdata = this.catalogobj;
         const descr = 'descr-' + this.descriptionsuffix;
         this.descriptiondata = this.catalogobj[descr];
         this.catidobj = this.catalogobj.catid;
