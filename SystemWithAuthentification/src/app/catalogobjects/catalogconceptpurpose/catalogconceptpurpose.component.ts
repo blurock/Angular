@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -6,26 +6,45 @@ import { Observable } from 'rxjs';
   templateUrl: './catalogconceptpurpose.component.html',
   styleUrls: ['./catalogconceptpurpose.component.scss']
 })
-export class CatalogconceptpurposeComponent implements OnInit {
+export class CatalogconceptpurposeComponent implements OnInit, OnChanges {
 
-    @Input() descriptionsuffix: string;
+  @Input() descriptionsuffix: string;
   @Input() purpcondata: any;
+  @Input() annoinfo: any;
 
-  concept: string;
-  purpose: string;
+  conceptlabel: string;
+  concepttitle: string;
+  conceptanno: string;
+  purposelabel: string;
+  purposetitle: string;
+  purposeanno: string;
   fieldwidth = 'full';
 
   constructor() {
   }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.setData(this.purpcondata, this.annoinfo);
+  }
 
   ngOnInit(): void {
-        this.setData(this.purpcondata);
   }
-  setData(info: any): void {
-    const conloc = 'dataconcept-' + this.descriptionsuffix;
-    this.concept = info[conloc];
-    const purploc = 'purposekey-' + this.descriptionsuffix;
-    this.purpose = info[purploc];
-}
+  setData(info: any, annoinfo: any): void {
+    if (annoinfo != null) {
+      const conceptloc = 'dataconcept-' + this.descriptionsuffix;
+      const purposeloc = 'purposekey-' + this.descriptionsuffix;
+
+      this.conceptlabel = 'dataset:objectconcept';
+      this.purposelabel = 'dataset:objectpurpose';
+
+      this.conceptanno = annoinfo[conceptloc];
+      this.purposeanno = annoinfo[purposeloc];
+
+      const rdfslabel = 'rdfs:label';
+
+      this.concepttitle = this.conceptanno[rdfslabel];
+      this.purposetitle = this.purposeanno[rdfslabel];
+    }
+
+  }
 
 }

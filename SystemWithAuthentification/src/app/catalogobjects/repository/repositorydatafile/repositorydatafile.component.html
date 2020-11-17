@@ -1,5 +1,8 @@
 <ng-container class="repository" color="primary">
-<app-catalogbasedata #basedataobj [baseobjdata]="baseobjdata" [descriptionsuffix]="descriptionsuffix"></app-catalogbasedata>
-<app-catalogid [catidobj]="catidobj"></app-catalogid>
-<app-datadatadescription #description [descriptiondata]="descriptiondata" [descriptionsuffix]="descriptionsuffix"></app-datadatadescription>
+<app-catalogbasedata #basedataobj [baseobjdata]="baseobjdata" [descriptionsuffix]="descriptionsuffix" [annoinfo]="annoinfo"></app-catalogbasedata>
+<mat-divider></mat-divider>
+<app-catalogid [catidobj]="catidobj"  [annoinfo]="annoinfo"></app-catalogid>
+<mat-divider></mat-divider>
+<app-datadatadescription #description [descriptiondata]="descriptiondata" [descriptionsuffix]="descriptionsuffix" [annoinfo]="annoinfo"></app-datadatadescription>
+<mat-divider></mat-divider>
 </ng-container>

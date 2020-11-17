@@ -18,7 +18,7 @@ export class RepositorydatafileComponent implements OnInit {
   descriptiondata: any;
   catidobj: any;
   catalogobj: any;
-  annotationlist: any;
+  annoinfo: any;
 
   @ViewChild('basedataobj') baseobj: CatalogbasedataComponent;
   @ViewChild('description') description: DatadatadescriptionComponent;
@@ -30,7 +30,7 @@ export class RepositorydatafileComponent implements OnInit {
     this.annotations.getNewCatalogObject('dataset:RepositoryDataFile').subscribe({
       next: (catalog: any) => {
         this.catalogobj = catalog.catalog;
-        this.annotationlist = catalog.annotations;
+        this.annoinfo = catalog.annotations;
         this.baseobjdata = this.catalogobj;
         const descr = 'descr-' + this.descriptionsuffix;
         this.descriptiondata = this.catalogobj[descr];
@@ -40,16 +40,16 @@ export class RepositorydatafileComponent implements OnInit {
     });
     }
 
-    setData(info: any): void {
+    setData(info: any, annoinfo: any): void {
       if (this.baseobj != null) {
-        this.baseobj.setData(info);
+        this.baseobj.setData(info,annoinfo);
       }
       if (this.description != null) {
         const descr = 'descr-' + this.descriptionsuffix;
-        this.description.setData(info[descr]);
+        this.description.setData(info[descr],annoinfo);
       }
       if (this.catid != null) {
-        this.catid.setData(info.catid);
+        this.catid.setData(info.catid,annoinfo);
       }
     }
 

@@ -1,0 +1,21 @@
+<div fxLayout="row">
+	<div>
+			<button mat-button class="recordtype" matTooltip="{{comment}}" placement="top" color="primary">
+			{{recordtype}}
+			</button>
+</div>
+</div>
+
+<mat-grid-list cols="10" rowHeight="30px">
+	<mat-grid-tile colspan="9">
+			<button mat-button class="recordtype" matTooltip="{{comment}}" placement="top" color="primary">
+			{{recordtype}}
+		</button>
+	</mat-grid-tile>
+	<mat-grid-tile colspan="9">
+			<button mat-button class="addrecord" matTooltip="{{addrecord}}" placement="top" color="primary">
+			{{recordtype}}
+		</button>
+	</mat-grid-tile>
+
+</mat-grid-list>

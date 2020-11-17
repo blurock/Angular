@@ -1,19 +1,23 @@
+
 <div class="extra">
-	<mat-grid-list cols="3" rowHeight="30px">
+	<mat-grid-list cols="4" rowHeight="70px">
 		<mat-grid-tile colspan="1">
-			<button mat-button class="simple" matTooltip="Simple Name" placement="top" color="primary">
-				{{simple}}
-			</button>
+			<mat-form-field class="simple">
+				<mat-label>{{simplelab}}</mat-label>
+				<input matInput disabled value="{{simple}}">
+			</mat-form-field>
 		</mat-grid-tile>
 		<mat-grid-tile colspan="1">
-			<button mat-button class="ower" matTooltip="Catagory" placement="top" color="primary">
-				{{catalog}}
-			</button>
+			<mat-form-field class="catalog">
+				<mat-label>{{cataloglab}}</mat-label>
+				<input matInput disabled value="{{catalog}}">
+			</mat-form-field>
 		</mat-grid-tile>
-		<mat-grid-tile colspan="1">
-			<button mat-button class="access" matTooltip="Hierarchy" placement="top" color="primary">
-				{{catalogbase}}
-			</button>
+		<mat-grid-tile colspan="2">
+			<mat-form-field class="base">
+				<mat-label>{{baselab}}</mat-label>
+				<input matInput disabled value="{{catalogbase}}">
+			</mat-form-field>
 		</mat-grid-tile>
 	</mat-grid-list>
 </div>

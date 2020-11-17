@@ -4,10 +4,16 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import org.apache.jena.rdf.model.RDFNode;
+import org.json.JSONObject;
 
 import info.esblurock.background.core.objects.catalogandrecords.SetOfBaseCatalogRecordElementInformation;
+import info.esblurock.background.core.objects.classifications.ClassificationHierarchy;
+import info.esblurock.background.core.objects.classifications.ClassificationTree;
+import info.esblurock.background.core.objects.constants.AnnotationObjectsLabels;
 import info.esblurock.background.core.objects.ontology.BaseAnnotationObjects;
+import info.esblurock.background.core.objects.ontology.ExtendedAnnotationObjects;
 import info.esblurock.background.core.ontology.OntologyBase;
+import info.esblurock.background.core.ontology.classification.DatabaseOntologyClassification;
 
 
 /**
@@ -44,6 +50,8 @@ public class DatasetOntologyParseBase {
 		List<Map<String, String>> stringlst = OntologyBase.resultmapToStrings(lst);
 		
 		BaseAnnotationObjects object = null;
+		ExtendedAnnotationObjects extobj = null;
+		System.out.println("DatasetOntologyParseBase: " + structure + "  " + stringlst.size());
 		if (stringlst.size() > 0) {
 			String idS = stringlst.get(0).get("id");
 			String typeS = stringlst.get(0).get("type");
@@ -51,8 +59,26 @@ public class DatasetOntologyParseBase {
 			String commentS = stringlst.get(0).get("comment");
 			String altlabelS = stringlst.get(0).get("altl");
 			object = new BaseAnnotationObjects(labelS, commentS, altlabelS, typeS, idS);
+			System.out.println("Simple");
+			System.out.println(object.toString());
+			extobj = new ExtendedAnnotationObjects(object);
+			
+			String purpose = DatasetOntologyParseBase.getPurposeFromAnnotation(structure);
+			System.out.println("Purpose: " + purpose);
+			if(purpose.length() > 0) {
+				ClassificationHierarchy purposehier = DatabaseOntologyClassification.getClassificationHierarchy(purpose);
+				System.out.println("Purpose Hierarchy: " + purposehier);
+				extobj.setPurposeObjects(purposehier);
+			}
+			String concept = DatasetOntologyParseBase.getConceptFromAnnotation(structure);
+			System.out.println("Concept: " + concept);
+			if(concept.length() > 0) {
+				ClassificationHierarchy concepthier = DatabaseOntologyClassification.getClassificationHierarchy(concept);
+				System.out.println("Concept Hierarchy: " + concepthier);
+				extobj.setConceptObjects(concepthier);
+			}
 		}
-		return object;
+		return extobj;
 	}
 	
 	static public BaseAnnotationObjects getAnnotationStructureFromIDObject(String structure) {
@@ -65,6 +91,39 @@ public class DatasetOntologyParseBase {
 		return object;
 	}
 	
+	static public String getConceptFromAnnotation(String structure) {
+		String query = "SELECT ?id \n" 
+				+ "	WHERE {\n" 
+				+ "	  " + structure + " dataset:objectconcept ?id .\n" + "	" 
+				+ "  }";
+		List<Map<String, RDFNode>> lst = OntologyBase.resultSetToMap(query);
+		List<Map<String, String>> stringlst = OntologyBase.resultmapToStrings(lst);
+		
+		String idS = "";
+		if (stringlst.size() > 0) {
+			idS = stringlst.get(0).get("id");
+		}
+		return idS;
+	}
+	static public String getPurposeFromAnnotation(String structure) {
+		String query = "SELECT ?id \n" 
+				+ "	WHERE {\n" 
+				+ "	  " + structure + " dataset:objectpurpose ?id .\n" + "	" 
+				+ "  }";
+		List<Map<String, RDFNode>> lst = OntologyBase.resultSetToMap(query);
+		List<Map<String, String>> stringlst = OntologyBase.resultmapToStrings(lst);
+		
+		String idS = "";
+		if (stringlst.size() > 0) {
+			idS = stringlst.get(0).get("id");
+		}
+		ClassificationHierarchy hierarchy = null;
+		if(idS.length() > 0) {
+			hierarchy = DatabaseOntologyClassification.getClassificationHierarchy(idS);
+			JSONObject json = hierarchy.toJSONObject();
+		}
+		return idS;
+	}
 	static public String getIDFromAnnotation(String structure) {
 		String query = "SELECT ?id \n" 
 				+ "	WHERE {\n" 

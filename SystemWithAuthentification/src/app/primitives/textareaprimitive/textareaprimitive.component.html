@@ -1,24 +1,24 @@
 <form>
 <div [ngSwitch]="textwidth">
 <mat-form-field class="textarea100" *ngSwitchCase="'full'">
-	<mat-label>Input</mat-label>
+<mat-label>{{textlab}}</mat-label>
 	<textarea matInput value="textarea"></textarea>
-	<mat-hint>Hint</mat-hint>
+<mat-hint>{{annohint}}</mat-hint>
 </mat-form-field>
 <mat-form-field class="textarea50" *ngSwitchCase="'half'">
-	<mat-label>Input</mat-label>
+	<mat-label>{{textlab}}</mat-label>
 	<textarea matInput value="textarea"></textarea>
-	<mat-hint>Hint</mat-hint>
+	<mat-hint>{{annohint}}</mat-hint>
 </mat-form-field>
 <mat-form-field class="textarea33" *ngSwitchCase="'third'">
-	<mat-label>Input</mat-label>
+	<mat-label>{{textlab}}</mat-label>
 	<textarea matInput value="textarea"></textarea>
-	<mat-hint>Hint</mat-hint>
+	<mat-hint>{{annohint}}</mat-hint>
 </mat-form-field>
 <mat-form-field class="textarea"  *ngSwitchCase="'free'">
-	<mat-label>Input</mat-label>
+	<mat-label>{{textlab}}</mat-label>
 	<textarea matInput value="textarea"></textarea>
-	<mat-hint>Hint</mat-hint>
+	<mat-hint>{{annohint}}</mat-hint>
 </mat-form-field>
 </div>
 </form>

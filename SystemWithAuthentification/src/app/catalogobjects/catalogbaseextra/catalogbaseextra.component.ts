@@ -8,9 +8,10 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./catalogbaseextra.component.scss'],
   providers: [DatePipe]
 })
-export class CatalogbaseextraComponent implements OnInit,OnChanges {
+export class CatalogbaseextraComponent implements OnInit, OnChanges {
 
   @Input() extrainfo: any;
+  @Input() annoinfo: any;
   sourceID = 'sourceID';
   dateS = '';
   owner = 'Public';
@@ -18,7 +19,7 @@ export class CatalogbaseextraComponent implements OnInit,OnChanges {
 
   constructor(private datePipe: DatePipe) { }
   ngOnChanges(changes: SimpleChanges): void {
-    this.setData(this.extrainfo);
+    this.setData(this.extrainfo, this.annoinfo);
   }
 
   ngOnInit(): void {
@@ -26,7 +27,9 @@ export class CatalogbaseextraComponent implements OnInit,OnChanges {
     this.dateS = this.datePipe.transform(date, 'yyyy-MM-dd');
   }
 
-  setData(info: any): void {
+  setData(info: any, annoinfo:any): void {
+    if (annoinfo != null) {
+    }
     if (info != null) {
     this.dateS = info.date;
     this.sourceID = info.sourceID;

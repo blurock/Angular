@@ -1,10 +1,18 @@
 <div class="extra">
-	<mat-grid-list cols="4" rowHeight="40px">
-		<mat-grid-tile colspan="2">
-<app-onelineprimitive class="title" [oneline]="concept" [linelength]="fieldwidth"></app-onelineprimitive>
+	<mat-grid-list cols="2" rowHeight="60px">
+		<mat-grid-tile colspan="1">
+			<app-simplechoiceprimitive class="title" 
+			[choiceanno]="conceptanno"
+			[choiceLabel]="conceptlabel"
+			[title]="concepttitle"
+			></app-simplechoiceprimitive>
 		</mat-grid-tile>
-		<mat-grid-tile colspan="2">
-<app-onelineprimitive class="title" [oneline]="purpose" [linelength]="fieldwidth"></app-onelineprimitive>
+		<mat-grid-tile colspan="1">
+			<app-simplechoiceprimitive class="title" 
+			[choiceanno]="purposeanno"
+			[choiceLabel]="purposelabel"
+			[title]="purposetitle"
+			></app-simplechoiceprimitive>
 		</mat-grid-tile>
-</mat-grid-list>
+	</mat-grid-list>
 </div>

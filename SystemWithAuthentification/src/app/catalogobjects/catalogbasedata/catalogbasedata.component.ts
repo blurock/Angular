@@ -10,11 +10,14 @@ import { DatadatadescriptionComponent } from '../datadatadescription/datadatades
 export class CatalogbasedataComponent implements OnInit, AfterViewInit, OnChanges {
 
   type = 'type';
-  simpleName = 'simpleName';
+  simpleName: string;
+  simpleNametip: string;
   title = 'one line description';
+  titletip: string;
 
   @Input() descriptionsuffix: string;
   @Input() baseobjdata: any;
+  @Input() annoinfo: any;
 
   showExtra = false;
   @ViewChild('extracatinfo') extra: CatalogbaseextraComponent;
@@ -22,7 +25,7 @@ export class CatalogbasedataComponent implements OnInit, AfterViewInit, OnChange
 
   constructor() { }
   ngOnChanges(changes: SimpleChanges): void {
-    this.setData(this.baseobjdata);
+    this.setData(this.baseobjdata, this.annoinfo);
   }
   ngAfterViewInit(): void {
 
@@ -38,7 +41,15 @@ export class CatalogbasedataComponent implements OnInit, AfterViewInit, OnChange
       this.showExtra = true;
     }
   }
-  setData(info: any): void {
+  setData(info: any, annoinfo: any): void {
+    if(annoinfo != null) {
+      const simpanno = annoinfo.simple;
+      const titleloc = 'title-' + this.descriptionsuffix;
+      const titleanno = annoinfo[titleloc];
+      const rdfslabel = 'rdfs:label';
+      this.simpleNametip = simpanno[rdfslabel];
+      this.titletip = titleanno[rdfslabel];
+    }
     if (info != null) {
       this.type = info.type;
       const catidJ = info.catid;
@@ -46,12 +57,12 @@ export class CatalogbasedataComponent implements OnInit, AfterViewInit, OnChange
         this.simpleName = info.catid.simpleName;
       }
       this.simpleName = catidJ.simple;
-      const descriptionloc = 'descr-' + this.descriptionsuffix;
       const titleloc = 'title-' + this.descriptionsuffix;
+      const descriptionloc = 'descr-' + this.descriptionsuffix;
       if (info[descriptionloc] != null) {
         this.title = info[descriptionloc][titleloc];
       }
-      this.extra.setData(info);
+      this.extra.setData(info,annoinfo);
     }
   }
 }

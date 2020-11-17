@@ -32,6 +32,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatChipsModule} from '@angular/material/chips';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select'; 
 
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -52,6 +53,8 @@ import { TextareaprimitiveComponent } from './primitives/textareaprimitive/texta
 import { CatalogconceptpurposeComponent } from './catalogobjects/catalogconceptpurpose/catalogconceptpurpose.component';
 import { KeywordlistprimitiveComponent } from './primitives/keywordlistprimitive/keywordlistprimitive.component';
 import { CatalogidComponent } from './catalogobjects/catalogid/catalogid.component';
+import { SimplechoiceprimitiveComponent } from './primitives/simplechoiceprimitive/simplechoiceprimitive.component';
+import { MultiplerecordsComponent } from './catalogobjects/multiplerecords/multiplerecords.component';
 
 
 
@@ -70,7 +73,9 @@ import { CatalogidComponent } from './catalogobjects/catalogid/catalogid.compone
     TextareaprimitiveComponent,
     CatalogconceptpurposeComponent,
     KeywordlistprimitiveComponent,
-    CatalogidComponent
+    CatalogidComponent,
+    SimplechoiceprimitiveComponent,
+    MultiplerecordsComponent
   ],
   imports: [
     AppFirebaseModule,
@@ -104,10 +109,32 @@ import { CatalogidComponent } from './catalogobjects/catalogid/catalogid.compone
     MatTreeModule,
     MatDialogModule,
     MatTabsModule,
+    MatSelectModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
     CommonModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
-  exports: [AngularFireModule, AngularFireAuthModule],
+  exports: [AngularFireModule, AngularFireAuthModule,
+    MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

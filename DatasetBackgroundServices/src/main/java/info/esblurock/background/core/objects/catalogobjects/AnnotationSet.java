@@ -15,11 +15,15 @@ public class AnnotationSet extends BaseObjectJSONInterface {
 	Set<BaseAnnotationObjects> annotations;
 	
 	public AnnotationSet() {
-		this.annotations = new HashSet<BaseAnnotationObjects>();
+		annotations = new HashSet<BaseAnnotationObjects>();
 	}
-	
-	public void fill(StandardOntologyCatalogElementHierarchy hierarchy) {
+
+	public BaseAnnotationObjects getAnnotations(StandardOntologyCatalogElementHierarchy hierarchy) {
 		BaseAnnotationObjects ann = hierarchy.getAnnotations();
+		return ann;
+	}
+	public void fill(StandardOntologyCatalogElementHierarchy hierarchy) {
+		BaseAnnotationObjects ann = getAnnotations(hierarchy);
 		annotations.add(ann);
 		fill(hierarchy.getSubComponentsSinglet());
 		fill(hierarchy.getSubRecordsSinglet());

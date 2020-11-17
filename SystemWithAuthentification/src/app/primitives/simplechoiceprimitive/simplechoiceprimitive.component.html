@@ -1,0 +1,8 @@
+<mat-form-field appearance="fill" class="full-width">
+<mat-label class="full-width">{{title}}</mat-label>
+    <mat-select [(ngModel)]="selectedValue" name="choice.label">
+      <mat-option *ngFor="let choice of choicesList" [value]="choice">
+        {{choice.label}}
+      </mat-option>
+  </mat-select>
+</mat-form-field>
