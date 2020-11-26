@@ -1,17 +1,26 @@
 <div class="row">
 	<div class="column">
-		<app-textareaprimitive class="abstract" [textarea]="abstracttext" [textwidth]="fieldwidth"
-			[annolabel]="abstrlabel" [annohint]="abstrdescr">
+		<app-textareaprimitive class="abstract" 
+		[(textarea)]="descriptiondata[abst]" 
+		[textwidth]="fieldwidth"
+			[annolabel]="abstrlabel" 
+			[annohint]="abstrdescr">
 		</app-textareaprimitive>
 	</div>
 	<div class="column">
 		<div>
-			<app-onelineprimitive class="title" [oneline]="title" [linelength]="fieldwidth" [annolabel]="titlelabel"
-				[annohint]="titledescr"></app-onelineprimitive>
+			<app-onelineprimitive class="title" 
+			[(oneline)]="descriptiondata[descr]" 
+			[linelength]="fieldwidth" 
+			[annolabel]="titlelabel"
+			[annohint]="titledescr">
+		</app-onelineprimitive>
 		</div>
 		<div class="padding">
-			<app-catalogconceptpurpose class="conpurp" [descriptionsuffix]="descriptionsuffix"
-				[purpcondata]="purposeconcept" [annoinfo]="annoinfo"></app-catalogconceptpurpose>
+			<app-catalogconceptpurpose class="conpurp" 
+			[descriptionsuffix]="descriptionsuffix"
+			[(purpcondata)]="descriptiondata[purconloc]" 
+			[annoinfo]="annoinfo"></app-catalogconceptpurpose>
 		</div>
 		<div class="padding">
 			<app-keywordlistprimitive [keywordparameter]="keywords"></app-keywordlistprimitive>

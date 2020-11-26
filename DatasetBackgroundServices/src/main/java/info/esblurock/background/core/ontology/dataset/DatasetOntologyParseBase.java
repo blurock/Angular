@@ -51,7 +51,6 @@ public class DatasetOntologyParseBase {
 		
 		BaseAnnotationObjects object = null;
 		ExtendedAnnotationObjects extobj = null;
-		System.out.println("DatasetOntologyParseBase: " + structure + "  " + stringlst.size());
 		if (stringlst.size() > 0) {
 			String idS = stringlst.get(0).get("id");
 			String typeS = stringlst.get(0).get("type");
@@ -59,22 +58,16 @@ public class DatasetOntologyParseBase {
 			String commentS = stringlst.get(0).get("comment");
 			String altlabelS = stringlst.get(0).get("altl");
 			object = new BaseAnnotationObjects(labelS, commentS, altlabelS, typeS, idS);
-			System.out.println("Simple");
-			System.out.println(object.toString());
 			extobj = new ExtendedAnnotationObjects(object);
 			
 			String purpose = DatasetOntologyParseBase.getPurposeFromAnnotation(structure);
-			System.out.println("Purpose: " + purpose);
 			if(purpose.length() > 0) {
 				ClassificationHierarchy purposehier = DatabaseOntologyClassification.getClassificationHierarchy(purpose);
-				System.out.println("Purpose Hierarchy: " + purposehier);
 				extobj.setPurposeObjects(purposehier);
 			}
 			String concept = DatasetOntologyParseBase.getConceptFromAnnotation(structure);
-			System.out.println("Concept: " + concept);
 			if(concept.length() > 0) {
 				ClassificationHierarchy concepthier = DatabaseOntologyClassification.getClassificationHierarchy(concept);
-				System.out.println("Concept Hierarchy: " + concepthier);
 				extobj.setConceptObjects(concepthier);
 			}
 		}

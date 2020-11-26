@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-onelineprimitive',
@@ -8,10 +8,10 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 export class OnelineprimitiveComponent implements OnInit, OnChanges {
 
   @Input() oneline: string;
-  text: string;
   @Input() linelength: string;
   @Input() annohint: string;
   @Input() annolabel: string;
+  @Output() onelineChange = new EventEmitter<string>();
   linewidth: string;
   constructor() {
 
@@ -23,8 +23,10 @@ export class OnelineprimitiveComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
   setData() {
-    this.text = this.oneline;
     this.linewidth = this.linelength;
   }
-
+ onelineC($event) {
+  this.oneline = $event;
+  this.onelineChange.emit($event);
+}
 }

@@ -1,0 +1,16 @@
+    <mat-form-field appearance="legacy" class="title">
+        <mat-label>{{nametitletitle}}</mat-label>
+        <input matInput matTooltip="{{nametitlecomment}}" [ngModel]="namedata['foaf:title']"
+          (ngModelChange)="namedata['foaf:title']=$event">
+      </mat-form-field>
+      <mat-form-field appearance="legacy" class="title">
+        <mat-label>{{namegiventitle}}</mat-label>
+        <input matInput matTooltip="{{namegivencomment}}" [ngModel]="namedata['foaf:givenName']"
+          (ngModelChange)="namedata['foaf:givenName']=$event">
+      </mat-form-field>
+      <mat-form-field appearance="legacy" class="title">
+        <mat-label>{{namefamilytitle}}</mat-label>
+        <input matInput matTooltip="{{namefamilycomment}}" [ngModel]="namedata['foaf:familyName']"
+          (ngModelChange)="namedata['foaf:familyName']=$event">
+      </mat-form-field>
+ 

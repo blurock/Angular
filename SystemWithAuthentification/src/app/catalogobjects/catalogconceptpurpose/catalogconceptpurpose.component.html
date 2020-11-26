@@ -2,16 +2,18 @@
 	<mat-grid-list cols="2" rowHeight="60px">
 		<mat-grid-tile colspan="1">
 			<app-simplechoiceprimitive class="title" 
-			[choiceanno]="conceptanno"
+			[(selectedValue)]="purpcondata[conceptloc]"
+			[annoref] = "conceptloc"
 			[choiceLabel]="conceptlabel"
-			[title]="concepttitle"
+			[annoinfo]="annoinfo"
 			></app-simplechoiceprimitive>
 		</mat-grid-tile>
 		<mat-grid-tile colspan="1">
 			<app-simplechoiceprimitive class="title" 
-			[choiceanno]="purposeanno"
+			[(selectedValue)]="purpcondata[purposeloc]"
+			[annoref] = "purposeloc"
 			[choiceLabel]="purposelabel"
-			[title]="purposetitle"
+			[annoinfo]="annoinfo"
 			></app-simplechoiceprimitive>
 		</mat-grid-tile>
 	</mat-grid-list>

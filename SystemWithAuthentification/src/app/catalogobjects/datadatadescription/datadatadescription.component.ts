@@ -1,6 +1,4 @@
-import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { OnelineprimitiveComponent } from 'src/app/primitives/onelineprimitive/onelineprimitive.component';
-import { Observable, of } from 'rxjs';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-datadatadescription',
@@ -19,6 +17,11 @@ export class DatadatadescriptionComponent implements OnInit, OnChanges {
   @Input() descriptionsuffix: string;
   @Input() annoinfo: any;
 
+  descr: string;
+  abst: string;
+  purconloc: string;
+  keywordloc: string;
+
   abstrlabel: string;
   abstrdescr: string;
   titlelabel: string;
@@ -27,11 +30,13 @@ export class DatadatadescriptionComponent implements OnInit, OnChanges {
 
   constructor() { }
   ngOnChanges(changes: SimpleChanges): void {
+    this.abst = 'abstract-' + this.descriptionsuffix;
+    this.purconloc = 'purpose-' + this.descriptionsuffix;
+    this.keywordloc = 'keyword-' + this.descriptionsuffix;
     this.setData(this.descriptiondata, this.annoinfo);
   }
 
   ngOnInit(): void {
-
   }
   setData(info: any, annoinfo: any): void {
 
@@ -48,14 +53,10 @@ export class DatadatadescriptionComponent implements OnInit, OnChanges {
       this.titledescr = titleanno[rdfsdescr];
     }
     if (info != null) {
-      const descr = 'title-' + this.descriptionsuffix;
-      this.title = info[descr];
-      const abst = 'abstract-' + this.descriptionsuffix;
-      this.abstracttext = info[abst];
-      const purconloc = 'purpose-' + this.descriptionsuffix;
-      this.purposeconcept = info[purconloc];
-      const keywordloc = 'keyword-' + this.descriptionsuffix;
-      this.keywords = info[keywordloc];
+      this.title = info[this.descr];
+      this.abstracttext = info[this.abst];
+      this.purposeconcept = info[this.purconloc];
+      this.keywords = info[this.keywordloc];
     }
   }
 }

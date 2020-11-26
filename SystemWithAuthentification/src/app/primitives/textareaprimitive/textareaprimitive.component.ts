@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-textareaprimitive',
@@ -12,9 +12,8 @@ export class TextareaprimitiveComponent implements OnInit, OnChanges {
   @Input() textwidth: string
   @Input() annolabel: string;
   @Input() annohint: string;
-  
+  @Output() textareaChange = new EventEmitter();
 
-text: string;
 textlab: string;
   
   constructor() { }
@@ -22,10 +21,13 @@ textlab: string;
     this.setData();
   }
   setData() {
-    this.text = this.textarea;
     this.textlab = this.annolabel;
   }
 
   ngOnInit(): void {
   }
+  textChange($event) {
+  this.textarea = $event;
+  this.textareaChange.emit($event);
+}
 }

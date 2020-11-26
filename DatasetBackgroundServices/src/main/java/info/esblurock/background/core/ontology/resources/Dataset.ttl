@@ -16,7 +16,6 @@
                                                  <http://www.w3.org/ns/ssn/> ,
                                                  <http://xmlns.com/foaf/0.1/> ,
                                                  <http://www.w3.org/2004/02/skos/core> ;
-                                     <http://purl.org/dc/terms/publisher> <http://purl.org/dc/aboutdcmi#DCMI> ;
                                      <http://purl.org/dc/terms/title> "DCMI Type Vocabulary"@en ;
                                      <http://purl.org/dc/terms/modified> "2012-06-14"^^xsd:date ;
                                      <http://purl.org/dc/terms/title> "DCMI Metadata Terms - other"@en .
@@ -1489,7 +1488,7 @@ xsd:date rdf:type rdfs:Datatype .
                                      owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                      owl:someValuesFrom :ObjectLinkToContact
                                    ] ;
-                   <http://purl.org/dc/elements/1.1/type> "AuthorInformation"^^xsd:string ;
+                   <http://purl.org/dc/elements/1.1/type> "NameOfPerson"^^xsd:string ;
                    <http://purl.org/dc/terms/identifier> "dc:creator"^^xsd:string ;
                    rdfs:comment "This is the full author information (refers to a person name)" ;
                    rdfs:label "Author" ;
@@ -13442,7 +13441,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 :StringSource rdf:type owl:Class ;
               rdfs:subClassOf :FileSourceTypes ;
               rdfs:comment "From the GUI, a text in a text field" ;
-              rdfs:label "GUI) tring Source" .
+              rdfs:label "GUI String Source" .
 
 
 ###  http://www.esblurock.info/dataset#StringTypeLabel
@@ -15055,7 +15054,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 
 ###  http://www.esblurock.info/dataset
-<http://www.esblurock.info/dataset> rdf:type owl:NamedIndividual .
+<http://www.esblurock.info/dataset> rdf:type owl:NamedIndividual ;
+                                    <http://purl.org/dc/terms/publisher> <http://purl.org/dc/aboutdcmi#DCMI> .
 
 
 ###  http://www.esblurock.info/dataset#AMU
@@ -16107,8 +16107,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                     <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date .
 
 
-<http://purl.org/dc/terms/rights> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
-                                  <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
+<http://purl.org/dc/terms/rights> <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
+                                  rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                   rdfs:label "Rights"@en ;
                                   rdfs:comment "Information about rights held in and over the resource."@en ;
                                   <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
@@ -16116,8 +16116,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                   <http://purl.org/dc/terms/description> "Typically, rights information includes a statement about various property rights associated with the resource, including intellectual property rights."@en .
 
 
-<http://purl.org/dc/terms/rightsHolder> <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#rightsHolder-002> ;
-                                        rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+<http://purl.org/dc/terms/rightsHolder> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+                                        <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#rightsHolder-002> ;
                                         <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                         rdfs:comment "A person or organization owning or managing rights over the resource."@en ;
                                         <http://purl.org/dc/terms/issued> "2004-06-14"^^xsd:date ;

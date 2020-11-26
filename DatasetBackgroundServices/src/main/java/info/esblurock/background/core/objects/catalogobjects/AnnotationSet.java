@@ -23,11 +23,13 @@ public class AnnotationSet extends BaseObjectJSONInterface {
 		return ann;
 	}
 	public void fill(StandardOntologyCatalogElementHierarchy hierarchy) {
+		System.out.println(hierarchy.getCatalogName());
 		BaseAnnotationObjects ann = getAnnotations(hierarchy);
 		annotations.add(ann);
 		fill(hierarchy.getSubComponentsSinglet());
 		fill(hierarchy.getSubRecordsSinglet());
 		fill(hierarchy.getSubRecordsMultiple());	
+		fill(hierarchy.getSubComponentsMultiple());
 	}
 	
 	public void fill(SetOfStandardOntologyCatalogElementHierarchy compset) {

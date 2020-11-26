@@ -1,6 +1,6 @@
-<mat-form-field appearance="fill" class="full-width">
-<mat-label class="full-width">{{title}}</mat-label>
-    <mat-select [(ngModel)]="selectedValue" name="choice.label">
+<mat-form-field appearance="legacy" class="full-width">
+<mat-label class="full-width">{{choice.label}}</mat-label>
+    <mat-select [(ngModel)]="selectedValue" (ngModelChange)="selectionPicked($event)">
       <mat-option *ngFor="let choice of choicesList" [value]="choice">
         {{choice.label}}
       </mat-option>

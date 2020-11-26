@@ -32,7 +32,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatChipsModule} from '@angular/material/chips';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import {MatSelectModule} from '@angular/material/select'; 
+import {MatSelectModule} from '@angular/material/select';
 
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -55,6 +55,9 @@ import { KeywordlistprimitiveComponent } from './primitives/keywordlistprimitive
 import { CatalogidComponent } from './catalogobjects/catalogid/catalogid.component';
 import { SimplechoiceprimitiveComponent } from './primitives/simplechoiceprimitive/simplechoiceprimitive.component';
 import { MultiplerecordsComponent } from './catalogobjects/multiplerecords/multiplerecords.component';
+import { ReferenceinformationComponent } from './catalogobjects/catalogbaseobjects/referenceinformation/referenceinformation.component';
+import { NameofpersonComponent } from './catalogobjects/catalogbaseobjects/nameofperson/nameofperson.component';
+import { DoiComponent } from './primitives/doi/doi.component';
 
 
 
@@ -75,7 +78,10 @@ import { MultiplerecordsComponent } from './catalogobjects/multiplerecords/multi
     KeywordlistprimitiveComponent,
     CatalogidComponent,
     SimplechoiceprimitiveComponent,
-    MultiplerecordsComponent
+    MultiplerecordsComponent,
+    ReferenceinformationComponent,
+    NameofpersonComponent,
+    DoiComponent
   ],
   imports: [
     AppFirebaseModule,

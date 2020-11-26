@@ -1,6 +1,9 @@
-import { Component, OnInit, Input, AfterViewInit, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ViewChild, OnChanges, SimpleChanges, Output } from '@angular/core';
 import { CatalogbaseextraComponent } from '../catalogbaseextra/catalogbaseextra.component';
 import { DatadatadescriptionComponent } from '../datadatadescription/datadatadescription.component';
+import {MatAccordion} from '@angular/material/expansion';
+
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-catalogbasedata',
@@ -14,12 +17,15 @@ export class CatalogbasedataComponent implements OnInit, AfterViewInit, OnChange
   simpleNametip: string;
   title = 'one line description';
   titletip: string;
-
+@ViewChild(MatAccordion) accordion: MatAccordion;
   @Input() descriptionsuffix: string;
   @Input() baseobjdata: any;
   @Input() annoinfo: any;
+@Output() toggleView = new EventEmitter<boolean>();
 
-  showExtra = false;
+  showExtra: boolean;
+
+  
   @ViewChild('extracatinfo') extra: CatalogbaseextraComponent;
   @ViewChild('datadescription') description: DatadatadescriptionComponent;
 
@@ -32,6 +38,7 @@ export class CatalogbasedataComponent implements OnInit, AfterViewInit, OnChange
   }
 
   ngOnInit(): void {
+    this.showExtra = false;
   }
 
   toggleExtra(): void {
@@ -40,6 +47,7 @@ export class CatalogbasedataComponent implements OnInit, AfterViewInit, OnChange
     } else {
       this.showExtra = true;
     }
+    this.toggleView.emit(this.showExtra);
   }
   setData(info: any, annoinfo: any): void {
     if(annoinfo != null) {

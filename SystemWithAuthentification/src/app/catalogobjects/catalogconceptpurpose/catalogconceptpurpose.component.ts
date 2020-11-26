@@ -12,39 +12,26 @@ export class CatalogconceptpurposeComponent implements OnInit, OnChanges {
   @Input() purpcondata: any;
   @Input() annoinfo: any;
 
-  conceptlabel: string;
-  concepttitle: string;
+  conceptlabel = 'dataset:objectconcept';
   conceptanno: string;
-  purposelabel: string;
-  purposetitle: string;
+  purposelabel = 'dataset:objectpurpose';
   purposeanno: string;
   fieldwidth = 'full';
+  conceptloc: string;
+  purposeloc: string;
 
   constructor() {
   }
   ngOnChanges(changes: SimpleChanges): void {
+    this.conceptloc = 'dataconcept-' + this.descriptionsuffix;
+    this.purposeloc = 'purposekey-' + this.descriptionsuffix;
     this.setData(this.purpcondata, this.annoinfo);
   }
 
   ngOnInit(): void {
   }
   setData(info: any, annoinfo: any): void {
-    if (annoinfo != null) {
-      const conceptloc = 'dataconcept-' + this.descriptionsuffix;
-      const purposeloc = 'purposekey-' + this.descriptionsuffix;
-
-      this.conceptlabel = 'dataset:objectconcept';
-      this.purposelabel = 'dataset:objectpurpose';
-
-      this.conceptanno = annoinfo[conceptloc];
-      this.purposeanno = annoinfo[purposeloc];
-
-      const rdfslabel = 'rdfs:label';
-
-      this.concepttitle = this.conceptanno[rdfslabel];
-      this.purposetitle = this.purposeanno[rdfslabel];
-    }
-
+    
   }
 
 }
