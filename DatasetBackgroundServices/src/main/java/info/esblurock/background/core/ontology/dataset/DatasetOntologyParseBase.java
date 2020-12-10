@@ -6,14 +6,14 @@ import java.util.Map;
 import org.apache.jena.rdf.model.RDFNode;
 import org.json.JSONObject;
 
-import info.esblurock.background.core.objects.catalogandrecords.SetOfBaseCatalogRecordElementInformation;
-import info.esblurock.background.core.objects.classifications.ClassificationHierarchy;
-import info.esblurock.background.core.objects.classifications.ClassificationTree;
-import info.esblurock.background.core.objects.constants.AnnotationObjectsLabels;
-import info.esblurock.background.core.objects.ontology.BaseAnnotationObjects;
-import info.esblurock.background.core.objects.ontology.ExtendedAnnotationObjects;
 import info.esblurock.background.core.ontology.OntologyBase;
 import info.esblurock.background.core.ontology.classification.DatabaseOntologyClassification;
+import info.esblurock.core.DataBaseObjects.catalogandrecords.SetOfBaseCatalogRecordElementInformation;
+import info.esblurock.core.DataBaseObjects.classifications.ClassificationHierarchy;
+import info.esblurock.core.DataBaseObjects.classifications.ClassificationTree;
+import info.esblurock.core.DataBaseObjects.constants.AnnotationObjectsLabels;
+import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
+import info.esblurock.core.DataBaseObjects.ontology.ExtendedAnnotationObjects;
 
 
 /**

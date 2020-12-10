@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import info.esblurock.core.DataBaseObjects.catalogandrecords.SetOfBaseCatalogRecordElementInformation;
 
+
 public class JSONUtilitiesCatalogObjects {
 	
 	public static void addJSONObject(JSONObject obj, SetOfBaseCatalogRecordElementInformation info) {

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { of, from, Observable } from 'rxjs';
+import { of, Observable} from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
+import {CatalogInfo, CatalogAnnotation, ClassificationHiearchy} from '../const/routes.const';
 
 
 @Injectable({
@@ -19,27 +20,21 @@ export class OntologycatalogService {
 
 
   public getAnnotationsFromID(id: string) {
-    const params = new HttpParams().set('catalogname', id);
-
-    const annotationshttp = '/api/catalogannotation';
-
-    return this.httpClient.get(annotationshttp, {params})
-                    .pipe(
-                    catchError(error => {
-                        if (error.error instanceof ErrorEvent) {
-                            this.errorMsg = `Error: ${error.error.message}`;
-                        } else {
-                            this.errorMsg = this.getServerErrorMessage(error);
-                        }
-                        return of(this.errorMsg);
-                    }));
-
+    const annotationshttp = environment.apiURL + CatalogAnnotation + id;
+    return this.standardHttpCall(annotationshttp);
   }
 
   public getNewCatalogObject(id: string) {
-    const params = new HttpParams().set('catalogname', id);
-    const annotationshttp = '/api/cataloginfo';
-    return this.httpClient.get(annotationshttp, {params})
+    const cataloginfoshttp = environment.apiURL + CatalogInfo + id;
+    return this.standardHttpCall(cataloginfoshttp);
+   }
+public getClassificationHierarchy(id: string) {
+    const classificationhttp = environment.apiURL + ClassificationHiearchy + id;
+    return this.standardHttpCall(classificationhttp);
+  }
+
+  private standardHttpCall(httpaddr: string): Observable<any> {
+    return this.httpClient.get(httpaddr)
                     .pipe(
                     catchError(error => {
                         if (error.error instanceof ErrorEvent) {
@@ -49,8 +44,9 @@ export class OntologycatalogService {
                         }
                         return of(this.errorMsg);
                     }));
-  }
 
+  }
+  
   private getServerErrorMessage(error: HttpErrorResponse): string {
         switch (error.status) {
             case 404: {

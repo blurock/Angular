@@ -11,8 +11,8 @@ import org.json.JSONObject;
 import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
 import info.esblurock.core.DataBaseObjects.catalogandrecords.SetOfStandardOntologyCatalogElementHierarchy;
 import info.esblurock.core.DataBaseObjects.catalogandrecords.StandardOntologyCatalogElementHierarchy;
-import info.esblurock.core.DataBaseObjects.constants.SupplementaryConstants;
 import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
+
 
 public class BaseRecordObject extends BaseObjectJSONInterface {
 	Set<PropertyValuePairs> pairs;
@@ -37,7 +37,7 @@ public class BaseRecordObject extends BaseObjectJSONInterface {
 		Set<StandardOntologyCatalogElementHierarchy> compcatset = compset.getSetOfCatalogElements();
 		for(StandardOntologyCatalogElementHierarchy comp : compcatset) {
 			BaseAnnotationObjects annotations = comp.getAnnotations();
-			PropertyValuePairs pair = new PropertyValuePairs(annotations.getAltlabel());
+			PropertyValuePairs pair = new PropertyValuePairs(annotations.getAltlabel(), annotations.getAltlabel());
 			pairs.add(pair);
 		}		
 	}

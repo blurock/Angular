@@ -4,10 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import info.esblurock.background.core.objects.catalogandrecords.StandardOntologyCatalogElementHierarchy;
-import info.esblurock.background.core.objects.catalogobjects.AnnotationSet;
-import info.esblurock.background.core.objects.catalogobjects.BaseCatalogObject;
 import info.esblurock.background.core.ontology.dataset.GenerateCatalogObject;
+import info.esblurock.core.DataBaseObjects.catalogandrecords.StandardOntologyCatalogElementHierarchy;
+import info.esblurock.core.DataBaseObjects.catalogobjects.AnnotationSet;
+import info.esblurock.core.DataBaseObjects.catalogobjects.BaseCatalogObject;
 
 
 public class CatalogRecordList {

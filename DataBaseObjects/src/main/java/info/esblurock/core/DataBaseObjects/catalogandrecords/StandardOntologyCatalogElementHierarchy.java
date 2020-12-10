@@ -6,6 +6,7 @@ import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
 import info.esblurock.core.DataBaseObjects.constants.OntologyObjectLabels;
 import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
 
+
 public class StandardOntologyCatalogElementHierarchy extends BaseObjectJSONInterface {
 	String catalogName;
 	BaseAnnotationObjects annotations;

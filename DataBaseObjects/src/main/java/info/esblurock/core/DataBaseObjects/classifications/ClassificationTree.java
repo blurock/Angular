@@ -1,13 +1,13 @@
-package info.esblurock.background.core.objects.classifications;
+package info.esblurock.core.DataBaseObjects.classifications;
 
 import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import info.esblurock.background.core.objects.base.BaseObjectJSONInterface;
-import info.esblurock.background.core.objects.constants.OntologyObjectLabels;
-import info.esblurock.background.core.objects.ontology.BaseAnnotationObjects;
+import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
+import info.esblurock.core.DataBaseObjects.constants.OntologyObjectLabels;
+import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
 
 public class ClassificationTree extends BaseObjectJSONInterface {
 	Set<ClassificationTree> subtrees;

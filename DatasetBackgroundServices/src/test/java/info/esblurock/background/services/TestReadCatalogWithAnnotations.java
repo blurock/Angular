@@ -22,6 +22,7 @@ public class TestReadCatalogWithAnnotations {
 
 	@Test
 	public void test() throws IOException {
+		/*
 		String projectId = "blurock-firebase";
 		
 	    FirestoreOptions firestoreOptions =
@@ -48,7 +49,7 @@ public class TestReadCatalogWithAnnotations {
 				e.printStackTrace();
 			}
 
-	        
+	        */
 	}
 
 }

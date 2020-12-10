@@ -1,9 +1,9 @@
-package info.esblurock.background.core.objects.catalogobjects;
+package info.esblurock.core.DataBaseObjects.catalogobjects;
 
 import java.util.HashSet;
 
-import info.esblurock.background.core.objects.catalogandrecords.StandardOntologyCatalogElementHierarchy;
-import info.esblurock.background.core.objects.ontology.BaseAnnotationObjects;
+import info.esblurock.core.DataBaseObjects.catalogandrecords.StandardOntologyCatalogElementHierarchy;
+import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
 
 public class ExtendedAnnotationSet extends AnnotationSet {
 	public ExtendedAnnotationSet() {

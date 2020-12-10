@@ -1,9 +1,9 @@
-package info.esblurock.background.core.objects.ontology;
+package info.esblurock.core.DataBaseObjects.ontology;
 
 import org.json.JSONObject;
 
-import info.esblurock.background.core.objects.classifications.ClassificationHierarchy;
-import info.esblurock.background.core.objects.constants.AnnotationObjectsLabels;
+import info.esblurock.core.DataBaseObjects.classifications.ClassificationHierarchy;
+import info.esblurock.core.DataBaseObjects.constants.AnnotationObjectsLabels;
 
 public class ExtendedAnnotationObjects extends BaseAnnotationObjects {
 	

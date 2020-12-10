@@ -12,6 +12,8 @@ export class NameofpersonComponent implements OnInit, OnChanges {
   @Input() annoinfo: any;
   @Output() namedatachange = new EventEmitter<any>();
 
+  conceptlabel = 'dataset:objectconcept';
+
   nametitletitle: string;
   nametitlecomment: string;
   namegiventitle: string;

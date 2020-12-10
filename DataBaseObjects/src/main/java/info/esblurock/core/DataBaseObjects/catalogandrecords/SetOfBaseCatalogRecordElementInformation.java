@@ -7,8 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
-import info.esblurock.core.DataBaseObjects.classifications.ClassificationHierarchy;
-import info.esblurock.core.DataBaseObjects.constants.OntologyObjectLabels;
+
 
 public class SetOfBaseCatalogRecordElementInformation extends BaseObjectJSONInterface {
 	String elementType;

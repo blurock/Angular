@@ -10,19 +10,26 @@ import info.esblurock.core.DataBaseObjects.catalogandrecords.SetOfStandardOntolo
 import info.esblurock.core.DataBaseObjects.catalogandrecords.StandardOntologyCatalogElementHierarchy;
 import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
 
+
 public class AnnotationSet extends BaseObjectJSONInterface {
 	Set<BaseAnnotationObjects> annotations;
 	
 	public AnnotationSet() {
-		this.annotations = new HashSet<BaseAnnotationObjects>();
+		annotations = new HashSet<BaseAnnotationObjects>();
 	}
-	
-	public void fill(StandardOntologyCatalogElementHierarchy hierarchy) {
+
+	public BaseAnnotationObjects getAnnotations(StandardOntologyCatalogElementHierarchy hierarchy) {
 		BaseAnnotationObjects ann = hierarchy.getAnnotations();
+		return ann;
+	}
+	public void fill(StandardOntologyCatalogElementHierarchy hierarchy) {
+		System.out.println(hierarchy.getCatalogName());
+		BaseAnnotationObjects ann = getAnnotations(hierarchy);
 		annotations.add(ann);
 		fill(hierarchy.getSubComponentsSinglet());
 		fill(hierarchy.getSubRecordsSinglet());
 		fill(hierarchy.getSubRecordsMultiple());	
+		fill(hierarchy.getSubComponentsMultiple());
 	}
 	
 	public void fill(SetOfStandardOntologyCatalogElementHierarchy compset) {

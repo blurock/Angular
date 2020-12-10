@@ -10,6 +10,7 @@ import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
 import info.esblurock.core.DataBaseObjects.constants.OntologyObjectLabels;
 import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
 
+
 public class ClassificationHierarchy extends BaseObjectJSONInterface {
 	String classification;
 	BaseAnnotationObjects annotations;

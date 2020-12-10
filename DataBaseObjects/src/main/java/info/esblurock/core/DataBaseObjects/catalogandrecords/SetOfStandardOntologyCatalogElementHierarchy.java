@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
 
+
 public class SetOfStandardOntologyCatalogElementHierarchy extends BaseObjectJSONInterface {
 	String setName;
 	Set<StandardOntologyCatalogElementHierarchy> setOfCatalogElements;

@@ -136,7 +136,8 @@ public class OntologyBase {
 				 * 
 				 * //datasetmodel.read(alt.getElements());
 				 */
-				String filename = "/info/esblurock/background/core/ontology/resources/Dataset.ttl";
+				
+				String filename = "/Dataset.ttl";
 				InputStream str = OntologyBase.class.getResourceAsStream(filename);
 
 				try {

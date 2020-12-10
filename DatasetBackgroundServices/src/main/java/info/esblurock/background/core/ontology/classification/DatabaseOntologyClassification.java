@@ -2,10 +2,10 @@ package info.esblurock.background.core.ontology.classification;
 
 import java.util.List;
 
-import info.esblurock.background.core.objects.classifications.ClassificationHierarchy;
-import info.esblurock.background.core.objects.ontology.BaseAnnotationObjects;
 import info.esblurock.background.core.ontology.dataset.DatasetOntologyParseBase;
 import info.esblurock.background.core.ontology.utilities.OntologyUtilityRoutines;
+import info.esblurock.core.DataBaseObjects.classifications.ClassificationHierarchy;
+import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
 
 
 public class DatabaseOntologyClassification {

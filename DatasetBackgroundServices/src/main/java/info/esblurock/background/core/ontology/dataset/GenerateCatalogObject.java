@@ -1,11 +1,11 @@
 package info.esblurock.background.core.ontology.dataset;
 
-import info.esblurock.background.core.objects.catalogandrecords.BaseCatalogRecordElementInformation;
-import info.esblurock.background.core.objects.catalogandrecords.SetOfBaseCatalogRecordElementInformation;
-import info.esblurock.background.core.objects.catalogandrecords.StandardOntologyCatalogElement;
-import info.esblurock.background.core.objects.catalogandrecords.StandardOntologyCatalogElementHierarchy;
-import info.esblurock.background.core.objects.constants.OntologyObjectLabels;
-import info.esblurock.background.core.objects.ontology.BaseAnnotationObjects;
+import info.esblurock.core.DataBaseObjects.catalogandrecords.BaseCatalogRecordElementInformation;
+import info.esblurock.core.DataBaseObjects.catalogandrecords.SetOfBaseCatalogRecordElementInformation;
+import info.esblurock.core.DataBaseObjects.catalogandrecords.StandardOntologyCatalogElement;
+import info.esblurock.core.DataBaseObjects.catalogandrecords.StandardOntologyCatalogElementHierarchy;
+import info.esblurock.core.DataBaseObjects.constants.OntologyObjectLabels;
+import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
 
 public class GenerateCatalogObject {
 

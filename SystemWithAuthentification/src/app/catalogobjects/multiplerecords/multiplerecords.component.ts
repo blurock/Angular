@@ -10,6 +10,7 @@ import { Ontologyconstants } from 'src/app/const/ontologyconstants';
 
 export class MultiplerecordsComponent implements OnInit, OnChanges {
 
+  recordlabel: string;
   recordtype: string;
   comment: string;
   addrecord: string;
@@ -18,6 +19,7 @@ objanno: any;
   @Input() annoinfo: any;
   @Input() refinfo: any;
   @Input() objlabel: string;
+  @Input() primary = true;
   @Output() refinfochange = new EventEmitter<any>();
 
 
@@ -33,7 +35,7 @@ objanno: any;
 
   public setData(): void {
     this.objanno = this.annoinfo[this.objlabel];
-    this.recordtype = this.objanno[Ontologyconstants.rdfslabel];
+    this.recordlabel = this.objanno[Ontologyconstants.rdfslabel];
     this.comment = this.objanno[Ontologyconstants.rdfscomment];
     this.recordtype = this.objanno[Ontologyconstants.dctype];
   }
@@ -57,6 +59,14 @@ objanno: any;
       element[Ontologyconstants.foafFamilyName] = 'Bunny';
       this.refinfo.push(element);
       }
+      if (this.recordtype == 'ObjectSiteReference') {
+        const element = {};
+        element[Ontologyconstants.datasethttpaddress] = 'http:/www.unknown.com';
+        element[Ontologyconstants.datasethttpaddresstype] = 'unknown';
+        element[Ontologyconstants.datasethttpaddresssrcloc] = 'Repository';
+        this.refinfo.push(element);
+      }
+
       this.refinfochange.emit(this.refinfo);
   }
 

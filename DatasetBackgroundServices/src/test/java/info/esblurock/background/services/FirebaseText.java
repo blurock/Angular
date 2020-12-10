@@ -17,15 +17,15 @@ import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
 import com.google.cloud.firestore.WriteResult;
 
-import info.esblurock.background.core.objects.ontology.BaseAnnotationObjects;
 import info.esblurock.background.core.ontology.dataset.DatasetOntologyParseBase;
 import info.esblurock.background.core.ontology.utilities.JSONToMap;
+import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
 
 public class FirebaseText {
 
 	@Test
 	public void test() throws IOException, InterruptedException, ExecutionException {
-		
+		/*
 		String projectId = "blurock-firebase";
 		
 	    FirestoreOptions firestoreOptions =
@@ -58,7 +58,7 @@ public class FirebaseText {
 		Map<String,Object> m = JSONToMap.ConvertJSONToMap(json);
 		docRef2.set(m);
 		
-
+*/
 	}
 
 }

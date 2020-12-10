@@ -39,7 +39,8 @@ export class RepositorydatafileComponent extends BaseCatalogInterface implements
 
   ngOnInit(): void {
     this.annotations.getNewCatalogObject('dataset:RepositoryDataFile').subscribe({
-      next: (catalog: any) => {
+      next: (responsedata: any) => {
+        const catalog = this.messageToJSON(responsedata);
         this.catalogobj = catalog.catalog;
         this.annoinfo = catalog.annotations;
         this.baseobjdata = this.catalogobj;

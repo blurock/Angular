@@ -5,6 +5,10 @@
       (ngModelChange)="refinfo['dcterms:title']=$event">
       </mat-form-field>
     <app-doi [(doi)]="refinfo['datacite:PrimaryResourceIdentifier']" [doihint]="refdoicomment" [doilabel]="refdoititle"></app-doi>
-    <app-multiplerecords [annoinfo]="annoinfo" [(refinfo)]="refinfo['dc:creator']" [objlabel]="'author'">
+    <app-multiplerecords 
+              [annoinfo]="annoinfo" 
+              [(refinfo)]="refinfo['dc:creator']" 
+              [objlabel]="'author'"
+              [primary]="false">
     </app-multiplerecords>
 </div>

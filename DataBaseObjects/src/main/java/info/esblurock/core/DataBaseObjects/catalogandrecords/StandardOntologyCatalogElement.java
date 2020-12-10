@@ -1,14 +1,12 @@
 package info.esblurock.core.DataBaseObjects.catalogandrecords;
 
-import java.util.Iterator;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
 import info.esblurock.core.DataBaseObjects.constants.OntologyObjectLabels;
 import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
 import info.esblurock.core.DataBaseObjects.utilities.JSONUtilitiesCatalogObjects;
+
 
 public class StandardOntologyCatalogElement extends BaseObjectJSONInterface {
 	String catalogName;

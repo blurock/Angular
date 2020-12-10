@@ -1,0 +1,28 @@
+<div class="ref">
+<mat-grid-list cols="8" rowHeight="70px">
+	<mat-grid-tile colspan="4">
+	<app-httpaddress class="fullwidth"
+			[(httpaddress)]="refinfo[httpaddrlocation]" 
+			[annolabel]="httpaddrlabel"
+			[annohint]="httpaddrcomment">
+			
+</app-httpaddress>
+</mat-grid-tile>
+<mat-grid-tile colspan="2">
+			<app-simplechoiceprimitive  class="fullwidth"
+			[(selectedValue)]="refinfo[httploclocation]"
+			[annoref] = "'httploctype'"
+			[choiceLabel]="'dataset:objectconcept'"
+			[annoinfo]="annoinfo"
+			></app-simplechoiceprimitive>
+			</mat-grid-tile>
+<mat-grid-tile colspan="2">
+			<app-simplechoiceprimitive  class="fullwidth"
+			[(selectedValue)]="refinfo[httploclocation]"
+			[annoref] = "'httploctype'"
+			[choiceLabel]="'dataset:objectconcept'"
+			[annoinfo]="annoinfo"
+			></app-simplechoiceprimitive>
+			</mat-grid-tile>
+</mat-grid-list>
+</div>

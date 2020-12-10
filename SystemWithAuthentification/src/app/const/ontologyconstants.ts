@@ -10,5 +10,8 @@ export class Ontologyconstants {
 public static foafFamilyName = 'foaf:familyName';
 public static foafGivenName = 'foaf:givenName';
 public static foaftitle = 'foaf:title';
+public static datasethttpaddress = 'dataset:HttpAddress';
+public static datasethttpaddresstype = 'dataset:HttpAddressType';
+public static datasethttpaddresssrcloc = 'dataset:HttpAddressSourceLocation';
 
 }

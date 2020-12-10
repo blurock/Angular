@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
 import info.esblurock.core.DataBaseObjects.constants.SupplementaryConstants;
 
+
 public class RecordArray extends BaseObjectJSONInterface  {
 	String multiplename;
 	Set<BaseRecordObject> array;

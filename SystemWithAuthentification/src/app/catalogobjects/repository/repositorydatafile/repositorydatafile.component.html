@@ -1,5 +1,5 @@
 <div>
-	<button (click)="saveit()">
+	<button mat-button class="repository" (click)="saveit()" color="primary">
 		save it
 	</button>
 </div>
@@ -14,6 +14,10 @@
 	<app-datadatadescription #description [(descriptiondata)]="descriptiondata" [descriptionsuffix]="descriptionsuffix"
 		[annoinfo]="annoinfo"></app-datadatadescription>
 	<mat-divider></mat-divider>
-	<app-multiplerecords [annoinfo]="annoinfo" [(refinfo)]="catalogobj.ref" [objlabel]="reflabel"
+	<app-multiplerecords [annoinfo]="annoinfo" [(refinfo)]="catalogobj.ref" [objlabel]="'ref'"
 	(refinfochange)="refinfochange($event)"></app-multiplerecords>
+	<mat-divider></mat-divider>
+	<app-multiplerecords [annoinfo]="annoinfo" [(refinfo)]="catalogobj.httpreference" [objlabel]="'httpreference'"
+	(refinfochange)="refinfochange($event)"></app-multiplerecords>
+	<mat-divider></mat-divider>
 </div>

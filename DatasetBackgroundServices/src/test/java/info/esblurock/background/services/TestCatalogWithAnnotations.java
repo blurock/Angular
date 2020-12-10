@@ -20,18 +20,18 @@ import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
 import com.google.cloud.firestore.WriteResult;
 
-import info.esblurock.background.core.objects.catalogandrecords.StandardOntologyCatalogElementHierarchy;
-import info.esblurock.background.core.objects.catalogobjects.AnnotationSet;
-import info.esblurock.background.core.objects.catalogobjects.BaseCatalogObject;
 import info.esblurock.background.core.ontology.dataset.GenerateCatalogObject;
 import info.esblurock.background.core.ontology.utilities.JSONToMap;
+import info.esblurock.core.DataBaseObjects.catalogandrecords.StandardOntologyCatalogElementHierarchy;
+import info.esblurock.core.DataBaseObjects.catalogobjects.AnnotationSet;
+import info.esblurock.core.DataBaseObjects.catalogobjects.BaseCatalogObject;
 
 public class TestCatalogWithAnnotations {
 
 	@Test
 	public void test() throws IOException, InterruptedException, ExecutionException {
 		String catalogname = "dataset:RepositoryFileStaging";
-		
+		/*
 		String projectId = "blurock-firebase";
 		
 	    FirestoreOptions firestoreOptions =
@@ -75,7 +75,7 @@ public class TestCatalogWithAnnotations {
 		ApiFuture<WriteResult> result2 = docRef2.set(comb);
 		System.out.println("Update time : " + result2.get().getUpdateTime());
 		
-
+*/
 	}
 
 }

@@ -33,6 +33,8 @@ import {MatChipsModule} from '@angular/material/chips';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
+import {ScrollingModule} from '@angular/cdk/scrolling'; 
+import {MatSidenavModule} from '@angular/material/sidenav'; 
 
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -42,6 +44,7 @@ import { CommonModule } from '@angular/common';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatTabsModule} from '@angular/material/tabs';
+import {MatListModule} from '@angular/material/list';
 
 
 
@@ -58,6 +61,10 @@ import { MultiplerecordsComponent } from './catalogobjects/multiplerecords/multi
 import { ReferenceinformationComponent } from './catalogobjects/catalogbaseobjects/referenceinformation/referenceinformation.component';
 import { NameofpersonComponent } from './catalogobjects/catalogbaseobjects/nameofperson/nameofperson.component';
 import { DoiComponent } from './primitives/doi/doi.component';
+import { ClassificationtreeComponent } from './primitives/classificationtree/classificationtree.component';
+import { ObjectsitereferenceComponent } from './catalogobjects/catalogbaseobjects/objectsitereference/objectsitereference.component';
+import { HttpaddressComponent } from './primitives/httpaddress/httpaddress.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -81,7 +88,10 @@ import { DoiComponent } from './primitives/doi/doi.component';
     MultiplerecordsComponent,
     ReferenceinformationComponent,
     NameofpersonComponent,
-    DoiComponent
+    DoiComponent,
+    ClassificationtreeComponent,
+    ObjectsitereferenceComponent,
+    HttpaddressComponent
   ],
   imports: [
     AppFirebaseModule,
@@ -119,7 +129,11 @@ import { DoiComponent } from './primitives/doi/doi.component';
     MatNativeDateModule,
     ReactiveFormsModule,
     CommonModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    ScrollingModule,
+    MatSidenavModule,
+    MatListModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    NgbModule
   ],
   exports: [AngularFireModule, AngularFireAuthModule,
     MatButtonModule,

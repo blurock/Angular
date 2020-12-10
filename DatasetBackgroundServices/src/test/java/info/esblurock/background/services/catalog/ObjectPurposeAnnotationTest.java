@@ -4,15 +4,16 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import info.esblurock.background.core.objects.classifications.ClassificationHierarchy;
-import info.esblurock.background.core.objects.ontology.BaseAnnotationObjects;
 import info.esblurock.background.core.ontology.classification.DatabaseOntologyClassification;
 import info.esblurock.background.core.ontology.dataset.DatasetOntologyParseBase;
+import info.esblurock.core.DataBaseObjects.classifications.ClassificationHierarchy;
+import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
 
 public class ObjectPurposeAnnotationTest {
 
 	@Test
 	public void test() {
+		
 		System.out.println("ObjectPurposeAnnotationTest");
 		String purposelabel1 = "dataset:PurposeFileRepository";
 		String purpose1 = DatasetOntologyParseBase.getPurposeFromAnnotation(purposelabel1);
@@ -35,6 +36,7 @@ public class ObjectPurposeAnnotationTest {
 		
 		BaseAnnotationObjects purposeanno = DatasetOntologyParseBase.getSubElementStructureFromIDObject(purposelabel1);
 		System.out.println(purposeanno);
+		
 	}
 
 }

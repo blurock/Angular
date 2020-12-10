@@ -13,17 +13,26 @@ public class BaseAnnotationObjects extends BaseObjectJSONInterface {
 	String identifier;
 	
 	
+	public BaseAnnotationObjects() {
+	}
 	
 	public BaseAnnotationObjects(String label, String comment, String altlabel, String type, String identifier) {
 		super();
+		fill(label,comment,altlabel,type,identifier);
+	}
+	
+	public BaseAnnotationObjects(BaseAnnotationObjects base) {
+		super();
+		fill(base.label,base.comment,base.altlabel,base.type,base.identifier);
+	}
+	
+	
+	public void fill(String label, String comment, String altlabel, String type, String identifier) {
 		this.label = label;
 		this.comment = comment;
 		this.altlabel = altlabel;
 		this.type = type;
-		this.identifier = identifier;
-	}
-	
-	public BaseAnnotationObjects() {
+		this.identifier = identifier;		
 	}
 
 	public String getLabel() {

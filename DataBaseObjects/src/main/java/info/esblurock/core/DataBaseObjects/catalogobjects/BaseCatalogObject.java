@@ -6,6 +6,8 @@ import org.json.JSONObject;
 
 import info.esblurock.core.DataBaseObjects.constants.SupplementaryConstants;
 
+
+
 public class BaseCatalogObject  extends BaseRecordObject {
 	
 	String sourceID; 
