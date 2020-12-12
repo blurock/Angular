@@ -1,26 +1,32 @@
 package info.esblurock.background.services.ontology;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.concurrent.ExecutionException;
 
 import org.json.JSONObject;
 
+import com.google.api.core.ApiFuture;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiIssuer;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.WriteResult;
 
-import info.esblurock.background.core.ontology.classification.DatabaseOntologyClassification;
-import info.esblurock.background.core.ontology.dataset.DatasetOntologyParseBase;
-import info.esblurock.background.core.ontology.dataset.GenerateCatalogObject;
+import info.esblurock.background.services.firestore.FirestoreBaseClass;
 import info.esblurock.core.DataBaseObjects.catalogandrecords.StandardOntologyCatalogElementHierarchy;
 import info.esblurock.core.DataBaseObjects.catalogobjects.AnnotationSet;
 import info.esblurock.core.DataBaseObjects.catalogobjects.BaseCatalogObject;
 import info.esblurock.core.DataBaseObjects.classifications.ClassificationHierarchy;
 import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
+import info.esblurock.reaction.core.ontology.base.classification.DatabaseOntologyClassification;
+import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
+import info.esblurock.reaction.core.ontology.base.dataset.GenerateCatalogObject;
 
 @Api(
 	    name = "ontologyannotations",
@@ -82,4 +88,6 @@ public class CatalogObjectInfoWithAnnotations {
 		 message.setMessage(hier.toString(""));
 		return message;
 	 }
+	 
+
 }

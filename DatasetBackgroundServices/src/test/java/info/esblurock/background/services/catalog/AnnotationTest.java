@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import info.esblurock.background.core.ontology.dataset.GenerateCatalogObject;
 import info.esblurock.core.DataBaseObjects.catalogandrecords.StandardOntologyCatalogElementHierarchy;
 import info.esblurock.core.DataBaseObjects.catalogobjects.AnnotationSet;
+import info.esblurock.reaction.core.ontology.base.dataset.GenerateCatalogObject;
 
 public class AnnotationTest {
 

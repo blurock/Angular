@@ -4,10 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import info.esblurock.background.core.ontology.classification.DatabaseOntologyClassification;
-import info.esblurock.background.core.ontology.dataset.DatasetOntologyParseBase;
 import info.esblurock.core.DataBaseObjects.classifications.ClassificationHierarchy;
 import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
+import info.esblurock.reaction.core.ontology.base.classification.DatabaseOntologyClassification;
+import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 
 public class ObjectPurposeAnnotationTest {
 

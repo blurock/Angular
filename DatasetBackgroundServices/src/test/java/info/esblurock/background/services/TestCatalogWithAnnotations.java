@@ -20,8 +20,6 @@ import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
 import com.google.cloud.firestore.WriteResult;
 
-import info.esblurock.background.core.ontology.dataset.GenerateCatalogObject;
-import info.esblurock.background.core.ontology.utilities.JSONToMap;
 import info.esblurock.core.DataBaseObjects.catalogandrecords.StandardOntologyCatalogElementHierarchy;
 import info.esblurock.core.DataBaseObjects.catalogobjects.AnnotationSet;
 import info.esblurock.core.DataBaseObjects.catalogobjects.BaseCatalogObject;

@@ -17,6 +17,21 @@
         <servlet-name>ontologyannotations</servlet-name>
         <url-pattern>/_ah/api/*</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>firestorewrite</servlet-name>
+        <servlet-class>com.google.api.server.spi.EndpointsServlet</servlet-class>
+        <init-param>
+            <param-name>services</param-name>
+            <param-value>info.esblurock.background.services.firestore.WriteFirestoreData</param-value>
+        </init-param>
+    </servlet>
+    <!-- Route API method requests to the backend. -->
+    <servlet-mapping>
+        <servlet-name>firestorewrite</servlet-name>
+        <url-pattern>/_ah/firestore/*</url-pattern>
+    </servlet-mapping>
+  
+
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>

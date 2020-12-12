@@ -16,7 +16,6 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
 
-import info.esblurock.background.core.ontology.utilities.JSONToMap;
 
 public class TestReadCatalogWithAnnotations {
 
