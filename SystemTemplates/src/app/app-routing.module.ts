@@ -8,7 +8,7 @@ import {DashboardComponent} from './toppage/toppage/dashboard/dashboard.componen
 const routes: Routes = [
 {    
     path: '', 
-    redirectTo: 'login',
+    redirectTo: 'top',
     pathMatch: 'full',
   },
   {
@@ -25,8 +25,6 @@ const routes: Routes = [
       title: 'Dashboard Page'
     }
   },
-{path: 'news', component: NewsComponent},
-{ path: '', redirectTo: 'app-login', pathMatch: 'full'},
 {path: 'top', component: ToppageComponent},
 
 ];
@@ -34,7 +32,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [],
   imports: [
-   RouterModule.forRoot(routes)],
+   RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 
 })

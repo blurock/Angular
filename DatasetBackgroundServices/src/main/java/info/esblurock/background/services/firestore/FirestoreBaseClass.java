@@ -44,10 +44,12 @@ public class FirestoreBaseClass {
 		
 		FirebaseOptions options = FirebaseOptions.builder()
 			    .setCredentials(credentials)
+			    .setDatabaseUrl("http:localhost:8081")
 			    .build();
-
+		
 			FirebaseApp.initializeApp(options);
-
+			
+			
 		Firestore db = FirestoreClient.getFirestore();
 		return db;
 

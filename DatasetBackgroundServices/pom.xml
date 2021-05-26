@@ -163,7 +163,7 @@
 				<configuration>
 					<!-- deploy configuration -->
 					<projectId>GCLOUD_CONFIG</projectId>
-					<version>GCLOUD_CONFIG</version>
+					<version>GCLOUD_CONFIG</version>					
 				</configuration>
 			</plugin>
 			<!-- [START endpoints_plugin] -->

@@ -35,15 +35,18 @@ export class HeaderComponent {
         }),
       )
       .subscribe(
-        (response) =>
-          response &&
+        (response) => {
+          if (response != null) {
+          alert(JSON.stringify(response.user.providerData));
           this.snackBar.open(
-            `Oh! You're here. I demand that you feed me, Hooman. 😾`,
+            `You are successfully logged in`,
             'Close',
             {
               duration: 4000,
             },
-          ),
+          );
+          }
+          }
       );
   }
 

@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import org.json.JSONObject;
-
 import com.google.api.core.ApiFuture;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiIssuer;
@@ -20,9 +18,6 @@ import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import info.esblurock.background.services.ontology.Message;

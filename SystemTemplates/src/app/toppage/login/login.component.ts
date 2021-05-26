@@ -10,6 +10,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./login.component.css']  
 })  
 export class LoginComponent implements OnInit {  
+	errorMessage = 'error';
   response;  
     socialusers=new SocialUsers();  
   constructor(  

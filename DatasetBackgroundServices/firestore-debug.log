@@ -1,9 +1,29 @@
-API endpoint: http://localhost:8080
+API endpoint: http://localhost:8081
 If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
 
-   export FIRESTORE_EMULATOR_HOST=localhost:8080
+   export FIRESTORE_EMULATOR_HOST=localhost:8081
 
 Dev App Server is now running.
 
+Dec 14, 2020 2:22:12 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Dec 14, 2020 2:22:12 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Dec 14, 2020 2:22:12 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+Dec 14, 2020 2:40:32 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Dec 14, 2020 2:40:32 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Dec 14, 2020 2:43:41 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Dec 14, 2020 2:43:41 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Dec 14, 2020 3:20:52 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Dec 14, 2020 3:20:52 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Dec 14, 2020 3:20:52 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
 *** shutting down gRPC server since JVM is shutting down
 *** server shut down

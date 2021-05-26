@@ -5,6 +5,7 @@ import { of, Observable} from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
 import {CatalogInfo, CatalogAnnotation, ClassificationHiearchy} from '../const/routes.const';
+import { ServiceUtilityRoutines } from './serviceutilityroutines';
 
 
 @Injectable({
@@ -40,28 +41,12 @@ public getClassificationHierarchy(id: string) {
                         if (error.error instanceof ErrorEvent) {
                             this.errorMsg = `Error: ${error.error.message}`;
                         } else {
-                            this.errorMsg = this.getServerErrorMessage(error);
+                            this.errorMsg = ServiceUtilityRoutines.getServerErrorMessage(error);
                         }
                         return of(this.errorMsg);
                     }));
 
   }
   
-  private getServerErrorMessage(error: HttpErrorResponse): string {
-        switch (error.status) {
-            case 404: {
-                return `Not Found: ${error.message}`;
-            }
-            case 403: {
-                return `Access Denied: ${error.message}`;
-            }
-            case 500: {
-                return `Internal Server Error: ${error.message}`;
-            }
-            default: {
-                return `Unknown Server Error: ${error.message}`;
-            }
-
-        }
-    }
+ 
 }

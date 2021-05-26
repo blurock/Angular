@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 
@@ -8,7 +8,7 @@ describe('InputlineComponent', () => {
   let component: InputlineComponent;
   let fixture: ComponentFixture<InputlineComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ InputlineComponent ],
       imports: [MatCheckboxModule, FormsModule]
