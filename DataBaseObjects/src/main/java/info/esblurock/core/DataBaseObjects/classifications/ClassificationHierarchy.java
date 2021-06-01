@@ -53,6 +53,10 @@ public class ClassificationHierarchy extends BaseObjectJSONInterface {
 	public void setSubclassificatons(Set<ClassificationHierarchy> subclassificatons) {
 		this.subclassificatons = subclassificatons;
 	}
+	public String toString() {
+		JSONObject json = this.toJSONObject();
+		return json.toString();
+	}
 	@Override
 	public JSONObject toJSONObject() {
 		JSONObject obj = new JSONObject();

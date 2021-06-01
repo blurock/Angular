@@ -84,6 +84,21 @@ public class DatasetOntologyParseBase {
 		return object;
 	}
 	
+	static public String getAnnotationObject(String name, String identifier) {
+		String query = "SELECT ?id \n" 
+				+ "	WHERE {\n" 
+				+ "	  " + name + " " + identifier + " ?id .\n" + "	" 
+				+ "  }";
+		List<Map<String, RDFNode>> lst = OntologyBase.resultSetToMap(query);
+		List<Map<String, String>> stringlst = OntologyBase.resultmapToStrings(lst);
+		
+		String idS = "";
+		if (stringlst.size() > 0) {
+			idS = stringlst.get(0).get("id");
+		}
+		return idS;		
+	}
+	
 	static public String getConceptFromAnnotation(String structure) {
 		String query = "SELECT ?id \n" 
 				+ "	WHERE {\n" 
@@ -99,24 +114,22 @@ public class DatasetOntologyParseBase {
 		return idS;
 	}
 	static public String getPurposeFromAnnotation(String structure) {
-		String query = "SELECT ?id \n" 
+		String query = "SELECT ?purpose \n" 
 				+ "	WHERE {\n" 
-				+ "	  " + structure + " dataset:objectpurpose ?id .\n" + "	" 
+				+ "	  " + structure + " dataset:objectpurpose ?purpose .\n" + "	" 
 				+ "  }";
 		List<Map<String, RDFNode>> lst = OntologyBase.resultSetToMap(query);
 		List<Map<String, String>> stringlst = OntologyBase.resultmapToStrings(lst);
 		
 		String idS = "";
 		if (stringlst.size() > 0) {
-			idS = stringlst.get(0).get("id");
-		}
-		ClassificationHierarchy hierarchy = null;
-		if(idS.length() > 0) {
-			hierarchy = DatabaseOntologyClassification.getClassificationHierarchy(idS);
-			JSONObject json = hierarchy.toJSONObject();
+			idS = stringlst.get(0).get("purpose");
 		}
 		return idS;
 	}
+	
+	
+	
 	static public String getIDFromAnnotation(String structure) {
 		String query = "SELECT ?id \n" 
 				+ "	WHERE {\n" 

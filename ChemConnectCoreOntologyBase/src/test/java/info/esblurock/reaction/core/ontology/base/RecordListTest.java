@@ -1,12 +1,8 @@
 package info.esblurock.reaction.core.ontology.base;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
 
 import org.junit.Test;
 
-import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 
 public class RecordListTest {
 
