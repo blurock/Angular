@@ -2280,154 +2280,6 @@ This transaction is in combination with another transaction responsible for crea
                                                ] .
 
 
-###  http://www.esblurock.info/dataset#ChemConnect2DAtomNodeStructure
-:ChemConnect2DAtomNodeStructure rdf:type owl:Class ;
-                                rdfs:subClassOf :ChemicalStructureEntityLabel ,
-                                                [ rdf:type owl:Restriction ;
-                                                  owl:onProperty <http://purl.org/linked-data/cube#concept> ;
-                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                  owl:onClass :ChemConnectConcept2DAtomDefinition
-                                                ] ,
-                                                [ rdf:type owl:Restriction ;
-                                                  owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
-                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                  owl:onClass :Structure2DGraphicalAtomNodeLabel
-                                                ] ,
-                                                [ rdf:type owl:Restriction ;
-                                                  owl:onProperty :hasPurpose ;
-                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                  owl:onClass :Purpose2DAtomStructureDefinition
-                                                ] ;
-                                <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
-                                <http://purl.org/dc/terms/identifier> "dataset:2datomnode"^^xsd:string ;
-                                rdfs:comment "The 2D graphical structure atom node" ;
-                                rdfs:label "2D Atom Structure Node" ;
-                                <http://www.w3.org/2004/02/skos/core#altLabel> "2datomnode" .
-
-
-###  http://www.esblurock.info/dataset#ChemConnect2DBondNodeA
-:ChemConnect2DBondNodeA rdf:type owl:Class ;
-                        rdfs:subClassOf :ChemConnect2DAtomNodeStructure ;
-                        <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
-                        <http://purl.org/dc/terms/identifier> "dataset:bondnodea"^^xsd:string ;
-                        rdfs:comment "The atom node label of the first atom bond 2D graphical"^^xsd:string ;
-                        rdfs:label "Bond Node A"^^xsd:string ;
-                        <http://www.w3.org/2004/02/skos/core#altLabel> "bondnodea"^^xsd:string .
-
-
-###  http://www.esblurock.info/dataset#ChemConnect2DBondNodeB
-:ChemConnect2DBondNodeB rdf:type owl:Class ;
-                        rdfs:subClassOf :ChemConnect2DAtomNodeStructure ;
-                        <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
-                        <http://purl.org/dc/terms/identifier> "dataset:bondnodeb"^^xsd:string ;
-                        rdfs:comment "The atom node label of the second atom bond 2D graphical"^^xsd:string ;
-                        rdfs:label "Bond Node B"^^xsd:string ,
-                                   "bondnodeb"^^xsd:string .
-
-
-###  http://www.esblurock.info/dataset#ChemConnect2DBondStructure
-:ChemConnect2DBondStructure rdf:type owl:Class ;
-                            rdfs:subClassOf :ChemConnectChemicalStructure ,
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty <http://purl.org/linked-data/cube#concept> ;
-                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                              owl:onClass :ChemConnectConcept2DBondDefinition
-                                            ] ,
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
-                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                              owl:onClass :ChemConnect2DBondNodeA
-                                            ] ,
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
-                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                              owl:onClass :ChemConnect2DBondNodeB
-                                            ] ,
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty :hasPurpose ;
-                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                              owl:onClass :Purpose2DBondStructureDefinition
-                                            ] ;
-                            <http://purl.org/dc/elements/1.1/type> :ChemConnectCompoundStructure ;
-                            <http://purl.org/dc/terms/identifier> "dataset:2dbond"^^xsd:string ;
-                            rdfs:comment "The 2D graphical structure bond structure"^^xsd:string ;
-                            rdfs:label "2D Bond"^^xsd:string ;
-                            <http://www.w3.org/2004/02/skos/core#altLabel> "2dbond"^^xsd:string .
-
-
-###  http://www.esblurock.info/dataset#ChemConnect2DGraphicalStructure
-:ChemConnect2DGraphicalStructure rdf:type owl:Class ;
-                                 rdfs:subClassOf :ChemConnectChemicalStructure ,
-                                                 [ rdf:type owl:Restriction ;
-                                                   owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
-                                                   owl:someValuesFrom :ChemConnect2DAtomNodeStructure
-                                                 ] ,
-                                                 [ rdf:type owl:Restriction ;
-                                                   owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
-                                                   owl:someValuesFrom :ChemConnect2DBondStructure
-                                                 ] ,
-                                                 [ rdf:type owl:Restriction ;
-                                                   owl:onProperty <http://purl.org/linked-data/cube#concept> ;
-                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                   owl:onClass :ChemConnectConcept2DMoleculeDefinition
-                                                 ] ,
-                                                 [ rdf:type owl:Restriction ;
-                                                   owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
-                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                   owl:onClass :ChemicalStructureLabel
-                                                 ] ,
-                                                 [ rdf:type owl:Restriction ;
-                                                   owl:onProperty :hasPurpose ;
-                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                   owl:onClass :Purpose2DChemicalStructureDefinition
-                                                 ] ;
-                                 <http://purl.org/dc/elements/1.1/type> :ChemConnectCompoundStructure ;
-                                 <http://purl.org/dc/terms/identifier> "dataset:2dgraphicalstructure"^^xsd:string ;
-                                 rdfs:comment "2D Graphical Structure"^^xsd:string ;
-                                 rdfs:label "2D Graphical Structure"^^xsd:string ;
-                                 <http://www.w3.org/2004/02/skos/core#altLabel> "2dgraphicalstructure"^^xsd:string .
-
-
-###  http://www.esblurock.info/dataset#ChemConnect2DGraphicalSubStructure
-:ChemConnect2DGraphicalSubStructure rdf:type owl:Class ;
-                                    rdfs:subClassOf :ChemConnect2DGraphicalStructure ,
-                                                    [ rdf:type owl:Restriction ;
-                                                      owl:onProperty <http://purl.org/linked-data/cube#concept> ;
-                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                      owl:onClass :ChemConnectConcept2DMoleculeDefinition
-                                                    ] ,
-                                                    [ rdf:type owl:Restriction ;
-                                                      owl:onProperty :hasPurpose ;
-                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                      owl:onClass :Purpose2DChemicalStructureDefinition
-                                                    ] ;
-                                    <http://purl.org/dc/elements/1.1/type> :ChemConnectCompoundStructure ;
-                                    <http://purl.org/dc/terms/identifier> "dataset:2dgraphicalsubstructure"^^xsd:string ;
-                                    rdfs:comment "The 2D graphical substructure"^^xsd:string ;
-                                    rdfs:label "2D graphical substructure"^^xsd:string ;
-                                    <http://www.w3.org/2004/02/skos/core#altLabel> "2dgraphicalsubstructure"^^xsd:string .
-
-
-###  http://www.esblurock.info/dataset#ChemConnect2DMetaAtomStructure
-:ChemConnect2DMetaAtomStructure rdf:type owl:Class ;
-                                rdfs:subClassOf :ChemConnect2DAtomNodeStructure ,
-                                                [ rdf:type owl:Restriction ;
-                                                  owl:onProperty <http://purl.org/linked-data/cube#concept> ;
-                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                  owl:onClass :ChemConnectConcept2DMetaAtomDefinition
-                                                ] ,
-                                                [ rdf:type owl:Restriction ;
-                                                  owl:onProperty :hasPurpose ;
-                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                  owl:onClass :Purpose2DAtomStructureDefinition
-                                                ] ;
-                                <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
-                                <http://purl.org/dc/terms/identifier> "dataset:metaatom"^^xsd:string ;
-                                rdfs:comment "The label of a Meta-Atom"^^xsd:string ;
-                                rdfs:label "Meta Atom"^^xsd:string ;
-                                <http://www.w3.org/2004/02/skos/core#altLabel> "metaatom"^^xsd:string .
-
-
 ###  http://www.esblurock.info/dataset#ChemConnectAccountPriviledge
 :ChemConnectAccountPriviledge rdf:type owl:Class ;
                               rdfs:subClassOf :ChemConnectConceptProperties .
@@ -2443,75 +2295,6 @@ This transaction is in combination with another transaction responsible for crea
                        rdfs:subClassOf :ChemConnectModule ;
                        owl:disjointWith :ChemConnectExpDataModule ;
                        <http://www.linkedmodel.org/schema/vaem#hasDomainScope> "info.esblurock.reaction.chemconnect.base" .
-
-
-###  http://www.esblurock.info/dataset#ChemConnectBensonCenterAtom
-:ChemConnectBensonCenterAtom rdf:type owl:Class ;
-                             rdfs:subClassOf :ThermodynamicEntityLabel ,
-                                             [ rdf:type owl:Restriction ;
-                                               owl:onProperty <http://purl.org/linked-data/cube#concept> ;
-                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                               owl:onClass :ChemConnectConceptBensonCenterAtom
-                                             ] ,
-                                             [ rdf:type owl:Restriction ;
-                                               owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
-                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                               owl:onClass :Structure2DGraphicalAtomNodeLabel
-                                             ] ,
-                                             [ rdf:type owl:Restriction ;
-                                               owl:onProperty :hasPurpose ;
-                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                               owl:onClass :PurposeBensonRuleCenterAtom
-                                             ] ;
-                             <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
-                             <http://purl.org/dc/terms/identifier> "dataset:centeratom" ;
-                             rdfs:comment "The center atom of Benson rule. The center atom is an atom symbol or a meta-atom." ;
-                             rdfs:label "Benson Atom Center" ;
-                             <http://www.w3.org/2004/02/skos/core#altLabel> "bensoncenteratom" .
-
-
-###  http://www.esblurock.info/dataset#ChemConnectBensonConnectingAtom
-:ChemConnectBensonConnectingAtom rdf:type owl:Class ;
-                                 rdfs:subClassOf :ThermodynamicEntityLabel ,
-                                                 [ rdf:type owl:Restriction ;
-                                                   owl:onProperty <http://purl.org/linked-data/cube#concept> ;
-                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                   owl:onClass :ChemConnectConceptBensonConnectingAtom
-                                                 ] ,
-                                                 [ rdf:type owl:Restriction ;
-                                                   owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
-                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                   owl:onClass :Structure2DGraphicalAtomNodeLabel
-                                                 ] ,
-                                                 [ rdf:type owl:Restriction ;
-                                                   owl:onProperty :hasPurpose ;
-                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                   owl:onClass :PurposeBensonRuleConnectingAtom
-                                                 ] ;
-                                 <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
-                                 <http://purl.org/dc/terms/identifier> "dataset:bensonconnectingatom"^^xsd:string ;
-                                 rdfs:comment "The connecting atom of the Benson rule definition" ;
-                                 rdfs:label "Benson Connecting Atom" ;
-                                 <http://www.w3.org/2004/02/skos/core#altLabel> "bensonconnectingatom" .
-
-
-###  http://www.esblurock.info/dataset#ChemConnectBensonRuleStructure
-:ChemConnectBensonRuleStructure rdf:type owl:Class ;
-                                rdfs:subClassOf :ChemConnectChemicalStructure ,
-                                                [ rdf:type owl:Restriction ;
-                                                  owl:onProperty <http://purl.org/linked-data/cube#concept> ;
-                                                  owl:someValuesFrom :ChemConnectConceptBensonRuleDefinition
-                                                ] ,
-                                                [ rdf:type owl:Restriction ;
-                                                  owl:onProperty :hasPurpose ;
-                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                  owl:onClass :PurposeBensonRuleDefinition
-                                                ] ;
-                                <http://purl.org/dc/elements/1.1/type> :ChemConnectCompoundStructure ;
-                                <http://purl.org/dc/terms/identifier> "dataset:bensonrule"^^xsd:string ;
-                                rdfs:comment "The Benson Rule structure defining thermodynamics"^^xsd:string ;
-                                rdfs:label "Benson Rule"^^xsd:string ;
-                                <http://www.w3.org/2004/02/skos/core#altLabel> "bensonrule"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ChemConnectCalibrationProtocol
@@ -2572,16 +2355,6 @@ One important piece of information is the associated catalog objects that were c
 ###  http://www.esblurock.info/dataset#ChemConnectCatalogObjectRoles
 :ChemConnectCatalogObjectRoles rdf:type owl:Class ;
                                rdfs:subClassOf :ChemConnectClassifications .
-
-
-###  http://www.esblurock.info/dataset#ChemConnectChemicalStructure
-:ChemConnectChemicalStructure rdf:type owl:Class ;
-                              rdfs:subClassOf :ChemConnectCompoundParameter ;
-                              <http://purl.org/dc/elements/1.1/type> :ChemConnectCompoundStructure ;
-                              <http://purl.org/dc/terms/identifier> "dataset:chemstructure"^^xsd:string ;
-                              rdfs:comment "The chemical structure entity"^^xsd:string ;
-                              rdfs:label "Chemical Structure"^^xsd:string ;
-                              <http://www.w3.org/2004/02/skos/core#altLabel> "chemstructure"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ChemConnectClassifications
@@ -2654,11 +2427,6 @@ One important piece of information is the associated catalog objects that were c
                              <http://www.w3.org/2004/02/skos/core#altLabel> "compoundmultiple" .
 
 
-###  http://www.esblurock.info/dataset#ChemConnectCompoundParameter
-:ChemConnectCompoundParameter rdf:type owl:Class ;
-                              rdfs:subClassOf :ChemConnectFixedParameter .
-
-
 ###  http://www.esblurock.info/dataset#ChemConnectCompoundSearchObjects
 :ChemConnectCompoundSearchObjects rdf:type owl:Class ;
                                   rdfs:subClassOf :ChemConnectSingleDataObject ;
@@ -2692,29 +2460,9 @@ One important piece of information is the associated catalog objects that were c
                                     rdfs:subClassOf :ChemConnectConcept2DMoleculeDefinition .
 
 
-###  http://www.esblurock.info/dataset#ChemConnectConcept2DBondDefinition
-:ChemConnectConcept2DBondDefinition rdf:type owl:Class ;
-                                    rdfs:subClassOf :ChemConnectConcept2DMoleculeDefinition .
-
-
-###  http://www.esblurock.info/dataset#ChemConnectConcept2DMetaAtomDefinition
-:ChemConnectConcept2DMetaAtomDefinition rdf:type owl:Class ;
-                                        rdfs:subClassOf :ChemConnectConcept2DAtomDefinition .
-
-
 ###  http://www.esblurock.info/dataset#ChemConnectConcept2DMoleculeDefinition
 :ChemConnectConcept2DMoleculeDefinition rdf:type owl:Class ;
                                         rdfs:subClassOf :ChemConnectConceptChemicalStructure .
-
-
-###  http://www.esblurock.info/dataset#ChemConnectConceptBensonCenterAtom
-:ChemConnectConceptBensonCenterAtom rdf:type owl:Class ;
-                                    rdfs:subClassOf :ChemConnectConceptBensonRuleDefinition .
-
-
-###  http://www.esblurock.info/dataset#ChemConnectConceptBensonConnectingAtom
-:ChemConnectConceptBensonConnectingAtom rdf:type owl:Class ;
-                                        rdfs:subClassOf :ChemConnectConceptBensonRuleDefinition .
 
 
 ###  http://www.esblurock.info/dataset#ChemConnectConceptBensonRuleDefinition
@@ -2765,6 +2513,11 @@ One important piece of information is the associated catalog objects that were c
 ###  http://www.esblurock.info/dataset#ChemConnectConceptSubsystem
 :ChemConnectConceptSubsystem rdf:type owl:Class ;
                              rdfs:subClassOf :ChemConnectConceptProperties .
+
+
+###  http://www.esblurock.info/dataset#ChemConnectConceptSymmetryDefinition
+:ChemConnectConceptSymmetryDefinition rdf:type owl:Class ;
+                                      rdfs:subClassOf :ChemConnectConceptChemicalStructure .
 
 
 ###  http://www.esblurock.info/dataset#ChemConnectConceptTemperatureDependentThermodynamics
@@ -2875,14 +2628,39 @@ The catalog object being modified is the SimpleCatalogObject listed in the eleme
                              rdfs:subClassOf :ChemConnectParameter .
 
 
+###  http://www.esblurock.info/dataset#ChemConnectElementCompound
+:ChemConnectElementCompound rdf:type owl:Class ;
+                            rdfs:subClassOf :ChemConnectElementObject ;
+                            <http://purl.org/dc/elements/1.1/type> "ChemConnectCompoundStructure"^^xsd:string ;
+                            <http://purl.org/dc/terms/identifier> "dataset:compoundelement"^^xsd:string ;
+                            rdfs:comment "A compound parameter made up of other compound parameters and primitives. This is a specification of how a ChemConnectCompoundStructure should be created"^^xsd:string ;
+                            rdfs:label "Compound Element"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "compoundelement"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#ChemConnectElementObject
+:ChemConnectElementObject rdf:type owl:Class ;
+                          rdfs:subClassOf :ChemConnectDomainConcept ;
+                          <http://purl.org/dc/elements/1.1/type> "ChemConnectStructureBase"^^xsd:string ;
+                          <http://purl.org/dc/terms/identifier> "dataset:elementobject"^^xsd:string ;
+                          rdfs:comment "This is the specification of a compound or primitive object. In the annotations there is a simple name as a label, a description as a comment, data type, an identifier (in the JSON format) and an simple label (altlabel). Each object has an associated purpose and concept. The primitive objects have a systemUnit."^^xsd:string ;
+                          rdfs:label "Element Object"^^xsd:string ;
+                          <http://www.w3.org/2004/02/skos/core#altLabel> "elementobject"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#ChemConnectElementPrimitive
+:ChemConnectElementPrimitive rdf:type owl:Class ;
+                             rdfs:subClassOf :ChemConnectElementObject ;
+                             <http://purl.org/dc/elements/1.1/type> "ChemConnectPrimitiveDataStructure"^^xsd:string ;
+                             <http://purl.org/dc/terms/identifier> "dataset:primitiveelement"^^xsd:string ;
+                             rdfs:comment "A primitive parameter representing a single element. Each parameter has a systemUnit, purpose and concept. This specification is used to specify a specific ChemConnectPrimitiveDataStructure."^^xsd:string ;
+                             rdfs:label "Primitive Element"^^xsd:string ;
+                             <http://www.w3.org/2004/02/skos/core#altLabel> "primitiveelement"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#ChemConnectEnergy
 :ChemConnectEnergy rdf:type owl:Class ;
-                   rdfs:subClassOf :ChemConnectValueParameter ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
-                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                     owl:onClass <http://qudt.org/schema/qudt#ThermalEnergyUnit>
-                                   ] .
+                   rdfs:subClassOf :ChemConnectValueParameter .
 
 
 ###  http://www.esblurock.info/dataset#ChemConnectExpDataModule
@@ -3095,10 +2873,30 @@ The catalog object being modified is the SimpleCatalogObject listed in the eleme
                                 <http://www.w3.org/2004/02/skos/core#altLabel> "measurementprotocol" .
 
 
+###  http://www.esblurock.info/dataset#ChemConnectMetaAtomDefinition
+:ChemConnectMetaAtomDefinition rdf:type owl:Class ;
+                               rdfs:subClassOf :ChemConnectConcept2DMoleculeDefinition .
+
+
 ###  http://www.esblurock.info/dataset#ChemConnectModule
 :ChemConnectModule rdf:type owl:Class ;
                    rdfs:subClassOf :ChemConnectDomainConcept ;
                    <http://www.linkedmodel.org/schema/vaem#hasDomainScope> "info.esblurock.reaction.chemconnect" .
+
+
+###  http://www.esblurock.info/dataset#ChemConnectMolarUnitEnergy
+:ChemConnectMolarUnitEnergy rdf:type owl:Class ;
+                            rdfs:subClassOf :ChemConnectElementPrimitive ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://qudt.org/schema/qudt#unitSystem> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass <http://qudt.org/schema/qudt#MolarEnergyUnit>
+                                            ] ;
+                            <http://purl.org/dc/elements/1.1/type> "ValueAsString"^^xsd:string ;
+                            <http://purl.org/dc/terms/identifier> "dataset:molarenergy"^^xsd:string ;
+                            rdfs:comment "Chemical energy per mole"^^xsd:string ;
+                            rdfs:label "Molar Energy Unit"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "molarenergy"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ChemConnectObjectType
@@ -3373,6 +3171,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
                           <http://www.w3.org/2004/02/skos/core#altLabel> "user"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#ChemConnectSubstructureDefinition
+:ChemConnectSubstructureDefinition rdf:type owl:Class ;
+                                   rdfs:subClassOf :ChemConnectConcept2DMoleculeDefinition .
+
+
 ###  http://www.esblurock.info/dataset#ChemConnectTaskDefinition
 :ChemConnectTaskDefinition rdf:type owl:Class ;
                            rdfs:subClassOf :ChemConnectConceptProperties .
@@ -3428,14 +3231,14 @@ Under the general type of is the actual data object referenced by the ChemConnec
                              rdfs:subClassOf :ChemConnectTaskDefinition .
 
 
-###  http://www.esblurock.info/dataset#ChemConnectThermodynamicParameter
-:ChemConnectThermodynamicParameter rdf:type owl:Class ;
-                                   rdfs:subClassOf :ChemConnectCompoundParameter ;
-                                   <http://purl.org/dc/elements/1.1/type> :ChemConnectCompoundStructure ;
-                                   <http://purl.org/dc/terms/identifier> "database:thermoparam"^^xsd:string ;
-                                   rdfs:comment "The thermodynamic parameter"^^xsd:string ;
-                                   rdfs:label "Thermodynamic Parameter"^^xsd:string ;
-                                   <http://www.w3.org/2004/02/skos/core#altLabel> "thermoparam"^^xsd:string .
+###  http://www.esblurock.info/dataset#ChemConnectThermalEnergy
+:ChemConnectThermalEnergy rdf:type owl:Class ;
+                          rdfs:subClassOf :ChemConnectEnergy ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty <http://qudt.org/schema/qudt#unitSystem> ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onClass <http://qudt.org/schema/qudt#ThermalEnergyUnit>
+                                          ] .
 
 
 ###  http://www.esblurock.info/dataset#ChemConnectThermodynamicPurpose
@@ -3527,31 +3330,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#ChemicalSpeciesName
 :ChemicalSpeciesName rdf:type owl:Class ;
                      rdfs:subClassOf :KeywordParameter .
-
-
-###  http://www.esblurock.info/dataset#ChemicalStructureEntityLabel
-:ChemicalStructureEntityLabel rdf:type owl:Class ;
-                              rdfs:subClassOf :KeywordParameter ;
-                              <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
-                              <http://purl.org/dc/terms/identifier> "dataset:structureentitylabel"^^xsd:string ;
-                              rdfs:comment "Entity in the definition structures" ;
-                              rdfs:label "Chemical Structure Entity" ;
-                              <http://www.w3.org/2004/02/skos/core#altLabel> "structureentitylabel" .
-
-
-###  http://www.esblurock.info/dataset#ChemicalStructureLabel
-:ChemicalStructureLabel rdf:type owl:Class ;
-                        rdfs:subClassOf :ChemicalStructureEntityLabel ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
-                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                          owl:onClass :StructureName
-                                        ] ;
-                        <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
-                        <http://purl.org/dc/terms/identifier> "dataset:structurelabel"^^xsd:string ;
-                        rdfs:comment "A label of a chemical structure" ;
-                        rdfs:label "Structure Label" ;
-                        <http://www.w3.org/2004/02/skos/core#altLabel> "structurelabel" .
 
 
 ###  http://www.esblurock.info/dataset#ChemicalTextInformation
@@ -7042,6 +6820,21 @@ Under the general type of is the actual data object referenced by the ChemConnec
                   rdfs:subClassOf :ChemConnectPrimitiveDataStructure .
 
 
+###  http://www.esblurock.info/dataset#Frequency
+:Frequency rdf:type owl:Class ;
+           rdfs:subClassOf :ChemConnectValueParameter ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
+                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                             owl:onClass <http://qudt.org/schema/qudt#FrequencyUnit>
+                           ] ;
+           <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
+           <http://purl.org/dc/terms/identifier> "dataset:frequency"^^xsd:string ;
+           rdfs:comment "frequency parameter"^^xsd:string ;
+           rdfs:label "Frequency"^^xsd:string ;
+           <http://www.w3.org/2004/02/skos/core#altLabel> "frequency"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#FuelCellPowerGenerator
 :FuelCellPowerGenerator rdf:type owl:Class ;
                         rdfs:subClassOf :PowerGenerators .
@@ -8933,6 +8726,570 @@ Under the general type of is the actual data object referenced by the ChemConnec
                             rdfs:subClassOf :InstrumentationConcept .
 
 
+###  http://www.esblurock.info/dataset#JThermodynamicBensonEntityLabel
+:JThermodynamicBensonEntityLabel rdf:type owl:Class ;
+                                 rdfs:subClassOf :ChemConnectElementPrimitive ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://purl.org/linked-data/cube#concept> ;
+                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                   owl:onClass :ChemConnectConceptBensonRuleDefinition
+                                                 ] ;
+                                 <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
+                                 <http://purl.org/dc/terms/identifier> "dataset:thermoentity"^^xsd:string ;
+                                 rdfs:comment "Entities regarding and describing thermodynamic" ;
+                                 rdfs:label "Thermodynamic Entity" ;
+                                 <http://www.w3.org/2004/02/skos/core#altLabel> "thermoentity" .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamics2DAtomNodeStructure
+:JThermodynamics2DAtomNodeStructure rdf:type owl:Class ;
+                                    rdfs:subClassOf :ChemConnectElementPrimitive ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://purl.org/linked-data/cube#concept> ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :ChemConnectConcept2DMoleculeDefinition
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :Structure2DGraphicalAtomNodeLabel
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :hasPurpose ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :Purpose2DAtomStructureDefinition
+                                                    ] ;
+                                    <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
+                                    <http://purl.org/dc/terms/identifier> "dataset:2datomnode"^^xsd:string ;
+                                    rdfs:comment "The 2D graphical structure atom node" ;
+                                    rdfs:label "2D Atom Structure Node" ;
+                                    <http://www.w3.org/2004/02/skos/core#altLabel> "2datomnode" .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamics2DBondNodeA
+:JThermodynamics2DBondNodeA rdf:type owl:Class ;
+                            rdfs:subClassOf :JThermodynamics2DAtomNodeStructure ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty :hasPurpose ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :Purpose2DBondStructureDefinition
+                                            ] ;
+                            <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
+                            <http://purl.org/dc/terms/identifier> "dataset:bondnodea"^^xsd:string ;
+                            rdfs:comment "The atom node label of the first atom bond 2D graphical"^^xsd:string ;
+                            rdfs:label "Bond Node A"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "bondnodea"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamics2DBondNodeB
+:JThermodynamics2DBondNodeB rdf:type owl:Class ;
+                            rdfs:subClassOf :JThermodynamics2DAtomNodeStructure ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty :hasPurpose ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :Purpose2DBondStructureDefinition
+                                            ] ;
+                            <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
+                            <http://purl.org/dc/terms/identifier> "dataset:bondnodeb"^^xsd:string ;
+                            rdfs:comment "The atom node label of the second atom bond 2D graphical"^^xsd:string ;
+                            rdfs:label "Bond Node B"^^xsd:string ,
+                                       "bondnodeb"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamics2DBondStructure
+:JThermodynamics2DBondStructure rdf:type owl:Class ;
+                                rdfs:subClassOf :JThermodynamicsChemicalStructure ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://purl.org/linked-data/cube#concept> ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :ChemConnectConcept2DMoleculeDefinition
+                                                ] ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :JThermodynamics2DBondNodeA
+                                                ] ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :JThermodynamics2DBondNodeB
+                                                ] ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty :hasPurpose ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :Purpose2DBondStructureDefinition
+                                                ] ;
+                                <http://purl.org/dc/elements/1.1/type> :ChemConnectCompoundStructure ;
+                                <http://purl.org/dc/terms/identifier> "dataset:2dbond"^^xsd:string ;
+                                rdfs:comment "The 2D graphical structure bond structure"^^xsd:string ;
+                                rdfs:label "2D Bond"^^xsd:string ;
+                                <http://www.w3.org/2004/02/skos/core#altLabel> "2dbond"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamics2DGraphicalStructure
+:JThermodynamics2DGraphicalStructure rdf:type owl:Class ;
+                                     rdfs:subClassOf :JThermodynamicsChemicalStructure ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                       owl:someValuesFrom :JThermodynamics2DAtomNodeStructure
+                                                     ] ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                       owl:someValuesFrom :JThermodynamics2DBondStructure
+                                                     ] ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://purl.org/linked-data/cube#concept> ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :ChemConnectConcept2DMoleculeDefinition
+                                                     ] ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :JThermodynamicsMetaAtomEntity
+                                                     ] ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :hasPurpose ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :Purpose2DChemicalStructureDefinition
+                                                     ] ;
+                                     <http://purl.org/dc/elements/1.1/type> :ChemConnectCompoundStructure ;
+                                     <http://purl.org/dc/terms/identifier> "dataset:2dgraphicalstructure"^^xsd:string ;
+                                     rdfs:comment "2D Graphical Structure"^^xsd:string ;
+                                     rdfs:label "2D Graphical Structure"^^xsd:string ;
+                                     <http://www.w3.org/2004/02/skos/core#altLabel> "2dgraphicalstructure"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamics2DGraphicalSubStructure
+:JThermodynamics2DGraphicalSubStructure rdf:type owl:Class ;
+                                        rdfs:subClassOf :JThermodynamics2DGraphicalStructure ;
+                                        <http://purl.org/dc/elements/1.1/type> :ChemConnectCompoundStructure ;
+                                        <http://purl.org/dc/terms/identifier> "dataset:2dgraphicalsubstructure"^^xsd:string ;
+                                        rdfs:comment "The 2D graphical substructure"^^xsd:string ;
+                                        rdfs:label "2D graphical substructure"^^xsd:string ;
+                                        <http://www.w3.org/2004/02/skos/core#altLabel> "2dgraphicalsubstructure"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamics2DMetaAtomStructure
+:JThermodynamics2DMetaAtomStructure rdf:type owl:Class ;
+                                    rdfs:subClassOf :JThermodynamicsChemicalStructure ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://purl.org/linked-data/cube#concept> ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :ChemConnectConcept2DAtomDefinition
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :JThermodynamics2DGraphicalSubStructure
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :JThermodynamicsMetaAtomLabel
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :JThermodynamicsMetaAtomType
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :hasPurpose ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :Purpose2DAtomStructureDefinition
+                                                    ] ;
+                                    <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
+                                    <http://purl.org/dc/terms/identifier> "dataset:metaatom"^^xsd:string ;
+                                    rdfs:comment "The label of a Meta-Atom"^^xsd:string ;
+                                    rdfs:label "Meta AtomType"^^xsd:string ;
+                                    <http://www.w3.org/2004/02/skos/core#altLabel> "metaatom"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsBensonCenterAtom
+:JThermodynamicsBensonCenterAtom rdf:type owl:Class ;
+                                 rdfs:subClassOf :JThermodynamicBensonEntityLabel ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
+                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                   owl:onClass :Structure2DGraphicalAtomNodeLabel
+                                                 ] ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :hasPurpose ;
+                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                   owl:onClass :PurposeBensonRuleCenterAtom
+                                                 ] ;
+                                 <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
+                                 <http://purl.org/dc/terms/identifier> "dataset:centeratom" ;
+                                 rdfs:comment "The center atom of Benson rule. The center atom is an atom symbol or a meta-atom." ;
+                                 rdfs:label "Benson Atom Center" ;
+                                 <http://www.w3.org/2004/02/skos/core#altLabel> "bensoncenteratom" .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsBensonConnectingAtom
+:JThermodynamicsBensonConnectingAtom rdf:type owl:Class ;
+                                     rdfs:subClassOf :JThermodynamicBensonEntityLabel ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :Structure2DGraphicalAtomNodeLabel
+                                                     ] ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :hasPurpose ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :PurposeBensonRuleConnectingAtom
+                                                     ] ;
+                                     <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
+                                     <http://purl.org/dc/terms/identifier> "dataset:bensonconnectingatom"^^xsd:string ;
+                                     rdfs:comment "The connecting atom of the Benson rule definition" ;
+                                     rdfs:label "Benson Connecting Atom" ;
+                                     <http://www.w3.org/2004/02/skos/core#altLabel> "bensonconnectingatom" .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsBensonRuleStructure
+:JThermodynamicsBensonRuleStructure rdf:type owl:Class ;
+                                    rdfs:subClassOf :JThermodynamicsChemicalStructure ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://purl.org/linked-data/cube#concept> ;
+                                                      owl:someValuesFrom :ChemConnectConceptBensonRuleDefinition
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                      owl:someValuesFrom :JThermodynamicsBensonConnectingAtom
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :JThermodynamicsBensonCenterAtom
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :hasPurpose ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :PurposeBensonRuleDefinition
+                                                    ] ;
+                                    <http://purl.org/dc/elements/1.1/type> :ChemConnectCompoundStructure ;
+                                    <http://purl.org/dc/terms/identifier> "dataset:bensonrule"^^xsd:string ;
+                                    rdfs:comment "The Benson Rule structure defining the center atom and the connecting atoms"^^xsd:string ;
+                                    rdfs:label "Benson Rule"^^xsd:string ;
+                                    <http://www.w3.org/2004/02/skos/core#altLabel> "bensonrule"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsChemicalStructure
+:JThermodynamicsChemicalStructure rdf:type owl:Class ;
+                                  rdfs:subClassOf :ChemConnectElementCompound ;
+                                  <http://purl.org/dc/elements/1.1/type> :ChemConnectCompoundStructure ;
+                                  <http://purl.org/dc/terms/identifier> "dataset:chemstructure"^^xsd:string ;
+                                  rdfs:comment "A chemical structure entity within JThermodynamics"^^xsd:string ;
+                                  rdfs:label "Chemical Structure"^^xsd:string ;
+                                  <http://www.w3.org/2004/02/skos/core#altLabel> "chemstructure"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsDisassociationEnergy
+:JThermodynamicsDisassociationEnergy rdf:type owl:Class ;
+                                     rdfs:subClassOf :ChemConnectElementCompound ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :JThermodynamics2DGraphicalSubStructure
+                                                     ] ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :JThermodynamicsDisassociationEnergyValue
+                                                     ] ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :hasPurpose ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :ChemConnectConceptThermodynamics
+                                                     ] ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :hasPurpose ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :ThermodynamicDisassociationEnergy
+                                                     ] ;
+                                     <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
+                                     <http://purl.org/dc/terms/identifier> "dataset:disassociation"^^xsd:string ;
+                                     rdfs:comment "This is the disassociation energy of a hydrogen from a substructure. The substructure is a radical. From the set of disassociation energies, the 'best',usually defined as the largest (number of atoms), structure matched to the radical in question and the associated disassociation energy is assigned."^^xsd:string ;
+                                     rdfs:label "Disassociation Energy"^^xsd:string ;
+                                     <http://www.w3.org/2004/02/skos/core#altLabel> "disassociation"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsDisassociationEnergyValue
+:JThermodynamicsDisassociationEnergyValue rdf:type owl:Class ;
+                                          rdfs:subClassOf :ChemConnectMolarUnitEnergy ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://purl.org/linked-data/cube#concept> ;
+                                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass :ChemConnectConceptThermodynamics
+                                                          ] ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
+                                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass <http://qudt.org/schema/qudt#MolarEnergyUnit>
+                                                          ] ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :hasPurpose ;
+                                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass :ThermodynamicDisassociationEnergy
+                                                          ] ;
+                                          <http://purl.org/dc/elements/1.1/type> "ValueAsString"^^xsd:string ;
+                                          <http://purl.org/dc/terms/identifier> "dataset:disassociationenergy"^^xsd:string ;
+                                          rdfs:comment "The hydrogen disassociation energy associated with a structure"^^xsd:string ;
+                                          rdfs:label "Disassociation Energy"^^xsd:string ;
+                                          <http://www.w3.org/2004/02/skos/core#altLabel> "disassociationenergy"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsMetaAtomEntity
+:JThermodynamicsMetaAtomEntity rdf:type owl:Class ;
+                               rdfs:subClassOf :ChemConnectElementPrimitive ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://purl.org/linked-data/cube#concept> ;
+                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onClass :ChemConnectSubstructureDefinition
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
+                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onClass :StructureName
+                                               ] ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty :hasPurpose ;
+                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onClass :Purpose2DChemicalStructureDefinition
+                                               ] ;
+                               <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
+                               <http://purl.org/dc/terms/identifier> "dataset:structurelabel"^^xsd:string ;
+                               rdfs:comment "A label of a chemical structure" ;
+                               rdfs:label "Structure Label" ;
+                               <http://www.w3.org/2004/02/skos/core#altLabel> "structurelabel" .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsMetaAtomLabel
+:JThermodynamicsMetaAtomLabel rdf:type owl:Class ;
+                              rdfs:subClassOf :JThermodynamicsMetaAtomEntity ;
+                              <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
+                              <http://purl.org/dc/terms/identifier> "dataset:metaatomlabel"^^xsd:string ;
+                              rdfs:comment "The label to be substituted for the meta atom"^^xsd:string ;
+                              rdfs:label "Meta Atom Label"^^xsd:string ;
+                              <http://www.w3.org/2004/02/skos/core#altLabel> "metaatomlabel"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsMetaAtomType
+:JThermodynamicsMetaAtomType rdf:type owl:Class ;
+                             rdfs:subClassOf :JThermodynamicsMetaAtomEntity ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
+                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                               owl:onClass :MetaAtomDefinitionClassification
+                                             ] ;
+                             <http://purl.org/dc/elements/1.1/type> "Classification"^^xsd:string ;
+                             <http://purl.org/dc/terms/identifier> "dataset:metaatomtype"^^xsd:string ;
+                             rdfs:comment "The meta atom type"^^xsd:string ;
+                             rdfs:label "Meta-Atom Type"^^xsd:string ;
+                             <http://www.w3.org/2004/02/skos/core#altLabel> "metaatomtype"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsNodeLabel
+:JThermodynamicsNodeLabel rdf:type owl:Class ;
+                          rdfs:subClassOf :JThermodynamics2DAtomNodeStructure ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty :hasPurpose ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onClass :Purpose2DAtomStructureDefinition
+                                          ] ;
+                          <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
+                          <http://purl.org/dc/terms/identifier> "dataset:nodelabel"^^xsd:string ;
+                          rdfs:comment "The label within a 2D structure of a node"^^xsd:string ;
+                          rdfs:label "Structure Node Label"^^xsd:string ;
+                          <http://www.w3.org/2004/02/skos/core#altLabel> "nodelabel"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsSymmetryDefinition
+:JThermodynamicsSymmetryDefinition rdf:type owl:Class ;
+                                   rdfs:subClassOf :ChemConnectElementPrimitive ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://purl.org/linked-data/cube#concept> ;
+                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                     owl:onClass :ChemConnectConceptSymmetryDefinition
+                                                   ] ;
+                                   <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
+                                   <http://purl.org/dc/terms/identifier> "dataset:symmetrydefinition"^^xsd:string ;
+                                   rdfs:comment "The definition of the symmetry group relative to the structure"^^xsd:string ;
+                                   rdfs:label "Symmetry Definition Label"^^xsd:string ;
+                                   <http://www.w3.org/2004/02/skos/core#altLabel> "symmetrydefinition"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsSymmetryDefinitionNodeLabel
+:JThermodynamicsSymmetryDefinitionNodeLabel rdf:type owl:Class ;
+                                            rdfs:subClassOf :JThermodynamicsSymmetryDefinition ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
+                                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                              owl:onClass :Structure2DGraphicalAtomNodeLabel
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :hasPurpose ;
+                                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                              owl:onClass :Purpose2DAtomStructureDefinition
+                                                            ] ;
+                                            <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
+                                            <http://purl.org/dc/terms/identifier> "dataset:symnodelabel"^^xsd:string ;
+                                            rdfs:comment "The label of the node of the symmetry definition"^^xsd:string ;
+                                            rdfs:label "Symmetry Node Label"^^xsd:string ;
+                                            <http://www.w3.org/2004/02/skos/core#altLabel> "symnodelabel"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsSymmetryDefinitionNodeType
+:JThermodynamicsSymmetryDefinitionNodeType rdf:type owl:Class ;
+                                           rdfs:subClassOf :JThermodynamicsSymmetryDefinition ,
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
+                                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                             owl:onClass :SymmetryNodeDefinitionClassification
+                                                           ] ,
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :hasPurpose ;
+                                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                             owl:onClass :Purpose2DAtomStructureDefinition
+                                                           ] ;
+                                           <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
+                                           <http://purl.org/dc/terms/identifier> "symdefinitiontype"^^xsd:string ;
+                                           rdfs:comment "The symmetry definition node type"^^xsd:string ;
+                                           rdfs:label "Symmetry Node Type"^^xsd:string ;
+                                           <http://www.w3.org/2004/02/skos/core#altLabel> "symdefinitiontype"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsSymmetryDefinitionSubGroupLabel
+:JThermodynamicsSymmetryDefinitionSubGroupLabel rdf:type owl:Class ;
+                                                rdfs:subClassOf :JThermodynamicsSymmetryDefinition ,
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
+                                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                  owl:onClass :StructureName
+                                                                ] ,
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty :hasPurpose ;
+                                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                  owl:onClass :Purpose2DAtomStructureDefinition
+                                                                ] ;
+                                                <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
+                                                <http://purl.org/dc/terms/identifier> "dataset:symgrouplabel"^^xsd:string ;
+                                                rdfs:comment "The label of the symmetry definition subgroup"^^xsd:string ;
+                                                rdfs:label "Symmetry Definition Subgroup label"^^xsd:string ;
+                                                <http://www.w3.org/2004/02/skos/core#altLabel> "symgrouplabel"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsSymmetryNodeGroupDefinition
+:JThermodynamicsSymmetryNodeGroupDefinition rdf:type owl:Class ;
+                                            rdfs:subClassOf :JThermodynamicsSymmetrySpecifications ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                              owl:someValuesFrom :JThermodynamicsSymmetryDefinitionNodeLabel
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                              owl:onClass :JThermodynamicsSymmetryDefinitionNodeType
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                              owl:onClass :JThermodynamicsSymmetryDefinitionSubGroupLabel
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :hasPurpose ;
+                                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                              owl:onClass :Purpose2DAtomStructureDefinition
+                                                            ] ;
+                                            <http://purl.org/dc/elements/1.1/type> "ChemConnectCompoundStructure"^^xsd:string ;
+                                            <http://purl.org/dc/terms/identifier> "dataset:nodegroupdefinition"^^xsd:string ;
+                                            rdfs:comment "Within the symmetry definition, this is a group of nodes that should have the same symmetry property."^^xsd:string ;
+                                            rdfs:label "Node Group Definition"^^xsd:string ;
+                                            <http://www.w3.org/2004/02/skos/core#altLabel> "nodegroupdefinition"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsSymmetrySpecifications
+:JThermodynamicsSymmetrySpecifications rdf:type owl:Class ;
+                                       rdfs:subClassOf :ChemConnectElementCompound ,
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty <http://purl.org/linked-data/cube#concept> ;
+                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                         owl:onClass :ChemConnectConceptSymmetryDefinition
+                                                       ] ;
+                                       <http://purl.org/dc/elements/1.1/type> "ChemConnectCompoundStructure"^^xsd:string ;
+                                       <http://purl.org/dc/terms/identifier> "dataset:symmetrydefinition"^^xsd:string ;
+                                       rdfs:comment "The symmetry definition entities"^^xsd:string ;
+                                       rdfs:label "Symmetry Definition"^^xsd:string ;
+                                       <http://www.w3.org/2004/02/skos/core#altLabel> "symmetrydefinition"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsSymmetryStructureDefinition
+:JThermodynamicsSymmetryStructureDefinition rdf:type owl:Class ;
+                                            rdfs:subClassOf :JThermodynamicsSymmetrySpecifications ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                              owl:someValuesFrom :JThermodynamicsSymmetryNodeGroupDefinition
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                              owl:onClass :JThermodynamicsSymmetryDefinition
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty :hasPurpose ;
+                                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                              owl:onClass :Purpose2DChemicalStructureDefinition
+                                                            ] ;
+                                            <http://purl.org/dc/elements/1.1/type> "ChemConnectCompoundStructure"^^xsd:string ;
+                                            <http://purl.org/dc/terms/identifier> "dataset:symmetrystructuredefinition"^^xsd:string ;
+                                            rdfs:comment "This defines the complete symmetry description relative to a structure"^^xsd:string ;
+                                            rdfs:label "Symmetry Structure Definition"^^xsd:string ;
+                                            <http://www.w3.org/2004/02/skos/core#altLabel> "symmetrystructuredefinition"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsThermodynamicParameter
+:JThermodynamicsThermodynamicParameter rdf:type owl:Class ;
+                                       rdfs:subClassOf :ChemConnectElementCompound ;
+                                       <http://purl.org/dc/elements/1.1/type> :ChemConnectCompoundStructure ;
+                                       <http://purl.org/dc/terms/identifier> "database:thermoparam"^^xsd:string ;
+                                       rdfs:comment "The thermodynamic parameter"^^xsd:string ;
+                                       rdfs:label "Thermodynamic Parameter"^^xsd:string ;
+                                       <http://www.w3.org/2004/02/skos/core#altLabel> "thermoparam"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsVibrationalStructure
+:JThermodynamicsVibrationalStructure rdf:type owl:Class ;
+                                     rdfs:subClassOf :ChemConnectElementCompound ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :JThermodynamics2DGraphicalSubStructure
+                                                     ] ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :StructureVibrationalFrequency
+                                                     ] ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :StructureVibrationalFrequencySymmetry
+                                                     ] ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :hasPurpose ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :ChemConnectSubstructureDefinition
+                                                     ] ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :hasPurpose ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :StructureVibrationalFrequency
+                                                     ] ;
+                                     <http://purl.org/dc/elements/1.1/type> "ChemConnectCompoundStructure"^^xsd:string ;
+                                     <http://purl.org/dc/terms/identifier> "dataset:vibrationalstructure"^^xsd:string ;
+                                     rdfs:comment "The definition of the vibrational frequency of a structure. The vibrational frequency associated with the total oscillation modes of the atoms within the structure. These assigned frequencies are normal and partial bond bending and stretching motions (see Table A.13 in Benson's Thermochemical Kinetics book). This is the symmetry factor associated with the structure. The absolute value reflects how many modes the structure has. The sign of the factor reflects whether the harmonic oscillator values derived from the frequency should be added or subtracted. The final contribution reflects the loss of harmonic oscillators with respect to the loss of hydrogen producing a radical."^^xsd:string ;
+                                     rdfs:label "Vibrational Structure"^^xsd:string ;
+                                     <http://www.w3.org/2004/02/skos/core#altLabel> "vibrationstructure"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#KeywordParameter
 :KeywordParameter rdf:type owl:Class ;
                   rdfs:subClassOf :ChemConnectValueParameter ;
@@ -10084,6 +10441,42 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                          rdfs:subClassOf :MeasurementFromSubSystem .
 
 
+###  http://www.esblurock.info/dataset#MetaAtomDefinitionClassification
+:MetaAtomDefinitionClassification rdf:type owl:Class ;
+                                  rdfs:subClassOf :ClassificationUnit ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://purl.org/linked-data/cube#concept> ;
+                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                    owl:onClass :MetaAtomTypeChoices
+                                                  ] .
+
+
+###  http://www.esblurock.info/dataset#MetaAtomTypeBensonAtom
+:MetaAtomTypeBensonAtom rdf:type owl:Class ;
+                        rdfs:subClassOf :MetaAtomTypeChoices ;
+                        rdfs:comment "A meta-atom definition used with Benson rule atom symbol"^^xsd:string ;
+                        rdfs:label "Benson Atom"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#MetaAtomTypeChoices
+:MetaAtomTypeChoices rdf:type owl:Class ;
+                     rdfs:subClassOf :ChemConnectClassifications .
+
+
+###  http://www.esblurock.info/dataset#MetaAtomTypeLinearStructure
+:MetaAtomTypeLinearStructure rdf:type owl:Class ;
+                             rdfs:subClassOf :MetaAtomTypeChoices ;
+                             rdfs:comment "A linear meta atom definition for use when identifying a complete linear component of a structure"^^xsd:string ;
+                             rdfs:label "Linear Structure"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#MetaAtomTypeNancyLinearForm
+:MetaAtomTypeNancyLinearForm rdf:type owl:Class ;
+                             rdfs:subClassOf :MetaAtomTypeChoices ;
+                             rdfs:comment "The meta atom definition for a symbol within the nancy linear form"^^xsd:string ;
+                             rdfs:label "Nancy Linear Form"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#MethodologyInstrumentCalibrationLink
 :MethodologyInstrumentCalibrationLink rdf:type owl:Class ;
                                       rdfs:subClassOf :MethodologyLinkCalibration ,
@@ -10205,14 +10598,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
                               <http://www.w3.org/2004/02/skos/core#altLabel> "conc"^^xsd:string .
 
 
-###  http://www.esblurock.info/dataset#MolarEnthalpyUnit
-:MolarEnthalpyUnit rdf:type owl:Class ;
-                   rdfs:subClassOf <http://qudt.org/schema/qudt#ThermodynamicsUnit> .
-
-
-###  http://www.esblurock.info/dataset#MolarEntropyUnit
-:MolarEntropyUnit rdf:type owl:Class ;
-                  rdfs:subClassOf <http://qudt.org/schema/qudt#ThermodynamicsUnit> .
+###  http://www.esblurock.info/dataset#MolarEntropyHeatCapacityUnit
+:MolarEntropyHeatCapacityUnit rdf:type owl:Class ;
+                              rdfs:subClassOf <http://qudt.org/schema/qudt#ChemistryUnit> .
 
 
 ###  http://www.esblurock.info/dataset#MoleFractionComposition
@@ -10249,7 +10637,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#MolecularBeamEnergyRange
 :MolecularBeamEnergyRange rdf:type owl:Class ;
-                          rdfs:subClassOf :ChemConnectEnergy .
+                          rdfs:subClassOf :ChemConnectThermalEnergy .
 
 
 ###  http://www.esblurock.info/dataset#MolecularBeamIonizingParticle
@@ -10259,7 +10647,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#MolecularBeamResolution
 :MolecularBeamResolution rdf:type owl:Class ;
-                         rdfs:subClassOf :ChemConnectEnergy .
+                         rdfs:subClassOf :ChemConnectThermalEnergy .
 
 
 ###  http://www.esblurock.info/dataset#MolecularBeamSamplingProbe
@@ -13406,7 +13794,8 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ShortStringAsNumericValue
 :ShortStringAsNumericValue rdf:type owl:Class ;
-                           rdfs:subClassOf :ShortStringAsNumber .
+                           rdfs:subClassOf :ShortStringAsNumber ;
+                           rdfs:comment "ValueAsString"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ShortStringLabel
@@ -13953,7 +14342,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#StandardEntropyOfStructure
 :StandardEntropyOfStructure rdf:type owl:Class ;
                             rdfs:subClassOf :ThermodynamicEntropySpecification ;
-                            rdfs:comment "Entropy of structure at 298 K" .
+                            <http://purl.org/dc/elements/1.1/type> "ValueAsString"^^xsd:string ;
+                            <http://purl.org/dc/terms/identifier> "dataset:standardentropy"^^xsd:string ;
+                            rdfs:comment "Molar entropy of structure at 298 K" ;
+                            rdfs:label "Standard Molar Entropy"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "standardentropy"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#StandardUser
@@ -14025,7 +14418,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#Structure2DGraphicalAtomNodeLabel
 :Structure2DGraphicalAtomNodeLabel rdf:type owl:Class ;
-                                   rdfs:subClassOf :KeywordUnit .
+                                   rdfs:subClassOf :StructureName .
 
 
 ###  http://www.esblurock.info/dataset#StructureBensonRule
@@ -14073,6 +14466,26 @@ Under the general type of is the actual data object referenced by the ChemConnec
                            rdfs:subClassOf :StructureTypeChoices ;
                            rdfs:comment "A meta-atom" ;
                            rdfs:label "Meta Atom Node" .
+
+
+###  http://www.esblurock.info/dataset#StructureVibrationalFrequency
+:StructureVibrationalFrequency rdf:type owl:Class ;
+                               rdfs:subClassOf :Frequency ;
+                               <http://purl.org/dc/elements/1.1/type> "ValueAsString"^^xsd:string ;
+                               <http://purl.org/dc/terms/identifier> "dataset:vibrationalfrequency"^^xsd:string ;
+                               rdfs:comment "The vibrational frequency associated with the total oscillation modes of the atoms within the structure. These assigned frequencies are normal and partial bond bending and stretching motions (see Table A.13 in Benson's Thermochemical Kinetics book)"^^xsd:string ;
+                               rdfs:label "Vibrational Frequency"^^xsd:string ;
+                               <http://www.w3.org/2004/02/skos/core#altLabel> "vibrationalfrequency"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#StructureVibrationalFrequencySymmetry
+:StructureVibrationalFrequencySymmetry rdf:type owl:Class ;
+                                       rdfs:subClassOf :Frequency ;
+                                       <http://purl.org/dc/elements/1.1/type> "ValueAsString"^^xsd:string ;
+                                       <http://purl.org/dc/terms/identifier> "dataset:vibrationsymmetry"^^xsd:string ;
+                                       rdfs:comment "This is the symmetry factor associated with the structure. The absolute value reflects how many modes the structure has. The sign of the factor reflects whether the harmonic oscillator values derived from the frequency should be added or subtracted. The final contribution reflects the loss of harmonic oscillators with respect to the loss of hydrogen producing a radical."^^xsd:string ;
+                                       rdfs:label "Vibrational Symmetry"^^xsd:string ;
+                                       <http://www.w3.org/2004/02/skos/core#altLabel> "vibrationsymmetry"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#SubOrganizationOf
@@ -14143,6 +14556,56 @@ Under the general type of is the actual data object referenced by the ChemConnec
              rdfs:subClassOf :GraphicConcept ;
              rdfs:comment "This a a (3D) plot of a surface" ;
              rdfs:label "Surface Plot" .
+
+
+###  http://www.esblurock.info/dataset#SymmetryNodeDefinitionChoices
+:SymmetryNodeDefinitionChoices rdf:type owl:Class ;
+                               rdfs:subClassOf :ChemConnectClassifications .
+
+
+###  http://www.esblurock.info/dataset#SymmetryNodeDefinitionClassification
+:SymmetryNodeDefinitionClassification rdf:type owl:Class ;
+                                      rdfs:subClassOf :ClassificationUnit ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty <http://purl.org/linked-data/cube#concept> ;
+                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                        owl:onClass :SymmetryNodeDefinitionChoices
+                                                      ] .
+
+
+###  http://www.esblurock.info/dataset#SymmetryNodeType2
+:SymmetryNodeType2 rdf:type owl:Class ;
+                   rdfs:subClassOf :SymmetryNodeDefinitionChoices ;
+                   rdfs:comment "The symmetry of the group is 2"^^xsd:string ;
+                   rdfs:label "2"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#SymmetryNodeType3
+:SymmetryNodeType3 rdf:type owl:Class ;
+                   rdfs:subClassOf :SymmetryNodeDefinitionChoices ;
+                   rdfs:comment "The symmetry of the node is 3"^^xsd:string ;
+                   rdfs:label "3"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#SymmetryNodeTypeL
+:SymmetryNodeTypeL rdf:type owl:Class ;
+                   rdfs:subClassOf :SymmetryNodeDefinitionChoices ;
+                   rdfs:comment "The symmetry of the group is linear"^^xsd:string ;
+                   rdfs:label "L"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#SymmetryNodeTypeN
+:SymmetryNodeTypeN rdf:type owl:Class ;
+                   rdfs:subClassOf :SymmetryNodeDefinitionChoices ;
+                   rdfs:comment "The symmetry of the group is not specified"^^xsd:string ;
+                   rdfs:label "N"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#SymmetryNodeTypeX
+:SymmetryNodeTypeX rdf:type owl:Class ;
+                   rdfs:subClassOf :SymmetryNodeDefinitionChoices ;
+                   rdfs:comment "The symmetry of the group is not specified"^^xsd:string ;
+                   rdfs:label "X"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#TabDelimited
@@ -14447,7 +14910,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ThermodynamicBensonSpecification
 :ThermodynamicBensonSpecification rdf:type owl:Class ;
-                                  rdfs:subClassOf :ChemConnectThermodynamicParameter ,
+                                  rdfs:subClassOf :JThermodynamicsThermodynamicParameter ,
                                                   [ rdf:type owl:Restriction ;
                                                     owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
                                                     owl:someValuesFrom :ThermodynamicCpAtTemperature
@@ -14456,6 +14919,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                     owl:onProperty <http://purl.org/linked-data/cube#concept> ;
                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                     owl:onClass :ChemConnectConceptBensonRuleDefinition
+                                                  ] ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
+                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                    owl:onClass :JThermodynamicsBensonRuleStructure
                                                   ] ,
                                                   [ rdf:type owl:Restriction ;
                                                     owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
@@ -14486,7 +14954,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ThermodynamicCpAtTemperature
 :ThermodynamicCpAtTemperature rdf:type owl:Class ;
-                              rdfs:subClassOf :ChemConnectThermodynamicParameter ,
+                              rdfs:subClassOf :JThermodynamicsThermodynamicParameter ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty <http://purl.org/linked-data/cube#concept> ;
+                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                owl:onClass :ChemConnectConceptBensonRuleDefinition
+                                              ] ,
                                               [ rdf:type owl:Restriction ;
                                                 owl:onProperty <http://purl.org/linked-data/cube#dimension> ;
                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -14509,24 +14982,26 @@ Under the general type of is the actual data object referenced by the ChemConnec
                               <http://www.w3.org/2004/02/skos/core#altLabel> "cpattemp"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#ThermodynamicDisassociationEnergy
+:ThermodynamicDisassociationEnergy rdf:type owl:Class ;
+                                   rdfs:subClassOf :ThermodynamicsOfStructure .
+
+
 ###  http://www.esblurock.info/dataset#ThermodynamicEnthalpy
 :ThermodynamicEnthalpy rdf:type owl:Class ;
-                       rdfs:subClassOf :ThermodynamicParameter ,
+                       rdfs:subClassOf :ChemConnectMolarUnitEnergy ,
                                        [ rdf:type owl:Restriction ;
                                          owl:onProperty <http://purl.org/linked-data/cube#concept> ;
                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                          owl:onClass :ChemConnectConceptTemperatureDependentThermodynamics
                                        ] ,
                                        [ rdf:type owl:Restriction ;
-                                         owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
-                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                         owl:onClass :MolarEnthalpyUnit
-                                       ] ,
-                                       [ rdf:type owl:Restriction ;
                                          owl:onProperty :hasPurpose ;
                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                          owl:onClass :ThermodynamicEnthalpySpecification
                                        ] ;
+                       <http://purl.org/dc/elements/1.1/type> "ValueAsString"^^xsd:string ;
+                       <http://purl.org/dc/terms/identifier> "dataset:enthalpy"^^xsd:string ;
                        rdfs:comment "Enthalpy value in a thermodynamic definition"^^xsd:string ;
                        rdfs:label "Enthalpy"^^xsd:string ;
                        <http://www.w3.org/2004/02/skos/core#altLabel> "enthalpy"^^xsd:string .
@@ -14535,16 +15010,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#ThermodynamicEnthalpySpecification
 :ThermodynamicEnthalpySpecification rdf:type owl:Class ;
                                     rdfs:subClassOf :ThermodynamicsOfStructure .
-
-
-###  http://www.esblurock.info/dataset#ThermodynamicEntityLabel
-:ThermodynamicEntityLabel rdf:type owl:Class ;
-                          rdfs:subClassOf :KeywordParameter ;
-                          <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
-                          <http://purl.org/dc/terms/identifier> "dataset:thermoentity"^^xsd:string ;
-                          rdfs:comment "Entities regarding and describing thermodynamic" ;
-                          rdfs:label "Thermodynamic Entity" ;
-                          <http://www.w3.org/2004/02/skos/core#altLabel> "thermoentity" .
 
 
 ###  http://www.esblurock.info/dataset#ThermodynamicEntropy
@@ -14558,13 +15023,15 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                       [ rdf:type owl:Restriction ;
                                         owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                        owl:onClass :MolarEntropyUnit
+                                        owl:onClass <http://qudt.org/schema/qudt#HeatCapacityAndEntropyUnit>
                                       ] ,
                                       [ rdf:type owl:Restriction ;
                                         owl:onProperty :hasPurpose ;
                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                         owl:onClass :ThermodynamicEntropySpecification
                                       ] ;
+                      <http://purl.org/dc/elements/1.1/type> "ValueAsString"^^xsd:string ;
+                      <http://purl.org/dc/terms/identifier> "entropy"^^xsd:string ;
                       rdfs:comment "The entropy of a thermodynamic structure"^^xsd:string ;
                       rdfs:label "Entropy"^^xsd:string ;
                       <http://www.w3.org/2004/02/skos/core#altLabel> "entropy"^^xsd:string .
@@ -14594,6 +15061,8 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                              owl:onClass :ThermodynamicHeatCapacitySpecification
                                            ] ;
+                           <http://purl.org/dc/elements/1.1/type> "ValueAsString"^^xsd:string ;
+                           <http://purl.org/dc/terms/identifier> "heatcapacity"^^xsd:string ;
                            rdfs:comment "The heat capacity of a thermodynamic structure, usually associated with a temperature"^^xsd:string ;
                            rdfs:label "Heat Capacity"^^xsd:string ;
                            <http://www.w3.org/2004/02/skos/core#altLabel> "heatcapacity"^^xsd:string .
@@ -14601,8 +15070,17 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ThermodynamicHeatCapacitySpecification
 :ThermodynamicHeatCapacitySpecification rdf:type owl:Class ;
-                                        rdfs:subClassOf :ThermodynamicsOfStructure ;
-                                        rdfs:comment "Heat Capacity of structure (associated with a temperature)" .
+                                        rdfs:subClassOf :ThermodynamicsOfStructure ,
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty <http://qudt.org/schema/qudt#unitSystem> ;
+                                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                          owl:onClass <http://qudt.org/schema/qudt#HeatCapacityAndEntropyUnit>
+                                                        ] ;
+                                        <http://purl.org/dc/elements/1.1/type> "ValueAsString"^^xsd:string ;
+                                        <http://purl.org/dc/terms/identifier> "dataset:heatcapacity"^^xsd:string ;
+                                        rdfs:comment "Heat Capacity of structure (associated with a temperature)" ;
+                                        rdfs:label "Heat Capacity at a temperature"^^xsd:string ;
+                                        <http://www.w3.org/2004/02/skos/core#altLabel> "heatcapacity"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ThermodynamicObservation
@@ -14622,7 +15100,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ThermodynamicParameter
 :ThermodynamicParameter rdf:type owl:Class ;
-                        rdfs:subClassOf :ChemConnectValueParameter ;
+                        rdfs:subClassOf :ChemConnectElementPrimitive ;
+                        <http://purl.org/dc/elements/1.1/type> "StringAsValue"^^xsd:string ;
+                        <http://purl.org/dc/terms/identifier> "thermoparam"^^xsd:string ;
                         rdfs:comment "A thermodynamic parameter"^^xsd:string ;
                         rdfs:label "Thermodynamic Parameter"^^xsd:string ;
                         <http://www.w3.org/2004/02/skos/core#altLabel> "thermoparam"^^xsd:string .
@@ -14644,13 +15124,15 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                [ rdf:type owl:Restriction ;
                                                  owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                 owl:onClass :MolarEnthalpyUnit
+                                                 owl:onClass <http://qudt.org/schema/qudt#MolarEnergyUnit>
                                                ] ,
                                                [ rdf:type owl:Restriction ;
                                                  owl:onProperty :hasPurpose ;
                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                  owl:onClass :StandardEnthalpyOfStructure
                                                ] ;
+                               <http://purl.org/dc/elements/1.1/type> "StringAsValue"^^xsd:string ;
+                               <http://purl.org/dc/terms/identifier> "dataset:stdenthalpy"^^xsd:string ;
                                rdfs:comment "The standard enthalpy of a thermodynamic structure"^^xsd:string ;
                                rdfs:label "Standard Enthalpy"^^xsd:string ;
                                <http://www.w3.org/2004/02/skos/core#altLabel> "stdenthalpy"^^xsd:string .
@@ -14660,20 +15142,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 :ThermodynamicStandardEntropy rdf:type owl:Class ;
                               rdfs:subClassOf :ThermodynamicEntropy ,
                                               [ rdf:type owl:Restriction ;
-                                                owl:onProperty <http://purl.org/linked-data/cube#concept> ;
-                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                owl:onClass :ChemConnectConceptTemperatureDependentThermodynamics
-                                              ] ,
-                                              [ rdf:type owl:Restriction ;
                                                 owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                owl:onClass :MolarEntropyUnit
-                                              ] ,
-                                              [ rdf:type owl:Restriction ;
-                                                owl:onProperty :hasPurpose ;
-                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                owl:onClass :StandardEntropyOfStructure
+                                                owl:onClass <http://qudt.org/schema/qudt#HeatCapacityAndEntropyUnit>
                                               ] ;
+                              <http://purl.org/dc/elements/1.1/type> "ValueAsString"^^xsd:string ;
+                              <http://purl.org/dc/terms/identifier> "dataset:stdentropy"^^xsd:string ;
                               rdfs:comment "The standard entropy, 298K, of a thermodynamic structure"^^xsd:string ;
                               rdfs:label "Standard Entropy"^^xsd:string ;
                               <http://www.w3.org/2004/02/skos/core#altLabel> "stdentropy"^^xsd:string .
@@ -15950,6 +16424,22 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 <http://purl.org/dc/terms/valid> rdf:type owl:NamedIndividual .
 
 
+###  http://qudt.org/vocab/unit#JoulePerMoleKelvin
+<http://qudt.org/vocab/unit#JoulePerMoleKelvin> rdf:type :MolarEntropyHeatCapacityUnit .
+
+
+###  http://qudt.org/vocab/unit#KilocaloriePerMole
+<http://qudt.org/vocab/unit#KilocaloriePerMole> <http://qudt.org/schema/qudt#conversionMultiplier> "4184"^^xsd:string ;
+                                                <http://qudt.org/schema/qudt#conversionOffset> 0.0 ;
+                                                <http://qudt.org/schema/qudt#symbol> "kcal/mol"^^xsd:string .
+
+
+###  http://qudt.org/vocab/unit#KilocaloriePerMoleDegreeCelsius
+<http://qudt.org/vocab/unit#KilocaloriePerMoleDegreeCelsius> rdf:type :MolarEntropyHeatCapacityUnit ;
+                                                             <http://qudt.org/schema/qudt#conversionMultiplier> "1"^^xsd:string ;
+                                                             <http://qudt.org/schema/qudt#conversionOffset> 0.0 .
+
+
 ###  http://www.esblurock.info/dataset
 <http://www.esblurock.info/dataset> rdf:type owl:NamedIndividual .
 
@@ -15962,6 +16452,16 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 ###  http://www.esblurock.info/dataset#AccessAll
 :AccessAll rdf:type owl:NamedIndividual .
+
+
+###  http://www.esblurock.info/dataset#CaloriesPerMolKelvin
+:CaloriesPerMolKelvin rdf:type owl:NamedIndividual ,
+                               :MolarEntropyHeatCapacityUnit ;
+                      <http://qudt.org/schema/qudt#quantityKind> <http://qudt.org/vocab/quantity#HeatCapacity> ;
+                      <http://qudt.org/schema/qudt#abbreviation> "cal/mol-K"^^xsd:string ;
+                      <http://qudt.org/schema/qudt#conversionMultiplier> "4.184"^^xsd:string ;
+                      <http://qudt.org/schema/qudt#conversionOffset> "0.0"^^xsd:double ;
+                      <http://qudt.org/schema/qudt#symbol> "cal/mol-K"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ConsortiumID
@@ -16100,6 +16600,16 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                   :KeywordUnit .
 
 
+###  http://www.esblurock.info/dataset#KiloCaloriesPerMolKelvin
+:KiloCaloriesPerMolKelvin rdf:type owl:NamedIndividual ,
+                                   :MolarEntropyHeatCapacityUnit ;
+                          <http://qudt.org/schema/qudt#quantityKind> <http://qudt.org/vocab/quantity#HeatCapacity> ;
+                          <http://qudt.org/schema/qudt#abbreviation> "kcal/molK"^^xsd:string ;
+                          <http://qudt.org/schema/qudt#conversionMultiplier> "4184.0"^^xsd:double ;
+                          <http://qudt.org/schema/qudt#conversionOffset> "0.0"^^xsd:double ;
+                          <http://qudt.org/schema/qudt#symbol> "kcal/molK"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#LiterPerSecond
 :LiterPerSecond rdf:type owl:NamedIndividual ,
                          <http://qudt.org/1.1/vocab/quantity#VolumePerTimeUnit> .
@@ -16212,6 +16722,27 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 ###  http://www.esblurock.info/dataset#UserTitle
 :UserTitle rdf:type owl:NamedIndividual .
+
+
+###  http://www.esblurock.info/dataset#caloriesPerMol
+:caloriesPerMol rdf:type owl:NamedIndividual ,
+                         <http://qudt.org/schema/qudt#MolarEnergyUnit> ;
+                <http://qudt.org/schema/qudt#quantityKind> <http://qudt.org/vocab/quantity#MolarEnergy> ;
+                <http://qudt.org/schema/qudt#abbreviation> "cal/mol"^^xsd:string ;
+                <http://qudt.org/schema/qudt#conversionMultiplier> "4.184"^^xsd:double ;
+                <http://qudt.org/schema/qudt#conversionOffset> "0.0"^^xsd:double ;
+                <http://qudt.org/schema/qudt#symbol> "cal/mol"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#cmMinus1
+:cmMinus1 rdf:type owl:NamedIndividual ,
+                   <http://qudt.org/schema/qudt#FrequencyUnit> ;
+          <http://qudt.org/schema/qudt#quantityKind> <http://qudt.org/vocab/quantity#Frequency> ;
+          <http://www.w3.org/2004/02/skos/core#exactMatch> <http://dbpedia.org/resource/Hertz> ;
+          <http://qudt.org/schema/qudt#abbreviation> "cm^-1"^^xsd:string ;
+          <http://qudt.org/schema/qudt#conversionMultiplier> "2.99792458E10"^^xsd:double ;
+          <http://qudt.org/schema/qudt#conversionOffset> "0.0"^^xsd:double ;
+          <http://qudt.org/schema/qudt#symbol> "cm^-1"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#familyName

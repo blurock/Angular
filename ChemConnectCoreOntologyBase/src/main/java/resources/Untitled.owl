@@ -446,8 +446,7 @@ qudt:conversionMultiplier rdf:type owl:DatatypeProperty ,
 ###  http://qudt.org/schema/qudt#conversionOffset
 qudt:conversionOffset rdf:type owl:DatatypeProperty ,
                                owl:FunctionalProperty ;
-                      rdfs:range xsd:double ;
-                      rdfs:label "conversion offset"^^xsd:string .
+                      rdfs:range xsd:double .
 
 
 ###  http://qudt.org/schema/qudt#currencyExponent
@@ -548,19 +547,19 @@ qudt:vectorMagnitude rdf:type owl:DatatypeProperty ,
 #    Classes
 #################################################################
 
-###  http://org.semanticweb.owlapi/error#Error26
-<http://org.semanticweb.owlapi/error#Error26> rdf:type owl:Class ;
-                                              owl:equivalentClass qudt:floatPercentage .
+###  http://org.semanticweb.owlapi/error#Error5
+<http://org.semanticweb.owlapi/error#Error5> rdf:type owl:Class ;
+                                             owl:equivalentClass qudt:floatPercentage .
 
 
-###  http://org.semanticweb.owlapi/error#Error27
-<http://org.semanticweb.owlapi/error#Error27> rdf:type owl:Class ;
-                                              owl:equivalentClass qudt:integerPercentage .
+###  http://org.semanticweb.owlapi/error#Error6
+<http://org.semanticweb.owlapi/error#Error6> rdf:type owl:Class ;
+                                             owl:equivalentClass qudt:integerPercentage .
 
 
-###  http://org.semanticweb.owlapi/error#Error28
-<http://org.semanticweb.owlapi/error#Error28> rdf:type owl:Class ;
-                                              owl:equivalentClass qudt:string1024 .
+###  http://org.semanticweb.owlapi/error#Error7
+<http://org.semanticweb.owlapi/error#Error7> rdf:type owl:Class ;
+                                             owl:equivalentClass qudt:string1024 .
 
 
 ###  http://qudt.org/schema/qudt#AbsorbedDoseRateUnit
