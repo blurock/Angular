@@ -24,7 +24,7 @@ public class SetupAltLabelList {
 		if(classification.startsWith("dataset:")) {
 			classification = classification.substring(8);
 		}
-		buf.append("public static ");
+		buf.append("public static String ");
 		buf.append(classification);
 		buf.append(" = ");
 		int csize = classification.length();

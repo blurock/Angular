@@ -1,0 +1,43 @@
+package info.esblurock.reaction.core.ontology.base.constants;
+
+public class AltLabelConstants {
+	public static String ChemConnectElementObject =                      "elementobject";
+	public static String ChemConnectElementCompound =                    "compoundelement";
+	public static String JThermodynamicsVibrationalStructure =           "vibrationstructure";
+	public static String JThermodynamicsDisassociationEnergy =           "disassociation";
+	public static String JThermodynamicsChemicalStructure =              "chemstructure";
+	public static String JThermodynamics2DBondStructure =                "2dbond";
+	public static String JThermodynamics2DMetaAtomStructure =            "metaatom";
+	public static String JThermodynamicsBensonRuleStructure =            "bensonrule";
+	public static String JThermodynamics2DGraphicalStructure =           "2dgraphicalstructure";
+	public static String JThermodynamics2DGraphicalSubStructure =        "2dgraphicalsubstructure";
+	public static String JThermodynamicsSymmetrySpecifications =         "symmetrydefinition";
+	public static String JThermodynamicsSymmetryNodeGroupDefinition =    "nodegroupdefinition";
+	public static String JThermodynamicsSymmetryStructureDefinition =    "symmetrystructuredefinition";
+	public static String JThermodynamicsThermodynamicParameter =         "thermoparam";
+	public static String ThermodynamicCpAtTemperature =                  "cpattemp";
+	public static String ThermodynamicBensonSpecification =              "bensonrule";
+	public static String ChemConnectElementPrimitive =                   "primitiveelement";
+	public static String JThermodynamicsSymmetryDefinition =             "symmetrydefinition";
+	public static String JThermodynamicsSymmetryDefinitionNodeLabel =    "symnodelabel";
+	public static String JThermodynamicsSymmetryDefinitionSubGroupLabel = "symgrouplabel";
+	public static String JThermodynamicsSymmetryDefinitionNodeType =     "symdefinitiontype";
+	public static String JThermodynamicBensonEntityLabel =               "thermoentity";
+	public static String JThermodynamicsBensonConnectingAtom =           "bensonconnectingatom";
+	public static String JThermodynamicsBensonCenterAtom =               "bensoncenteratom";
+	public static String JThermodynamics2DAtomNodeStructure =            "2datomnode";
+	public static String JThermodynamics2DBondNodeB =                    "";
+	public static String JThermodynamics2DBondNodeA =                    "bondnodea";
+	public static String JThermodynamicsNodeLabel =                      "nodelabel";
+	public static String JThermodynamicsMetaAtomEntity =                 "structurelabel";
+	public static String JThermodynamicsMetaAtomLabel =                  "metaatomlabel";
+	public static String JThermodynamicsMetaAtomType =                   "metaatomtype";
+	public static String ThermodynamicParameter =                        "thermoparam";
+	public static String ThermodynamicEntropy =                          "entropy";
+	public static String ThermodynamicStandardEntropy =                  "stdentropy";
+	public static String ThermodynamicHeatCapacity =                     "heatcapacity";
+	public static String ChemConnectMolarUnitEnergy =                    "molarenergy";
+	public static String ThermodynamicEnthalpy =                         "enthalpy";
+	public static String ThermodynamicStandardEnthalpy =                 "stdenthalpy";
+	public static String JThermodynamicsDisassociationEnergyValue =      "disassociationenergy";
+}
