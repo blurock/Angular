@@ -3,11 +3,11 @@ package info.esblurock.core.DataBaseObjects.catalogobjects;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
-import info.esblurock.core.DataBaseObjects.constants.SupplementaryConstants;
+import info.esblurock.reaction.core.ontology.base.constants.SupplementaryConstants;
 
 
 public class RecordArray extends BaseObjectJSONInterface  {
@@ -30,11 +30,11 @@ public class RecordArray extends BaseObjectJSONInterface  {
 	}
 
 	@Override
-	public JSONObject toJSONObject() {
-		JSONObject obj = new JSONObject();
-		JSONArray jarray = new JSONArray();
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
+		JsonArray jarray = new JsonArray();
 		for(BaseRecordObject subobj : array) {
-			JSONObject jobj = subobj.toJSONObject();
+			JsonObject jobj = subobj.toJsonObject();
 			jarray.put(jobj);
 		}
 		obj.put(SupplementaryConstants.type, multiplename);
@@ -43,13 +43,13 @@ public class RecordArray extends BaseObjectJSONInterface  {
 	}
 
 	@Override
-	public void fillJSONObject(JSONObject obj) {
+	public void fillJsonObject(JsonObject obj) {
 		this.multiplename = obj.getString(SupplementaryConstants.type);
-		JSONArray jarray = obj.getJSONArray(this.multiplename);
+		JsonArray jarray = obj.getJsonArray(this.multiplename);
 		for(int i=0 ; i < jarray.length() ; i++) {
-			JSONObject jobj = (JSONObject) jarray.get(i);
+			JsonObject jobj = (JsonObject) jarray.get(i);
 			BaseRecordObject rec = new BaseRecordObject();
-			rec.fillJSONObject(jobj);
+			rec.fillJsonObject(jobj);
 			array.add(rec);
 		}
 	}

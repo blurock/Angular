@@ -1,12 +1,15 @@
 package info.esblurock.core.DataBaseObjects.catalogandrecords;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
+import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 
 
 public class SetOfStandardOntologyCatalogElementHierarchy extends BaseObjectJSONInterface {
@@ -46,25 +49,26 @@ public class SetOfStandardOntologyCatalogElementHierarchy extends BaseObjectJSON
 		this.setOfCatalogElements = setOfCatalogElements;
 	}
 	@Override
-	public JSONObject toJSONObject() {
-		JSONObject obj = new JSONObject();
-		JSONArray arr = new JSONArray();
-		obj.put(setName, arr);
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty(AnnotationObjectsLabels.identifier, setName);
+		JsonArray arr = new JsonArray();
+		obj.add(setName, arr);
 		for(StandardOntologyCatalogElementHierarchy element : setOfCatalogElements) {
-			JSONObject elmobj = element.toJSONObject();
-			arr.put(elmobj);
+			JsonObject elmobj = element.toJsonObject();
+			arr.add(elmobj);
 		}
 		return obj;
 	}
 	@Override
-	public void fillJSONObject(JSONObject obj) {
-		String[] names = JSONObject.getNames(obj);
-		setName = names[0];
-		JSONArray arr = obj.getJSONArray(setName);
-		for(int i = 0 ; i < arr.length() ; i++) {
-			JSONObject element = (JSONObject) arr.get(i);
+	public void fillJsonObject(JsonObject obj) {
+		String setName = obj.get(AnnotationObjectsLabels.identifier).getAsString();
+		JsonArray arr = obj.get(setName).getAsJsonArray();
+		Iterator<JsonElement> iter = arr.iterator();
+		while(iter.hasNext()) {
+			JsonObject element = (JsonObject) iter.next();
 			StandardOntologyCatalogElementHierarchy hierarchy = new StandardOntologyCatalogElementHierarchy();
-			hierarchy.fillJSONObject(element);
+			hierarchy.fillJsonObject(element);
 			setOfCatalogElements.add(hierarchy);
 		}
 

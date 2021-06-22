@@ -1,9 +1,9 @@
 package info.esblurock.core.DataBaseObjects.catalogandrecords;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
-import info.esblurock.core.DataBaseObjects.constants.OntologyObjectLabels;
+import info.esblurock.reaction.core.ontology.base.constants.OntologyObjectLabels;
 
 
 public class BaseCatalogRecordElementInformation extends BaseObjectJSONInterface {
@@ -36,17 +36,17 @@ public class BaseCatalogRecordElementInformation extends BaseObjectJSONInterface
 		this.singlet = singlet;
 	}
 	@Override
-	public JSONObject toJSONObject() {
-		JSONObject obj = new JSONObject();
-		obj.put(OntologyObjectLabels.elementInformation, elementInformation);
-		obj.put(OntologyObjectLabels.singlet, singlet);
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty(OntologyObjectLabels.elementInformation, elementInformation);
+		obj.addProperty(OntologyObjectLabels.singlet, singlet);
 		return obj;
 	}
 
 	@Override
-	public void fillJSONObject(JSONObject obj) {
-		elementInformation = obj.getString(OntologyObjectLabels.elementInformation);
-		singlet = obj.getBoolean(OntologyObjectLabels.singlet);
+	public void fillJsonObject(JsonObject obj) {
+		elementInformation = obj.get(OntologyObjectLabels.elementInformation).getAsString();
+		singlet = obj.get(OntologyObjectLabels.singlet).getAsBoolean();
 	}
 	
 }

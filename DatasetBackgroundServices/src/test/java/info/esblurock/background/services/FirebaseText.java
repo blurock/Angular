@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 import org.junit.Test;
 
 import com.google.api.core.ApiFuture;
@@ -50,7 +50,7 @@ public class FirebaseText {
         String catalogname = "dataset:RepositoryFileStaging";
 		BaseAnnotationObjects hierarchy = 
 				DatasetOntologyParseBase.getAnnotationStructureFromIDObject(catalogname);
-		JSONObject json = hierarchy.toJSONObject();
+		JsonObject json = hierarchy.toJsonObject();
 		DocumentReference docRef2 = db.collection("users").document(catalogname);
 		System.out.println(json);
 		Map<String,Object> m = JSONToMap.ConvertJSONToMap(json);

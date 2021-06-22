@@ -1,4 +1,4 @@
-package info.esblurock.reaction.core.ontology.base;
+package info.esblurock.reaction.core.ontology.base.utilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.vocabulary.ReasonerVocabulary;
+
+import info.esblurock.reaction.core.ontology.base.OntologyBase;
 
 public class GenericSimpleQueries {
 

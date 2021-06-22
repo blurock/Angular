@@ -1,4 +1,4 @@
-package info.esblurock.core.DataBaseObjects.constants;
+package info.esblurock.reaction.core.ontology.base.constants;
 
 public class SupplementaryConstants {
 	public static String sourceID = "sourceID";

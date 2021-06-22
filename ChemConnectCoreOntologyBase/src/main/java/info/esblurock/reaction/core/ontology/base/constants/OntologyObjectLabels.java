@@ -1,4 +1,4 @@
-package info.esblurock.core.DataBaseObjects.constants;
+package info.esblurock.reaction.core.ontology.base.constants;
 
 public class OntologyObjectLabels {
 	public static String elementType = "elementType";

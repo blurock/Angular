@@ -4,8 +4,8 @@ import info.esblurock.core.DataBaseObjects.catalogandrecords.BaseCatalogRecordEl
 import info.esblurock.core.DataBaseObjects.catalogandrecords.SetOfBaseCatalogRecordElementInformation;
 import info.esblurock.core.DataBaseObjects.catalogandrecords.StandardOntologyCatalogElement;
 import info.esblurock.core.DataBaseObjects.catalogandrecords.StandardOntologyCatalogElementHierarchy;
-import info.esblurock.core.DataBaseObjects.constants.OntologyObjectLabels;
 import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
+import info.esblurock.reaction.core.ontology.base.constants.OntologyObjectLabels;
 
 public class GenerateCatalogObject {
 

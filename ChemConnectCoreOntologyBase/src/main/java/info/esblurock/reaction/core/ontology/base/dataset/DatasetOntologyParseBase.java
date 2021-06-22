@@ -4,26 +4,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import org.apache.jena.rdf.model.RDFNode;
-import org.json.JSONObject;
 
 import info.esblurock.reaction.core.ontology.base.OntologyBase;
-import info.esblurock.reaction.core.ontology.base.classification.DatabaseOntologyClassification;
-import info.esblurock.core.DataBaseObjects.catalogandrecords.SetOfBaseCatalogRecordElementInformation;
-import info.esblurock.core.DataBaseObjects.classifications.ClassificationHierarchy;
-import info.esblurock.core.DataBaseObjects.classifications.ClassificationTree;
-import info.esblurock.core.DataBaseObjects.constants.AnnotationObjectsLabels;
-import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
-import info.esblurock.core.DataBaseObjects.ontology.ExtendedAnnotationObjects;
+import info.esblurock.reaction.core.ontology.base.dataset.annotations.BaseAnnotationObjects;
 
 
-/**
- * @author edwardblurock
- *
- */
-/**
- * @author edwardblurock
- *
- */
 /**
  * @author edwardblurock
  *
@@ -50,7 +35,6 @@ public class DatasetOntologyParseBase {
 		List<Map<String, String>> stringlst = OntologyBase.resultmapToStrings(lst);
 		
 		BaseAnnotationObjects object = null;
-		ExtendedAnnotationObjects extobj = null;
 		if (stringlst.size() > 0) {
 			String idS = stringlst.get(0).get("id");
 			String typeS = stringlst.get(0).get("type");
@@ -58,20 +42,8 @@ public class DatasetOntologyParseBase {
 			String commentS = stringlst.get(0).get("comment");
 			String altlabelS = stringlst.get(0).get("altl");
 			object = new BaseAnnotationObjects(labelS, commentS, altlabelS, typeS, idS);
-			extobj = new ExtendedAnnotationObjects(object);
-			
-			String purpose = DatasetOntologyParseBase.getPurposeFromAnnotation(structure);
-			if(purpose.length() > 0) {
-				ClassificationHierarchy purposehier = DatabaseOntologyClassification.getClassificationHierarchy(purpose);
-				extobj.setPurposeObjects(purposehier);
 			}
-			String concept = DatasetOntologyParseBase.getConceptFromAnnotation(structure);
-			if(concept.length() > 0) {
-				ClassificationHierarchy concepthier = DatabaseOntologyClassification.getClassificationHierarchy(concept);
-				extobj.setConceptObjects(concepthier);
-			}
-		}
-		return extobj;
+		return object;
 	}
 	
 	static public BaseAnnotationObjects getAnnotationStructureFromIDObject(String structure) {
@@ -207,35 +179,5 @@ public class DatasetOntologyParseBase {
 
 	
 	
-	static public SetOfBaseCatalogRecordElementInformation parseElements(String classname, String label, String type) {
-		String query = "SELECT ?subject ?record ?cardinality\n" + 
-				"	WHERE { " + classname  + " rdfs:subClassOf ?object ."
-						+ "?object owl:onProperty " + type + " ."
-						+ "{?object owl:someValuesFrom ?record   }"
-						+ "UNION"
-						+ "{?object owl:onClass ?record . ?object owl:qualifiedCardinality ?cardinality}"
-						+ "}";
-		List<Map<String, RDFNode>> lst = OntologyBase.resultSetToMap(query);
-		List<Map<String, String>> stringlst = OntologyBase.resultmapToStrings(lst);
-		
-		SetOfBaseCatalogRecordElementInformation set = new SetOfBaseCatalogRecordElementInformation(label);
-
-		for(Map<String, String> map : stringlst) {
-			String elementType = map.get("record");
-			String cardinalityS = map.get("cardinality");
-			boolean singlet = true;
-			int cardinality = 0;
-			if (cardinalityS != null) {
-				cardinality = Integer.parseInt(cardinalityS);
-				if (cardinality > 1) {
-					singlet = false;
-				}
-			} else {
-				singlet = false;
-			}
-			set.addBaseCatalogRecordElementInformation(elementType,singlet);
-		}
-		return set;
-	}
 
 }

@@ -2,9 +2,9 @@ package info.esblurock.core.DataBaseObjects.catalogobjects;
 
 import java.util.Set;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
-import info.esblurock.core.DataBaseObjects.constants.SupplementaryConstants;
+import info.esblurock.reaction.core.ontology.base.constants.SupplementaryConstants;
 
 
 
@@ -44,8 +44,8 @@ public class BaseCatalogObject  extends BaseRecordObject {
 	
 
 	@Override
-	public JSONObject toJSONObject() {
-		JSONObject catobj = super.toJSONObject();
+	public JsonObject toJsonObject() {
+		JsonObject catobj = super.toJsonObject();
 		catobj.put(SupplementaryConstants.sourceID, this.sourceID);
 		catobj.put(SupplementaryConstants.date, this.creation);
 		catobj.put(SupplementaryConstants.access, this.access);
@@ -55,8 +55,8 @@ public class BaseCatalogObject  extends BaseRecordObject {
 	}
 
 	@Override
-	public void fillJSONObject(JSONObject obj) {
-		super.fillJSONObject(obj);
+	public void fillJsonObject(JsonObject obj) {
+		super.fillJsonObject(obj);
 		this.sourceID = (String) obj.get(SupplementaryConstants.sourceID);
 		obj.put(SupplementaryConstants.sourceID, (String) null);			
 		this.creation = (String) obj.get(SupplementaryConstants.date);

@@ -5,10 +5,10 @@ import static org.junit.Assert.*;
 import org.apache.jena.ontology.OntModel;
 import org.junit.Test;
 
-import info.esblurock.core.DataBaseObjects.constants.AnnotationObjectsLabels;
 import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
 import info.esblurock.core.ontologybase.OntologyBase;
 import info.esblurock.core.ontologybase.dataset.DatasetOntologyParseBase;
+import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 
 public class AnnotationTest {
 

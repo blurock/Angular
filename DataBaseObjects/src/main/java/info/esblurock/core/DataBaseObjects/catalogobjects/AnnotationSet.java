@@ -3,7 +3,7 @@ package info.esblurock.core.DataBaseObjects.catalogobjects;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
 import info.esblurock.core.DataBaseObjects.catalogandrecords.SetOfStandardOntologyCatalogElementHierarchy;
@@ -40,22 +40,22 @@ public class AnnotationSet extends BaseObjectJSONInterface {
 	}
 	
 	@Override
-	public JSONObject toJSONObject() {
-		JSONObject obj = new JSONObject();
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
 		for(BaseAnnotationObjects ann : annotations) {
-			JSONObject jann = ann.toJSONObject();
+			JsonObject jann = ann.toJsonObject();
 			obj.put(ann.getAltlabel(), jann);
 		}
 		return obj;
 	}
 
 	@Override
-	public void fillJSONObject(JSONObject obj) {
+	public void fillJsonObject(JsonObject obj) {
 		Set<String> keys = obj.keySet();
 		for(String key : keys) {
-			JSONObject jann = obj.getJSONObject(key);
+			JsonObject jann = obj.getJsonObject(key);
 			BaseAnnotationObjects ann = new BaseAnnotationObjects();
-			ann.fillJSONObject(jann);
+			ann.fillJsonObject(jann);
 			annotations.add(ann);
 		}
 		

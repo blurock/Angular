@@ -1,10 +1,10 @@
 package info.esblurock.core.DataBaseObjects.base;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 public abstract class BaseObjectInterface {
-	public abstract JSONObject toJSONObject();
-	public abstract void fillJSONObject(JSONObject obj);
+	public abstract JsonObject toJsonObject();
+	public abstract void fillJsonObject(JsonObject obj);
 	
 	@Override
 	public String toString() {

@@ -1,9 +1,9 @@
 package info.esblurock.core.DataBaseObjects.ontology;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
-import info.esblurock.core.DataBaseObjects.constants.AnnotationObjectsLabels;
+import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 
 public class BaseAnnotationObjects extends BaseObjectJSONInterface {
 	String label;
@@ -66,8 +66,8 @@ public class BaseAnnotationObjects extends BaseObjectJSONInterface {
 		this.identifier = identifier;
 	}
 	
-	public JSONObject toJSONObject() {
-		JSONObject object = new JSONObject();
+	public JsonObject toJsonObject() {
+		JsonObject object = new JsonObject();
 		object.put(AnnotationObjectsLabels.label,label);
 		object.put(AnnotationObjectsLabels.comment,comment);
 		object.put(AnnotationObjectsLabels.altlabel,altlabel);
@@ -76,7 +76,7 @@ public class BaseAnnotationObjects extends BaseObjectJSONInterface {
 		return object;
 	}
 	
-	public void fillJSONObject(JSONObject obj) {
+	public void fillJsonObject(JsonObject obj) {
 		label = obj.getString(AnnotationObjectsLabels.label);
 		comment = obj.getString(AnnotationObjectsLabels.comment);
 		altlabel = obj.getString(AnnotationObjectsLabels.altlabel);

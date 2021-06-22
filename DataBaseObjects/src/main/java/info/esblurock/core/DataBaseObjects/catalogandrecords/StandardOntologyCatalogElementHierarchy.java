@@ -1,10 +1,10 @@
 package info.esblurock.core.DataBaseObjects.catalogandrecords;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
-import info.esblurock.core.DataBaseObjects.constants.OntologyObjectLabels;
 import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
+import info.esblurock.reaction.core.ontology.base.constants.OntologyObjectLabels;
 
 
 public class StandardOntologyCatalogElementHierarchy extends BaseObjectJSONInterface {
@@ -125,46 +125,46 @@ public class StandardOntologyCatalogElementHierarchy extends BaseObjectJSONInter
 	}
 
 	@Override
-	public JSONObject toJSONObject() {
-		JSONObject obj = new JSONObject();
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
 		obj.put(OntologyObjectLabels.catalogName, catalogName);
-		JSONObject aJSON = annotations.toJSONObject();
+		JsonObject aJSON = annotations.toJsonObject();
 		obj.put(OntologyObjectLabels.annotations, aJSON);
-		JSONObject rdfJSON = rdfmappings.toJSONObject();
+		JsonObject rdfJSON = rdfmappings.toJsonObject();
 		obj.put(OntologyObjectLabels.mappingRDFs, rdfJSON);
-		JSONObject recsJSON = subRecordsSinglet.toJSONObject();
+		JsonObject recsJSON = subRecordsSinglet.toJsonObject();
 		obj.put(OntologyObjectLabels.recordsSinglet, recsJSON);
-		JSONObject recmJSON = subRecordsMultiple.toJSONObject();
+		JsonObject recmJSON = subRecordsMultiple.toJsonObject();
 		obj.put(OntologyObjectLabels.recordsMultiple, recmJSON);
-		JSONObject haspartsJSON = subComponentsSinglet.toJSONObject();
+		JsonObject haspartsJSON = subComponentsSinglet.toJsonObject();
 		obj.put(OntologyObjectLabels.hasPartSinglet, haspartsJSON);
-		JSONObject haspartmJSON = subComponentsMultiple.toJSONObject();
+		JsonObject haspartmJSON = subComponentsMultiple.toJsonObject();
 		obj.put(OntologyObjectLabels.hasPartMultiple, haspartmJSON);
 		
 		return obj;
 	}
 
 	@Override
-	public void fillJSONObject(JSONObject obj) {
-		catalogName = obj.getString(OntologyObjectLabels.catalogName);
+	public void fillJsonObject(JsonObject obj) {
+		catalogName = obj.get(OntologyObjectLabels.catalogName).getAsString();
 		
 		SetOfBaseCatalogRecordElementInformation ann = new SetOfBaseCatalogRecordElementInformation();
-		ann.fillJSONObject(obj.getJSONObject(OntologyObjectLabels.annotations));
+		ann.fillJsonObject(obj.get(OntologyObjectLabels.annotations).getAsJsonObject());
 		
 		SetOfBaseCatalogRecordElementInformation info = new SetOfBaseCatalogRecordElementInformation();
-		info.fillJSONObject(obj.getJSONObject(OntologyObjectLabels.mappingRDFs));
+		info.fillJsonObject(obj.get(OntologyObjectLabels.mappingRDFs).getAsJsonObject());
 		
 		SetOfStandardOntologyCatalogElementHierarchy singrec = new SetOfStandardOntologyCatalogElementHierarchy();
-		singrec.fillJSONObject(obj.getJSONObject(OntologyObjectLabels.recordsSinglet));
+		singrec.fillJsonObject(obj.get(OntologyObjectLabels.recordsSinglet).getAsJsonObject());
 		
 		SetOfStandardOntologyCatalogElementHierarchy singcomp = new SetOfStandardOntologyCatalogElementHierarchy();
-		singcomp.fillJSONObject(obj.getJSONObject(OntologyObjectLabels.hasPartSinglet));
+		singcomp.fillJsonObject(obj.get(OntologyObjectLabels.hasPartSinglet).getAsJsonObject());
 		
 		SetOfStandardOntologyCatalogElementHierarchy multrec = new SetOfStandardOntologyCatalogElementHierarchy();
-		multrec.fillJSONObject(obj.getJSONObject(OntologyObjectLabels.recordsMultiple));
+		multrec.fillJsonObject(obj.get(OntologyObjectLabels.recordsMultiple).getAsJsonObject());
 		
 		SetOfStandardOntologyCatalogElementHierarchy multcomp = new SetOfStandardOntologyCatalogElementHierarchy();
-		multcomp.fillJSONObject(obj.getJSONObject(OntologyObjectLabels.hasPartMultiple));
+		multcomp.fillJsonObject(obj.getJsonObject(OntologyObjectLabels.hasPartMultiple));
 		
 	}
 	

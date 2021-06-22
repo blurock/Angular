@@ -1,11 +1,11 @@
 package info.esblurock.core.DataBaseObjects.catalogandrecords;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
-import info.esblurock.core.DataBaseObjects.constants.OntologyObjectLabels;
 import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
 import info.esblurock.core.DataBaseObjects.utilities.JSONUtilitiesCatalogObjects;
+import info.esblurock.reaction.core.ontology.base.constants.OntologyObjectLabels;
 
 
 public class StandardOntologyCatalogElement extends BaseObjectJSONInterface {
@@ -73,20 +73,20 @@ public class StandardOntologyCatalogElement extends BaseObjectJSONInterface {
 	}
 
 	@Override
-	public JSONObject toJSONObject() {
-		JSONObject obj = new JSONObject();
-		obj.put(OntologyObjectLabels.catalogName, catalogName);
-		JSONObject a = annotations.toJSONObject();
-		obj.put(OntologyObjectLabels.annotations, a);
-		JSONUtilitiesCatalogObjects.addJSONObject(obj,records);
-		JSONUtilitiesCatalogObjects.addJSONObject(obj,components);
-		JSONUtilitiesCatalogObjects.addJSONObject(obj,rdfmappings);
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty(OntologyObjectLabels.catalogName, catalogName);
+		JsonObject a = annotations.toJsonObject();
+		obj.addPropertyt(OntologyObjectLabels.annotations, a);
+		JSONUtilitiesCatalogObjects.addJsonObject(obj,records);
+		JSONUtilitiesCatalogObjects.addJsonObject(obj,components);
+		JSONUtilitiesCatalogObjects.addJsonObject(obj,rdfmappings);
 		return obj;
 	}
-	public void fillJSONObject(JSONObject obj) {
-		catalogName = obj.getString(OntologyObjectLabels.catalogName);
+	public void fillJsonObject(JsonObject obj) {
+		catalogName = obj.get(OntologyObjectLabels.catalogName).getAsString();
 		annotations = new BaseAnnotationObjects();
-		annotations.fillJSONObject(obj.getJSONObject(OntologyObjectLabels.annotations));
+		annotations.fillJsonObject(obj.get(OntologyObjectLabels.annotations).getAsJsonObject();
 		
 	}
 }

@@ -2,9 +2,8 @@ package info.esblurock.reaction.core.ontology.base.classification;
 
 import java.util.List;
 
-import info.esblurock.core.DataBaseObjects.classifications.ClassificationHierarchy;
-import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
+import info.esblurock.reaction.core.ontology.base.dataset.annotations.BaseAnnotationObjects;
 import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRoutines;
 
 

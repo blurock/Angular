@@ -2,12 +2,12 @@ package info.esblurock.core.DataBaseObjects.classifications;
 
 import java.util.Set;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
-import info.esblurock.core.DataBaseObjects.constants.OntologyObjectLabels;
 import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
+import info.esblurock.reaction.core.ontology.base.constants.OntologyObjectLabels;
 
 public class ClassificationTree extends BaseObjectJSONInterface {
 	Set<ClassificationTree> subtrees;
@@ -28,13 +28,13 @@ public class ClassificationTree extends BaseObjectJSONInterface {
 	}
 
 	@Override
-	public JSONObject toJSONObject() {
-		JSONObject json = new JSONObject();
-		JSONObject annjson = annotations.toJSONObject();
+	public JsonObject toJsonObject() {
+		JsonObject json = new JsonObject();
+		JsonObject annjson = annotations.toJsonObject();
 		json.put(OntologyObjectLabels.classification, annjson);
-		JSONArray array = new JSONArray();
+		JsonArray array = new JsonArray();
 		for(ClassificationTree element : subtrees) {
-			JSONObject elementjson = element.toJSONObject();
+			JsonObject elementjson = element.toJsonObject();
 			array.put(elementjson);
 		}
 		json.put(OntologyObjectLabels.subclassifications, array);
@@ -42,14 +42,14 @@ public class ClassificationTree extends BaseObjectJSONInterface {
 	}
 
 	@Override
-	public void fillJSONObject(JSONObject obj) {
-		JSONObject annotationsjson = (JSONObject) obj.get(OntologyObjectLabels.classification);
-		annotations.fillJSONObject(annotationsjson);
-		JSONArray array = obj.getJSONArray(OntologyObjectLabels.subclassifications);
+	public void fillJsonObject(JsonObject obj) {
+		JsonObject annotationsjson = (JsonObject) obj.get(OntologyObjectLabels.classification);
+		annotations.fillJsonObject(annotationsjson);
+		JsonArray array = obj.getJsonArray(OntologyObjectLabels.subclassifications);
 		for(int i=0; i < array.length(); i++) {
-			JSONObject json = (JSONObject) array.get(i);
+			JsonObject json = (JsonObject) array.get(i);
 			ClassificationTree ann = new ClassificationTree();
-			ann.fillJSONObject(json);
+			ann.fillJsonObject(json);
 			subtrees.add(ann);
 		}
 	}

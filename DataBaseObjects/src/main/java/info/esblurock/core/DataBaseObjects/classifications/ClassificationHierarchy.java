@@ -3,12 +3,12 @@ package info.esblurock.core.DataBaseObjects.classifications;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
-import info.esblurock.core.DataBaseObjects.constants.OntologyObjectLabels;
 import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
+import info.esblurock.reaction.core.ontology.base.constants.OntologyObjectLabels;
 
 
 public class ClassificationHierarchy extends BaseObjectJSONInterface {
@@ -54,32 +54,32 @@ public class ClassificationHierarchy extends BaseObjectJSONInterface {
 		this.subclassificatons = subclassificatons;
 	}
 	public String toString() {
-		JSONObject json = this.toJSONObject();
+		JsonObject json = this.toJsonObject();
 		return json.toString();
 	}
 	@Override
-	public JSONObject toJSONObject() {
-		JSONObject obj = new JSONObject();
-		JSONObject annjson = annotations.toJSONObject();
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
+		JsonObject annjson = annotations.toJsonObject();
 		obj.put(OntologyObjectLabels.classification, classification);
 		obj.put(OntologyObjectLabels.annotations, annjson);		
-		JSONArray arr = new JSONArray();
+		JsonArray arr = new JsonArray();
 		obj.put(OntologyObjectLabels.subclassifications, arr);
 		for(ClassificationHierarchy hierarchy : subclassificatons) {
-			JSONObject hierjson = hierarchy.toJSONObject();
+			JsonObject hierjson = hierarchy.toJsonObject();
 			arr.put(hierjson);
 		}
 		return obj;
 	}
 	
-	public void fillJSONObject(JSONObject obj) {
+	public void fillJsonObject(JsonObject obj) {
 		classification = obj.getString(OntologyObjectLabels.classification);
-		fillJSONObject(obj.getJSONObject(OntologyObjectLabels.annotations));
-		JSONArray arr = obj.getJSONArray(OntologyObjectLabels.subclassifications);
+		fillJsonObject(obj.getJsonObject(OntologyObjectLabels.annotations));
+		JsonArray arr = obj.getJsonArray(OntologyObjectLabels.subclassifications);
 		for(int i = 0 ; i < arr.length() ; i++) {
-			JSONObject element = (JSONObject) arr.get(i);
+			JsonObject element = (JsonObject) arr.get(i);
 			ClassificationHierarchy hierarchy = new ClassificationHierarchy();
-			hierarchy.fillJSONObject(element);
+			hierarchy.fillJsonObject(element);
 			subclassificatons.add(hierarchy);
 		}
 	}

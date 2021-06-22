@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
 import info.esblurock.core.DataBaseObjects.catalogandrecords.SetOfStandardOntologyCatalogElementHierarchy;
@@ -64,27 +64,27 @@ public class BaseRecordObject extends BaseObjectJSONInterface {
 
 	
 	@Override
-	public JSONObject toJSONObject() {
-		JSONObject catobj = new JSONObject();
+	public JsonObject toJsonObject() {
+		JsonObject catobj = new JsonObject();
 		for(PropertyValuePairs pair : pairs) {
 			catobj.put(pair.property, pair.value);
 		}
 		for(String name : records.keySet()) {
-			catobj.put(name, records.get(name).toJSONObject());
+			catobj.put(name, records.get(name).toJsonObject());
 		}
 		Set<String> keys = multrecords.keySet();
 		for(String key: keys) {
 			RecordArray arr = new RecordArray();
 			arr.setMultiplename(key);
-			JSONObject obj = arr.toJSONObject();
-			JSONArray jarr = obj.getJSONArray(key);
+			JsonObject obj = arr.toJsonObject();
+			JsonArray jarr = obj.getJsonArray(key);
 			catobj.put(key, jarr);
 		}
 		return catobj;
 	}
 
 	@Override
-	public void fillJSONObject(JSONObject obj) {
+	public void fillJsonObject(JsonObject obj) {
 		Set<String> keys = obj.keySet();
 		for(String key : keys) {
 				PropertyValuePairs pair = new PropertyValuePairs();
@@ -92,19 +92,19 @@ public class BaseRecordObject extends BaseObjectJSONInterface {
 				Object subobj = obj.get(key);
 				if(subobj instanceof String) {
 					pair.setValue((String) obj.get(key));
-				} else if(subobj instanceof JSONObject) {
-					JSONObject jobj = (JSONObject) subobj;
+				} else if(subobj instanceof JsonObject) {
+					JsonObject jobj = (JsonObject) subobj;
 					BaseRecordObject base = new BaseRecordObject();
-					base.fillJSONObject(jobj);
+					base.fillJsonObject(jobj);
 					records.put(key, base);
-				} else if(subobj instanceof JSONArray) {
+				} else if(subobj instanceof JsonArray) {
 					RecordArray recarr = new RecordArray();
 					recarr.setMultiplename(key);
-					JSONArray arr = (JSONArray) subobj;
+					JsonArray arr = (JsonArray) subobj;
 					for(int i=0; i< arr.length();i++) {
-						JSONObject arrobj = (JSONObject) arr.get(i);
+						JsonObject arrobj = (JsonObject) arr.get(i);
 						BaseRecordObject base = new BaseRecordObject();
-						base.fillJSONObject(arrobj);
+						base.fillJsonObject(arrobj);
 						recarr.addRecordObject(base);
 					}
 					//multrecords.add(recarr);

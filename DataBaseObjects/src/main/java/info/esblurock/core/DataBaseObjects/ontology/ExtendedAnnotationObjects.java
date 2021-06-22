@@ -1,9 +1,9 @@
 package info.esblurock.core.DataBaseObjects.ontology;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 import info.esblurock.core.DataBaseObjects.classifications.ClassificationHierarchy;
-import info.esblurock.core.DataBaseObjects.constants.AnnotationObjectsLabels;
+import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 
 public class ExtendedAnnotationObjects extends BaseAnnotationObjects {
 	
@@ -34,25 +34,25 @@ public class ExtendedAnnotationObjects extends BaseAnnotationObjects {
 		this.purposeObjects = purposeObjects;
 	}
 	
-	public JSONObject toJSONObject() {
-		JSONObject object = super.toJSONObject();
+	public JsonObject toJsonObject() {
+		JsonObject object = super.toJsonObject();
 		if(conceptObjects != null) {
-			object.put(AnnotationObjectsLabels.conceptlabel,conceptObjects.toJSONObject());
+			object.put(AnnotationObjectsLabels.conceptlabel,conceptObjects.toJsonObject());
 		}
 		if(purposeObjects != null) {
-			object.put(AnnotationObjectsLabels.purposelabel,purposeObjects.toJSONObject());
+			object.put(AnnotationObjectsLabels.purposelabel,purposeObjects.toJsonObject());
 		}
 		return object;
 	}
 	
-	public void fillJSONObject(JSONObject obj) {
-		super.fillJSONObject(obj);
+	public void fillJsonObject(JsonObject obj) {
+		super.fillJsonObject(obj);
 		purposeObjects = new ClassificationHierarchy();
 		conceptObjects = new ClassificationHierarchy();
-		JSONObject conceptjson = (JSONObject) obj.get(AnnotationObjectsLabels.conceptlabel);
-		JSONObject purposejson = (JSONObject) obj.get(AnnotationObjectsLabels.purposelabel);
-		purposeObjects.fillJSONObject(purposejson);
-		conceptObjects.fillJSONObject(conceptjson);
+		JsonObject conceptjson = (JsonObject) obj.get(AnnotationObjectsLabels.conceptlabel);
+		JsonObject purposejson = (JsonObject) obj.get(AnnotationObjectsLabels.purposelabel);
+		purposeObjects.fillJsonObject(purposejson);
+		conceptObjects.fillJsonObject(conceptjson);
 	}
 	
 

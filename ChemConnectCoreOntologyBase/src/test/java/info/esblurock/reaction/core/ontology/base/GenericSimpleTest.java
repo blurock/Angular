@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import info.esblurock.reaction.core.ontology.base.utilities.GenericSimpleQueries;
+
 
 public class GenericSimpleTest {
 

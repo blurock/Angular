@@ -1,12 +1,15 @@
 package info.esblurock.core.DataBaseObjects.catalogandrecords;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
+import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 
 
 public class SetOfBaseCatalogRecordElementInformation extends BaseObjectJSONInterface {
@@ -49,25 +52,26 @@ public class SetOfBaseCatalogRecordElementInformation extends BaseObjectJSONInte
 	}
 	
 	@Override
-	public JSONObject toJSONObject() {
-		JSONObject obj = new JSONObject();
-		JSONArray arr = new JSONArray();
-		obj.put(elementType, arr);
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
+		obj.addProperty(AnnotationObjectsLabels.identifier, elementType);
+		JsonArray arr = new JsonArray();
+		obj.add(elementType, arr);
 		for(BaseCatalogRecordElementInformation info : set) {
-			JSONObject jinfo = info.toJSONObject();
-			arr.put(jinfo);
+			JsonObject jinfo = info.toJsonObject();
+			arr.add(jinfo);
 		}
 		return obj;
 	}
 	
-	public void fillJSONObject(JSONObject obj) {
-		String[] names = JSONObject.getNames(obj);
-		elementType = names[0];
-		JSONArray arr = obj.getJSONArray(elementType);
-		for(int i = 0 ; i < arr.length() ; i++) {
-			JSONObject element = (JSONObject) arr.get(i);
+	public void fillJsonObject(JsonObject obj) {
+		elementType = obj.get(AnnotationObjectsLabels.identifier).getAsString();
+		JsonArray arr = obj.get(elementType).getAsJsonArray();
+		Iterator<JsonElement> iter = arr.iterator();
+		while(iter.hasNext()) {
+			JsonObject element = (JsonObject) iter.next();
 			BaseCatalogRecordElementInformation hierarchy = new BaseCatalogRecordElementInformation();
-			hierarchy.fillJSONObject(element);
+			hierarchy.fillJsonObject(element);
 			set.add(hierarchy);
 		}
 	}

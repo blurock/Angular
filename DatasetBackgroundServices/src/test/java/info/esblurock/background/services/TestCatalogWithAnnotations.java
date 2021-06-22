@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 import org.junit.Test;
 
 import com.google.api.core.ApiFuture;
@@ -50,21 +50,21 @@ public class TestCatalogWithAnnotations {
 		bascat.fill(hierarchy);
 		
 		DocumentReference docRef = db.collection("catalog").document(catalogname);
-		Map<String,Object> m = JSONToMap.ConvertJSONToMap(bascat.toJSONObject());
+		Map<String,Object> m = JSONToMap.ConvertJSONToMap(bascat.toJsonObject());
 		ApiFuture<WriteResult> result = docRef.set(m);
 		System.out.println("Update time : " + result.get().getUpdateTime());
 
 		AnnotationSet set = new AnnotationSet();
 		set.fill(hierarchy);
 		DocumentReference docRef1 = db.collection("annotations").document(catalogname);
-		Map<String,Object> a = JSONToMap.ConvertJSONToMap(set.toJSONObject());
+		Map<String,Object> a = JSONToMap.ConvertJSONToMap(set.toJsonObject());
 		ApiFuture<WriteResult> result1 = docRef1.set(a);
 		System.out.println("Update time : " + result1.get().getUpdateTime());
 		System.out.println(set.toString(""));
 		
-		JSONObject jobj = new JSONObject();
-		jobj.put("catalog" , bascat.toJSONObject());
-		jobj.put("annotations", set.toJSONObject());
+		JsonObject jobj = new JsonObject();
+		jobj.put("catalog" , bascat.toJsonObject());
+		jobj.put("annotations", set.toJsonObject());
 		
 		System.out.println(jobj);
 		

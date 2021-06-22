@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 import org.junit.Test;
 
 import com.google.api.core.ApiFuture;
@@ -38,7 +38,7 @@ public class TestReadCatalogWithAnnotations {
 			try {
 				DocumentSnapshot document = future.get();
 				if (document.exists()) {
-					  JSONObject obj = JSONToMap.ConvertMapToJSONObject(document.getData());
+					  JsonObject obj = JSONToMap.ConvertMapToJsonObject(document.getData());
 					  System.out.println("Document data: " + obj);
 					} else {
 					  System.out.println("No such document!");

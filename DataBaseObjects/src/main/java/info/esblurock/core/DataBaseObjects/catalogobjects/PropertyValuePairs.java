@@ -2,7 +2,7 @@ package info.esblurock.core.DataBaseObjects.catalogobjects;
 
 import java.util.Iterator;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 import info.esblurock.core.DataBaseObjects.base.BaseObjectJSONInterface;
 
@@ -39,13 +39,13 @@ public class PropertyValuePairs extends BaseObjectJSONInterface {
 		this.value = value;
 	}
 	@Override
-	public JSONObject toJSONObject() {
-		JSONObject obj = new JSONObject();
+	public JsonObject toJsonObject() {
+		JsonObject obj = new JsonObject();
 		obj.put(property, value);
 		return null;
 	}
 	@Override
-	public void fillJSONObject(JSONObject obj) {
+	public void fillJsonObject(JsonObject obj) {
 		Iterator<String> iter = obj.keys();
 		if(iter.hasNext()) {
 			this.property = iter.next();

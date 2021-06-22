@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 import com.google.api.core.ApiFuture;
 import com.google.api.server.spi.config.Api;
@@ -67,9 +67,9 @@ public class CatalogObjectInfoWithAnnotations {
 		AnnotationSet set = new AnnotationSet();
 		set.fill(hierarchy);
 
-		JSONObject jobj = new JSONObject();
-		jobj.put("catalog" , bascat.toJSONObject());
-		jobj.put("annotations", set.toJSONObject());
+		JsonObject jobj = new JsonObject();
+		jobj.put("catalog" , bascat.toJsonObject());
+		jobj.put("annotations", set.toJsonObject());
 		Message message = new Message();
 		message.setMessage(jobj.toString());
 		return message;
