@@ -9,24 +9,32 @@ import info.esblurock.reaction.core.ontology.base.OntologyBase;
 import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRoutines;
 
 public class ParseCompoundObject {
-	static String dimensiontype = "<http://purl.org/linked-data/cube#dimension>";
-	static String compoundclass = "dataset:ChemConnectElementCompound";
+	static String recordtype = "<http://www.w3.org/ns/dcat#record>";
+	static String hasPartttype = "<http://purl.org/dc/terms/hasPart>";
+	static String compoundclass = "dataset:ChemConnectCompoundBase";
+	static String classificationtype = "dataset:Classification";
 
+	public static CompoundObjectDimensionSet getCompoundElements(String classname) {
+		CompoundObjectDimensionSet set = new CompoundObjectDimensionSet();
+		compoundObjectTypeObjects(classname,recordtype, set);
+		compoundObjectTypeObjects(classname,hasPartttype, set);
+		return set;	
+	}
+	
 	/**
 	 * @param classname The name of the ontology ChemConnectElementCompound class
 	 * @return The set of dimension parameters
 	 */
-	public static CompoundObjectDimensionSet compoundObjectDimensionObjects(String classname) {
+	public static void compoundObjectTypeObjects(String classname, String type, CompoundObjectDimensionSet set) {
 		String query = "SELECT ?subject ?record ?cardinality\n" + 
 				"	WHERE { " + classname  + " rdfs:subClassOf ?object ."
-						+ "?object owl:onProperty " + dimensiontype + " ."
+						+ "?object owl:onProperty " + type + " ."
 						+ "{?object owl:someValuesFrom ?record   }"
 						+ "UNION"
 						+ "{?object owl:onClass ?record . ?object owl:qualifiedCardinality ?cardinality}"
 						+ "}";
 		List<Map<String, RDFNode>> lst = OntologyBase.resultSetToMap(query);
 		List<Map<String, String>> stringlst = OntologyBase.resultmapToStrings(lst);
-		CompoundObjectDimensionSet set = new CompoundObjectDimensionSet();
 		
 		for(Map<String, String> map : stringlst) {
 			String elementType = map.get("record");
@@ -42,10 +50,11 @@ public class ParseCompoundObject {
 			} else {
 				singlet = false;
 			}
+			boolean classification = OntologyUtilityRoutines.isSubClassOf(elementType, classificationtype, false);
+			
 			CompoundObjectDimensionInformation info = new CompoundObjectDimensionInformation(elementType, 
-					cardinalityS, singlet,compoundobject);
+					cardinalityS, singlet,compoundobject, classification);
 			set.add(info);
 		}
-		return set;
 	}
 }

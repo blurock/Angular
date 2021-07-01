@@ -5,6 +5,7 @@ public class CompoundObjectDimensionInformation {
 	String cardinality;
 	boolean singlet;
 	boolean compoundobject;
+	boolean classification;
 	
 	public CompoundObjectDimensionInformation() {
 	}
@@ -12,14 +13,17 @@ public class CompoundObjectDimensionInformation {
 	/**
 	 * @param classname
 	 * @param cardinality
+	 * @param classification: 
 	 * @param singlet
 	 * @param compoundobject
 	 */
-	public CompoundObjectDimensionInformation(String classname, String cardinality, boolean singlet, boolean compoundobject) {
+	public CompoundObjectDimensionInformation(String classname, String cardinality, 
+			boolean singlet, boolean compoundobject, boolean classification) {
 		this.classname = classname;
 		this.cardinality = cardinality;
 		this.singlet = singlet;
 		this.compoundobject = compoundobject;
+		this.classification = classification;
 	}
 
 	public String getClassname() {
@@ -55,6 +59,14 @@ public class CompoundObjectDimensionInformation {
 		this.compoundobject = compoundobject;
 	}
 
+	public boolean isClassification() {
+		return classification;
+	}
+
+	public void setClassification(boolean classification) {
+		this.classification = classification;
+	}
+
 	public String toString() {
 		return toString("");
 	}
@@ -63,7 +75,7 @@ public class CompoundObjectDimensionInformation {
 		StringBuilder build = new StringBuilder();
 		build.append(classname);
 		build.append("\t");
-		build.append(" ( " + cardinality + ", " + singlet + ", " + compoundobject + ")");
+		build.append(" ( " + cardinality + ", " + singlet + ", " + compoundobject + ", " +  classification + ")");
 		return build.toString();
 	}
 	

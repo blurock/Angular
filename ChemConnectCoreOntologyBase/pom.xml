@@ -24,14 +24,6 @@
 		</resources>
 		<plugins>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>3.3.0</version>
 				<configuration>
@@ -110,25 +102,35 @@
 			<artifactId>httpclient-cache</artifactId>
 			<version>4.5.8</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.jena/jena -->
-		<dependency>
-			<groupId>org.apache.jena</groupId>
-			<artifactId>jena</artifactId>
-			<version>3.11.0</version>
-			<type>pom</type>
-		</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->
+<dependency>
+    <groupId>org.apache.jena</groupId>
+    <artifactId>apache-jena-libs</artifactId>
+    <version>4.1.0</version>
+    <type>pom</type>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.jena/jena-tdb -->
+<dependency>
+    <groupId>org.apache.jena</groupId>
+    <artifactId>jena-tdb</artifactId>
+    <version>4.1.0</version>
+</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.apache.jena/jena-core -->
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-core</artifactId>
-			<version>3.11.0</version>
+			<version>4.1.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.jena/jena-arq -->
-		<dependency>
-			<groupId>org.apache.jena</groupId>
-			<artifactId>jena-arq</artifactId>
-			<version>3.11.0</version>
-		</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.jena/jena-arq -->
+<dependency>
+    <groupId>org.apache.jena</groupId>
+    <artifactId>jena-arq</artifactId>
+    <version>4.1.0</version>
+</dependency>
+
 		<!-- https://mvnrepository.com/artifact/com.google.appengine/appengine-api-1.0-sdk -->
 		<dependency>
 			<groupId>com.google.appengine</groupId>

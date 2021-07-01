@@ -10,8 +10,9 @@ public class TestGetCompoundObjectDimensionElements {
 
 	@Test
 	public void test() {
-		String element1 = "dataset:ThermodynamicBensonSpecification";
-		CompoundObjectDimensionSet set1 = ParseCompoundObject.compoundObjectDimensionObjects(element1);
+		String element1 = "dataset:DatabasePerson";
+		//String element1 = "dataset:ThermodynamicBensonSpecification";
+		CompoundObjectDimensionSet set1 = ParseCompoundObject.getCompoundElements(element1);
 		System.out.println(set1.toString());
 	}
 
