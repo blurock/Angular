@@ -13546,26 +13546,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                       <http://www.w3.org/2004/02/skos/core#altLabel> "rdfpredicate"^^xsd:string .
 
 
-###  http://www.esblurock.info/dataset#RDFObjectAsPrimitive
-:RDFObjectAsPrimitive rdf:type owl:Class ;
-                      rdfs:subClassOf :RDFTriple ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                        owl:onClass :RDFObjectClassName
-                                      ] ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                        owl:onClass :ShortStringKey
-                                      ] ;
-                      <http://purl.org/dc/elements/1.1/type> :RDFObjectAsPrimitive ;
-                      <http://purl.org/dc/terms/identifier> "dataset:rdftripleobjectprimitive" ;
-                      rdfs:comment "The RDF triple where the object is a simple string, a ChemConnectPrimitiveDataStructure."^^xsd:string ;
-                      rdfs:label "RDF: Object as Primitive"^^xsd:string ;
-                      <http://www.w3.org/2004/02/skos/core#altLabel> "rdftripleobjectprimitive"^^xsd:string .
-
-
 ###  http://www.esblurock.info/dataset#RDFObjectClassName
 :RDFObjectClassName rdf:type owl:Class ;
                     rdfs:subClassOf :Classification ;
@@ -13653,6 +13633,26 @@ Under the general type of is the actual data object referenced by the ChemConnec
                         rdfs:subClassOf :RDFCatalogIDReference .
 
 
+###  http://www.esblurock.info/dataset#RDFSubjectAsPrimitive
+:RDFSubjectAsPrimitive rdf:type owl:Class ;
+                       rdfs:subClassOf :RDFTriple ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onClass :RDFObjectClassName
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onClass :ShortStringKey
+                                       ] ;
+                       <http://purl.org/dc/elements/1.1/type> :RDFSubjectAsPrimitive ;
+                       <http://purl.org/dc/terms/identifier> "dataset:rdftripleobjectprimitive" ;
+                       rdfs:comment "The RDF triple where the object is a simple string, a ChemConnectPrimitiveDataStructure."^^xsd:string ;
+                       rdfs:label "RDF: Object as Primitive"^^xsd:string ;
+                       <http://www.w3.org/2004/02/skos/core#altLabel> "rdftripleobjectprimitive"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#RDFSubjectClassName
 :RDFSubjectClassName rdf:type owl:Class ;
                      rdfs:subClassOf :Classification ;
@@ -13665,7 +13665,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#RDFSubjectObjectPrimitives
 :RDFSubjectObjectPrimitives rdf:type owl:Class ;
-                            rdfs:subClassOf :RDFObjectAsPrimitive ,
+                            rdfs:subClassOf :RDFSubjectAsPrimitive ,
                                             [ rdf:type owl:Restriction ;
                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -13681,6 +13681,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                             rdfs:comment "For this RDF both the object and the subject are string primitives. The string is listed as a ShortStringKey so that searching for a string can use this value. The actual class name of each is given in another field."^^xsd:string ;
                             rdfs:label "RDF Primitive"^^xsd:string ;
                             <http://www.w3.org/2004/02/skos/core#altLabel> "rdfsubobjprimitive"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#RDFSubjectPrimitiveObjectRecord
+:RDFSubjectPrimitiveObjectRecord rdf:type owl:Class ;
+                                 rdfs:subClassOf :RDFSubjectAsPrimitive ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                   owl:onClass :ChemConnectCompoundDataStructure
+                                                 ] .
 
 
 ###  http://www.esblurock.info/dataset#RDFTransactionInputObject
@@ -14330,11 +14340,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                        owl:onClass :CatalogObjectAccessRead
-                                     ] ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                       owl:onClass :CatalogObjectKey
                                      ] ,
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
