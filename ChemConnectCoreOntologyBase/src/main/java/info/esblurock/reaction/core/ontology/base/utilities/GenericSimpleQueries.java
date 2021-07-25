@@ -9,8 +9,20 @@ import org.apache.jena.vocabulary.ReasonerVocabulary;
 
 import info.esblurock.reaction.core.ontology.base.OntologyBase;
 
+/**
+ * @author edwardblurock
+ *
+ */
+
 public class GenericSimpleQueries {
 
+	
+	/** List all the subclasses under the concept
+	 * 
+	 * @param concept The concept of the ontology
+	 * @param inclusive if false, all the classes in the hierarchy, true, just direct classes
+	 * @return The list of subclasses under the concept
+	 */
 	public static List<String> listOfSubClasses(String concept, boolean inclusive) {
 		List<String> subobjs = new ArrayList<String>();
 		String query = null;
@@ -29,6 +41,14 @@ public class GenericSimpleQueries {
 		subobjs.remove(concept);
 		return subobjs;
 	}
+	
+	/** Is a concept a subclass of general class
+	 * 
+	 * @param concept The ontology subclass to be tested against generalclass
+	 * @param generalclass The general ontology class as reference
+	 * @param direct If true, the concept should be a direct subclass of generalclass
+	 * @return true: concept is a (direct) subclass of generalclass
+	 */
 	public static boolean isSubClassOf(String concept, String generalclass, boolean direct) {
 		String query = null;
 		if(direct) {
@@ -42,27 +62,34 @@ public class GenericSimpleQueries {
 		}
 		return OntologyBase.datasetASK(query);
 	}
+	
+	/** Are two concepts the same
+	 * 
+	 * @param concept1 Concept to compare
+	 * @param concept2 Concept to compare
+	 * @return true if concept1 equals concept2
+	 */
 	public static boolean isSameClass(String concept1, String concept2) {
 		return concept1.compareTo(concept2) == 0;
 	}
-	public static boolean isAArrayListDataObject(String unit) {
-		String query = "ASK {" + "	" + unit + " rdfs:subClassOf dataset:ArrayListDataObject }";
-		boolean result = OntologyBase.datasetASK(query);
-		return result;
-	}
-	public static ArrayList<String> typesFromFileType(String filetype) {
-		ArrayList<String> typelst = new ArrayList<String>();
+	
+	/** Get classname from identifier
+	 * 
+	 * @param identifier: The identifier of the class (found in annotations)
+	 * @return The classname, if the identifier does not exist
+	 * 
+	 * It should be noted that if, by an error in the ontology, 
+	 * the identifier is not unique, then the first will be given as the answer
+	 */
+	public static String classFromIdentifier(String identifier) {
 		String query = "SELECT ?type\n" + 
-				"			WHERE {?type <http://purl.org/dc/terms/identifier> \"" +  filetype +"\"^^xsd:string }";
-		List<Map<String, RDFNode>> lst = OntologyBase.resultSetToMap(query);
-		List<Map<String, String>> stringlst = OntologyBase.resultmapToStrings(lst);
-		for(Map<String, String> maptype : stringlst) {
-			String exttype = maptype.get("type");
-			if(exttype != null) {
-				typelst.add(exttype);
-			}
+				"			WHERE {?type <http://purl.org/dc/terms/identifier> \"" +  identifier +"\"^^xsd:string }";
+		List<String> lst = OntologyBase.isolateProperty(query,"type");
+		String type = null;
+		if(lst.size() > 0) {
+			type = lst.get(0);
 		}
-		return typelst;
+		return type;
 	}
 
 
