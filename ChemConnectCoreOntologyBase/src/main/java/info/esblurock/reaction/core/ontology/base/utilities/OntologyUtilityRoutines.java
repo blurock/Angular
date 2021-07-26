@@ -73,7 +73,6 @@ public class OntologyUtilityRoutines {
 	 * If there is an error in the ontology and the identifier is not unique, then the first (randomly) is taken as the result
 	 */
 	public static String typesFromIdentifier(String identifier) {
-		ArrayList<String> typelst = new ArrayList<String>();
 		String query = "SELECT ?type\n" + 
 				"			WHERE {?type <http://purl.org/dc/terms/identifier> \"" +  identifier +"\"^^xsd:string }";
 		List<String> lst = OntologyBase.isolateProperty(query, "type");
