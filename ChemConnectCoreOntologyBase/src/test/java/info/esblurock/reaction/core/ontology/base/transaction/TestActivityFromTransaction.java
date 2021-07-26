@@ -19,7 +19,7 @@ public class TestActivityFromTransaction {
 		System.out.println("--------------------   requirementsOfTransaction");
 
 		String dependent = " dataset:TransferFileIntoCatagoryHierarchy";
-		Map<String,ArrayList<String>> requirementsMap = TransactionConceptParsing.requirementsOfTransaction(dependent);
+		ArrayList<String> requirementsMap = TransactionConceptParsing.requirementsOfTransaction(dependent);
 		System.out.println("Transaction: " + dependent + "\n" + requirementsMap);
 		System.out.println("--------------------   requirementsOfTransaction");
 		

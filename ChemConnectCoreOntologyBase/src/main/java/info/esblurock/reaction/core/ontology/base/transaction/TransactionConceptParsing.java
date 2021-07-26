@@ -33,29 +33,24 @@ public class TransactionConceptParsing {
 		}
 
 		
-		public static Map<String,ArrayList<String>> requirementsOfTransaction(String transaction) {
-			String query = "SELECT  ?requires ?subobject\n" + 
+		public static ArrayList<String> requirementsOfTransaction(String transaction) {
+			String query = "SELECT  ?requires\n" + 
 					"	WHERE { " + transaction + " rdfs:subClassOf ?object .\n" + 
 					"                                 ?object  owl:onProperty <http://purl.org/dc/terms/requires>  .\n" + 
 					"                                  ?object  owl:onClass ?requires .\n" + 
-					"                                  ?subobject rdfs:subClassOf ?requires\n" + 
 					"}";
 			System.out.println(query);
 			List<Map<String, RDFNode>> lst = OntologyBase.resultSetToMap(query);
+			System.out.println("Size: = " + lst.size());
 			List<Map<String, String>> stringlst = OntologyBase.resultmapToStrings(lst);
-			Map<String,ArrayList<String>> requirements = new HashMap<String,ArrayList<String>>();
+			
+			ArrayList<String> sublist = new ArrayList<String>();
 			for(Map<String, String> requirement : stringlst) {
+				System.out.println("Require:\n" + requirement);
 				String requires = requirement.get("requires");
-				String subrequirement = requirement.get("subobject");
-				
-				ArrayList<String> sublist = requirements.get(requires);
-				if(sublist == null) {
-					sublist = new ArrayList<String>();
-					requirements.put(requires,sublist);
-				}
-				sublist.add(subrequirement);
+				sublist.add(requires);
 			}
-			return requirements;
+			return sublist;
 			
 		}
 }

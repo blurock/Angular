@@ -13,10 +13,16 @@ import info.esblurock.reaction.core.ontology.base.OntologyBase;
 
 public class OntologyUtilityRoutines {
 	
-	public static List<String> listOfSubClasses(String concept, boolean inclusive) {
+	/** The subclasses of a class
+	 * 
+	 * @param concept The top concept
+	 * @param direct: true only direct subclasses, false the entire tree of subclasses
+	 * @return The list of subclasses
+	 */
+	public static List<String> listOfSubClasses(String concept, boolean direct) {
 		List<String> subobjs = new ArrayList<String>();
 		String query = null;
-		if(inclusive) {
+		if(direct) {
 			query = "SELECT ?obj {\n"
 					+ "?obj <" + ReasonerVocabulary.directSubClassOf + "> " + concept
 					+"}";
@@ -31,40 +37,51 @@ public class OntologyUtilityRoutines {
 		subobjs.remove(concept);
 		return subobjs;
 	}
-	public static boolean isSubClassOf(String concept, String generalclass, boolean direct) {
+	/** Is the class a class of the super class
+	 * 
+	 * @param testclass A class
+	 * @param generalclass A class that could be a super class of testclass
+	 * @param direct true: it is a direct subclass, false: it could be in the hierarchy
+	 * @return True if a subclass
+	 */
+	public static boolean isSubClassOf(String testclass, String generalclass, boolean direct) {
 		String query = null;
 		if(direct) {
 			query = "ASK {\n"
-					+ concept + " <" + ReasonerVocabulary.directSubClassOf + "> " + generalclass
+					+ testclass + " <" + ReasonerVocabulary.directSubClassOf + "> " + generalclass
 					+"}";
 		} else {
 			query = "ASK {\n"
-				+ concept + " rdfs:subClassOf* " + generalclass
+				+ testclass + " rdfs:subClassOf* " + generalclass
 				+"}";
 		}
 		return OntologyBase.datasetASK(query);
 	}
+	/** Is it the same class
+	 * 
+	 * @param concept1 first class
+	 * @param concept2 second class
+	 * @return the first and second classes are the same
+	 */
 	public static boolean isSameClass(String concept1, String concept2) {
 		return concept1.compareTo(concept2) == 0;
 	}
-	public static boolean isAArrayListDataObject(String unit) {
-		String query = "ASK {" + "	" + unit + " rdfs:subClassOf dataset:ArrayListDataObject }";
-		boolean result = OntologyBase.datasetASK(query);
-		return result;
-	}
-	public static ArrayList<String> typesFromFileType(String filetype) {
+	/** From the identifier, retrieve the class name
+	 * @param identifier An identifier of some class
+	 * @return the classname, if the identifier does not exist, then null is returned
+	 * 
+	 * If there is an error in the ontology and the identifier is not unique, then the first (randomly) is taken as the result
+	 */
+	public static String typesFromIdentifier(String identifier) {
 		ArrayList<String> typelst = new ArrayList<String>();
 		String query = "SELECT ?type\n" + 
-				"			WHERE {?type <http://purl.org/dc/terms/identifier> \"" +  filetype +"\"^^xsd:string }";
-		List<Map<String, RDFNode>> lst = OntologyBase.resultSetToMap(query);
-		List<Map<String, String>> stringlst = OntologyBase.resultmapToStrings(lst);
-		for(Map<String, String> maptype : stringlst) {
-			String exttype = maptype.get("type");
-			if(exttype != null) {
-				typelst.add(exttype);
-			}
+				"			WHERE {?type <http://purl.org/dc/terms/identifier> \"" +  identifier +"\"^^xsd:string }";
+		List<String> lst = OntologyBase.isolateProperty(query, "type");
+		String classname = null;
+		if(lst.size() > 0) {
+			classname = lst.get(0);
 		}
-		return typelst;
+		return classname;
 	}
 
 

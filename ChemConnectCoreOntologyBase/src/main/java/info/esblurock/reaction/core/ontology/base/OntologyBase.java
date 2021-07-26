@@ -1,5 +1,7 @@
 package info.esblurock.reaction.core.ontology.base;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,6 +61,7 @@ public class OntologyBase {
 		 * structure relationships
 		 * 
 		 * @return The ontology model for data structures and data relations
+		 * @throws FileNotFoundException 
 		 */
 		public static OntModel getDatabaseOntology() {
 			if (datasetmodel == null) {
@@ -137,10 +140,12 @@ public class OntologyBase {
 				 * //datasetmodel.read(alt.getElements());
 				 */
 				
-				String filename = "/resources/Dataset.ttl";
-				InputStream str = OntologyBase.class.getResourceAsStream(filename);
-
+				String filename = "src/main/java/resources/Dataset.ttl";
+				//String filename = "/Users/edwardblurock/git/AngularProject/ChemConnectCoreOntologyBase/src/main/java/resources/Dataset.ttl";
+				//InputStream str = OntologyBase.class.getResourceAsStream(filename);
+				InputStream str;
 				try {
+					str = new FileInputStream(filename);
 					datasetmodel.read(str, "http://esblurock.info", "TURTLE");
 				} catch (Exception ex) {
 					System.out.println("Error in reading Ontology:   " + filename + "\n" + ex.toString());
