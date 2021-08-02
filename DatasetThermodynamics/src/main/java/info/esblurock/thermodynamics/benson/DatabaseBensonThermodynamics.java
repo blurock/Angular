@@ -9,7 +9,7 @@ import org.openscience.cdk.AtomContainer;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import info.esblurock.reaction.core.ontology.base.constants.AltLabelConstants;
+import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.thermodynamics.dataset.DatasetCompoundObject;
 import jThergas.data.group.JThergasThermoStructureGroupPoint;
 import thermo.data.benson.BensonConnectAtomStructure;
@@ -38,12 +38,12 @@ public class DatabaseBensonThermodynamics {
 		double entropyD = benson.getStandardEntropy().doubleValue();
 		String entropyS = String.format("%10.3f", entropyD).toString();
 		
-		topbenson.addProperty(AltLabelConstants.ThermodynamicStandardEnthalpy, enthalpyS);
-		topbenson.addProperty(AltLabelConstants.ThermodynamicStandardEntropy, entropyS);
+		topbenson.addProperty(ClassLabelConstants.ThermodynamicStandardEnthalpy, enthalpyS);
+		topbenson.addProperty(ClassLabelConstants.ThermodynamicStandardEntropy, entropyS);
 		
 		JsonObject structjson = addJSONBensonGroupStructure(grp);
-		topbenson.add(AltLabelConstants.JThermodynamicsBensonRuleStructure, structjson);
-		JsonArray jsoncpvalues = (JsonArray) topbenson.get(AltLabelConstants.ThermodynamicCpAtTemperature);
+		topbenson.add(ClassLabelConstants.JThermodynamicsBensonRuleStructure, structjson);
+		JsonArray jsoncpvalues = (JsonArray) topbenson.get(ClassLabelConstants.ThermodynamicCpAtTemperature);
 		ArrayList<HeatCapacityTemperaturePair> cpset = benson.getSetOfHeatCapacities();
 		Iterator<HeatCapacityTemperaturePair> iter = cpset.iterator();
 		while(iter.hasNext()) {
@@ -58,7 +58,7 @@ public class DatabaseBensonThermodynamics {
 		JsonObject grpstruct = new JsonObject();
 
 		String center = benson.getCenterAtomS();
-		grpstruct.addProperty(AltLabelConstants.JThermodynamicsBensonCenterAtom, center);
+		grpstruct.addProperty(ClassLabelConstants.JThermodynamicsBensonCenterAtom, center);
 		Iterator<BensonConnectAtomStructure> connections = benson.getBondedAtoms().iterator();
 		while(connections.hasNext()) {
 			BensonConnectAtomStructure connect = connections.next();
@@ -75,7 +75,7 @@ public class DatabaseBensonThermodynamics {
 		String cpS = String.format("%10.3f", cpD).toString();
 		double TD  = cppair.getTemperatureValue();
 		String TS = String.format("%10.3f", TD).toString();
-		jsoncpatT.addProperty(AltLabelConstants.ThermodynamicHeatCapacity, cpS);
+		jsoncpatT.addProperty(ClassLabelConstants.ThermodynamicHeatCapacity, cpS);
 		jsoncpatT.addProperty("dataset:thermotemperature", TS);
 		jsoncpvalues.add(jsoncpatT);
 	}

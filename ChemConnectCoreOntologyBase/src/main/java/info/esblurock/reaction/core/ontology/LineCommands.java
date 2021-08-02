@@ -11,6 +11,7 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.setup.SetupAltLabelList;
+import info.esblurock.reaction.core.ontology.base.transaction.ProcessTransactionBase;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class LineCommands {
@@ -44,6 +45,15 @@ public class LineCommands {
 					System.out.println("Template classname");
 					System.out.println("    classname: The name of the class in the ontology");
 				}
+			} else if (command.equals("TransactionSourceTemplate")) {
+				if (args.length > 1) {
+					String classname = args[1];
+					JsonObject obj = ProcessTransactionBase.setupActivityInformationTemplate(classname);
+					System.out.println(JsonObjectUtilities.toString(obj));
+				} else {
+					System.out.println("TransactionSourceTemplate classname");
+					System.out.println("    classname: The name of the class in the ontology");
+				}
 			} else {
 				System.out.println("Command not found: " + command);
 				commands();
@@ -59,6 +69,7 @@ public class LineCommands {
 		System.out.println("Ontology Commands");
 		System.out.println("BuildAltLabel: Build the label list");
 		System.out.println("Template: Build full JsonObject Template of a class");
+		System.out.println("TransactionSourceTemplate: Build full JsonObject Template of a class");
 	}
 
 }

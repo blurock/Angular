@@ -16,6 +16,10 @@ public class OntologyObjectLabels {
 	public static String mappingOntologylabel = "skos:mappingRelation";
 	public static String hasPartlabel = "dcterms:hasPart";
 	public static String hasPartOntologyLabel = "<http://purl.org/dc/terms/hasPart>";
+	public static String member= "skos:member";
+	public static String isDefinedBy = "rdfs:isDefinedBy";
+	public static String label = "rdfs:label";
+	public static String dctype = "<http://purl.org/dc/elements/1.1/type>";
 	
 	public static String recordsSinglet = "recordsSinglet";
 	public static String recordsMultiple = "recordsMultiple";
@@ -24,5 +28,7 @@ public class OntologyObjectLabels {
 	
 	public static String classification = "classification";
 	public static String subclassifications = "subclassifications";
+	
+
 	
 }

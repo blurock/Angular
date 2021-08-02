@@ -13,10 +13,16 @@ public class SetupAltLabelList {
 		buf.append("package info.esblurock.reaction.core.ontology.base.constants\n");
 		buf.append("\npublic class AltLabelConstants {\n\n");
 		
-		String topclass1 = "dataset:ChemConnectDatabaseDocument";
+		String topclass1 = "dataset:SimpleCatalogObject";
 		addLabelsToList(topclass1,buf);
-		String topclass2 = "dataset:ChemConnectDatabaseDocumentElement";
+		String topclass2 = "dataset:ChemConnectCompoundDataStructure";
 		addLabelsToList(topclass2,buf);
+		String topclass3 = "dataset:ActivityInformationRecord";
+		addLabelsToList(topclass3,buf);
+		String topclass4 = "dataset:ChemConnectPrimitiveDataStructure";
+		addLabelsToList(topclass4,buf);
+		//String topclass5 = "dataset:ChemConnectDatabaseDocumentElement";
+		//addLabelsToList(topclass5,buf);
 
 		buf.append("}\n\n");
 		return buf.toString();

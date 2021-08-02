@@ -1383,7 +1383,12 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                               owl:onClass :username
-                                            ] .
+                                            ] ;
+                            <http://purl.org/dc/elements/1.1/type> :ActivityCatalogUserAccount ;
+                            <http://purl.org/dc/terms/identifier> "dataset:cataloguseraccountsource"^^xsd:string ;
+                            rdfs:comment "User Account Source Data"^^xsd:string ;
+                            rdfs:label "User Account Source Data"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "cataloguseraccountsource"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ActivityInformationBensonRuleData
@@ -1492,7 +1497,12 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#ActivityInformationRecordThermodynamics
 :ActivityInformationRecordThermodynamics rdf:type owl:Class ;
-                                         rdfs:subClassOf :ActivityInformationRecord .
+                                         rdfs:subClassOf :ActivityInformationRecord ;
+                                         <http://purl.org/dc/elements/1.1/type> :ChemConnectCompoundThermodynamics ;
+                                         <http://purl.org/dc/terms/identifier> "dataset:topthermoactivityinfo"^^xsd:string ;
+                                         rdfs:comment "Top Thermodynamic Source Information"^^xsd:string ;
+                                         rdfs:label "Top Thermodynamic Source Information"^^xsd:string ;
+                                         <http://www.w3.org/2004/02/skos/core#altLabel> "topthermoactivityinfo"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ActivityInformationRecordType
@@ -1618,7 +1628,9 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                  owl:onProperty <http://purl.org/dc/terms/accessRights> ;
                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                  owl:onClass :AccountPriviledgeData
-                               ] .
+                               ] ;
+               rdfs:comment "Administrator: has total access to all data" ;
+               rdfs:label "Administrator" .
 
 
 ###  http://www.esblurock.info/dataset#AmountOfSpecifiedSpecies
@@ -1638,7 +1650,12 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#AtomCount
 :AtomCount rdf:type owl:Class ;
-           rdfs:subClassOf :ElementCount .
+           rdfs:subClassOf :ElementCount ;
+           <http://purl.org/dc/elements/1.1/type> :AtomCount ;
+           <http://purl.org/dc/terms/identifier> "dataset:atomcount"^^xsd:string ;
+           rdfs:comment "The number of atoms in the structure"^^xsd:string ;
+           rdfs:label "Atom Count"^^xsd:string ;
+           <http://www.w3.org/2004/02/skos/core#altLabel> "atomcount"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#AtomTypeCount
@@ -1756,7 +1773,12 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#BooleanDataType
 :BooleanDataType rdf:type owl:Class ;
-                 rdfs:subClassOf :ChemConnectPrimitiveDataStructure .
+                 rdfs:subClassOf :ChemConnectPrimitiveDataStructure ;
+                 <http://purl.org/dc/elements/1.1/type> :BooleanDataType ;
+                 <http://purl.org/dc/terms/identifier> "dataset:booldata"^^xsd:string ;
+                 rdfs:comment "Class of Boolean Data Type"^^xsd:string ;
+                 rdfs:label "Boolean Data Type"^^xsd:string ;
+                 <http://www.w3.org/2004/02/skos/core#altLabel> "booldata"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#BurnerParameters
@@ -2635,7 +2657,7 @@ This transaction is in combination with another transaction responsible for crea
                                                  owl:onClass :ActivityCatalogUserAccount
                                                ] ,
                                                [ rdf:type owl:Restriction ;
-                                                 owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
+                                                 owl:onProperty <http://www.w3.org/ns/dcat#catalog> ;
                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                  owl:onClass :UserAccount
                                                ] .
@@ -2901,14 +2923,14 @@ This transaction is in combination with another transaction responsible for crea
                            rdfs:subClassOf :ChemConnectConceptProperties .
 
 
-###  http://www.esblurock.info/dataset#ChemConnectDataDocumentCompoundElement
-:ChemConnectDataDocumentCompoundElement rdf:type owl:Class ;
-                                        rdfs:subClassOf :ChemConnectDataDocumentElement .
-
-
 ###  http://www.esblurock.info/dataset#ChemConnectDataDocumentElement
 :ChemConnectDataDocumentElement rdf:type owl:Class ;
-                                rdfs:subClassOf :ChemConnectCompoundBase .
+                                rdfs:subClassOf :ChemConnectCompoundBase ;
+                                <http://purl.org/dc/elements/1.1/type> :ChemConnectDataDocumentElement ;
+                                <http://purl.org/dc/terms/identifier> "dataset:datadocelement"^^xsd:string ;
+                                rdfs:comment "Data Document Element"^^xsd:string ;
+                                rdfs:label "Data Document Element"^^xsd:string ;
+                                <http://www.w3.org/2004/02/skos/core#altLabel> "datadocelement"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ChemConnectDataDocumentStructure
@@ -3232,7 +3254,12 @@ This transaction is in combination with another transaction responsible for crea
 
 ###  http://www.esblurock.info/dataset#ChemConnectObjectType
 :ChemConnectObjectType rdf:type owl:Class ;
-                       rdfs:subClassOf :Classification .
+                       rdfs:subClassOf :Classification ;
+                       <http://purl.org/dc/elements/1.1/type> :CatalogObjectType ;
+                       <http://purl.org/dc/terms/identifier> "dataset:objecttype"^^xsd:string ;
+                       rdfs:comment "The is the type of object (class name)"^^xsd:string ;
+                       rdfs:label "Object Type"^^xsd:string ;
+                       <http://www.w3.org/2004/02/skos/core#altLabel> "objecttype"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ChemConnectObservable
@@ -3575,7 +3602,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#ChemConnectThermodynamicCompoundData
 :ChemConnectThermodynamicCompoundData rdf:type owl:Class ;
                                       rdfs:subClassOf :ChemConnectCompoundBase ;
-                                      <http://purl.org/dc/elements/1.1/type> :ChemConnectThermodynamicCompoundData .
+                                      <http://purl.org/dc/elements/1.1/type> :ChemConnectThermodynamicCompoundData ;
+                                      <http://purl.org/dc/terms/identifier> "dataset:2dthermodynamicdata"^^xsd:string ;
+                                      rdfs:comment "The top 2D thermodynamic class"^^xsd:string ;
+                                      rdfs:label "Thermodynamic Compound Data"^^xsd:string ;
+                                      <http://www.w3.org/2004/02/skos/core#altLabel> "2dthermodynamicdata"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ChemConnectThermodynamicPurpose
@@ -3585,7 +3616,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ChemConnectThermodynamics
 :ChemConnectThermodynamics rdf:type owl:Class ;
-                           rdfs:subClassOf :ChemConnectDataStructure .
+                           rdfs:subClassOf :ChemConnectDataStructure ;
+                           <http://purl.org/dc/elements/1.1/type> :ChemConnectThermodynamics ;
+                           <http://purl.org/dc/terms/identifier> "dataset:2dthermoentity"^^xsd:string ;
+                           rdfs:comment "A 2D Thermodynamic entity"^^xsd:string ;
+                           rdfs:label "2D Thermodynamic Entity"^^xsd:string ;
+                           <http://www.w3.org/2004/02/skos/core#altLabel> "2dthermoentity"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ChemConnectTimeSeries
@@ -3687,8 +3723,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#Classification
 :Classification rdf:type owl:Class ;
                 rdfs:subClassOf :ChemConnectPrimitiveDataStructure ;
-                <http://purl.org/dc/elements/1.1/type> "Classification"^^xsd:string ;
-                rdfs:label "Classification data"^^xsd:string .
+                <http://purl.org/dc/elements/1.1/type> :Classification ;
+                <http://purl.org/dc/terms/identifier> "dataset:classificationcomponent"^^xsd:string ;
+                rdfs:comment "A parameter with a set of fixed values to choose from"^^xsd:string ;
+                rdfs:label "Classification"^^xsd:string ,
+                           "Classification data"^^xsd:string ;
+                <http://www.w3.org/2004/02/skos/core#altLabel> "classificationcomponent"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ClassificationUnit
@@ -3872,7 +3912,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                       owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                       owl:onClass :ParameterTypeSpecification
-                                                    ] .
+                                                    ] ;
+                                    <http://purl.org/dc/elements/1.1/type> :CompoundDataStructureSpecification ;
+                                    <http://purl.org/dc/terms/identifier> "dataset:datastructspec"^^xsd:string ;
+                                    rdfs:comment "Compound Data Structure Specification"^^xsd:string ;
+                                    rdfs:label "Compound Data Structure Specification"^^xsd:string ;
+                                    <http://www.w3.org/2004/02/skos/core#altLabel> "datastructspec"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ComputeIgnitionDelayTime
@@ -4718,7 +4763,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                  owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                  owl:onClass :CatalogBaseName
-                               ] .
+                               ] ;
+               <http://purl.org/dc/elements/1.1/type> :DataCatalogID ;
+               <http://purl.org/dc/terms/identifier> "dataset:datacatalogid"^^xsd:string ;
+               rdfs:comment "Standard three elements, BaseName, Catalog, Simple"^^xsd:string ;
+               rdfs:label "Data Catalog ID"^^xsd:string ;
+               <http://www.w3.org/2004/02/skos/core#altLabel> "datacatalogid"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DataCatalogIDBase
@@ -4749,17 +4799,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                    rdfs:comment "The base catalog specification. Specific subclasses of this element describe the position in the catalog hierarchy." ;
                    rdfs:label "Catalog Data ID Base"^^xsd:string ;
                    <http://www.w3.org/2004/02/skos/core#altLabel> "catidbase"^^xsd:string .
-
-
-###  http://www.esblurock.info/dataset#DataCatalogIDID
-:DataCatalogIDID rdf:type owl:Class ;
-                 rdfs:subClassOf :DatabaseID ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty <http://purl.org/dc/terms/source> ;
-                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                   owl:onClass :DataCatalogIDBase
-                                 ] ;
-                 <http://purl.org/dc/terms/type> "DatabaseID" .
 
 
 ###  http://www.esblurock.info/dataset#DataCatalogOutputObjectID
@@ -5607,22 +5646,42 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DatasetCatalogHierarchyCollection
 :DatasetCatalogHierarchyCollection rdf:type owl:Class ;
-                                   rdfs:subClassOf :DatasetCatalogHierarchy .
+                                   rdfs:subClassOf :DatasetCatalogHierarchy ;
+                                   <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyCollection ;
+                                   <http://purl.org/dc/terms/identifier> "dataset:cathiercollection" ;
+                                   rdfs:comment "A collection in the hierarchy" ;
+                                   rdfs:label "Catalog Hierarchy Element" ;
+                                   <http://www.w3.org/2004/02/skos/core#altLabel> "cathiercollection" .
 
 
 ###  http://www.esblurock.info/dataset#DatasetCatalogHierarchyDataCatalog
 :DatasetCatalogHierarchyDataCatalog rdf:type owl:Class ;
-                                    rdfs:subClassOf :DatasetCatalogHierarchy .
+                                    rdfs:subClassOf :DatasetCatalogHierarchy ;
+                                    <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
+                                    <http://purl.org/dc/terms/identifier> "dataset:cathiercatalog"^^xsd:string ;
+                                    rdfs:comment "A catalog object in the hierarchy"^^xsd:string ;
+                                    rdfs:label "A catalog type"^^xsd:string ;
+                                    <http://www.w3.org/2004/02/skos/core#altLabel> "cathiercatalog"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DatasetCatalogHierarchyDocument
 :DatasetCatalogHierarchyDocument rdf:type owl:Class ;
-                                 rdfs:subClassOf :DatasetCatalogHierarchy .
+                                 rdfs:subClassOf :DatasetCatalogHierarchy ;
+                                 <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDocument ;
+                                 <http://purl.org/dc/terms/identifier> "dataset:catahierdocument"^^xsd:string ;
+                                 rdfs:comment "A document of the hierarchy"^^xsd:string ;
+                                 rdfs:label "A Document"^^xsd:string ;
+                                 <http://www.w3.org/2004/02/skos/core#altLabel> "catahierdocument" .
 
 
 ###  http://www.esblurock.info/dataset#DatasetCatalogHierarchySimpleName
 :DatasetCatalogHierarchySimpleName rdf:type owl:Class ;
-                                   rdfs:subClassOf :DatasetCatalogHierarchy .
+                                   rdfs:subClassOf :DatasetCatalogHierarchy ;
+                                   <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
+                                   <http://purl.org/dc/terms/identifier> "dataset:cathiersimplename"^^xsd:string ;
+                                   rdfs:comment "The name of the catalog object"^^xsd:string ;
+                                   rdfs:label "Simple Name Object"^^xsd:string ;
+                                   <http://www.w3.org/2004/02/skos/core#altLabel> "cathiersimplename"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DatasetCollectionID
@@ -5683,13 +5742,17 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#DateElement
 :DateElement rdf:type owl:Class ;
              rdfs:subClassOf :ChemConnectPrimitiveDataStructure ;
-             <http://purl.org/dc/elements/1.1/type> "DateObject"^^xsd:string ;
-             rdfs:label "Date" .
+             <http://purl.org/dc/elements/1.1/type> :DateElement ;
+             <http://purl.org/dc/terms/identifier> "dataset:dateelement"^^xsd:string ;
+             rdfs:comment "The top data element"^^xsd:string ;
+             rdfs:label "Date Element" ;
+             <http://www.w3.org/2004/02/skos/core#altLabel> "dataelement"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DateIssued
 :DateIssued rdf:type owl:Class ;
             rdfs:subClassOf :DateElement ;
+            <http://purl.org/dc/terms/identifier> "dataset:entered"^^xsd:string ;
             rdfs:comment "This is the date that the data object was made available in the database. This is to be distinquished from the date the actual data (within the data object) was actually created/published."^^xsd:string ;
             rdfs:isDefinedBy <http://purl.org/dc/terms/available> ;
             rdfs:label "Date entered in database"^^xsd:string ;
@@ -5745,17 +5808,32 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DerivedFromCurrentClassAnnotationAltLabel
 :DerivedFromCurrentClassAnnotationAltLabel rdf:type owl:Class ;
-                                           rdfs:subClassOf :SimpleCatalogName .
+                                           rdfs:subClassOf :SimpleCatalogName ;
+                                           <http://purl.org/dc/elements/1.1/type> :DerivedFromCurrentClassAnnotationAltLabel ;
+                                           <http://purl.org/dc/terms/identifier> "dataset:derivefromaltlabel"^^xsd:string ;
+                                           rdfs:comment "The name of the parameter is derived from the altlabel in the annotations of the class."^^xsd:string ;
+                                           rdfs:label "Label from AltLabel in class"^^xsd:string ;
+                                           <http://www.w3.org/2004/02/skos/core#altLabel> "derivefromaltlabel"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DerivedFromObjectClassName
 :DerivedFromObjectClassName rdf:type owl:Class ;
-                            rdfs:subClassOf :DerivedFromObjectParameter .
+                            rdfs:subClassOf :DerivedFromObjectParameter ;
+                            <http://purl.org/dc/elements/1.1/type> :DerivedFromObjectClassName ;
+                            <http://purl.org/dc/terms/identifier> "dataset:derivefromcatclassname"^^xsd:string ;
+                            rdfs:comment "The label is derviced from the associated catalog object class name"^^xsd:string ;
+                            rdfs:label "Name derived from the catalog object class name"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "derivefromcatclassname"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DerivedFromObjectParameter
 :DerivedFromObjectParameter rdf:type owl:Class ;
-                            rdfs:subClassOf :SimpleCatalogName .
+                            rdfs:subClassOf :SimpleCatalogName ;
+                            <http://purl.org/dc/elements/1.1/type> :DerivedFromObjectParameter ;
+                            <http://purl.org/dc/terms/identifier> "dataset:namederivedobjparam"^^xsd:string ;
+                            rdfs:comment "This is the top level class for names derived from a parameter within a catalog object"^^xsd:string ;
+                            rdfs:label "Name Derived from Object Parameter"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "namederivedobjparam"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DerivedParameter
@@ -5800,7 +5878,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DescriptionAbstractFileSource
 :DescriptionAbstractFileSource rdf:type owl:Class ;
-                               rdfs:subClassOf :DescriptionAbstract .
+                               rdfs:subClassOf :DescriptionAbstract ;
+                               <http://purl.org/dc/elements/1.1/type> :DescriptionAbstractFileSource ;
+                               <http://purl.org/dc/terms/identifier> "dataset:filesourcedescription"^^xsd:string ;
+                               rdfs:comment "Top class of File Source Description"^^xsd:string ;
+                               rdfs:label "File Source Description"^^xsd:string ;
+                               <http://www.w3.org/2004/02/skos/core#altLabel> "filesourcedescription"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DescriptionAbstractFileStaging
@@ -5866,7 +5949,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DescriptionAbstractUserInfo
 :DescriptionAbstractUserInfo rdf:type owl:Class ;
-                             rdfs:subClassOf :DescriptionAbstract .
+                             rdfs:subClassOf :DescriptionAbstract ;
+                             <http://purl.org/dc/elements/1.1/type> :DescriptionAbstractUserInfo ;
+                             <http://purl.org/dc/terms/identifier> "dataset:userinfodescription"^^xsd:string ;
+                             rdfs:comment "The description of user information"^^xsd:string ;
+                             rdfs:label "User Description"^^xsd:string ;
+                             <http://www.w3.org/2004/02/skos/core#altLabel> "userinfodescription"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DescriptionDataData
@@ -6067,7 +6155,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#DescriptionTitleFileSource
 :DescriptionTitleFileSource rdf:type owl:Class ;
                             rdfs:subClassOf :DescriptionTitle ;
-                            <http://www.w3.org/2004/02/skos/core#altLabel> "title-filesource" .
+                            <http://purl.org/dc/elements/1.1/type> :DescriptionTitleFileSource ;
+                            <http://purl.org/dc/terms/identifier> "dataset:titlefilesource"^^xsd:string ;
+                            rdfs:comment "Top File Source Title"^^xsd:string ;
+                            rdfs:label "Top File Source Title"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "titlefilesource"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DescriptionTitleFileStaging
@@ -6133,7 +6225,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#DescriptionTitleUserInfo
 :DescriptionTitleUserInfo rdf:type owl:Class ;
                           rdfs:subClassOf :DescriptionTitle ;
-                          <http://www.w3.org/2004/02/skos/core#altLabel> "title-userinfo" .
+                          <http://purl.org/dc/elements/1.1/type> :DescriptionTitleUserInfo ;
+                          <http://purl.org/dc/terms/identifier> "dataset:titleuserinfo"^^xsd:string ;
+                          rdfs:comment "Top User Info Title"^^xsd:string ;
+                          rdfs:label "Top User Info Title"^^xsd:string ;
+                          <http://www.w3.org/2004/02/skos/core#altLabel> "titleuserinfo" .
 
 
 ###  http://www.esblurock.info/dataset#DescriptionUnit
@@ -6335,9 +6431,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#Email
 :Email rdf:type owl:Class ;
        rdfs:subClassOf :ChemConnectPrimitiveDataStructure ;
-       <http://purl.org/dc/elements/1.1/type> "Email"^^xsd:string ;
-       rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#email> ;
-       rdfs:label "email data"^^xsd:string .
+       <http://purl.org/dc/elements/1.1/type> :Email ;
+       <http://purl.org/dc/terms/identifier> <http://www.w3.org/2006/vcard/ns#email> ;
+       rdfs:comment "Top email class"^^xsd:string ;
+       rdfs:label "Top email class"^^xsd:string ;
+       <http://www.w3.org/2004/02/skos/core#altLabel> "topemail"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#EmailContactType
@@ -7624,7 +7722,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                             owl:onClass :GCSBlobFileInformation
                                           ] ;
-                          <http://purl.org/dc/terms/type> "DatabaseID" .
+                          <http://purl.org/dc/terms/identifier> "dataset:gcsblobfileinfoid"^^xsd:string ;
+                          <http://purl.org/dc/terms/type> :GCSBlobFileInformationID ;
+                          rdfs:comment "GCS Blob File Info ID"^^xsd:string ;
+                          rdfs:label "GCS Blob File Info ID"^^xsd:string ;
+                          <http://www.w3.org/2004/02/skos/core#altLabel> "gcsblobfileinfoid"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#GCSBlobFileInformationRepository
@@ -7690,9 +7792,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#GPSData
 :GPSData rdf:type owl:Class ;
          rdfs:subClassOf :ShortStringKey ;
-         <http://purl.org/dc/elements/1.1/type> "GPSData"^^xsd:string ;
-         rdfs:isDefinedBy <http://www.w3.org/ns/org#location> ;
-         rdfs:label "GPS data"^^xsd:string .
+         <http://purl.org/dc/elements/1.1/type> :GPSData ;
+         <http://purl.org/dc/terms/identifier> <http://www.w3.org/ns/org#location> ;
+         rdfs:label "GPS data"^^xsd:string ;
+         <http://www.w3.org/2004/02/skos/core#altLabel> "Top level GPS class"^^xsd:string ,
+                                                        "gpslocation"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#GPSLatitude
@@ -9005,9 +9109,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
 :HttpAddressInformationType rdf:type owl:Class ;
                             rdfs:subClassOf :Classification ;
                             <http://purl.org/dc/elements/1.1/type> "Classification" ;
+                            <http://purl.org/dc/terms/identifier> "dataset:httpinformationtype" ;
                             rdfs:comment "Gives an indication what type of data or information that the site pointer represents" ;
-                            rdfs:label "Information Type" ,
-                                       "dataset:httpinformationtype" ;
+                            rdfs:label "Information Type" ;
                             <http://www.w3.org/2004/02/skos/core#altLabel> "httpinfotype" .
 
 
@@ -9243,7 +9347,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                   owl:onClass :InitialStagingRepositoryFile
                                                 ] ;
-                                <http://purl.org/dc/terms/type> "DatabaseID" .
+                                <http://purl.org/dc/terms/identifier> "dataset:stagefileIID"^^xsd:string ;
+                                <http://purl.org/dc/terms/type> :InitialStagingRepositoryFileID ;
+                                rdfs:comment "Staging Repository File ID"^^xsd:string ;
+                                rdfs:label "Staging Repository File ID"^^xsd:string ;
+                                <http://www.w3.org/2004/02/skos/core#altLabel> "stagefileIID"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#InstituteHomepage
@@ -9435,7 +9543,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                      owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                      owl:onClass :TherGasTableNumber
-                                                   ] .
+                                                   ] ;
+                                   <http://purl.org/dc/elements/1.1/type> :JTherGasThermoStructureAtomicData ;
+                                   <http://purl.org/dc/terms/identifier> "dataset:jthergasatomicdata"^^xsd:string ;
+                                   rdfs:comment "JTherGas 2D Thermodynamic Structure Atomic Data"^^xsd:string ;
+                                   rdfs:label "JTherGas 2D Thermodynamic Structure Atomic Data"^^xsd:string ;
+                                   <http://www.w3.org/2004/02/skos/core#altLabel> "jthergasatomicdata"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#JThergasThermoData
@@ -9722,7 +9835,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#JThermodynamics2DMoleculeThermodynamics
 :JThermodynamics2DMoleculeThermodynamics rdf:type owl:Class ;
-                                         rdfs:subClassOf :JThermodynamics2DTempDependentThermo .
+                                         rdfs:subClassOf :JThermodynamics2DTempDependentThermo ;
+                                         <http://purl.org/dc/elements/1.1/type> :JThermodynamics2DMoleculeThermodynamics ;
+                                         <http://purl.org/dc/terms/identifier> "dataset:2dmoleculethermo"^^xsd:string ;
+                                         rdfs:comment "The thermodynamics of a  2D molecule structure"^^xsd:string ;
+                                         rdfs:label "2D Molecular Thermodynamic Information"^^xsd:string ;
+                                         <http://www.w3.org/2004/02/skos/core#altLabel> "2dmoleculethermo"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#JThermodynamics2DTempDependentThermo
@@ -9741,7 +9859,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                         owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                         owl:onClass :ThermodynamicStandardEntropy
-                                                      ] .
+                                                      ] ;
+                                      <http://purl.org/dc/elements/1.1/type> :JThermodynamics2DTempDependentThermo ;
+                                      <http://purl.org/dc/terms/identifier> "dataset:2dthermvaluestempdependent"^^xsd:string ;
+                                      rdfs:comment "The complete 2D thermodynamic information for a structure"^^xsd:string ;
+                                      rdfs:label "2D Structure Thermo Information"^^xsd:string ;
+                                      <http://www.w3.org/2004/02/skos/core#altLabel> "2dthermvaluestempdependent"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#JThermodynamicsBensonCenterAtom
@@ -9899,7 +10022,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#JThermodynamicsIntermediateStructures
 :JThermodynamicsIntermediateStructures rdf:type owl:Class ;
-                                       rdfs:subClassOf :ChemConnectThermodynamics .
+                                       rdfs:subClassOf :ChemConnectThermodynamics ;
+                                       <http://purl.org/dc/elements/1.1/type> :JThermodynamicsIntermediateStructures ;
+                                       <http://purl.org/dc/terms/identifier> "dataset:2dthermointermediate"^^xsd:string ;
+                                       rdfs:comment "A 2D thermodynamic intermediate structure"^^xsd:string ;
+                                       rdfs:label "2D Thermo Intermediate"^^xsd:string ;
+                                       <http://www.w3.org/2004/02/skos/core#altLabel> "2dthermointermediate"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#JThermodynamicsMetaAtomEntity
@@ -10139,7 +10267,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                              owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                              owl:onClass :JThergasThermoStructureData
-                                                           ] .
+                                                           ] ;
+                                           <http://purl.org/dc/elements/1.1/type> :JThermodynamicsTherGasBlockInterpretation ;
+                                           <http://purl.org/dc/terms/identifier> "dataset:2dthermoblock"^^xsd:string ;
+                                           rdfs:comment "Interpreting a block of thermodynamic information"^^xsd:string ;
+                                           rdfs:label "2D Thermodynamic Information Block"^^xsd:string ;
+                                           <http://www.w3.org/2004/02/skos/core#altLabel> "2dthermoblock"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#JThermodynamicsTherGasBlockLines
@@ -10164,7 +10297,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                     owl:onClass :ThermodynamicsTherGasLine3
-                                                  ] .
+                                                  ] ;
+                                  <http://purl.org/dc/elements/1.1/type> :JThermodynamicsTherGasBlockLines ;
+                                  <http://purl.org/dc/terms/identifier> "dataset:2dthermoblocklines"^^xsd:string ;
+                                  rdfs:comment "The set of lines of a thermodynamic block"^^xsd:string ;
+                                  rdfs:label "2D Thermodynamic Block Lines"^^xsd:string ;
+                                  <http://www.w3.org/2004/02/skos/core#altLabel> "2dthermoblocklines"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#JThermodynamicsThermodynamicParameter
@@ -10232,7 +10370,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#LabelDerivedFromDatabasePerson
 :LabelDerivedFromDatabasePerson rdf:type owl:Class ;
-                                rdfs:subClassOf :DerivedFromObjectParameter .
+                                rdfs:subClassOf :DerivedFromObjectParameter ;
+                                <http://purl.org/dc/elements/1.1/type> :LabelDerivedFromDatabasePerson ;
+                                <http://purl.org/dc/terms/identifier> "dataset:derivefromdatabaseperson"^^xsd:string ;
+                                rdfs:comment "The name is derived from the catalog object DatabasePerson"^^xsd:string ;
+                                rdfs:label "Derive from DatabasePerson"^^xsd:string ;
+                                <http://www.w3.org/2004/02/skos/core#altLabel> "derivefromdatabaseperson"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#Lady
@@ -10275,7 +10418,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#LinkToDataStructure
 :LinkToDataStructure rdf:type owl:Class ;
                      rdfs:subClassOf :ChemConnectPrimitiveDataStructure ;
-                     <http://purl.org/dc/elements/1.1/type> "LinkToDataStructure" .
+                     <http://purl.org/dc/elements/1.1/type> :LinkToDataStructure ;
+                     <http://purl.org/dc/terms/identifier> "dataset:toplinktodata"^^xsd:string ;
+                     rdfs:comment "Top Link to data structure"^^xsd:string ;
+                     rdfs:label "Top Link to data structure"^^xsd:string ;
+                     <http://www.w3.org/2004/02/skos/core#altLabel> "toplinktodata"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#LiquidCoriolisFlowController
@@ -11220,9 +11367,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#MatrixOfValues
 :MatrixOfValues rdf:type owl:Class ;
                 rdfs:subClassOf :Paragraph ;
-                <http://purl.org/dc/elements/1.1/type> "Paragraph" ;
-                <http://purl.org/dc/terms/identifier> "dataset:MatrixOfValues" ;
-                <http://www.w3.org/2004/02/skos/core#altLabel> "matrix" .
+                <http://purl.org/dc/elements/1.1/type> :MatrixOfValues ;
+                <http://purl.org/dc/terms/identifier> "dataset:matrixasstring" ;
+                rdfs:comment "Matrix of Values as a string (delimited)"^^xsd:string ;
+                rdfs:label "Matrix as String"^^xsd:string ;
+                <http://www.w3.org/2004/02/skos/core#altLabel> "matrixasstring"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#MatrixSpecificationCorrespondence
@@ -11822,7 +11971,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                       owl:onClass :HttpAddressSourceLocation
+                                       owl:onClass :HttpAddressInformationType
                                      ] ;
                      <http://purl.org/dc/elements/1.1/type> "ObjectSiteReference" ;
                      <http://purl.org/dc/terms/identifier> "foaf:page"^^xsd:string ;
@@ -12054,8 +12203,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#OneLine
 :OneLine rdf:type owl:Class ;
          rdfs:subClassOf :ChemConnectPrimitiveDataStructure ;
-         <http://purl.org/dc/elements/1.1/type> "OneLine"^^xsd:string ;
-         rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns#title> .
+         <http://purl.org/dc/elements/1.1/type> :OneLine ;
+         <http://purl.org/dc/terms/identifier> "dataset:toponelineclass"^^xsd:string ;
+         rdfs:comment "The top class of one line entities"^^xsd:string ;
+         rdfs:label "Top One Line"^^xsd:string ;
+         <http://www.w3.org/2004/02/skos/core#altLabel> "toponeline"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#OneObservationSet
@@ -12189,9 +12341,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#Paragraph
 :Paragraph rdf:type owl:Class ;
            rdfs:subClassOf :ChemConnectPrimitiveDataStructure ;
-           <http://purl.org/dc/elements/1.1/type> "Paragraph"^^xsd:string ;
-           rdfs:isDefinedBy <http://purl.org/dc/dcmitype/Text> ,
-                            "Larger text"^^xsd:string .
+           <http://purl.org/dc/elements/1.1/type> :Paragraph ;
+           <http://purl.org/dc/terms/identifier> "dataset:paragraph"^^xsd:string ;
+           rdfs:comment "A paragraph is a set of lines"^^xsd:string ;
+           rdfs:label "Paragraph"^^xsd:string ;
+           <http://www.w3.org/2004/02/skos/core#altLabel> "paragraph"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ParameterEntity
@@ -12310,7 +12464,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#PasswordElement
 :PasswordElement rdf:type owl:Class ;
                  rdfs:subClassOf :ChemConnectPrimitiveDataStructure ;
-                 <http://purl.org/dc/elements/1.1/type> "Password"^^xsd:string .
+                 <http://purl.org/dc/elements/1.1/type> :PasswordElement ;
+                 <http://purl.org/dc/terms/identifier> "dataset:passwordelement"^^xsd:string ;
+                 rdfs:comment "The top password element"^^xsd:string ;
+                 rdfs:label "Password Element"^^xsd:string ;
+                 <http://www.w3.org/2004/02/skos/core#altLabel> "passwordelement"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#PathToCatalogBase
@@ -12777,11 +12935,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                            <http://www.w3.org/2004/02/skos/core#altLabel> "protocolobs"^^xsd:string .
 
 
-###  http://www.esblurock.info/dataset#ProtocolType
-:ProtocolType rdf:type owl:Class ;
-              rdfs:subClassOf :Classification .
-
-
 ###  http://www.esblurock.info/dataset#PublishedResultsCatagory
 :PublishedResultsCatagory rdf:type owl:Class ;
                           rdfs:subClassOf :CatagoryTypeChoices ;
@@ -13112,10 +13265,10 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                              owl:onClass :PurposeUserAccount
                                            ] ;
                            <http://purl.org/dc/elements/1.1/type> "PurposeConceptPair" ;
+                           <http://purl.org/dc/terms/identifier> "dataset:purpose-account" ;
                            rdfs:comment "The purpose and concept of the user account" ;
                            rdfs:label "User Account Concepts" ;
-                           <http://www.w3.org/2004/02/skos/core#altLabel> "dataset:purpose-account" ,
-                                                                          "purpose-acount" .
+                           <http://www.w3.org/2004/02/skos/core#altLabel> "purpose-acount" .
 
 
 ###  http://www.esblurock.info/dataset#PurposeConceptUserInfo
@@ -14237,7 +14390,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                    owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                    owl:onClass :ChemConnectCompoundDataStructure
-                                                 ] .
+                                                 ] ;
+                                 <http://purl.org/dc/elements/1.1/type> :RDFSubjectPrimitiveObjectRecord ;
+                                 <http://purl.org/dc/terms/identifier> "dataset:rdfsubprimobjrec"^^xsd:string ;
+                                 rdfs:comment "A RDF with the object as a primitive and the subject as a record"^^xsd:string ;
+                                 rdfs:label "RDF Object:Primitive Subject:Record"^^xsd:string ;
+                                 <http://www.w3.org/2004/02/skos/core#altLabel> "rdfsubprimobjrec"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#RDFTransactionOutputObject
@@ -16314,22 +16472,42 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ThermodynamicsTherGasLine1
 :ThermodynamicsTherGasLine1 rdf:type owl:Class ;
-                            rdfs:subClassOf :OneLine .
+                            rdfs:subClassOf :OneLine ;
+                            <http://purl.org/dc/elements/1.1/type> :ThermodynamicsTherGasLine1 ;
+                            <http://purl.org/dc/terms/identifier> "dataset:thermoblockline1"^^xsd:string ;
+                            rdfs:comment "Thermodynamic Block Line 1"^^xsd:string ;
+                            rdfs:label "Thermodynamic Block Line 1"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "thermoblockline1"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ThermodynamicsTherGasLine1a
 :ThermodynamicsTherGasLine1a rdf:type owl:Class ;
-                             rdfs:subClassOf :OneLine .
+                             rdfs:subClassOf :OneLine ;
+                             <http://purl.org/dc/elements/1.1/type> :ThermodynamicsTherGasLine1a ;
+                             <http://purl.org/dc/terms/identifier> "dataset:thermoblockline1a"^^xsd:string ;
+                             rdfs:comment "Thermodynamic Block Line 1a"^^xsd:string ;
+                             rdfs:label "Thermodynamic Block Line 1a"^^xsd:string ;
+                             <http://www.w3.org/2004/02/skos/core#altLabel> "thermoblockline1a"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ThermodynamicsTherGasLine2
 :ThermodynamicsTherGasLine2 rdf:type owl:Class ;
-                            rdfs:subClassOf :OneLine .
+                            rdfs:subClassOf :OneLine ;
+                            <http://purl.org/dc/elements/1.1/type> :ThermodynamicsTherGasLine2 ;
+                            <http://purl.org/dc/terms/identifier> "dataset:thermoblockline2"^^xsd:string ;
+                            rdfs:comment "Thermodynamic Block Line 2"^^xsd:string ;
+                            rdfs:label "Thermodynamic Block Line 2"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "thermoblockline2"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ThermodynamicsTherGasLine3
 :ThermodynamicsTherGasLine3 rdf:type owl:Class ;
-                            rdfs:subClassOf :OneLine .
+                            rdfs:subClassOf :OneLine ;
+                            <http://purl.org/dc/elements/1.1/type> :ThermodynamicsTherGasLine3 ;
+                            <http://purl.org/dc/terms/identifier> "dataset:thermoblockline3"^^xsd:string ;
+                            rdfs:comment "Thermodynamic Block Line 3"^^xsd:string ;
+                            rdfs:label "Thermodynamic Block Line 3"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "thermoblockline3"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#TimeInEvent
@@ -16404,18 +16582,18 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#TransactionDatabaseComponentID
 :TransactionDatabaseComponentID rdf:type owl:Class ;
                                 rdfs:subClassOf :DatabaseID ;
-                                <http://purl.org/dc/elements/1.1/type> "DatabaseID" ,
-                                                                       "dataset:transcompid" ;
+                                <http://purl.org/dc/elements/1.1/type> :TransactionDatabaseComponentID ;
+                                <http://purl.org/dc/terms/identifier> "dataset:transcompid" ;
                                 rdfs:comment "This is the identifier (altlabel) of the component in question" ;
                                 rdfs:label "Component ID" ;
-                                <http://www.w3.org/2004/02/skos/core#altLabel> "transcompid" .
+                                <http://www.w3.org/2004/02/skos/core#altLabel> "transcompid"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#TransactionDatabaseComponentRecordID
 :TransactionDatabaseComponentRecordID rdf:type owl:Class ;
                                       rdfs:subClassOf :RecordObjectID ;
-                                      <http://purl.org/dc/elements/1.1/type> "DatabaseID" ,
-                                                                             "dataset:tranmultcomprecid" ;
+                                      <http://purl.org/dc/elements/1.1/type> "DatabaseID" ;
+                                      <http://purl.org/dc/terms/identifier> "dataset:tranmultcomprecid" ;
                                       rdfs:comment "This is the record ID containing the component" ;
                                       rdfs:label "Component Record ID" ;
                                       <http://www.w3.org/2004/02/skos/core#altLabel> "transmultcomprecid" .
@@ -16424,8 +16602,8 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#TransactionDatabaseMultipleContainerID
 :TransactionDatabaseMultipleContainerID rdf:type owl:Class ;
                                         rdfs:subClassOf :RecordObjectID ;
-                                        <http://purl.org/dc/elements/1.1/type> "DatabaseID" ,
-                                                                               "dataset:transmultcontid" ;
+                                        <http://purl.org/dc/elements/1.1/type> "DatabaseID" ;
+                                        <http://purl.org/dc/terms/identifier> "dataset:transmultcontid" ;
                                         rdfs:comment "This is the ID of the container holding the record to be deleted or added" ;
                                         rdfs:label "Multiple Record Container ID" ;
                                         <http://www.w3.org/2004/02/skos/core#altLabel> "transmultcontid" .
@@ -16434,8 +16612,8 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#TransactionDatabaseMultipleRecordID
 :TransactionDatabaseMultipleRecordID rdf:type owl:Class ;
                                      rdfs:subClassOf :RecordObjectID ;
-                                     <http://purl.org/dc/elements/1.1/type> "DatabaseID" ,
-                                                                            "dataset:transmultrecid" ;
+                                     <http://purl.org/dc/elements/1.1/type> "DatabaseID" ;
+                                     <http://purl.org/dc/terms/identifier> "dataset:transmultrecid"^^xsd:string ;
                                      rdfs:comment "This is the ID of the record that is being deleted or added" ;
                                      rdfs:label "Multiple Record ID" ;
                                      <http://www.w3.org/2004/02/skos/core#altLabel> "transmultrecid" .
@@ -18806,8 +18984,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                     <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date .
 
 
-<http://purl.org/dc/terms/rights> <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
-                                  rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+<http://purl.org/dc/terms/rights> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+                                  <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
                                   rdfs:label "Rights"@en ;
                                   rdfs:comment "Information about rights held in and over the resource."@en ;
                                   <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
@@ -18815,8 +18993,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                   <http://purl.org/dc/terms/description> "Typically, rights information includes a statement about various property rights associated with the resource, including intellectual property rights."@en .
 
 
-<http://purl.org/dc/terms/rightsHolder> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
-                                        <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#rightsHolder-002> ;
+<http://purl.org/dc/terms/rightsHolder> <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#rightsHolder-002> ;
+                                        rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                         <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                         rdfs:comment "A person or organization owning or managing rights over the resource."@en ;
                                         <http://purl.org/dc/terms/issued> "2004-06-14"^^xsd:date ;

@@ -82,6 +82,56 @@ public class OntologyUtilityRoutines {
 		}
 		return classname;
 	}
+	public static List<String> exactlyOnePropertyMultiple(String classname, String property) {
+		
+		String query = "SELECT ?element\n" + 
+				"	WHERE {" + classname + " rdfs:subClassOf ?object .\n" + 
+				"                                 ?object owl:onProperty " + property + " .\n" + 
+				"                                  ?object  owl:onClass ?element"
+				+ "}";
+		//System.out.println(query);
+		List<String> elements = OntologyBase.isolateProperty(query, "element");
+		return elements;
+	}
+	public static String exactlyOnePropertySingle(String classname, String property) {
+		
+		String query = "SELECT ?element\n" + 
+				"	WHERE {" + classname + " rdfs:subClassOf ?object .\n" + 
+				"                                 ?object owl:onProperty " + property + " .\n" + 
+				"                                  ?object  owl:onClass ?element"
+				+ "}";
+		List<String> elements = OntologyBase.isolateProperty(query, "element");
+		String ans = null;
+		if(elements.size() > 0) {
+			ans = elements.get(0);
+		}
+		return ans;
+	}
+	public static List<String> somePropertyMultiple(String classname, String property) {
+		
+		String query = "SELECT ?element\n" + 
+				"	WHERE {" + classname + " rdfs:subClassOf ?object .\n" + 
+				"                                 ?object owl:onProperty " + property + " .\n" + 
+				"                                  ?object  owl:someValuesFrom ?element"
+				+ "}";
+		//System.out.println(query);
+		List<String> elements = OntologyBase.isolateProperty(query, "element");
+		return elements;
+	}
+	public static String somePropertySingle(String classname, String property) {
+		
+		String query = "SELECT ?element\n" + 
+				"	WHERE {" + classname + " rdfs:subClassOf ?object .\n" + 
+				"                                 ?object owl:onProperty " + property + " .\n" + 
+				"                                  ?object  owl:someValuesFrom ?element"
+				+ "}";
+		List<String> elements = OntologyBase.isolateProperty(query, "element");
+		String ans = null;
+		if(elements.size() > 0) {
+			ans = elements.get(0);
+		}
+		return ans;
+	}
 
 
 }

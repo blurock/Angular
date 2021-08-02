@@ -5,7 +5,7 @@ import java.util.Iterator;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import info.esblurock.reaction.core.ontology.base.constants.AltLabelConstants;
+import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CompoundObjectDimensionInformation;
 import info.esblurock.reaction.core.ontology.base.dataset.CompoundObjectDimensionSet;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;

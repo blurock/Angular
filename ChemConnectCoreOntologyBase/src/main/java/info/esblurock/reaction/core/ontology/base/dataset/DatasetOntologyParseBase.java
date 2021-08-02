@@ -177,6 +177,21 @@ public class DatasetOntologyParseBase {
 		return labelS;
 	}
 
+	static public String getValueFromAnnotation(String structure, String identifier) {
+		String query = "SELECT ?value \n" 
+				+ "	WHERE {\n" 
+				+ "   " + structure + " " + identifier + " ?value .\n" 
+				+ "  }";
+		List<Map<String, RDFNode>> lst = OntologyBase.resultSetToMap(query);
+		List<Map<String, String>> stringlst = OntologyBase.resultmapToStrings(lst);
+		
+		String valueS = "";
+		if (stringlst.size() > 0) {
+			valueS = stringlst.get(0).get("value");
+		}
+		return valueS;
+		
+	}
 	
 	
 
