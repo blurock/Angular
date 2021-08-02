@@ -1,10 +1,13 @@
-package info.esblurock.reaction.core.ontology.base.transaction;
+package info.esblurock.background.services.transaction;
 
 import java.util.UUID;
 
 import com.google.gson.JsonObject;
 
+import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.constants.SupplementaryConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
+import info.esblurock.reaction.core.ontology.base.transaction.TransactionConceptParsing;
 import info.esblurock.reaction.core.ontology.base.utilities.SubstituteJsonValues;
 
 public class ProcessTransactionBase {
@@ -53,6 +56,29 @@ public class ProcessTransactionBase {
 		return catalog;
 	}
 	
+	public static void fillInOwnerInformation(JsonObject catalog, String owner) {
+		catalog.addProperty(ClassLabelConstants.CatalogObjectOwner, owner);
+		catalog.addProperty(ClassLabelConstants.CatalogObjectAccessRead, owner);
+		catalog.addProperty(ClassLabelConstants.CatalogObjectAccessModify, owner);
+	}
 	
+	public static JsonObject createNewCatalogObject(String transaction, JsonObject info, String owner) {
+		JsonObject catalog = fillInSourceInformationInCatalog(transaction,info);
+		fillInOwnerInformation(catalog, owner);
+		return catalog;
+	}
+	
+	public static void writeCatalogObject(JsonObject catalog) {
+		
+	}
+	
+	public static void processTransaction(String transaction, JsonObject catalog, JsonObject info, 
+			String owner) {
+		if(catalog == null) {
+			catalog = createNewCatalogObject(transaction,info,owner);
+		}
+		catalog.addProperty(ClassLabelConstants.TransactionID, generateTransactionID());
+		catalog = TransactionProcess.processFromTransaction(transaction, catalog, info);
+	}
 
 }

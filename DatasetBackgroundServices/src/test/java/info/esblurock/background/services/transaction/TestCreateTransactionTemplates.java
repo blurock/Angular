@@ -1,9 +1,10 @@
-package info.esblurock.reaction.core.ontology.base.transaction;
+package info.esblurock.background.services.transaction;
 
 import org.junit.Test;
 
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.transaction.ProcessTransactionBase;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class TestCreateTransactionTemplates {

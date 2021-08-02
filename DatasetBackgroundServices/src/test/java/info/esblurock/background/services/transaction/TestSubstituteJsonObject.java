@@ -1,14 +1,10 @@
-package info.esblurock.reaction.core.ontology.json;
+package info.esblurock.background.services.transaction;
 
-import static org.junit.Assert.*;
-
-import java.util.UUID;
 
 import org.junit.Test;
 
 import com.google.gson.JsonObject;
 
-import info.esblurock.reaction.core.ontology.base.transaction.ProcessTransactionBase;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import info.esblurock.reaction.core.ontology.base.utilities.SubstituteJsonValues;
 

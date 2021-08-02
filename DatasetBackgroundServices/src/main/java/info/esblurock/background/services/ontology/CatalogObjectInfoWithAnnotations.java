@@ -1,32 +1,20 @@
 package info.esblurock.background.services.ontology;
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
 import com.google.gson.JsonObject;
 
-import com.google.api.core.ApiFuture;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiIssuer;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.WriteResult;
 
-import info.esblurock.background.services.firestore.FirestoreBaseClass;
-import info.esblurock.core.DataBaseObjects.catalogandrecords.StandardOntologyCatalogElementHierarchy;
-import info.esblurock.core.DataBaseObjects.catalogobjects.AnnotationSet;
-import info.esblurock.core.DataBaseObjects.catalogobjects.BaseCatalogObject;
-import info.esblurock.core.DataBaseObjects.classifications.ClassificationHierarchy;
-import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
+import info.esblurock.reaction.core.ontology.base.classification.ClassificationHierarchy;
 import info.esblurock.reaction.core.ontology.base.classification.DatabaseOntologyClassification;
+import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
-import info.esblurock.reaction.core.ontology.base.dataset.GenerateCatalogObject;
+import info.esblurock.reaction.core.ontology.base.dataset.annotations.BaseAnnotationObjects;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 @Api(
 	    name = "ontologyannotations",
@@ -51,41 +39,34 @@ import info.esblurock.reaction.core.ontology.base.dataset.GenerateCatalogObject;
 	   
 public class CatalogObjectInfoWithAnnotations {
 	
-	private static final long serialVersionUID = 1L;
-
-	 @ApiMethod(httpMethod = ApiMethod.HttpMethod.GET, name = "cataloginfo")
+	@ApiMethod(httpMethod = ApiMethod.HttpMethod.GET, name = "cataloginfo")
 	  public Message cataloginfo(@Named("catalogname") String catalogname) {
-		Date today = new Date();
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
-		String strDate = dateFormat.format(today);  
+		//Date today = new Date();
+		//DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+		//String strDate = dateFormat.format(today);  
 		
-		StandardOntologyCatalogElementHierarchy hierarchy = GenerateCatalogObject.generateSetOfStandardOntologyCatalogElement(catalogname);
-		BaseCatalogObject bascat = new BaseCatalogObject();
-		bascat.fillBaseInfo("1", strDate, "Public", "blurock", catalogname);
-		bascat.fill(hierarchy);
+		JsonObject catalog = CreateDocumentTemplate.createSubTemplate(catalogname);
+		
 
-		AnnotationSet set = new AnnotationSet();
-		set.fill(hierarchy);
-
-		JsonObject jobj = new JsonObject();
-		jobj.put("catalog" , bascat.toJsonObject());
-		jobj.put("annotations", set.toJsonObject());
 		Message message = new Message();
-		message.setMessage(jobj.toString());
+		message.setMessage(JsonObjectUtilities.toString(catalog));
 		return message;
 	}
 	 @ApiMethod(httpMethod = ApiMethod.HttpMethod.GET, name="catalogannotation")
 		public Message catalogannotation(@Named("catalogname") String catalogname) {
-			BaseAnnotationObjects hierarchy = DatasetOntologyParseBase.getAnnotationStructureFromIDObject(catalogname);
+		 BaseAnnotationObjects  annotations = DatasetOntologyParseBase.getAnnotationStructureFromIDObject(catalogname);
+		 JsonObject json = annotations.toJsonObject();
+		 
 			 Message message = new Message();
-			 message.setMessage(hierarchy.toString(""));
+			 message.setMessage(JsonObjectUtilities.toString(json));
 			return message;
 		}
 	 @ApiMethod(httpMethod = ApiMethod.HttpMethod.GET, name="classificationhierarchy")
 	 public Message classificationhierarchy(@Named("catalogname") String catalogname) {
 		ClassificationHierarchy hier = DatabaseOntologyClassification.getClassificationHierarchy(catalogname);
+		JsonObject json = hier.toJsonObject();
 		 Message message = new Message();
-		 message.setMessage(hier.toString(""));
+		 message.setMessage(JsonObjectUtilities.toString(json));
 		return message;
 	 }
 	 

@@ -18,12 +18,11 @@ import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import info.esblurock.background.services.ontology.Message;
-import info.esblurock.core.DataBaseObjects.catalogandrecords.StandardOntologyCatalogElementHierarchy;
-import info.esblurock.core.DataBaseObjects.catalogobjects.BaseCatalogObject;
-import info.esblurock.reaction.core.ontology.base.dataset.GenerateCatalogObject;
+import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 
 @Api(
 	    name = "firestorewrite",
@@ -46,28 +45,22 @@ import info.esblurock.reaction.core.ontology.base.dataset.GenerateCatalogObject;
 	    }
 	    )
 public class WriteFirestoreData {
-	private static final long serialVersionUID = 1L;
 	
 	 @ApiMethod(httpMethod = ApiMethod.HttpMethod.GET, name = "writeempty")
 	  public Message writeempty(@Named("catalogname") String catalogname) {
 		 Message message = new Message();
 		 
-			Date today = new Date();
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
-			String strDate = dateFormat.format(today);  
+			//Date today = new Date();
+			//DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
+			//String strDate = dateFormat.format(today);  
 			
-			StandardOntologyCatalogElementHierarchy hierarchy = GenerateCatalogObject.generateSetOfStandardOntologyCatalogElement(catalogname);
-			BaseCatalogObject bascat = new BaseCatalogObject();
-			bascat.fillBaseInfo("1", strDate, "Public", "blurock", catalogname);
-			bascat.fill(hierarchy);
-
 			try {
 				Firestore db = FirestoreBaseClass.getFirebaseDatabase();
 				DocumentReference docRef = db.collection("empty").document("catalog");
-				String basS = bascat.toString("");
+				JsonObject catalog = CreateDocumentTemplate.createSubTemplate(catalogname);
 				
 				Map<String, Object> mapObj = new Gson().fromJson(
-						  basS, new TypeToken<HashMap<String, Object>>() {}.getType()
+						  catalog, new TypeToken<HashMap<String, Object>>() {}.getType()
 						);
 				//JsonElement gson = JsonParser.parseString(basS);
 				ApiFuture<WriteResult> result = docRef.set(mapObj);
@@ -75,10 +68,8 @@ public class WriteFirestoreData {
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		 
