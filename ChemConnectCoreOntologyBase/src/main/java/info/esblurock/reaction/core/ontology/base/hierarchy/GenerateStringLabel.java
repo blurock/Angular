@@ -10,8 +10,12 @@ import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRouti
 /** Generate string label from the classname and the JsonObject
  * 
  * @author edwardblurock
+ * 
+ * given the classname and the object in JsonObject form, generate a label.
+ * The label is determined by the subclass of dataset:SimpleCatalogName
  *
  */
+
 public enum GenerateStringLabel {
 	
 	DerivedFromObjectClassName {
@@ -40,7 +44,7 @@ public enum GenerateStringLabel {
 	}
 	;
 	
-	/** 
+	/** Derive the label from classname and object in JsonObject form
 	 * 
 	 * @param classname The name of the class of the object
 	 * @param object The object in JsonObject format
