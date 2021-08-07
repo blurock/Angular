@@ -26,6 +26,7 @@ import com.google.cloud.firestore.FirestoreOptions;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.storage.StorageOptions;
 import com.google.common.collect.ImmutableMap;
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +59,8 @@ public class Quickstart {
             .setCredentials(GoogleCredentials.getApplicationDefault())
             .build();
     Firestore db = firestoreOptions.getService();
+    
+
     // [END fs_initialize_project_id]
     this.db = db;
   }

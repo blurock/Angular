@@ -1,20 +1,8 @@
 package info.esblurock.background.services;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
-
-import com.google.gson.JsonObject;
 import org.junit.Test;
 
-import com.google.api.core.ApiFuture;
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.FirestoreOptions;
 
 
 public class TestReadCatalogWithAnnotations {
@@ -22,7 +10,7 @@ public class TestReadCatalogWithAnnotations {
 	@Test
 	public void test() throws IOException {
 		/*
-		String projectId = "blurock-firebase";
+		String projectId = "blurock-database";
 		
 	    FirestoreOptions firestoreOptions =
 	            FirestoreOptions.getDefaultInstance().toBuilder()

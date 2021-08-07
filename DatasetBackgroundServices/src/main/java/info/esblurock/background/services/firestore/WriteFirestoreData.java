@@ -1,19 +1,16 @@
 package info.esblurock.background.services.firestore;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.google.api.core.ApiFuture;
-import com.google.api.server.spi.config.Api;
-import com.google.api.server.spi.config.ApiIssuer;
-import com.google.api.server.spi.config.ApiMethod;
-import com.google.api.server.spi.config.ApiNamespace;
-import com.google.api.server.spi.config.Named;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
@@ -24,36 +21,16 @@ import com.google.gson.reflect.TypeToken;
 import info.esblurock.background.services.ontology.Message;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 
-@Api(
-	    name = "firestorewrite",
-	    version = "v1",
-	    namespace =
-	    @ApiNamespace(
-	        ownerDomain = "firestore.esblurock.info",
-	        ownerName = "firestore.esblurock.info",
-	        packagePath = ""
-	    ),
-	    // [START_EXCLUDE]
-	    issuers = {
-	        @ApiIssuer(
-	            name = "firebase",
-	            issuer = "https://securetoken.google.com/blurock-firebase",
-	            jwksUri =
-	                "https://www.googleapis.com/service_accounts/v1/metadata/x509/securetoken@system"
-	                    + ".gserviceaccount.com"
-	        )
-	    }
-	    )
+@WebServlet(
+	    name = "WriteFirestoreData",
+	    urlPatterns = {"/writeempty"}
+	)
 public class WriteFirestoreData {
 	
-	 @ApiMethod(httpMethod = ApiMethod.HttpMethod.GET, name = "writeempty")
-	  public Message writeempty(@Named("catalogname") String catalogname) {
-		 Message message = new Message();
-		 
-			//Date today = new Date();
-			//DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
-			//String strDate = dateFormat.format(today);  
-			
+	public void doGet(HttpServletRequest request, HttpServletResponse response) 
+		      throws IOException {		 
+			Message message = new Message();
+			String catalogname = request.getParameter("catalogname");
 			try {
 				Firestore db = FirestoreBaseClass.getFirebaseDatabase();
 				DocumentReference docRef = db.collection("empty").document("catalog");
@@ -64,7 +41,7 @@ public class WriteFirestoreData {
 						);
 				//JsonElement gson = JsonParser.parseString(basS);
 				ApiFuture<WriteResult> result = docRef.set(mapObj);
-				System.out.println("Update time : " + result.get().getUpdateTime());
+				message.setMessage("Successful write to empty/catalog: " + result.get().getUpdateTime());
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (InterruptedException e) {
@@ -73,7 +50,10 @@ public class WriteFirestoreData {
 				e.printStackTrace();
 			}
 		 
-		 return message;
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println(message.getMessage());
 	 }
 
 }

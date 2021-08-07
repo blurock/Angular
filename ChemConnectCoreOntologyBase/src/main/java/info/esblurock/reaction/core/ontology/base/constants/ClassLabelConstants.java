@@ -422,4 +422,5 @@ public class ClassLabelConstants {
 	public static String GPSLongitude =                                  "geo:long";
 	public static String GPSLatitude =                                   "geo:lat";
 	public static String TransactionComponentOldValue =                  "dataset:transcompold";
+	public static String CollectionDocumentIDPairAddress =               "dataset:addressidpairs";
 	}

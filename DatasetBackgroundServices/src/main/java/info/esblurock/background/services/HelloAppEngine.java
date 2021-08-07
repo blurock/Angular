@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(
     name = "HelloAppEngine",
-    urlPatterns = {"/firebase"}
+    urlPatterns = {"/hello"}
 )
 public class HelloAppEngine extends HttpServlet {
 
-  @Override
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+@Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) 
       throws IOException {
 
-	  String operation = request.getParameter("operation");
-	  String parameter = request.getParameter("argument");
-    response.setContentType("text/plain");
-    response.setCharacterEncoding("UTF-8");
-    
-    
-
+	  response.setContentType("text/html");
+	    response.getWriter().println("<h1>Hello, Google App Engine with Java 11!</h1>");
   }
 }

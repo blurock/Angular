@@ -14,7 +14,7 @@ import com.google.firebase.cloud.FirestoreClient;
 
 public class FirestoreBaseClass {
 
-	public static String projectId = "blurock-firebase";
+	public static String projectId = "blurock-database";
 	public static String host = "localhost:8000";
 	
 	private static Firestore database = null;

@@ -4,67 +4,10 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <servlet>
-        <servlet-name>ontologyannotations</servlet-name>
-        <servlet-class>com.google.api.server.spi.EndpointsServlet</servlet-class>
-        <init-param>
-            <param-name>services</param-name>
-            <param-value>info.esblurock.background.services.ontology.CatalogObjectInfoWithAnnotations</param-value>
-        </init-param>
-    </servlet>
-    <!-- Route API method requests to the backend. -->
-    <servlet-mapping>
-        <servlet-name>ontologyannotations</servlet-name>
-        <url-pattern>/_ah/api/*</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>firestorewrite</servlet-name>
-        <servlet-class>com.google.api.server.spi.EndpointsServlet</servlet-class>
-        <init-param>
-            <param-name>services</param-name>
-            <param-value>info.esblurock.background.services.firestore.WriteFirestoreData</param-value>
-        </init-param>
-    </servlet>
-    <!-- Route API method requests to the backend. -->
-    <servlet-mapping>
-        <servlet-name>firestorewrite</servlet-name>
-        <url-pattern>/_ah/firestore/*</url-pattern>
-    </servlet-mapping>
-  
+
 
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
-      <!-- [START api_management] -->
-    <!-- Add a filter that fetches the service config from service management. -->
-    <filter>
-        <filter-name>endpoints-api-configuration</filter-name>
-        <filter-class>com.google.api.control.ServiceManagementConfigFilter</filter-class>
-    </filter>
-
-    <!-- Add a filter that performs Endpoints logging and monitoring. -->
-    <filter>
-        <filter-name>endpoints-api-controller</filter-name>
-        <filter-class>com.google.api.control.extensions.appengine.GoogleAppEngineControlFilter</filter-class>
-        <init-param>
-            <param-name>endpoints.projectId</param-name>
-            <param-value>${endpoints.project.id}</param-value>
-        </init-param>
-        <init-param>
-            <param-name>endpoints.serviceName</param-name>
-            <param-value>${endpoints.project.id}.appspot.com</param-value>
-        </init-param>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>endpoints-api-configuration</filter-name>
-        <servlet-name>EndpointsServlet</servlet-name>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>endpoints-api-controller</filter-name>
-        <servlet-name>EndpointsServlet</servlet-name>
-    </filter-mapping>
-    <!-- [END api_management] -->
-  
+   
 </web-app>

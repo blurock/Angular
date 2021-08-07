@@ -17,14 +17,12 @@ import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
 import com.google.cloud.firestore.WriteResult;
 
-import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
-
 public class FirebaseText {
 
 	@Test
 	public void test() throws IOException, InterruptedException, ExecutionException {
 		/*
-		String projectId = "blurock-firebase";
+		String projectId = "blurock-database";
 		
 	    FirestoreOptions firestoreOptions =
 	            FirestoreOptions.getDefaultInstance().toBuilder()

@@ -140,12 +140,13 @@ public class OntologyBase {
 				 * //datasetmodel.read(alt.getElements());
 				 */
 				
-				String filename = "src/main/java/resources/Dataset.ttl";
-				//String filename = "/Users/edwardblurock/git/AngularProject/ChemConnectCoreOntologyBase/src/main/java/resources/Dataset.ttl";
-				//InputStream str = OntologyBase.class.getResourceAsStream(filename);
+				//String filename = "../ChemConnectCoreOntologyBase/src/main/java/resources/Dataset.ttl";
+				String filename = "/resources/Dataset.ttl";
 				InputStream str;
 				try {
-					str = new FileInputStream(filename);
+					str = OntologyBase.class.getResourceAsStream(filename);
+					System.out.println("OntologyBase.class.getResourceAsStream: " +  str);
+					//str = new FileInputStream(filename);
 					datasetmodel.read(str, "http://esblurock.info", "TURTLE");
 				} catch (Exception ex) {
 					System.out.println("Error in reading Ontology:   " + filename + "\n" + ex.toString());

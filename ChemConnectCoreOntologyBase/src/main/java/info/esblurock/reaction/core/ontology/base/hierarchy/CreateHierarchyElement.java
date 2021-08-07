@@ -8,9 +8,12 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.reaction.core.ontology.base.classification.ClassificationHierarchy;
 import info.esblurock.reaction.core.ontology.base.classification.DatabaseOntologyClassification;
+import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.constants.OntologyObjectLabels;
+import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
+import info.esblurock.reaction.core.ontology.base.utilities.GenericSimpleQueries;
 import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRoutines;
 
 /**
@@ -32,6 +35,7 @@ public class CreateHierarchyElement {
 	static String datacatalog = "dataset:DatasetCatalogHierarchyDataCatalog";
 	static String collection = "dataset:DatasetCatalogHierarchyCollection";
 	static String document = "dataset:DatasetCatalogHierarchyDocument";
+	static String address = "dataset:CollectionDocumentIDPairAddress";
 
 	/** Generate the FirestoreCatalogID from the class
 	 * 
@@ -44,12 +48,19 @@ public class CreateHierarchyElement {
 	 * 
 	 * @return An array of CollectionDocumentIDPair (FirestoreCatalogID)
 	 */
-	public static JsonArray searchForCatalogObjectInHierarchyTemplate(String catalogC, JsonObject json) {
+	public static JsonObject searchForCatalogObjectInHierarchyTemplate(JsonObject json) {
+		
+		
+		
 		JsonArray pairs = new JsonArray();
 		JsonObject pair = initialCollectionDocumentIDPair();
+		String identifier = json.get(AnnotationObjectsLabels.identifier).getAsString();
+		String catalogC  = GenericSimpleQueries.classFromIdentifier(identifier);
 		ClassificationHierarchy hierarchy = DatabaseOntologyClassification.getClassificationHierarchy(topOfHierarchy);
 		search(hierarchy, json, pairs, pair, catalogC);
-		return pairs;
+		JsonObject obj= CreateDocumentTemplate.createTemplate(address);
+		obj.add(ClassLabelConstants.CollectionDocumentIDPair, pairs);
+		return obj;
 	}
 
 	/** Search down the classification hierarchy and fill in FirestoreCatalogID
@@ -134,7 +145,7 @@ public class CreateHierarchyElement {
 	 * if this is true, then a new (empty) CollectionDocumentIDPair is generated and filled in.
 	 * 
 	 */
-	private static JsonObject addInCollectionDocumentIDPair(String genname, String identifier, JsonObject json,
+	private static JsonObject addInCollectionDocumentIDPair(String identifier, String genname, JsonObject json,
 			JsonArray pairs) {
 		if (json.get(identifier) == null) {
 			json.addProperty(identifier, genname);
@@ -182,6 +193,7 @@ public class CreateHierarchyElement {
 	public static String generateHierarchyName(String hierclass, String classname, JsonObject json) {
 		String isdefinedby = DatasetOntologyParseBase.getValueFromAnnotation(hierclass,
 				OntologyObjectLabels.isDefinedBy);
+		System.out.println("generateHierarchyName: '" + isdefinedby + "'");
 		String isdefinedbyShort = isdefinedby.substring(8);
 		String name = GenerateStringLabel.valueOf(isdefinedbyShort).deriveName(classname, json);
 		return name;

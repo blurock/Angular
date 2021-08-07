@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import com.google.gson.JsonObject;
 
-import info.esblurock.background.services.transaction.ProcessTransactionBase;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class TestCreateTransactionTemplates {

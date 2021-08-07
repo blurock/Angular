@@ -1,13 +1,11 @@
 package info.esblurock.background.services.catalog;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
-import info.esblurock.core.DataBaseObjects.classifications.ClassificationHierarchy;
-import info.esblurock.core.DataBaseObjects.ontology.BaseAnnotationObjects;
+import info.esblurock.reaction.core.ontology.base.classification.ClassificationHierarchy;
 import info.esblurock.reaction.core.ontology.base.classification.DatabaseOntologyClassification;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
+import info.esblurock.reaction.core.ontology.base.dataset.annotations.BaseAnnotationObjects;
 
 public class ObjectPurposeAnnotationTest {
 

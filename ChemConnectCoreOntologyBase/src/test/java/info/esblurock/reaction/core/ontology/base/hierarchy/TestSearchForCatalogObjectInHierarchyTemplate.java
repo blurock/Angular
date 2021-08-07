@@ -13,7 +13,6 @@ public class TestSearchForCatalogObjectInHierarchyTemplate {
 
 	@Test
 	public void test() {
-		String classname = "dataset:DatabasePerson";
 		String jsonS = "{\n"
 				+ "  \"vcard:Location\": {\n"
 				+ "    \"geo:location\": {\n"
@@ -95,9 +94,9 @@ public class TestSearchForCatalogObjectInHierarchyTemplate {
 				+ "}\n"
 				+ "";
 		JsonObject json = JsonObjectUtilities.jsonObjectFromString(jsonS);
-		JsonArray pairs = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(classname,json);
+		JsonObject pairs = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(json);
 		System.out.println("------------ TestSearchForCatalogObjectInHierarchyTemplate -------------");
-		System.out.println(classname + ":\n" + pairs.toString());
+		System.out.println(JsonObjectUtilities.toString(pairs));
 	}
 
 }

@@ -20,17 +20,13 @@ import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
 import com.google.cloud.firestore.WriteResult;
 
-import info.esblurock.core.DataBaseObjects.catalogandrecords.StandardOntologyCatalogElementHierarchy;
-import info.esblurock.core.DataBaseObjects.catalogobjects.AnnotationSet;
-import info.esblurock.core.DataBaseObjects.catalogobjects.BaseCatalogObject;
-
 public class TestCatalogWithAnnotations {
 
 	@Test
 	public void test() throws IOException, InterruptedException, ExecutionException {
 		String catalogname = "dataset:RepositoryFileStaging";
 		/*
-		String projectId = "blurock-firebase";
+		String projectId = "blurock-database";
 		
 	    FirestoreOptions firestoreOptions =
 	            FirestoreOptions.getDefaultInstance().toBuilder()
