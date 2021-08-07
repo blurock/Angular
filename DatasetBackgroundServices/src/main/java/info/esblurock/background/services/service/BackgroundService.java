@@ -26,6 +26,14 @@ public class BackgroundService  extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 
+	/** POST
+	 * The input is one JSON argument (read in using InputStream).
+	 * The argument 'service' determines which service is to be performed
+	 * {@link DatabaseServicesBase} processes the data with the service.
+	 * 
+	 * The response is application/json
+	 *
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) 
 		      throws IOException {
 
@@ -38,6 +46,13 @@ public class BackgroundService  extends HttpServlet {
 			out.print(JsonObjectUtilities.toString(answer));
 			out.flush();
 	  }
+	
+	/** Read in the JSON data from the body of the post 
+	 * 
+	 * @param request The request from the POST
+	 * @return The JsonObject data as a string
+	 * @throws IOException
+	 */
 	public static String getBody(HttpServletRequest request) throws IOException {
 
 	    String body = null;

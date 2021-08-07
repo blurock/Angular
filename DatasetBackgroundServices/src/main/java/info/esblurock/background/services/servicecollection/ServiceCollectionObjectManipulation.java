@@ -7,6 +7,11 @@ import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate
 import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
 import info.esblurock.reaction.core.ontology.base.utilities.SubstituteJsonValues;
 
+/** These services reflect the ontology definitions under DatasetObjectManipulationService
+ * 
+ * @author edwardblurock
+ *
+ */
 public enum ServiceCollectionObjectManipulation {
 
 	DatasetCreateObjectTemplate {
