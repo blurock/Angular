@@ -423,4 +423,10 @@ public class ClassLabelConstants {
 	public static String GPSLatitude =                                   "geo:lat";
 	public static String TransactionComponentOldValue =                  "dataset:transcompold";
 	public static String CollectionDocumentIDPairAddress =               "dataset:addressidpairs";
+	public static String ClassificationInfo              =               "dataset:classificationinfo";
+	public static String ClassificationInfoTree          =               "dataset:classificationtree";
+	public static String ClassificationInfoElement       =               "dataset:classificationelement";
+	public static String ServiceProcessSuccessful        =               "dataset:servicesuccessful";
+	public static String ServiceResponseMessage          =               "dataset:serviceresponsemessage";
+	
 	}

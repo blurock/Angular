@@ -13,22 +13,31 @@ import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 
 public class SetUpDocumentReference {
 	
-	public static DocumentReference setup(Firestore db, JsonArray firestorecatalogid) {
+	public static DocumentReference setup(Firestore db, JsonObject firestorecatalogid) {
 		DocumentReference docref = null;
-		int idsize = firestorecatalogid.size();
-		for(int i=0; i<idsize;i++) {
-			JsonObject pair = getCollectionDocumentIDPair(i+1,firestorecatalogid);
+		JsonObject json = firestorecatalogid.get(ClassLabelConstants.CollectionDocumentIDPairAddress).getAsJsonObject();
+		JsonArray jarr = json.get(ClassLabelConstants.CollectionDocumentIDPair).getAsJsonArray();
+		int idsize = jarr.size();
+		for(int i=1; i<idsize;i++) {
+			JsonObject pair = getCollectionDocumentIDPair(i+1,jarr);
 			String collection = pair.get(ClassLabelConstants.DatasetCollectionID).getAsString();
 			String document = pair.get(ClassLabelConstants.DatasetDocumentID).getAsString();
-		if(docref == null) {
-				CollectionReference col = db.collection(collection);
-				docref = col.document(document);
-			} else {
-				CollectionReference col = docref.collection(collection);
-				docref = col.document(document);
-			}
+			update(db,docref,collection,document);
 		}
+		String collection = firestorecatalogid.get(ClassLabelConstants.DataCatalog).getAsString();
+		String document = firestorecatalogid.get(ClassLabelConstants.SimpleCatalogName).getAsString();
+		update(db,docref,collection,document);
 		return docref;
+	}
+	
+	private static void update(Firestore db, DocumentReference docref, String collection, String document) {
+		if(docref == null) {
+			CollectionReference col = db.collection(collection);
+			docref = col.document(document);
+		} else {
+			CollectionReference col = docref.collection(collection);
+			docref = col.document(document);
+		}
 	}
 
 	private static JsonObject getCollectionDocumentIDPair(int targetlevel, JsonArray firestorecatalogid) {

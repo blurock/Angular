@@ -2236,7 +2236,10 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 :CatalogHierarchyBensonRuleSet rdf:type owl:Class ;
                                rdfs:subClassOf :CatalogHierarchyCorrections ;
                                <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
-                               rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel .
+                               <http://purl.org/dc/terms/identifier> "dataset:catalogbensonrule"^^xsd:string ;
+                               rdfs:comment "The collection of Benson rules for 2D thermodynamic calculations"^^xsd:string ;
+                               rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
+                               rdfs:label "Benson rule Collection"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyCMLStructure
@@ -2246,21 +2249,30 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                 owl:onProperty <http://purl.org/dc/terms/type> ;
                                                 owl:someValuesFrom :DatabasePerson
                                               ] ;
-                              <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName .
+                              <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
+                              <http://purl.org/dc/terms/identifier> "dataset:doccmlstructure"^^xsd:string ;
+                              rdfs:comment "CML structures for the 2D thermodynamic calculations"^^xsd:string ;
+                              rdfs:label "CML Molecular Structure"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyCMLStructureSet
 :CatalogHierarchyCMLStructureSet rdf:type owl:Class ;
                                  rdfs:subClassOf :CatalogHierarchyThermodynamicDatabase ;
                                  <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
-                                 rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel .
+                                 <http://purl.org/dc/terms/identifier> "dataset:catalogcmlstruct"^^xsd:string ;
+                                 rdfs:comment "Collection of 2D structures in CML form"^^xsd:string ;
+                                 rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
+                                 rdfs:label "2D Molecular (Sub)Structures"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyCorrections
 :CatalogHierarchyCorrections rdf:type owl:Class ;
                              rdfs:subClassOf :CatalogHierarchyThermodynamics ;
                              <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDocument ;
-                             rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel .
+                             <http://purl.org/dc/terms/identifier> "dataset:docthermocorrections"^^xsd:string ;
+                             rdfs:comment "The correction due to the 2D thermodynamic calculations"^^xsd:string ;
+                             rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
+                             rdfs:label "2D Thermodynamic Corrections"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyDatabasePerson
@@ -2297,14 +2309,20 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                         owl:onProperty <http://purl.org/dc/terms/type> ;
                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                         owl:onClass :JThermodynamicsDisassociationEnergy
-                                                      ] .
+                                                      ] ;
+                                      <http://purl.org/dc/terms/identifier> "dataaset:documentdisassociation"^^xsd:string ;
+                                      rdfs:comment "The disassociation energy of 2D structures for 2D thermodynamic calculations"^^xsd:string ;
+                                      rdfs:label "Disassociation Energy"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyDisassociationEnergySet
 :CatalogHierarchyDisassociationEnergySet rdf:type owl:Class ;
                                          rdfs:subClassOf :CatalogHierarchyCorrections ;
                                          <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
-                                         rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel .
+                                         <http://purl.org/dc/terms/identifier> "dataset:catalogdisassociation"^^xsd:string ;
+                                         rdfs:comment "Collection of 2D thermodynamic disassociation energies"^^xsd:string ;
+                                         rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
+                                         rdfs:label "Collection of Disassociation Energies"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyOrganization
@@ -2316,13 +2334,18 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                 owl:onClass :Organization
                                               ] ;
                               <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
-                              rdfs:label "Organization"^^xsd:string .
+                              <http://purl.org/dc/terms/identifier> "dataset:docorganization"^^xsd:string ;
+                              rdfs:comment "The document characterizing an organization"^^xsd:string ;
+                              rdfs:label "Organization"^^xsd:string ;
+                              <http://www.w3.org/2004/02/skos/core#altLabel> "docorganization"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyOrganizationSet
 :CatalogHierarchyOrganizationSet rdf:type owl:Class ;
                                  rdfs:subClassOf :CollectionDocumentHierarchy ;
                                  <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
+                                 <http://purl.org/dc/terms/identifier> "dataset:collorganization"^^xsd:string ;
+                                 rdfs:comment "Information about organizations"^^xsd:string ;
                                  rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
                                  rdfs:label "Organization Set"^^xsd:string .
 
@@ -2341,6 +2364,7 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                          owl:onClass :ConceptLinkDatabasePerson
                                        ] ;
                        <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyCollection ;
+                       <http://purl.org/dc/terms/identifier> "dataset:collownerdata"^^xsd:string ;
                        rdfs:comment "This is the owner and administrator of the documents in this hierarchy."^^xsd:string ;
                        rdfs:isDefinedBy :DeriveHierarchyPropertiesFromDatabasePerson ;
                        rdfs:label "Hierarchy Owner"^^xsd:string .
@@ -2350,35 +2374,49 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 :CatalogHierarchySymmetry rdf:type owl:Class ;
                           rdfs:subClassOf :CatalogHierarchyCorrections ;
                           <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
-                          rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel .
+                          <http://purl.org/dc/terms/identifier> "dataset:catalogsymmetry"^^xsd:string ;
+                          rdfs:comment "Collection of 2D thermodynamic symmetry structures"^^xsd:string ;
+                          rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
+                          rdfs:label "Collection of Symmetry Structures"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyThermodynamicDatabase
 :CatalogHierarchyThermodynamicDatabase rdf:type owl:Class ;
                                        rdfs:subClassOf :CatalogHierarchyThermodynamics ;
                                        <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDocument ;
-                                       rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel .
+                                       <http://purl.org/dc/terms/identifier> "dataset:docthermodatabase"^^xsd:string ;
+                                       rdfs:comment "Database of 2D thermodynamic calculations and structures"^^xsd:string ;
+                                       rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
+                                       rdfs:label "2D Thermodynamic Structures"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyThermodynamics
 :CatalogHierarchyThermodynamics rdf:type owl:Class ;
                                 rdfs:subClassOf :CatalogHierarchyOwner ;
                                 <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDocument ;
+                                <http://purl.org/dc/terms/identifier> "dataset:doc2dthermodynamics"^^xsd:string ;
                                 rdfs:comment "This is the database associated with the 2D Molecular Thermodynamic calculations."^^xsd:string ;
-                                rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel .
+                                rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
+                                rdfs:label "2D Thermodynamics"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyTransaction
 :CatalogHierarchyTransaction rdf:type owl:Class ;
                              rdfs:subClassOf :CatalogHierarchyTransactionSet ;
-                             <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName .
+                             <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
+                             <http://purl.org/dc/terms/identifier> "dataset:doctransaction"^^xsd:string ;
+                             rdfs:comment "The set of transaction. These are in a flat list for searching"^^xsd:string ;
+                             rdfs:label "Transaction Catalog Items"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyTransactionSet
 :CatalogHierarchyTransactionSet rdf:type owl:Class ;
                                 rdfs:subClassOf :CollectionDocumentHierarchy ;
                                 <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
-                                rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel .
+                                <http://purl.org/dc/terms/identifier> "dataset:catalogtransaction"^^xsd:string ;
+                                rdfs:comment "The set of transactions"^^xsd:string ;
+                                rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
+                                rdfs:label "Transaction Collection"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyUserAccount
@@ -2427,7 +2465,10 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 :CatalogHierarchyVibrationalCorrection rdf:type owl:Class ;
                                        rdfs:subClassOf :CatalogHierarchyCorrections ;
                                        <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
-                                       rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel .
+                                       <http://purl.org/dc/terms/identifier> "dataset:catalogvibration"^^xsd:string ;
+                                       rdfs:comment "Collection of Symmetry structures"^^xsd:string ;
+                                       rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
+                                       rdfs:label "Collection of Vibrational Structures"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogModificationCreateDefault
@@ -3731,6 +3772,64 @@ Under the general type of is the actual data object referenced by the ChemConnec
                 <http://www.w3.org/2004/02/skos/core#altLabel> "classificationcomponent"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#ClassificationInfo
+:ClassificationInfo rdf:type owl:Class ;
+                    rdfs:subClassOf :ChemConnectCompoundBase ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                      owl:someValuesFrom :ClassificationInfoElement
+                                    ] ;
+                    <http://purl.org/dc/elements/1.1/type> :ClassificationInfo ;
+                    <http://purl.org/dc/terms/identifier> "dataset:classificationinfo"^^xsd:string ;
+                    rdfs:comment "The array of specific classification elements of a general classification. this is the minimal information for making a choice in the interface. The elements for each are in the ClassificationInfoElement"^^xsd:string ;
+                    rdfs:label "Classification Info"^^xsd:string ;
+                    <http://www.w3.org/2004/02/skos/core#altLabel> "classificationinfo"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#ClassificationInfoElement
+:ClassificationInfoElement rdf:type owl:Class ;
+                           rdfs:subClassOf :ChemConnectCompoundBase ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :CatalogElementType
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :DataTypeComment
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :DataTypeLabel
+                                           ] ;
+                           <http://purl.org/dc/elements/1.1/type> :ClassificationInfoElement ;
+                           <http://purl.org/dc/terms/identifier> "dataset:classificationelement"^^xsd:string ;
+                           rdfs:comment "The extract from the annotations for a classification element (one of the choices from a classification parameter)."^^xsd:string ;
+                           rdfs:label "Classification Element"^^xsd:string ;
+                           <http://www.w3.org/2004/02/skos/core#altLabel> "classificationelement"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#ClassificationInfoTree
+:ClassificationInfoTree rdf:type owl:Class ;
+                        rdfs:subClassOf :ChemConnectCompoundBase ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                          owl:someValuesFrom :ClassificationInfoTree
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onClass :ClassificationInfoElement
+                                        ] ;
+                        <http://purl.org/dc/elements/1.1/type> :ClassificationInfoTree ;
+                        <http://purl.org/dc/terms/identifier> "dataset:classificationtree"^^xsd:string ;
+                        rdfs:comment "The tree of classification elements"^^xsd:string ;
+                        rdfs:label "Classification Tree"^^xsd:string ;
+                        <http://www.w3.org/2004/02/skos/core#altLabel> "classificationtree"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#ClassificationUnit
 :ClassificationUnit rdf:type owl:Class ;
                     rdfs:subClassOf <http://qudt.org/schema/qudt#Unit> .
@@ -3739,7 +3838,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#CollectionDocumentHierarchy
 :CollectionDocumentHierarchy rdf:type owl:Class ;
                              rdfs:subClassOf :ChemConnectDomainConcept ;
-                             rdfs:comment "The subclasses within this hierarchy are the alternating collection and document id's associated with the database."^^xsd:string .
+                             <http://purl.org/dc/elements/1.1/type> :CollectionDocumentHierarchy ;
+                             <http://purl.org/dc/terms/identifier> "dataset:colldochierarchy"^^xsd:string ;
+                             rdfs:comment "The hierarchy of standard (and fixed) collections and documents"^^xsd:string ,
+                                          "The subclasses within this hierarchy are the alternating collection and document id's associated with the database."^^xsd:string ;
+                             rdfs:label "Collection-Document Hierarchy"^^xsd:string ;
+                             <http://www.w3.org/2004/02/skos/core#altLabel> "colldochierarchy"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CollectionDocumentHierarchyCatalog
@@ -3768,6 +3872,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                  <http://purl.org/dc/elements/1.1/type> :CollectionDocumentHierarchyClassification ;
                                  <http://purl.org/dc/terms/identifier> "dataset:collectdoctype" ;
                                  rdfs:comment "The type of level in the Collection Document Hierarchy" ;
+                                 rdfs:isDefinedBy :CollectionDocumentHierarchy ;
                                  rdfs:label "Collection-Document Level Type" ;
                                  <http://www.w3.org/2004/02/skos/core#altLabel> "collectdoctype" .
 
@@ -4020,7 +4125,8 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#ConceptHeadOfDepartment
 :ConceptHeadOfDepartment rdf:type owl:Class ;
                          rdfs:subClassOf :PersonClassification ;
-                         rdfs:comment "The head of a department within a university" .
+                         rdfs:comment "The head of a department within a university" ;
+                         rdfs:label "Head of Department" .
 
 
 ###  http://www.esblurock.info/dataset#ConceptLinkBlockIsolation
@@ -4366,8 +4472,8 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#ConceptProfessor
 :ConceptProfessor rdf:type owl:Class ;
                   rdfs:subClassOf :PersonClassification ;
-                  rdfs:label "Professor" ,
-                             "University or College Professor" .
+                  rdfs:comment "University or College Professor" ;
+                  rdfs:label "Professor" .
 
 
 ###  http://www.esblurock.info/dataset#ConceptProgrammer
@@ -5278,6 +5384,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                            rdfs:subClassOf :DataTypeDataStructure .
 
 
+###  http://www.esblurock.info/dataset#DataTypeComment
+:DataTypeComment rdf:type owl:Class ;
+                 rdfs:subClassOf :OneLine ;
+                 <http://purl.org/dc/elements/1.1/type> :DataTypeComment ;
+                 <http://purl.org/dc/terms/identifier> "rdfs:comment"^^xsd:string ;
+                 rdfs:comment "The comment in the annotations of a data type"^^xsd:string ;
+                 rdfs:label "Comment"^^xsd:string ;
+                 <http://www.w3.org/2004/02/skos/core#altLabel> "datatypecomment"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#DataTypeComponent
 :DataTypeComponent rdf:type owl:Class ;
                    rdfs:subClassOf :DataTypeSystem ;
@@ -5381,6 +5497,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                 <http://purl.org/dc/elements/1.1/type> "InterpretationProtocol" ;
                                 <http://purl.org/dc/terms/isVersionOf> :ConceptLinkInterpretation ;
                                 rdfs:label "Interpretation Proctocol" .
+
+
+###  http://www.esblurock.info/dataset#DataTypeLabel
+:DataTypeLabel rdf:type owl:Class ;
+               rdfs:subClassOf :StringNameLabel ;
+               <http://purl.org/dc/elements/1.1/type> :DataTypeLabel ;
+               <http://purl.org/dc/terms/identifier> "rdfs:label"^^xsd:string ;
+               rdfs:comment "The label field in annotations of a data type"^^xsd:string ;
+               rdfs:label "Data Label"^^xsd:string ;
+               <http://www.w3.org/2004/02/skos/core#altLabel> "label"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DataTypeMatrix
@@ -5536,7 +5662,10 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                owl:onClass :ThermodynamicBensonRuleDefinition
                                              ] ;
-                             <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName .
+                             <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
+                             <http://purl.org/dc/terms/identifier> "dataset:docbensonrule"^^xsd:string ;
+                             rdfs:comment "The Benson Rule"^^xsd:string ;
+                             rdfs:label "Benson Rule"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DatabaseID
@@ -5720,7 +5849,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DatasetCollectionDocumentIDPairForHierarchy
 :DatasetCollectionDocumentIDPairForHierarchy rdf:type owl:Class ;
-                                             rdfs:subClassOf :DatasetCreateObjectTemplate ,
+                                             rdfs:subClassOf :ServiceCollectiontQueryOntology ,
                                                              [ rdf:type owl:Restriction ;
                                                                owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -5748,9 +5877,43 @@ Under the general type of is the actual data object referenced by the ChemConnec
                      <http://www.w3.org/2004/02/skos/core#altLabel> "collectionid" .
 
 
+###  http://www.esblurock.info/dataset#DatasetCreateClassificationList
+:DatasetCreateClassificationList rdf:type owl:Class ;
+                                 rdfs:subClassOf :ServiceCollectiontQueryOntology ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                   owl:onClass :DataTypeLabel
+                                                 ] ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
+                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                   owl:onClass :ClassificationInfo
+                                                 ] ;
+                                 <http://purl.org/dc/elements/1.1/type> :DatasetCreateClassificationList ;
+                                 <http://purl.org/dc/terms/identifier> "dataset:classificationlist"^^xsd:string ;
+                                 rdfs:comment "From a classification parameter (component under Classification), create a simple set of the classification choices. The choices are the subclasses of the class defined by 'isDefinedBy' in the annotations of the parameter."^^xsd:string ;
+                                 rdfs:label "Classification List"^^xsd:string ;
+                                 <http://www.w3.org/2004/02/skos/core#altLabel> "classificationlist"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#DatasetCreateClassificationTree
+:DatasetCreateClassificationTree rdf:type owl:Class ;
+                                 rdfs:subClassOf :ServiceCollectiontQueryOntology ;
+                                 <http://purl.org/dc/elements/1.1/type> :DatasetCreateClassificationTree ;
+                                 <http://purl.org/dc/terms/identifier> "dataset:serclassificationlist"^^xsd:string ;
+                                 rdfs:comment "From a classification parameter (component under Classification), create a tree hierarchy of the classification choices. The choices are the subclasses of the class defined by 'isDefinedBy' in the annotations of the parameter."^^xsd:string ;
+                                 rdfs:label "Classification List"^^xsd:string ;
+                                 <http://www.w3.org/2004/02/skos/core#altLabel> "serclassificationlist"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#DatasetCreateObjectTemplate
 :DatasetCreateObjectTemplate rdf:type owl:Class ;
-                             rdfs:subClassOf :DatasetObjectManipulationService ,
+                             rdfs:subClassOf :ServiceCollectiontQueryOntology ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
+                                               owl:someValuesFrom :SimpleCatalogObject
+                                             ] ,
                                              [ rdf:type owl:Restriction ;
                                                owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -5780,11 +5943,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                          owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                          owl:onClass :ActivityInformationRecord
-                                                       ] ,
-                                                       [ rdf:type owl:Restriction ;
-                                                         owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
-                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                         owl:onClass :SimpleCatalogObject
                                                        ] ;
                                        <http://purl.org/dc/elements/1.1/type> :DatasetFillEmptyWithSourceInformation ;
                                        <http://purl.org/dc/terms/identifier> "dataset:serfillemptyobject"^^xsd:string ;
@@ -5821,21 +5979,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
               rdfs:comment "The information about an image" ;
               rdfs:label "Image"^^xsd:string ;
               <http://www.w3.org/2004/02/skos/core#altLabel> "img"^^xsd:string .
-
-
-###  http://www.esblurock.info/dataset#DatasetObjectManipulationService
-:DatasetObjectManipulationService rdf:type owl:Class ;
-                                  rdfs:subClassOf :DatabaseServicesBase ,
-                                                  [ rdf:type owl:Restriction ;
-                                                    owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
-                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                    owl:onClass :ServiceCollectionObjectManipulation
-                                                  ] ;
-                                  <http://purl.org/dc/elements/1.1/type> :DatasetObjectManipulationService ;
-                                  <http://purl.org/dc/terms/identifier> "dataset:serqueryontology"^^xsd:string ;
-                                  rdfs:comment "The class of services for querying the ontology"^^xsd:string ;
-                                  rdfs:label "Query Ontology Service"^^xsd:string ;
-                                  <http://www.w3.org/2004/02/skos/core#altLabel> "serqueryontology"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DateCreated
@@ -7366,6 +7509,26 @@ Under the general type of is the actual data object referenced by the ChemConnec
                     rdfs:comment "The catalog ID associated with the Google firestore database. This adds a set of collection-document pairs to the hierarchy." ;
                     rdfs:label "Firestore Catalog ID" ;
                     <http://www.w3.org/2004/02/skos/core#altLabel> "firestorecatalog" .
+
+
+###  http://www.esblurock.info/dataset#FirestoreServiceWriteCatalogObject
+:FirestoreServiceWriteCatalogObject rdf:type owl:Class ;
+                                    rdfs:subClassOf :ServiceCollectionFirestoreCatalogAccess ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :FirestoreCatalogID
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :SimpleCatalogObject
+                                                    ] ;
+                                    <http://purl.org/dc/elements/1.1/type> :FirestoreServiceWriteCatalogObject ;
+                                    <http://purl.org/dc/terms/identifier> "dataset:serwritefirestorecatalog"^^xsd:string ;
+                                    rdfs:label "This writes a catalog object to the firestore database"^^xsd:string ,
+                                               "Write Catalog Object to Firestore"^^xsd:string ;
+                                    <http://www.w3.org/2004/02/skos/core#altLabel> "serwritefirestorecatalog"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#FirstStageExpansionWithSkimmer
@@ -15061,6 +15224,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                            rdfs:subClassOf :ChemConnectPurposeSensor .
 
 
+###  http://www.esblurock.info/dataset#ServiceCollectionFirestoreCatalogAccess
+:ServiceCollectionFirestoreCatalogAccess rdf:type owl:Class ;
+                                         rdfs:subClassOf :DatabaseServicesBase ;
+                                         <http://purl.org/dc/elements/1.1/type> :ServiceCollectionFirestoreCatalogAccess ;
+                                         <http://purl.org/dc/terms/identifier> "dataset:serfirestorecollection"^^xsd:string ;
+                                         rdfs:comment "Collection of processes to read and write catlog objects to the firestore database"^^xsd:string ;
+                                         rdfs:label "Firestore Catalog Access"^^xsd:string ;
+                                         <http://www.w3.org/2004/02/skos/core#altLabel> "serfirestorecollection"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#ServiceCollectionObjectManipulation
 :ServiceCollectionObjectManipulation rdf:type owl:Class ;
                                      rdfs:subClassOf :DatabaseServiceCollection ;
@@ -15069,6 +15242,66 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                      rdfs:comment "The collection of Services dealing with object manipulation"^^xsd:string ;
                                      rdfs:label "Object Manipulation Services"^^xsd:string ;
                                      <http://www.w3.org/2004/02/skos/core#altLabel> "sercolobjmanipulation"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#ServiceCollectiontQueryOntology
+:ServiceCollectiontQueryOntology rdf:type owl:Class ;
+                                 rdfs:subClassOf :DatabaseServicesBase ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
+                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                   owl:onClass :ServiceCollectionObjectManipulation
+                                                 ] ;
+                                 <http://purl.org/dc/elements/1.1/type> :ServiceCollectiontQueryOntology ;
+                                 <http://purl.org/dc/terms/identifier> "dataset:serqueryontology"^^xsd:string ;
+                                 rdfs:comment "The class of services for querying the ontology"^^xsd:string ;
+                                 rdfs:label "Query Ontology Service"^^xsd:string ;
+                                 <http://www.w3.org/2004/02/skos/core#altLabel> "serqueryontology"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#ServiceProcessSuccessful
+:ServiceProcessSuccessful rdf:type owl:Class ;
+                          rdfs:subClassOf :BooleanDataType ;
+                          <http://purl.org/dc/elements/1.1/type> :ServiceProcessSuccessful ;
+                          <http://purl.org/dc/terms/identifier> "dataset:servicesuccessful"^^xsd:string ;
+                          rdfs:comment "This is true if the service process was successful"^^xsd:string ;
+                          rdfs:label "Service Successful"^^xsd:string ;
+                          <http://www.w3.org/2004/02/skos/core#altLabel> "servicesuccessful"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#ServiceResponseInformation
+:ServiceResponseInformation rdf:type owl:Class ;
+                            rdfs:subClassOf :ChemConnectCompoundBase ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :ServiceProcessSuccessful
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :ServiceResponseMessage
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :ChemConnectCompoundDataStructure
+                                            ] ;
+                            <http://purl.org/dc/elements/1.1/type> :ServiceResponseInformation ;
+                            <http://purl.org/dc/terms/identifier> "dataset:serviceresponse"^^xsd:string ;
+                            rdfs:comment "This is the information response from a service call."^^xsd:string ;
+                            rdfs:label "Server Response"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "serviceesponse"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#ServiceResponseMessage
+:ServiceResponseMessage rdf:type owl:Class ;
+                        rdfs:subClassOf :OneLine ;
+                        <http://purl.org/dc/elements/1.1/type> :ServiceResponseMessage ;
+                        <http://purl.org/dc/terms/identifier> "dataset:serviceresponsemessage"^^xsd:string ;
+                        rdfs:comment "This is a message associated with the process of the service. If the service was unsuccessful or could not be fulfilled, then this message would reflect the error. For a successful process, this could provide some additional informative comments."^^xsd:string ;
+                        rdfs:label "Service Response Message"^^xsd:string ;
+                        <http://www.w3.org/2004/02/skos/core#altLabel> "serviceresponsemessage"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#SetOfHierarchialConcepts
@@ -19395,12 +19628,13 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                     <http://purl.org/dc/terms/identifier> "vcard:role"^^xsd:string ;
                     <http://purl.org/dc/elements/1.1/type> "UserClassification" ;
                     <http://www.w3.org/2004/02/skos/core#altLabel> "userclass"^^xsd:string ;
+                    rdfs:isDefinedBy :PersonClassification ;
                     rdfs:comment "The professional role of the person: researchre, professor, CEO, etc."^^xsd:string .
 
 
-:UserTitle :objectconcept :UserTitleChoices ;
-           <http://www.w3.org/2004/02/skos/core#altLabel> "usertitle"^^xsd:string ;
+:UserTitle <http://www.w3.org/2004/02/skos/core#altLabel> "usertitle"^^xsd:string ;
            <http://purl.org/dc/elements/1.1/type> "Classification" ;
+           rdfs:isDefinedBy :UserTitleChoices ;
            rdfs:comment "This is the title of the person." ;
            <http://purl.org/dc/terms/identifier> "foaf:title"^^xsd:string ;
            rdfs:label "User Title" .

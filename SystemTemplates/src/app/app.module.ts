@@ -18,7 +18,7 @@ import {CdkScrollableModule} from '@angular/cdk/scrolling';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { GenericdatapickerComponent } from './utilities/genericdatapicker/genericdatapicker.component';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes  } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { ConceptpurposepairComponent } from './utilities/conceptpurposepair/conceptpurposepair.component';
@@ -41,6 +41,11 @@ import {LoginComponent} from './toppage/login/login.component';
 import {AuthServiceConfig} from 'angular-6-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider, AuthService } from 'angular-6-social-login';
 
+const routes: Routes = [
+
+{path: '', component: ToppageComponent},
+
+];
 
 export function socialConfigs() {
   const config = new AuthServiceConfig (
@@ -98,7 +103,9 @@ export function socialConfigs() {
     MatDialogModule,
     BrowserAnimationsModule,
     MatTabsModule,
-    AppRoutingModule
+    RouterModule.forRoot(
+      routes,
+      { enableTracing: true } )// <-- debugging purposes only
   ],
   entryComponents: [
     TreeitemselectionComponent,

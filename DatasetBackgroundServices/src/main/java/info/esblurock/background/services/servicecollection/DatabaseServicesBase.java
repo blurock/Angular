@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import com.google.gson.JsonObject;
 
+import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
+
 /** Process data from the server
  * 
  * 
@@ -28,14 +31,39 @@ public class DatabaseServicesBase {
 	 */
 	public static JsonObject process(JsonObject body) throws IOException {
 
+		
+		System.out.println("Process: " + body);
+		System.out.println("Process: " + JsonObjectUtilities.toString(body));
 		JsonObject answer = new JsonObject();
 		String service = body.get("service").getAsString();
-		ServiceCollectionObjectManipulation agent = ServiceCollectionObjectManipulation.valueOf(service);
-		if (agent != null) {
-			answer = agent.process(body);
+		System.out.println("Service: " + service );
+		ServiceCollectionQueryOntology agentqo = ServiceCollectionQueryOntology.valueOf(service);
+		if (agentqo != null) {
+			answer = agentqo.process(body);
 		} else {
+			ServiceCollectionFirestoreCatalogAccess agentfire = ServiceCollectionFirestoreCatalogAccess.valueOf(service);
+			if(agentfire != null) {
+				agentfire.process(body);
+			} else {
 			throw new IOException("Service not available: '" + service + "'");
+			}
 		}
 		return answer;
 	}
+	/** Standard successful service response
+	 * 
+	 * @param service The name of the service
+	 * @param result the JsonObject result of the service
+	 * @return a full service response with ServiceProcessSuccessful and ServiceResponseMessage added
+	 * 
+	 */
+	public static JsonObject standardServiceResponse(String service, JsonObject result) {
+		JsonObject response = new JsonObject();
+		response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, "true");
+		String responseS = service + ": Successful";
+		response.addProperty(ClassLabelConstants.ServiceResponseMessage, responseS);
+		response.add(ClassLabelConstants.SimpleCatalogObject, result);
+		return response;
+	}
+	
 }

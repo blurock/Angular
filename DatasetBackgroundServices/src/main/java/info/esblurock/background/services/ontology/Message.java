@@ -27,6 +27,10 @@ public class Message {
   public String getMessage() {
     return this.message;
   }
+  
+  public void addMessage(String addition) {
+	  this.message += addition;
+  }
 
   public void setMessage(String message) {
     this.message = message;

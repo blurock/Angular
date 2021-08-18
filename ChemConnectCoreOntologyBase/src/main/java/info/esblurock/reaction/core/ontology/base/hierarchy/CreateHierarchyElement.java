@@ -35,7 +35,7 @@ public class CreateHierarchyElement {
 	static String datacatalog = "dataset:DatasetCatalogHierarchyDataCatalog";
 	static String collection = "dataset:DatasetCatalogHierarchyCollection";
 	static String document = "dataset:DatasetCatalogHierarchyDocument";
-	static String address = "dataset:CollectionDocumentIDPairAddress";
+	static String firestoreid = "dataset:FirestoreCatalogID";
 
 	/** Generate the FirestoreCatalogID from the class
 	 * 
@@ -46,21 +46,32 @@ public class CreateHierarchyElement {
 	 * @param catalogC The classname of the catalog object
 	 * @param json The catalog object
 	 * 
-	 * @return An array of CollectionDocumentIDPair (FirestoreCatalogID)
+	 * @return FirestoreCatalogID with generated CollectionDocumentIDPair
 	 */
 	public static JsonObject searchForCatalogObjectInHierarchyTemplate(JsonObject json) {
-		
-		
-		
 		JsonArray pairs = new JsonArray();
 		JsonObject pair = initialCollectionDocumentIDPair();
 		String identifier = json.get(AnnotationObjectsLabels.identifier).getAsString();
 		String catalogC  = GenericSimpleQueries.classFromIdentifier(identifier);
 		ClassificationHierarchy hierarchy = DatabaseOntologyClassification.getClassificationHierarchy(topOfHierarchy);
 		search(hierarchy, json, pairs, pair, catalogC);
-		JsonObject obj= CreateDocumentTemplate.createTemplate(address);
-		obj.add(ClassLabelConstants.CollectionDocumentIDPair, pairs);
-		return obj;
+		JsonObject firestoreaddress = CreateDocumentTemplate.createTemplate(firestoreid);
+		JsonArray subpairs = new JsonArray();
+		Iterator<JsonElement> iter = pairs.iterator();
+		while(iter.hasNext()) {
+			JsonObject p = (JsonObject) iter.next();
+			if(p.get(ClassLabelConstants.DatasetIDLevel).getAsInt() == 1) {
+				firestoreaddress.addProperty(ClassLabelConstants.DataCatalog, 
+						p.get(ClassLabelConstants.DatasetCollectionID).getAsString());
+				firestoreaddress.addProperty(ClassLabelConstants.SimpleCatalogName, 
+						p.get(ClassLabelConstants.DatasetDocumentID).getAsString());				
+			} else {
+				subpairs.add(p);
+			}
+		}
+		JsonObject pairset = firestoreaddress.get(ClassLabelConstants.CollectionDocumentIDPairAddress).getAsJsonObject();
+		pairset.add(ClassLabelConstants.CollectionDocumentIDPair,subpairs);
+		return firestoreaddress;
 	}
 
 	/** Search down the classification hierarchy and fill in FirestoreCatalogID

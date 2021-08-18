@@ -1,8 +1,6 @@
 package info.esblurock.background.services.firestore;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
@@ -15,7 +13,7 @@ import com.google.firebase.cloud.FirestoreClient;
 public class FirestoreBaseClass {
 
 	public static String projectId = "blurock-database";
-	public static String host = "localhost:8000";
+	public static String host = "localhost:8081";
 	
 	private static Firestore database = null;
 	
@@ -38,19 +36,22 @@ public class FirestoreBaseClass {
 	}
 	
 	private static Firestore setUpDatabaseLocal() throws IOException {
-		InputStream serviceAccount = new FileInputStream("/Users/edwardblurock/eclipse-angular/blurock-firebase-e22a29315682.json");
+		/*
+		InputStream serviceAccount = new FileInputStream("/Users/edwardblurock/.config/firebase/blurock-database-firebase-adminsdk-rk0ap-cf327d31d0.json");
 		GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
+		*/
 		
 		
-		FirebaseOptions options = FirebaseOptions.builder()
-			    .setCredentials(credentials)
-			    .setDatabaseUrl("http:localhost:8081")
+		
+		GoogleCredentials cred = GoogleCredentials.getApplicationDefault();
+		FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder()
+				.setProjectId(projectId)
+			    .setCredentials(cred)
+			    .setEmulatorHost("localhost:8081")
 			    .build();
-		
-			FirebaseApp.initializeApp(options);
 			
 			
-		Firestore db = FirestoreClient.getFirestore();
+		Firestore db = firestoreOptions.getService();
 		return db;
 
 	}

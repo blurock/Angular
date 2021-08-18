@@ -45,6 +45,7 @@ export class DescriptiondataComponent implements OnInit {
 
   }
   ngOnInit(): void {
+	
     this.titleparam.subscribe(val => {
 
     })

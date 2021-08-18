@@ -12,12 +12,11 @@ import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 public class WriteFirestoreCatalogObject {
-	public static Timestamp write(Firestore db, JsonObject catalog, JsonArray firestorecatalogid) throws IOException {
+	public static Timestamp write(Firestore db, JsonObject catalog, JsonObject firestorecatalogid) throws IOException {
 		DocumentReference docRef = SetUpDocumentReference.setup(db, firestorecatalogid);
 		Type type = new TypeToken<HashMap<String, Object>>() {}.getType();
 		Map<String, Object> mapObj = new Gson().fromJson(catalog, type);

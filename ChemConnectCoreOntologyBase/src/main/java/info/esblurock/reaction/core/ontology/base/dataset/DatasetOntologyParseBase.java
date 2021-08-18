@@ -56,6 +56,12 @@ public class DatasetOntologyParseBase {
 		return object;
 	}
 	
+	/** Find an annotation value of a class
+	 * 
+	 * @param name The name of the class
+	 * @param identifier The identifier within the annotation
+	 * @return The value of the annotation
+	 */
 	static public String getAnnotationObject(String name, String identifier) {
 		String query = "SELECT ?id \n" 
 				+ "	WHERE {\n" 

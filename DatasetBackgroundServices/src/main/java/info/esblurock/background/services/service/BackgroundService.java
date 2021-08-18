@@ -15,12 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
-import info.esblurock.background.services.servicecollection.ServiceCollectionObjectManipulation;
+import info.esblurock.background.services.servicecollection.ServiceCollectionQueryOntology;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 @WebServlet(
 	    name = "BackgroundService",
-	    urlPatterns = {"/api"}
+	    urlPatterns = {"/service"}
 	)
 public class BackgroundService  extends HttpServlet {
 	

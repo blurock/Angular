@@ -8,5 +8,5 @@ public class AnnotationObjectsLabels {
 	public static String identifier = "dcterms:identifier";
 	public static String conceptlabel = "dataset:objectconcept";
 	public static String purposelabel = "dataset:objectpurpose";
-	
+	public static String isDefinedBy = "rdfs:isDefinedBy";
 }
