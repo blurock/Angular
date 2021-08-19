@@ -3,6 +3,7 @@ package info.esblurock.background.services.servicecollection;
 import com.google.gson.JsonObject;
 
 import info.esblurock.reaction.core.ontology.base.classification.DatabaseOntologyClassification;
+import info.esblurock.reaction.core.ontology.base.classification.GenerateSimpleClassification;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
@@ -61,8 +62,8 @@ public enum ServiceCollectionQueryOntology {
 
 		@Override
 		public JsonObject process(JsonObject json) {
-			String catalogtype = json.get(ClassLabelConstants.DatabaseObjectType).getAsString();
-			JsonObject lst = DatabaseOntologyClassification.classificationTreeFromDataType(catalogtype);
+			String catalogtype = json.get(ClassLabelConstants.Classification).getAsString();
+			JsonObject lst = GenerateSimpleClassification.generateSimpleListFromDataType(catalogtype);
 			JsonObject response = DatabaseServicesBase.standardServiceResponse("DatasetCreateClassificationList", lst);
 			return response;
 		}
@@ -72,8 +73,8 @@ public enum ServiceCollectionQueryOntology {
 
 		@Override
 		public JsonObject process(JsonObject json) {
-			String catalogtype = json.get(ClassLabelConstants.DatabaseObjectType).getAsString();
-			JsonObject tree = DatabaseOntologyClassification.classificationTreeFromChoices(catalogtype);
+			String catalogtype = json.get(ClassLabelConstants.Classification).getAsString();
+			JsonObject tree = DatabaseOntologyClassification.classificationTreeFromDataType(catalogtype);
 			JsonObject response = DatabaseServicesBase.standardServiceResponse("DatasetCreateClassificationTree", tree);
 			return response;
 		}

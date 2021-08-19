@@ -5883,7 +5883,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                  [ rdf:type owl:Restriction ;
                                                    owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                   owl:onClass :DataTypeLabel
+                                                   owl:onClass :Classification
                                                  ] ,
                                                  [ rdf:type owl:Restriction ;
                                                    owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
@@ -5899,7 +5899,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DatasetCreateClassificationTree
 :DatasetCreateClassificationTree rdf:type owl:Class ;
-                                 rdfs:subClassOf :ServiceCollectiontQueryOntology ;
+                                 rdfs:subClassOf :ServiceCollectiontQueryOntology ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                   owl:onClass :Classification
+                                                 ] ;
                                  <http://purl.org/dc/elements/1.1/type> :DatasetCreateClassificationTree ;
                                  <http://purl.org/dc/terms/identifier> "dataset:serclassificationlist"^^xsd:string ;
                                  rdfs:comment "From a classification parameter (component under Classification), create a tree hierarchy of the classification choices. The choices are the subclasses of the class defined by 'isDefinedBy' in the annotations of the parameter."^^xsd:string ;

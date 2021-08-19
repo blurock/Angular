@@ -30,8 +30,6 @@ public class DatabaseServicesBase {
 	 * @throws IOException
 	 */
 	public static JsonObject process(JsonObject body) throws IOException {
-
-		
 		System.out.println("Process: " + body);
 		System.out.println("Process: " + JsonObjectUtilities.toString(body));
 		JsonObject answer = new JsonObject();
