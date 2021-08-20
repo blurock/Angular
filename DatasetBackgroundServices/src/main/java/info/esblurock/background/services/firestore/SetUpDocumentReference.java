@@ -22,15 +22,17 @@ public class SetUpDocumentReference {
 			JsonObject pair = getCollectionDocumentIDPair(i+1,jarr);
 			String collection = pair.get(ClassLabelConstants.DatasetCollectionID).getAsString();
 			String document = pair.get(ClassLabelConstants.DatasetDocumentID).getAsString();
-			update(db,docref,collection,document);
+			docref = update(db,docref,collection,document);
 		}
 		String collection = firestorecatalogid.get(ClassLabelConstants.DataCatalog).getAsString();
 		String document = firestorecatalogid.get(ClassLabelConstants.SimpleCatalogName).getAsString();
-		update(db,docref,collection,document);
+		docref = update(db,docref,collection,document);
 		return docref;
 	}
 	
-	private static void update(Firestore db, DocumentReference docref, String collection, String document) {
+	private static DocumentReference update(Firestore db, DocumentReference docref, String collection, String document) {
+		System.out.println(collection);
+		System.out.println(document);
 		if(docref == null) {
 			CollectionReference col = db.collection(collection);
 			docref = col.document(document);
@@ -38,6 +40,7 @@ public class SetUpDocumentReference {
 			CollectionReference col = docref.collection(collection);
 			docref = col.document(document);
 		}
+		return docref;
 	}
 
 	private static JsonObject getCollectionDocumentIDPair(int targetlevel, JsonArray firestorecatalogid) {

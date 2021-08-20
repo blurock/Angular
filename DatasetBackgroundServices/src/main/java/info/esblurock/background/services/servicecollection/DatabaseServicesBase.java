@@ -35,15 +35,15 @@ public class DatabaseServicesBase {
 		JsonObject answer = new JsonObject();
 		String service = body.get("service").getAsString();
 		System.out.println("Service: " + service );
-		ServiceCollectionQueryOntology agentqo = ServiceCollectionQueryOntology.valueOf(service);
-		if (agentqo != null) {
-			answer = agentqo.process(body);
-		} else {
-			ServiceCollectionFirestoreCatalogAccess agentfire = ServiceCollectionFirestoreCatalogAccess.valueOf(service);
-			if(agentfire != null) {
+		try {
+		    ServiceCollectionQueryOntology agentqo = ServiceCollectionQueryOntology.valueOf(service);
+		    answer = agentqo.process(body);
+		} catch(IllegalArgumentException ex) {
+			try {
+				ServiceCollectionFirestoreCatalogAccess agentfire = ServiceCollectionFirestoreCatalogAccess.valueOf(service);
 				agentfire.process(body);
-			} else {
-			throw new IOException("Service not available: '" + service + "'");
+			} catch(IllegalArgumentException excep) {
+				throw new IOException("Service not available: '" + service + "'");
 			}
 		}
 		return answer;

@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.reaction.core.ontology.base.classification.DatabaseOntologyClassification;
 import info.esblurock.reaction.core.ontology.base.classification.GenerateSimpleClassification;
+import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
@@ -51,7 +52,11 @@ public enum ServiceCollectionQueryOntology {
 			String catalogtype = json.get(ClassLabelConstants.DatabaseObjectType).getAsString();
 			JsonObject source = json.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
 			JsonObject catalog = CreateDocumentTemplate.createTemplate(catalogtype);
+			System.out.println("createTemplate source: " + source.get(AnnotationObjectsLabels.identifier).getAsString());
+			String identifier = catalog.get(AnnotationObjectsLabels.identifier).getAsString();
 			SubstituteJsonValues.substituteJsonObject(catalog, source);
+			System.out.println("createTemplate: " + catalog.get(AnnotationObjectsLabels.identifier).getAsString());
+			catalog.addProperty(AnnotationObjectsLabels.identifier, identifier);
 			JsonObject response = DatabaseServicesBase.standardServiceResponse("DatasetFillEmptyWithSourceInformation",
 					catalog);
 			return response;

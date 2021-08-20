@@ -19,7 +19,7 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 			Firestore db;
 			try {
 				db = FirestoreBaseClass.getFirebaseDatabase();
-				JsonObject catalog = json.get(ClassLabelConstants.CatalogObjectType).getAsJsonObject();
+				JsonObject catalog = json.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 				JsonObject firestorecatalogid = json.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
 				WriteFirestoreCatalogObject.write(db, catalog, firestorecatalogid);
 				response = DatabaseServicesBase.standardServiceResponse("FirestoreServiceWriteCatalogObject", null);
