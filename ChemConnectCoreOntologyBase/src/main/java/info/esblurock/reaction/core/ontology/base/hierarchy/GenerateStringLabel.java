@@ -1,5 +1,7 @@
 package info.esblurock.reaction.core.ontology.base.hierarchy;
 
+import java.util.UUID;
+
 import com.google.gson.JsonObject;
 
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
@@ -25,19 +27,26 @@ public enum GenerateStringLabel {
 			return classname;
 		}
 		
-	}, LabelDerivedFromDatabasePerson {
-
-		@Override
-		String deriveName(String classname, JsonObject object) {
-			String name = JsonObjectUtilities.getValueUsingIdentifier(object, ClassLabelConstants.DescriptionTitlePerson);
-			return name;
-		}
-		
 	}, DerivedFromCurrentClassAnnotationAltLabel {
 
 		@Override
 		String deriveName(String classname, JsonObject object) {
 			String name = DatasetOntologyParseBase.getAltLabelFromAnnotation(classname);
+			return name;
+		}
+		
+	}, LabelDerivedFromRDFTriplet {
+
+		@Override
+		String deriveName(String classname, JsonObject object) {
+			return null;
+		}
+		
+	}, LabelDerivedFromCatalogObjectKey {
+
+		@Override
+		String deriveName(String classname, JsonObject object) {
+			String name = JsonObjectUtilities.getValueUsingIdentifier(object, ClassLabelConstants.CatalogObjectKey);
 			return name;
 		}
 		

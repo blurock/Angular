@@ -24,10 +24,7 @@ public enum ServiceCollectionQueryOntology {
 
 		@Override
 		public JsonObject process(JsonObject json) {
-			System.out.println("DatasetCreateObjectTemplate: " + JsonObjectUtilities.toString(json));
-			System.out.println("DatasetCreateObjectTemplate: " + ClassLabelConstants.DatabaseObjectType);
 			String catalogtype = json.get(ClassLabelConstants.DatabaseObjectType).getAsString();
-			System.out.println("DatasetCreateObjectTemplate: " + catalogtype);
 			JsonObject catalog = CreateDocumentTemplate.createTemplate(catalogtype);
 			JsonObject response = DatabaseServicesBase.standardServiceResponse("DatasetCreateObjectTemplate", catalog);
 			return response;

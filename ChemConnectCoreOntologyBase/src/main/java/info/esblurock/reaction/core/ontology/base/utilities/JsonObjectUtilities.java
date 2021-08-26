@@ -25,44 +25,99 @@ public class JsonObjectUtilities {
 	 * If inside or nested within a JsonArray, then one of the values is given. No guarentee which one.
 	 */
 	public static String getValueUsingIdentifier(JsonObject json, String identifier) {
+		JsonArray arr = getValueUsingIdentifierMultiple(json,identifier);
 		String ans = null;
-		for (Map.Entry<String, JsonElement> prop : json.entrySet()) {
-			String id = prop.getKey();
-			if (id.equals(identifier)) {
-				if (prop.getValue().isJsonPrimitive()) {
-					if (prop.getValue().getAsJsonPrimitive().isString()) {
-						ans = prop.getValue().getAsJsonPrimitive().getAsString();
-					}
-				}
-			}
-		}
-		if (ans == null) {
-			for (Map.Entry<String, JsonElement> prop : json.entrySet()) {
-				if (prop.getValue().isJsonObject()) {
-					ans = getValueUsingIdentifier(prop.getValue().getAsJsonObject(), identifier);
-				}
-				if (prop.getValue().isJsonArray()) {
-					JsonArray arr = prop.getValue().getAsJsonArray();
-					for (int i = 0; i < arr.size(); i++) {
-						JsonElement element = arr.get(i);
-						if (element.isJsonObject()) {
-							ans = getValueUsingIdentifier(element.getAsJsonObject(), identifier);
-						}
-					}
-				}
+		if(arr.size() > 0) {
+			if(arr.get(0).isJsonPrimitive()) {
+				ans = arr.get(0).getAsString();
 			}
 		}
 		return ans;
 	}
 
-	
+	/**
+	 * @param json The catalog/record to search for the identifier
+	 * @param identifier The identifier to get the set of values
+	 * @return an array of the values
+	 * 
+	 * This assumes that the identifiers are unique within the catalog/record object (not repeated with object)
+	 * If a single value, then one value is returned.
+	 * If the identifier points to a JsonArray, then all the elements of the array are found
+	 * If the identifier is within an JsonObject within the array, then all the values from the array are given
+	 * 
+	 */
+	public static JsonArray getValueUsingIdentifierMultiple(JsonObject json, String identifier) {
+		JsonArray totalarr = new JsonArray();
+		for (Map.Entry<String, JsonElement> prop : json.entrySet()) {
+			String id = prop.getKey();
+			if (id.equals(identifier)) {
+				if (prop.getValue().isJsonPrimitive()) {
+					if (prop.getValue().getAsJsonPrimitive().isString()) {
+						String ans = prop.getValue().getAsJsonPrimitive().getAsString();
+						totalarr.add(ans);
+					}
+				} else if (prop.getValue().isJsonObject()) {
+						JsonObject obj = prop.getValue().getAsJsonObject();
+						totalarr.add(obj);
+				} else if (prop.getValue().isJsonArray()) {
+						JsonArray obj = prop.getValue().getAsJsonArray();
+						totalarr.addAll(obj);
+				}						
+			} else {
+				if (prop.getValue().isJsonObject()) {
+					JsonArray ans = getValueUsingIdentifierMultiple(prop.getValue().getAsJsonObject(), identifier);
+					totalarr.addAll(ans);
+				} else if (prop.getValue().isJsonArray()) {
+					JsonArray ans = getValueUsingIdentifierMultiple(prop.getValue().getAsJsonArray(), identifier);
+					totalarr.addAll(ans);
+				}
+			}
+		}
+		return totalarr;
+	}
+
+	/**
+	 * @param arr An array of JsonObjects or JsonArrays
+	 * @param identifier The identifier to search for
+	 * @return The list of values of the identifier.
+	 * 
+	 * This routine allows that a JsonArray can be an array of JsonArray objects.
+	 */
+	public static JsonArray getValueUsingIdentifierMultiple(JsonArray arr, String identifier) {
+		JsonArray totalarr = new JsonArray();
+		for (int i = 0; i < arr.size(); i++) {
+			JsonElement element = arr.get(i);
+			if (element.isJsonObject()) {
+				JsonArray ans = getValueUsingIdentifierMultiple(element.getAsJsonObject(), identifier);
+				totalarr.addAll(ans);
+			} else if(element.isJsonArray()) {
+				JsonArray ans = getValueUsingIdentifierMultiple(element.getAsJsonArray(), identifier);
+				totalarr.addAll(ans);				
+			}
+		}
+		return totalarr;
+	}
+
 
 	public static String toString(JsonObject obj) {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String prettyJsonString = gson.toJson(obj);
-
 		return prettyJsonString;
 		
+	}
+	public static String toString(JsonArray arr) {
+		StringBuilder build = new StringBuilder();
+		for(int i=0; i<arr.size(); i++) {
+			JsonElement element = arr.get(i);
+			if(element.isJsonPrimitive()) {
+				build.append(element.getAsString());
+			} else {
+				JsonObject obj = element.getAsJsonObject();
+				build.append(toString(obj));
+			}
+			
+		}
+		return build.toString();
 	}
 	
 	public static JsonObject jsonObjectFromString(String jsonS) {
@@ -82,5 +137,6 @@ public class JsonObjectUtilities {
 		}
 		return obj;
 	}
+	
 	
 }

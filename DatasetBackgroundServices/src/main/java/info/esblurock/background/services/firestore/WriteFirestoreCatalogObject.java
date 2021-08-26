@@ -19,12 +19,9 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class WriteFirestoreCatalogObject {
 	public static Timestamp write(Firestore db, JsonObject catalog, JsonObject firestorecatalogid) throws IOException {
-		System.out.println(JsonObjectUtilities.toString(firestorecatalogid));
 		DocumentReference docRef = SetUpDocumentReference.setup(db, firestorecatalogid);
-		System.out.println(docRef);
 		Type type = new TypeToken<HashMap<String, Object>>() {}.getType();
 		Map<String, Object> mapObj = new Gson().fromJson(catalog, type);
-		System.out.println(mapObj);
 		ApiFuture<WriteResult> result = docRef.set(mapObj);
 		Timestamp time = null;
 		try {

@@ -2286,7 +2286,7 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                 <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
                                 <http://purl.org/dc/terms/identifier> "dataset:databasepersonhierarchy"^^xsd:string ;
                                 rdfs:comment "At this level is the set of all information about people, DatabasePerson."^^xsd:string ;
-                                rdfs:isDefinedBy :LabelDerivedFromDatabasePerson ;
+                                rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
                                 rdfs:label "Personal Information"^^xsd:string ;
                                 <http://www.w3.org/2004/02/skos/core#altLabel> "databasepersonhierarchy"^^xsd:string .
 
@@ -2294,7 +2294,7 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 ###  http://www.esblurock.info/dataset#CatalogHierarchyDatabasePersonSet
 :CatalogHierarchyDatabasePersonSet rdf:type owl:Class ;
                                    rdfs:subClassOf :CollectionDocumentHierarchy ;
-                                   <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyCollection ;
+                                   <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
                                    <http://purl.org/dc/terms/identifier> "dataset:datasetpersonset" ;
                                    rdfs:comment "The set of people associated with the database. These could range from owners to references." ;
                                    rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
@@ -2368,6 +2368,33 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                        rdfs:comment "This is the owner and administrator of the documents in this hierarchy."^^xsd:string ;
                        rdfs:isDefinedBy :DeriveHierarchyPropertiesFromDatabasePerson ;
                        rdfs:label "Hierarchy Owner"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CatalogHierarchyRDFTriplet
+:CatalogHierarchyRDFTriplet rdf:type owl:Class ;
+                            rdfs:subClassOf :CatalogHierarchyRDFTripletSet ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :RDFTriple
+                                            ] ;
+                            <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
+                            <http://purl.org/dc/terms/identifier> "dataset:rdftripletinhier"^^xsd:string ;
+                            rdfs:comment "The RDF triplets objects are on this level"^^xsd:string ;
+                            rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
+                            rdfs:label "RDF Triplet"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "rdftripletinhier"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CatalogHierarchyRDFTripletSet
+:CatalogHierarchyRDFTripletSet rdf:type owl:Class ;
+                               rdfs:subClassOf :CollectionDocumentHierarchy ;
+                               <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
+                               <http://purl.org/dc/terms/identifier> "dataset:rdftripletset"^^xsd:string ;
+                               rdfs:comment "The set of all RDF triplets. These are put on one level to facilitate searching. The RDFs are used to find elements within the whole hierarchy as well as relationships"^^xsd:string ;
+                               rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
+                               rdfs:label "RDF Triplet Set"^^xsd:string ;
+                               <http://www.w3.org/2004/02/skos/core#altLabel> "rdftripletset"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchySymmetry
@@ -4444,8 +4471,8 @@ Under the general type of is the actual data object referenced by the ChemConnec
                rdfs:subClassOf :ConceptUserInfo ;
                <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
                <http://purl.org/dc/terms/identifier> "dataset:dataconcept-person" ;
-               :objectconcept "" ;
                rdfs:comment "The concept associated with a person" ;
+               rdfs:isDefinedBy :PersonClassification ;
                rdfs:label "Person Concept" ;
                <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-person" .
 
@@ -4709,11 +4736,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                             [ rdf:type owl:Restriction ;
                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                              owl:onClass :GPSLocation
-                                            ] ,
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                               owl:onClass :LocationAddress
                                             ] ,
                                             [ rdf:type owl:Restriction ;
@@ -4735,6 +4757,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                               owl:onProperty <http://www.w3.org/2004/02/skos/core#mappingRelation> ;
                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                               owl:onClass :RDFCountry
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :GPSLocation
                                             ] .
 
 
@@ -9789,6 +9816,15 @@ Under the general type of is the actual data object referenced by the ChemConnec
                             rdfs:subClassOf :InstrumentationConcept .
 
 
+###  http://www.esblurock.info/dataset#JSONObject
+:JSONObject rdf:type owl:Class ;
+            rdfs:subClassOf :ChemConnectPrimitiveDataStructure ;
+            <http://purl.org/dc/elements/1.1/type> :JSONObject ;
+            <http://purl.org/dc/terms/identifier> "dataset:jsonobject"^^xsd:string ;
+            rdfs:label "JsonObject"^^xsd:string ;
+            <http://www.w3.org/2004/02/skos/core#altLabel> "jsonobject"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#JTherGasThermoStructureAtomicData
 :JTherGasThermoStructureAtomicData rdf:type owl:Class ;
                                    rdfs:subClassOf :ChemConnectCompoundThermodynamics ,
@@ -10641,14 +10677,14 @@ Under the general type of is the actual data object referenced by the ChemConnec
              rdfs:subClassOf :DescriptionUnit .
 
 
-###  http://www.esblurock.info/dataset#LabelDerivedFromDatabasePerson
-:LabelDerivedFromDatabasePerson rdf:type owl:Class ;
-                                rdfs:subClassOf :DerivedFromObjectParameter ;
-                                <http://purl.org/dc/elements/1.1/type> :LabelDerivedFromDatabasePerson ;
-                                <http://purl.org/dc/terms/identifier> "dataset:derivefromdatabaseperson"^^xsd:string ;
-                                rdfs:comment "The name is derived from the catalog object DatabasePerson"^^xsd:string ;
-                                rdfs:label "Derive from DatabasePerson"^^xsd:string ;
-                                <http://www.w3.org/2004/02/skos/core#altLabel> "derivefromdatabaseperson"^^xsd:string .
+###  http://www.esblurock.info/dataset#LabelDerivedFromCatalogObjectKey
+:LabelDerivedFromCatalogObjectKey rdf:type owl:Class ;
+                                  rdfs:subClassOf :DerivedFromObjectParameter ;
+                                  <http://purl.org/dc/elements/1.1/type> :LabelDerivedFromCatalogObjectKey ;
+                                  <http://purl.org/dc/terms/identifier> "dataset:uniqueidentifier"^^xsd:string ;
+                                  rdfs:comment "A unique identifier of the CatalogObjectKey is used. It is a string of characters."^^xsd:string ;
+                                  rdfs:label "Catalog Object Key"^^xsd:string ;
+                                  <http://www.w3.org/2004/02/skos/core#altLabel> "uniqueidentifier"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#Lady
@@ -13824,8 +13860,8 @@ Under the general type of is the actual data object referenced by the ChemConnec
                rdfs:subClassOf :PurposeUserInfo ;
                <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
                <http://purl.org/dc/terms/identifier> "dataset:purposekey-person" ;
-               :objectpurpose :PrimaryPurposeOfPerson ;
                rdfs:comment "The purpose of the person" ;
+               rdfs:isDefinedBy :PrimaryPurposeOfPerson ;
                rdfs:label "Person Purpose" ;
                <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-person" .
 
@@ -14349,7 +14385,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 :RDFAuthorizationName rdf:type owl:Class ;
                       rdfs:subClassOf :RDFContactReference ,
                                       [ rdf:type owl:Restriction ;
-                                        owl:onProperty <http://www.w3.org/2004/02/skos/core#mappingRelation> ;
+                                        owl:onProperty <http://www.w3.org/ns/prov#entity> ;
                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                         owl:onClass :AuthorizationName
                                       ] .
@@ -14501,12 +14537,52 @@ Under the general type of is the actual data object referenced by the ChemConnec
                          rdfs:subClassOf :RDFCatalogIDReference .
 
 
+###  http://www.esblurock.info/dataset#RDFJsonAsObject
+:RDFJsonAsObject rdf:type owl:Class ;
+                 rdfs:subClassOf :JSONObject ;
+                 <http://purl.org/dc/elements/1.1/type> :RDFJsonAsObject ;
+                 <http://purl.org/dc/terms/identifier> "dataset:rdfjsonasobject"^^xsd:string ;
+                 rdfs:comment "JsonObject as  a RDF Object"^^xsd:string ;
+                 rdfs:label "JsonObject as Object"^^xsd:string ;
+                 <http://www.w3.org/2004/02/skos/core#altLabel> "jsonasobject"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#RDFJsonAsSubject
+:RDFJsonAsSubject rdf:type owl:Class ;
+                  rdfs:subClassOf :JSONObject ;
+                  <http://purl.org/dc/elements/1.1/type> :RDFJsonAsSubject ;
+                  <http://purl.org/dc/terms/identifier> "dataset:rdfjsonassubject"^^xsd:string ;
+                  rdfs:label "JsonObject As Subject"^^xsd:string ;
+                  <http://www.w3.org/2004/02/skos/core#altLabel> "rdfjsonassubject"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#RDFMappingDefinition
 :RDFMappingDefinition rdf:type owl:Class ;
                       rdfs:subClassOf :ChemConnectDomainConcept ;
+                      <http://purl.org/dc/elements/1.1/type> :RDFMappingDefinition ;
+                      <http://purl.org/dc/terms/identifier> "dataset:rdfmappingdefinition"^^xsd:string ;
                       rdfs:comment "This is the predicate of the RDF object."^^xsd:string ;
                       rdfs:label "RDF Predicate"^^xsd:string ;
                       <http://www.w3.org/2004/02/skos/core#altLabel> "rdfpredicate"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#RDFObjectAsPrimitiveSubjectRecord
+:RDFObjectAsPrimitiveSubjectRecord rdf:type owl:Class ;
+                                   rdfs:subClassOf :RDFTriple ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                     owl:onClass :RDFJsonAsSubject
+                                                   ] ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                     owl:onClass :RDFObjectKey
+                                                   ] ;
+                                   <http://purl.org/dc/terms/identifier> "dataset:rdfobjprimsubrecord"^^xsd:string ;
+                                   rdfs:comment "RDF Object Primitive Subject Record"^^xsd:string ;
+                                   rdfs:label "RDF Object:Primitive Subject:Record"^^xsd:string ;
+                                   <http://www.w3.org/2004/02/skos/core#altLabel> "rdfobjprimsubrecord"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#RDFObjectClassName
@@ -14518,6 +14594,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                     rdfs:isDefinedBy :ChemConnectPrimitiveDataStructure ;
                     rdfs:label "Class of Object"^^xsd:string ;
                     <http://www.w3.org/2004/02/skos/core#altLabel> "rdfobjectclass"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#RDFObjectKey
+:RDFObjectKey rdf:type owl:Class ;
+              rdfs:subClassOf :ShortStringKey ;
+              <http://purl.org/dc/elements/1.1/type> :RDFObjectKey ;
+              <http://purl.org/dc/terms/identifier> "dataset:rdfobjectkey"^^xsd:string ;
+              rdfs:comment "The key for the RDF object"^^xsd:string ;
+              rdfs:label "RDF Object Key"^^xsd:string ;
+              <http://www.w3.org/2004/02/skos/core#altLabel> "rdfobjectkey"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#RDFOrganizationName
@@ -14606,26 +14692,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                         rdfs:subClassOf :RDFCatalogIDReference .
 
 
-###  http://www.esblurock.info/dataset#RDFSubjectAsPrimitive
-:RDFSubjectAsPrimitive rdf:type owl:Class ;
-                       rdfs:subClassOf :RDFTriple ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                         owl:onClass :RDFObjectClassName
-                                       ] ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                         owl:onClass :ShortStringKey
-                                       ] ;
-                       <http://purl.org/dc/elements/1.1/type> :RDFSubjectAsPrimitive ;
-                       <http://purl.org/dc/terms/identifier> "dataset:rdftripleobjectprimitive" ;
-                       rdfs:comment "The RDF triple where the object is a simple string, a ChemConnectPrimitiveDataStructure."^^xsd:string ;
-                       rdfs:label "RDF: Object as Primitive"^^xsd:string ;
-                       <http://www.w3.org/2004/02/skos/core#altLabel> "rdftripleobjectprimitive"^^xsd:string .
-
-
 ###  http://www.esblurock.info/dataset#RDFSubjectClassName
 :RDFSubjectClassName rdf:type owl:Class ;
                      rdfs:subClassOf :Classification ;
@@ -14636,18 +14702,48 @@ Under the general type of is the actual data object referenced by the ChemConnec
                      <http://www.w3.org/2004/02/skos/core#altLabel> "rdfsubjectclass"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#RDFSubjectKey
+:RDFSubjectKey rdf:type owl:Class ;
+               rdfs:subClassOf :ShortStringKey ;
+               <http://purl.org/dc/elements/1.1/type> :RDFSubjectKey ;
+               <http://purl.org/dc/terms/identifier> "dataset:rdfobjectkey"^^xsd:string ;
+               rdfs:comment "The key for the RDF subject"^^xsd:string ;
+               rdfs:label "RDF Subject Key"^^xsd:string ;
+               <http://www.w3.org/2004/02/skos/core#altLabel> "rdfsubjectkey"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#RDFSubjectObjectAsRecord
+:RDFSubjectObjectAsRecord rdf:type owl:Class ;
+                          rdfs:subClassOf :RDFTriple ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onClass :RDFJsonAsObject
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onClass :RDFJsonAsSubject
+                                          ] ;
+                          <http://purl.org/dc/elements/1.1/type> :RDFSubjectObjectAsRecord ;
+                          <http://purl.org/dc/terms/identifier> "dataset:rdfsubjectobjectrecord"^^xsd:string ;
+                          rdfs:comment "The RDF triple where the object is a simple string, a ChemConnectPrimitiveDataStructure."^^xsd:string ;
+                          rdfs:label "RDF: Object as Primitive"^^xsd:string ;
+                          <http://www.w3.org/2004/02/skos/core#altLabel> "rdfsubjectobjectrecord"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#RDFSubjectObjectPrimitives
 :RDFSubjectObjectPrimitives rdf:type owl:Class ;
-                            rdfs:subClassOf :RDFSubjectAsPrimitive ,
+                            rdfs:subClassOf :RDFTriple ,
                                             [ rdf:type owl:Restriction ;
                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                              owl:onClass :RDFSubjectClassName
+                                              owl:onClass :RDFObjectKey
                                             ] ,
                                             [ rdf:type owl:Restriction ;
                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                              owl:onClass :ShortStringKey
+                                              owl:onClass :RDFSubjectKey
                                             ] ;
                             <http://purl.org/dc/elements/1.1/type> :RDFSubjectObjectPrimitives ;
                             <http://purl.org/dc/terms/identifier> "dataset:rdfsubobjprimitive" ;
@@ -14658,11 +14754,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#RDFSubjectPrimitiveObjectRecord
 :RDFSubjectPrimitiveObjectRecord rdf:type owl:Class ;
-                                 rdfs:subClassOf :RDFSubjectAsPrimitive ,
+                                 rdfs:subClassOf :RDFTriple ,
                                                  [ rdf:type owl:Restriction ;
-                                                   owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                   owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                   owl:onClass :ChemConnectCompoundDataStructure
+                                                   owl:onClass :RDFJsonAsObject
+                                                 ] ,
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                   owl:onClass :RDFSubjectKey
                                                  ] ;
                                  <http://purl.org/dc/elements/1.1/type> :RDFSubjectPrimitiveObjectRecord ;
                                  <http://purl.org/dc/terms/identifier> "dataset:rdfsubprimobjrec"^^xsd:string ;
@@ -14711,7 +14812,17 @@ Under the general type of is the actual data object referenced by the ChemConnec
                            [ rdf:type owl:Restriction ;
                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                             owl:onClass :RDFObjectClassName
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                              owl:onClass :RDFPredicate
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                             owl:onClass :RDFSubjectClassName
                            ] ;
            <http://purl.org/dc/elements/1.1/type> :RDFTriple ;
            <http://purl.org/dc/terms/identifier> "dataset:rdftriple" ;

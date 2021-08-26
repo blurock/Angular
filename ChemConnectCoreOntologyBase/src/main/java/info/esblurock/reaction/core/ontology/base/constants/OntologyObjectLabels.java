@@ -29,6 +29,14 @@ public class OntologyObjectLabels {
 	public static String classification = "classification";
 	public static String subclassifications = "subclassifications";
 	
+	public static String rdfmappingclass = "dataset:rdfmappingdefinition";
+	
+	public static String mappingRelation = "<http://www.w3.org/2004/02/skos/core#mappingRelation>";
+	public static String entity = "<http://www.w3.org/ns/prov#entity>";
+	public static String rdflist = "dataset:rdflist";
+	public static String entityvalue = "dataset:entityvalue";
+	public static String membervalue = "dataset:membervalue";
+	public static String tripleclass = "tripleclass";
 
 	
 }

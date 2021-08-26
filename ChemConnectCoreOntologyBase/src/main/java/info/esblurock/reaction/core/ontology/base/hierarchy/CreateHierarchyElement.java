@@ -14,6 +14,7 @@ import info.esblurock.reaction.core.ontology.base.constants.OntologyObjectLabels
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.utilities.GenericSimpleQueries;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRoutines;
 
 /**
@@ -61,10 +62,17 @@ public class CreateHierarchyElement {
 		while(iter.hasNext()) {
 			JsonObject p = (JsonObject) iter.next();
 			if(p.get(ClassLabelConstants.DatasetIDLevel).getAsInt() == 1) {
+				if(p.get(ClassLabelConstants.DataCatalog) != null) {
 				firestoreaddress.addProperty(ClassLabelConstants.DataCatalog, 
-						p.get(ClassLabelConstants.DatasetCollectionID).getAsString());
+						p.get(ClassLabelConstants.DataCatalog).getAsString());
 				firestoreaddress.addProperty(ClassLabelConstants.SimpleCatalogName, 
-						p.get(ClassLabelConstants.DatasetDocumentID).getAsString());				
+						p.get(ClassLabelConstants.SimpleCatalogName).getAsString());
+				} else {
+					firestoreaddress.addProperty(ClassLabelConstants.DataCatalog, 
+							p.get(ClassLabelConstants.DatasetCollectionID).getAsString());
+					firestoreaddress.addProperty(ClassLabelConstants.SimpleCatalogName, 
+							p.get(ClassLabelConstants.DatasetDocumentID).getAsString());
+				}
 			} else {
 				subpairs.add(p);
 			}
@@ -91,6 +99,8 @@ public class CreateHierarchyElement {
 
 		if (member != null) {
 			if (member.equals(catalogC)) {
+				foundB = true;
+			} else if(GenericSimpleQueries.isSubClassOf(catalogC, member, true)) {
 				foundB = true;
 			}
 		}
@@ -131,9 +141,9 @@ public class CreateHierarchyElement {
 	public static JsonObject UpdateHierarchyList(String hierclass, String genname, JsonObject json, JsonArray pairs) {
 		String type = DatasetOntologyParseBase.getValueFromAnnotation(hierclass, OntologyObjectLabels.dctype);
 		if (type.equals(simpleName)) {
-			json = addInCollectionDocumentIDPair(ClassLabelConstants.DatasetDocumentID, genname, json, pairs);
+			json = addInCollectionDocumentIDPair(ClassLabelConstants.SimpleCatalogName, genname, json, pairs);
 		} else if (type.equals(datacatalog)) {
-			json = addInCollectionDocumentIDPair(ClassLabelConstants.DatasetCollectionID, genname, json, pairs);
+			json = addInCollectionDocumentIDPair(ClassLabelConstants.DataCatalog, genname, json, pairs);
 		} else if (type.equals(collection)) {
 			json = addInCollectionDocumentIDPair(ClassLabelConstants.DatasetCollectionID, genname, json, pairs);
 		} else if (type.equals(document)) {
@@ -204,7 +214,6 @@ public class CreateHierarchyElement {
 	public static String generateHierarchyName(String hierclass, String classname, JsonObject json) {
 		String isdefinedby = DatasetOntologyParseBase.getValueFromAnnotation(hierclass,
 				OntologyObjectLabels.isDefinedBy);
-		System.out.println("generateHierarchyName: '" + isdefinedby + "'");
 		String isdefinedbyShort = isdefinedby.substring(8);
 		String name = GenerateStringLabel.valueOf(isdefinedbyShort).deriveName(classname, json);
 		return name;
