@@ -477,6 +477,7 @@ above the local reference ellipsoid).""" ;
 
 ###  http://www.w3.org/2003/01/geo/wgs84_pos#location
 <http://www.w3.org/2003/01/geo/wgs84_pos#location> rdf:type owl:AnnotationProperty ;
+                                                   rdfs:subPropertyOf <http://xmlns.com/foaf/0.1/based_near> ;
                                                    rdfs:range <http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing> .
 
 
@@ -782,8 +783,7 @@ xsd:date rdf:type rdfs:Datatype .
 
 
 ###  http://www.w3.org/2003/01/geo/wgs84_pos#location
-<http://www.w3.org/2003/01/geo/wgs84_pos#location> rdf:type owl:ObjectProperty ;
-                                                   rdfs:subPropertyOf <http://xmlns.com/foaf/0.1/based_near> .
+<http://www.w3.org/2003/01/geo/wgs84_pos#location> rdf:type owl:ObjectProperty .
 
 
 ###  http://www.w3.org/ns/org#linkedTo
@@ -1297,6 +1297,11 @@ xsd:date rdf:type rdfs:Datatype .
                                                          owl:onClass :DescriptionTitlePerson
                                                        ] ,
                                                        [ rdf:type owl:Restriction ;
+                                                         owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                         owl:onClass :MakePublicRead
+                                                       ] ,
+                                                       [ rdf:type owl:Restriction ;
                                                          owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                          owl:onClass :PersonalDescription
@@ -1429,6 +1434,11 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 :ActivityInformationRecord rdf:type owl:Class ;
                            rdfs:subClassOf <http://www.w3.org/ns/dcat#CatalogRecord> ,
                                            [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :DescriptionTitle
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
                                              owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                              owl:onClass :ChemConnectModule
@@ -1529,11 +1539,6 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 ###  http://www.esblurock.info/dataset#ActivityRepositoryInitialReadInfo
 :ActivityRepositoryInitialReadInfo rdf:type owl:Class ;
                                    rdfs:subClassOf :ActivityRepositoryInformation ,
-                                                   [ rdf:type owl:Restriction ;
-                                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                     owl:onClass :DescriptionTitle
-                                                   ] ,
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -1668,18 +1673,65 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                <http://www.w3.org/2004/02/skos/core#altLabel> "atomtypecnt"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#AuthorFamilyName
+:AuthorFamilyName rdf:type owl:Class ;
+                  rdfs:subClassOf :familyName ;
+                  <http://purl.org/dc/elements/1.1/type> :AuthorFamilyName ;
+                  <http://purl.org/dc/terms/identifier> "dataset:authorfamilyname"^^xsd:string ;
+                  rdfs:comment "Author Family Name. Used in bibliographic references."^^xsd:string ;
+                  rdfs:label "Author Family Name"^^xsd:string ;
+                  <http://www.w3.org/2004/02/skos/core#altLabel> "authorname"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#AuthorGivenName
+:AuthorGivenName rdf:type owl:Class ;
+                 rdfs:subClassOf :givenName ;
+                 <http://purl.org/dc/elements/1.1/type> :AuthorGivenName ;
+                 <http://purl.org/dc/terms/identifier> "dataset:authorgivenname"^^xsd:string ;
+                 rdfs:comment "Author Given Name: used for bibliographic references"^^xsd:string ;
+                 rdfs:label "Author Given Name"^^xsd:string ;
+                 <http://www.w3.org/2004/02/skos/core#altLabel> "authorgivenname"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#AuthorInformation
 :AuthorInformation rdf:type owl:Class ;
-                   rdfs:subClassOf :NameOfPerson ,
+                   rdfs:subClassOf :ChemConnectCompoundBase ,
                                    [ rdf:type owl:Restriction ;
                                      owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                     owl:someValuesFrom :ObjectLinkToContact
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :AuthorFamilyName
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :AuthorGivenName
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :AuthorNameTitle
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://www.w3.org/2004/02/skos/core#mappingRelation> ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :RDFAuthorFamilyName
                                    ] ;
                    <http://purl.org/dc/elements/1.1/type> "NameOfPerson"^^xsd:string ;
                    <http://purl.org/dc/terms/identifier> "dc:creator"^^xsd:string ;
                    rdfs:comment "This is the full author information (refers to a person name)" ;
                    rdfs:label "Author" ;
                    <http://www.w3.org/2004/02/skos/core#altLabel> "author" .
+
+
+###  http://www.esblurock.info/dataset#AuthorNameTitle
+:AuthorNameTitle rdf:type owl:Class ;
+                 rdfs:subClassOf :UserTitle ;
+                 <http://purl.org/dc/elements/1.1/type> :AuthorNameTitle ;
+                 <http://purl.org/dc/terms/identifier> "dataset:authortitle"^^xsd:string ;
+                 rdfs:comment "The title of the author"^^xsd:string ;
+                 rdfs:isDefinedBy :UserTitleChoices ;
+                 rdfs:label "Author Title"^^xsd:string ;
+                 <http://www.w3.org/2004/02/skos/core#altLabel> "authortitle"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#AuthorizationName
@@ -2429,10 +2481,16 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyTransaction
 :CatalogHierarchyTransaction rdf:type owl:Class ;
-                             rdfs:subClassOf :CatalogHierarchyTransactionSet ;
+                             rdfs:subClassOf :CatalogHierarchyTransactionSet ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
+                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                               owl:onClass :TransactionEventObject
+                                             ] ;
                              <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
                              <http://purl.org/dc/terms/identifier> "dataset:doctransaction"^^xsd:string ;
                              rdfs:comment "The set of transaction. These are in a flat list for searching"^^xsd:string ;
+                             rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
                              rdfs:label "Transaction Catalog Items"^^xsd:string .
 
 
@@ -3024,7 +3082,7 @@ This transaction is in combination with another transaction responsible for crea
 
 ###  http://www.esblurock.info/dataset#ChemConnectDataStructure
 :ChemConnectDataStructure rdf:type owl:Class ;
-                          rdfs:subClassOf :SimpleCatalogObject ,
+                          rdfs:subClassOf :SimpleDatabaseObjectStructure ,
                                           [ rdf:type owl:Restriction ;
                                             owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                             owl:someValuesFrom :DataObjectLink
@@ -3036,11 +3094,6 @@ This transaction is in combination with another transaction responsible for crea
                                           [ rdf:type owl:Restriction ;
                                             owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                             owl:someValuesFrom :ObjectSiteReference
-                                          ] ,
-                                          [ rdf:type owl:Restriction ;
-                                            owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                            owl:onClass :FirestoreCatalogID
                                           ] ;
                           <http://purl.org/dc/elements/1.1/type> "ChemConnectDataStructure"^^xsd:string ;
                           <http://purl.org/dc/terms/identifier> "dataset:ChemConnectDataStructure"^^xsd:string ;
@@ -3708,7 +3761,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ChemConnectTransactionEvent
 :ChemConnectTransactionEvent rdf:type owl:Class ;
-                             rdfs:subClassOf :SimpleCatalogObject ;
+                             rdfs:subClassOf :SimpleDatabaseObjectStructure ;
                              <http://purl.org/dc/elements/1.1/type> "ChemConnectTransactionEvent" ;
                              <http://purl.org/dc/terms/identifier> "dataset:transaction" ;
                              rdfs:comment "This is the top class of all transaction objects" ;
@@ -4036,6 +4089,17 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#ComponentModelName
 :ComponentModelName rdf:type owl:Class ;
                     rdfs:subClassOf :ModelName .
+
+
+###  http://www.esblurock.info/dataset#ComponentObjectType
+:ComponentObjectType rdf:type owl:Class ;
+                     rdfs:subClassOf :Classification ;
+                     <http://purl.org/dc/elements/1.1/type> :ComponentObjectType ;
+                     <http://purl.org/dc/terms/identifier> "dataset:comptype"^^xsd:string ;
+                     rdfs:comment "The type of a component as the value"^^xsd:string ;
+                     rdfs:isDefinedBy :ChemConnectPrimitiveDataStructure ;
+                     rdfs:label "Component Type"^^xsd:string ;
+                     <http://www.w3.org/2004/02/skos/core#altLabel> "comptype"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CompoundDataStructureSpecification
@@ -4930,16 +4994,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                      owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                      owl:onClass :SimpleCatalogName
-                                   ] ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty <http://www.w3.org/2004/02/skos/core#mappingRelation> ;
-                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                     owl:onClass :ChemConnectRDFDataSimpleName
-                                   ] ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty <http://www.w3.org/2004/02/skos/core#mappingRelation> ;
-                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                     owl:onClass :RDFDataCatalogType
                                    ] ;
                    <http://purl.org/dc/elements/1.1/type> :DataCatalogIDBase ;
                    <http://purl.org/dc/terms/identifier> "qb:ObservationGroup"^^xsd:string ;
@@ -5202,12 +5256,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DataDescriptionUserInfo
 :DataDescriptionUserInfo rdf:type owl:Class ;
-                         rdfs:subClassOf :DescriptionDataData ,
-                                         [ rdf:type owl:Restriction ;
-                                           owl:onProperty <http://www.w3.org/2004/02/skos/core#mappingRelation> ;
-                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                           owl:onClass :RDFPersonFullName
-                                         ] ;
+                         rdfs:subClassOf :DescriptionDataData ;
                          <http://purl.org/dc/elements/1.1/type> "DescriptionDataData" ;
                          <http://purl.org/dc/terms/identifier> "dataset:descr-userinfo" ;
                          rdfs:comment "The description of information relating to a person" ;
@@ -5743,8 +5792,8 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#DatabaseObjectType
 :DatabaseObjectType rdf:type owl:Class ;
                     rdfs:subClassOf :Classification ;
-                    <http://purl.org/dc/elements/1.1/type> "DatabaseObjectType" ;
-                    <http://purl.org/dc/terms/identifier> "dataset:objectype" ;
+                    <http://purl.org/dc/elements/1.1/type> :DatabaseObjectType ;
+                    <http://purl.org/dc/terms/identifier> "dataset:objectype"^^xsd:string ;
                     rdfs:comment "This is the data type of the referenced object." ;
                     rdfs:isDefinedBy :SimpleCatalogObject ;
                     rdfs:label "Database Object Type" ;
@@ -5761,7 +5810,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                  owl:onClass :DescriptionTitlePerson
+                                  owl:onClass :PersonFullName
                                 ] ,
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty <http://www.w3.org/2004/02/skos/core#mappingRelation> ;
@@ -5885,7 +5934,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                              [ rdf:type owl:Restriction ;
                                                                owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
                                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                               owl:onClass :CollectionDocumentIDPairAddress
+                                                               owl:onClass :FirestoreCatalogID
                                                              ] ;
                                              <http://purl.org/dc/elements/1.1/type> :DatasetCollectionDocumentIDPairForHierarchy ;
                                              <http://purl.org/dc/terms/identifier> "dataset:serhierarchydocumentpairids"^^xsd:string ;
@@ -7528,6 +7577,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                         rdfs:subClassOf :ChemConnectPurposeProtocol .
 
 
+###  http://www.esblurock.info/dataset#FindTransactionsOfType
+:FindTransactionsOfType rdf:type owl:Class ;
+                        rdfs:subClassOf :ServiceCollectionFirestoreCatalogAccess ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onClass :TransactionEventType
+                                        ] .
+
+
 ###  http://www.esblurock.info/dataset#FirestoreCatalogID
 :FirestoreCatalogID rdf:type owl:Class ;
                     rdfs:subClassOf :DataCatalogIDBase ,
@@ -7537,7 +7596,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                       owl:onClass :CollectionDocumentIDPairAddress
                                     ] ;
                     <http://purl.org/dc/elements/1.1/type> :FirestoreCatalogID ;
-                    <http://purl.org/dc/terms/identifier> "dataset:firestorecatalog" ;
+                    <http://purl.org/dc/terms/identifier> "dataset:firestorecatalog"^^xsd:string ;
                     rdfs:comment "The catalog ID associated with the Google firestore database. This adds a set of collection-document pairs to the hierarchy." ;
                     rdfs:label "Firestore Catalog ID" ;
                     <http://www.w3.org/2004/02/skos/core#altLabel> "firestorecatalog" .
@@ -7546,6 +7605,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#FirestoreServiceWriteCatalogObject
 :FirestoreServiceWriteCatalogObject rdf:type owl:Class ;
                                     rdfs:subClassOf :ServiceCollectionFirestoreCatalogAccess ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :MakePublicRead
+                                                    ] ,
                                                     [ rdf:type owl:Restriction ;
                                                       owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -7559,6 +7623,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                     <http://purl.org/dc/elements/1.1/type> :FirestoreServiceWriteCatalogObject ;
                                     <http://purl.org/dc/terms/identifier> "dataset:serwritefirestorecatalog"^^xsd:string ;
                                     rdfs:label "This writes a catalog object to the firestore database"^^xsd:string ,
+                                               "Write Catalog Object"^^xsd:string ,
                                                "Write Catalog Object to Firestore"^^xsd:string ;
                                     <http://www.w3.org/2004/02/skos/core#altLabel> "serwritefirestorecatalog"^^xsd:string .
 
@@ -10687,6 +10752,46 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                   <http://www.w3.org/2004/02/skos/core#altLabel> "uniqueidentifier"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#LabelFirestoreIDPair
+:LabelFirestoreIDPair rdf:type owl:Class ;
+                      rdfs:subClassOf :ChemConnectCompoundBase ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :CatalogObjectKey
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :FirestoreCatalogID
+                                      ] ;
+                      <http://purl.org/dc/elements/1.1/type> :LabelFirestoreIDPair ;
+                      <http://purl.org/dc/terms/identifier> "dataset:labelidpair"^^xsd:string ;
+                      rdfs:comment "The FirestoreID and a label are paired. The main use of this is to make a list of possibilities in the interface, using the label, and pairing it with the actual object, using the FirestoreID"^^xsd:string ;
+                      rdfs:label "FirestoreID-Label Pair"^^xsd:string ;
+                      <http://www.w3.org/2004/02/skos/core#altLabel> "labelidpair"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#LabelLinkToFirestoreIDRDF
+:LabelLinkToFirestoreIDRDF rdf:type owl:Class ;
+                           rdfs:subClassOf :ServiceCollectionFirestoreCatalogAccess ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :RDFPredicate
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :SetOfLabelFirestoreIDPairs
+                                           ] ;
+                           <http://purl.org/dc/elements/1.1/type> :LabelLinkToFirestoreIDRDF ;
+                           <http://purl.org/dc/terms/identifier> "dataset:serlinklabelID"^^xsd:string ;
+                           rdfs:comment "This creates a SetOfLabelFirestoreIDPairs for use in interfaces. The label is used in the choice and the FirestoreID is used for retreiving the object. The input is the RDFPredicate, a subclass of RDFCatalogIDReference. the object of these is the FirestoreID and the subject is a label value. This pairing is exactly what is needed for the construction of a list."^^xsd:string ;
+                           rdfs:label "Create links between label and IDs"^^xsd:string ;
+                           <http://www.w3.org/2004/02/skos/core#altLabel> "serlinklabelID"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#Lady
 :Lady rdf:type owl:Class ;
       rdfs:subClassOf :UserTitleChoices ;
@@ -11282,6 +11387,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                        ] ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
  ] .
+
+
+###  http://www.esblurock.info/dataset#MakePublicRead
+:MakePublicRead rdf:type owl:Class ;
+                rdfs:subClassOf :BooleanDataType ;
+                <http://purl.org/dc/elements/1.1/type> :MakePublicRead ;
+                <http://purl.org/dc/terms/identifier> "dataset:publicread"^^xsd:string ;
+                rdfs:comment "True if the access to reading the information of the object is to be public, false defaults to owner."^^xsd:string ;
+                rdfs:label "Public Read"^^xsd:string ;
+                <http://www.w3.org/2004/02/skos/core#altLabel> "publicread"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ManufacturerName
@@ -12139,8 +12254,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
               rdfs:subClassOf :ChemConnectCompoundBase ,
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                owl:onClass :UserTitle
+                                owl:someValuesFrom :UserTitle
                               ] ,
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
@@ -12824,6 +12938,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                       rdfs:label "Person Classification" .
 
 
+###  http://www.esblurock.info/dataset#PersonFullName
+:PersonFullName rdf:type owl:Class ;
+                rdfs:subClassOf :OneLine ;
+                <http://purl.org/dc/elements/1.1/type> :PersonFullName ;
+                <http://purl.org/dc/terms/identifier> "dataset:personfullname"^^xsd:string ;
+                rdfs:comment "This is the full name of the person, written out (title, given name, family name, etc.).. It is free text and does not necessarily correspond to the individual fields of the person name."^^xsd:string ;
+                rdfs:label "Full Name of person"^^xsd:string ;
+                <http://www.w3.org/2004/02/skos/core#altLabel> "personfullname"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#PersonalDescription
 :PersonalDescription rdf:type owl:Class ;
                      rdfs:subClassOf :ChemConnectCompoundBase ,
@@ -13232,6 +13356,26 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#PropagatedAbsoluteUncertainty
 :PropagatedAbsoluteUncertainty rdf:type owl:Class ;
                                rdfs:subClassOf :AbsoluteUncertainty .
+
+
+###  http://www.esblurock.info/dataset#PropertyValueQueryPair
+:PropertyValueQueryPair rdf:type owl:Class ;
+                        rdfs:subClassOf :ChemConnectCompoundBase ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onClass :DatabaseObjectType
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onClass :ShortStringKey
+                                        ] ;
+                        <http://purl.org/dc/elements/1.1/type> :PropertyValueQueryPair ;
+                        <http://purl.org/dc/terms/identifier> "dataset:propertyvaluepair"^^xsd:string ;
+                        rdfs:comment "Property-Value pair"^^xsd:string ;
+                        rdfs:label "Property-Value pair"^^xsd:string ;
+                        <http://www.w3.org/2004/02/skos/core#altLabel> "propertyvaluepair"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ProtocolObservationSource
@@ -14381,6 +14525,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                         ] .
 
 
+###  http://www.esblurock.info/dataset#RDFAuthorFamilyName
+:RDFAuthorFamilyName rdf:type owl:Class ;
+                     rdfs:subClassOf :RDFContactReference ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty <http://www.w3.org/ns/prov#entity> ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :AuthorFamilyName
+                                     ] .
+
+
 ###  http://www.esblurock.info/dataset#RDFAuthorizationName
 :RDFAuthorizationName rdf:type owl:Class ;
                       rdfs:subClassOf :RDFContactReference ,
@@ -14389,6 +14543,19 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                         owl:onClass :AuthorizationName
                                       ] .
+
+
+###  http://www.esblurock.info/dataset#RDFCatalogDataType
+:RDFCatalogDataType rdf:type owl:Class ;
+                    rdfs:subClassOf :ChemConnectRDFBase ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass :DatabaseObjectType
+                                    ] ;
+                    <http://purl.org/dc/elements/1.1/type> :RDFCatalogDataType ;
+                    <http://purl.org/dc/terms/identifier> "dataset:rdflinktocatalogtype"^^xsd:string ;
+                    <http://www.w3.org/2004/02/skos/core#altLabel> "rdflinktocatalogtype"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#RDFCatalogIDReference
@@ -14403,7 +14570,8 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                          owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                          owl:onClass :FirestoreCatalogID
-                                       ] .
+                                       ] ;
+                       rdfs:comment "This creates a SetOfLabelFirestoreIDPairs for use in interfaces. The label is used in the choice and the FirestoreID is used for retreiving the object. The input is the RDFPredicate, a subclass of RDFCatalogIDReference. the object of these is the FirestoreID and the subject is a label value. This pairing is exactly what is needed for the construction of a list."^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#RDFCatalogIDSubjectBase
@@ -14466,20 +14634,20 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                  ] .
 
 
-###  http://www.esblurock.info/dataset#RDFDataCatalogType
-:RDFDataCatalogType rdf:type owl:Class ;
-                    rdfs:subClassOf :RDFGeneralInfoReference ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty <http://www.w3.org/ns/prov#entity> ;
-                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                      owl:onClass :DataCatalog
-                                    ] .
-
-
 ###  http://www.esblurock.info/dataset#RDFDataStructure
 :RDFDataStructure rdf:type owl:Class ;
                   rdfs:subClassOf :ChemConnectRDFBase ;
                   <http://purl.org/dc/elements/1.1/type> "ChemConnectRDF" .
+
+
+###  http://www.esblurock.info/dataset#RDFDatabaseObjectType
+:RDFDatabaseObjectType rdf:type owl:Class ;
+                       rdfs:subClassOf :RDFGeneralInfoReference ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty <http://www.w3.org/ns/prov#entity> ;
+                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onClass :DatabaseObjectType
+                                       ] .
 
 
 ###  http://www.esblurock.info/dataset#RDFDescriptionKeyword
@@ -14642,7 +14810,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                    [ rdf:type owl:Restriction ;
                                      owl:onProperty <http://www.w3.org/ns/prov#entity> ;
                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                     owl:onClass :DescriptionTitlePerson
+                                     owl:onClass :PersonFullName
                                    ] .
 
 
@@ -14692,6 +14860,21 @@ Under the general type of is the actual data object referenced by the ChemConnec
                         rdfs:subClassOf :RDFCatalogIDReference .
 
 
+###  http://www.esblurock.info/dataset#RDFShortTransactionDescription
+:RDFShortTransactionDescription rdf:type owl:Class ;
+                                rdfs:subClassOf :RDFGeneralInfoReference ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://www.w3.org/ns/prov#entity> ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :ShortTransactionDescription
+                                                ] ;
+                                <http://purl.org/dc/elements/1.1/type> :RDFShortTransactionDescription ;
+                                <http://purl.org/dc/terms/identifier> "dataset:rdfdescriptiontitle"^^xsd:string ;
+                                rdfs:comment "This is the link of the Description Title to the object IDs. This is used mainly for selection. The title is used as the user friendly identification. The ID is used to access the object."^^xsd:string ;
+                                rdfs:label "Link to Description Title"^^xsd:string ;
+                                <http://www.w3.org/2004/02/skos/core#altLabel> "rdfdescriptiontitle"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#RDFSubjectClassName
 :RDFSubjectClassName rdf:type owl:Class ;
                      rdfs:subClassOf :Classification ;
@@ -14706,7 +14889,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 :RDFSubjectKey rdf:type owl:Class ;
                rdfs:subClassOf :ShortStringKey ;
                <http://purl.org/dc/elements/1.1/type> :RDFSubjectKey ;
-               <http://purl.org/dc/terms/identifier> "dataset:rdfobjectkey"^^xsd:string ;
+               <http://purl.org/dc/terms/identifier> "dataset:rdfsubjectkey"^^xsd:string ;
                rdfs:comment "The key for the RDF subject"^^xsd:string ;
                rdfs:label "RDF Subject Key"^^xsd:string ;
                <http://www.w3.org/2004/02/skos/core#altLabel> "rdfsubjectkey"^^xsd:string .
@@ -14772,6 +14955,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                  <http://www.w3.org/2004/02/skos/core#altLabel> "rdfsubprimobjrec"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#RDFTransactionID
+:RDFTransactionID rdf:type owl:Class ;
+                  rdfs:subClassOf :RDFGeneralInfoReference ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://www.w3.org/ns/prov#entity> ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass :TransactionID
+                                  ] .
+
+
 ###  http://www.esblurock.info/dataset#RDFTransactionOutputObject
 :RDFTransactionOutputObject rdf:type owl:Class ;
                             rdfs:subClassOf :RDFTransactionReference ,
@@ -14808,7 +15001,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#RDFTriple
 :RDFTriple rdf:type owl:Class ;
-           rdfs:subClassOf :SimpleCatalogObject ,
+           rdfs:subClassOf :SimpleDatabaseObjectStructure ,
                            [ rdf:type owl:Restriction ;
                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -15072,6 +15265,31 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#ReactionProperties
 :ReactionProperties rdf:type owl:Class ;
                     rdfs:subClassOf :ChemicalTextInformation .
+
+
+###  http://www.esblurock.info/dataset#ReadCatalogObjects
+:ReadCatalogObjects rdf:type owl:Class ;
+                    rdfs:subClassOf :ServiceCollectionFirestoreCatalogAccess ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass :FirestoreCatalogID
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass :SetOfPropertyValueQueryPairs
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass :SetOfCatalogObjects
+                                    ] ;
+                    <http://purl.org/dc/elements/1.1/type> :ReadCatalogObjects ;
+                    <http://purl.org/dc/terms/identifier> "dataset:serreadcatalogobjects"^^xsd:string ;
+                    rdfs:comment "Using a set of keys and the firestore ID read a set of catalog objects. The firestoreid gets to the collection and the property-value pairs determine which catalog objects within the collection to retrieve."^^xsd:string ;
+                    rdfs:label "Read set of Catalog Objects"^^xsd:string ;
+                    <http://www.w3.org/2004/02/skos/core#altLabel> "serreadcatalogobjects"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#RecordObjectID
@@ -15420,6 +15638,34 @@ Under the general type of is the actual data object referenced by the ChemConnec
                         <http://www.w3.org/2004/02/skos/core#altLabel> "serviceresponsemessage"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#SetOfCatalogObjects
+:SetOfCatalogObjects rdf:type owl:Class ;
+                     rdfs:subClassOf :ChemConnectCompoundBase ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                       owl:someValuesFrom :SimpleCatalogObject
+                                     ] ;
+                     <http://purl.org/dc/elements/1.1/type> :SetOfCatalogObjects ;
+                     <http://purl.org/dc/terms/identifier> "dataset:setofrdfs"^^xsd:string ;
+                     rdfs:comment "Set of RDFs"^^xsd:string ;
+                     rdfs:label "Set of RDFs"^^xsd:string ;
+                     <http://www.w3.org/2004/02/skos/core#altLabel> "setofrdfs"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#SetOfFirestoreCatalogIDs
+:SetOfFirestoreCatalogIDs rdf:type owl:Class ;
+                          rdfs:subClassOf :ChemConnectCompoundBase ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
+                                            owl:someValuesFrom :FirestoreCatalogID
+                                          ] ;
+                          <http://purl.org/dc/elements/1.1/type> :SetOfFirestoreCatalogIDs ;
+                          <http://purl.org/dc/terms/identifier> "dataset:setoffirestoreids"^^xsd:string ;
+                          rdfs:comment "The set of FirestoreCatalogIDs"^^xsd:string ;
+                          rdfs:label "Set Firestore ID"^^xsd:string ;
+                          <http://www.w3.org/2004/02/skos/core#altLabel> "setoffirestoreids"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#SetOfHierarchialConcepts
 :SetOfHierarchialConcepts rdf:type owl:Class ;
                           rdfs:subClassOf :GraphicConcept ;
@@ -15438,6 +15684,20 @@ Under the general type of is the actual data object referenced by the ChemConnec
                <http://purl.org/dc/terms/identifier> "dataset:SetOfKeywords" ;
                rdfs:label "Set of Keywords" ;
                <http://www.w3.org/2004/02/skos/core#altLabel> "keyset" .
+
+
+###  http://www.esblurock.info/dataset#SetOfLabelFirestoreIDPairs
+:SetOfLabelFirestoreIDPairs rdf:type owl:Class ;
+                            rdfs:subClassOf :ChemConnectCompoundBase ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                              owl:someValuesFrom :LabelFirestoreIDPair
+                                            ] ;
+                            <http://purl.org/dc/elements/1.1/type> :SetOfLabelFirestoreIDPairs ;
+                            <http://purl.org/dc/terms/identifier> "dataset:setlabelidpair"^^xsd:string ;
+                            rdfs:comment "A set of FirestoreID-Label pairs. Used to create an interface choice list leading to the retrieval of the catalog object."^^xsd:string ;
+                            rdfs:label "Set of FirestoreID-Label"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "setlabelidpair"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#SetOfMassFlowControllerObservables
@@ -15477,6 +15737,20 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                  <http://purl.org/dc/elements/1.1/type> "SetOfObservationsLinkToProtocol" .
 
 
+###  http://www.esblurock.info/dataset#SetOfPropertyValueQueryPairs
+:SetOfPropertyValueQueryPairs rdf:type owl:Class ;
+                              rdfs:subClassOf :ChemConnectCompoundBase ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                owl:someValuesFrom :PropertyValueQueryPair
+                                              ] ;
+                              <http://purl.org/dc/elements/1.1/type> :SetOfPropertyValueQueryPairs ;
+                              <http://purl.org/dc/terms/identifier> "dataset:propvaluepairset"^^xsd:string ;
+                              rdfs:comment "Set of property-value pairs"^^xsd:string ;
+                              rdfs:label "Set of property-value pairs"^^xsd:string ;
+                              <http://www.w3.org/2004/02/skos/core#altLabel> "propvaluepairset"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#ShockTube
 :ShockTube rdf:type owl:Class ;
            rdfs:subClassOf :CombustionInstrument ;
@@ -15504,7 +15778,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 :ShortStringKey rdf:type owl:Class ;
                 rdfs:subClassOf :ChemConnectPrimitiveDataStructure ;
                 <http://purl.org/dc/elements/1.1/type> :ShortStringKey ;
-                <http://purl.org/dc/terms/identifier> <http://xmlns.com/foaf/0.1/LabelProperty> ;
+                <http://purl.org/dc/terms/identifier> "foaf:LabelProperty"^^xsd:string ;
                 rdfs:comment "This is a single word or phrase description"^^xsd:string ;
                 rdfs:isDefinedBy <http://purl.org/dc/dcmitype/Text> ;
                 rdfs:label "Short String Key"^^xsd:string ;
@@ -15513,7 +15787,17 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ShortTransactionDescription
 :ShortTransactionDescription rdf:type owl:Class ;
-                             rdfs:subClassOf :ChemConnectCompoundBase ;
+                             rdfs:subClassOf :ChemConnectCompoundBase ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                               owl:onClass :DescriptionTitleTransaction
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                               owl:onClass :TransactionEventType
+                                             ] ;
                              <http://purl.org/dc/elements/1.1/type> "ShortTransactionDescription" ;
                              <http://purl.org/dc/terms/identifier> "dataset:transaction-description-short" ;
                              rdfs:comment "This is a short description of the transaction with just the identifer (with type) of the transaction supplemented (for use in displaying with the GUI) with the transaction description and a label." ;
@@ -15568,12 +15852,37 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                        owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                        owl:onClass :ChemConnectModule
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty <http://www.w3.org/2004/02/skos/core#mappingRelation> ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :RDFDatabaseObjectType
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty <http://www.w3.org/2004/02/skos/core#mappingRelation> ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :RDFTransactionID
                                      ] ;
                      <http://purl.org/dc/elements/1.1/type> "SimpleCatalogObject" ;
                      <http://purl.org/dc/terms/identifier> "dataset:simpcatobj" ;
                      rdfs:comment "This is the top class of catalog objects with have a DataCatalogID object" ;
                      rdfs:label "Simple Catalog Object" ;
                      <http://www.w3.org/2004/02/skos/core#altLabel> "simpcatobj" .
+
+
+###  http://www.esblurock.info/dataset#SimpleDatabaseObjectStructure
+:SimpleDatabaseObjectStructure rdf:type owl:Class ;
+                               rdfs:subClassOf :SimpleCatalogObject ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onClass :FirestoreCatalogID
+                                               ] ;
+                               <http://purl.org/dc/elements/1.1/type> :SimpleDatabaseObjectStructure ;
+                               <http://purl.org/dc/terms/identifier> "dataset:minimumdatabaseobject"^^xsd:string ;
+                               rdfs:comment "The minimal database object found in the database"^^xsd:string ;
+                               rdfs:label "Database Object"^^xsd:string ;
+                               <http://www.w3.org/2004/02/skos/core#altLabel> "dataset:minimumdatabaseobject"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#SingleExperimentDataCatagory
@@ -16279,6 +16588,31 @@ Under the general type of is the actual data object referenced by the ChemConnec
                rdfs:isDefinedBy :DataTypeSystem ;
                rdfs:label "SubSystem Type" ;
                <http://www.w3.org/2004/02/skos/core#altLabel> "systype" .
+
+
+###  http://www.esblurock.info/dataset#SubstituteAndWriteDatabasePerson
+:SubstituteAndWriteDatabasePerson rdf:type owl:Class ;
+                                  rdfs:subClassOf :ServiceCollectionFirestoreCatalogAccess ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                    owl:onClass :CatalogObjectOwner
+                                                  ] ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                    owl:onClass :TransactionID
+                                                  ] ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                    owl:onClass :ActivityCatalogDatabasePersonCreation
+                                                  ] ;
+                                  <http://purl.org/dc/elements/1.1/type> :SubstituteAndWriteDatabasePerson ;
+                                  <http://purl.org/dc/terms/identifier> "dataset:subandcreatedatabaseperson"^^xsd:string ;
+                                  rdfs:comment "The source information (from interface) is substituted in a standard empty DatabasePerson. The result is written to the database. It is the main operation of transaction"^^xsd:string ;
+                                  rdfs:label "Substitute Info and Create DatabasePerson"^^xsd:string ;
+                                  <http://www.w3.org/2004/02/skos/core#altLabel> "subandcreatedatabaseperson"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#SubsystemGeometryAndConfiguration
@@ -17119,11 +17453,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                owl:onClass :ActivityInformationRecord
-                                             ] ,
-                                             [ rdf:type owl:Restriction ;
-                                               owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                               owl:onClass :DataDescriptionTransaction
                                              ] ;
                              <http://purl.org/dc/elements/1.1/type> "TransactionEventInputObject" ;
                              <http://purl.org/dc/terms/identifier> "dataset:transinpobj" ;
@@ -17142,7 +17471,17 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                         [ rdf:type owl:Restriction ;
                                           owl:onProperty <http://www.w3.org/2004/02/skos/core#mappingRelation> ;
                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onClass :RDFShortTransactionDescription
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty <http://www.w3.org/2004/02/skos/core#mappingRelation> ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                           owl:onClass :RDFTransactionOutputObject
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onClass :ShortTransactionDescription
                                         ] ;
                         <http://purl.org/dc/elements/1.1/type> "TransactionEventObject" ;
                         <http://purl.org/dc/terms/identifier> "dataset:eventobject" ;

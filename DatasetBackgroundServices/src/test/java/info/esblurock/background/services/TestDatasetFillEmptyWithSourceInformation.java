@@ -37,12 +37,8 @@ public class TestDatasetFillEmptyWithSourceInformation {
 				+ "";
 		JsonObject json = JsonObjectUtilities.jsonObjectFromString(jsonS);
 		body.add(ClassLabelConstants.ActivityInformationRecord, json);
-		try {
 			JsonObject ans = DatabaseServicesBase.process(body);
 			System.out.println(JsonObjectUtilities.toString(ans));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 }

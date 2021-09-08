@@ -219,4 +219,10 @@ public class CreateHierarchyElement {
 		return name;
 	}
 
+	public static JsonObject findDefaultCatalogID(String catalogC) {
+		JsonObject json = CreateDocumentTemplate.createTemplate(catalogC);
+		JsonObject firestoreid = searchForCatalogObjectInHierarchyTemplate(json);
+		firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
+		return firestoreid;
+	}
 }

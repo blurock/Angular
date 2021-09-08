@@ -12,8 +12,29 @@ import com.google.gson.JsonObject;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 
 public class SetUpDocumentReference {
-	
+
 	public static DocumentReference setup(Firestore db, JsonObject firestorecatalogid) {
+		DocumentReference docref = loopPairs(db,firestorecatalogid);
+		String collection = firestorecatalogid.get(ClassLabelConstants.DataCatalog).getAsString();
+		String document = firestorecatalogid.get(ClassLabelConstants.SimpleCatalogName).getAsString();
+		docref = update(db,docref,collection,document);
+		return docref;
+	}
+	
+	public static CollectionReference setupCollection(Firestore db, JsonObject firestorecatalogid) {
+		DocumentReference docref = loopPairs(db,firestorecatalogid);
+		String collection = firestorecatalogid.get(ClassLabelConstants.DataCatalog).getAsString();
+		CollectionReference coll = null;
+		if(docref == null) {
+			coll = db.collection(collection);
+		} else {
+			coll = docref.collection(collection);
+		}
+		return coll;
+	}
+	
+	
+	public static DocumentReference loopPairs(Firestore db, JsonObject firestorecatalogid) {
 		DocumentReference docref = null;
 		JsonObject json = firestorecatalogid.get(ClassLabelConstants.CollectionDocumentIDPairAddress).getAsJsonObject();
 		JsonArray jarr = json.get(ClassLabelConstants.CollectionDocumentIDPair).getAsJsonArray();
@@ -24,15 +45,10 @@ public class SetUpDocumentReference {
 			String document = pair.get(ClassLabelConstants.DatasetDocumentID).getAsString();
 			docref = update(db,docref,collection,document);
 		}
-		String collection = firestorecatalogid.get(ClassLabelConstants.DataCatalog).getAsString();
-		String document = firestorecatalogid.get(ClassLabelConstants.SimpleCatalogName).getAsString();
-		docref = update(db,docref,collection,document);
 		return docref;
 	}
 	
 	private static DocumentReference update(Firestore db, DocumentReference docref, String collection, String document) {
-		System.out.println(collection);
-		System.out.println(document);
 		if(docref == null) {
 			CollectionReference col = db.collection(collection);
 			docref = col.document(document);

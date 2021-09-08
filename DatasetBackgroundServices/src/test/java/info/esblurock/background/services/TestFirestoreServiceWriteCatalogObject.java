@@ -117,11 +117,7 @@ public class TestFirestoreServiceWriteCatalogObject {
 				+ "}\n"
 				+ "";
 		JsonObject body = JsonObjectUtilities.jsonObjectFromString(bodyS);
-	try {
 		JsonObject ans = DatabaseServicesBase.process(body);
 		System.out.println(JsonObjectUtilities.toString(ans));
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
 }	
 }

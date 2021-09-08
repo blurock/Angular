@@ -2,8 +2,12 @@ package info.esblurock.background.services.servicecollection;
 
 import java.io.IOException;
 
+import org.dom4j.Document;
+import org.dom4j.Element;
+
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
@@ -14,6 +18,8 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
  *
  */
 public class DatabaseServicesBase {
+	
+	public static String service = "service";
 
 	/** Process the POST
 	 * 
@@ -29,24 +35,24 @@ public class DatabaseServicesBase {
 	 * @return The JSON object as return
 	 * @throws IOException
 	 */
-	public static JsonObject process(JsonObject body) throws IOException {
-		System.out.println("Process: " + body);
-		System.out.println("Process: " + JsonObjectUtilities.toString(body));
-		JsonObject answer = new JsonObject();
-		String service = body.get("service").getAsString();
-		System.out.println("Service: " + service );
+	public static JsonObject process(JsonObject body) {
+		String service = body.get(DatabaseServicesBase.service).getAsString();
+		JsonObject response = new JsonObject();
 		try {
 		    ServiceCollectionQueryOntology agentqo = ServiceCollectionQueryOntology.valueOf(service);
-		    answer = agentqo.process(body);
+		    response = agentqo.process(body);
 		} catch(IllegalArgumentException ex) {
 			try {
 				ServiceCollectionFirestoreCatalogAccess agentfire = ServiceCollectionFirestoreCatalogAccess.valueOf(service);
-				agentfire.process(body);
+				response = agentfire.process(body);
 			} catch(IllegalArgumentException excep) {
-				throw new IOException("Service not available: '" + service + "'");
+				response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);
+				response.addProperty(ClassLabelConstants.ServiceResponseMessage, 
+						"Service not available: '" + service + "'\n" + excep.toString());
+				response.add(ClassLabelConstants.SimpleCatalogObject, null);
 			}
 		}
-		return answer;
+		return response;
 	}
 	/** Standard successful service response
 	 * 
@@ -55,11 +61,22 @@ public class DatabaseServicesBase {
 	 * @return a full service response with ServiceProcessSuccessful and ServiceResponseMessage added
 	 * 
 	 */
-	public static JsonObject standardServiceResponse(String service, JsonObject result) {
+	public static JsonObject standardServiceResponse(Document document, String message, JsonObject result) {
+		Element body = MessageConstructor.isolateBody(document);
+		body.addElement("h3").addText(message);
 		JsonObject response = new JsonObject();
 		response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, "true");
-		String responseS = service + ": Successful";
-		response.addProperty(ClassLabelConstants.ServiceResponseMessage, responseS);
+		response.addProperty(ClassLabelConstants.ServiceResponseMessage, MessageConstructor.DocumentToString(document));
+		response.add(ClassLabelConstants.SimpleCatalogObject, result);
+		return response;
+	}
+	public static JsonObject standardErrorResponse(Document document, JsonObject errresponse,JsonObject result) {
+		JsonObject response = new JsonObject();
+		response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, "false");
+		String rdfmessage = errresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
+		MessageConstructor.combineBodyIntoDocument(document, rdfmessage);
+		
+		response.addProperty(ClassLabelConstants.ServiceResponseMessage, MessageConstructor.DocumentToString(document));
 		response.add(ClassLabelConstants.SimpleCatalogObject, result);
 		return response;
 	}

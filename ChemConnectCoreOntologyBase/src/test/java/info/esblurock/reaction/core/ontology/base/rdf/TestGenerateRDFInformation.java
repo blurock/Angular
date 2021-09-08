@@ -19,7 +19,7 @@ public class TestGenerateRDFInformation {
 		System.out.println(lst.toString(""));
 		System.out.println("---------------------------------------");
 		System.out.println("---------------------------------------");
-		String classname2 = "dataset:UserAccount";
+		String classname2 = "dataset:NameOfPerson";
 		System.out.println("GenerateRDFInformation: " + classname2);
 		ListOfRDFInformation lst2 = FindRDFInClass.find(classname2);
 		System.out.println("Final List");

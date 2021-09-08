@@ -34,7 +34,7 @@ public class CatalogInformationServlet extends HttpServlet {
 			}
 			System.out.println("catalogname:  " + catalogname);
 			
-			JsonObject catalog = CreateDocumentTemplate.createSubTemplate(catalogname);
+			JsonObject catalog = CreateDocumentTemplate.createTemplate(catalogname);
 			PrintWriter out = response.getWriter();
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");

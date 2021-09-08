@@ -29,7 +29,7 @@ public class ProcessTransactionBase {
 	 */
 	public static JsonObject setupActivityInformationTemplate(String transaction) {
 		String info = TransactionConceptParsing.sourceDataOfTransaction(transaction);
-		JsonObject jsonobj = CreateDocumentTemplate.createSubTemplate(info);
+		JsonObject jsonobj = CreateDocumentTemplate.createTemplate(info);
 		return jsonobj;
 	}
 	
@@ -40,7 +40,7 @@ public class ProcessTransactionBase {
 	 */
 	public static JsonObject setupCatalogObjectTemplate(String transaction) {
 		String catalog = TransactionConceptParsing.catalogOfTransactionSingle(transaction);
-		JsonObject jsonobj = CreateDocumentTemplate.createSubTemplate(catalog);
+		JsonObject jsonobj = CreateDocumentTemplate.createTemplate(catalog,true);
 		return jsonobj;
 	}
 	
@@ -56,29 +56,7 @@ public class ProcessTransactionBase {
 		return catalog;
 	}
 	
-	public static void fillInOwnerInformation(JsonObject catalog, String owner) {
-		catalog.addProperty(ClassLabelConstants.CatalogObjectOwner, owner);
-		catalog.addProperty(ClassLabelConstants.CatalogObjectAccessRead, owner);
-		catalog.addProperty(ClassLabelConstants.CatalogObjectAccessModify, owner);
-	}
 	
-	public static JsonObject createNewCatalogObject(String transaction, JsonObject info, String owner) {
-		JsonObject catalog = fillInSourceInformationInCatalog(transaction,info);
-		fillInOwnerInformation(catalog, owner);
-		return catalog;
-	}
 	
-	public static void writeCatalogObject(JsonObject catalog) {
-		
-	}
-	
-	public static void processTransaction(String transaction, JsonObject catalog, JsonObject info, 
-			String owner) {
-		if(catalog == null) {
-			catalog = createNewCatalogObject(transaction,info,owner);
-		}
-		catalog.addProperty(ClassLabelConstants.TransactionID, generateTransactionID());
-		catalog = TransactionProcess.processFromTransaction(transaction, catalog, info);
-	}
 
 }

@@ -33,6 +33,7 @@ public class TestSearchForCatalogObjectInHierarchyTemplate {
 		JsonObject obj = CreateDocumentTemplate.createTemplate("dataset:RDFSubjectPrimitiveObjectRecord");
 		obj.addProperty(ClassLabelConstants.CatalogObjectKey, "lalalalalalalalalalalala");
 		System.out.println("---------------------------------------");
+		System.out.println(JsonObjectUtilities.toString(obj));
 		JsonObject pairs = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(obj);
 		System.out.println("------------ dataset:RDFSubjectPrimitiveObjectRecord -------------");
 		System.out.println(JsonObjectUtilities.toString(pairs));

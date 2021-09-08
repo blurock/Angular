@@ -22,13 +22,9 @@ public class ClassificationService {
 		+ "}\n"
 		+ "";
 		JsonObject answer1;
-		try {
 			answer1 = DatabaseServicesBase.process(JsonObjectUtilities.jsonObjectFromString(jsonS));
 			System.out.println(JsonObjectUtilities.toString(answer1));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 
 }

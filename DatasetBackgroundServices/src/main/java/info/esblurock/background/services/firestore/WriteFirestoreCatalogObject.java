@@ -15,20 +15,36 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
-import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
+import info.esblurock.background.services.SystemObjectInformation;
+import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 
 public class WriteFirestoreCatalogObject {
-	public static Timestamp write(Firestore db, JsonObject catalog, JsonObject firestorecatalogid) throws IOException {
+	public static String writeCatalogObject(JsonObject catalog) {
+		Firestore db;
+		String message = "";
+		try {
+			db = FirestoreBaseClass.getFirebaseDatabase();
+			JsonObject firestorecatalogid = catalog.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+			message = write(db,catalog,firestorecatalogid);
+		} catch (IOException e) {
+			message = "Could not set up Firestore: " + e.getMessage() + "\n";
+		}
+		return message;
+	}
+	
+	public static String write(Firestore db, JsonObject catalog, JsonObject firestorecatalogid) {
 		DocumentReference docRef = SetUpDocumentReference.setup(db, firestorecatalogid);
+		String message = "Successful Write:\n";
 		Type type = new TypeToken<HashMap<String, Object>>() {}.getType();
 		Map<String, Object> mapObj = new Gson().fromJson(catalog, type);
 		ApiFuture<WriteResult> result = docRef.set(mapObj);
 		Timestamp time = null;
 		try {
 			time = result.get().getUpdateTime();
+			message += "Time: " + time.toString() + "\n";
 		} catch (InterruptedException | ExecutionException e) {
-			throw new IOException("Catalog write to database failed: \n" + e.getMessage());
+			message = "Catalog write to database failed: \n" + e.getMessage() + "\n";
 		}
-		return time;
+		return message;
 	}
 }

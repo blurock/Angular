@@ -10,33 +10,79 @@ import com.google.gson.JsonObject;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.constants.OntologyObjectLabels;
+import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CompoundObjectDimensionInformation;
 import info.esblurock.reaction.core.ontology.base.dataset.CompoundObjectDimensionSet;
+import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.dataset.ParseCompoundObject;
+import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
 import info.esblurock.reaction.core.ontology.base.utilities.GenericSimpleQueries;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRoutines;
 
 public class FindRDFInClass {
 	
+	public static JsonArray createSetOfJsonObjectRDFs(JsonObject obj) {
+		ListOfRDFInformation rdfset = createFullRDFForObject(obj);
+		JsonArray arr = new JsonArray();
+		Iterator<RDFInformation> iter = rdfset.getList().iterator();
+		while(iter.hasNext()) {
+			RDFInformation info = iter.next();
+			JsonObject rdf = convertRDFInformationToJson(info,obj);
+			arr.add(rdf);
+		}
+		return arr;
+	}
+	
+	private static JsonObject convertRDFInformationToJson(RDFInformation info,JsonObject obj) {
+		JsonObject json = CreateDocumentTemplate.createTemplate(info.getRdftriple());
+		json.addProperty(ClassLabelConstants.RDFObjectClassName, info.getObjectClass());
+		json.addProperty(ClassLabelConstants.RDFSubjectClassName, info.getSubjectClass());
+		json.addProperty(ClassLabelConstants.RDFPredicate, info.getClassname());
+		String classname = info.getRdftriple().substring(8);
+		FillRDFTriple fill = FillRDFTriple.valueOf(classname);
+		try {
+			fill.fill(json, info);
+		} catch(IllegalStateException ex) {
+			System.out.println("----------------");
+			System.out.println("Error in FillRDFTriple");
+			System.out.println(ex.toString());
+			System.out.println("Info: \n" + info.toString());
+			System.out.println("----------------");
+			System.out.println("Object: \n" + JsonObjectUtilities.toString(json));
+			System.out.println("----------------");
+		}
+		BaseCatalogData.copyOwnerAndPriviledges(obj,json);
+		BaseCatalogData.insertCatalogObjectKey(json);
+		BaseCatalogData.copyTransactionID(obj, json);
+		json.addProperty(ClassLabelConstants.DatabaseObjectType, info.getRdftriple());
+		JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(json);
+		firestoreid.remove(AnnotationObjectsLabels.identifier);
+		json.add(ClassLabelConstants.FirestoreCatalogID, firestoreid);
+		return json;
+	}
 	public static ListOfRDFInformation createFullRDFForObject(JsonObject obj) {
 		String id = obj.get(AnnotationObjectsLabels.identifier).getAsString();
 		String topclassname = GenericSimpleQueries.classFromIdentifier(id);
+		ListOfRDFInformation complete = createFullRDFForObject(topclassname,obj);
+		assignRDFTripleClass(complete);		
+		return complete;
+	}
+	
+	public static ListOfRDFInformation createFullRDFForObject(String topclassname,JsonObject obj) {
 		ListOfRDFInformation complete = createRDFList(topclassname, obj);
 		CompoundObjectDimensionSet set = ParseCompoundObject.getCompoundElements(topclassname);
 		Iterator<CompoundObjectDimensionInformation> iter = set.iterator();
 		while(iter.hasNext()) {
 			CompoundObjectDimensionInformation info = iter.next();
-			ListOfRDFInformation lst = createRDFList(info.getClassname(), obj);
+			ListOfRDFInformation lst = createFullRDFForObject(info.getClassname(), obj);
 			complete.addRDFInformation(lst);
 		}
-		assignRDFTripleClass(complete);
 		return complete;
 	}
 	
 	public static void assignRDFTripleClass(ListOfRDFInformation complete) {
-		
 		Iterator<RDFInformation> iter = complete.getList().iterator();
 		while(iter.hasNext()) {
 			RDFInformation info = iter.next();
@@ -49,10 +95,9 @@ public class FindRDFInClass {
 				} else {
 					rdftype = "dataset:RDFSubjectPrimitiveObjectRecord";
 				}
-
 			} else {
 				if(object.isJsonPrimitive()) {
-					rdftype = "dataset:RDFSubjectObjectPrimitives";
+					rdftype = "dataset:RDFObjectAsPrimitiveSubjectRecord";
 				} else {
 					rdftype = "dataset:RDFSubjectObjectAsRecord";
 				}
@@ -120,7 +165,7 @@ public class FindRDFInClass {
 			Iterator<String> entityiter = entities.iterator();
 			while(entityiter.hasNext()) {
 				String entity = entityiter.next();
-				RDFInformation rdfInformation = new RDFInformation(classname, member,rdfclass, entity);
+				RDFInformation rdfInformation = new RDFInformation(rdfclass, member,rdfclass, entity);
 				lst.addRDFInformation(rdfInformation);
 			}
 		}

@@ -11,12 +11,17 @@ public class CreateDocumentTemplate {
 	
 
 	public static JsonObject createTemplate(String classname) {
-		JsonObject obj = createSubTemplate(classname);
+		return createTemplate(classname,false);
+	}
+	
+	public static JsonObject createTemplate(String classname, boolean arrexample) {
+		JsonObject obj = createSubTemplate(classname,arrexample);
 		String identifier = DatasetOntologyParseBase.getIDFromAnnotation(classname);
 		obj.addProperty(AnnotationObjectsLabels.identifier, identifier);
 		return obj;
-	}	
-	public static JsonObject createSubTemplate(String classname) {
+	}
+	
+	public static JsonObject createSubTemplate(String classname, boolean arrexample) {
 		JsonObject obj = new JsonObject();
 		CompoundObjectDimensionSet set1 = ParseCompoundObject.getCompoundElements(classname);
 		Iterator<CompoundObjectDimensionInformation> iter = set1.iterator();
@@ -25,13 +30,15 @@ public class CreateDocumentTemplate {
 			String dimidentifier = DatasetOntologyParseBase.getIDFromAnnotation(info.getClassname());
 			if(info.isCompoundobject()) {
 				if(info.isSinglet()) {
-					JsonObject subelements = createSubTemplate(info.getClassname());
+					JsonObject subelements = createSubTemplate(info.getClassname(),arrexample);
 					obj.add(dimidentifier,subelements);
 				} else {
 					JsonArray arr = new JsonArray();
 					obj.add(dimidentifier, arr);
-					JsonObject arrobj = createSubTemplate(info.getClassname());
-					arr.add(arrobj);
+					if(arrexample) {
+						JsonObject arrobj = createSubTemplate(info.getClassname(),arrexample);
+						arr.add(arrobj);
+					}
 				}
 			} else {
 				String singlevalue = "not assigned";
@@ -43,7 +50,9 @@ public class CreateDocumentTemplate {
 				} else {
 					JsonArray arr = new JsonArray();
 					obj.add(dimidentifier, arr);
-					arr.add(singlevalue);
+					if(arrexample) {
+						arr.add(singlevalue);
+					}
 				}
 			}
 		}

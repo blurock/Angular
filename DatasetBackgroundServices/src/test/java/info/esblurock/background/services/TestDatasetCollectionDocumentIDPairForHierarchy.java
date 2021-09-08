@@ -35,12 +35,8 @@ public class TestDatasetCollectionDocumentIDPairForHierarchy {
 		JsonObject serviceJ = new JsonObject();
 		serviceJ.addProperty("service", "DatasetCollectionDocumentIDPairForHierarchy");
 		serviceJ.add("dataset:simpcatobj", obj);
-		try {
 			JsonObject id = DatabaseServicesBase.process(serviceJ);
 			System.out.println(JsonObjectUtilities.toString(id));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 }

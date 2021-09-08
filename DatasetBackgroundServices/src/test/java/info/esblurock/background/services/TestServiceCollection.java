@@ -31,13 +31,9 @@ public class TestServiceCollection {
 
 		System.out.println(JsonObjectUtilities.toString(json));
 		System.out.println("---------------------------------------------------");
-		try {
 			JsonObject answer = DatabaseServicesBase.process(json);
 			System.out.println("---------------------------------------------------");
 			System.out.println(JsonObjectUtilities.toString(answer));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 }
