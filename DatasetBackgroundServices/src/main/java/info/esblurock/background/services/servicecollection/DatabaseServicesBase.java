@@ -80,5 +80,14 @@ public class DatabaseServicesBase {
 		response.add(ClassLabelConstants.SimpleCatalogObject, result);
 		return response;
 	}
+	public static JsonObject standardErrorResponse(Document document, String errresponse,JsonObject result) {
+		JsonObject response = new JsonObject();
+		response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, "false");
+		MessageConstructor.combineBodyIntoDocument(document, errresponse);
+		
+		response.addProperty(ClassLabelConstants.ServiceResponseMessage, MessageConstructor.DocumentToString(document));
+		response.add(ClassLabelConstants.SimpleCatalogObject, result);
+		return response;
+	}
 	
 }

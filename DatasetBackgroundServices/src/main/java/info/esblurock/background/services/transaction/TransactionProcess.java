@@ -6,6 +6,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.SystemObjectInformation;
@@ -22,7 +23,7 @@ public enum TransactionProcess {
 	CreateDatabasePersonEvent {
 
 		@Override
-		public JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
+		public JsonObject process(String transactionID, String owner, JsonArray prerequisites, JsonObject info) {
 			JsonObject obj = new JsonObject();
 			Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent");
 			Element body = MessageConstructor.isolateBody(document);
@@ -48,7 +49,17 @@ public enum TransactionProcess {
 			return response;
 		};
 		
-	};
+	}, CreateUserAccountEvent {
+
+		@Override
+		JsonObject process(String transactionID, String owner, JsonArray prerequisites, JsonObject info) {
+			JsonObject requirementid = info.get(0).getAsJsonObject();
+			JsonObject response = 
+			return null;
+		}
+		
+	}
+	;
 	
 	/**
 	 * @param transactionID The transaction ID (unique code for set of transactions)
@@ -57,8 +68,8 @@ public enum TransactionProcess {
 	 * @param info The auxiliary information associated with the transaction
 	 * @return the transaction event
 	 */
-	abstract JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info);
-	public static JsonObject processFromTransaction(String transaction, JsonObject prerequisites, JsonObject info) {
+	abstract JsonObject process(String transactionID, String owner, JsonArray prerequisites, JsonObject info);
+	public static JsonObject processFromTransaction(String transaction, JsonArray prerequisites, JsonObject info) {
 		Document document = MessageConstructor.startDocument("Transaction: " + transaction);
 		String transname = transaction.substring(8);
 		TransactionProcess process = TransactionProcess.valueOf(transname);
@@ -102,7 +113,7 @@ public enum TransactionProcess {
 	 */
 	public static JsonObject processFromTransaction(JsonObject json) {
 		String transaction = json.get(ClassLabelConstants.TransactionEventType).getAsString();
-		JsonObject prerequisites = json.get(ClassLabelConstants.RequiredTransactionIDAndType).getAsJsonObject();
+		JsonArray prerequisites = json.get(ClassLabelConstants.RequiredTransactionIDAndType).getAsJsonArray();
 		JsonObject info = json.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
 		return processFromTransaction(transaction,prerequisites,info);
 	}
