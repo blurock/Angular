@@ -1,21 +1,45 @@
 package info.esblurock.background.services.transaction;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Iterator;
 
+import org.apache.commons.io.IOUtils;
 import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
+import com.google.appengine.api.datastore.BaseDatastoreService;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.SystemObjectInformation;
+import info.esblurock.background.services.datamanipulation.PartitionSetOfStringObjects;
+import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
+import info.esblurock.background.services.firestore.gcs.PartiionSetWithinRepositoryFileProcess;
+import info.esblurock.background.services.firestore.gcs.ReadCloudStorage;
+import info.esblurock.background.services.firestore.gcs.WriteCloudStorage;
+import info.esblurock.background.services.jthermodynamics.InterpretThermodynamicBlock;
+import info.esblurock.background.services.jthermodynamics.metadata.FirestoreBuildMetadataDefinition;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.service.rdfs.GenerateAndWriteRDFForObject;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
+import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
+import info.esblurock.reaction.core.ontology.base.dataset.annotations.BaseAnnotationObjects;
+import info.esblurock.reaction.core.ontology.base.utilities.GenericSimpleQueries;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
+import info.esblurock.reaction.core.ontology.base.utilities.SubstituteJsonValues;
 
 public enum TransactionProcess {
 	
@@ -23,7 +47,7 @@ public enum TransactionProcess {
 	CreateDatabasePersonEvent {
 
 		@Override
-		public JsonObject process(String transactionID, String owner, JsonArray prerequisites, JsonObject info) {
+		public JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
 			JsonObject obj = new JsonObject();
 			Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent");
 			Element body = MessageConstructor.isolateBody(document);
@@ -43,7 +67,9 @@ public enum TransactionProcess {
 					MessageConstructor.combineBodyIntoDocument(document, rdfmessage);
 					String message = MessageConstructor.DocumentToString(document);
 					response.addProperty(ClassLabelConstants.ServiceResponseMessage, message);
-					response.add(ClassLabelConstants.SimpleCatalogObject, catalog);
+					JsonArray catalogarr = new JsonArray();
+					catalogarr.add(catalog);
+					response.add(ClassLabelConstants.SimpleCatalogObject, catalogarr);
 				}
 			}
 			return response;
@@ -52,14 +78,208 @@ public enum TransactionProcess {
 	}, CreateUserAccountEvent {
 
 		@Override
-		JsonObject process(String transactionID, String owner, JsonArray prerequisites, JsonObject info) {
-			JsonObject requirementid = info.get(0).getAsJsonObject();
-			JsonObject response = 
-			return null;
+		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
+			String username = info.get(ClassLabelConstants.username).getAsString();
+			Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent: " + username);
+			System.out.println("CreateUserAccountEvent: prerequisites:\n" + JsonObjectUtilities.toString(prerequisites));
+			// Get prerequisite transaction CreateDatabasePersonEvent
+			JsonObject persontransaction = prerequisites.get("dataset:eventcreateperson").getAsJsonObject();
+			// Get DatabasePerson ID
+				JsonArray personids = persontransaction.get(ClassLabelConstants.DatabaseObjectIDOutputTransaction).getAsJsonArray();
+				JsonObject personid = personids.get(0).getAsJsonObject();
+				// Substitute Info
+				JsonObject catalog = BaseCatalogData.createStandardDatabaseObject("dataset:UserAccount", 
+						owner, transactionID, "false");
+				String identifier = catalog.get(AnnotationObjectsLabels.identifier).getAsString();
+				SubstituteJsonValues.substituteJsonObject(catalog, info);
+				catalog.addProperty(AnnotationObjectsLabels.identifier, identifier);
+				// Write to database
+				WriteFirestoreCatalogObject.writeCatalogObject(catalog);
+				JsonArray catalogarr = new JsonArray();
+				catalogarr.add(catalog);
+				// Make link to DatabasePerson
+				addLinkToCatalog(catalogarr,personid,"dataset:DatabasePerson","dataset:ConceptLinkDatabasePerson");
+				JsonObject response = DatabaseServicesBase.standardServiceResponse(document,"Sucesss: CreateUserAccountEvent", catalogarr);
+			return response;
 		}
 		
+	}, InitialReadInLocalStorageSystem {
+
+		@Override
+		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
+			Document document = MessageConstructor.startDocument("InitialReadInLocalStorageSystem");
+			Element body = MessageConstructor.isolateBody(document);
+			String location = info.get(ClassLabelConstants.FileSourceIdentifier).getAsString();
+			body.addElement("div").addText("File Location: '" + location + "'");
+			Path filePath = Paths.get(location);
+			JsonObject response = new JsonObject();
+			try {
+				String content = Files.readString(filePath);
+				response = WriteCloudStorage.writeString(transactionID, owner, content ,info ,"dcat:LocalFileSystem");
+				JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+				JsonObject gcsstaging = arr.get(0).getAsJsonObject();
+				gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadInLocalStorageSystem");				
+			} catch (IOException e) {
+				DatabaseServicesBase.standardErrorResponse(document, "Error in reading: '" + location + "'\n" + e.getMessage(), response);
+			}
+			return response;
+		}
+		
+	}, InitialReadFromWebLocation {
+		
+		@Override
+		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
+			Document document = MessageConstructor.startDocument("InitialReadFromWebLocation");
+			Element body = MessageConstructor.isolateBody(document);
+			String location = info.get(ClassLabelConstants.FileSourceIdentifier).getAsString();
+			body.addElement("div").addText("File Location: '" + location + "'");
+			JsonObject response = new JsonObject();
+			InputStream in = null;
+			 try {
+				in = new URL( location ).openStream();
+			    String content =  IOUtils.toString( in, StandardCharsets.UTF_8);
+				response = WriteCloudStorage.writeString(transactionID, owner, content,info, "dcat:URLSourceFile");
+				JsonObject gcsstaging = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+				gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadFromWebLocation");
+			 } catch (MalformedURLException e) {
+					response = DatabaseServicesBase.standardErrorResponse(document, "Error in reading: '" + location + "'\n" + e.getMessage(), response);
+			} catch (IOException e) {
+				response = DatabaseServicesBase.standardErrorResponse(document, "Error in reading: '" + location + "'\n" + e.getMessage(), response);
+			} finally {
+					try {
+						IOUtils.close(in);
+					} catch (IOException e) {
+						response = DatabaseServicesBase.standardErrorResponse(document, "Error in closing: '" + location + "'\n" + e.getMessage(), response);
+					}
+			}
+			 return response;
+		}
+	}, InitialReadFromUserInterface {
+
+		@Override
+		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
+			Document document = MessageConstructor.startDocument("InitialReadFromWebLocation");
+			Element body = MessageConstructor.isolateBody(document);
+			String content = info.get(ClassLabelConstants.FileSourceIdentifier).getAsString();
+			body.addElement("pre").addText("String content: '" + content + "'");
+			JsonObject response = WriteCloudStorage.writeString(transactionID, owner, content,info,"dcat:StringSource");
+			JsonObject gcsstaging = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+			gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadFromUserInterface");
+			return response;
+		}
+		
+	}, PartiionSetWithinRepositoryFile {
+
+		@Override
+		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
+			return PartiionSetWithinRepositoryFileProcess.process(transactionID, owner, prerequisites, info);
+		}
+	}, TransactionSetupMolecularThermodynamics {
+
+		@Override
+		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
+			return InterpretThermodynamicBlock.interpretMolecularThermodynamics(transactionID, owner, prerequisites, info);
+		}
+		
+	}, TransactionSetupBensonRule {
+
+		@Override
+		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
+			return InterpretThermodynamicBlock.interpretBensonRuleThermodynamics(transactionID, owner, prerequisites, info);
+		}
+		
+	}, TransactionReadMetaDataDefinition {
+		@Override
+		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
+			return FirestoreBuildMetadataDefinition.build(transactionID, owner, prerequisites, info);
+		}
+		
+	};
+	
+	public static void addLinkToCatalog(JsonArray catalogobjs, JsonObject linkobj, String type, String concept) {
+		for(int i=0;i<catalogobjs.size();i++) {
+			JsonObject catalog = catalogobjs.get(i).getAsJsonObject();
+			JsonArray linkarr = catalog.get(ClassLabelConstants.DataObjectLink).getAsJsonArray();
+			JsonObject link = CreateDocumentTemplate.createTemplate("dataset:DataObjectLink");
+			link.add(ClassLabelConstants.FirestoreCatalogID,linkobj);
+			link.addProperty(ClassLabelConstants.DatabaseObjectType, type);
+			link.addProperty(ClassLabelConstants.DataTypeConcept, concept);
+			linkarr.add(link);
+		}
 	}
-	;
+	
+	/**
+	 * @param transaction The current transaction
+	 * @return The set of prerequisite transactions (TransactionEventObject)
+	 * 
+	 * <ul>
+	 * <li> The required transactions firestoreid's are retrieved (DatabaseIDFromRequiredTransaction)
+	 * <li> The set of keys for the transactions are found
+	 * <li> For each key, read in the transaction from the corresponding firestoreID and set in list
+	 * <ul>
+	 * 
+	 */
+	public static JsonObject getPrerequisiteObjects(JsonObject transaction) {
+		
+		JsonObject transactions = new JsonObject();
+		JsonObject prerequisites = transaction.get(ClassLabelConstants.DatabaseIDFromRequiredTransaction).getAsJsonObject();
+		Iterator<String> keys = prerequisites.keySet().iterator();
+		while(keys.hasNext()) {
+			String key = keys.next();
+			System.out.println("Key: " + key);
+			JsonObject fireid = prerequisites.get(key).getAsJsonObject();
+			System.out.println(JsonObjectUtilities.toString(fireid));
+			JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(fireid);
+			if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+				JsonObject pretrans = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+				transactions.add(key,pretrans);
+			}
+		}
+		return transactions;
+	}
+	
+	/**
+	 * @param prerequisites The set of prerequisite transactions
+	 * @param transidentifier The identifier of the transaction to retrieve
+	 * @return The corresponding output catalog object (returns null if unsuccessful)
+	 * 
+	 */
+	public static JsonObject retrieveSingleOutputFromTransaction(JsonObject prerequisites, String transidentifier) {
+		JsonObject catalog = null;
+		// Get the InitialReadInOfRepositoryFile transaction
+		JsonObject stagingtransaction = prerequisites.get(transidentifier).getAsJsonObject();
+		// Get the set of output FirestoreID from transaction
+		JsonArray outobjects = stagingtransaction.get(ClassLabelConstants.DatabaseObjectIDOutputTransaction).getAsJsonArray();
+		if(outobjects.size() > 0) {
+			// There is only one, get the FirestoreID of RepositoryFileStaging output
+			JsonObject stagingid = outobjects.get(0).getAsJsonObject();
+			// Read the catalog object and isolate it from the response
+			JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(stagingid);
+			if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+				catalog = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+			}
+		}
+		return catalog;
+	}
+	
+	public static JsonArray retrieveSetOfOutputsFromTransaction(JsonObject prerequisites, String transidentifier) {
+		JsonArray catalogset = new JsonArray();
+		// Get the InitialReadInOfRepositoryFile transaction
+		JsonObject stagingtransaction = prerequisites.get(transidentifier).getAsJsonObject();
+		// Get the set of output FirestoreID from transaction
+		JsonArray outobjects = stagingtransaction.get(ClassLabelConstants.DatabaseObjectIDOutputTransaction).getAsJsonArray();
+		for(int i=0; i< outobjects.size(); i++) {
+			JsonObject stagingid = outobjects.get(i).getAsJsonObject();
+			// Read the catalog object and isolate it from the response
+			JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(stagingid);
+			if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+				JsonObject catalog = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+				catalogset.add(catalog);
+			}
+		}
+		return catalogset;
+	}
+	
 	
 	/**
 	 * @param transactionID The transaction ID (unique code for set of transactions)
@@ -68,8 +288,8 @@ public enum TransactionProcess {
 	 * @param info The auxiliary information associated with the transaction
 	 * @return the transaction event
 	 */
-	abstract JsonObject process(String transactionID, String owner, JsonArray prerequisites, JsonObject info);
-	public static JsonObject processFromTransaction(String transaction, JsonArray prerequisites, JsonObject info) {
+	abstract JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info);
+	public static JsonObject processFromTransaction(String transaction, JsonObject prerequisites, JsonObject info) {
 		Document document = MessageConstructor.startDocument("Transaction: " + transaction);
 		String transname = transaction.substring(8);
 		TransactionProcess process = TransactionProcess.valueOf(transname);
@@ -82,7 +302,7 @@ public enum TransactionProcess {
 			JsonObject shortdescr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
 			shortdescr.addProperty(ClassLabelConstants.TransactionEventType, transaction);
 			shortdescr.addProperty(ClassLabelConstants.DescriptionTitleTransaction, title);
-			JsonObject output = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+			JsonArray output = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 			GenerateTransactionEventObject.addDatabaseObjectIDOutputTransaction(event,output);
 			WriteFirestoreCatalogObject.writeCatalogObject(event);
 			String message = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
@@ -113,7 +333,7 @@ public enum TransactionProcess {
 	 */
 	public static JsonObject processFromTransaction(JsonObject json) {
 		String transaction = json.get(ClassLabelConstants.TransactionEventType).getAsString();
-		JsonArray prerequisites = json.get(ClassLabelConstants.RequiredTransactionIDAndType).getAsJsonArray();
+		JsonObject prerequisites = getPrerequisiteObjects(json);
 		JsonObject info = json.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
 		return processFromTransaction(transaction,prerequisites,info);
 	}

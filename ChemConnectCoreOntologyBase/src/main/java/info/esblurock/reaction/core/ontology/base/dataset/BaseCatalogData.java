@@ -8,6 +8,7 @@ import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLab
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
 import info.esblurock.reaction.core.ontology.base.utilities.GenericSimpleQueries;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class BaseCatalogData {
 

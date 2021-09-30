@@ -79,6 +79,7 @@ public class ReadFirestoreInformation {
 	public static JsonObject readFirestoreCollection(JsonObject setofprops, JsonObject firestorecatalogid) {
 		Document docmessage = MessageConstructor.startDocument("readFirestoreCollection");
 		Element body = MessageConstructor.isolateBody(docmessage);
+		firestorecatalogid.remove(ClassLabelConstants.SimpleCatalogName);
 		JsonArray setofobjs = new JsonArray();
 		JsonObject response = new JsonObject();
 		try {

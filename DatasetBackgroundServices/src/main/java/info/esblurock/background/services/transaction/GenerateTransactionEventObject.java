@@ -38,10 +38,14 @@ public class GenerateTransactionEventObject {
 	 * This extracts the FirestoreID from the catalog and adds it to the transaction DatabaseObjectIDOutputTransaction
 	 * 
 	 */
-	public static void addDatabaseObjectIDOutputTransaction(JsonObject transaction, JsonObject catalog) {
+	public static void addDatabaseObjectIDOutputTransaction(JsonObject transaction, JsonArray catalogarr) {
 		JsonArray arr = transaction.get(ClassLabelConstants.DatabaseObjectIDOutputTransaction).getAsJsonArray();
-		JsonObject firestoreid = catalog.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
-		arr.add(firestoreid);
+		for(int i=0;i<catalogarr.size();i++) {
+			JsonObject catalog = catalogarr.get(i).getAsJsonObject();
+			JsonObject firestoreid = catalog.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+			arr.add(firestoreid);
+		}
+		
 	}
 	
 	public static void generateRDFsForTransaction(JsonObject transaction) {

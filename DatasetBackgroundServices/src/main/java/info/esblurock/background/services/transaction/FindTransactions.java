@@ -12,7 +12,8 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 public class FindTransactions {
 
 	public static JsonObject findTransactionDescriptionByType(String type) {
-		JsonObject firestoreid = CreateHierarchyElement.findDefaultCatalogID("dataset:RDFSubjectObjectAsRecord");
+		JsonObject json = CreateDocumentTemplate.createTemplate("dataset:RDFSubjectObjectAsRecord");
+		JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(json);
 		JsonObject setofprops = CreateDocumentTemplate.createTemplate("dataset:SetOfPropertyValueQueryPairs");
 		JsonArray props = new JsonArray();
 		JsonObject prop1 = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");

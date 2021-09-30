@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.service.MessageConstructor;
@@ -60,8 +62,25 @@ public class DatabaseServicesBase {
 	 * @param result the JsonObject result of the service
 	 * @return a full service response with ServiceProcessSuccessful and ServiceResponseMessage added
 	 * 
+	 
+	public static JsonObject standardServiceResponse(Document document, String message, JsonArray result) {
+		Element body = MessageConstructor.isolateBody(document);
+		body.addElement("h3").addText(message);
+		JsonObject response = new JsonObject();
+		response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, "true");
+		response.addProperty(ClassLabelConstants.ServiceResponseMessage, MessageConstructor.DocumentToString(document));
+		response.add(ClassLabelConstants.SimpleCatalogObject, result);
+		return response;
+	}
+	*/
+	/** Standard successful service response
+	 * 
+	 * @param service The name of the service
+	 * @param result the JsonObject result of the service
+	 * @return a full service response with ServiceProcessSuccessful and ServiceResponseMessage added
+	 * 
 	 */
-	public static JsonObject standardServiceResponse(Document document, String message, JsonObject result) {
+	public static JsonObject standardServiceResponse(Document document, String message, JsonElement result) {
 		Element body = MessageConstructor.isolateBody(document);
 		body.addElement("h3").addText(message);
 		JsonObject response = new JsonObject();

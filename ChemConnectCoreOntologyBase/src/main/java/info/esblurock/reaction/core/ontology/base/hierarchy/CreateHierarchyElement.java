@@ -14,7 +14,6 @@ import info.esblurock.reaction.core.ontology.base.constants.OntologyObjectLabels
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.utilities.GenericSimpleQueries;
-import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRoutines;
 
 /**
@@ -56,23 +55,17 @@ public class CreateHierarchyElement {
 		String catalogC  = GenericSimpleQueries.classFromIdentifier(identifier);
 		ClassificationHierarchy hierarchy = DatabaseOntologyClassification.getClassificationHierarchy(topOfHierarchy);
 		search(hierarchy, json, pairs, pair, catalogC);
+		int basenum = pairs.size()-1;
 		JsonObject firestoreaddress = CreateDocumentTemplate.createTemplate(firestoreid);
 		JsonArray subpairs = new JsonArray();
 		Iterator<JsonElement> iter = pairs.iterator();
 		while(iter.hasNext()) {
 			JsonObject p = (JsonObject) iter.next();
-			if(p.get(ClassLabelConstants.DatasetIDLevel).getAsInt() == 1) {
-				if(p.get(ClassLabelConstants.DataCatalog) != null) {
+			if(p.get(ClassLabelConstants.DatasetIDLevel).getAsInt() == basenum) {
 				firestoreaddress.addProperty(ClassLabelConstants.DataCatalog, 
-						p.get(ClassLabelConstants.DataCatalog).getAsString());
+						p.get(ClassLabelConstants.DatasetCollectionID).getAsString());
 				firestoreaddress.addProperty(ClassLabelConstants.SimpleCatalogName, 
-						p.get(ClassLabelConstants.SimpleCatalogName).getAsString());
-				} else {
-					firestoreaddress.addProperty(ClassLabelConstants.DataCatalog, 
-							p.get(ClassLabelConstants.DatasetCollectionID).getAsString());
-					firestoreaddress.addProperty(ClassLabelConstants.SimpleCatalogName, 
-							p.get(ClassLabelConstants.DatasetDocumentID).getAsString());
-				}
+						p.get(ClassLabelConstants.DatasetDocumentID).getAsString());
 			} else {
 				subpairs.add(p);
 			}
@@ -116,7 +109,7 @@ public class CreateHierarchyElement {
 			if (foundB) {
 				if (!hierarchy.getClassification().equals(topOfHierarchy)) {
 					String genname = generateHierarchyName(hierarchy.getClassification(), catalogC, json);
-					pair = UpdateHierarchyList(hierarchy.getClassification(), genname, pair, pairs);
+					UpdateHierarchyList(hierarchy.getClassification(), genname, pair, pairs);
 				}
 			}
 		}
@@ -138,18 +131,17 @@ public class CreateHierarchyElement {
 	 * addInCollectionDocumentIDPair determines how the pair is to be updated.
 	 * 
 	 */
-	public static JsonObject UpdateHierarchyList(String hierclass, String genname, JsonObject json, JsonArray pairs) {
+	public static void UpdateHierarchyList(String hierclass, String genname, JsonObject json, JsonArray pairs) {
 		String type = DatasetOntologyParseBase.getValueFromAnnotation(hierclass, OntologyObjectLabels.dctype);
 		if (type.equals(simpleName)) {
-			json = addInCollectionDocumentIDPair(ClassLabelConstants.SimpleCatalogName, genname, json, pairs);
+			addInCollectionDocumentIDPair(ClassLabelConstants.DatasetDocumentID, genname, json, pairs);
 		} else if (type.equals(datacatalog)) {
-			json = addInCollectionDocumentIDPair(ClassLabelConstants.DataCatalog, genname, json, pairs);
+			addInCollectionDocumentIDPair(ClassLabelConstants.DatasetCollectionID, genname, json, pairs);
 		} else if (type.equals(collection)) {
-			json = addInCollectionDocumentIDPair(ClassLabelConstants.DatasetCollectionID, genname, json, pairs);
+			addInCollectionDocumentIDPair(ClassLabelConstants.DatasetCollectionID, genname, json, pairs);
 		} else if (type.equals(document)) {
-			json = addInCollectionDocumentIDPair(ClassLabelConstants.DatasetDocumentID, genname, json, pairs);
+			addInCollectionDocumentIDPair(ClassLabelConstants.DatasetDocumentID, genname, json, pairs);
 		}
-		return json;
 	}
 
 	/** Fill in the CollectionDocumentIDPair
@@ -166,17 +158,21 @@ public class CreateHierarchyElement {
 	 * if this is true, then a new (empty) CollectionDocumentIDPair is generated and filled in.
 	 * 
 	 */
-	private static JsonObject addInCollectionDocumentIDPair(String identifier, String genname, JsonObject json,
+	private static void addInCollectionDocumentIDPair(String identifier, String genname, JsonObject json,
 			JsonArray pairs) {
 		if (json.get(identifier) == null) {
 			json.addProperty(identifier, genname);
 		} else {
 			JsonObject newjson = initialCollectionDocumentIDPair();
-			newjson.addProperty(identifier, genname);
-			addPairToArray(json, pairs);
-			json = newjson;
+			String docid = json.get(ClassLabelConstants.DatasetDocumentID).getAsString();
+			newjson.addProperty(ClassLabelConstants.DatasetDocumentID, docid);
+			String colid = json.get(ClassLabelConstants.DatasetCollectionID).getAsString();
+			newjson.addProperty(ClassLabelConstants.DatasetCollectionID, colid);
+			json.remove(ClassLabelConstants.DatasetDocumentID);
+			json.remove(ClassLabelConstants.DatasetCollectionID);
+			json.addProperty(identifier, genname);
+			addPairToArray(newjson, pairs);
 		}
-		return json;
 	}
 
 	/** Add a CollectionDocumentIDPair to the FirestoreCatalogID and update the levels
@@ -184,13 +180,13 @@ public class CreateHierarchyElement {
 	 * @param pairs The FirestoreCatalogID
 	 */
 	private static void addPairToArray(JsonObject json, JsonArray pairs) {
-		pairs.add(json);
 		for (JsonElement ele : pairs) {
 			JsonObject obj = (JsonObject) ele;
 			int level = obj.get(ClassLabelConstants.DatasetIDLevel).getAsInt();
 			level++;
 			obj.addProperty(ClassLabelConstants.DatasetIDLevel, level);
 		}
+		pairs.add(json);
 	}
 
 	/** Create an empty CollectionDocumentIDPair (level is set to zero).
@@ -215,14 +211,8 @@ public class CreateHierarchyElement {
 		String isdefinedby = DatasetOntologyParseBase.getValueFromAnnotation(hierclass,
 				OntologyObjectLabels.isDefinedBy);
 		String isdefinedbyShort = isdefinedby.substring(8);
-		String name = GenerateStringLabel.valueOf(isdefinedbyShort).deriveName(classname, json);
+		String name = GenerateStringLabel.valueOf(isdefinedbyShort).deriveName(hierclass, classname, json);
 		return name;
 	}
 
-	public static JsonObject findDefaultCatalogID(String catalogC) {
-		JsonObject json = CreateDocumentTemplate.createTemplate(catalogC);
-		JsonObject firestoreid = searchForCatalogObjectInHierarchyTemplate(json);
-		firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
-		return firestoreid;
-	}
 }

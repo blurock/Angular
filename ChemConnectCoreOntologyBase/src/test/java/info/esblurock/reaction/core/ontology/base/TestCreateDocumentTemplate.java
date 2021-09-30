@@ -22,6 +22,11 @@ public class TestCreateDocumentTemplate {
 		JsonObject obj1 = CreateDocumentTemplate.createTemplate(address);
 		System.out.println(JsonObjectUtilities.toString(obj1));
 		System.out.println("---------------------------------------");
+		System.out.println("---------------------------------------");
+		address = "dataset:ActivityRepositoryInitialReadLocalFile";
+		obj1 = CreateDocumentTemplate.createTemplate(address);
+		System.out.println(JsonObjectUtilities.toString(obj1));
+		System.out.println("---------------------------------------");
 		
 	}
 

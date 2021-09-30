@@ -4,7 +4,9 @@ import java.util.UUID;
 
 import com.google.gson.JsonObject;
 
+import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.constants.OntologyObjectLabels;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRoutines;
@@ -23,14 +25,22 @@ public enum GenerateStringLabel {
 	DerivedFromObjectClassName {
 
 		@Override
-		String deriveName(String classname, JsonObject object) {
+		String deriveName(String hierclass,String classname, JsonObject object) {
 			return classname;
+		}
+		
+	}, DerivedFromHierarchyClassAnnotationAltLabel {
+
+		@Override
+		String deriveName(String hierclass,String classname, JsonObject object) {
+			String name = DatasetOntologyParseBase.getAltLabelFromAnnotation(hierclass);
+			return name;
 		}
 		
 	}, DerivedFromCurrentClassAnnotationAltLabel {
 
 		@Override
-		String deriveName(String classname, JsonObject object) {
+		String deriveName(String hierclass,String classname, JsonObject object) {
 			String name = DatasetOntologyParseBase.getAltLabelFromAnnotation(classname);
 			return name;
 		}
@@ -38,15 +48,23 @@ public enum GenerateStringLabel {
 	}, LabelDerivedFromRDFTriplet {
 
 		@Override
-		String deriveName(String classname, JsonObject object) {
+		String deriveName(String hierclass,String classname, JsonObject object) {
 			return null;
 		}
 		
 	}, LabelDerivedFromCatalogObjectKey {
 
 		@Override
-		String deriveName(String classname, JsonObject object) {
+		String deriveName(String hierclass,String classname, JsonObject object) {
 			String name = JsonObjectUtilities.getValueUsingIdentifier(object, ClassLabelConstants.CatalogObjectKey);
+			return name;
+		}
+		
+	}, LabelDerivedFromCatalogOwner {
+
+		@Override
+		String deriveName(String hierclass,String classname, JsonObject object) {
+			String name = JsonObjectUtilities.getValueUsingIdentifier(object, ClassLabelConstants.CatalogObjectOwner);
 			return name;
 		}
 		
@@ -60,6 +78,6 @@ public enum GenerateStringLabel {
 	 * @return The derived string label
 	 * 
 	 */
-	abstract String deriveName(String classname, JsonObject object);
+	abstract String deriveName(String hierclass, String classname, JsonObject object);
 
 }

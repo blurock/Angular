@@ -10,8 +10,8 @@ public class SetupAltLabelList {
 
 	public static String listToString() {
 		StringBuilder buf = new StringBuilder();
-		buf.append("package info.esblurock.reaction.core.ontology.base.constants\n");
-		buf.append("\npublic class AltLabelConstants {\n\n");
+		buf.append("package info.esblurock.reaction.core.ontology.base.constants;\n");
+		buf.append("\npublic class ClassLabelConstants {\n\n");
 		
 		String topclass1 = "dataset:SimpleCatalogObject";
 		addLabelsToList(topclass1,buf);

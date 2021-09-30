@@ -31,6 +31,7 @@ public class BackgroundTransaction  extends HttpServlet {
 	 *
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)  throws IOException {
+		
 		String bodyS = BackgroundService.getBody(request);
 		  JsonObject body = JsonObjectUtilities.jsonObjectFromString(bodyS);
 		  JsonObject answer = TransactionProcess.processFromTransaction(body);

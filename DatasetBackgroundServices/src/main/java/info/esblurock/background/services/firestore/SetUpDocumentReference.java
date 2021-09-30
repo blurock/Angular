@@ -39,8 +39,8 @@ public class SetUpDocumentReference {
 		JsonObject json = firestorecatalogid.get(ClassLabelConstants.CollectionDocumentIDPairAddress).getAsJsonObject();
 		JsonArray jarr = json.get(ClassLabelConstants.CollectionDocumentIDPair).getAsJsonArray();
 		int idsize = jarr.size();
-		for(int i=1; i<idsize;i++) {
-			JsonObject pair = getCollectionDocumentIDPair(i+1,jarr);
+		for(int i=0; i<idsize;i++) {
+			JsonObject pair = getCollectionDocumentIDPair(i,jarr);
 			String collection = pair.get(ClassLabelConstants.DatasetCollectionID).getAsString();
 			String document = pair.get(ClassLabelConstants.DatasetDocumentID).getAsString();
 			docref = update(db,docref,collection,document);
