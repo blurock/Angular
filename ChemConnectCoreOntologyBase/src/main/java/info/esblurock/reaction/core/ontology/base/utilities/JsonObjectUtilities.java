@@ -13,6 +13,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+
 public class JsonObjectUtilities {
 	
 	/** Value from identifier
@@ -118,6 +120,21 @@ public class JsonObjectUtilities {
 			
 		}
 		return build.toString();
+	}
+	
+	public static void printResponse(JsonObject response) {
+		boolean success = response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean();
+		if(success) {
+			System.out.println("The process was a success");
+			String message = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
+			System.out.println(message);
+			JsonObject object = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+			System.out.println(JsonObjectUtilities.toString(object));
+		} else {
+			System.out.println("The process was not a success");
+			String message = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
+			System.out.println(message);
+		}
 	}
 	
 	public static JsonObject jsonObjectFromString(String jsonS) {

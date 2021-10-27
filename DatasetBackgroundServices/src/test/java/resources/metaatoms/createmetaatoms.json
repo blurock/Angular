@@ -1,0 +1,18 @@
+{
+	"prov:activity": "dataset:TransactionInterpretTextBlock",
+	"dataset:activityinfo": {
+		"dataset:filesourceformat": "dataset:JThermodynamicsMetaAtoms",
+		"dataset:blockinterpretationmethod": "dataset:ParseLinesJThermodynamicsMetaAtoms",
+		"dcterms:title": "The standard set of Benson Meta atoms"
+	},
+	"dataset:transreqobj": {
+		"dataset:partitionfile": {
+			"dcterms:identifier": "dataset:firestorecatalog",
+			"skos:inScheme": "transactionobject",
+			"qb:DataSet": "250ee8a3-7163-466f-b813-19eaafbdd8dd",
+			"dataset:addressidpairs": {
+				"dataset:collectiondocpair": []
+			}
+		}
+	}
+}

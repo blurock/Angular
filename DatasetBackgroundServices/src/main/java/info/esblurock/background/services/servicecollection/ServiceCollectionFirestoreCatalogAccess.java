@@ -143,10 +143,8 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 		@Override
 		public JsonObject process(JsonObject json) {
 			String type = json.get(ClassLabelConstants.TransactionEventType).getAsString();
-			Document document = MessageConstructor.startDocument("LabelLinkToFirestoreIDRDF: " + type);
-			Element body = MessageConstructor.isolateBody(document);
-			
-			JsonObject response = FindTransactions.findTransactionDescriptionByType(type);
+			JsonObject response = FindTransactions.findAndReadTransactionEventObjectByType(type);
+			/*
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				JsonObject set = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 				JsonArray arr = set.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
@@ -170,6 +168,7 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 				idlabellinkpairs.add(ClassLabelConstants.LabelFirestoreIDPair, idlabellinks);
 				response = DatabaseServicesBase.standardServiceResponse(document, "Success: FindTransactionsOfType", idlabellinkpairs);
 			}
+			*/
 			return response;
 		}
 		

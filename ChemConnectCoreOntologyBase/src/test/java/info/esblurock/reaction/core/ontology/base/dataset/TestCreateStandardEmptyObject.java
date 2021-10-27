@@ -13,13 +13,13 @@ public class TestCreateStandardEmptyObject {
 
 	@Test
 	public void test() {
-		
+		String owner = "Blurock";
+		String transID = "transactionID value";
+		/*
 		System.out.println("---------------------------------------");
 		System.out.println("TestCreateStandardEmptyObject: DatabasePerson");
 		System.out.println("---------------------------------------");
 		String classname = "dataset:DatabasePerson";
-		String owner = "Blurock";
-		String transID = "transactionID value";
 		JsonObject obj = BaseCatalogData.createStandardDatabaseObject(classname, owner, transID, "true");
 		
 		SubstituteJsonValues.substituteJsonValueString(obj, ClassLabelConstants.DOI, "DOI value");
@@ -35,6 +35,13 @@ public class TestCreateStandardEmptyObject {
 		String classname1 = "dataset:UserAccount";
 		JsonObject obj1 = BaseCatalogData.createStandardDatabaseObject(classname1, owner, transID, "true");
 		System.out.println(JsonObjectUtilities.toString(obj1));
+*/
+		System.out.println("---------------------------------------");
+		System.out.println("TestCreateStandardEmptyObject: dataset:JThermodynamicsMetaAtomDefinition");
+		System.out.println("---------------------------------------");
+		String classname2 = "dataset:JThermodynamicsMetaAtomDefinition";
+		JsonObject obj2 = BaseCatalogData.createStandardDatabaseObject(classname2, owner, transID, "true");
+		System.out.println(JsonObjectUtilities.toString(obj2));
 	}
 
 }

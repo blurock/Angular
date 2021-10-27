@@ -21,8 +21,8 @@ public class SetupAltLabelList {
 		addLabelsToList(topclass3,buf);
 		String topclass4 = "dataset:ChemConnectPrimitiveDataStructure";
 		addLabelsToList(topclass4,buf);
-		//String topclass5 = "dataset:ChemConnectDatabaseDocumentElement";
-		//addLabelsToList(topclass5,buf);
+		String topclass5 = "dataset:TransactionEvent";
+		addLabelsToList(topclass5,buf);
 
 		buf.append("}\n\n");
 		return buf.toString();

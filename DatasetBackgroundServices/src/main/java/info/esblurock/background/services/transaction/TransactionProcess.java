@@ -16,19 +16,17 @@ import org.apache.commons.io.IOUtils;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
-import com.google.appengine.api.datastore.BaseDatastoreService;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.SystemObjectInformation;
-import info.esblurock.background.services.datamanipulation.PartitionSetOfStringObjects;
+import info.esblurock.background.services.datamanipulation.InterpretTextBlock;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
 import info.esblurock.background.services.firestore.gcs.PartiionSetWithinRepositoryFileProcess;
-import info.esblurock.background.services.firestore.gcs.ReadCloudStorage;
+import info.esblurock.background.services.firestore.gcs.UploadFileToGCS;
 import info.esblurock.background.services.firestore.gcs.WriteCloudStorage;
 import info.esblurock.background.services.jthermodynamics.InterpretThermodynamicBlock;
-import info.esblurock.background.services.jthermodynamics.metadata.FirestoreBuildMetadataDefinition;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.service.rdfs.GenerateAndWriteRDFForObject;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
@@ -36,18 +34,16 @@ import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLab
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
-import info.esblurock.reaction.core.ontology.base.dataset.annotations.BaseAnnotationObjects;
-import info.esblurock.reaction.core.ontology.base.utilities.GenericSimpleQueries;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import info.esblurock.reaction.core.ontology.base.utilities.SubstituteJsonValues;
 
 public enum TransactionProcess {
 	
-	
 	CreateDatabasePersonEvent {
 
 		@Override
-		public JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
+		public JsonObject process(String transactionID, String owner, 
+				JsonObject prerequisites, JsonObject info) {
 			JsonObject obj = new JsonObject();
 			Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent");
 			Element body = MessageConstructor.isolateBody(document);
@@ -103,69 +99,10 @@ public enum TransactionProcess {
 			return response;
 		}
 		
-	}, InitialReadInLocalStorageSystem {
-
+	}, InitialReadInOfRepositoryFile {
 		@Override
 		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
-			Document document = MessageConstructor.startDocument("InitialReadInLocalStorageSystem");
-			Element body = MessageConstructor.isolateBody(document);
-			String location = info.get(ClassLabelConstants.FileSourceIdentifier).getAsString();
-			body.addElement("div").addText("File Location: '" + location + "'");
-			Path filePath = Paths.get(location);
-			JsonObject response = new JsonObject();
-			try {
-				String content = Files.readString(filePath);
-				response = WriteCloudStorage.writeString(transactionID, owner, content ,info ,"dcat:LocalFileSystem");
-				JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
-				JsonObject gcsstaging = arr.get(0).getAsJsonObject();
-				gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadInLocalStorageSystem");				
-			} catch (IOException e) {
-				DatabaseServicesBase.standardErrorResponse(document, "Error in reading: '" + location + "'\n" + e.getMessage(), response);
-			}
-			return response;
-		}
-		
-	}, InitialReadFromWebLocation {
-		
-		@Override
-		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
-			Document document = MessageConstructor.startDocument("InitialReadFromWebLocation");
-			Element body = MessageConstructor.isolateBody(document);
-			String location = info.get(ClassLabelConstants.FileSourceIdentifier).getAsString();
-			body.addElement("div").addText("File Location: '" + location + "'");
-			JsonObject response = new JsonObject();
-			InputStream in = null;
-			 try {
-				in = new URL( location ).openStream();
-			    String content =  IOUtils.toString( in, StandardCharsets.UTF_8);
-				response = WriteCloudStorage.writeString(transactionID, owner, content,info, "dcat:URLSourceFile");
-				JsonObject gcsstaging = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
-				gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadFromWebLocation");
-			 } catch (MalformedURLException e) {
-					response = DatabaseServicesBase.standardErrorResponse(document, "Error in reading: '" + location + "'\n" + e.getMessage(), response);
-			} catch (IOException e) {
-				response = DatabaseServicesBase.standardErrorResponse(document, "Error in reading: '" + location + "'\n" + e.getMessage(), response);
-			} finally {
-					try {
-						IOUtils.close(in);
-					} catch (IOException e) {
-						response = DatabaseServicesBase.standardErrorResponse(document, "Error in closing: '" + location + "'\n" + e.getMessage(), response);
-					}
-			}
-			 return response;
-		}
-	}, InitialReadFromUserInterface {
-
-		@Override
-		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
-			Document document = MessageConstructor.startDocument("InitialReadFromWebLocation");
-			Element body = MessageConstructor.isolateBody(document);
-			String content = info.get(ClassLabelConstants.FileSourceIdentifier).getAsString();
-			body.addElement("pre").addText("String content: '" + content + "'");
-			JsonObject response = WriteCloudStorage.writeString(transactionID, owner, content,info,"dcat:StringSource");
-			JsonObject gcsstaging = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
-			gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadFromUserInterface");
-			return response;
+			return UploadFileToGCS.readFromSource(transactionID, owner, prerequisites, info);
 		}
 		
 	}, PartiionSetWithinRepositoryFile {
@@ -188,10 +125,10 @@ public enum TransactionProcess {
 			return InterpretThermodynamicBlock.interpretBensonRuleThermodynamics(transactionID, owner, prerequisites, info);
 		}
 		
-	}, TransactionReadMetaDataDefinition {
+	}, TransactionInterpretTextBlock {
 		@Override
 		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
-			return FirestoreBuildMetadataDefinition.build(transactionID, owner, prerequisites, info);
+			return InterpretTextBlock.interpret(transactionID, owner, prerequisites, info);
 		}
 		
 	};
@@ -301,7 +238,7 @@ public enum TransactionProcess {
 			String title = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
 			JsonObject shortdescr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
 			shortdescr.addProperty(ClassLabelConstants.TransactionEventType, transaction);
-			shortdescr.addProperty(ClassLabelConstants.DescriptionTitleTransaction, title);
+			shortdescr.addProperty(ClassLabelConstants.DataTypeComment, title);
 			JsonArray output = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 			GenerateTransactionEventObject.addDatabaseObjectIDOutputTransaction(event,output);
 			WriteFirestoreCatalogObject.writeCatalogObject(event);

@@ -20,37 +20,43 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 public class PartiionSetWithinRepositoryFileProcess {
 	
 	/**
-	 * @param transactionID
-	 * @param owner
-	 * @param prerequisites
-	 * @param info
-	 * @return
+	 * @param transactionID The transactionID
+	 * @param owner The owner of the created objects
+	 * @param prerequisites The InitialReadInOfRepositoryFile, where the text content lies
+	 * @param info Source of extra information (ActivityRepositoryPartitionToCatalog), including the method of partition
+	 * @return A set of subclasses of RepositoryDataPartitionBlock, depending on the partition method.
+	 * 
+	 * This calls the desired partition method (PartitionSetOfStringObjects)
+	 * For each of the partitions, additional information is added (from ActivityRepositoryPartitionToCatalog)
+	 * 
 	 */
 	public static JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
-		Document document = MessageConstructor.startDocument("InitialReadFromWebLocation");
+		Document document = MessageConstructor.startDocument("PartiionSetWithinRepositoryFile");
 		Element body = MessageConstructor.isolateBody(document);
 		String content = retrieveContentFromTransaction(prerequisites);
 		// Parse the content using the info (FilePartitionMethod)
+		String methodS = info.get(ClassLabelConstants.FilePartitionMethod).getAsString();
+		info.addProperty(ClassLabelConstants.CatalogObjectOwner, owner);
+		info.addProperty(ClassLabelConstants.TransactionID, transactionID);
 		JsonArray objects = PartitionSetOfStringObjects.partitionString(info, content);
 		String sourceformat = info.get(ClassLabelConstants.FileSourceFormat).getAsString();
 		String version = info.get(ClassLabelConstants.DatasetVersion).getAsString();
 		String datasetname = info.get(ClassLabelConstants.DatasetName).getAsString();
-		System.out.println(JsonObjectUtilities.toString(objects));
 		JsonArray set = new JsonArray();
 		Element table = body.addElement("table");
 		Element hrow = table.addElement("tr");
 		hrow.addElement("th").addText("Position");
 		hrow.addElement("th").addText("Structure");
 		hrow.addElement("th").addText("Message");
-		String catalogclass = PartitionSetOfStringObjects.getBlockClass(info);
 		for(int i=0;i<objects.size();i++) {
 			Element row = table.addElement("tr");
 			JsonObject catalog = objects.get(i).getAsJsonObject();
 			catalog.addProperty(ClassLabelConstants.FileSourceFormat, sourceformat);
 			catalog.addProperty(ClassLabelConstants.DatasetVersion, version);
 			catalog.addProperty(ClassLabelConstants.DatasetName, datasetname);
+			catalog.addProperty(ClassLabelConstants.FilePartitionMethod, methodS);
 			String message = WriteFirestoreCatalogObject.writeCatalogObject(catalog);
-			row.addElement("td").addText(block.get(ClassLabelConstants.Position).getAsString());
+			row.addElement("td").addText(catalog.get(ClassLabelConstants.Position).getAsString());
 			row.addElement("td").addText(message);
 			System.out.println(JsonObjectUtilities.toString(catalog));
 			set.add(catalog);

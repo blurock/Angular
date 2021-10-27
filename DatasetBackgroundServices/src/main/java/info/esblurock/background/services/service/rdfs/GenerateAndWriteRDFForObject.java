@@ -15,12 +15,18 @@ import info.esblurock.background.services.servicecollection.DatabaseServicesBase
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.rdfs.FindRDFInClass;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class GenerateAndWriteRDFForObject {
 	public static JsonObject generate(JsonObject catalog) {
 		Document document = MessageConstructor.startDocument("GenerateAndWriteRDFForObject");
 		Element body = MessageConstructor.isolateBody(document);
 		JsonArray rdfs = FindRDFInClass.createSetOfJsonObjectRDFs(catalog);
+		System.out.println("GenerateAndWriteRDFForObject------------------------------------------------------------------------------------------------");
+		System.out.println("GenerateAndWriteRDFForObject Catalog\n" + JsonObjectUtilities.toString(catalog));
+		System.out.println("GenerateAndWriteRDFForObject------------------------------------------------------------------------------------------------");
+		System.out.println("GenerateAndWriteRDFForObject RDFS\n" + JsonObjectUtilities.toString(rdfs));
+		System.out.println("GenerateAndWriteRDFForObject------------------------------------------------------------------------------------------------");
 		Iterator<JsonElement> iter = rdfs.iterator();
 		while(iter.hasNext()) {
 			JsonObject json = iter.next().getAsJsonObject();
