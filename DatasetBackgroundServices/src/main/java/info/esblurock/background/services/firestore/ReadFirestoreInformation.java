@@ -31,6 +31,12 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 public class ReadFirestoreInformation {
 	
 	
+	/** Read in the Catalog Object
+	 * 
+	 * @param firestoreid The complete FirestoreCatalogID
+	 * @return The object read in from the database
+	 * 
+	 */
 	public static JsonObject readFirestoreCatalogObject(JsonObject firestoreid) {
 		Document docmessage = MessageConstructor.startDocument("readFirestoreCollection");
 		Element body = MessageConstructor.isolateBody(docmessage);
@@ -61,7 +67,8 @@ public class ReadFirestoreInformation {
 		return response;
 	}
 	
-	/**
+	/** 
+	 * 
 	 * @param setofprops (SetOfPropertyValueQueryPairs) properties for query conditions
 	 * @param firestorecatalogid (FirestoreCatalogID) The collection to search from
 	 * @return response with SetOfCatalogObject object
@@ -100,7 +107,11 @@ public class ReadFirestoreInformation {
 				String value = pair.get(ClassLabelConstants.ShortStringKey).getAsString();
 				row.addElement("td",type);
 				row.addElement("td",value);
-				query = collection.whereEqualTo(type,value);
+				if(query == null) {
+					query = collection.whereEqualTo(type,value);
+				} else {
+					query = query.whereEqualTo(type,value);
+				}
 			}
 			ApiFuture<QuerySnapshot> future = null;
 			if(query == null) {
