@@ -50,15 +50,12 @@ public class CreateHierarchyElement {
 	 * @return FirestoreCatalogID with generated CollectionDocumentIDPair
 	 */
 	public static JsonObject searchForCatalogObjectInHierarchyTemplate(JsonObject json) {
-		System.out.println("searchForCatalogObjectInHierarchyTemplate: " + JsonObjectUtilities.toString(json));
 		JsonArray pairs = new JsonArray();
 		JsonObject pair = initialCollectionDocumentIDPair();
 		String identifier = json.get(AnnotationObjectsLabels.identifier).getAsString();
 		String catalogC  = GenericSimpleQueries.classFromIdentifier(identifier);
 		ClassificationHierarchy hierarchy = DatabaseOntologyClassification.getClassificationHierarchy(topOfHierarchy);
-		System.out.println(hierarchy.toString());
 		search(hierarchy, json, pairs, pair, catalogC);
-		System.out.println("searchForCatalogObjectInHierarchyTemplate: " + JsonObjectUtilities.toString(pairs));
 		int basenum = pairs.size()-1;
 		JsonObject firestoreaddress = CreateDocumentTemplate.createTemplate(firestoreid);
 		JsonArray subpairs = new JsonArray();
@@ -101,9 +98,6 @@ public class CreateHierarchyElement {
 				foundB = true;
 			}
 		}
-		
-		System.out.println("search: " + member + " - " + catalogC + " - " + foundB);
-		
 		if (foundB) {
 			String genname = generateHierarchyName(hierarchy.getClassification(), catalogC, json);
 			UpdateHierarchyList(hierarchy.getClassification(), genname, pair, pairs);
@@ -219,7 +213,6 @@ public class CreateHierarchyElement {
 				OntologyObjectLabels.isDefinedBy);
 		String isdefinedbyShort = isdefinedby.substring(8);
 		String name = GenerateStringLabel.valueOf(isdefinedbyShort).deriveName(hierclass, classname, json);
-		System.out.println("generateHierarchyName: " + hierclass + " - " + classname + " - " + name);
 		return name;
 	}
 

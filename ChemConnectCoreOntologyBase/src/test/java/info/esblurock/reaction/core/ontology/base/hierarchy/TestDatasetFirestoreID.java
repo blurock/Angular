@@ -1,6 +1,5 @@
 package info.esblurock.reaction.core.ontology.base.hierarchy;
 
-import static org.junit.Assert.*;
 
 import org.junit.Test;
 
