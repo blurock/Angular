@@ -1,0 +1,23 @@
+{
+	"prov:activity": "dataset:InitialReadInOfRepositoryFile",
+	"dataset:transreqobj": {},
+	"dataset:activityinfo": {
+		"descr-filestaging": {
+			"dataset:purpose-filestaging": {
+				"dataset:purposekey-filestaging": "dataset:PurposeFileStaging",
+				"dataset:dataconcept-staging": "dataset:ConceptFileStaging"
+			},
+			"dataset:keyword-filestaging": [],
+			"dataset:title-staging": "Read in standard disassociation energy",
+			"dataset:abstract-staging": "Read the standard disassociation energy set. The set of substructures with disassociation energy",
+			"dcterms:created": "today"
+		},
+		"dataset:uploadsrc": "dataset:LocalFileSystem",
+		"dataset:filesourceformat": "dataset:JThermodynamicsMetaAtoms",
+		"dataset:fileidentifier": "src/test/java/resources/disassociation/DisassociationEnergy.txt",
+		"dataset:filemediatype": "dataset:FileTypeText",
+		"dcterms:title": "Disassociation Energy set",
+		"dataset:filesourcesubtype": "",
+		"dcterms:identifier": "initialrepositorylocal"
+	}
+}

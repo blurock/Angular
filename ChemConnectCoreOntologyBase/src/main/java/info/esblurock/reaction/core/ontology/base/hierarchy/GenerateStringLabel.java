@@ -1,15 +1,10 @@
 package info.esblurock.reaction.core.ontology.base.hierarchy;
 
-import java.util.UUID;
-
 import com.google.gson.JsonObject;
 
-import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
-import info.esblurock.reaction.core.ontology.base.constants.OntologyObjectLabels;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
-import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRoutines;
 
 /** Generate string label from the classname and the JsonObject
  * 
@@ -22,7 +17,65 @@ import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRouti
 
 public enum GenerateStringLabel {
 	
-	DerivedFromObjectClassName {
+	LabelDerivedFromDatasetLabel {
+
+		@Override
+		String deriveName(String hierclass, String classname, JsonObject object) {
+			String recordid = ClassLabelConstants.DatabaseRecordIDInfo;
+			String label = ClassLabelConstants.DatasetName;
+			JsonObject rec = object.get(recordid).getAsJsonObject();
+			String lbl = rec.get(label).getAsString();
+			return lbl;
+		}
+		
+	},
+	LabelDerivedFromObjectStatus {
+
+		@Override
+		String deriveName(String hierclass, String classname, JsonObject object) {
+			String recordid = ClassLabelConstants.DatabaseRecordIDInfo;
+			String label = ClassLabelConstants.CatalogDataObjectStatus;
+			JsonObject rec = object.get(recordid).getAsJsonObject();
+			String lbl = rec.get(label).getAsString();
+			return lbl;
+		}
+		
+	},
+	LabelDerivedFromDatasetVersion {
+
+		@Override
+		String deriveName(String hierclass, String classname, JsonObject object) {
+			String recordid = ClassLabelConstants.DatabaseRecordIDInfo;
+			String label = ClassLabelConstants.DatasetVersion;
+			JsonObject rec = object.get(recordid).getAsJsonObject();
+			String lbl = rec.get(label).getAsString();
+			return lbl;
+		}
+		
+	},
+	LabelDerivedFromObjectUniqueLabel {
+
+		@Override
+		String deriveName(String hierclass, String classname, JsonObject object) {
+			String recordid = ClassLabelConstants.DatabaseRecordIDInfo;
+			String label = ClassLabelConstants.CatalogObjectUniqueGenericLabel;
+			JsonObject rec = object.get(recordid).getAsJsonObject();
+			String lbl = rec.get(label).getAsString();
+			return lbl;
+		}
+		
+	}, LabelDerivedFromMaintainerLabel {
+
+		@Override
+		String deriveName(String hierclass, String classname, JsonObject object) {
+			String recordid = ClassLabelConstants.DatabaseRecordIDInfo;
+			String label = ClassLabelConstants.CatalogDataObjectMaintainer;
+			JsonObject rec = object.get(recordid).getAsJsonObject();
+			String lbl = rec.get(label).getAsString();
+			return lbl;
+		}
+		
+	}, DerivedFromObjectClassName {
 
 		@Override
 		String deriveName(String hierclass,String classname, JsonObject object) {

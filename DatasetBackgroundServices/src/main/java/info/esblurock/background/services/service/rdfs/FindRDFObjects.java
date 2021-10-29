@@ -1,9 +1,5 @@
 package info.esblurock.background.services.service.rdfs;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-import org.openscience.cdk.exception.CDKException;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -12,10 +8,6 @@ import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
-import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
-import thermo.data.structure.structure.MetaAtomDefinition;
-import thermo.data.structure.structure.MetaAtomInfo;
-import thermo.data.structure.structure.StructureAsCML;
 
 public class FindRDFObjects {
 
