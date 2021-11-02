@@ -15,26 +15,6 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class FindTransactions {
 
-	/** Get RDFShortTransactionDescription RDF set given the type of transaction event
-	 * 
-	 * @param type The transaction type
-	 * @return The standard response giving the set of RDFShortTransactionDescription of this type
-	 * 
-	 * The RDFShortTransactionDescription is within a RDFSubjectObjectAsRecord. This RDF is searched with two criteria:
-	 * <ul>
-	 * <li> RDFPredicate: RDFShortTransactionDescription
-	 * <li> dataset:rdfjsonasobject.prov:activity: The given type
-	 * <ul>
-	 * The object of the RDFShortTransactionDescription is a ShortTransactionDescription which holds:
-	 * <ul>
-	 * <li> TransactionEventType: This is the type searched for
-	 * <li> DescriptionTitleTransaction: This is a short description
-	 * <ul>
-	 * The DescriptionTitleTransaction can be used in helping the user choose the right transaction.
-	 * 
-	 * Complexity: This does one firestore access
-	 * 
-	 */
 	public static JsonObject findRDFShortTransactionDescriptionByType(String type) {
 		JsonObject json = CreateDocumentTemplate.createTemplate("dataset:RDFSubjectObjectAsRecord");
 		JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(json);
@@ -54,6 +34,56 @@ public class FindTransactions {
 		return response;
 	}
 	
+	/** Get RDFShortTransactionDescription RDF set given the type of transaction event
+	 * 
+	 * @param type The transaction type
+	 * @param keyword The keyword of the RDFShortTransactionDescription
+	 * @return The standard response giving the set of RDFShortTransactionDescription of this type
+	 * 
+	 * The RDFShortTransactionDescription is within a RDFSubjectObjectAsRecord. This RDF is searched with two criteria:
+	 * <ul>
+	 * <li> RDFPredicate: RDFShortTransactionDescription
+	 * <li> dataset:rdfjsonasobject.prov:activity: The given type
+	 * <li> dataset:rdfjsonasobject.dataset:transactionkey: The keyword
+	 * <ul>
+	 * The object of the RDFShortTransactionDescription is a ShortTransactionDescription which holds:
+	 * <ul>
+	 * <li> TransactionEventType: This is the type searched for
+	 * <li> DescriptionTitleTransaction: This is a short description
+	 * <ul>
+	 * The DescriptionTitleTransaction can be used in helping the user choose the right transaction.
+	 * 
+	 * Complexity: This does one firestore access
+	 * 
+	 */
+	public static JsonObject findRDFShortTransactionDescriptionByType(String type, String keyword) {
+		JsonObject json = CreateDocumentTemplate.createTemplate("dataset:RDFSubjectObjectAsRecord");
+		JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(json);
+		JsonObject setofprops = CreateDocumentTemplate.createTemplate("dataset:SetOfPropertyValueQueryPairs");
+		JsonArray props = new JsonArray();
+		JsonObject prop1 = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
+		prop1.addProperty(ClassLabelConstants.DatabaseObjectType, ClassLabelConstants.RDFPredicate);
+		prop1.addProperty(ClassLabelConstants.ShortStringKey, "dataset:RDFShortTransactionDescription");
+		JsonObject prop2 = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
+		String key1 = ClassLabelConstants.RDFJsonAsObject + "." + ClassLabelConstants.TransactionEventType;
+		//String key1 = "dataset:rdfjsonasobject.prov:activity";
+		prop2.addProperty(ClassLabelConstants.DatabaseObjectType, key1);
+		prop2.addProperty(ClassLabelConstants.ShortStringKey, type);
+		props.add(prop2);
+		if(keyword != null) {
+			JsonObject prop3 = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
+			String key2 = "dataset:rdfjsonasobject.dataset:transactionkey";
+			prop3.addProperty(ClassLabelConstants.DatabaseObjectType, key2);
+			prop3.addProperty(ClassLabelConstants.ShortStringKey, keyword);
+			props.add(prop3);
+		}
+		setofprops.add(ClassLabelConstants.PropertyValueQueryPair, props);
+		JsonObject response = ReadFirestoreInformation.readFirestoreCollection(setofprops, firestoreid);
+		return response;
+	}
+	
+	
+	
 	/** Retrieve from database TransactionEventObject using the Transaction event type
 	 * 
 	 * @param type The transaction type
@@ -64,8 +94,8 @@ public class FindTransactions {
 	 * and the ShortTransactionDescription is extracted
 	 * The LabelFirestoreIDPair is extracted from the RDF subject (RDFJsonAsSubject)
 	 */
-	public static JsonObject findLabelFirestoreIDPairByType(String type) {
-		JsonObject response = findRDFShortTransactionDescriptionByType(type);
+	public static JsonObject findLabelFirestoreIDPairByType(String type, String keyword) {
+		JsonObject response = findRDFShortTransactionDescriptionByType(type,keyword);
 		if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			Document docmessage = MessageConstructor.startDocument("findTransactionDescriptionByType");
 			String responsemessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
@@ -110,8 +140,8 @@ public class FindTransactions {
 	 * This routine calls the findLabelFirestoreIDPairByType routine to get the LabelFirestoreIDPair set
 	 * For each LabelFirestoreIDPair, use the FirestoreCatalogID to get the TransactionEventObject
 	 */
-	public static JsonObject findAndReadTransactionEventObjectByType(String type) {
-		JsonObject response = findLabelFirestoreIDPairByType(type);
+	public static JsonObject findAndReadTransactionEventObjectByType(String type, String keyword) {
+		JsonObject response = findLabelFirestoreIDPairByType(type,keyword);
 		if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			Document docmessage = MessageConstructor.startDocument("findTransactionDescriptionByType");
 			String responsemessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();

@@ -1,0 +1,58 @@
+package info.esblurock.background.services.jthermodynamics.dataset;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.openscience.cdk.exception.CDKException;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
+import thermo.data.structure.structure.MetaAtomDefinition;
+import thermo.data.structure.structure.MetaAtomInfo;
+import thermo.data.structure.structure.StructureAsCML;
+
+public class FindMetaAtomDefinitionsInDatasetCollection {
+
+	public static ArrayList<MetaAtomDefinition> findMetaAtomDefinitions(JsonObject recordid) {
+		ArrayList<MetaAtomDefinition> deflist = new ArrayList<MetaAtomDefinition>();
+		String classname = "dataset:JThermodynamicsMetaAtomDefinition";
+		JsonObject response = FindDatasetCollections.readInDatasetCollection(classname, recordid);
+		if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean() ) {
+			JsonObject catalog = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+			JsonArray arr = catalog.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+		if (arr != null) {
+			for(int i=0;i<arr.size();i++) {
+				JsonObject metaatom = arr.get(i).getAsJsonObject();
+				System.out.println("---------------------------");
+				System.out.println(JsonObjectUtilities.toString(metaatom));
+				System.out.println("---------------------------");
+				if(metaatom.get(ClassLabelConstants.JThermodynamics2DSpeciesStructure) != null) {
+				JsonObject structure = metaatom.get(ClassLabelConstants.JThermodynamics2DSpeciesStructure).getAsJsonObject();
+				String cml = structure.get(ClassLabelConstants.JThermodynamicsStructureAsCMLString).getAsString();
+				String name = structure.get(ClassLabelConstants.JThermodynamicsStructureName).getAsString();
+				StructureAsCML structascml = new StructureAsCML(name,cml);
+				String label = metaatom.get(ClassLabelConstants.JThermodynamicsMetaAtomLabel).getAsString();
+				String type = metaatom.get(ClassLabelConstants.JThermodynamicsMetaAtomType).getAsString();
+				MetaAtomInfo info = new MetaAtomInfo();
+				info.setMetaAtomType(type);
+				info.setMetaAtomName(label);
+				info.setElementName(name);
+				try {
+					MetaAtomDefinition definition = new MetaAtomDefinition(info, structascml);
+					deflist.add(definition);
+				} catch (ClassNotFoundException | CDKException | IOException e) {
+					e.printStackTrace();
+				}
+				}
+			}
+		}
+		} else {
+			deflist = null;
+		}
+		return deflist;
+
+	}
+}

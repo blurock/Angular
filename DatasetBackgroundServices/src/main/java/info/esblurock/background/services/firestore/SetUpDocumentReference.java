@@ -1,5 +1,8 @@
 package info.esblurock.background.services.firestore;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
 import com.google.cloud.firestore.CollectionReference;
@@ -18,7 +21,13 @@ public class SetUpDocumentReference {
 		DocumentReference docref = loopPairs(db,firestorecatalogid);
 		String collection = firestorecatalogid.get(ClassLabelConstants.DataCatalog).getAsString();
 		String document = firestorecatalogid.get(ClassLabelConstants.SimpleCatalogName).getAsString();
-		docref = update(db,docref,collection,document);
+		try {
+			String URLcollection = URLEncoder.encode(collection, StandardCharsets.UTF_8.toString());
+			String URLdocument = URLEncoder.encode(document, StandardCharsets.UTF_8.toString());
+		docref = update(db,docref,URLcollection,URLdocument);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return docref;
 	}
 	
@@ -44,7 +53,14 @@ public class SetUpDocumentReference {
 			JsonObject pair = getCollectionDocumentIDPair(i,jarr);
 			String collection = pair.get(ClassLabelConstants.DatasetCollectionID).getAsString();
 			String document = pair.get(ClassLabelConstants.DatasetDocumentID).getAsString();
-			docref = update(db,docref,collection,document);
+			
+			try {
+				String URLcollection = URLEncoder.encode(collection, StandardCharsets.UTF_8.toString());
+				String URLdocument = URLEncoder.encode(document, StandardCharsets.UTF_8.toString());
+				docref = update(db,docref,URLcollection,URLdocument);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 		}
 		return docref;
 	}

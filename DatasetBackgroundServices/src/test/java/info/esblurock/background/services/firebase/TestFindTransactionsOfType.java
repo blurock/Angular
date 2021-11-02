@@ -18,7 +18,7 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 public class TestFindTransactionsOfType {
 
 	@Test
-	public void test() {
+	public void test1() {
 		String jsonS = "{\n"
 				+ "    service: \"FindTransactionsOfType\",\n"
 				+ "    \"prov:activity\": \"dataset:CreateDatabasePersonEvent\"\n"
@@ -27,5 +27,6 @@ public class TestFindTransactionsOfType {
 		JsonObject response = DatabaseServicesBase.process(json);
 		System.out.println(JsonObjectUtilities.toString(response));
 	}
+
 
 }

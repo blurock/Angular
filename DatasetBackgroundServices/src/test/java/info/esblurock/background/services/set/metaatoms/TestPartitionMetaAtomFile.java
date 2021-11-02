@@ -23,7 +23,7 @@ public class TestPartitionMetaAtomFile {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
 			String type = "dataset:InitialReadInOfRepositoryFile";
-			JsonObject transresponse = FindTransactions.findLabelFirestoreIDPairByType(type);
+			JsonObject transresponse = FindTransactions.findLabelFirestoreIDPairByType(type,null);
 			if(transresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				JsonObject transout = transresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 				JsonArray labelids = transout.get(ClassLabelConstants.LabelFirestoreIDPair).getAsJsonArray();

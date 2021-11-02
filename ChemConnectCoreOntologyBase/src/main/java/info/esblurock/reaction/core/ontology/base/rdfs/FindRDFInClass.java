@@ -83,11 +83,9 @@ public class FindRDFInClass {
 	}
 	
 	public static void assignRDFTripleClass(ListOfRDFInformation complete) {
-		System.out.println("assignRDFTripleClass--------------------------------");
 		Iterator<RDFInformation> iter = complete.getList().iterator();
 		while(iter.hasNext()) {
 			RDFInformation info = iter.next();
-			System.out.println(info.toString());
 			JsonElement subject = info.getSubjectValue();
 			JsonElement object = info.getObjectValue();
 			String rdftype = null;
@@ -104,11 +102,8 @@ public class FindRDFInClass {
 					rdftype = "dataset:RDFSubjectObjectAsRecord";
 				}
 			}
-			System.out.println("RDF Type: " + rdftype);
 			info.setRdftriple(rdftype);
 		}
-		System.out.println("assignRDFTripleClass--------------------------------");
-		
 	}
 
 	public static ListOfRDFInformation createRDFList(String classname, JsonObject obj) {

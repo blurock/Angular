@@ -92,10 +92,11 @@ public class ReadFirestoreInformation {
 		try {
 			Firestore db = FirestoreBaseClass.getFirebaseDatabase();
 			CollectionReference collection = SetUpDocumentReference.setupCollection(db,firestorecatalogid);
+			Query query = null;
+			if(setofprops != null) {
 			JsonArray props = setofprops.get(ClassLabelConstants.PropertyValueQueryPair).getAsJsonArray();
 			Iterator<JsonElement> iter = props.iterator();
 			
-			Query query = null;
 			Element table = body.addElement("table");
 			Element rowheader = table.addElement("tr");
 			rowheader.addElement("th","Type");
@@ -113,6 +114,7 @@ public class ReadFirestoreInformation {
 					query = query.whereEqualTo(type,value);
 				}
 			}
+			}
 			ApiFuture<QuerySnapshot> future = null;
 			if(query == null) {
 				future = collection.get();
@@ -120,10 +122,13 @@ public class ReadFirestoreInformation {
 				future = query.get();
 			}
 			List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+			Element ul = body.addElement("ul");
 			for (DocumentSnapshot document : documents) {
 				Map<String, Object> mapObj = (Map<String, Object>) document.getData();
 				String jsonString = new Gson().toJson(mapObj);
 				JsonObject rdf = JsonObjectUtilities.jsonObjectFromString(jsonString);
+				
+				ul.addElement("li").addText(rdf.get(ClassLabelConstants.CatalogObjectKey).getAsString());
 				setofobjs.add(rdf);
 			}
 			JsonObject set = CreateDocumentTemplate.createTemplate("dataset:SetOfCatalogObjects");

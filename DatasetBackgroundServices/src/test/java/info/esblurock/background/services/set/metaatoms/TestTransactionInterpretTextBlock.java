@@ -25,7 +25,7 @@ public class TestTransactionInterpretTextBlock {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
 			String type = "dataset:PartiionSetWithinRepositoryFile";
-			JsonObject transresponse = FindTransactions.findLabelFirestoreIDPairByType(type);
+			JsonObject transresponse = FindTransactions.findLabelFirestoreIDPairByType(type,null);
 			if(transresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				JsonObject transout = transresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 				System.out.println(JsonObjectUtilities.toString(transout));

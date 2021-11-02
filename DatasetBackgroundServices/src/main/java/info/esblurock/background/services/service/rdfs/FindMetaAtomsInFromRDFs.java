@@ -20,7 +20,7 @@ public class FindMetaAtomsInFromRDFs extends FindRDFObjects {
 	 * 
 	 * If the database retrieval was unsuccessful, then an empty array is returned.
 	 */
-	public static JsonArray getMetaAtomsByType(String object) {
+	public static JsonArray getMetaAtomsByType(String object, String dataset) {
 		String rdftype = "JThermodynamicsMetaAtomInfoRDF";
 		JsonArray arr = new JsonArray();
 		JsonObject response = findRDFFromTypeAndSubjectAttribute(rdftype, object);
@@ -45,7 +45,7 @@ public class FindMetaAtomsInFromRDFs extends FindRDFObjects {
 	 * 
 	 */
 	public static ArrayList<MetaAtomDefinition> getMetaAtomDefinitionsByType(String object) {
-		JsonArray arr = getMetaAtomsByType(object);
+		JsonArray arr = getMetaAtomsByType(object,null);
 		ArrayList<MetaAtomDefinition> deflist = new ArrayList<MetaAtomDefinition>();
 		if (arr != null) {
 			for(int i=0;i<arr.size();i++) {

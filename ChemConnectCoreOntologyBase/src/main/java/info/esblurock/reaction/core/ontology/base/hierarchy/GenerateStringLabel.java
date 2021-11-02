@@ -1,5 +1,12 @@
 package info.esblurock.reaction.core.ontology.base.hierarchy;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
@@ -21,11 +28,9 @@ public enum GenerateStringLabel {
 
 		@Override
 		String deriveName(String hierclass, String classname, JsonObject object) {
-			String recordid = ClassLabelConstants.DatabaseRecordIDInfo;
 			String label = ClassLabelConstants.DatasetName;
-			JsonObject rec = object.get(recordid).getAsJsonObject();
-			String lbl = rec.get(label).getAsString();
-			return lbl;
+			String owner = object.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+			return getValueFromObject(object,label,owner);
 		}
 		
 	},
@@ -33,11 +38,8 @@ public enum GenerateStringLabel {
 
 		@Override
 		String deriveName(String hierclass, String classname, JsonObject object) {
-			String recordid = ClassLabelConstants.DatabaseRecordIDInfo;
 			String label = ClassLabelConstants.CatalogDataObjectStatus;
-			JsonObject rec = object.get(recordid).getAsJsonObject();
-			String lbl = rec.get(label).getAsString();
-			return lbl;
+			return getValueFromObject(object,label,"CatalogObjectStatusCurrent");
 		}
 		
 	},
@@ -45,11 +47,11 @@ public enum GenerateStringLabel {
 
 		@Override
 		String deriveName(String hierclass, String classname, JsonObject object) {
-			String recordid = ClassLabelConstants.DatabaseRecordIDInfo;
 			String label = ClassLabelConstants.DatasetVersion;
-			JsonObject rec = object.get(recordid).getAsJsonObject();
-			String lbl = rec.get(label).getAsString();
-			return lbl;
+			Date currentTime = Calendar.getInstance().getTime();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+			String formattedDate = formatter.format(currentTime);
+			return getValueFromObject(object,label,formattedDate);
 		}
 		
 	},
@@ -57,22 +59,18 @@ public enum GenerateStringLabel {
 
 		@Override
 		String deriveName(String hierclass, String classname, JsonObject object) {
-			String recordid = ClassLabelConstants.DatabaseRecordIDInfo;
 			String label = ClassLabelConstants.CatalogObjectUniqueGenericLabel;
-			JsonObject rec = object.get(recordid).getAsJsonObject();
-			String lbl = rec.get(label).getAsString();
-			return lbl;
+			String id = object.get(ClassLabelConstants.CatalogObjectKey).getAsString();
+			return getValueFromObject(object,label,id);
 		}
 		
 	}, LabelDerivedFromMaintainerLabel {
 
 		@Override
 		String deriveName(String hierclass, String classname, JsonObject object) {
-			String recordid = ClassLabelConstants.DatabaseRecordIDInfo;
 			String label = ClassLabelConstants.CatalogDataObjectMaintainer;
-			JsonObject rec = object.get(recordid).getAsJsonObject();
-			String lbl = rec.get(label).getAsString();
-			return lbl;
+			String owner = object.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+			return getValueFromObject(object,label,owner);
 		}
 		
 	}, DerivedFromObjectClassName {
@@ -121,8 +119,17 @@ public enum GenerateStringLabel {
 			return name;
 		}
 		
+	};
+	
+	private static String getValueFromObject(JsonObject object, String identifier, String defaultvalue) {
+		String lbl = defaultvalue;
+		JsonArray objectarr = JsonObjectUtilities.getValueUsingIdentifierMultiple(object,identifier);
+		if(objectarr.size() > 0) {
+			String rawlbl = objectarr.get(0).getAsString();
+			lbl = URLEncoder.encode(rawlbl,StandardCharsets.UTF_8);
+		}
+		return lbl;
 	}
-	;
 	
 	/** Derive the label from classname and object in JsonObject form
 	 * 

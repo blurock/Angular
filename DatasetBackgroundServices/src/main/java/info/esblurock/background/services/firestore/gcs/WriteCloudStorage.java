@@ -1,6 +1,5 @@
 package info.esblurock.background.services.firestore.gcs;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -9,7 +8,6 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.Storage;
@@ -21,16 +19,22 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
-import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 
 public class WriteCloudStorage {
 
-	public static JsonObject writeString(String transactionid, String owner,  
+	/**
+	 * @param transactionid The transaction id
+	 * @param maintainer The maintainer of the file
+	 * @param content The actual content that should be stored
+	 * @param info auxilliary information
+	 * @param uploadsource The upload source
+	 * @return
+	 */
+	public static JsonObject writeString(String transactionid, String owner, String maintainer,  
 			String content, JsonObject info, String uploadsource) {
 		Storage storage;
 		Document document = MessageConstructor.startDocument("WriteCloudStorage");
@@ -52,7 +56,7 @@ public class WriteCloudStorage {
 	    	storage = StorageOptions.getDefaultInstance().getService();
 	        // Create blob
 	    	String formatallabel = formattype.substring(8);
-	    	String dirpath = "upload/"+owner+"/"+formatallabel;
+	    	String dirpath = "upload/"+maintainer+"/"+formatallabel;
 	    	String dir = dirpath +"/"+transactionid;
 	    	
 	    	body.addElement("div").addText("Write to: " + dir);
@@ -62,9 +66,7 @@ public class WriteCloudStorage {
 	        		.build();
 	        // Upload blob to GCS (same as Firebase Storage)
 	        byte[] contentB = content.getBytes(StandardCharsets.UTF_8);
-	        System.out.println("Write: " + blobInfo.getBucket() + ": " + blobInfo.getName());
-	        Blob blob = storage.create(blobInfo, contentB);
-	        System.out.println("Done: " + blob.getBucket() + ": " + blob.getMediaLink());
+	        storage.create(blobInfo, contentB);
 	        JsonObject catalog = BaseCatalogData.createStandardDatabaseObject("dataset:RepositoryFileStaging", 
 					owner, transactionid, "false");
 	        JsonObject gcsblobinfo = catalog.get(ClassLabelConstants.GCSBlobFileInformationStaging).getAsJsonObject();
@@ -81,9 +83,7 @@ public class WriteCloudStorage {
 	        JsonElement descr = info.get(ClassLabelConstants.DataDescriptionFileStaging);
 	        if(descr != null) {
 	        	catalog.add(ClassLabelConstants.DataDescriptionFileStaging, descr);
-	        }
-	        WriteFirestoreCatalogObject.writeCatalogObject(catalog);
-	        
+	        }	        
 	        JsonArray catalogarr = new JsonArray();
 	        catalogarr.add(catalog);
 	        response = DatabaseServicesBase.standardServiceResponse(document, "Success: WriteCloudStorage",catalogarr);

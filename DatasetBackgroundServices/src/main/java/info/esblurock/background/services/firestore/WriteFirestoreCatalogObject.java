@@ -41,7 +41,10 @@ public class WriteFirestoreCatalogObject {
 		Timestamp time = null;
 		try {
 			time = result.get().getUpdateTime();
-			message += "Time: " + time.toString() + "\n";
+			String catid = firestorecatalogid.get(ClassLabelConstants.DataCatalog).getAsString();
+			String id = firestorecatalogid.get(ClassLabelConstants.SimpleCatalogName).getAsString();
+			
+			message += catid + ": " + id + "(" + time.toString() + ")\n";
 		} catch (InterruptedException | ExecutionException e) {
 			message = "Catalog write to database failed: \n" + e.getMessage() + "\n";
 		}

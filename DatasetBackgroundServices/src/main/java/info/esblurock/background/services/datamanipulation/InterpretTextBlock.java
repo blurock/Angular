@@ -25,7 +25,10 @@ import info.esblurock.reaction.core.ontology.base.classification.DatabaseOntolog
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
+import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
+import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import thermo.build.ReadDisassociationData;
 import thermo.compute.utilities.StringToAtomContainer;
 import thermo.data.structure.linearform.NancyLinearFormToMolecule;
@@ -66,6 +69,11 @@ public enum InterpretTextBlock {
 				catalog.addProperty(ClassLabelConstants.JThermodynamicsStructureSpecification, nancy);
 				catalog.addProperty(ClassLabelConstants.JThermodynamicsSpeciesSpecificationType,
 						"dataset:SpeciesSpecificationNancyLinearForm");
+				
+				JsonObject recordid = CreateDocumentTemplate.createTemplate("dataset:DatabaseRecordIDInfo");
+				catalog.add(ClassLabelConstants.DatabaseRecordIDInfo, recordid);
+				recordid.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, metaatomname);
+				
 				Element row = table.addElement("tr");
 				row.addElement("td").addText(position);
 				row.addElement("td").addText(line);
@@ -213,11 +221,21 @@ public enum InterpretTextBlock {
 			if (checkIfCompatableParse(parsed, info)) {
 				JsonObject catalog = method.interpret(parsed, owner, transactionID, "false", table);
 				if(catalog != null) {
-					String datasetname = parsed.get(ClassLabelConstants.DatasetName).getAsString();
-					String datasetversion = parsed.get(ClassLabelConstants.DatasetVersion).getAsString();
-					catalog.addProperty(ClassLabelConstants.DatasetName,datasetname);
-					catalog.addProperty(ClassLabelConstants.DatasetVersion,datasetversion);
+					
+					JsonObject recordid = catalog.get(ClassLabelConstants.DatabaseRecordIDInfo).getAsJsonObject();
+					String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+					recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
+					String datasetname = info.get(ClassLabelConstants.DatasetName).getAsString();
+					recordid.addProperty(ClassLabelConstants.DatasetName, datasetname);
+					String datasetversion = info.get(ClassLabelConstants.DatasetVersion).getAsString();
+					recordid.addProperty(ClassLabelConstants.DatasetVersion, datasetversion);
+					String status = info.get(ClassLabelConstants.CatalogDataObjectStatus).getAsString();
+					recordid.addProperty(ClassLabelConstants.CatalogDataObjectStatus, status);
+					
+					BaseCatalogData.insertFirestoreAddress(catalog);
+					
 					catalogset.add(catalog);
+					
 					WriteFirestoreCatalogObject.writeCatalogObject(catalog);
 					GenerateAndWriteRDFForObject.generate(catalog);
 				} else {

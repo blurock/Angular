@@ -143,35 +143,20 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 		@Override
 		public JsonObject process(JsonObject json) {
 			String type = json.get(ClassLabelConstants.TransactionEventType).getAsString();
-			JsonObject response = FindTransactions.findAndReadTransactionEventObjectByType(type);
-			/*
-			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-				JsonObject set = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
-				JsonArray arr = set.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
-				JsonArray idlabellinks = new JsonArray();
-				body.addElement("h3").addText("Labels");
-				for (int i = 0; i < arr.size(); i++) {
-					JsonObject rdf = arr.get(i).getAsJsonObject();
-					JsonObject idlabellink = CreateDocumentTemplate
-							.createTemplate("dataset:LabelFirestoreIDPair");
-					JsonObject id = rdf.get(ClassLabelConstants.RDFJsonAsSubject).getAsJsonObject();
-					JsonObject descr = rdf.get(ClassLabelConstants.RDFJsonAsObject).getAsJsonObject();
-					
-					String label = descr.get(ClassLabelConstants.DescriptionTitleTransaction).getAsString();
-					idlabellink.add(ClassLabelConstants.FirestoreCatalogID, id);
-					idlabellink.addProperty(ClassLabelConstants.CatalogObjectKey, label);
-					idlabellinks.add(idlabellink);
-					body.addElement("div").addText(label);
-				}
-				JsonObject idlabellinkpairs = CreateDocumentTemplate
-						.createTemplate("dataset:SetOfLabelFirestoreIDPairs");
-				idlabellinkpairs.add(ClassLabelConstants.LabelFirestoreIDPair, idlabellinks);
-				response = DatabaseServicesBase.standardServiceResponse(document, "Success: FindTransactionsOfType", idlabellinkpairs);
-			}
-			*/
+			String keyword = json.get(ClassLabelConstants.TransactionKey).getAsString();
+			JsonObject response = FindTransactions.findAndReadTransactionEventObjectByType(type,keyword);
 			return response;
 		}
-		
+	},FindTransactionChoicesOfTypeAndKey {
+
+			@Override
+			public JsonObject process(JsonObject json) {
+				String type = json.get(ClassLabelConstants.TransactionEventType).getAsString();
+				String keyword = json.get(ClassLabelConstants.TransactionKey).getAsString();
+				JsonObject response = FindTransactions.findLabelFirestoreIDPairByType(type,keyword);
+				return response;
+			}
+			
 	};
 
 	public abstract JsonObject process(JsonObject json);

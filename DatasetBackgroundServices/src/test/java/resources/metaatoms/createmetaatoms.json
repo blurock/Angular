@@ -3,7 +3,11 @@
 	"dataset:activityinfo": {
 		"dataset:filesourceformat": "dataset:JThermodynamicsMetaAtoms",
 		"dataset:blockinterpretationmethod": "dataset:ParseLinesJThermodynamicsMetaAtoms",
-		"dcterms:title": "The standard set of Benson Meta atoms"
+		"dcterms:title": "The standard set of Benson Meta atoms",
+		"dataset:datasetname": "Standard",
+		"dataset:datasetversion": "20200919",
+		"dataset:catalogobjectmaintainer": "Administrator",
+		"dataset:dataobjstatus": "CatalogObjectStatusCurrent"
 	},
 	"dataset:transreqobj": {
 		"dataset:partitionfile": {

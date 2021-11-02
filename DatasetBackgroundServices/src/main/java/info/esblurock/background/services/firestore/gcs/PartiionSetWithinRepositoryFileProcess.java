@@ -46,7 +46,6 @@ public class PartiionSetWithinRepositoryFileProcess {
 		Element table = body.addElement("table");
 		Element hrow = table.addElement("tr");
 		hrow.addElement("th").addText("Position");
-		hrow.addElement("th").addText("Structure");
 		hrow.addElement("th").addText("Message");
 		for(int i=0;i<objects.size();i++) {
 			Element row = table.addElement("tr");
@@ -58,7 +57,6 @@ public class PartiionSetWithinRepositoryFileProcess {
 			String message = WriteFirestoreCatalogObject.writeCatalogObject(catalog);
 			row.addElement("td").addText(catalog.get(ClassLabelConstants.Position).getAsString());
 			row.addElement("td").addText(message);
-			System.out.println(JsonObjectUtilities.toString(catalog));
 			set.add(catalog);
 		}
 		String message = "Successful: " + objects.size() + "blocks";

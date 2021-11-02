@@ -8,6 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.DeleteCatalogDataObject;
+import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.firestore.SetUpDocumentReference;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.service.rdfs.DeleteRDFs;
@@ -16,6 +17,17 @@ import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 
 public class DeleteTransaction extends DeleteCatalogDataObject {
 
+	public static JsonObject deleteTransactionwithID(JsonObject firestoreid) {
+		JsonObject deleteresponse = null;
+		JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(firestoreid);
+		if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+			JsonObject object = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+			deleteresponse = DeleteTransaction.deleteTransaction(object);
+		} else {
+			deleteresponse = response;
+		}
+		return deleteresponse;
+	}
 	/**
 	 * @param transaction The transaction JsonObject
 	 * 
@@ -36,17 +48,17 @@ public class DeleteTransaction extends DeleteCatalogDataObject {
 			deleted++;
 		}
 		String message1 = "Deleted objects: " + Integer.toString(deleted);
-		body.addElement("div", message1);
+		body.addElement("div").addText(message1);
 		String transactionid = transaction.get(ClassLabelConstants.TransactionID).getAsString();
 		int rdfdeleted = DeleteRDFs.deleteRDFs(transactionid);
 		String message2 = "Deleted RDFs: " + Integer.toString(rdfdeleted);
-		body.addElement("div", message2);
+		body.addElement("div").addText(message2);
 		deleted += rdfdeleted;
 		
 		JsonObject transid = transaction.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
 		DocumentReference docref = SetUpDocumentReference.setup(db, transid);
 		docref.delete();
-		body.addElement("div", "Deleted Transaction");
+		body.addElement("div").addText("Deleted Transaction");
 		
 		deleted++;
 		
