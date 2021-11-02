@@ -54,6 +54,9 @@ public class CreateHierarchyElement {
 		JsonObject pair = initialCollectionDocumentIDPair();
 		String identifier = json.get(AnnotationObjectsLabels.identifier).getAsString();
 		String catalogC  = GenericSimpleQueries.classFromIdentifier(identifier);
+		if(catalogC == null) {
+			System.err.println("System Error: Identifier as class not found: " + identifier);
+		}
 		ClassificationHierarchy hierarchy = DatabaseOntologyClassification.getClassificationHierarchy(topOfHierarchy);
 		search(hierarchy, json, pairs, pair, catalogC);
 		int basenum = pairs.size()-1;

@@ -25,10 +25,9 @@ public class FindMetaAtomDefinitionsInDatasetCollection {
 			JsonArray arr = catalog.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 		if (arr != null) {
 			for(int i=0;i<arr.size();i++) {
-				JsonObject metaatom = arr.get(i).getAsJsonObject();
-				System.out.println("---------------------------");
-				System.out.println(JsonObjectUtilities.toString(metaatom));
-				System.out.println("---------------------------");
+				JsonObject metaatomcatalog = arr.get(i).getAsJsonObject();
+				if(metaatomcatalog.get(ClassLabelConstants.JThermodynamicsMetaAtomInfo) != null) {
+					JsonObject metaatom = metaatomcatalog.get(ClassLabelConstants.JThermodynamicsMetaAtomInfo).getAsJsonObject();
 				if(metaatom.get(ClassLabelConstants.JThermodynamics2DSpeciesStructure) != null) {
 				JsonObject structure = metaatom.get(ClassLabelConstants.JThermodynamics2DSpeciesStructure).getAsJsonObject();
 				String cml = structure.get(ClassLabelConstants.JThermodynamicsStructureAsCMLString).getAsString();
@@ -46,7 +45,12 @@ public class FindMetaAtomDefinitionsInDatasetCollection {
 				} catch (ClassNotFoundException | CDKException | IOException e) {
 					e.printStackTrace();
 				}
+				} else {
+					System.out.println(ClassLabelConstants.JThermodynamics2DSpeciesStructure + " element not found: object ignored");
 				}
+			} else {
+				System.out.println("Meta Atom info not defined in Catalog Object");
+			}
 			}
 		}
 		} else {

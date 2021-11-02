@@ -40,6 +40,8 @@ public class TestFindDatasetCollection {
 		 ArrayList<MetaAtomDefinition> defs = FindMetaAtomDefinitionsInDatasetCollection.findMetaAtomDefinitions(recordid);
 		 if(defs != null) {
 			 Iterator<MetaAtomDefinition> iter = defs.iterator();
+			 System.out.println("---------------------------------------------");
+			 System.out.println("Number of definitions: " + defs.size());
 			 while(iter.hasNext()) {
 				 MetaAtomDefinition def = iter.next();
 				 System.out.println("---------------------------------------------");

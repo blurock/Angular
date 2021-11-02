@@ -51,6 +51,9 @@ public class GenericSimpleQueries {
 	 */
 	public static boolean isSubClassOf(String concept, String generalclass, boolean direct) {
 		String query = null;
+		if(concept == null || generalclass == null) {
+			System.out.println("concept: " + concept + "    generalclass: " + generalclass);
+		}
 		if(direct) {
 			query = "ASK {\n"
 					+ concept + " <" + ReasonerVocabulary.directSubClassOf + "> " + generalclass

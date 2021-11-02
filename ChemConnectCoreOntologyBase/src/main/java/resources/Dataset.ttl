@@ -3421,6 +3421,33 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                    <http://www.w3.org/2004/02/skos/core#altLabel> "databasepersonset" .
 
 
+###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetCollectionID
+:CatalogHierarchyDatasetCollectionID rdf:type owl:Class ;
+                                     rdfs:subClassOf :CatalogHierarchyDatasetCollectionIDSet ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :ChemConnectDatasetCollectionIDsSet
+                                                     ] ;
+                                     <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
+                                     <http://purl.org/dc/terms/identifier> "dataset:hierdatasetcollectionids"^^xsd:string ;
+                                     rdfs:comment "These are the dataset collection ids."^^xsd:string ;
+                                     rdfs:isDefinedBy :LabelDerivedFromCollectionIDSetLabel ;
+                                     rdfs:label "Dataset Collection IDs"^^xsd:string ;
+                                     <http://www.w3.org/2004/02/skos/core#altLabel> "hierdatasetcollectionids"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetCollectionIDSet
+:CatalogHierarchyDatasetCollectionIDSet rdf:type owl:Class ;
+                                        rdfs:subClassOf :CatalogHierararchyAuxillaryInformation ;
+                                        <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
+                                        <http://purl.org/dc/terms/identifier> "dataset:hieridcollectionset"^^xsd:string ;
+                                        rdfs:comment "This is the set of Collection ID sets"^^xsd:string ;
+                                        rdfs:isDefinedBy :DerivedFromHierarchyClassAnnotationAltLabel ;
+                                        rdfs:label "Dataset ID Collection Set"^^xsd:string ;
+                                        <http://www.w3.org/2004/02/skos/core#altLabel> "hieridcollectionset"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetName
 :CatalogHierarchyDatasetName rdf:type owl:Class ;
                              rdfs:subClassOf :CatalogObjectDatasetMaintainer ;
@@ -4205,6 +4232,31 @@ This transaction is in combination with another transaction responsible for crea
                                     rdfs:comment "The element within a document or a subelement of another element. The element can be either compound, meaning several elements, or simple." ;
                                     rdfs:label "Database Document Element" ;
                                     <http://www.w3.org/2004/02/skos/core#altLabel> "documentelementdata" .
+
+
+###  http://www.esblurock.info/dataset#ChemConnectDatasetCollectionIDsSet
+:ChemConnectDatasetCollectionIDsSet rdf:type owl:Class ;
+                                    rdfs:subClassOf :ChemConnectDataStructure ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :CatalogDataObjectMaintainer
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :DatasetCollectionsSetLabel
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :DescriptionAbstract
+                                                    ] ;
+                                    <http://purl.org/dc/elements/1.1/type> :ChemConnectDatasetCollectionIDsSet ;
+                                    <http://purl.org/dc/terms/identifier> "dataset:datasetcollectionids"^^xsd:string ;
+                                    rdfs:comment "The set of IDs of the catalog collections of the objects to be used together as a set. This class object is identified with the DatasetCollectionSetLabel."^^xsd:string ;
+                                    rdfs:label "Set of Collection IDs for a dataset"^^xsd:string ;
+                                    <http://www.w3.org/2004/02/skos/core#altLabel> "datasetcollectionids"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ChemConnectDefineSubCatagory
@@ -6790,6 +6842,46 @@ Under the general type of is the actual data object referenced by the ChemConnec
                           ] .
 
 
+###  http://www.esblurock.info/dataset#DatabaseCollectionOfCurrentClass
+:DatabaseCollectionOfCurrentClass rdf:type owl:Class ;
+                                  rdfs:subClassOf :DatabaseCollectionRecordID ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                    owl:onClass :DatasetCollectionObjectType
+                                                  ] ;
+                                  <http://purl.org/dc/elements/1.1/type> :DatabaseCollectionOfCurrentClass ;
+                                  <http://purl.org/dc/terms/identifier> "dataset:bensonrulecollection"^^xsd:string ;
+                                  rdfs:comment "This is the information needed to point to the current collection of Benson Rules"^^xsd:string ;
+                                  rdfs:label "Current Benson Rule Collection"^^xsd:string ;
+                                  <http://www.w3.org/2004/02/skos/core#altLabel> "bensonrulecollection"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#DatabaseCollectionRecordID
+:DatabaseCollectionRecordID rdf:type owl:Class ;
+                            rdfs:subClassOf :ChemConnectCompoundBase ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :CatalogDataObjectMaintainer
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :DatasetName
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :DatasetVersion
+                                            ] ;
+                            <http://purl.org/dc/elements/1.1/type> :DatabaseCollectionRecordID ;
+                            <http://purl.org/dc/terms/identifier> "dataset:databasecollectionid"^^xsd:string ;
+                            rdfs:comment "This is the minimal information to specify the current database collection, given the type (subclasses)"^^xsd:string ;
+                            rdfs:label "Database Collection"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "databasecollectionid"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#DatabaseID
 :DatabaseID rdf:type owl:Class ;
             rdfs:subClassOf :ChemConnectPrimitiveDataStructure ;
@@ -6892,12 +6984,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DatabaseRecordIDInfo
 :DatabaseRecordIDInfo rdf:type owl:Class ;
-                      rdfs:subClassOf :ChemConnectCompoundBase ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                        owl:onClass :CatalogDataObjectMaintainer
-                                      ] ,
+                      rdfs:subClassOf :DatabaseCollectionRecordID ,
                                       [ rdf:type owl:Restriction ;
                                         owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -6907,16 +6994,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                         owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                         owl:onClass :CatalogObjectUniqueGenericLabel
-                                      ] ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                        owl:onClass :DatasetName
-                                      ] ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                        owl:onClass :DatasetVersion
                                       ] ;
                       <http://purl.org/dc/elements/1.1/type> :DatabaseRecordIDInfo ;
                       <http://purl.org/dc/terms/identifier> "dataset:databaserecordid"^^xsd:string ;
@@ -7032,6 +7109,27 @@ Under the general type of is the actual data object referenced by the ChemConnec
                      rdfs:comment "This is the id of a collection of objects. Its main use is the correspondence with the Google Firestore database which is made up of collections of documents." ;
                      rdfs:label "Collection ID" ;
                      <http://www.w3.org/2004/02/skos/core#altLabel> "collectionid" .
+
+
+###  http://www.esblurock.info/dataset#DatasetCollectionObjectType
+:DatasetCollectionObjectType rdf:type owl:Class ;
+                             rdfs:subClassOf :Classification ;
+                             <http://purl.org/dc/elements/1.1/type> :DatasetCollectionObjectType ;
+                             <http://purl.org/dc/terms/identifier> "dataset:collectionobjecttype"^^xsd:string ;
+                             rdfs:comment "Collection Object Type"^^xsd:string ;
+                             rdfs:isDefinedBy :ChemConnectDatabaseBaseElement ;
+                             rdfs:label "Collection Object Type"^^xsd:string ;
+                             <http://www.w3.org/2004/02/skos/core#altLabel> "collectionobjecttype"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#DatasetCollectionsSetLabel
+:DatasetCollectionsSetLabel rdf:type owl:Class ;
+                            rdfs:subClassOf :StringNameLabel ;
+                            <http://purl.org/dc/elements/1.1/type> :DatasetCollectionsSetLabel ;
+                            <http://purl.org/dc/terms/identifier> "dataset:datasetcollectionslabel"^^xsd:string ;
+                            rdfs:comment "This is the name of the collection of associated database collection. This holds the information, given the dataset type (class), to find the current collection to be used."^^xsd:string ;
+                            rdfs:label "Dataset Collection Label"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "datasetcollectionslabel"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DatasetCreateClassificationList
@@ -11813,6 +11911,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
                               rdfs:comment "The label is derived from the owner name of the catalog object"^^xsd:string ;
                               rdfs:label "Name from Catalog Owner"^^xsd:string ;
                               <http://www.w3.org/2004/02/skos/core#altLabel> "namefromowner"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#LabelDerivedFromCollectionIDSetLabel
+:LabelDerivedFromCollectionIDSetLabel rdf:type owl:Class ;
+                                      rdfs:subClassOf :DerivedFromObjectParameter .
 
 
 ###  http://www.esblurock.info/dataset#LabelDerivedFromDatasetLabel

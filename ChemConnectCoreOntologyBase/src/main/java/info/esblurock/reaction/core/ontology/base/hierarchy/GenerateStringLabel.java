@@ -24,7 +24,16 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public enum GenerateStringLabel {
 	
-	LabelDerivedFromDatasetLabel {
+	LabelDerivedFromCollectionIDSetLabel {
+
+		@Override
+		String deriveName(String hierclass, String classname, JsonObject object) {
+			String label = ClassLabelConstants.DatasetCollectionsSetLabel;
+			String defaultlabel = "default";
+			return getValueFromObject(object,label,defaultlabel);
+		}
+		
+	},	LabelDerivedFromDatasetLabel {
 
 		@Override
 		String deriveName(String hierclass, String classname, JsonObject object) {
