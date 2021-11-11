@@ -1,0 +1,13 @@
+{
+	"prov:activity": "dataset:DatasetCollectionSetCreationEvent",
+	"dataset:transreqobj": {},
+	"dataset:activityinfo": {
+		"dcterms:description": "This is the standard JThermodynamic dataset IDs.",
+		"dataset:collectionsetrecordidinfo": {
+			"dataset:catalogobjectmaintainer": "Administrator",
+			"dataset:datasetcollectionslabel": "StandardDataset"
+		},
+		"dcterms:title": "Standard JThermodynamic Dataset IDs",
+		"dcterms:identifier": "dataset:datasetcollectionsetcreationinfo"
+	}
+}

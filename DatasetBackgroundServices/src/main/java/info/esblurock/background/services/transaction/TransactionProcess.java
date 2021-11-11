@@ -10,6 +10,8 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.SystemObjectInformation;
 import info.esblurock.background.services.datamanipulation.InterpretTextBlock;
+import info.esblurock.background.services.dataset.DatasetCollectionIDManagement;
+import info.esblurock.background.services.dataset.DatasetCollectionManagement;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
 import info.esblurock.background.services.firestore.gcs.PartiionSetWithinRepositoryFileProcess;
@@ -22,6 +24,7 @@ import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLab
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
+import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import info.esblurock.reaction.core.ontology.base.utilities.SubstituteJsonValues;
 
@@ -176,6 +179,36 @@ public enum TransactionProcess {
 			return null;
 		};
 
+	}, DatasetCollectionSetCreationEvent {
+
+		@Override
+		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
+			JsonObject response = DatasetCollectionManagement.setupNewDatabaseCollectionSet(info, 
+					owner, transactionID);
+			return response;
+		}
+
+		@Override
+		String transactionKey(JsonObject catalog) {
+			String maintainer = catalog.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+			String name = catalog.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+			return maintainer + "." + name;
+		}
+		
+	}, DatasetCollectionSetAddDatasetEvent {
+
+		@Override
+		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
+			return DatasetCollectionManagement.insertCollectionInfoDataset(info, prerequisites);
+		}
+
+		@Override
+		String transactionKey(JsonObject catalog) {
+			String maintainer = catalog.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+			String name = catalog.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+			return maintainer + "." + name;
+		}
+		
 	};
 
 	public static void addLinkToCatalog(JsonArray catalogobjs, JsonObject linkobj, String type, String concept) {
@@ -343,5 +376,53 @@ public enum TransactionProcess {
 		JsonObject prerequisites = getPrerequisiteObjects(json);
 		JsonObject info = json.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
 		return processFromTransaction(transaction, prerequisites, info);
+	}
+	
+	/** Insert prerequisite transaction firestoreid into activity info
+	 * 
+	 * @param json The activity info
+	 * @param transactionname The name of prerequisite transaction
+	 * @param criteria The limiting criteria (the transaction key in ShortTransactionDescription)
+	 * @param limittoone If true, then only one transacation meeting the transactionname and criteria is allowed.
+	 * @return true if successful
+	 * 
+	 * This is primarily used for testing purposes, to find an appropriate prerequisite transaction.
+	 * This is why just the first transaction found is taken.
+	 * 
+	 * If limittoone is true, then only one is allowed (might be useful in real cases).
+	 * 
+	 */
+	public static boolean setFirstTransactionIntoActivityInfo(JsonObject json, String transactionname, String criteria, boolean limittoone) {
+		boolean success = true;
+		JsonObject transresponse = FindTransactions.findLabelFirestoreIDPairByType(transactionname,
+				criteria);
+		if (transresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+			JsonObject transout = transresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+			JsonArray labelids = transout.get(ClassLabelConstants.LabelFirestoreIDPair).getAsJsonArray();
+			if (labelids.size() > 0) {
+				boolean go = true;
+				if(limittoone) {
+					go = labelids.size() == 1;
+				}
+				if(go) {
+				JsonObject first = labelids.get(0).getAsJsonObject();
+				JsonObject firestorid = first.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+				JsonObject prerequisites = json.get(ClassLabelConstants.DatabaseIDFromRequiredTransaction)
+						.getAsJsonObject();
+				String preid = DatasetOntologyParseBase.getIDFromAnnotation(transactionname);
+				prerequisites.add(preid, firestorid);
+				} else {
+					System.err.println("More than one prerequisite Transactions found: \n" + JsonObjectUtilities.toString(labelids));
+					success = false;					
+				}
+			} else {
+				System.err.println("Prerequisite Transaction not found meeting criteria: " + criteria);
+				success = false;
+			}
+		} else {
+			System.err.println("Prerequisite Transaction not found: " + transactionname);
+			success = false;
+		}
+		return success;
 	}
 }

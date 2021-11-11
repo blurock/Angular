@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.google.gson.JsonObject;
 
-import info.esblurock.background.services.jthermodynamics.dataset.FindDatasetCollections;
+import info.esblurock.background.services.dataset.FindDatasetCollections;
 import info.esblurock.background.services.jthermodynamics.dataset.FindMetaAtomDefinitionsInDatasetCollection;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
@@ -23,7 +23,7 @@ public class TestFindDatasetCollection {
 		String maintainer = "Administrator";
 		String dataset = "Standard";
 		String classname = "dataset:JThermodynamicsMetaAtomDefinition";
-		String version = "20200919";
+		String version = "1.0";
 		JsonObject recordid = CreateDocumentTemplate.createTemplate("dataset:DatabaseRecordIDInfo");
 		recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 		recordid.addProperty(ClassLabelConstants.DatasetVersion, version);

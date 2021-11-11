@@ -99,7 +99,6 @@ public class FindTransactions {
 		if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			Document docmessage = MessageConstructor.startDocument("findTransactionDescriptionByType");
 			String responsemessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
-			System.out.println("RDF response message:\n" + responsemessage);
 			MessageConstructor.combineBodyIntoDocument(docmessage,responsemessage);
 			// Get Catalog object from the response
 			JsonObject result = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
@@ -108,12 +107,8 @@ public class FindTransactions {
 			JsonArray idpairs = new JsonArray();
 			for(int i=0;i<RDFs.size();i++) {
 				JsonObject RDF = RDFs.get(i).getAsJsonObject();
-				System.out.println(JsonObjectUtilities.toString(RDF));
-				System.out.println(ClassLabelConstants.RDFJsonAsObject);
 				// Get object of the RDF RDFShortTransactionDescription
 				JsonObject object = RDF.get(ClassLabelConstants.RDFJsonAsObject).getAsJsonObject();
-				System.out.println(JsonObjectUtilities.toString(object));
-				System.out.println(ClassLabelConstants.ShortTransactionDescription);
 				// Get the ShortTransactionDescription from the object
 				String description = object.get(ClassLabelConstants.DataTypeComment).getAsString();
 				// transaction firestore id is the subject

@@ -1,4 +1,4 @@
-package info.esblurock.background.services.jthermodynamics.dataset;
+package info.esblurock.background.services.dataset;
 
 import com.google.gson.JsonObject;
 
@@ -12,7 +12,7 @@ public class FindDatasetCollections {
 	
 	public static JsonObject findDatasetCollectionID(String classname, JsonObject recordid) {
 		JsonObject empty = CreateDocumentTemplate.createTemplate(classname);
-		empty.add(ClassLabelConstants.DatabaseRecordIDInfo, recordid);
+		empty.add(ClassLabelConstants.DatabaseCollectionOfCurrentClass, recordid);
 		JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(empty);
 		firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
 		
@@ -21,7 +21,7 @@ public class FindDatasetCollections {
 	
 	public static JsonObject findDatasetCollectionID(String classname, String maintainer, String dataset, String version) {
 		JsonObject empty = CreateDocumentTemplate.createTemplate(classname);
-		JsonObject recordid = empty.get(ClassLabelConstants.DatabaseRecordIDInfo).getAsJsonObject();
+		JsonObject recordid = empty.get(ClassLabelConstants.DatabaseCollectionOfCurrentClass).getAsJsonObject();
 		recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 		recordid.addProperty(ClassLabelConstants.DatasetVersion, version);
 		recordid.addProperty(ClassLabelConstants.DatasetName, dataset);

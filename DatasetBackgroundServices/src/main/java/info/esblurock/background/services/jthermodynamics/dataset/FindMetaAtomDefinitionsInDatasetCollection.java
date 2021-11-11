@@ -8,6 +8,7 @@ import org.openscience.cdk.exception.CDKException;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.dataset.FindDatasetCollections;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import thermo.data.structure.structure.MetaAtomDefinition;

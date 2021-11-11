@@ -1,4 +1,4 @@
-package resources.metaatoms;
+package info.esblurock.background.services.set.metaatoms;
 
 import org.junit.Test;
 

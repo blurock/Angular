@@ -1,4 +1,4 @@
-package info.esblurock.background.services;
+package info.esblurock.background.services.dataset;
 
 import static org.junit.Assert.*;
 
@@ -15,10 +15,13 @@ public class TestCollectionIDManagement {
 
 	@Test
 	public void test() {
+		System.out.println("------------------------------------");
+		System.out.println("firebaseIDOfCollection");
+		System.out.println("------------------------------------");
 		String maintainer = "Administrator";
 		String datasetname = "Standard";
 		String datasetversion = "20200919";
-		JsonObject catrecordid = CreateDocumentTemplate.createTemplate("dataset:DatabaseRecordIDInfo");
+		JsonObject catrecordid = CreateDocumentTemplate.createTemplate("dataset:DatasetforTypeInCollectionSet");
 		catrecordid.addProperty(ClassLabelConstants.DatasetCollectionObjectType, "dataset:JThermodynamicsMetaAtomDefinition");
 		catrecordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 		catrecordid.addProperty(ClassLabelConstants.DatasetName, datasetname);
@@ -26,6 +29,9 @@ public class TestCollectionIDManagement {
 		
 		JsonObject firestoreid = DatasetCollectionIDManagement.firebaseIDOfCollection(catrecordid);
 		System.out.println(JsonObjectUtilities.toString(firestoreid));
+		System.out.println("------------------------------------");
+		System.out.println("createEmptyChemConnectCurrentDatasetIDSet");
+		System.out.println("------------------------------------");
 		
 		String owner = "Administrator";
 		String transactionID = "11111111111";
@@ -35,6 +41,12 @@ public class TestCollectionIDManagement {
 				owner, transactionID, maintainer, description);
 	
 		System.out.println(JsonObjectUtilities.toString(collectionset));
+		System.out.println("------------------------------------");
+		System.out.println("insertCollectionInfoDataset");
+		System.out.println("------------------------------------");
+		DatasetCollectionIDManagement.insertCollectionInfoDataset(catrecordid, collectionset);
+		System.out.println(JsonObjectUtilities.toString(collectionset));
+		System.out.println("------------------------------------");
 		
 
 	}
