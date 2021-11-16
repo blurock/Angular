@@ -17,6 +17,7 @@ import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.utilities.GenericSimpleQueries;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class DatasetCollectionManagement {
 
@@ -168,6 +169,7 @@ public class DatasetCollectionManagement {
 			catrecordid.addProperty(ClassLabelConstants.DatasetName, datasetname);
 			catrecordid.addProperty(ClassLabelConstants.DatasetVersion, datasetversion);
 			catrecordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
+			catrecordid.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, collection);
 
 			DatasetCollectionIDManagement.insertCollectionInfoDataset(catrecordid, collectionset);
 			WriteFirestoreCatalogObject.writeCatalogObject(collectionset);
@@ -201,6 +203,7 @@ public class DatasetCollectionManagement {
 			recordid.addProperty(ClassLabelConstants.CatalogDataObjectStatus, "CatalogObjectStatusCurrent");
 			String classname = GenericSimpleQueries.classFromIdentifier(identifier);
 			recordid.addProperty(ClassLabelConstants.DatasetCollectionObjectType, classname);
+			System.out.println("writeCatalogObject:\n" + JsonObjectUtilities.toString(recordid));
 			JsonObject catid = FindDatasetCollections.findDatasetCollectionID(classname, recordid);
 			String id = catalog.get(ClassLabelConstants.CatalogObjectKey).getAsString();
 			catid.addProperty(ClassLabelConstants.SimpleCatalogName, id);

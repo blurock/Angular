@@ -21,23 +21,8 @@ public class TestFindDatasetCollection {
 	@Test
 	public void test() {
 		String maintainer = "Administrator";
-		String dataset = "Standard";
-		String classname = "dataset:JThermodynamicsMetaAtomDefinition";
-		String version = "1.0";
-		JsonObject recordid = CreateDocumentTemplate.createTemplate("dataset:DatabaseRecordIDInfo");
-		recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
-		recordid.addProperty(ClassLabelConstants.DatasetVersion, version);
-		recordid.addProperty(ClassLabelConstants.DatasetName, dataset);
-		recordid.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, "Generic");
-		recordid.addProperty(ClassLabelConstants.CatalogDataObjectStatus, "CatalogObjectStatusCurrent");
-
-		JsonObject firebaseid = FindDatasetCollections.findDatasetCollectionID(classname, recordid);
-		System.out.println(JsonObjectUtilities.toString(firebaseid));
-		
-		JsonObject response = FindDatasetCollections.readInDatasetCollection(classname, recordid);
-		JsonObjectUtilities.printResponse(response);
-		
-		 ArrayList<MetaAtomDefinition> defs = FindMetaAtomDefinitionsInDatasetCollection.findMetaAtomDefinitions(recordid);
+		String dataset = "StandardDataset";
+		 ArrayList<MetaAtomDefinition> defs = FindMetaAtomDefinitionsInDatasetCollection.findMetaAtomDefinitions(maintainer,dataset);
 		 if(defs != null) {
 			 Iterator<MetaAtomDefinition> iter = defs.iterator();
 			 System.out.println("---------------------------------------------");

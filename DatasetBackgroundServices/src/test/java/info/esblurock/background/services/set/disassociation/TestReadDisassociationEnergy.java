@@ -1,6 +1,5 @@
 package info.esblurock.background.services.set.disassociation;
 
-import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,7 +16,7 @@ public class TestReadDisassociationEnergy {
 
 	@Test
 	public void test() {
-		String srcpath = "src/test/java/resources/metaatoms/readmetaatom.json";
+		String srcpath = "src/test/java/resources/disassociationenergy/readdisassociationenergy.json";
 		try {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);

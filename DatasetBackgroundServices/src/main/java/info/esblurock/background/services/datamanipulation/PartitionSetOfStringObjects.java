@@ -30,7 +30,7 @@ public enum PartitionSetOfStringObjects {
 				String transactionID = info.get(ClassLabelConstants.TransactionID).getAsString();
 				JsonObject block = BaseCatalogData.createStandardDatabaseObject("dataset:RepositoryTherGasThermodynamicsBlock",
 						owner, transactionID, "false");
-				block.addProperty(AnnotationObjectsLabels.identifier,ClassLabelConstants.RepositoryThermoPartitionBlock);
+				//block.addProperty(AnnotationObjectsLabels.identifier,ClassLabelConstants.RepositoryThermoPartitionBlock);
 				try {
 					tokenizer.readBlock();
 					block.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine1,tokenizer.line1);
@@ -58,31 +58,32 @@ public enum PartitionSetOfStringObjects {
 
 		@Override
 		void partition(JsonArray partitionarr, JsonObject info, String content) {
-			int sze = info.get(ClassLabelConstants.BlockLineCount).getAsInt();
+			int sze = info.get(ClassLabelConstants.BlockLineCount).getAsInt();			System.out.println("PartitionToLineSet: Size of Partition: " + sze);
 			StringTokenizer tok = new StringTokenizer(content,"\n");
 			int count = sze;
 			int position = 0;
 			JsonArray linearr = new JsonArray();
+			String owner = info.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+			String transactionID = info.get(ClassLabelConstants.TransactionID).getAsString();
 			while(tok.hasMoreElements()) {
 				if(count > 0) {
 					linearr.add(tok.nextToken());
-				} else {
-					String owner = info.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
-					String transactionID = info.get(ClassLabelConstants.TransactionID).getAsString();
+					count--;
+				}
+				if(count == 0) {
 					JsonObject block = BaseCatalogData.createStandardDatabaseObject("dataset:RepositoryParsedToFixedBlockSize",
 							owner, transactionID, "false");
-					block.addProperty(AnnotationObjectsLabels.identifier,ClassLabelConstants.RepositoryStringFixedSizeBlock);
+					//block.addProperty(AnnotationObjectsLabels.identifier,ClassLabelConstants.RepositoryStringFixedSizeBlock);
 					block.addProperty(ClassLabelConstants.BlockLineCount,sze);
 					block.add(ClassLabelConstants.ParsedLine, linearr);
 					block.addProperty(ClassLabelConstants.ElementCount, sze);
 					block.addProperty(ClassLabelConstants.Position, position);
 					partitionarr.add(block);
 					linearr = new JsonArray();
-					linearr.add(tok.nextToken());
-					count = sze -1;
+					count = sze;
 					position++;
 				}
-				count--;
+				
 			}
 		}
 

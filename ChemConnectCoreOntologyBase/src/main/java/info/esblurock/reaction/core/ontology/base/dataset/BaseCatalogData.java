@@ -33,7 +33,13 @@ public class BaseCatalogData {
 		return UUID.randomUUID().toString();
 	}
 	
-	public static void insertStandardBaseInformation(JsonObject obj, String owner, String transactionID, String publicB) {
+	public static void insertStandardBaseInformation(JsonObject obj, String owner, 
+			String transactionID, String publicB) {
+		insertStandardBaseInformation(obj,owner,transactionID,publicB,true);
+	}
+	
+	public static void insertStandardBaseInformation(JsonObject obj, String owner, 
+			String transactionID, String publicB, boolean computeaddress) {
 		obj.addProperty(ClassLabelConstants.CatalogObjectOwner, owner);
 		obj.addProperty(ClassLabelConstants.CatalogObjectAccessModify, owner );
 		if(publicB == null) {
@@ -48,7 +54,9 @@ public class BaseCatalogData {
 		insertCatalogObjectKey(obj);
 		String type = GenericSimpleQueries.classFromIdentifier(obj.get(AnnotationObjectsLabels.identifier).getAsString());
 		obj.addProperty(ClassLabelConstants.DatabaseObjectType, type);
-		insertFirestoreAddress(obj);		
+		if(computeaddress) {
+			insertFirestoreAddress(obj);
+		}
 	}
 	
 	public static void insertFirestoreAddress(JsonObject obj) {

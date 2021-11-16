@@ -58,24 +58,36 @@ public class CreateHierarchyElement {
 			System.err.println("System Error: Identifier as class not found: " + identifier);
 		}
 		ClassificationHierarchy hierarchy = DatabaseOntologyClassification.getClassificationHierarchy(topOfHierarchy);
-		search(hierarchy, json, pairs, pair, catalogC);
+		JsonObject firestoreaddress = null;
+		if(search(hierarchy, json, pairs, pair, catalogC)) {
 		int basenum = pairs.size()-1;
-		JsonObject firestoreaddress = CreateDocumentTemplate.createTemplate(firestoreid);
+		firestoreaddress = CreateDocumentTemplate.createTemplate(firestoreid);
 		JsonArray subpairs = new JsonArray();
 		Iterator<JsonElement> iter = pairs.iterator();
 		while(iter.hasNext()) {
 			JsonObject p = (JsonObject) iter.next();
 			if(p.get(ClassLabelConstants.DatasetIDLevel).getAsInt() == basenum) {
+				try {
 				firestoreaddress.addProperty(ClassLabelConstants.DataCatalog, 
 						p.get(ClassLabelConstants.DatasetCollectionID).getAsString());
 				firestoreaddress.addProperty(ClassLabelConstants.SimpleCatalogName, 
 						p.get(ClassLabelConstants.DatasetDocumentID).getAsString());
+				} catch(NullPointerException ex) {
+					System.out.println("Null Pointer Exception: catalogC \n" + catalogC);
+					System.out.println("Null Pointer Exception: p \n" + JsonObjectUtilities.toString(p));
+					System.out.println("Null Pointer Exception: pairs \n" + JsonObjectUtilities.toString(pairs));
+					System.out.println("Null Pointer Exception: json \n" + JsonObjectUtilities.toString(json));
+					throw ex;
+				}
 			} else {
 				subpairs.add(p);
 			}
 		}
 		JsonObject pairset = firestoreaddress.get(ClassLabelConstants.CollectionDocumentIDPairAddress).getAsJsonObject();
 		pairset.add(ClassLabelConstants.CollectionDocumentIDPair,subpairs);
+		} else {
+			System.out.println("Catalog object not found in hierarchy: " + catalogC);
+		}
 		return firestoreaddress;
 	}
 

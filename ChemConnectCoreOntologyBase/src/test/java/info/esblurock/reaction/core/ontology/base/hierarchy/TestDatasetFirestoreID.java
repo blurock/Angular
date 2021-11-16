@@ -19,7 +19,7 @@ public class TestDatasetFirestoreID {
 		String publicB = "true";
 		JsonObject json = BaseCatalogData.createStandardDatabaseObject(classname, owner, transactionID, publicB);
 		
-		String recordid = ClassLabelConstants.DatabaseRecordIDInfo;
+		String recordid = ClassLabelConstants.DatabaseCollectionOfCurrentClass;
 		JsonObject rec = json.get(recordid).getAsJsonObject();
 		rec.addProperty(ClassLabelConstants.DatasetName, "DatasetName");
 		rec.addProperty(ClassLabelConstants.CatalogDataObjectStatus, "DatasetStatus");

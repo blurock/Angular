@@ -1,0 +1,11 @@
+{
+	"prov:activity": "dataset:DatasetCollectionSetAddDatasetEvent",
+	"dataset:transreqobj": {},
+	"dataset:activityinfo": {
+		"dcterms:title": "Standard JThermodynamic Dataset JThermodynamicsDisassociationEnergyOfStructure IDs",
+		"dcterms:identifier": "dataset:adddatasetcollectioninfo",
+		"dataset:collectionobjecttype": "dataset:JThermodynamicsDisassociationEnergyOfStructure",
+		"dataset:datasetname": "StandardDataset",
+		"dataset:datasetversion": "1.0"
+	}
+}

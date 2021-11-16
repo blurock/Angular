@@ -24,6 +24,7 @@ import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLab
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
+import info.esblurock.reaction.core.ontology.base.dataset.CreateLinksInStandardCatalogInformation;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import info.esblurock.reaction.core.ontology.base.utilities.SubstituteJsonValues;
@@ -114,6 +115,9 @@ public enum TransactionProcess {
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 				JsonObject catalog = arr.get(0).getAsJsonObject();
+				CreateLinksInStandardCatalogInformation.addPrerequisitesToDataObjectLink(catalog, prerequisites);
+				CreateLinksInStandardCatalogInformation.transfer(info, catalog);
+				
 				WriteFirestoreCatalogObject.writeCatalogObject(catalog);
 			}
 			return response;
@@ -331,7 +335,6 @@ public enum TransactionProcess {
 			JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 			if (arr.size() > 0) {
 				JsonObject catalog = arr.get(0).getAsJsonObject();
-
 				JsonObject event = GenerateTransactionEventObject.generate(info, transactionID);
 				String title = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
 				JsonObject shortdescr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
@@ -352,6 +355,8 @@ public enum TransactionProcess {
 					response = DatabaseServicesBase.standardErrorResponse(document, rdfresponse, event);
 				}
 			} else {
+				String docmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
+				MessageConstructor.combineBodyIntoDocument(document, docmessage);					
 				Element body = MessageConstructor.isolateBody(document);
 				body.addElement("div").addText("No partitions executed, no catalog objects written");
 				response = DatabaseServicesBase.standardErrorResponse(document, "No partitions executed", response);
@@ -389,6 +394,8 @@ public enum TransactionProcess {
 	 * This is primarily used for testing purposes, to find an appropriate prerequisite transaction.
 	 * This is why just the first transaction found is taken.
 	 * 
+	 * If DatabaseIDFromRequiredTransaction does not exist in the json, then one is created.
+	 * 
 	 * If limittoone is true, then only one is allowed (might be useful in real cases).
 	 * 
 	 */
@@ -407,8 +414,13 @@ public enum TransactionProcess {
 				if(go) {
 				JsonObject first = labelids.get(0).getAsJsonObject();
 				JsonObject firestorid = first.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
-				JsonObject prerequisites = json.get(ClassLabelConstants.DatabaseIDFromRequiredTransaction)
+				JsonObject prerequisites = new JsonObject();
+				if(json.get(ClassLabelConstants.DatabaseIDFromRequiredTransaction) != null) {
+				prerequisites = json.get(ClassLabelConstants.DatabaseIDFromRequiredTransaction)
 						.getAsJsonObject();
+				} else {
+					json.add(ClassLabelConstants.DatabaseIDFromRequiredTransaction, prerequisites);
+				}
 				String preid = DatasetOntologyParseBase.getIDFromAnnotation(transactionname);
 				prerequisites.add(preid, firestorid);
 				} else {

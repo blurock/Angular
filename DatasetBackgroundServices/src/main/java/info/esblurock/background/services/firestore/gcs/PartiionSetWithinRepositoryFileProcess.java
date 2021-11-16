@@ -15,6 +15,8 @@ import info.esblurock.background.services.transaction.TransactionProcess;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
+import info.esblurock.reaction.core.ontology.base.dataset.CreateLinksInStandardCatalogInformation;
+import info.esblurock.reaction.core.ontology.base.transaction.transactionbase.catalogchangeevent.catcreateevent.CreateDatabasePersonEvent;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class PartiionSetWithinRepositoryFileProcess {
@@ -33,7 +35,8 @@ public class PartiionSetWithinRepositoryFileProcess {
 	public static JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
 		Document document = MessageConstructor.startDocument("PartiionSetWithinRepositoryFile");
 		Element body = MessageConstructor.isolateBody(document);
-		String content = retrieveContentFromTransaction(prerequisites);
+		JsonObject staging = retrieveContentCatalogObjectFromPrerequisites(prerequisites);
+		String content = retrieveContentFromTransaction(staging);
 		// Parse the content using the info (FilePartitionMethod)
 		String methodS = info.get(ClassLabelConstants.FilePartitionMethod).getAsString();
 		info.addProperty(ClassLabelConstants.CatalogObjectOwner, owner);
@@ -54,6 +57,11 @@ public class PartiionSetWithinRepositoryFileProcess {
 			catalog.addProperty(ClassLabelConstants.DatasetVersion, version);
 			catalog.addProperty(ClassLabelConstants.DatasetName, datasetname);
 			catalog.addProperty(ClassLabelConstants.FilePartitionMethod, methodS);
+			CreateLinksInStandardCatalogInformation.transfer(info, catalog);
+			CreateLinksInStandardCatalogInformation.transfer(staging, catalog);
+			CreateLinksInStandardCatalogInformation.linkCatalogObjects(staging, 
+					"dataset:ConceptLinkRepositoryFileToPartition", catalog);
+			BaseCatalogData.insertFirestoreAddress(catalog);
 			String message = WriteFirestoreCatalogObject.writeCatalogObject(catalog);
 			row.addElement("td").addText(catalog.get(ClassLabelConstants.Position).getAsString());
 			row.addElement("td").addText(message);
@@ -73,9 +81,8 @@ public class PartiionSetWithinRepositoryFileProcess {
 	 * If the content string is empty, then the read was not successful
 	 * 
 	 */
-	private static String retrieveContentFromTransaction(JsonObject prerequisites) {
+	private static String retrieveContentFromTransaction(JsonObject staging) {
 		String content = "";
-		JsonObject staging = TransactionProcess.retrieveSingleOutputFromTransaction(prerequisites, "dataset:initreposfile");
 		if(staging != null) {
 			// From the RepositoryDataPartitionBlock get the blob information (GCSBlobFileInformationStaging)
 			JsonObject gcsinfo = staging.get(ClassLabelConstants.GCSBlobFileInformationStaging).getAsJsonObject();
@@ -84,5 +91,8 @@ public class PartiionSetWithinRepositoryFileProcess {
 		}
 		return content;
 	}
-
+	private static JsonObject retrieveContentCatalogObjectFromPrerequisites(JsonObject prerequisites) {
+		JsonObject staging = TransactionProcess.retrieveSingleOutputFromTransaction(prerequisites, "dataset:initreposfile");
+		return staging;
+	}
 }

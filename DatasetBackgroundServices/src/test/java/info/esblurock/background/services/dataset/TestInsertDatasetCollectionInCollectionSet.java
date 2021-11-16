@@ -6,12 +6,9 @@ import java.nio.file.Paths;
 
 import org.junit.Test;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import info.esblurock.background.services.transaction.FindTransactions;
 import info.esblurock.background.services.transaction.TransactionProcess;
-import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class TestInsertDatasetCollectionInCollectionSet {
@@ -21,7 +18,9 @@ public class TestInsertDatasetCollectionInCollectionSet {
 		System.out.println("------------------------------------");
 		System.out.println("DatasetCollectionSetAddDatasetEvent");
 		System.out.println("------------------------------------");
-		String srcpath = "src/test/java/resources/dataset/addcollection.json";
+		
+		String srcpath = "src/test/java/resources/dataset/addcollectionDisassociationEnergy.json";
+		//String srcpath = "src/test/java/resources/dataset/addcollectionMetaAtom.json";
 		try {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);

@@ -19,6 +19,8 @@
 		"dcterms:title": "Benson Meta atom set",
 		"dataset:filesourcesubtype": "",
 		"dcterms:identifier": "initialrepositorylocal",
-		"dataset:catalogobjectmaintainer": "Administrator"
+		"dataset:catalogobjectmaintainer": "Administrator",
+		"dataset:datasetname": "Standard",
+		"dataset:datasetversion": "1.0"
 	}
 }

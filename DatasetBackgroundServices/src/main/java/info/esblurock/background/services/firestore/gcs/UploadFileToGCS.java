@@ -20,6 +20,7 @@ import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 
 public enum UploadFileToGCS {
 	
@@ -121,6 +122,8 @@ public enum UploadFileToGCS {
 	public static JsonObject readFromSource(String transactionID, String owner, JsonObject info) {
 		
 		String source  = info.get(ClassLabelConstants.UploadFileSource).getAsString();
+		String datasetname = info.get(ClassLabelConstants.DatasetName).getAsString();
+		String datasetversion = info.get(ClassLabelConstants.DatasetVersion).getAsString();
 		String sourcename = source.substring(8);
 		UploadFileToGCS upload = UploadFileToGCS.valueOf(sourcename);
 		String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
@@ -131,7 +134,10 @@ public enum UploadFileToGCS {
 		if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 			JsonObject gcsstaging = arr.get(0).getAsJsonObject();
+			gcsstaging.addProperty(ClassLabelConstants.DatasetName, datasetname);
+			gcsstaging.addProperty(ClassLabelConstants.DatasetVersion, datasetversion);
 			gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadInLocalStorageSystem");
+			BaseCatalogData.insertFirestoreAddress(gcsstaging);
 			JsonObject stagingblob = gcsstaging.get(ClassLabelConstants.GCSBlobFileInformationStaging).getAsJsonObject();
 			String description = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
 			stagingblob.addProperty(ClassLabelConstants.DescriptionAbstract, description);
