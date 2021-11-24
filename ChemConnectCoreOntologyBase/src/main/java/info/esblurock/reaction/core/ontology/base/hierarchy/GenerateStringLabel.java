@@ -24,6 +24,17 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public enum GenerateStringLabel {
 	
+	LabelDerivedFromTransactionEventType {
+
+		@Override
+		String deriveName(String hierclass, String classname, JsonObject object) {
+			String label = ClassLabelConstants.TransactionEventType;
+			String id = object.get(ClassLabelConstants.DatabaseObjectType).getAsString();
+			return getValueFromObject(object,label,id);
+		}
+		
+	},
+	
 	LabelDerivedFromCollectionIDSetLabel {
 
 		@Override
@@ -86,7 +97,8 @@ public enum GenerateStringLabel {
 
 		@Override
 		String deriveName(String hierclass,String classname, JsonObject object) {
-			return classname;
+			String name = classname.substring(8);
+			return name;
 		}
 		
 	}, DerivedFromHierarchyClassAnnotationAltLabel {
@@ -134,8 +146,11 @@ public enum GenerateStringLabel {
 		String lbl = defaultvalue;
 		JsonArray objectarr = JsonObjectUtilities.getValueUsingIdentifierMultiple(object,identifier);
 		if(objectarr.size() > 0) {
-			String rawlbl = objectarr.get(0).getAsString();
-			lbl = URLEncoder.encode(rawlbl,StandardCharsets.UTF_8);
+			lbl = objectarr.get(0).getAsString();
+			int position = lbl.indexOf(":");
+			if(position > 0) {
+				lbl = lbl.substring(position+1);
+			}
 		}
 		return lbl;
 	}

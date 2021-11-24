@@ -17,6 +17,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.DatasetCollectionManagement;
+import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
 import info.esblurock.background.services.jthermodynamics.structure.GenerateJThermodynamics2DSpeciesStructure;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
@@ -141,27 +142,15 @@ public enum InterpretTextBlock {
 						Double errorD = Double.valueOf(errorS);
 						Element row = table.addElement("tr");
 						JsonObject spec = info.get(ClassLabelConstants.ParameterSpecification).getAsJsonObject();
-						System.out.println("Interpret:\n" + JsonObjectUtilities.toString(catalog));
 						JsonObject value = CreateDocumentTemplate.createTemplate("dataset:JThermodynamicDisassociationEnergy");
 						catalog.add(ClassLabelConstants.JThermodynamicDisassociationEnergy, value);
-						//JsonObject value = catalog.get(ClassLabelConstants.JThermodynamicDisassociationEnergy).getAsJsonObject();
 						value.add(ClassLabelConstants.ParameterSpecification, spec);
 						value.addProperty(ClassLabelConstants.ValueUncertainty, errorD.toString());
 						value.addProperty(ClassLabelConstants.ValueAsString, energyD.toString());
 						catalog.add(ClassLabelConstants.JThermodynamics2DSpeciesStructure, structure);
-						JsonObject recordid = catalog.get(ClassLabelConstants.DatabaseCollectionOfCurrentClass)
-								.getAsJsonObject();
-						recordid.remove(ClassLabelConstants.CatalogObjectUniqueGenericLabel);
 						row.addElement("td").addText(position);
 						row.addElement("td").addText(nancy);
 						row.addElement("td").addText(energyD.toString());
-						StructureAsCML cml = new StructureAsCML(molecule);
-						System.out.println(cml.getCmlStructureString());
-					} catch (CDKException ex) {
-						Element row = table.addElement("tr");
-						row.addElement("td").addText("Error: " + ex.getMessage());
-						Logger.getLogger(ReadDisassociationData.class.getName()).log(Level.SEVERE, null, ex);
-						catalog = null;
 					} catch (ThermodynamicComputeException ex) {
 						Element row = table.addElement("tr");
 						row.addElement("td").addText(nancy);
@@ -209,16 +198,18 @@ public enum InterpretTextBlock {
 
 	public abstract JsonObject interpret(JsonObject parsed, Element table, JsonObject info);
 
-	public static JsonObject interpret(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
+	public static JsonObject interpret(JsonObject event, JsonObject prerequisites, JsonObject info) {
+		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+		String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
+		JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
+				.getAsJsonObject();
+		JsonObject catalogrecordid = recordid.deepCopy();
+		catalogrecordid.remove(ClassLabelConstants.CatalogObjectUniqueGenericLabel);
+		event.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
 		Document document = MessageConstructor.startDocument("PartiionSetWithinRepositoryFile");
 		Element body = MessageConstructor.isolateBody(document);
 		int errorcnt = 0;
 		JsonArray catalogset = new JsonArray();
-		JsonObject response = null;
-		JsonArray objs = TransactionProcess.retrieveSetOfOutputsFromTransaction(prerequisites,
-				"dataset:datasetcollectionsetcreationevent");
-		if (objs.size() > 0) {
-			JsonObject collectionids = objs.get(0).getAsJsonObject();
 			JsonArray parsedlineset = TransactionProcess.retrieveSetOfOutputsFromTransaction(prerequisites,
 					ClassLabelConstants.PartiionSetWithinRepositoryFile);
 			body.addElement("div").addText("Processing " + parsedlineset.size() + " blocks");
@@ -229,25 +220,15 @@ public enum InterpretTextBlock {
 				if (checkIfCompatableParse(parsed, info)) {
 					JsonObject catalog = method.interpret(parsed, table, info);
 					if (catalog != null) {
-						BaseCatalogData.insertStandardBaseInformation(catalog, owner, transactionID, "false", false);
-						String id = catalog.get(ClassLabelConstants.CatalogObjectKey).getAsString();
-						JsonObject recordid = catalog.get(ClassLabelConstants.DatabaseCollectionOfCurrentClass)
-								.getAsJsonObject();
-						if(recordid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel) == null) {
-							recordid.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, id);
-						}
+						catalog.add(ClassLabelConstants.DatasetSpecificationForCollectionSet, catalogrecordid);
+						BaseCatalogData.insertStandardBaseInformation(catalog, owner, transactionID, "false", true);
 						CreateLinksInStandardCatalogInformation.transfer(info, catalog);
 						CreateLinksInStandardCatalogInformation.transfer(parsed, catalog);
 						CreateLinksInStandardCatalogInformation.linkCatalogObjects(parsed, 
 								"dataset:ConceptLinkRepositoryPartitionToInterpretation", catalog);
 						CreateLinksInStandardCatalogInformation.transfer(info, catalog);
-						System.out.println("Interpret:\n" + JsonObjectUtilities.toString(collectionids));
-						if (DatasetCollectionManagement.writeCatalogObject(catalog, collectionids)) {
-							catalogset.add(catalog);
-						} else {
-							body.addElement("pre").addText("Write failed: \n" + JsonObjectUtilities.toString(catalog));
-							errorcnt++;
-						}
+						WriteFirestoreCatalogObject.writeCatalogObject(catalog);
+						catalogset.add(catalog);
 					} else {
 						errorcnt++;
 					}
@@ -263,10 +244,7 @@ public enum InterpretTextBlock {
 			if (errorcnt > 0) {
 				message += " (Error count: " + errorcnt + ")";
 			}
-			response = DatabaseServicesBase.standardServiceResponse(document, message, catalogset);
-		} else {
-			response = DatabaseServicesBase.standardErrorResponse(document, "Dataset Collection ID not found", null);
-		}
+			JsonObject response = DatabaseServicesBase.standardServiceResponse(document, message, catalogset);
 
 		return response;
 	}

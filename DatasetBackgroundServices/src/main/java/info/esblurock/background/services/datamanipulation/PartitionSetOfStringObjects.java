@@ -58,7 +58,8 @@ public enum PartitionSetOfStringObjects {
 
 		@Override
 		void partition(JsonArray partitionarr, JsonObject info, String content) {
-			int sze = info.get(ClassLabelConstants.BlockLineCount).getAsInt();			System.out.println("PartitionToLineSet: Size of Partition: " + sze);
+			int sze = info.get(ClassLabelConstants.BlockLineCount).getAsInt();			
+			System.out.println("PartitionToLineSet: Size of Partition: " + sze);
 			StringTokenizer tok = new StringTokenizer(content,"\n");
 			int count = sze;
 			int position = 0;
@@ -73,8 +74,6 @@ public enum PartitionSetOfStringObjects {
 				if(count == 0) {
 					JsonObject block = BaseCatalogData.createStandardDatabaseObject("dataset:RepositoryParsedToFixedBlockSize",
 							owner, transactionID, "false");
-					//block.addProperty(AnnotationObjectsLabels.identifier,ClassLabelConstants.RepositoryStringFixedSizeBlock);
-					block.addProperty(ClassLabelConstants.BlockLineCount,sze);
 					block.add(ClassLabelConstants.ParsedLine, linearr);
 					block.addProperty(ClassLabelConstants.ElementCount, sze);
 					block.addProperty(ClassLabelConstants.Position, position);

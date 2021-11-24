@@ -10,6 +10,7 @@ public class OntologyObjectLabels {
 	public static String records = "records";
 	public static String components = "components";
 	public static String mappingRDFs = "mappingRDFs";
+	public static String catalog = "dcat:catalog";
 	public static String recordlabel = "dcat:record";
 	public static String recordOntologylabel = "dcat:record";
 	public static String mappinglabel = "skos:mappingRelation";
@@ -20,6 +21,7 @@ public class OntologyObjectLabels {
 	public static String isDefinedBy = "rdfs:isDefinedBy";
 	public static String label = "rdfs:label";
 	public static String dctype = "<http://purl.org/dc/elements/1.1/type>";
+	public static String requires = "<http://purl.org/dc/terms/requires>";
 	
 	public static String recordsSinglet = "recordsSinglet";
 	public static String recordsMultiple = "recordsMultiple";

@@ -51,8 +51,16 @@ public class SetUpDocumentReference {
 		int idsize = jarr.size();
 		for(int i=0; i<idsize;i++) {
 			JsonObject pair = getCollectionDocumentIDPair(i,jarr);
-			String collection = pair.get(ClassLabelConstants.DatasetCollectionID).getAsString();
-			String document = pair.get(ClassLabelConstants.DatasetDocumentID).getAsString();
+			String collection = null;
+			String document = null;
+			try {
+				collection = pair.get(ClassLabelConstants.DatasetCollectionID).getAsString();
+				document = pair.get(ClassLabelConstants.DatasetDocumentID).getAsString();
+			} catch(NullPointerException ex) {
+				System.out.println("SetUpDocumentReference.loopPairs: " + JsonObjectUtilities.toString(pair));
+				System.out.println(JsonObjectUtilities.toString(firestorecatalogid));
+				System.out.println(JsonObjectUtilities.toString(jarr));
+			}
 			
 			try {
 				String URLcollection = URLEncoder.encode(collection, StandardCharsets.UTF_8.toString());

@@ -121,22 +121,21 @@ public enum UploadFileToGCS {
 	 */
 	public static JsonObject readFromSource(String transactionID, String owner, JsonObject info) {
 		
-		String source  = info.get(ClassLabelConstants.UploadFileSource).getAsString();
-		String datasetname = info.get(ClassLabelConstants.DatasetName).getAsString();
-		String datasetversion = info.get(ClassLabelConstants.DatasetVersion).getAsString();
-		String sourcename = source.substring(8);
-		UploadFileToGCS upload = UploadFileToGCS.valueOf(sourcename);
-		String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+		
+		JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection).getAsJsonObject();
+		String maintainer = recordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 		if(maintainer == null) {
 			maintainer = owner;
 		}
+		String source  = info.get(ClassLabelConstants.UploadFileSource).getAsString();
+		String sourcename = source.substring(8);
+		UploadFileToGCS upload = UploadFileToGCS.valueOf(sourcename);
 		JsonObject response = upload.process(transactionID, owner, maintainer, info);
 		if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 			JsonObject gcsstaging = arr.get(0).getAsJsonObject();
-			gcsstaging.addProperty(ClassLabelConstants.DatasetName, datasetname);
-			gcsstaging.addProperty(ClassLabelConstants.DatasetVersion, datasetversion);
 			gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadInLocalStorageSystem");
+			gcsstaging.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
 			BaseCatalogData.insertFirestoreAddress(gcsstaging);
 			JsonObject stagingblob = gcsstaging.get(ClassLabelConstants.GCSBlobFileInformationStaging).getAsJsonObject();
 			String description = info.get(ClassLabelConstants.DescriptionTitle).getAsString();

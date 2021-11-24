@@ -1,6 +1,7 @@
 package info.esblurock.background.services.transaction;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -10,7 +11,6 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.SystemObjectInformation;
 import info.esblurock.background.services.datamanipulation.InterpretTextBlock;
-import info.esblurock.background.services.dataset.DatasetCollectionIDManagement;
 import info.esblurock.background.services.dataset.DatasetCollectionManagement;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
@@ -22,11 +22,13 @@ import info.esblurock.background.services.service.rdfs.GenerateAndWriteRDFForObj
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.constants.OntologyObjectLabels;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateLinksInStandardCatalogInformation;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
+import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRoutines;
 import info.esblurock.reaction.core.ontology.base.utilities.SubstituteJsonValues;
 
 public enum TransactionProcess {
@@ -34,7 +36,9 @@ public enum TransactionProcess {
 	CreateDatabasePersonEvent {
 
 		@Override
-		public JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
+		public JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+			String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+			String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
 			JsonObject obj = new JsonObject();
 			Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent");
 			Element body = MessageConstructor.isolateBody(document);
@@ -67,13 +71,20 @@ public enum TransactionProcess {
 			JsonObject person = catalog.get(ClassLabelConstants.PersonalDescription).getAsJsonObject();
 			String title = person.get(ClassLabelConstants.UserClassification).getAsString();
 			return title;
-		};
+		}
+
+		@Override
+		String transactionObjectName() {
+			return "dataset:UserManagementTransactionObject";
+		}
 
 	},
 	CreateUserAccountEvent {
 
 		@Override
-		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
+		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+			String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+			String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
 			String username = info.get(ClassLabelConstants.username).getAsString();
 			Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent: " + username);
 			System.out
@@ -105,20 +116,32 @@ public enum TransactionProcess {
 		String transactionKey(JsonObject catalog) {
 			String username = catalog.get(ClassLabelConstants.username).getAsString();
 			return username;
-		};
+		}
+
+		@Override
+		String transactionObjectName() {
+			return "dataset:UserManagementTransactionObject";
+		}
 
 	},
 	InitialReadInOfRepositoryFile {
 		@Override
-		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
+		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+			String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+			String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
 			JsonObject response = UploadFileToGCS.readFromSource(transactionID, owner, info);
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 				JsonObject catalog = arr.get(0).getAsJsonObject();
+
+				JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
+						.getAsJsonObject();
+				catalog.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
+				BaseCatalogData.insertFirestoreAddress(catalog);
 				CreateLinksInStandardCatalogInformation.addPrerequisitesToDataObjectLink(catalog, prerequisites);
 				CreateLinksInStandardCatalogInformation.transfer(info, catalog);
-				
 				WriteFirestoreCatalogObject.writeCatalogObject(catalog);
+				event.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
 			}
 			return response;
 		}
@@ -128,67 +151,91 @@ public enum TransactionProcess {
 			JsonObject gcsblob = catalog.get(ClassLabelConstants.GCSBlobFileInformationStaging).getAsJsonObject();
 			String key = gcsblob.get(ClassLabelConstants.FileSourceFormat).getAsString();
 			return key;
-		};
+		}
+
+		@Override
+		String transactionObjectName() {
+			return "dataset:DatasetTransactionEventObject";
+		}
 
 	},
 	PartiionSetWithinRepositoryFile {
 
 		@Override
-		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
-			return PartiionSetWithinRepositoryFileProcess.process(transactionID, owner, prerequisites, info);
+		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+			return PartiionSetWithinRepositoryFileProcess.process(event, prerequisites, info);
 		}
 
 		@Override
 		String transactionKey(JsonObject catalog) {
 			String fileformat = catalog.get(ClassLabelConstants.FileSourceFormat).getAsString();
 			return fileformat;
-		};
+		}
+
+		@Override
+		String transactionObjectName() {
+			return "dataset:DatasetTransactionEventObject";
+		}
 	},
 	TransactionSetupMolecularThermodynamics {
 
 		@Override
-		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
-			return InterpretThermodynamicBlock.interpretMolecularThermodynamics(transactionID, owner, prerequisites,
-					info);
+		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+			return InterpretThermodynamicBlock.interpretMolecularThermodynamics(event, prerequisites, info);
 		}
 
 		@Override
 		String transactionKey(JsonObject catalog) {
 			return null;
-		};
+		}
+
+		@Override
+		String transactionObjectName() {
+			return "dataset:DatasetTransactionEventObject";
+		}
+		
 
 	},
 	TransactionSetupBensonRule {
 
 		@Override
-		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
-			return InterpretThermodynamicBlock.interpretBensonRuleThermodynamics(transactionID, owner, prerequisites,
-					info);
+		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+			return InterpretThermodynamicBlock.interpretBensonRuleThermodynamics(event, prerequisites, info);
 		}
 
 		@Override
 		String transactionKey(JsonObject catalog) {
 			return null;
-		};
+		}
+
+		@Override
+		String transactionObjectName() {
+			return "dataset:DatasetTransactionEventObject";
+		}
 
 	},
 	TransactionInterpretTextBlock {
 		@Override
-		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
-			return InterpretTextBlock.interpret(transactionID, owner, prerequisites, info);
+		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+			return InterpretTextBlock.interpret(event, prerequisites, info);
 		}
 
 		@Override
 		String transactionKey(JsonObject catalog) {
 			return null;
-		};
-
-	}, DatasetCollectionSetCreationEvent {
+		}
 
 		@Override
-		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
-			JsonObject response = DatasetCollectionManagement.setupNewDatabaseCollectionSet(info, 
-					owner, transactionID);
+		String transactionObjectName() {
+			return "dataset:DatasetTransactionEventObject";
+		}
+
+	},
+	DatasetCollectionSetCreationEvent {
+
+		@Override
+		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+			JsonObject response = DatasetCollectionManagement.setupNewDatabaseCollectionSet(event, info);
 			return response;
 		}
 
@@ -198,12 +245,18 @@ public enum TransactionProcess {
 			String name = catalog.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
 			return maintainer + "." + name;
 		}
-		
-	}, DatasetCollectionSetAddDatasetEvent {
 
 		@Override
-		JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
-			return DatasetCollectionManagement.insertCollectionInfoDataset(info, prerequisites);
+		String transactionObjectName() {
+			return "dataset:DatasetCollectionManagementTransaction";
+		}
+
+	},
+	DatasetCollectionSetAddDatasetEvent {
+
+		@Override
+		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+			return DatasetCollectionManagement.insertCollectionInfoDataset(event, info, prerequisites);
 		}
 
 		@Override
@@ -212,7 +265,12 @@ public enum TransactionProcess {
 			String name = catalog.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
 			return maintainer + "." + name;
 		}
-		
+
+		@Override
+		String transactionObjectName() {
+			return "dataset:DatasetCollectionManagementTransaction";
+		}
+
 	};
 
 	public static void addLinkToCatalog(JsonArray catalogobjs, JsonObject linkobj, String type, String concept) {
@@ -314,14 +372,17 @@ public enum TransactionProcess {
 	 *                      transaction
 	 * @return the transaction event
 	 */
-	abstract JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info);
+	abstract JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info);
 
-	/** Generate Transaction Key
+	/**
+	 * Generate Transaction Key
 	 * 
-	 * @param catalog The catalog 
+	 * @param catalog The catalog
 	 * @return The key associated with the transaction
 	 */
 	abstract String transactionKey(JsonObject catalog);
+
+	abstract String transactionObjectName();
 
 	public static JsonObject processFromTransaction(String transaction, JsonObject prerequisites, JsonObject info) {
 		Document document = MessageConstructor.startDocument("Transaction: " + transaction);
@@ -329,13 +390,16 @@ public enum TransactionProcess {
 		TransactionProcess process = TransactionProcess.valueOf(transname);
 		String transactionID = SystemObjectInformation.determineTransactionID();
 		String owner = SystemObjectInformation.determineOwner();
-		JsonObject response = process.process(transactionID, owner, prerequisites, info);
+		String transactionobjectname = process.transactionObjectName();
+		JsonObject event = BaseCatalogData.createStandardDatabaseObject(transactionobjectname, owner,
+				transactionID, owner);
+		event.add(ClassLabelConstants.ActivityInformationRecord, info);
+		JsonObject response = process.process(event, prerequisites, info);
 		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 
 			JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 			if (arr.size() > 0) {
 				JsonObject catalog = arr.get(0).getAsJsonObject();
-				JsonObject event = GenerateTransactionEventObject.generate(info, transactionID);
 				String title = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
 				JsonObject shortdescr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
 				shortdescr.addProperty(ClassLabelConstants.TransactionEventType, transaction);
@@ -343,20 +407,21 @@ public enum TransactionProcess {
 				shortdescr.addProperty(ClassLabelConstants.TransactionKey, process.transactionKey(catalog));
 				JsonArray output = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 				GenerateTransactionEventObject.addDatabaseObjectIDOutputTransaction(event, output);
+				BaseCatalogData.insertFirestoreAddress(event);
 				WriteFirestoreCatalogObject.writeCatalogObject(event);
 				String message = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 				MessageConstructor.combineBodyIntoDocument(document, message);
 				JsonObject rdfresponse = GenerateAndWriteRDFForObject.generate(event);
 				if (rdfresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 					String rdfmessage = rdfresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
-					MessageConstructor.combineBodyIntoDocument(document, rdfmessage);					
+					MessageConstructor.combineBodyIntoDocument(document, rdfmessage);
 					response = DatabaseServicesBase.standardServiceResponse(document, "Success: " + transaction, event);
 				} else {
 					response = DatabaseServicesBase.standardErrorResponse(document, rdfresponse, event);
 				}
 			} else {
 				String docmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
-				MessageConstructor.combineBodyIntoDocument(document, docmessage);					
+				MessageConstructor.combineBodyIntoDocument(document, docmessage);
 				Element body = MessageConstructor.isolateBody(document);
 				body.addElement("div").addText("No partitions executed, no catalog objects written");
 				response = DatabaseServicesBase.standardErrorResponse(document, "No partitions executed", response);
@@ -375,57 +440,70 @@ public enum TransactionProcess {
 	 *         <li>Prerequisite IDs (dataset:requiredtransitionid) JsonArray
 	 *         <li>ActivityInfo (dataset:activityinfo) JsonObject
 	 *         <ul>
+	 * 
+	 *         Prerequisites that are subclasses of DatabaseTransactionEvent can be
+	 *         filled in from the activity info.
 	 */
 	public static JsonObject processFromTransaction(JsonObject json) {
 		String transaction = json.get(ClassLabelConstants.TransactionEventType).getAsString();
+		// Dataset transaction events (subclass of DatabaseTransactionEvent), then can
+		// be filled in automatically
+		fillInDatasetPrerequisites(transaction, json);
 		JsonObject prerequisites = getPrerequisiteObjects(json);
 		JsonObject info = json.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
 		return processFromTransaction(transaction, prerequisites, info);
 	}
-	
-	/** Insert prerequisite transaction firestoreid into activity info
+
+	/**
+	 * Insert prerequisite transaction firestoreid into activity info
 	 * 
-	 * @param json The activity info
+	 * @param json            The activity info
 	 * @param transactionname The name of prerequisite transaction
-	 * @param criteria The limiting criteria (the transaction key in ShortTransactionDescription)
-	 * @param limittoone If true, then only one transacation meeting the transactionname and criteria is allowed.
+	 * @param criteria        The limiting criteria (the transaction key in
+	 *                        ShortTransactionDescription)
+	 * @param limittoone      If true, then only one transacation meeting the
+	 *                        transactionname and criteria is allowed.
 	 * @return true if successful
 	 * 
-	 * This is primarily used for testing purposes, to find an appropriate prerequisite transaction.
-	 * This is why just the first transaction found is taken.
+	 *         This is primarily used for testing purposes, to find an appropriate
+	 *         prerequisite transaction. This is why just the first transaction
+	 *         found is taken.
 	 * 
-	 * If DatabaseIDFromRequiredTransaction does not exist in the json, then one is created.
+	 *         If DatabaseIDFromRequiredTransaction does not exist in the json, then
+	 *         one is created.
 	 * 
-	 * If limittoone is true, then only one is allowed (might be useful in real cases).
+	 *         If limittoone is true, then only one is allowed (might be useful in
+	 *         real cases).
 	 * 
 	 */
-	public static boolean setFirstTransactionIntoActivityInfo(JsonObject json, String transactionname, String criteria, boolean limittoone) {
+	public static boolean setFirstTransactionIntoActivityInfo(JsonObject json, String transactionname, String criteria,
+			boolean limittoone) {
 		boolean success = true;
-		JsonObject transresponse = FindTransactions.findLabelFirestoreIDPairByType(transactionname,
-				criteria);
+		JsonObject transresponse = FindTransactions.findLabelFirestoreIDPairByType(transactionname, criteria);
 		if (transresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			JsonObject transout = transresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 			JsonArray labelids = transout.get(ClassLabelConstants.LabelFirestoreIDPair).getAsJsonArray();
 			if (labelids.size() > 0) {
 				boolean go = true;
-				if(limittoone) {
+				if (limittoone) {
 					go = labelids.size() == 1;
 				}
-				if(go) {
-				JsonObject first = labelids.get(0).getAsJsonObject();
-				JsonObject firestorid = first.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
-				JsonObject prerequisites = new JsonObject();
-				if(json.get(ClassLabelConstants.DatabaseIDFromRequiredTransaction) != null) {
-				prerequisites = json.get(ClassLabelConstants.DatabaseIDFromRequiredTransaction)
-						.getAsJsonObject();
+				if (go) {
+					JsonObject first = labelids.get(0).getAsJsonObject();
+					JsonObject firestorid = first.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+					JsonObject prerequisites = new JsonObject();
+					if (json.get(ClassLabelConstants.DatabaseIDFromRequiredTransaction) != null) {
+						prerequisites = json.get(ClassLabelConstants.DatabaseIDFromRequiredTransaction)
+								.getAsJsonObject();
+					} else {
+						json.add(ClassLabelConstants.DatabaseIDFromRequiredTransaction, prerequisites);
+					}
+					String preid = DatasetOntologyParseBase.getIDFromAnnotation(transactionname);
+					prerequisites.add(preid, firestorid);
 				} else {
-					json.add(ClassLabelConstants.DatabaseIDFromRequiredTransaction, prerequisites);
-				}
-				String preid = DatasetOntologyParseBase.getIDFromAnnotation(transactionname);
-				prerequisites.add(preid, firestorid);
-				} else {
-					System.err.println("More than one prerequisite Transactions found: \n" + JsonObjectUtilities.toString(labelids));
-					success = false;					
+					System.err.println("More than one prerequisite Transactions found: \n"
+							+ JsonObjectUtilities.toString(labelids));
+					success = false;
 				}
 			} else {
 				System.err.println("Prerequisite Transaction not found meeting criteria: " + criteria);
@@ -436,5 +514,62 @@ public enum TransactionProcess {
 			success = false;
 		}
 		return success;
+	}
+
+	/**
+	 * @param eventtype the transaction event name
+	 * @param json      The TransactionProcess input
+	 * 
+	 *                  If can be found using the standard information in the
+	 *                  activity info and If a single prerequisite is found, then it
+	 *                  is added to the prerequisites (or if onlyone is false, then
+	 *                  the first one is returned).
+	 * 
+	 *                  If the set of prerequisites is not in the input, an empty
+	 *                  prerequisite object i is put there and that is filled in.
+	 * 
+	 *                  If the label for the event type is present in the
+	 *                  prerequisites, then it is not changed.
+	 * 
+	 *                  the working routine for this is
+	 *                  FindTransactions.findDatasetTransaction. If this returns a
+	 *                  non-null transaction, then the FirebaseCatalogID is entered
+	 *                  in the prerequisites. Otherwise, nothing is fill in.
+	 * 
+	 * 
+	 */
+	public static void fillInDatasetPrerequisites(String eventtype, JsonObject json) {
+		// Get Activity info of the input
+		JsonObject info = json.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
+		// Get prequisites, if not there, create prerequisites object
+		JsonObject prerequisites = null;
+		if (json.get(ClassLabelConstants.DatabaseIDFromRequiredTransaction) == null) {
+			prerequisites = new JsonObject();
+			json.add(ClassLabelConstants.DatabaseIDFromRequiredTransaction, prerequisites);
+		} else {
+			prerequisites = json.get(ClassLabelConstants.DatabaseIDFromRequiredTransaction).getAsJsonObject();
+		}
+		// From the event, find the prerequisite transactions
+		List<String> prerequisitenames = OntologyUtilityRoutines.exactlyOnePropertyMultiple(eventtype,
+				OntologyObjectLabels.requires);
+		// Loop through each prerequisite
+		for (String name : prerequisitenames) {
+			String label = DatasetOntologyParseBase.getIDFromAnnotation(name);
+			System.out.println("fillInDatasetPrerequisites: " + name);
+			System.out.println("fillInDatasetPrerequisites: " + label);
+			// If the prerequisite has not been filled in yet, find it and add it in.
+			if (prerequisites.get(label) == null) {
+				JsonObject transaction = FindTransactions.findDatasetTransaction(info, name, true);
+				if (transaction != null) {
+					System.out.println(JsonObjectUtilities.toString(transaction));
+
+					JsonObject firebaseid = transaction.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+					prerequisites.add(label, firebaseid);
+				} else {
+					System.out.println("No transaction found");
+				}
+			}
+		}
+
 	}
 }

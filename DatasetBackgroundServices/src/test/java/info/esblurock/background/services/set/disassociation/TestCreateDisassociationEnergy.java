@@ -17,33 +17,18 @@ public class TestCreateDisassociationEnergy {
 	@Test
 	public void test() {
 		String srcpath = "src/test/java/resources/disassociationenergy/createdisassociationenergies.json";
-		try {
-			String content = Files.readString(Paths.get(srcpath));
+			String content;
+			try {
+				content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
-			String transactionname = "dataset:DatasetCollectionSetCreationEvent";
-			String criteria = "Administrator.StandardDataset";
-			if (TransactionProcess.setFirstTransactionIntoActivityInfo(json, transactionname, criteria, false)) {
-				transactionname = "dataset:PartiionSetWithinRepositoryFile";
-				criteria = "dataset:JThermodynamicsDisassociationEnergy";
-				if (TransactionProcess.setFirstTransactionIntoActivityInfo(json, transactionname, criteria, false)) {
-					System.out.println("----------------------------------------------");
-					System.out.println(JsonObjectUtilities.toString(json));
 					System.out.println("----------------------------------------------");
 					JsonObject response = TransactionProcess.processFromTransaction(json);
 					System.out.println("----------------------------------------------");
 					JsonObjectUtilities.printResponse(response);
 					System.out.println("----------------------------------------------");
-				} else {
-					System.out.println("Failed to get prerequisite: " + transactionname);
-				}
-			} else {
-				System.out.println("Failed to get prerequisite: " + transactionname);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	
+	}	
 }

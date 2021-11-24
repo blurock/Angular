@@ -36,8 +36,6 @@ public class WriteFirestoreCatalogObject {
 	public static String write(Firestore db, JsonObject catalog, JsonObject firestorecatalogid) {
 		DocumentReference docRef = SetUpDocumentReference.setup(db, firestorecatalogid);
 		String message = "Successful Write:\n";
-		System.out.println(" WriteFirestoreCatalogObject firestore id:\n" + JsonObjectUtilities.toString(firestorecatalogid));
-		System.out.println(" WriteFirestoreCatalogObject:\n" + JsonObjectUtilities.toString(catalog));
 		Type type = new TypeToken<HashMap<String, Object>>() {}.getType();
 		Map<String, Object> mapObj = new Gson().fromJson(catalog, type);
 		ApiFuture<WriteResult> result = docRef.set(mapObj);

@@ -3,15 +3,17 @@ package info.esblurock.background.services.jthermodynamics;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+
 public class InterpretThermodynamicBlock {
-	public static JsonObject interpretMolecularThermodynamics(String transactionID, 
-			String owner, JsonObject prerequisites, JsonObject info) {
+	public static JsonObject interpretMolecularThermodynamics(JsonObject event, JsonObject prerequisites, JsonObject info) {
 		JsonArray set = getBlocksFromTransaction(prerequisites);
 		JsonArray thermo = standardThermodynamics(set);
 		return null;
 	}
-	public static JsonObject interpretBensonRuleThermodynamics(String transactionID, 
-			String owner, JsonObject prerequisites, JsonObject info) {
+	public static JsonObject interpretBensonRuleThermodynamics(JsonObject event, JsonObject prerequisites, JsonObject info) {
+		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+		String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
 		JsonArray set = getBlocksFromTransaction(prerequisites);
 		JsonArray thermo = standardThermodynamics(set);
 		return null;

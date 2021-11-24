@@ -10,7 +10,10 @@ import org.junit.Test;
 
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.transaction.FindTransactions;
 import info.esblurock.background.services.transaction.TransactionProcess;
+import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class TestPartitionDisassociationFile {
@@ -21,15 +24,8 @@ public class TestPartitionDisassociationFile {
 		try {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
-			String type = "dataset:InitialReadInOfRepositoryFile";
-			if(TransactionProcess.setFirstTransactionIntoActivityInfo(json,
-					"dataset:InitialReadInOfRepositoryFile", 
-					"dataset:JThermodynamicsDisassociationEnergyFormat", false)) {
 				JsonObject response = TransactionProcess.processFromTransaction(json);
 				JsonObjectUtilities.printResponse(response);
-			} else {
-				System.out.println("Failed to get prerequisite: " + type);
-			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

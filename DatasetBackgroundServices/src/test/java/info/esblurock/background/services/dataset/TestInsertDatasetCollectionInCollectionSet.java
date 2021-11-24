@@ -24,15 +24,8 @@ public class TestInsertDatasetCollectionInCollectionSet {
 		try {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
-
-			String transactionname = "dataset:DatasetCollectionSetCreationEvent";
-			String criteria = "Administrator.StandardDataset";
-			if(TransactionProcess.setFirstTransactionIntoActivityInfo(json, transactionname, criteria,false) ) {
 				JsonObject response = TransactionProcess.processFromTransaction(json);
 				JsonObjectUtilities.printResponse(response);
-			} else {
-				System.err.println("Prerequisite Transaction not found");
-			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

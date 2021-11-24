@@ -11,28 +11,25 @@ import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyEleme
 
 public class DatasetCollectionIDManagement {
 
-	/**
-	 * @param the classname of the catalog object collection
+	/** Find FirebaseCatalogID of current database
+	 * 
 	 * @param recordid DatasetforTypeInCollectionSet
-	 * @return The firestore ID of collection
+	 * @return The firestore ID of the current object collection
 	 * 
 	 * the DatabaseCollectionOfCurrentClass should have:
 	 * <ul>
 	 * <li> dataset:catalogobjectmaintainer    maintainer 
 	 * <li> dataset:datasetname                datasetname
-	 * <li> dataset:datasetversion:  datasetversion
+	 * <li> dataset:datasetversion:            datasetversion
+	 * <li> dataset:objectype:                 classname
 	 * <ul>
 	 * 
 	 */
-	public static JsonObject firebaseIDOfCollection(JsonObject recordid) {
-		String classname = recordid.get(ClassLabelConstants.DatasetCollectionObjectType).getAsString();
+	public static JsonObject firebaseIDOfCollection(String classname, JsonObject recordid) {
 		String maintainer  = recordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 		String datasetname  = recordid.get(ClassLabelConstants.DatasetName).getAsString();
 		String datasetversion  = recordid.get(ClassLabelConstants.DatasetVersion).getAsString();
-		String collectionname  = recordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
-		
-		JsonObject catrecordid = CreateDocumentTemplate.createTemplate("dataset:DatabaseCollectionOfCurrentClass");
-		catrecordid.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, collectionname);
+		JsonObject catrecordid = CreateDocumentTemplate.createTemplate("dataset:DatasetSpecificationForCollectionSet");
 		catrecordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 		catrecordid.addProperty(ClassLabelConstants.DatasetName, datasetname);
 		catrecordid.addProperty(ClassLabelConstants.DatasetVersion, datasetversion);
@@ -65,16 +62,15 @@ public class DatasetCollectionIDManagement {
 	
 	/** Derive and insert collectionid into the ChemConnectDatasetCollectionIDsSet
 	 * 
-	 * @param recordid DatabaseCollectionOfCurrentClass
+	 * @param classname The class dataset to insert
+	 * @param recordid DatasetSpecificationForCollectionSet
 	 * @param datasetcollection The dataset collection to insert the collection id in
 	 * 
-	 * The DatasetCollectionObjectType within the DatabaseCollectionOfCurrentClass is used to find the class
 	 * The identifier for the inserted collection is the identifier for the class
-	 * The collectionid is derived from the DatabaseCollectionOfCurrentClass
+	 * The record (DatasetSpecificationForCollectionSet) is inserted.
 	 * 
 	 */
-	public static void insertCollectionInfoDataset(JsonObject recordid, JsonObject collectionids) {
-		String classname = recordid.get(ClassLabelConstants.DatasetCollectionObjectType).getAsString();
+	public static void insertCollectionInfoDataset(String classname, JsonObject recordid, JsonObject collectionids) {
 		String identifier = DatasetOntologyParseBase.getIDFromAnnotation(classname);
 		collectionids.add(identifier, recordid);
 	}
@@ -90,7 +86,7 @@ public class DatasetCollectionIDManagement {
 		JsonObject firestoreid = null;
 		if(collectionids.get(identifier) != null) {
 			JsonObject recordid =  collectionids.get(identifier).getAsJsonObject();
-			firestoreid = firebaseIDOfCollection(recordid);
+			firestoreid = firebaseIDOfCollection(classname, recordid);
 		}
 		
 		return firestoreid;

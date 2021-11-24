@@ -15,6 +15,7 @@ import info.esblurock.background.services.transaction.TransactionProcess;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
+import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateLinksInStandardCatalogInformation;
 import info.esblurock.reaction.core.ontology.base.transaction.transactionbase.catalogchangeevent.catcreateevent.CreateDatabasePersonEvent;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
@@ -32,7 +33,11 @@ public class PartiionSetWithinRepositoryFileProcess {
 	 * For each of the partitions, additional information is added (from ActivityRepositoryPartitionToCatalog)
 	 * 
 	 */
-	public static JsonObject process(String transactionID, String owner, JsonObject prerequisites, JsonObject info) {
+	public static JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+		String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
+		JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection).getAsJsonObject();
+		event.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
 		Document document = MessageConstructor.startDocument("PartiionSetWithinRepositoryFile");
 		Element body = MessageConstructor.isolateBody(document);
 		JsonObject staging = retrieveContentCatalogObjectFromPrerequisites(prerequisites);
@@ -43,8 +48,6 @@ public class PartiionSetWithinRepositoryFileProcess {
 		info.addProperty(ClassLabelConstants.TransactionID, transactionID);
 		JsonArray objects = PartitionSetOfStringObjects.partitionString(info, content);
 		String sourceformat = info.get(ClassLabelConstants.FileSourceFormat).getAsString();
-		String version = info.get(ClassLabelConstants.DatasetVersion).getAsString();
-		String datasetname = info.get(ClassLabelConstants.DatasetName).getAsString();
 		JsonArray set = new JsonArray();
 		Element table = body.addElement("table");
 		Element hrow = table.addElement("tr");
@@ -54,9 +57,8 @@ public class PartiionSetWithinRepositoryFileProcess {
 			Element row = table.addElement("tr");
 			JsonObject catalog = objects.get(i).getAsJsonObject();
 			catalog.addProperty(ClassLabelConstants.FileSourceFormat, sourceformat);
-			catalog.addProperty(ClassLabelConstants.DatasetVersion, version);
-			catalog.addProperty(ClassLabelConstants.DatasetName, datasetname);
 			catalog.addProperty(ClassLabelConstants.FilePartitionMethod, methodS);
+			catalog.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
 			CreateLinksInStandardCatalogInformation.transfer(info, catalog);
 			CreateLinksInStandardCatalogInformation.transfer(staging, catalog);
 			CreateLinksInStandardCatalogInformation.linkCatalogObjects(staging, 

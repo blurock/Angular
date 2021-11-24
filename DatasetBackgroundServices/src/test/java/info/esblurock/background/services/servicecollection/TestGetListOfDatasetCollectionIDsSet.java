@@ -1,6 +1,5 @@
 package info.esblurock.background.services.servicecollection;
 
-import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -19,16 +18,10 @@ public class TestGetListOfDatasetCollectionIDsSet {
 		
 		JsonObject json = new JsonObject();
 		json.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer,"Administrator");
-		json.addProperty(DatabaseServicesBase.service, "GetListOfDatasetCollectionIDsSet");
-		JsonObject response = DatabaseServicesBase.process(json);
-		JsonObjectUtilities.printResponse(response);
-
-		String collectionlabel = "StandardDatasetX";
-		System.out.println("-----------------------------------------------------");
-		System.out.println("GetListOfDatasetCollectionIDsSet: get collection: " + collectionlabel);
-		System.out.println("-----------------------------------------------------");
+		json.addProperty(DatabaseServicesBase.service, "GetDatasetCollectionIDsSet");
+		String collectionlabel = "StandardDataset";
 		json.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, collectionlabel);
-		response = DatabaseServicesBase.process(json);
+		JsonObject response = DatabaseServicesBase.process(json);
 		JsonObjectUtilities.printResponse(response);
 
 		

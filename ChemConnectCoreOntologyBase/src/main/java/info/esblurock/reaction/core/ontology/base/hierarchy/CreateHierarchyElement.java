@@ -224,10 +224,16 @@ public class CreateHierarchyElement {
 	 * @return The derived name
 	 */
 	public static String generateHierarchyName(String hierclass, String classname, JsonObject json) {
-		String isdefinedby = DatasetOntologyParseBase.getValueFromAnnotation(hierclass,
-				OntologyObjectLabels.isDefinedBy);
-		String isdefinedbyShort = isdefinedby.substring(8);
-		String name = GenerateStringLabel.valueOf(isdefinedbyShort).deriveName(hierclass, classname, json);
+		String name = null;
+		try {
+			String isdefinedby = DatasetOntologyParseBase.getValueFromAnnotation(hierclass,
+					OntologyObjectLabels.isDefinedBy);
+			String isdefinedbyShort = isdefinedby.substring(8);
+			name = GenerateStringLabel.valueOf(isdefinedbyShort).deriveName(hierclass, classname, json);
+		} catch(Exception ex) {
+			System.out.println("generateHierarchyName(" + hierclass + ", " + classname + ")");
+			System.err.println(ex.toString());
+		}
 		return name;
 	}
 

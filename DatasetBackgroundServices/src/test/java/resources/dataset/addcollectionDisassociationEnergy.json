@@ -1,11 +1,18 @@
 {
 	"prov:activity": "dataset:DatasetCollectionSetAddDatasetEvent",
-	"dataset:transreqobj": {},
 	"dataset:activityinfo": {
+		"dataset:datasetfortypeincollection": {
+			"dataset:catalogobjectmaintainer": "Administrator",
+			"dataset:dataobjstatus": "CatalogObjectStatusCurrent",
+			"dataset:datasetname": "StandardDataset",
+			"dataset:datasetversion": "1.0"
+		},
 		"dcterms:title": "Standard JThermodynamic Dataset JThermodynamicsDisassociationEnergyOfStructure IDs",
 		"dcterms:identifier": "dataset:adddatasetcollectioninfo",
-		"dataset:collectionobjecttype": "dataset:JThermodynamicsDisassociationEnergyOfStructure",
-		"dataset:datasetname": "StandardDataset",
-		"dataset:datasetversion": "1.0"
+		"dataset:objectype": "dataset:JThermodynamicsDisassociationEnergyOfStructure",
+		"dataset:collectionsetrecordidinfo": {
+			"dataset:datasetcollectionslabel": "StandardDataset",
+			"dataset:catalogobjectmaintainer": "Administrator"
+		}
 	}
 }

@@ -28,32 +28,38 @@ public class FindTransactions {
 		prop2.addProperty(ClassLabelConstants.DatabaseObjectType, key);
 		prop2.addProperty(ClassLabelConstants.ShortStringKey, type);
 		props.add(prop2);
-		
+
 		setofprops.add(ClassLabelConstants.PropertyValueQueryPair, props);
 		JsonObject response = ReadFirestoreInformation.readFirestoreCollection(setofprops, firestoreid);
 		return response;
 	}
-	
-	/** Get RDFShortTransactionDescription RDF set given the type of transaction event
+
+	/**
+	 * Get RDFShortTransactionDescription RDF set given the type of transaction
+	 * event
 	 * 
-	 * @param type The transaction type
+	 * @param type    The transaction type
 	 * @param keyword The keyword of the RDFShortTransactionDescription
-	 * @return The standard response giving the set of RDFShortTransactionDescription of this type
+	 * @return The standard response giving the set of
+	 *         RDFShortTransactionDescription of this type
 	 * 
-	 * The RDFShortTransactionDescription is within a RDFSubjectObjectAsRecord. This RDF is searched with two criteria:
-	 * <ul>
-	 * <li> RDFPredicate: RDFShortTransactionDescription
-	 * <li> dataset:rdfjsonasobject.prov:activity: The given type
-	 * <li> dataset:rdfjsonasobject.dataset:transactionkey: The keyword
-	 * <ul>
-	 * The object of the RDFShortTransactionDescription is a ShortTransactionDescription which holds:
-	 * <ul>
-	 * <li> TransactionEventType: This is the type searched for
-	 * <li> DescriptionTitleTransaction: This is a short description
-	 * <ul>
-	 * The DescriptionTitleTransaction can be used in helping the user choose the right transaction.
+	 *         The RDFShortTransactionDescription is within a
+	 *         RDFSubjectObjectAsRecord. This RDF is searched with two criteria:
+	 *         <ul>
+	 *         <li>RDFPredicate: RDFShortTransactionDescription
+	 *         <li>dataset:rdfjsonasobject.prov:activity: The given type
+	 *         <li>dataset:rdfjsonasobject.dataset:transactionkey: The keyword
+	 *         <ul>
+	 *         The object of the RDFShortTransactionDescription is a
+	 *         ShortTransactionDescription which holds:
+	 *         <ul>
+	 *         <li>TransactionEventType: This is the type searched for
+	 *         <li>DescriptionTitleTransaction: This is a short description
+	 *         <ul>
+	 *         The DescriptionTitleTransaction can be used in helping the user
+	 *         choose the right transaction.
 	 * 
-	 * Complexity: This does one firestore access
+	 *         Complexity: This does one firestore access
 	 * 
 	 */
 	public static JsonObject findRDFShortTransactionDescriptionByType(String type, String keyword) {
@@ -66,11 +72,11 @@ public class FindTransactions {
 		prop1.addProperty(ClassLabelConstants.ShortStringKey, "dataset:RDFShortTransactionDescription");
 		JsonObject prop2 = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
 		String key1 = ClassLabelConstants.RDFJsonAsObject + "." + ClassLabelConstants.TransactionEventType;
-		//String key1 = "dataset:rdfjsonasobject.prov:activity";
+		// String key1 = "dataset:rdfjsonasobject.prov:activity";
 		prop2.addProperty(ClassLabelConstants.DatabaseObjectType, key1);
 		prop2.addProperty(ClassLabelConstants.ShortStringKey, type);
 		props.add(prop2);
-		if(keyword != null) {
+		if (keyword != null) {
 			JsonObject prop3 = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
 			String key2 = "dataset:rdfjsonasobject.dataset:transactionkey";
 			prop3.addProperty(ClassLabelConstants.DatabaseObjectType, key2);
@@ -81,31 +87,33 @@ public class FindTransactions {
 		JsonObject response = ReadFirestoreInformation.readFirestoreCollection(setofprops, firestoreid);
 		return response;
 	}
-	
-	
-	
-	/** Retrieve from database TransactionEventObject using the Transaction event type
+
+	/**
+	 * Retrieve from database TransactionEventObject using the Transaction event
+	 * type
 	 * 
 	 * @param type The transaction type
 	 * @return The set of firestore ID and label pairs (LabelFirestoreIDPair)
 	 * 
-	 * This routine uses findRDFShortTransactionDescriptionByType to find the set of RDFShortTransactionDescription of the type
-	 * For each RDFShortTransactionDescription, the RDF object is retrieved (RDFJsonAsObject)
-	 * and the ShortTransactionDescription is extracted
-	 * The LabelFirestoreIDPair is extracted from the RDF subject (RDFJsonAsSubject)
+	 *         This routine uses findRDFShortTransactionDescriptionByType to find
+	 *         the set of RDFShortTransactionDescription of the type For each
+	 *         RDFShortTransactionDescription, the RDF object is retrieved
+	 *         (RDFJsonAsObject) and the ShortTransactionDescription is extracted
+	 *         The LabelFirestoreIDPair is extracted from the RDF subject
+	 *         (RDFJsonAsSubject)
 	 */
 	public static JsonObject findLabelFirestoreIDPairByType(String type, String keyword) {
-		JsonObject response = findRDFShortTransactionDescriptionByType(type,keyword);
-		if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+		JsonObject response = findRDFShortTransactionDescriptionByType(type, keyword);
+		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			Document docmessage = MessageConstructor.startDocument("findTransactionDescriptionByType");
 			String responsemessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
-			MessageConstructor.combineBodyIntoDocument(docmessage,responsemessage);
+			MessageConstructor.combineBodyIntoDocument(docmessage, responsemessage);
 			// Get Catalog object from the response
 			JsonObject result = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 			// Get the set of RDFS that satisfy the criteria
 			JsonArray RDFs = result.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 			JsonArray idpairs = new JsonArray();
-			for(int i=0;i<RDFs.size();i++) {
+			for (int i = 0; i < RDFs.size(); i++) {
 				JsonObject RDF = RDFs.get(i).getAsJsonObject();
 				// Get object of the RDF RDFShortTransactionDescription
 				JsonObject object = RDF.get(ClassLabelConstants.RDFJsonAsObject).getAsJsonObject();
@@ -127,28 +135,33 @@ public class FindTransactions {
 		}
 		return response;
 	}
-	
-	/** Retrieve from database TransactionEventObject using the Transaction event type
+
+	/**
+	 * Retrieve from database TransactionEventObject using the Transaction event
+	 * type
+	 * 
 	 * @param type The transaction type
 	 * @return The set of TransactionEventObject objects
 	 * 
-	 * This routine calls the findLabelFirestoreIDPairByType routine to get the LabelFirestoreIDPair set
-	 * For each LabelFirestoreIDPair, use the FirestoreCatalogID to get the TransactionEventObject
+	 *         This routine calls the findLabelFirestoreIDPairByType routine to get
+	 *         the LabelFirestoreIDPair set For each LabelFirestoreIDPair, use the
+	 *         FirestoreCatalogID to get the TransactionEventObject
 	 */
 	public static JsonObject findAndReadTransactionEventObjectByType(String type, String keyword) {
-		JsonObject response = findLabelFirestoreIDPairByType(type,keyword);
-		if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+		JsonObject response = findLabelFirestoreIDPairByType(type, keyword);
+		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			Document docmessage = MessageConstructor.startDocument("findTransactionDescriptionByType");
 			String responsemessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 			System.out.println("RDF response message:\n" + responsemessage);
-			MessageConstructor.combineBodyIntoDocument(docmessage,responsemessage);
+			MessageConstructor.combineBodyIntoDocument(docmessage, responsemessage);
 			// Get Catalog object from the response
 			JsonObject result = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 			// The the set of id and label pairs
-			JsonArray pairs  = result.get(ClassLabelConstants.LabelFirestoreIDPair).getAsJsonArray();
+			JsonArray pairs = result.get(ClassLabelConstants.LabelFirestoreIDPair).getAsJsonArray();
 			JsonArray transactions = new JsonArray();
-			// For each of the pairs, retrieve from the database the corresponding transactions
-			for(int i=0;i<pairs.size();i++) {
+			// For each of the pairs, retrieve from the database the corresponding
+			// transactions
+			for (int i = 0; i < pairs.size(); i++) {
 				JsonObject pair = pairs.get(i).getAsJsonObject();
 				// Extract the firestore id
 				JsonObject firestoreid = pair.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
@@ -163,5 +176,46 @@ public class FindTransactions {
 			response = DatabaseServicesBase.standardServiceResponse(docmessage, message, object);
 		}
 		return response;
+	}
+
+	/**
+	 * @param info    The activity information from the process input
+	 * @param type
+	 * @param onlyone
+	 * @return
+	 */
+	public static JsonObject findDatasetTransaction(JsonObject info, String type, boolean onlyone) {
+		JsonObject transaction = null;
+		/*
+		 * JsonObject emptycatalog =
+		 * CreateDocumentTemplate.createTemplate("dataset:DatasetTransactionEventObject"
+		 * ); emptycatalog.add(ClassLabelConstants.ActivityInformationRecord,info);
+		 * JsonObject shortdescr =
+		 * emptycatalog.get(ClassLabelConstants.ShortTransactionDescription).
+		 * getAsJsonObject();
+		 * shortdescr.addProperty(ClassLabelConstants.TransactionEventType, type);
+		 */
+		JsonObject emptycatalog = FindTransactionFromActivityInfo.findTransaction(type, info);
+		if (emptycatalog != null) {
+			JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(emptycatalog);
+			firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
+			JsonObject response = ReadFirestoreInformation.readFirestoreCollection(null, firestoreid);
+			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+				JsonObject output = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+				JsonArray arr = output.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+				if (arr != null) {
+					if (onlyone) {
+						if (arr.size() == 1) {
+							transaction = arr.get(0).getAsJsonObject();
+						}
+					} else {
+						if (arr.size() > 0) {
+							transaction = arr.get(0).getAsJsonObject();
+						}
+					}
+				}
+			}
+		}
+		return transaction;
 	}
 }

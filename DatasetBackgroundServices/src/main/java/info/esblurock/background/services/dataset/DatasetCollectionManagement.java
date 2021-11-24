@@ -121,13 +121,16 @@ public class DatasetCollectionManagement {
 	 * @return An empty ChemConnectDatasetCollectionIDsSet with no datasets loaded.
 	 * 
 	 */
-	public static JsonObject setupNewDatabaseCollectionSet(JsonObject info, String owner, String transactionID) {
-		Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent");
-		Element body = MessageConstructor.isolateBody(document);
-		String descr = info.get(ClassLabelConstants.DescriptionAbstract).getAsString();
+	public static JsonObject setupNewDatabaseCollectionSet(JsonObject event, JsonObject info) {
+		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+		String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
 		JsonObject recordid = info.get(ClassLabelConstants.DatasetCollectionSetRecordIDInfo).getAsJsonObject();
 		String maintainer = recordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 		String collectionname = recordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+		event.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
+		Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent");
+		Element body = MessageConstructor.isolateBody(document);
+		String descr = info.get(ClassLabelConstants.DescriptionAbstract).getAsString();
 		body.addElement("div").addText("Maintainer      : " + maintainer);
 		body.addElement("div").addText("Collection Name : " + collectionname);
 		JsonObject idcollection = DatasetCollectionIDManagement
@@ -149,29 +152,27 @@ public class DatasetCollectionManagement {
 	 * @return The ChemConnectDatasetCollectionIDsSet with the dataset info included
 	 * 
 	 */
-	public static JsonObject insertCollectionInfoDataset(JsonObject info, JsonObject prerequisites) {
+	public static JsonObject insertCollectionInfoDataset(JsonObject event, JsonObject info, JsonObject prerequisites) {
 		Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent");
 		Element body = MessageConstructor.isolateBody(document);
-		String classname = info.get(ClassLabelConstants.DatasetCollectionObjectType).getAsString();
-		String datasetname = info.get(ClassLabelConstants.DatasetName).getAsString();
-		String datasetversion = info.get(ClassLabelConstants.DatasetVersion).getAsString();
 		JsonArray objs = TransactionProcess.retrieveSetOfOutputsFromTransaction(prerequisites,
 				"dataset:datasetcollectionsetcreationevent");
 		JsonObject response = null;
 		if (objs.size() > 0) {
 			JsonObject collectionset = objs.get(0).getAsJsonObject();
+			JsonObject catrecordid = info.get(ClassLabelConstants.DatasetSpecificationForCollectionSet).getAsJsonObject();
+			JsonObject recordid = info.get(ClassLabelConstants.DatasetCollectionSetRecordIDInfo).getAsJsonObject();
+			event.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
+			String classname = info.get(ClassLabelConstants.DatabaseObjectType).getAsString();
+
+			String datasetname = catrecordid.get(ClassLabelConstants.DatasetName).getAsString();
+			String datasetversion = catrecordid.get(ClassLabelConstants.DatasetVersion).getAsString();
+
 			String collection = collectionset.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
-			String maintainer = collectionset.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+			
 			body.addElement("div").addText("Classname: " + classname + "(" + datasetname + ": " + datasetversion + ")");
 			body.addElement("div").addText("Into collection: '" + collection + "'");
-			JsonObject catrecordid = CreateDocumentTemplate.createTemplate("dataset:DatasetforTypeInCollectionSet");
-			catrecordid.addProperty(ClassLabelConstants.DatasetCollectionObjectType, classname);
-			catrecordid.addProperty(ClassLabelConstants.DatasetName, datasetname);
-			catrecordid.addProperty(ClassLabelConstants.DatasetVersion, datasetversion);
-			catrecordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
-			catrecordid.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, collection);
-
-			DatasetCollectionIDManagement.insertCollectionInfoDataset(catrecordid, collectionset);
+			DatasetCollectionIDManagement.insertCollectionInfoDataset(classname, catrecordid, collectionset);
 			WriteFirestoreCatalogObject.writeCatalogObject(collectionset);
 			putInLocalVersion(collectionset);
 			JsonArray arr = new JsonArray();
@@ -180,7 +181,7 @@ public class DatasetCollectionManagement {
 					"Success: Insert Dataset '" + classname + "' to Collection IDs set '" + collection + "'", arr);
 		} else {
 			response = DatabaseServicesBase.standardErrorResponse(document,
-					"Error: Insert " + classname + "' to Collection IDs set failed", null);
+					"Error: Insert into Collection IDs set failed, prerequisite dataset:datasetcollectionsetcreationevent not found", null);
 		}
 		return response;
 	}

@@ -10,9 +10,15 @@ import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyEleme
 public class FindDatasetCollections {
 	
 	
+	/** Find the FirebaseCatalogID
+	 * 
+	 * @param classname The class name (type) of the object
+	 * @param recordid The DatasetSpecificationForCollectionSet with Catalog location specification
+	 * @return The FirebaseCatalogID
+	 */
 	public static JsonObject findDatasetCollectionID(String classname, JsonObject recordid) {
 		JsonObject empty = CreateDocumentTemplate.createTemplate(classname);
-		empty.add(ClassLabelConstants.DatabaseCollectionOfCurrentClass, recordid);
+		empty.add(ClassLabelConstants.DatasetSpecificationForCollectionSet, recordid);
 		JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(empty);
 		firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
 		
@@ -21,11 +27,10 @@ public class FindDatasetCollections {
 	
 	public static JsonObject findDatasetCollectionID(String classname, String maintainer, String dataset, String version) {
 		JsonObject empty = CreateDocumentTemplate.createTemplate(classname);
-		JsonObject recordid = empty.get(ClassLabelConstants.DatabaseCollectionOfCurrentClass).getAsJsonObject();
+		JsonObject recordid = empty.get(ClassLabelConstants.DatasetSpecificationForCollectionSet).getAsJsonObject();
 		recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 		recordid.addProperty(ClassLabelConstants.DatasetVersion, version);
 		recordid.addProperty(ClassLabelConstants.DatasetName, dataset);
-		recordid.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, "Generic");
 		recordid.addProperty(ClassLabelConstants.CatalogDataObjectStatus, "CatalogObjectStatusCurrent");
 		
 		JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(empty);

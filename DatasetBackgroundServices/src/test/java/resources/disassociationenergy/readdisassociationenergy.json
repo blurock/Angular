@@ -18,9 +18,12 @@
 		"dataset:filemediatype": "dataset:FileTypeText",
 		"dcterms:title": "Disassociation Energy set",
 		"dataset:filesourcesubtype": "",
-		"dataset:catalogobjectmaintainer": "Administrator",
-		"dataset:datasetname": "Standard",
-		"dataset:datasetversion": "1.0",
+		"dataset:datasettransactionspecification": {
+			"dataset:catalogobjectmaintainer": "Administrator",
+			"dataset:datasetname": "Standard",
+			"dataset:datasetversion": "1.0",
+			"dataset:uniquegenericname": "disassociationEnergyAlkanes"
+		},
 		"dcterms:identifier": "initialrepositorylocal",
 		"dcterms:BibliographicResource": [
 			{

@@ -16,7 +16,6 @@
                                                  <http://www.w3.org/ns/ssn/> ,
                                                  <http://xmlns.com/foaf/0.1/> ,
                                                  <http://www.w3.org/2004/02/skos/core> ;
-                                     <http://purl.org/dc/terms/publisher> <http://purl.org/dc/aboutdcmi#DCMI> ;
                                      <http://purl.org/dc/terms/title> "DCMI Type Vocabulary"@en ;
                                      <http://purl.org/dc/terms/modified> "2012-06-14"^^xsd:date ;
                                      <http://purl.org/dc/terms/title> "DCMI Metadata Terms - other"@en .
@@ -905,606 +904,6 @@ xsd:date rdf:type rdfs:Datatype .
 #    Classes
 #################################################################
 
-###  http://org.semanticweb.owlapi/error#Error141
-<http://org.semanticweb.owlapi/error#Error141> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error142
-<http://org.semanticweb.owlapi/error#Error142> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error143
-<http://org.semanticweb.owlapi/error#Error143> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error144
-<http://org.semanticweb.owlapi/error#Error144> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error145
-<http://org.semanticweb.owlapi/error#Error145> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error146
-<http://org.semanticweb.owlapi/error#Error146> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error147
-<http://org.semanticweb.owlapi/error#Error147> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error148
-<http://org.semanticweb.owlapi/error#Error148> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error149
-<http://org.semanticweb.owlapi/error#Error149> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error15
-<http://org.semanticweb.owlapi/error#Error15> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error150
-<http://org.semanticweb.owlapi/error#Error150> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error151
-<http://org.semanticweb.owlapi/error#Error151> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error152
-<http://org.semanticweb.owlapi/error#Error152> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error153
-<http://org.semanticweb.owlapi/error#Error153> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error154
-<http://org.semanticweb.owlapi/error#Error154> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error155
-<http://org.semanticweb.owlapi/error#Error155> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error156
-<http://org.semanticweb.owlapi/error#Error156> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error157
-<http://org.semanticweb.owlapi/error#Error157> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error158
-<http://org.semanticweb.owlapi/error#Error158> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error159
-<http://org.semanticweb.owlapi/error#Error159> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error16
-<http://org.semanticweb.owlapi/error#Error16> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error160
-<http://org.semanticweb.owlapi/error#Error160> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error161
-<http://org.semanticweb.owlapi/error#Error161> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error162
-<http://org.semanticweb.owlapi/error#Error162> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error163
-<http://org.semanticweb.owlapi/error#Error163> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error164
-<http://org.semanticweb.owlapi/error#Error164> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error165
-<http://org.semanticweb.owlapi/error#Error165> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error166
-<http://org.semanticweb.owlapi/error#Error166> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error167
-<http://org.semanticweb.owlapi/error#Error167> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error168
-<http://org.semanticweb.owlapi/error#Error168> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error169
-<http://org.semanticweb.owlapi/error#Error169> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error17
-<http://org.semanticweb.owlapi/error#Error17> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error170
-<http://org.semanticweb.owlapi/error#Error170> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error177
-<http://org.semanticweb.owlapi/error#Error177> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error178
-<http://org.semanticweb.owlapi/error#Error178> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error179
-<http://org.semanticweb.owlapi/error#Error179> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error18
-<http://org.semanticweb.owlapi/error#Error18> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error180
-<http://org.semanticweb.owlapi/error#Error180> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error181
-<http://org.semanticweb.owlapi/error#Error181> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error182
-<http://org.semanticweb.owlapi/error#Error182> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error183
-<http://org.semanticweb.owlapi/error#Error183> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error184
-<http://org.semanticweb.owlapi/error#Error184> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error185
-<http://org.semanticweb.owlapi/error#Error185> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error186
-<http://org.semanticweb.owlapi/error#Error186> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error187
-<http://org.semanticweb.owlapi/error#Error187> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error188
-<http://org.semanticweb.owlapi/error#Error188> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error189
-<http://org.semanticweb.owlapi/error#Error189> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error19
-<http://org.semanticweb.owlapi/error#Error19> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error190
-<http://org.semanticweb.owlapi/error#Error190> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error191
-<http://org.semanticweb.owlapi/error#Error191> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error192
-<http://org.semanticweb.owlapi/error#Error192> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error193
-<http://org.semanticweb.owlapi/error#Error193> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error194
-<http://org.semanticweb.owlapi/error#Error194> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error195
-<http://org.semanticweb.owlapi/error#Error195> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error196
-<http://org.semanticweb.owlapi/error#Error196> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error197
-<http://org.semanticweb.owlapi/error#Error197> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error198
-<http://org.semanticweb.owlapi/error#Error198> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error199
-<http://org.semanticweb.owlapi/error#Error199> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error203
-<http://org.semanticweb.owlapi/error#Error203> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error204
-<http://org.semanticweb.owlapi/error#Error204> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error205
-<http://org.semanticweb.owlapi/error#Error205> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error206
-<http://org.semanticweb.owlapi/error#Error206> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error207
-<http://org.semanticweb.owlapi/error#Error207> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error208
-<http://org.semanticweb.owlapi/error#Error208> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error209
-<http://org.semanticweb.owlapi/error#Error209> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error21
-<http://org.semanticweb.owlapi/error#Error21> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error210
-<http://org.semanticweb.owlapi/error#Error210> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error211
-<http://org.semanticweb.owlapi/error#Error211> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error212
-<http://org.semanticweb.owlapi/error#Error212> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error213
-<http://org.semanticweb.owlapi/error#Error213> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error22
-<http://org.semanticweb.owlapi/error#Error22> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error220
-<http://org.semanticweb.owlapi/error#Error220> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error221
-<http://org.semanticweb.owlapi/error#Error221> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error222
-<http://org.semanticweb.owlapi/error#Error222> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error223
-<http://org.semanticweb.owlapi/error#Error223> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error224
-<http://org.semanticweb.owlapi/error#Error224> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error225
-<http://org.semanticweb.owlapi/error#Error225> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error226
-<http://org.semanticweb.owlapi/error#Error226> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error227
-<http://org.semanticweb.owlapi/error#Error227> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error228
-<http://org.semanticweb.owlapi/error#Error228> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error229
-<http://org.semanticweb.owlapi/error#Error229> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error23
-<http://org.semanticweb.owlapi/error#Error23> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error230
-<http://org.semanticweb.owlapi/error#Error230> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error231
-<http://org.semanticweb.owlapi/error#Error231> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error232
-<http://org.semanticweb.owlapi/error#Error232> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error233
-<http://org.semanticweb.owlapi/error#Error233> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error234
-<http://org.semanticweb.owlapi/error#Error234> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error235
-<http://org.semanticweb.owlapi/error#Error235> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error236
-<http://org.semanticweb.owlapi/error#Error236> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error237
-<http://org.semanticweb.owlapi/error#Error237> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error238
-<http://org.semanticweb.owlapi/error#Error238> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error239
-<http://org.semanticweb.owlapi/error#Error239> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error24
-<http://org.semanticweb.owlapi/error#Error24> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error240
-<http://org.semanticweb.owlapi/error#Error240> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error241
-<http://org.semanticweb.owlapi/error#Error241> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error244
-<http://org.semanticweb.owlapi/error#Error244> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error245
-<http://org.semanticweb.owlapi/error#Error245> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error246
-<http://org.semanticweb.owlapi/error#Error246> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error247
-<http://org.semanticweb.owlapi/error#Error247> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error248
-<http://org.semanticweb.owlapi/error#Error248> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error249
-<http://org.semanticweb.owlapi/error#Error249> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error25
-<http://org.semanticweb.owlapi/error#Error25> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error250
-<http://org.semanticweb.owlapi/error#Error250> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error251
-<http://org.semanticweb.owlapi/error#Error251> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error252
-<http://org.semanticweb.owlapi/error#Error252> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error253
-<http://org.semanticweb.owlapi/error#Error253> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error254
-<http://org.semanticweb.owlapi/error#Error254> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error255
-<http://org.semanticweb.owlapi/error#Error255> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error26
-<http://org.semanticweb.owlapi/error#Error26> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error27
-<http://org.semanticweb.owlapi/error#Error27> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error28
-<http://org.semanticweb.owlapi/error#Error28> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error29
-<http://org.semanticweb.owlapi/error#Error29> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error31
-<http://org.semanticweb.owlapi/error#Error31> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error32
-<http://org.semanticweb.owlapi/error#Error32> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error33
-<http://org.semanticweb.owlapi/error#Error33> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error34
-<http://org.semanticweb.owlapi/error#Error34> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error35
-<http://org.semanticweb.owlapi/error#Error35> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error36
-<http://org.semanticweb.owlapi/error#Error36> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error37
-<http://org.semanticweb.owlapi/error#Error37> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error38
-<http://org.semanticweb.owlapi/error#Error38> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error39
-<http://org.semanticweb.owlapi/error#Error39> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error40
-<http://org.semanticweb.owlapi/error#Error40> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error41
-<http://org.semanticweb.owlapi/error#Error41> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error42
-<http://org.semanticweb.owlapi/error#Error42> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error43
-<http://org.semanticweb.owlapi/error#Error43> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error44
-<http://org.semanticweb.owlapi/error#Error44> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error45
-<http://org.semanticweb.owlapi/error#Error45> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error46
-<http://org.semanticweb.owlapi/error#Error46> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error47
-<http://org.semanticweb.owlapi/error#Error47> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error48
-<http://org.semanticweb.owlapi/error#Error48> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error49
-<http://org.semanticweb.owlapi/error#Error49> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error50
-<http://org.semanticweb.owlapi/error#Error50> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error51
-<http://org.semanticweb.owlapi/error#Error51> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error52
-<http://org.semanticweb.owlapi/error#Error52> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error53
-<http://org.semanticweb.owlapi/error#Error53> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error54
-<http://org.semanticweb.owlapi/error#Error54> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error55
-<http://org.semanticweb.owlapi/error#Error55> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error56
-<http://org.semanticweb.owlapi/error#Error56> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error57
-<http://org.semanticweb.owlapi/error#Error57> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error58
-<http://org.semanticweb.owlapi/error#Error58> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error59
-<http://org.semanticweb.owlapi/error#Error59> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error60
-<http://org.semanticweb.owlapi/error#Error60> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error61
-<http://org.semanticweb.owlapi/error#Error61> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error62
-<http://org.semanticweb.owlapi/error#Error62> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error63
-<http://org.semanticweb.owlapi/error#Error63> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error64
-<http://org.semanticweb.owlapi/error#Error64> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error7
-<http://org.semanticweb.owlapi/error#Error7> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error76
-<http://org.semanticweb.owlapi/error#Error76> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error77
-<http://org.semanticweb.owlapi/error#Error77> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error78
-<http://org.semanticweb.owlapi/error#Error78> rdf:type owl:Class .
-
-
 ###  http://purl.org/dc/dcam/VocabularyEncodingScheme
 <http://purl.org/dc/dcam/VocabularyEncodingScheme> rdf:type owl:Class .
 
@@ -1993,19 +1392,9 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 :ActivityDatabaseManipulation rdf:type owl:Class ;
                               rdfs:subClassOf :ActivityInformationRecordBase ,
                                               [ rdf:type owl:Restriction ;
-                                                owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                owl:onClass :CatalogDataObjectMaintainer
-                                              ] ,
-                                              [ rdf:type owl:Restriction ;
-                                                owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                owl:onClass :DatasetName
-                                              ] ,
-                                              [ rdf:type owl:Restriction ;
-                                                owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                owl:onClass :DatasetVersion
+                                                owl:onClass :DatasetTransactionSpecificationForCollection
                                               ] .
 
 
@@ -2013,14 +1402,9 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 :ActivityInfoDatasetCollectionIDSpecification rdf:type owl:Class ;
                                               rdfs:subClassOf :ActivityDatabaseManipulation ,
                                                               [ rdf:type owl:Restriction ;
-                                                                owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                                owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                owl:onClass :CatalogDataObjectMaintainer
-                                                              ] ,
-                                                              [ rdf:type owl:Restriction ;
-                                                                owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                owl:onClass :DatasetCollectionsSetLabel
+                                                                owl:onClass :DatasetCollectionSetRecordIDInfo
                                                               ] .
 
 
@@ -2044,17 +1428,12 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                                    [ rdf:type owl:Restriction ;
                                                                      owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                     owl:onClass :DatasetCollectionObjectType
+                                                                     owl:onClass :DatabaseObjectType
                                                                    ] ,
                                                                    [ rdf:type owl:Restriction ;
-                                                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                                     owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                     owl:onClass :DatasetName
-                                                                   ] ,
-                                                                   [ rdf:type owl:Restriction ;
-                                                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                     owl:onClass :DatasetVersion
+                                                                     owl:onClass :DatasetSpecificationForCollectionSet
                                                                    ] ;
                                                    <http://purl.org/dc/elements/1.1/type> :ActivityInformationDatasetCollectionSetAddDataset ;
                                                    <http://purl.org/dc/terms/identifier> "dataset:adddatasetcollectioninfo"^^xsd:string ;
@@ -2070,11 +1449,6 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                                    owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                                    owl:onClass :DescriptionAbstract
-                                                                 ] ,
-                                                                 [ rdf:type owl:Restriction ;
-                                                                   owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                   owl:onClass :DatasetCollectionSetRecordIDInfo
                                                                  ] ;
                                                  <http://purl.org/dc/elements/1.1/type> :ActivityInformationDatasetCollectionSetCreation ;
                                                  <http://purl.org/dc/terms/identifier> "dataset:datasetcollectionsetcreationinfo"^^xsd:string ;
@@ -2100,11 +1474,6 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                          owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                          owl:onClass :CatalogDataObjectStatus
-                                                       ] ,
-                                                       [ rdf:type owl:Restriction ;
-                                                         owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                         owl:onClass :DatasetVersion
                                                        ] ,
                                                        [ rdf:type owl:Restriction ;
                                                          owl:onProperty <http://purl.org/dc/terms/hasPart> ;
@@ -2236,7 +1605,12 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#ActivityRepositoryInformation
 :ActivityRepositoryInformation rdf:type owl:Class ;
-                               rdfs:subClassOf :ActivityDatabaseManipulation ;
+                               rdfs:subClassOf :ActivityDatabaseManipulation ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onClass :DatasetCollectionObjectType
+                                               ] ;
                                <http://purl.org/dc/elements/1.1/type> "ActivityRepositoryInformation" ;
                                <http://purl.org/dc/terms/identifier> "dataset:repositoryinfo" ;
                                rdfs:comment "These activities have to do with repository file information" ;
@@ -2592,8 +1966,7 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#BurnerPlateConfiguration
 :BurnerPlateConfiguration rdf:type owl:Class ;
-                          rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error76> ,
-                                          :BurnerPlate ,
+                          rdfs:subClassOf :BurnerPlate ,
                                           [ rdf:type owl:Restriction ;
                                             owl:onProperty :hasPurpose ;
                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -2611,8 +1984,7 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#BurnerPlateDiameter
 :BurnerPlateDiameter rdf:type owl:Class ;
-                     rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error210> ,
-                                     :BurnerParameters ,
+                     rdfs:subClassOf :BurnerParameters ,
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty :hasPurpose ;
                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -2630,8 +2002,7 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#BurnerPlateMaterial
 :BurnerPlateMaterial rdf:type owl:Class ;
-                     rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error251> ,
-                                     :BurnerPlate ,
+                     rdfs:subClassOf :BurnerPlate ,
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty :hasPurpose ;
                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -2715,9 +2086,7 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#BurnerPlateThermocoupleMeasurements
 :BurnerPlateThermocoupleMeasurements rdf:type owl:Class ;
-                                     rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error44> ,
-                                                     <http://org.semanticweb.owlapi/error#Error45> ,
-                                                     :MeasurementsFromHeatFluxBurner ,
+                                     rdfs:subClassOf :MeasurementsFromHeatFluxBurner ,
                                                      [ rdf:type owl:Restriction ;
                                                        owl:onProperty :hasPurpose ;
                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -2924,6 +2293,38 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
  ] .
 
 
+###  http://www.esblurock.info/dataset#CatagoryHierarchyDatasetTransactionEvent
+:CatagoryHierarchyDatasetTransactionEvent rdf:type owl:Class ;
+                                          rdfs:subClassOf :CatagoryHierarchyDatasetTransactionType ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
+                                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass :DatasetTransactionEventObject
+                                                          ] ;
+                                          <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
+                                          <http://purl.org/dc/terms/identifier> "dataset:hierdatasettransactionevent"^^xsd:string ;
+                                          rdfs:comment "The transaction associated with dataset manipulation"^^xsd:string ;
+                                          rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
+                                          rdfs:label "Dataset Transaction Event"^^xsd:string ;
+                                          <http://www.w3.org/2004/02/skos/core#altLabel> "hierdatasettransactionevent"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CatagoryHierarchyDatasetTransactionType
+:CatagoryHierarchyDatasetTransactionType rdf:type owl:Class ;
+                                         rdfs:subClassOf :CatalogHierarchyDatasetTransactionSeries ,
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty <http://www.linkedmodel.org/schema/dtype#refersTo> ;
+                                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                           owl:onClass :DatasetTransactionEventObject
+                                                         ] ;
+                                         <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
+                                         <http://purl.org/dc/terms/identifier> "dataset:hiertransactiontype"^^xsd:string ;
+                                         rdfs:comment "The type of the transaction being performed as defined by the output of the transaction. For the most part, there is only one transaction under this branch. For a given 'series' of transactions, there is only one type of output produced for each transaction."^^xsd:string ;
+                                         rdfs:isDefinedBy :LabelDerivedFromTransactionEventType ;
+                                         rdfs:label "Transaction Event Type"^^xsd:string ;
+                                         <http://www.w3.org/2004/02/skos/core#altLabel> "hiertransactiontype"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#CatagoryTypeChoices
 :CatagoryTypeChoices rdf:type owl:Class ;
                      rdfs:subClassOf :ChemConnectClassifications ;
@@ -3002,17 +2403,6 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                     <http://www.w3.org/2004/02/skos/core#altLabel> "catalogtype" .
 
 
-###  http://www.esblurock.info/dataset#CatalogHierararchyAuxillaryInformation
-:CatalogHierararchyAuxillaryInformation rdf:type owl:Class ;
-                                        rdfs:subClassOf :CatalogObjectDatasetMaintainer ;
-                                        <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDocument ;
-                                        <http://purl.org/dc/terms/identifier> "dataset:hierauxinfo"^^xsd:string ;
-                                        rdfs:comment "This is information associated with the dataset, but not actually part of the dataset. This is generally, but not limited to, pre-processing information."^^xsd:string ;
-                                        rdfs:isDefinedBy :DerivedFromHierarchyClassAnnotationAltLabel ;
-                                        rdfs:label "Auxilliary Information"^^xsd:string ;
-                                        <http://www.w3.org/2004/02/skos/core#altLabel> "hierauxinfo"^^xsd:string .
-
-
 ###  http://www.esblurock.info/dataset#CatalogHierarchyCatalogObjectType
 :CatalogHierarchyCatalogObjectType rdf:type owl:Class ;
                                    rdfs:subClassOf :JThermodynamicsSymmetryDefinitionNodeType .
@@ -3020,7 +2410,7 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyDataFileStaging
 :CatalogHierarchyDataFileStaging rdf:type owl:Class ;
-                                 rdfs:subClassOf :CatalogHierarchyReadRepositoryFileSet ,
+                                 rdfs:subClassOf :CatalogHierarchySetupInformationType ,
                                                  [ rdf:type owl:Restriction ;
                                                    owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -3032,17 +2422,6 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                  rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
                                  rdfs:label "Data File Staging"^^xsd:string ;
                                  <http://www.w3.org/2004/02/skos/core#altLabel> "hierdatafilestaging"^^xsd:string .
-
-
-###  http://www.esblurock.info/dataset#CatalogHierarchyDataFileStagingSet
-:CatalogHierarchyDataFileStagingSet rdf:type owl:Class ;
-                                    rdfs:subClassOf :CatalogHierarchyDatasetTypeVersion ;
-                                    <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
-                                    <http://purl.org/dc/terms/identifier> "dataset:filestagingset"^^xsd:string ;
-                                    rdfs:comment "The set of File Staging Objects"^^xsd:string ;
-                                    rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
-                                    rdfs:label "Staging Set"^^xsd:string ;
-                                    <http://www.w3.org/2004/02/skos/core#altLabel> "filestagingset"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyDatabasePerson
@@ -3063,13 +2442,24 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyDatabasePersonSet
 :CatalogHierarchyDatabasePersonSet rdf:type owl:Class ;
-                                   rdfs:subClassOf :CollectionDocumentHierarchy ;
+                                   rdfs:subClassOf :CatalogHierarchyPersonManagement ;
                                    <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
                                    <http://purl.org/dc/terms/identifier> "dataset:datasetpersonset" ;
                                    rdfs:comment "The set of people associated with the database. These could range from owners to references." ;
                                    rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
                                    rdfs:label "Set of People" ;
                                    <http://www.w3.org/2004/02/skos/core#altLabel> "databasepersonset" .
+
+
+###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetCollection
+:CatalogHierarchyDatasetCollection rdf:type owl:Class ;
+                                   rdfs:subClassOf :CatalogHierarchyDatasetName ;
+                                   <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDocument ;
+                                   <http://purl.org/dc/terms/identifier> "dataset:hierdatasetcollection"^^xsd:string ;
+                                   rdfs:comment "All versions of the dataset collections that are used to defined the dataset for a given type. A dataset of a given type can accumulate objects through different transaction series. The objects in each dataset associated with a given type and version can be manipulated, for example, deleted or copied to a different version."^^xsd:string ;
+                                   rdfs:isDefinedBy :DerivedFromHierarchyClassAnnotationAltLabel ;
+                                   rdfs:label "Dataset Collection"^^xsd:string ;
+                                   <http://www.w3.org/2004/02/skos/core#altLabel> "hierdatasetcollection"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetCollectionID
@@ -3090,7 +2480,7 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetCollectionIDSet
 :CatalogHierarchyDatasetCollectionIDSet rdf:type owl:Class ;
-                                        rdfs:subClassOf :CatalogHierararchyAuxillaryInformation ;
+                                        rdfs:subClassOf :CatalogObjectDatasetMaintainer ;
                                         <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
                                         <http://purl.org/dc/terms/identifier> "dataset:hieridcollectionset"^^xsd:string ;
                                         rdfs:comment "This is the set of Collection ID sets"^^xsd:string ;
@@ -3099,10 +2489,37 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                         <http://www.w3.org/2004/02/skos/core#altLabel> "hieridcollectionset"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetCollectionTransaction
+:CatalogHierarchyDatasetCollectionTransaction rdf:type owl:Class ;
+                                              rdfs:subClassOf :CatalogHierarchyDatasetCollectionTransactionSet ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
+                                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass :DatasetCollectionManagementTransaction
+                                                              ] ;
+                                              <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
+                                              <http://purl.org/dc/terms/identifier> "dataset:hierdcollectionidstransaction"^^xsd:string ;
+                                              rdfs:comment "The transaction associated with the management of the collection IDs."^^xsd:string ;
+                                              rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
+                                              rdfs:label "Dataset ID Collection Transactions"^^xsd:string ;
+                                              <http://www.w3.org/2004/02/skos/core#altLabel> "hierdcollectionidstransaction"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetCollectionTransactionSet
+:CatalogHierarchyDatasetCollectionTransactionSet rdf:type owl:Class ;
+                                                 rdfs:subClassOf :CatalogObjectDatasetMaintainer ;
+                                                 <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
+                                                 <http://purl.org/dc/terms/identifier> "dataset:hierdcollectionidstransactionset"^^xsd:string ;
+                                                 rdfs:comment "The set of transactions associated with the management of the collection IDs."^^xsd:string ;
+                                                 rdfs:isDefinedBy :LabelDerivedFromCollectionIDSetLabel ;
+                                                 rdfs:label "Set of Dataset ID Collection Transactions"^^xsd:string ;
+                                                 <http://www.w3.org/2004/02/skos/core#altLabel> "hierdcollectionidstransactionset"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetName
 :CatalogHierarchyDatasetName rdf:type owl:Class ;
                              rdfs:subClassOf :CatalogObjectDatasetMaintainer ;
-                             <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDocument ;
+                             <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyCollection ;
                              <http://purl.org/dc/terms/identifier> "dataset:hierdatasetname"^^xsd:string ;
                              rdfs:comment "These are file associated with a particular collection of datasets. A data set is a set of related files. They differentiate by the type of information, the version and the status (whether it is part of the current database or replaced, deleted, etc.)."^^xsd:string ;
                              rdfs:isDefinedBy :LabelDerivedFromDatasetLabel ;
@@ -3112,22 +2529,24 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetObjectType
 :CatalogHierarchyDatasetObjectType rdf:type owl:Class ;
-                                   rdfs:subClassOf :CatalogHierarchyDatasetName ;
+                                   rdfs:subClassOf :CatalogHierarchyDatasetCollection ;
                                    <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyCollection ;
                                    <http://purl.org/dc/terms/identifier> "dataset:hierdatasetobjtype"^^xsd:string ;
                                    rdfs:comment "This is a particular class or type of dataset objects."^^xsd:string ;
-                                   rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
+                                   rdfs:isDefinedBy :DerivedFromObjectClassName ;
                                    rdfs:label "Dataset Type (Class)"^^xsd:string ;
                                    <http://www.w3.org/2004/02/skos/core#altLabel> "hierdatasetobjtype"^^xsd:string .
 
 
-###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetObjects
-:CatalogHierarchyDatasetObjects rdf:type owl:Class ;
-                                rdfs:subClassOf :CollectionDocumentHierarchy ;
-                                <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyCollection ;
-                                <http://purl.org/dc/terms/identifier> "dataset:hierdatasetobjects"^^xsd:string ;
-                                rdfs:isDefinedBy :DerivedFromHierarchyClassAnnotationAltLabel ;
-                                <http://www.w3.org/2004/02/skos/core#altLabel> "hierdatasetobjects"^^xsd:string .
+###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetTransactionSeries
+:CatalogHierarchyDatasetTransactionSeries rdf:type owl:Class ;
+                                          rdfs:subClassOf :CatalogHierarchyDatasetName ;
+                                          <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDocument ;
+                                          <http://purl.org/dc/terms/identifier> "hierdatasetseries"^^xsd:string ;
+                                          rdfs:comment "The series of transactions that lead to datset manipulation. This level is meant to simplify the finding of prerequisites for a set of consecutive transactions. In principle there would be only one transaction in a lower branch of a given type."^^xsd:string ;
+                                          rdfs:isDefinedBy :LabelDerivedFromObjectUniqueLabel ;
+                                          rdfs:label "Related Dataset Transactions"^^xsd:string ;
+                                          <http://www.w3.org/2004/02/skos/core#altLabel> "hierdatasetseries"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetTypeVersion
@@ -3155,6 +2574,17 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                  rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
                                                  rdfs:label "Disassociation Energy Objects"^^xsd:string ;
                                                  <http://www.w3.org/2004/02/skos/core#altLabel> "hierdisassociationenergy"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CatalogHierarchyGlobalInformation
+:CatalogHierarchyGlobalInformation rdf:type owl:Class ;
+                                   rdfs:subClassOf :CatalogHierarchySystemInformation ;
+                                   <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDocument ;
+                                   <http://purl.org/dc/terms/identifier> "dataset:hierglobalinformation"^^xsd:string ;
+                                   rdfs:comment "These are objects which span the objects in the database. For example, the RDFs."^^xsd:string ;
+                                   rdfs:isDefinedBy :DerivedFromHierarchyClassAnnotationAltLabel ;
+                                   rdfs:label "Object with Global information"^^xsd:string ;
+                                   <http://www.w3.org/2004/02/skos/core#altLabel> "hierglobalinformation"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyMetaAtomDefinition
@@ -3200,12 +2630,33 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyOrganizationSet
 :CatalogHierarchyOrganizationSet rdf:type owl:Class ;
-                                 rdfs:subClassOf :CollectionDocumentHierarchy ;
+                                 rdfs:subClassOf :CatalogHierarchyPersonManagement ;
                                  <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
                                  <http://purl.org/dc/terms/identifier> "dataset:collorganization"^^xsd:string ;
                                  rdfs:comment "Information about organizations"^^xsd:string ;
                                  rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
                                  rdfs:label "Organization Set"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CatalogHierarchyPeopleManagementTransactionSet
+:CatalogHierarchyPeopleManagementTransactionSet rdf:type owl:Class ;
+                                                rdfs:subClassOf :CatalogHierarchyPersonManagement ;
+                                                <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
+                                                <http://purl.org/dc/terms/identifier> "dataset:catalogtransaction"^^xsd:string ;
+                                                rdfs:comment "The set of transactions associated with the managment of people and places"^^xsd:string ;
+                                                rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
+                                                rdfs:label "People Management Transaction Collection"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CatalogHierarchyPersonManagement
+:CatalogHierarchyPersonManagement rdf:type owl:Class ;
+                                  rdfs:subClassOf :CatalogHierarchySystemInformation ;
+                                  <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDocument ;
+                                  <http://purl.org/dc/terms/identifier> "dataset:hierpeopleplacemanagement"^^xsd:string ;
+                                  rdfs:comment "These are the objects associated with people and place generation and managment."^^xsd:string ;
+                                  rdfs:isDefinedBy :DerivedFromHierarchyClassAnnotationAltLabel ;
+                                  rdfs:label "People and Place Management"^^xsd:string ;
+                                  <http://www.w3.org/2004/02/skos/core#altLabel> "hierpeopleplacemanagement"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyRDFTriplet
@@ -3226,7 +2677,7 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyRDFTripletSet
 :CatalogHierarchyRDFTripletSet rdf:type owl:Class ;
-                               rdfs:subClassOf :CollectionDocumentHierarchy ;
+                               rdfs:subClassOf :CatalogHierarchyGlobalInformation ;
                                <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
                                <http://purl.org/dc/terms/identifier> "dataset:rdftripletset"^^xsd:string ;
                                rdfs:comment "The set of all RDF triplets. These are put on one level to facilitate searching. The RDFs are used to find elements within the whole hierarchy as well as relationships"^^xsd:string ;
@@ -3235,20 +2686,9 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                <http://www.w3.org/2004/02/skos/core#altLabel> "rdftripletset"^^xsd:string .
 
 
-###  http://www.esblurock.info/dataset#CatalogHierarchyReadRepositoryFileSet
-:CatalogHierarchyReadRepositoryFileSet rdf:type owl:Class ;
-                                       rdfs:subClassOf :CatalogHierarchyDatasetTypeVersion ;
-                                       <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
-                                       <http://purl.org/dc/terms/identifier> "dataset:repositoryfileset"^^xsd:string ;
-                                       rdfs:comment "The set of repository files."^^xsd:string ;
-                                       rdfs:isDefinedBy :DerivedFromHierarchyClassAnnotationAltLabel ;
-                                       rdfs:label "Repository File Set"^^xsd:string ;
-                                       <http://www.w3.org/2004/02/skos/core#altLabel> "repositoryfileset"^^xsd:string .
-
-
 ###  http://www.esblurock.info/dataset#CatalogHierarchyRepositoryParsedToFixedBlockSize
 :CatalogHierarchyRepositoryParsedToFixedBlockSize rdf:type owl:Class ;
-                                                  rdfs:subClassOf :CatalogHierarchyDataFileStagingSet ,
+                                                  rdfs:subClassOf :CatalogHierarchySetupInformationType ,
                                                                   [ rdf:type owl:Restriction ;
                                                                     owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
                                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -3262,10 +2702,32 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                   <http://www.w3.org/2004/02/skos/core#altLabel> "hierfixedblocksize"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#CatalogHierarchySetupInformationType
+:CatalogHierarchySetupInformationType rdf:type owl:Class ;
+                                      rdfs:subClassOf :CatalogHierarchyDatasetTransactionSeries ;
+                                      <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
+                                      <http://purl.org/dc/terms/identifier> "dataset:hierdatasetsetupinformation"^^xsd:string ;
+                                      rdfs:comment "These are the objects associated with creating the dataset information"^^xsd:string ;
+                                      rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
+                                      rdfs:label "Dataset Setup Information"^^xsd:string ;
+                                      <http://www.w3.org/2004/02/skos/core#altLabel> "hierdatasetsetupinformation"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CatalogHierarchySystemInformation
+:CatalogHierarchySystemInformation rdf:type owl:Class ;
+                                   rdfs:subClassOf :CollectionDocumentHierarchy ;
+                                   <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyCollection ;
+                                   <http://purl.org/dc/terms/identifier> "dataset:hiersysteminformation"^^xsd:string ;
+                                   rdfs:comment "This is the system information around the data"^^xsd:string ;
+                                   rdfs:isDefinedBy :DerivedFromHierarchyClassAnnotationAltLabel ;
+                                   rdfs:label "System Information"^^xsd:string ;
+                                   <http://www.w3.org/2004/02/skos/core#altLabel> "hiersysteminformation"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#CatalogHierarchyThermodynamicDatasets
 :CatalogHierarchyThermodynamicDatasets rdf:type owl:Class ;
-                                       rdfs:subClassOf :CatalogHierarchyDatasetObjects ;
-                                       <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDocument ;
+                                       rdfs:subClassOf :CollectionDocumentHierarchy ;
+                                       <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyCollection ;
                                        <http://purl.org/dc/terms/identifier> "dataset:hierthermodynamicdataset"^^xsd:string ;
                                        rdfs:comment "This is the information associated with the JThermodynamics dataset collection."^^xsd:string ;
                                        rdfs:isDefinedBy :DerivedFromHierarchyClassAnnotationAltLabel ;
@@ -3275,27 +2737,17 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyTransaction
 :CatalogHierarchyTransaction rdf:type owl:Class ;
-                             rdfs:subClassOf :CatalogHierarchyTransactionSet ,
+                             rdfs:subClassOf :CatalogHierarchyPeopleManagementTransactionSet ,
                                              [ rdf:type owl:Restriction ;
                                                owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                               owl:onClass :TransactionEventObject
+                                               owl:onClass :UserManagementTransactionObject
                                              ] ;
                              <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
                              <http://purl.org/dc/terms/identifier> "dataset:doctransaction"^^xsd:string ;
                              rdfs:comment "The set of transaction. These are in a flat list for searching"^^xsd:string ;
                              rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
                              rdfs:label "Transaction Catalog Items"^^xsd:string .
-
-
-###  http://www.esblurock.info/dataset#CatalogHierarchyTransactionSet
-:CatalogHierarchyTransactionSet rdf:type owl:Class ;
-                                rdfs:subClassOf :CollectionDocumentHierarchy ;
-                                <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
-                                <http://purl.org/dc/terms/identifier> "dataset:catalogtransaction"^^xsd:string ;
-                                rdfs:comment "The set of transactions"^^xsd:string ;
-                                rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
-                                rdfs:label "Transaction Collection"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyUserAccount
@@ -3326,7 +2778,7 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyUserAccountSet
 :CatalogHierarchyUserAccountSet rdf:type owl:Class ;
-                                rdfs:subClassOf :CollectionDocumentHierarchy ;
+                                rdfs:subClassOf :CatalogHierarchyPersonManagement ;
                                 <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
                                 <http://purl.org/dc/terms/identifier> "dataset:hierarchyuseraccountset"^^xsd:string ,
                                                                       "dataset:useraccountset"^^xsd:string ;
@@ -3456,17 +2908,6 @@ This event is usually associated with an action initiated by the GUI, such as a 
                           <http://www.w3.org/2004/02/skos/core#altLabel> "catalogevent" .
 
 
-###  http://www.esblurock.info/dataset#CatalogObjectCreationEvent
-:CatalogObjectCreationEvent rdf:type owl:Class ;
-                            rdfs:subClassOf :CatalogObjectChangeEvent ;
-                            <http://purl.org/dc/elements/1.1/type> "CatalogObjectCreationEvent" ;
-                            <http://purl.org/dc/terms/identifier> "dataset:catcreateevent" ;
-                            rdfs:comment """This is the event transaction associated with the creation of a catalog object.
-This transaction is in combination with another transaction responsible for creating the object.""" ;
-                            rdfs:label "Catalog Object Create Event" ;
-                            <http://www.w3.org/2004/02/skos/core#altLabel> "catcreateevent" .
-
-
 ###  http://www.esblurock.info/dataset#CatalogObjectDatabaseObjectStatus
 :CatalogObjectDatabaseObjectStatus rdf:type owl:Class ;
                                    rdfs:subClassOf :CatalogHierarchyCatalogObjectType .
@@ -3475,7 +2916,7 @@ This transaction is in combination with another transaction responsible for crea
 ###  http://www.esblurock.info/dataset#CatalogObjectDatasetMaintainer
 :CatalogObjectDatasetMaintainer rdf:type owl:Class ;
                                 rdfs:subClassOf :CatalogHierarchyThermodynamicDatasets ;
-                                <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyCollection ;
+                                <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDocument ;
                                 <http://purl.org/dc/terms/identifier> "dataset:hierdatasetmaintainer"^^xsd:string ;
                                 rdfs:comment "These are file that are managed by a single 'Maintainer'. This is usually the owner."^^xsd:string ;
                                 rdfs:isDefinedBy :LabelDerivedFromMaintainerLabel ;
@@ -3614,10 +3055,25 @@ This transaction is in combination with another transaction responsible for crea
                     <http://www.w3.org/2004/02/skos/core#prefLabel> "catpath" .
 
 
+###  http://www.esblurock.info/dataset#CatalogUserManagementEvent
+:CatalogUserManagementEvent rdf:type owl:Class ;
+                            rdfs:subClassOf :TransactionBase ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/type> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :UserManagementTransactionObject
+                                            ] ;
+                            <http://purl.org/dc/elements/1.1/type> "CatalogObjectCreationEvent" ;
+                            <http://purl.org/dc/terms/identifier> "dataset:catcreateevent" ;
+                            rdfs:comment """This is the event transaction associated with the creation of a catalog object.
+This transaction is in combination with another transaction responsible for creating the object.""" ;
+                            rdfs:label "Catalog Object Create Event" ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "catcreateevent" .
+
+
 ###  http://www.esblurock.info/dataset#ChemConectChemicalComposition
 :ChemConectChemicalComposition rdf:type owl:Class ;
-                               rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error36> ,
-                                               :SpeciesParameter ,
+                               rdfs:subClassOf :SpeciesParameter ,
                                                [ rdf:type owl:Restriction ;
                                                  owl:onProperty :hasPurpose ;
                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -3898,12 +3354,7 @@ This transaction is in combination with another transaction responsible for crea
 
 ###  http://www.esblurock.info/dataset#ChemConnectDatabaseBaseElement
 :ChemConnectDatabaseBaseElement rdf:type owl:Class ;
-                                rdfs:subClassOf :ChemConnectDataStructure ,
-                                                [ rdf:type owl:Restriction ;
-                                                  owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                  owl:onClass :DatabaseCollectionOfCurrentClass
-                                                ] .
+                                rdfs:subClassOf :ChemConnectDataStructure .
 
 
 ###  http://www.esblurock.info/dataset#ChemConnectDatabaseDocumentElement
@@ -4476,17 +3927,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ChemConnectStructureRepository
 :ChemConnectStructureRepository rdf:type owl:Class ;
-                                rdfs:subClassOf :ChemConnectStructureBase ,
-                                                [ rdf:type owl:Restriction ;
-                                                  owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                  owl:onClass :DatasetName
-                                                ] ,
-                                                [ rdf:type owl:Restriction ;
-                                                  owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                  owl:onClass :DatasetVersion
-                                                ] ;
+                                rdfs:subClassOf :ChemConnectStructureBase ;
                                 <http://purl.org/dc/elements/1.1/type> "ChemConnectStructureRepository" ;
                                 <http://purl.org/dc/terms/identifier> "dataset:baserepository" ;
                                 rdfs:comment "The top class of Repository objects" ;
@@ -4591,7 +4032,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ChemConnectThermodynamicsDatabase
 :ChemConnectThermodynamicsDatabase rdf:type owl:Class ;
-                                   rdfs:subClassOf :ChemConnectDatabaseBaseElement ;
+                                   rdfs:subClassOf :ChemConnectDatabaseBaseElement ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                     owl:onClass :DatasetSpecificationForCollectionSet
+                                                   ] ;
                                    <http://purl.org/dc/elements/1.1/type> :ChemConnectThermodynamicsDatabase ;
                                    <http://purl.org/dc/terms/identifier> "dataset:2dthermoentity"^^xsd:string ;
                                    rdfs:comment "A 2D Thermodynamic entity"^^xsd:string ;
@@ -5741,7 +5187,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#CreateDatabasePersonEvent
 :CreateDatabasePersonEvent rdf:type owl:Class ;
-                           rdfs:subClassOf :CatalogObjectCreationEvent ,
+                           rdfs:subClassOf :CatalogUserManagementEvent ,
                                            [ rdf:type owl:Restriction ;
                                              owl:onProperty <http://purl.org/dc/terms/source> ;
                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -5761,7 +5207,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#CreateUserAccountEvent
 :CreateUserAccountEvent rdf:type owl:Class ;
-                        rdfs:subClassOf :CatalogObjectCreationEvent ,
+                        rdfs:subClassOf :CatalogUserManagementEvent ,
                                         [ rdf:type owl:Restriction ;
                                           owl:onProperty <http://purl.org/dc/terms/requires> ;
                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -6371,8 +5817,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DataTypeDevice
 :DataTypeDevice rdf:type owl:Class ;
-                rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error212> ,
-                                :DataTypeSystem ;
+                rdfs:subClassOf :DataTypeSystem ;
                 rdfs:label "Device" .
 
 
@@ -6471,8 +5916,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DataTypeProtocol
 :DataTypeProtocol rdf:type owl:Class ;
-                  rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error235> ,
-                                  :DataTypeDataStructure ;
+                  rdfs:subClassOf :DataTypeDataStructure ;
                   rdfs:label "Protocol" .
 
 
@@ -6735,6 +6179,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                       <http://www.w3.org/2004/02/skos/core#altLabel> "servicebase"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#DatabaseTransactionEvent
+:DatabaseTransactionEvent rdf:type owl:Class ;
+                          rdfs:subClassOf :TransactionBase ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty <http://purl.org/dc/terms/type> ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onClass :DatasetTransactionEventObject
+                                          ] .
+
+
 ###  http://www.esblurock.info/dataset#DatasetCatalogHierarchy
 :DatasetCatalogHierarchy rdf:type owl:Class ;
                          rdfs:subClassOf :SimpleCatalogObject ,
@@ -6824,6 +6278,21 @@ Under the general type of is the actual data object referenced by the ChemConnec
                      <http://www.w3.org/2004/02/skos/core#altLabel> "collectionid" .
 
 
+###  http://www.esblurock.info/dataset#DatasetCollectionManagementTransaction
+:DatasetCollectionManagementTransaction rdf:type owl:Class ;
+                                        rdfs:subClassOf :TransactionEventObject ,
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                          owl:onClass :DatasetCollectionSetRecordIDInfo
+                                                        ] ;
+                                        <http://purl.org/dc/elements/1.1/type> :DatasetCollectionManagementTransaction ;
+                                        <http://purl.org/dc/terms/identifier> "dataset:datasetcollectionidtransaction"^^xsd:string ;
+                                        rdfs:comment "The transaction associated with dataset ID collections"^^xsd:string ;
+                                        rdfs:label "Dataset ID Collection Management"^^xsd:string ;
+                                        <http://www.w3.org/2004/02/skos/core#altLabel> "datasetcollectionidtransaction"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#DatasetCollectionObjectType
 :DatasetCollectionObjectType rdf:type owl:Class ;
                              rdfs:subClassOf :Classification ;
@@ -6838,6 +6307,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#DatasetCollectionSetAddDatasetEvent
 :DatasetCollectionSetAddDatasetEvent rdf:type owl:Class ;
                                      rdfs:subClassOf :DatasetCollectionSetManagementEvents ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://purl.org/dc/terms/requires> ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :DatasetCollectionSetCreationEvent
+                                                     ] ,
                                                      [ rdf:type owl:Restriction ;
                                                        owl:onProperty <http://www.w3.org/ns/dcat#catalog> ;
                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -6867,7 +6341,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DatasetCollectionSetManagementEvents
 :DatasetCollectionSetManagementEvents rdf:type owl:Class ;
-                                      rdfs:subClassOf :CatalogObjectChangeEvent ;
+                                      rdfs:subClassOf :TransactionBase ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty <http://purl.org/dc/terms/type> ;
+                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                        owl:onClass :DatasetCollectionManagementTransaction
+                                                      ] ;
                                       <http://purl.org/dc/elements/1.1/type> :DatasetCollectionSetManagementEvents ;
                                       <http://purl.org/dc/terms/identifier> "dataset:datasetcollectionsetmanage"^^xsd:string ;
                                       rdfs:comment "These transaction manipulate the dataset management sets and the catalog object managed by these collection sets."^^xsd:string ;
@@ -7024,6 +6503,91 @@ Under the general type of is the actual data object referenced by the ChemConnec
              <http://www.w3.org/2004/02/skos/core#altLabel> "datasetname"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#DatasetRepositoryFile
+:DatasetRepositoryFile rdf:type owl:Class ;
+                       rdfs:subClassOf :DatabaseTransactionEvent ;
+                       <http://purl.org/dc/elements/1.1/type> "RepositoryFile" ;
+                       <http://purl.org/dc/terms/identifier> "dataset:reposfile" ;
+                       rdfs:comment "These are the events dealing with the manipulation of repository files" ;
+                       rdfs:label "Repository File Transaction" ;
+                       <http://www.w3.org/2004/02/skos/core#altLabel> "reposfile" .
+
+
+###  http://www.esblurock.info/dataset#DatasetRepositoryFileStaging
+:DatasetRepositoryFileStaging rdf:type owl:Class ;
+                              rdfs:subClassOf :RepositoryFileStaging ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                owl:onClass :DatasetTransactionSpecificationForCollection
+                                              ] ;
+                              <http://purl.org/dc/elements/1.1/type> :DatasetRepositoryFileStaging ;
+                              <http://purl.org/dc/terms/identifier> "dataset:datasetrepositorystaging"^^xsd:string ;
+                              rdfs:comment "This is the information for a dataset repository file. The files in this class are used to put information into the dataset."^^xsd:string ;
+                              rdfs:label "Dataset Repository File"^^xsd:string ;
+                              <http://www.w3.org/2004/02/skos/core#altLabel> "datasetrepositorystaging"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#DatasetSpecificationForCollectionSet
+:DatasetSpecificationForCollectionSet rdf:type owl:Class ;
+                                      rdfs:subClassOf :ChemConnectCompoundBase ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                        owl:onClass :CatalogDataObjectMaintainer
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                        owl:onClass :CatalogDataObjectStatus
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                        owl:onClass :DatasetName
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                        owl:onClass :DatasetVersion
+                                                      ] ;
+                                      <http://purl.org/dc/elements/1.1/type> :DatasetSpecificationForCollectionSet ;
+                                      <http://purl.org/dc/terms/identifier> "dataset:datasetfortypeincollection"^^xsd:string ;
+                                      rdfs:comment "This has the information to create the firestore id for the collection of the given type. When the firestore id is created, it is assumed that the current version is wanted."^^xsd:string ;
+                                      rdfs:label "Dataset ID Information in ID Collection Set"^^xsd:string ;
+                                      <http://www.w3.org/2004/02/skos/core#altLabel> "datasetfortypeincollection"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#DatasetTransactionEventObject
+:DatasetTransactionEventObject rdf:type owl:Class ;
+                               rdfs:subClassOf :TransactionEventObject ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onClass :DatasetTransactionSpecificationForCollection
+                                               ] ;
+                               <http://purl.org/dc/elements/1.1/type> :DatasetTransactionEventObject ;
+                               <http://purl.org/dc/terms/identifier> "dataset:datasettransactionevent"^^xsd:string ;
+                               rdfs:comment "The transaction object associated with dataset transaction events"^^xsd:string ;
+                               rdfs:label "Dataset Transaction Event"^^xsd:string ;
+                               <http://www.w3.org/2004/02/skos/core#altLabel> "datasettransactionevent"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#DatasetTransactionSpecificationForCollection
+:DatasetTransactionSpecificationForCollection rdf:type owl:Class ;
+                                              rdfs:subClassOf :DatasetSpecificationForCollectionSet ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass :CatalogObjectUniqueGenericLabel
+                                                              ] ;
+                                              <http://purl.org/dc/elements/1.1/type> :DatasetTransactionSpecificationForCollection ;
+                                              <http://purl.org/dc/terms/identifier> "dataset:datasettransactionspecification"^^xsd:string ;
+                                              rdfs:comment "This is the information needed by the Dataset transaction to put the transaction in the correct place in the Hierarchy."^^xsd:string ;
+                                              rdfs:label "Dataset Transaction Hierarchy Specification"^^xsd:string ;
+                                              <http://www.w3.org/2004/02/skos/core#altLabel> "datasettransactionspecification"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#DatasetVersion
 :DatasetVersion rdf:type owl:Class ;
                 rdfs:subClassOf :StringNameLabel ;
@@ -7032,41 +6596,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                 rdfs:comment "This is the version (with the dataset with the same name) of the data object"^^xsd:string ;
                 rdfs:label "Version"^^xsd:string ;
                 <http://www.w3.org/2004/02/skos/core#altLabel> "datasetversion"^^xsd:string .
-
-
-###  http://www.esblurock.info/dataset#DatasetforTypeInCollectionSet
-:DatasetforTypeInCollectionSet rdf:type owl:Class ;
-                               rdfs:subClassOf :ChemConnectCompoundBase ,
-                                               [ rdf:type owl:Restriction ;
-                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                 owl:onClass :CatalogDataObjectMaintainer
-                                               ] ,
-                                               [ rdf:type owl:Restriction ;
-                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                 owl:onClass :DatasetCollectionObjectType
-                                               ] ,
-                                               [ rdf:type owl:Restriction ;
-                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                 owl:onClass :DatasetCollectionsSetLabel
-                                               ] ,
-                                               [ rdf:type owl:Restriction ;
-                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                 owl:onClass :DatasetName
-                                               ] ,
-                                               [ rdf:type owl:Restriction ;
-                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                 owl:onClass :DatasetVersion
-                                               ] ;
-                               <http://purl.org/dc/elements/1.1/type> :DatasetforTypeInCollectionSet ;
-                               <http://purl.org/dc/terms/identifier> "dataset:datasetfortypeincollection"^^xsd:string ;
-                               rdfs:comment "This has the information to create the firestore id for the collection of the given type. When the firestore id is created, it is assumed that the current version is wanted."^^xsd:string ;
-                               rdfs:label "Dataset ID Information in ID Collection Set"^^xsd:string ;
-                               <http://www.w3.org/2004/02/skos/core#altLabel> "datasetfortypeincollection"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DateCreated
@@ -7702,8 +7231,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DistanceBetweenBurnerPerforations
 :DistanceBetweenBurnerPerforations rdf:type owl:Class ;
-                                   rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error241> ,
-                                                   :BurnerParameters ,
+                                   rdfs:subClassOf :BurnerParameters ,
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty :hasPurpose ;
                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -7737,8 +7265,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DistanceProbeToIionization
 :DistanceProbeToIionization rdf:type owl:Class ;
-                            rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error78> ,
-                                            :FlameProbeDistance ;
+                            rdfs:subClassOf :FlameProbeDistance ;
                             rdfs:comment "Distance probe/ionization" .
 
 
@@ -7812,23 +7339,17 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#EnvironmentConditionParameters
 :EnvironmentConditionParameters rdf:type owl:Class ;
-                                rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error178> ,
-                                                <http://org.semanticweb.owlapi/error#Error179> ,
-                                                <http://org.semanticweb.owlapi/error#Error180> ,
-                                                :ExperimentalConditionParameters .
+                                rdfs:subClassOf :ExperimentalConditionParameters .
 
 
 ###  http://www.esblurock.info/dataset#EquivalenceRatioObservable
 :EquivalenceRatioObservable rdf:type owl:Class ;
-                            rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error239> ,
-                                            <http://org.semanticweb.owlapi/error#Error240> ,
-                                            :ChemicalCompositionObservable .
+                            rdfs:subClassOf :ChemicalCompositionObservable .
 
 
 ###  http://www.esblurock.info/dataset#EquivalenceRatioParameter
 :EquivalenceRatioParameter rdf:type owl:Class ;
-                           rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error206> ,
-                                           :ChemConnectFixedParameter ,
+                           rdfs:subClassOf :ChemConnectFixedParameter ,
                                            [ rdf:type owl:Restriction ;
                                              owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -7898,14 +7419,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#EvaporationSystemClassification
 :EvaporationSystemClassification rdf:type owl:Class ;
-                                 rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error168> ,
-                                                 :ClassificationUnit .
+                                 rdfs:subClassOf :ClassificationUnit .
 
 
 ###  http://www.esblurock.info/dataset#EvaporationSystemType
 :EvaporationSystemType rdf:type owl:Class ;
-                       rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error40> ,
-                                       :FuelEvaporatorKeywordParameter ,
+                       rdfs:subClassOf :FuelEvaporatorKeywordParameter ,
                                        [ rdf:type owl:Restriction ;
                                          owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -8001,8 +7520,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ExperimentalPressure
 :ExperimentalPressure rdf:type owl:Class ;
-                      rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error233> ,
-                                      :PressureParameter ,
+                      rdfs:subClassOf :PressureParameter ,
                                       [ rdf:type owl:Restriction ;
                                         owl:onProperty :hasPurpose ;
                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -8110,8 +7628,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ExperimentalTemperature
 :ExperimentalTemperature rdf:type owl:Class ;
-                         rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error18> ,
-                                         :TemperatureParameter ,
+                         rdfs:subClassOf :TemperatureParameter ,
                                          [ rdf:type owl:Restriction ;
                                            owl:onProperty :hasPurpose ;
                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -8588,32 +8105,27 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#FileYamlDatabasePerson
 :FileYamlDatabasePerson rdf:type owl:Class ;
-                        rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error59> ,
-                                        :FileTypeYamlCatalogObject .
+                        rdfs:subClassOf :FileTypeYamlCatalogObject .
 
 
 ###  http://www.esblurock.info/dataset#FileYamlDatasetCatalogHierarchy
 :FileYamlDatasetCatalogHierarchy rdf:type owl:Class ;
-                                 rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error47> ,
-                                                 :FileTypeYamlCatalogObject .
+                                 rdfs:subClassOf :FileTypeYamlCatalogObject .
 
 
 ###  http://www.esblurock.info/dataset#FileYamlObservationCorrespondenceSpecification
 :FileYamlObservationCorrespondenceSpecification rdf:type owl:Class ;
-                                                rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error182> ,
-                                                                :FileTypeYamlCatalogObject .
+                                                rdfs:subClassOf :FileTypeYamlCatalogObject .
 
 
 ###  http://www.esblurock.info/dataset#FileYamlOrganization
 :FileYamlOrganization rdf:type owl:Class ;
-                      rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error186> ,
-                                      :FileTypeYamlCatalogObject .
+                      rdfs:subClassOf :FileTypeYamlCatalogObject .
 
 
 ###  http://www.esblurock.info/dataset#FileYamlSubSystemDescription
 :FileYamlSubSystemDescription rdf:type owl:Class ;
-                              rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error223> ,
-                                              :FileTypeYamlCatalogObject ;
+                              rdfs:subClassOf :FileTypeYamlCatalogObject ;
                               <http://purl.org/dc/elements/1.1/type> "YAML"^^xsd:string ;
                               <http://purl.org/dc/terms/identifier> "text/yaml"^^xsd:string ;
                               :fileextension "yaml"^^xsd:string .
@@ -8772,8 +8284,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#FlameVelocity
 :FlameVelocity rdf:type owl:Class ;
-               rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error166> ,
-                               :ChemConnectFlowParameter ,
+               rdfs:subClassOf :ChemConnectFlowParameter ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -8801,8 +8312,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#FlameVelocityObservable
 :FlameVelocityObservable rdf:type owl:Class ;
-                         rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error237> ,
-                                         :FlamePropertyObservable ,
+                         rdfs:subClassOf :FlamePropertyObservable ,
                                          [ rdf:type owl:Restriction ;
                                            owl:onProperty <http://purl.org/linked-data/cube#measure> ;
                                            owl:allValuesFrom :FlameVelocity
@@ -8811,10 +8321,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#FlameVelocityParabolicParameterPlot
 :FlameVelocityParabolicParameterPlot rdf:type owl:Class ;
-                                     rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error54> ,
-                                                     <http://org.semanticweb.owlapi/error#Error55> ,
-                                                     <http://org.semanticweb.owlapi/error#Error56> ,
-                                                     :HeatFluxBurnerObservations .
+                                     rdfs:subClassOf :HeatFluxBurnerObservations .
 
 
 ###  http://www.esblurock.info/dataset#Flames
@@ -8921,8 +8428,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#FluidCoolingHeatingSystem
 :FluidCoolingHeatingSystem rdf:type owl:Class ;
-                           rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error58> ,
-                                           :KeywordParameter ,
+                           rdfs:subClassOf :KeywordParameter ,
                                            [ rdf:type owl:Restriction ;
                                              owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -9235,8 +8741,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#GasMFCClassification
 :GasMFCClassification rdf:type owl:Class ;
-                      rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error22> ,
-                                      :ClassificationUnit .
+                      rdfs:subClassOf :ClassificationUnit .
 
 
 ###  http://www.esblurock.info/dataset#GasMFCType
@@ -9257,9 +8762,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#GasMassFlowController
 :GasMassFlowController rdf:type owl:Class ;
-                       rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error164> ,
-                                       <http://org.semanticweb.owlapi/error#Error165> ,
-                                       :MassFlowSubsystems ,
+                       rdfs:subClassOf :MassFlowSubsystems ,
                                        [ rdf:type owl:Restriction ;
                                          owl:onProperty :hasComponent ;
                                          owl:someValuesFrom :GasMassFlowControllerComponent
@@ -9300,16 +8803,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#GasMassFlowControllerComponent
 :GasMassFlowControllerComponent rdf:type owl:Class ;
-                                rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error191> ,
-                                                <http://org.semanticweb.owlapi/error#Error192> ,
-                                                <http://org.semanticweb.owlapi/error#Error193> ,
-                                                <http://org.semanticweb.owlapi/error#Error194> ,
-                                                <http://org.semanticweb.owlapi/error#Error195> ,
-                                                <http://org.semanticweb.owlapi/error#Error196> ,
-                                                <http://org.semanticweb.owlapi/error#Error197> ,
-                                                <http://org.semanticweb.owlapi/error#Error198> ,
-                                                <http://org.semanticweb.owlapi/error#Error199> ,
-                                                :MassFlowController ,
+                                rdfs:subClassOf :MassFlowController ,
                                                 [ rdf:type owl:Restriction ;
                                                   owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -9343,10 +8837,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
 :GetListOfDatasetCollectionIDsSet rdf:type owl:Class ;
                                   rdfs:subClassOf :ServiceCollectionDatasetCollectionSetAccess ,
                                                   [ rdf:type owl:Restriction ;
-                                                    owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
-                                                    owl:someValuesFrom :ChemConnectDatasetCollectionIDsSet
-                                                  ] ,
-                                                  [ rdf:type owl:Restriction ;
                                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                     owl:onClass :CatalogDataObjectMaintainer
@@ -9355,6 +8845,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                     owl:onClass :DatasetCollectionsSetLabel
+                                                  ] ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
+                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                    owl:onClass :ChemConnectDatasetCollectionIDsSet
                                                   ] ;
                                   rdfs:comment "This retrieves the set of ChemConnectDatasetCollectionIDsSet for a given maintainer (CatalogDataObjectMaintainer). If a specific ChemConnectDatasetCollectionIDsSet is needed, then the DatasetCollectionsSetLabel can be used."^^xsd:string .
 
@@ -9591,9 +9086,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#HeatFluxBurnerBurnerPlate
 :HeatFluxBurnerBurnerPlate rdf:type owl:Class ;
-                           rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error220> ,
-                                           <http://org.semanticweb.owlapi/error#Error221> ,
-                                           :HeatFluxBurnerSubSystems ,
+                           rdfs:subClassOf :HeatFluxBurnerSubSystems ,
                                            [ rdf:type owl:Restriction ;
                                              owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -9719,9 +9212,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#HeatFluxBurnerCoolingSystemObservations
 :HeatFluxBurnerCoolingSystemObservations rdf:type owl:Class ;
-                                         rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error187> ,
-                                                         <http://org.semanticweb.owlapi/error#Error188> ,
-                                                         :HeatFluxBurnerObservations .
+                                         rdfs:subClassOf :HeatFluxBurnerObservations .
 
 
 ###  http://www.esblurock.info/dataset#HeatFluxBurnerFlameRegulation
@@ -9864,9 +9355,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#HeatFluxBurnerHeatingSystemObservations
 :HeatFluxBurnerHeatingSystemObservations rdf:type owl:Class ;
-                                         rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error60> ,
-                                                         <http://org.semanticweb.owlapi/error#Error61> ,
-                                                         :HeatFluxBurnerObservations .
+                                         rdfs:subClassOf :HeatFluxBurnerObservations .
 
 
 ###  http://www.esblurock.info/dataset#HeatFluxBurnerHeatingTube
@@ -9918,8 +9407,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#HeatFluxBurnerParabolicParameter
 :HeatFluxBurnerParabolicParameter rdf:type owl:Class ;
-                                  rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error48> ,
-                                                  :CalculatedParameter ,
+                                  rdfs:subClassOf :CalculatedParameter ,
                                                   [ rdf:type owl:Restriction ;
                                                     owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -10047,17 +9535,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#HeatFluxBurnerTemperatureObservations
 :HeatFluxBurnerTemperatureObservations rdf:type owl:Class ;
-                                       rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error225> ,
-                                                       <http://org.semanticweb.owlapi/error#Error226> ,
-                                                       <http://org.semanticweb.owlapi/error#Error227> ,
-                                                       <http://org.semanticweb.owlapi/error#Error228> ,
-                                                       :HeatFluxBurnerObservations .
+                                       rdfs:subClassOf :HeatFluxBurnerObservations .
 
 
 ###  http://www.esblurock.info/dataset#HeatFluxBurnerThermalConditioning
 :HeatFluxBurnerThermalConditioning rdf:type owl:Class ;
-                                   rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error229> ,
-                                                   :HeatFluxBurnerSubSystems ,
+                                   rdfs:subClassOf :HeatFluxBurnerSubSystems ,
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -10208,8 +9691,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#IgnitionDelayTime
 :IgnitionDelayTime rdf:type owl:Class ;
-                   rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error152> ,
-                                   :TimeParameter ;
+                   rdfs:subClassOf :TimeParameter ;
                    <http://www.w3.org/2004/02/skos/core#example> <http://data.nasa.gov/qudt/owl/unit#MilliSecond> .
 
 [ rdf:type owl:Axiom ;
@@ -10359,11 +9841,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#InitialReadInOfRepositoryFile
 :InitialReadInOfRepositoryFile rdf:type owl:Class ;
-                               rdfs:subClassOf :RepositoryFile ,
+                               rdfs:subClassOf :DatasetRepositoryFile ,
                                                [ rdf:type owl:Restriction ;
                                                  owl:onProperty <http://www.w3.org/ns/dcat#catalog> ;
                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                 owl:onClass :RepositoryFileStaging
+                                                 owl:onClass :DatasetRepositoryFileStaging
                                                ] ;
                                <http://purl.org/dc/elements/1.1/type> "InitialReadInOfRepositoryFile" ;
                                <http://purl.org/dc/terms/identifier> "dataset:initreposfile" ;
@@ -10500,8 +9982,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#InverseTemperatureParameter
 :InverseTemperatureParameter rdf:type owl:Class ;
-                             rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error31> ,
-                                             :ChemConnectValueParameter ,
+                             rdfs:subClassOf :ChemConnectValueParameter ,
                                              [ rdf:type owl:Restriction ;
                                                owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -10815,8 +10296,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#JThermodynamics2DBondStructure
 :JThermodynamics2DBondStructure rdf:type owl:Class ;
-                                rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error213> ,
-                                                :JThermodynamicsChemicalStructure ,
+                                rdfs:subClassOf :JThermodynamicsChemicalStructure ,
                                                 [ rdf:type owl:Restriction ;
                                                   owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -10851,8 +10331,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#JThermodynamics2DGraphicalStructure
 :JThermodynamics2DGraphicalStructure rdf:type owl:Class ;
-                                     rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error34> ,
-                                                     :JThermodynamicsChemicalStructure ,
+                                     rdfs:subClassOf :JThermodynamicsChemicalStructure ,
                                                      [ rdf:type owl:Restriction ;
                                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                        owl:someValuesFrom :JThermodynamics2DAtomNodeStructure
@@ -11133,6 +10612,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#JThermodynamicsDisassociationEnergyOfStructure
 :JThermodynamicsDisassociationEnergyOfStructure rdf:type owl:Class ;
                                                 rdfs:subClassOf :ChemConnectThermodynamicsDatabase ,
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                  owl:onClass :DatasetSpecificationForCollectionSet
+                                                                ] ,
                                                                 [ rdf:type owl:Restriction ;
                                                                   owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -11487,8 +10971,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#JThermodynamicsSymmetrySpecifications
 :JThermodynamicsSymmetrySpecifications rdf:type owl:Class ;
-                                       rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error169> ,
-                                                       :ChemConnectThermodynamicCompoundData ;
+                                       rdfs:subClassOf :ChemConnectThermodynamicCompoundData ;
                                        <http://purl.org/dc/elements/1.1/type> :JThermodynamicsSymmetrySpecifications ;
                                        <http://purl.org/dc/terms/identifier> "dataset:symmetrydefinition"^^xsd:string ;
                                        rdfs:comment "The symmetry definition entities"^^xsd:string ;
@@ -11688,6 +11171,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                    rdfs:subClassOf :DerivedFromObjectParameter .
 
 
+###  http://www.esblurock.info/dataset#LabelDerivedFromTransactionEventType
+:LabelDerivedFromTransactionEventType rdf:type owl:Class ;
+                                      rdfs:subClassOf :DerivedFromObjectParameter .
+
+
 ###  http://www.esblurock.info/dataset#LabelFirestoreIDPair
 :LabelFirestoreIDPair rdf:type owl:Class ;
                       rdfs:subClassOf :ChemConnectCompoundBase ,
@@ -11773,14 +11261,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#LiquidMFCClassification
 :LiquidMFCClassification rdf:type owl:Class ;
-                         rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error208> ,
-                                         :ClassificationUnit .
+                         rdfs:subClassOf :ClassificationUnit .
 
 
 ###  http://www.esblurock.info/dataset#LiquidMFCType
 :LiquidMFCType rdf:type owl:Class ;
-               rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error23> ,
-                               :MassFlowControllerKeywordParameter ,
+               rdfs:subClassOf :MassFlowControllerKeywordParameter ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -11834,13 +11320,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#LiquidMassFlowControllerComponent
 :LiquidMassFlowControllerComponent rdf:type owl:Class ;
-                                   rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error244> ,
-                                                   <http://org.semanticweb.owlapi/error#Error245> ,
-                                                   <http://org.semanticweb.owlapi/error#Error246> ,
-                                                   <http://org.semanticweb.owlapi/error#Error247> ,
-                                                   <http://org.semanticweb.owlapi/error#Error248> ,
-                                                   <http://org.semanticweb.owlapi/error#Error249> ,
-                                                   :MassFlowController ,
+                                   rdfs:subClassOf :MassFlowController ,
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -11937,8 +11417,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#MFCMassFlowRate
 :MFCMassFlowRate rdf:type owl:Class ;
-                 rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error232> ,
-                                 :ChemConnectFlowParameter ,
+                 rdfs:subClassOf :ChemConnectFlowParameter ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :hasPurpose ;
                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -11956,8 +11435,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#MFCMaterialBuild
 :MFCMaterialBuild rdf:type owl:Class ;
-                  rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error167> ,
-                                  :MassFlowControllerKeywordParameter .
+                  rdfs:subClassOf :MassFlowControllerKeywordParameter .
 
 
 ###  http://www.esblurock.info/dataset#MFCMaximumFlowRateFullScale
@@ -11972,8 +11450,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#MFCMeasuredFlow
 :MFCMeasuredFlow rdf:type owl:Class ;
-                 rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error189> ,
-                                 :ChemConnectFlowParameter ,
+                 rdfs:subClassOf :ChemConnectFlowParameter ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty :hasPurpose ;
                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -11983,8 +11460,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#MFCMinimumFlowRateFullScaleGas
 :MFCMinimumFlowRateFullScaleGas rdf:type owl:Class ;
-                                rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error33> ,
-                                                :ChemConnectFlowParameter ,
+                                rdfs:subClassOf :ChemConnectFlowParameter ,
                                                 [ rdf:type owl:Restriction ;
                                                   owl:onProperty :hasPurpose ;
                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -12051,8 +11527,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#MFCZeroStability
 :MFCZeroStability rdf:type owl:Class ;
-                  rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error190> ,
-                                  :ChemConnectFlowParameter ,
+                  rdfs:subClassOf :ChemConnectFlowParameter ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty :hasPurpose ;
                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -12114,10 +11589,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#MSMBMoleculeBeamDevice
 :MSMBMoleculeBeamDevice rdf:type owl:Class ;
-                        rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error24> ,
-                                        <http://org.semanticweb.owlapi/error#Error25> ,
-                                        <http://org.semanticweb.owlapi/error#Error26> ,
-                                        :MoleculeBeamDevice ;
+                        rdfs:subClassOf :MoleculeBeamDevice ;
                         rdfs:comment "Mass Spectrometer Molecular Beam Device" ;
                         rdfs:label "Molecule Beam" .
 
@@ -12229,8 +11701,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#MassFlowControllerClassification
 :MassFlowControllerClassification rdf:type owl:Class ;
-                                  rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error49> ,
-                                                  :ClassificationUnit .
+                                  rdfs:subClassOf :ClassificationUnit .
 
 
 ###  http://www.esblurock.info/dataset#MassFlowControllerControlRange
@@ -12270,8 +11741,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#MassFlowControllerManufacturer
 :MassFlowControllerManufacturer rdf:type owl:Class ;
-                                rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error230> ,
-                                                :MassFlowControllerKeywordParameter ,
+                                rdfs:subClassOf :MassFlowControllerKeywordParameter ,
                                                 [ rdf:type owl:Restriction ;
                                                   owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
                                                   owl:someValuesFrom :ComponentManufacturerName
@@ -12299,8 +11769,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#MassFlowControllerSettlingTimeRange
 :MassFlowControllerSettlingTimeRange rdf:type owl:Class ;
-                                     rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error184> ,
-                                                     :ChemConnectRangeParameter ,
+                                     rdfs:subClassOf :ChemConnectRangeParameter ,
                                                      [ rdf:type owl:Restriction ;
                                                        owl:onProperty :hasPurpose ;
                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -12337,8 +11806,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#MassFractionParameter
 :MassFractionParameter rdf:type owl:Class ;
-                       rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error224> ,
-                                       :SpeciesAmount ;
+                       rdfs:subClassOf :SpeciesAmount ;
                        <http://www.w3.org/2004/02/skos/core#example> :MassFraction .
 
 [ rdf:type owl:Axiom ;
@@ -12821,8 +12289,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#MolarConcentrationObservable
 :MolarConcentrationObservable rdf:type owl:Class ;
-                              rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error63> ,
-                                              :SpeciesCompositionObservable ;
+                              rdfs:subClassOf :SpeciesCompositionObservable ;
                               <http://purl.org/dc/terms/identifier> "dataset:MolarConcentrationObservable"^^xsd:string ;
                               rdfs:label "Molar Concentration Observable"^^xsd:string ,
                                          "The matrix of species and molar concentration"^^xsd:string ;
@@ -12836,8 +12303,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#MoleFractionComposition
 :MoleFractionComposition rdf:type owl:Class ;
-                         rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error222> ,
-                                         :SpeciesCompositionObservable ;
+                         rdfs:subClassOf :SpeciesCompositionObservable ;
                          <http://purl.org/dc/terms/identifier> "dataset:MoleFractionComposition"^^xsd:string ;
                          rdfs:comment "The mole fraction matrix (species and corresponding mole fraction)"^^xsd:string ;
                          rdfs:label "Mole Fraction Composition"^^xsd:string ;
@@ -13028,8 +12494,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#NumberOfThermocouplesInBurner
 :NumberOfThermocouplesInBurner rdf:type owl:Class ;
-                               rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error205> ,
-                                               :CountParameter ,
+                               rdfs:subClassOf :CountParameter ,
                                                [ rdf:type owl:Restriction ;
                                                  owl:onProperty :hasPurpose ;
                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -13536,8 +13001,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ParameterTypeClassification
 :ParameterTypeClassification rdf:type owl:Class ;
-                             rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error204> ,
-                                             :ClassificationUnit .
+                             rdfs:subClassOf :ClassificationUnit .
 
 
 ###  http://www.esblurock.info/dataset#ParameterTypeSpecification
@@ -13613,7 +13077,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#PartiionSetWithinRepositoryFile
 :PartiionSetWithinRepositoryFile rdf:type owl:Class ;
-                                 rdfs:subClassOf :RepositoryFile ,
+                                 rdfs:subClassOf :DatasetRepositoryFile ,
                                                  [ rdf:type owl:Restriction ;
                                                    owl:onProperty <http://purl.org/dc/terms/requires> ;
                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -13763,8 +13227,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#PistonBoreDiameter
 :PistonBoreDiameter rdf:type owl:Class ;
-                    rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error19> ,
-                                    :DistanceParameter ,
+                    rdfs:subClassOf :DistanceParameter ,
                                     [ rdf:type owl:Restriction ;
                                       owl:onProperty :hasPurpose ;
                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -13774,8 +13237,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#PlenumChamberHeight
 :PlenumChamberHeight rdf:type owl:Class ;
-                     rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error231> ,
-                                     :HeatFluxBurnerPlenumChamberGeometry ,
+                     rdfs:subClassOf :HeatFluxBurnerPlenumChamberGeometry ,
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty :hasPurpose ;
                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -13934,8 +13396,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#PressureRange
 :PressureRange rdf:type owl:Class ;
-               rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error35> ,
-                               :ChemConnectRangeParameter .
+               rdfs:subClassOf :ChemConnectRangeParameter .
 
 
 ###  http://www.esblurock.info/dataset#PressureSensor
@@ -14030,8 +13491,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ProbeMaterialClassification
 :ProbeMaterialClassification rdf:type owl:Class ;
-                             rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error27> ,
-                                             :ClassificationUnit .
+                             rdfs:subClassOf :ClassificationUnit .
 
 
 ###  http://www.esblurock.info/dataset#ProbeMaterialTypeChoice
@@ -14041,8 +13501,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ProbeOrificeDiameter
 :ProbeOrificeDiameter rdf:type owl:Class ;
-                      rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error250> ,
-                                      :FlameProbeDistance .
+                      rdfs:subClassOf :FlameProbeDistance .
 
 
 ###  http://www.esblurock.info/dataset#ProbeShape
@@ -14069,8 +13528,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ProbeShapeClassication
 :ProbeShapeClassication rdf:type owl:Class ;
-                        rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error234> ,
-                                        :ClassificationUnit .
+                        rdfs:subClassOf :ClassificationUnit .
 
 
 ###  http://www.esblurock.info/dataset#ProbeShapeTypeChoice
@@ -14944,8 +14402,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#RCMCompressionPressure
 :RCMCompressionPressure rdf:type owl:Class ;
-                        rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error211> ,
-                                        :RCMPressureMeasurements ,
+                        rdfs:subClassOf :RCMPressureMeasurements ,
                                         [ rdf:type owl:Restriction ;
                                           owl:onProperty :hasPurpose ;
                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -14981,8 +14438,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#RCMCompressionTime
 :RCMCompressionTime rdf:type owl:Class ;
-                    rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error236> ,
-                                    :TimeParameter ,
+                    rdfs:subClassOf :TimeParameter ,
                                     [ rdf:type owl:Restriction ;
                                       owl:onProperty :hasPurpose ;
                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -15048,8 +14504,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#RCMInitialTemperature
 :RCMInitialTemperature rdf:type owl:Class ;
-                       rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error57> ,
-                                       :TemperatureParameter ,
+                       rdfs:subClassOf :TemperatureParameter ,
                                        [ rdf:type owl:Restriction ;
                                          owl:onProperty :hasPurpose ;
                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -15070,17 +14525,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#RCMPublishedResults
 :RCMPublishedResults rdf:type owl:Class ;
-                     rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error153> ,
-                                     <http://org.semanticweb.owlapi/error#Error154> ,
-                                     <http://org.semanticweb.owlapi/error#Error155> ,
-                                     <http://org.semanticweb.owlapi/error#Error156> ,
-                                     <http://org.semanticweb.owlapi/error#Error157> ,
-                                     <http://org.semanticweb.owlapi/error#Error158> ,
-                                     <http://org.semanticweb.owlapi/error#Error159> ,
-                                     <http://org.semanticweb.owlapi/error#Error160> ,
-                                     <http://org.semanticweb.owlapi/error#Error161> ,
-                                     <http://org.semanticweb.owlapi/error#Error162> ,
-                                     :RapidCompressionMachineObservation ,
+                     rdfs:subClassOf :RapidCompressionMachineObservation ,
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty :hasPurpose ;
                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -15183,8 +14628,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#RCMSecondDriverSubSystem
 :RCMSecondDriverSubSystem rdf:type owl:Class ;
-                          rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error21> ,
-                                          :RapidCompressionMachineSubsystems .
+                          rdfs:subClassOf :RapidCompressionMachineSubsystems .
 
 
 ###  http://www.esblurock.info/dataset#RCMSpeciesSupply
@@ -15788,8 +15232,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#RadialDistributionOfThermocouples
 :RadialDistributionOfThermocouples rdf:type owl:Class ;
-                                   rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error77> ,
-                                                   :BurnerParameters ,
+                                   rdfs:subClassOf :BurnerParameters ,
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty :hasPurpose ;
                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -15888,11 +15331,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#RapidCompressionMachineObservableSet
 :RapidCompressionMachineObservableSet rdf:type owl:Class ;
-                                      rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error252> ,
-                                                      <http://org.semanticweb.owlapi/error#Error253> ,
-                                                      <http://org.semanticweb.owlapi/error#Error254> ,
-                                                      <http://org.semanticweb.owlapi/error#Error255> ,
-                                                      :CombustionSetObservable ;
+                                      rdfs:subClassOf :CombustionSetObservable ;
                                       <http://purl.org/dc/terms/identifier> "dataset:RCMObservableSet"^^xsd:string ;
                                       rdfs:comment "This is the general description of the experimental set for a rapid compression machine (the directory structure of the data set)"^^xsd:string ;
                                       rdfs:label "Rapid Compression Machine Observable Set"^^xsd:string ;
@@ -15911,8 +15350,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#RapidCompressionMachineReportingProtocol
 :RapidCompressionMachineReportingProtocol rdf:type owl:Class ;
-                                          rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error238> ,
-                                                          :PublishedResultsReportingProtocol ,
+                                          rdfs:subClassOf :PublishedResultsReportingProtocol ,
                                                           [ rdf:type owl:Restriction ;
                                                             owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
                                                             owl:someValuesFrom :PressureTrace
@@ -16019,14 +15457,9 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                                                            owl:someValuesFrom :ChemConnectDatabaseBaseElement
                                                          ] ,
                                                          [ rdf:type owl:Restriction ;
-                                                           owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                           owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                           owl:onClass :CatalogDataObjectMaintainer
-                                                         ] ,
-                                                         [ rdf:type owl:Restriction ;
-                                                           owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                           owl:onClass :DatasetCollectionsSetLabel
+                                                           owl:onClass :DatasetCollectionSetRecordIDInfo
                                                          ] ,
                                                          [ rdf:type owl:Restriction ;
                                                            owl:onProperty <http://www.w3.org/ns/dcat#record> ;
@@ -16093,8 +15526,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#RelativeThermalcoupleAccuracy
 :RelativeThermalcoupleAccuracy rdf:type owl:Class ;
-                               rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error62> ,
-                                               :Percentage ,
+                               rdfs:subClassOf :Percentage ,
                                                [ rdf:type owl:Restriction ;
                                                  owl:onProperty :hasPurpose ;
                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -16138,6 +15570,16 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                 owl:onClass :FileSourceFormat
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                owl:onClass :Position
+                                              ] ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                owl:onClass :DatasetTransactionSpecificationForCollection
                                               ] ;
                               <http://purl.org/dc/elements/1.1/type> :RepositoryDataPartitionBlock ;
                               <http://purl.org/dc/terms/identifier> "dataset:RepositoryDataFile"^^xsd:string ;
@@ -16145,16 +15587,6 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                               rdfs:label "RepositoryDataFile" ;
                               <http://www.w3.org/2004/02/skos/core#altLabel> "datafile"^^xsd:string ,
                                                                              "datfile" .
-
-
-###  http://www.esblurock.info/dataset#RepositoryFile
-:RepositoryFile rdf:type owl:Class ;
-                rdfs:subClassOf :TransactionBase ;
-                <http://purl.org/dc/elements/1.1/type> "RepositoryFile" ;
-                <http://purl.org/dc/terms/identifier> "dataset:reposfile" ;
-                rdfs:comment "These are the events dealing with the manipulation of repository files" ;
-                rdfs:label "Repository File Transaction" ;
-                <http://www.w3.org/2004/02/skos/core#altLabel> "reposfile" .
 
 
 ###  http://www.esblurock.info/dataset#RepositoryFileStaging
@@ -16193,6 +15625,11 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                                                   [ rdf:type owl:Restriction ;
                                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                     owl:someValuesFrom :ParsedLine
+                                                  ] ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                    owl:onClass :BlockLineCount
                                                   ] ;
                                   <http://purl.org/dc/elements/1.1/type> :RepositoryParsedToFixedBlockSize ;
                                   <http://purl.org/dc/terms/identifier> "dataset:parsetofixsize"^^xsd:string ;
@@ -16495,11 +15932,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#SetOfMassFlowControllerObservables
 :SetOfMassFlowControllerObservables rdf:type owl:Class ;
-                                    rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error50> ,
-                                                    <http://org.semanticweb.owlapi/error#Error51> ,
-                                                    <http://org.semanticweb.owlapi/error#Error52> ,
-                                                    <http://org.semanticweb.owlapi/error#Error53> ,
-                                                    :MassFlowControlerObservable .
+                                    rdfs:subClassOf :MassFlowControlerObservable .
 
 
 ###  http://www.esblurock.info/dataset#SetOfObservationsLinkToActivity
@@ -16685,18 +16118,14 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#SingleFuelEquivalenceRatioObservable
 :SingleFuelEquivalenceRatioObservable rdf:type owl:Class ;
-                                      rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error37> ,
-                                                      :EquivalenceRatioObservable ;
+                                      rdfs:subClassOf :EquivalenceRatioObservable ;
                                       <http://purl.org/dc/terms/identifier> "dataset:SingleFuelEquivalenceRatioObservable"^^xsd:string ;
                                       rdfs:comment "Equivalence ratio of a single component fuel"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#SingleMassFlowControllerObservable
 :SingleMassFlowControllerObservable rdf:type owl:Class ;
-                                    rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error41> ,
-                                                    <http://org.semanticweb.owlapi/error#Error42> ,
-                                                    <http://org.semanticweb.owlapi/error#Error43> ,
-                                                    :MassFlowControlerObservable .
+                                    rdfs:subClassOf :MassFlowControlerObservable .
 
 
 ###  http://www.esblurock.info/dataset#SingleObservation
@@ -16837,9 +16266,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#SpeciesCompositionObservable
 :SpeciesCompositionObservable rdf:type owl:Class ;
-                              rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error28> ,
-                                              <http://org.semanticweb.owlapi/error#Error29> ,
-                                              :ChemicalCompositionObservable .
+                              rdfs:subClassOf :ChemicalCompositionObservable .
 
 
 ###  http://www.esblurock.info/dataset#SpeciesCompositionOfExperirment
@@ -16899,8 +16326,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#SpeciesPercentage
 :SpeciesPercentage rdf:type owl:Class ;
-                   rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error181> ,
-                                   :SpeciesAmount ,
+                   rdfs:subClassOf :SpeciesAmount ,
                                    [ rdf:type owl:Restriction ;
                                      owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -16918,8 +16344,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#SpeciesPercentageCompositionObservable
 :SpeciesPercentageCompositionObservable rdf:type owl:Class ;
-                                        rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error163> ,
-                                                        :SpeciesCompositionObservable .
+                                        rdfs:subClassOf :SpeciesCompositionObservable .
 
 
 ###  http://www.esblurock.info/dataset#SpeciesPercentageQuantity
@@ -17519,8 +16944,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#TemperatureOfHeatCapacity
 :TemperatureOfHeatCapacity rdf:type owl:Class ;
-                           rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error203> ,
-                                           :TemperatureParameter ,
+                           rdfs:subClassOf :TemperatureParameter ,
                                            [ rdf:type owl:Restriction ;
                                              owl:onProperty :hasPurpose ;
                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -17650,8 +17074,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#Thermocouple
 :Thermocouple rdf:type owl:Class ;
-              rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error32> ,
-                              :DataTypeTemperatureSensor ;
+              rdfs:subClassOf :DataTypeTemperatureSensor ;
               rdfs:label "Thermocouple" .
 
 
@@ -17708,8 +17131,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#ThermocoupleType
 :ThermocoupleType rdf:type owl:Class ;
-                  rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error170> ,
-                                  :KeywordParameter ,
+                  rdfs:subClassOf :KeywordParameter ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -17742,8 +17164,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#ThermocoupleTypeClassification
 :ThermocoupleTypeClassification rdf:type owl:Class ;
-                                rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error183> ,
-                                                :ClassificationUnit .
+                                rdfs:subClassOf :ClassificationUnit .
 
 
 ###  http://www.esblurock.info/dataset#ThermocoupleTypeE
@@ -17828,8 +17249,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#ThermodynamicCpAtTemperature
 :ThermodynamicCpAtTemperature rdf:type owl:Class ;
-                              rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error185> ,
-                                              :JThermodynamicsThermodynamicParameter ,
+                              rdfs:subClassOf :JThermodynamicsThermodynamicParameter ,
                                               [ rdf:type owl:Restriction ;
                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -17940,9 +17360,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#ThermodynamicObservation
 :ThermodynamicObservation rdf:type owl:Class ;
-                          rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error38> ,
-                                          <http://org.semanticweb.owlapi/error#Error39> ,
-                                          :ChemConnectObservable .
+                          rdfs:subClassOf :ChemConnectObservable .
 
 
 ###  http://www.esblurock.info/dataset#ThermodynamicParameter
@@ -18280,7 +17698,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#TransactionInterpretTextBlock
 :TransactionInterpretTextBlock rdf:type owl:Class ;
-                               rdfs:subClassOf :RepositoryFile ,
+                               rdfs:subClassOf :DatasetRepositoryFile ,
                                                [ rdf:type owl:Restriction ;
                                                  owl:onProperty <http://purl.org/dc/terms/source> ;
                                                  owl:someValuesFrom :ActivityInformationInterpretTextBlock
@@ -18491,8 +17909,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#UnburntGasTemperature
 :UnburntGasTemperature rdf:type owl:Class ;
-                       rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error64> ,
-                                       :TemperatureParameter ,
+                       rdfs:subClassOf :TemperatureParameter ,
                                        [ rdf:type owl:Restriction ;
                                          owl:onProperty :hasPurpose ;
                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -18652,6 +18069,11 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                   rdfs:subClassOf :CatagoryTypeChoices ;
                   rdfs:comment "Catagory holding user data" ;
                   rdfs:label "User Data" .
+
+
+###  http://www.esblurock.info/dataset#UserManagementTransactionObject
+:UserManagementTransactionObject rdf:type owl:Class ;
+                                 rdfs:subClassOf :TransactionEventObject .
 
 
 ###  http://www.esblurock.info/dataset#UserRoleChoices
@@ -18816,8 +18238,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#ViewPortWindow
 :ViewPortWindow rdf:type owl:Class ;
-                rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error177> ,
-                                :ProbeKeywordParameters ,
+                rdfs:subClassOf :ProbeKeywordParameters ,
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty <http://qudt.org/1.1/vocab/quantity#unitSystem> ;
                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -19425,7 +18846,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 
 ###  http://www.esblurock.info/dataset
-<http://www.esblurock.info/dataset> rdf:type owl:NamedIndividual .
+<http://www.esblurock.info/dataset> rdf:type owl:NamedIndividual ;
+                                    <http://purl.org/dc/terms/publisher> <http://purl.org/dc/aboutdcmi#DCMI> .
 
 
 ###  http://www.esblurock.info/dataset#AMU
@@ -21265,8 +20687,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                     <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date .
 
 
-<http://purl.org/dc/terms/rights> <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
-                                  rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+<http://purl.org/dc/terms/rights> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+                                  <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
                                   rdfs:label "Rights"@en ;
                                   rdfs:comment "Information about rights held in and over the resource."@en ;
                                   <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
@@ -21274,8 +20696,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                   <http://purl.org/dc/terms/description> "Typically, rights information includes a statement about various property rights associated with the resource, including intellectual property rights."@en .
 
 
-<http://purl.org/dc/terms/rightsHolder> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
-                                        <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#rightsHolder-002> ;
+<http://purl.org/dc/terms/rightsHolder> <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#rightsHolder-002> ;
+                                        rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                         <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                         rdfs:comment "A person or organization owning or managing rights over the resource."@en ;
                                         <http://purl.org/dc/terms/issued> "2004-06-14"^^xsd:date ;
