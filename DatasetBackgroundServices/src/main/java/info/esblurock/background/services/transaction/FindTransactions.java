@@ -199,9 +199,11 @@ public class FindTransactions {
 		if (emptycatalog != null) {
 			JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(emptycatalog);
 			firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
+			System.out.println("findDatasetTransaction:\n" + JsonObjectUtilities.toString(firestoreid));
 			JsonObject response = ReadFirestoreInformation.readFirestoreCollection(null, firestoreid);
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				JsonObject output = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+				System.out.println(JsonObjectUtilities.toString(output));
 				JsonArray arr = output.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 				if (arr != null) {
 					if (onlyone) {
@@ -214,6 +216,9 @@ public class FindTransactions {
 						}
 					}
 				}
+			} else {
+				System.out.println("Dataset Transaction not found: " + type + "\n" + JsonObjectUtilities.toString(firestoreid));
+				System.out.println("Empty catalog\n" + JsonObjectUtilities.toString(emptycatalog));
 			}
 		}
 		return transaction;

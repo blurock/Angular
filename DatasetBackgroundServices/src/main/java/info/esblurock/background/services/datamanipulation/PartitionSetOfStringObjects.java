@@ -30,21 +30,20 @@ public enum PartitionSetOfStringObjects {
 				String transactionID = info.get(ClassLabelConstants.TransactionID).getAsString();
 				JsonObject block = BaseCatalogData.createStandardDatabaseObject("dataset:RepositoryTherGasThermodynamicsBlock",
 						owner, transactionID, "false");
-				//block.addProperty(AnnotationObjectsLabels.identifier,ClassLabelConstants.RepositoryThermoPartitionBlock);
+				JsonObject thermoblock = block.get(ClassLabelConstants.RepositoryThermoPartitionBlock).getAsJsonObject();
 				try {
 					tokenizer.readBlock();
-					block.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine1,tokenizer.line1);
-					block.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine1a,tokenizer.line1a);
-					block.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine2,tokenizer.line2);
-					block.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine3,tokenizer.line3);
-					block.addProperty(ClassLabelConstants.Position, count);
-					block.addProperty(ClassLabelConstants.ServiceProcessSuccessful, "true");
+					thermoblock.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine1,tokenizer.line1);
+					thermoblock.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine1a,tokenizer.line1a);
+					thermoblock.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine2,tokenizer.line2);
+					thermoblock.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine3,tokenizer.line3);
+					thermoblock.addProperty(ClassLabelConstants.Position, count);
+					partitionarr.add(block);
+					count++;
 				} catch (JThergasReadException e) {
-					block.addProperty(ClassLabelConstants.ServiceProcessSuccessful, "false");
-					block.addProperty(ClassLabelConstants.ServiceResponseMessage, e.getMessage());
+					partitionarr.add(block);
+					count++;
 				}
-				partitionarr.add(block);
-				count++;
 			}
 		}
 
@@ -82,7 +81,6 @@ public enum PartitionSetOfStringObjects {
 					count = sze;
 					position++;
 				}
-				
 			}
 		}
 

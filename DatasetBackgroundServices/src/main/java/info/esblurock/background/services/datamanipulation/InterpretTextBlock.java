@@ -18,6 +18,7 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.DatasetCollectionManagement;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
+import info.esblurock.background.services.jthermodynamics.InterpretThermodynamicBlock;
 import info.esblurock.background.services.jthermodynamics.structure.GenerateJThermodynamics2DSpeciesStructure;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
@@ -27,6 +28,8 @@ import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateLinksInStandardCatalogInformation;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
+import jThergas.data.group.JThergasThermoStructureGroupPoint;
+import jThergas.exceptions.JThergasReadException;
 import thermo.build.ReadDisassociationData;
 import thermo.compute.utilities.StringToAtomContainer;
 import thermo.data.structure.structure.BuildStructureLibrary;
@@ -180,6 +183,29 @@ public enum InterpretTextBlock {
 			return null;
 		}
 
+	}, ParseLinesJThermodynamicsBensonRules {
+
+		@Override
+		public Element setUpOutputTable(JsonObject info, Element body) {
+			Element table = body.addElement("table");
+			Element hrow = table.addElement("tr");
+			hrow.addElement("th").addText("Benson Rule");
+			hrow.addElement("th").addText("Enthalpy");
+			hrow.addElement("th").addText("Entropy");
+			return table;
+		}
+
+		@Override
+		public boolean blockcheck(JsonObject parsed) {
+			boolean ans = parsed.get(ClassLabelConstants.RepositoryDataPartitionBlock) != null;
+			return ans;
+		}
+
+		@Override
+		public JsonObject interpret(JsonObject parsed, Element table, JsonObject info) {
+			return InterpretThermodynamicBlock.interpretBensonRuleThermodynamics(parsed, table, info);
+		}
+		
 	};
 
 	/**

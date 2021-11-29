@@ -181,7 +181,7 @@ public enum TransactionProcess {
 
 		@Override
 		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
-			return InterpretThermodynamicBlock.interpretMolecularThermodynamics(event, prerequisites, info);
+			return InterpretTextBlock.interpret(event, prerequisites, info);
 		}
 
 		@Override
@@ -200,7 +200,7 @@ public enum TransactionProcess {
 
 		@Override
 		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
-			return InterpretThermodynamicBlock.interpretBensonRuleThermodynamics(event, prerequisites, info);
+			return InterpretTextBlock.interpret(event, prerequisites, info);
 		}
 
 		@Override
@@ -222,7 +222,9 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionKey(JsonObject catalog) {
-			return null;
+			JsonObject structure = catalog.get(ClassLabelConstants.JThermodynamicsBensonRuleStructure).getAsJsonObject();
+			String name = structure.get(ClassLabelConstants.BensonRuleDatabaseReference).getAsString();
+			return name;
 		}
 
 		@Override
@@ -328,6 +330,7 @@ public enum TransactionProcess {
 	public static JsonObject retrieveSingleOutputFromTransaction(JsonObject prerequisites, String transidentifier) {
 		JsonObject catalog = null;
 		// Get the InitialReadInOfRepositoryFile transaction
+		if(prerequisites.get(transidentifier) != null) {
 		JsonObject stagingtransaction = prerequisites.get(transidentifier).getAsJsonObject();
 		// Get the set of output FirestoreID from transaction
 		JsonArray outobjects = stagingtransaction.get(ClassLabelConstants.DatabaseObjectIDOutputTransaction)
@@ -340,6 +343,9 @@ public enum TransactionProcess {
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				catalog = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 			}
+		}
+		} else {
+			System.out.println("Prerequisite '" + transidentifier + "' not found in\n" + JsonObjectUtilities.toString(prerequisites));
 		}
 		return catalog;
 	}
