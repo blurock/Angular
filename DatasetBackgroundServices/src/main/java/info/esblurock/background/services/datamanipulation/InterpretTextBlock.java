@@ -170,17 +170,23 @@ public enum InterpretTextBlock {
 
 		@Override
 		public Element setUpOutputTable(JsonObject info, Element body) {
-			return null;
+			Element table = body.addElement("table");
+			Element hrow = table.addElement("tr");
+			hrow.addElement("th").addText("Benson Rule");
+			hrow.addElement("th").addText("Enthalpy");
+			hrow.addElement("th").addText("Entropy");
+			return table;
 		}
 
 		@Override
 		public boolean blockcheck(JsonObject parsed) {
-			return false;
+			boolean ans = parsed.get(ClassLabelConstants.RepositoryDataPartitionBlock) != null;
+			return ans;
 		}
 
 		@Override
 		public JsonObject interpret(JsonObject parsed, Element table, JsonObject info) {
-			return null;
+			return InterpretThermodynamicBlock.interpretMolecularThermodynamics(parsed, table, info);
 		}
 
 	}, ParseLinesJThermodynamicsBensonRules {

@@ -36,9 +36,14 @@ public class GenerateJThermodynamics2DSpeciesStructure {
 			if(counts.get("C") != null) {
 				carbonCountS = Integer.toString(counts.get("C"));
 			}
-			catalog.addProperty(ClassLabelConstants.JThermodynamicsStructureName,molecule.getID());
+			String molname = molecule.getID();
+			String isomername = counts.isomerName();
+			if(molname.length() == 0) {
+				molname = isomername;
+			}
+			catalog.addProperty(ClassLabelConstants.JThermodynamicsStructureName,molname);
 			catalog.addProperty(ClassLabelConstants.JThermodynamicsStructureAsCMLString,structure.getCmlStructureString());
-			catalog.addProperty(ClassLabelConstants.JThermodynamicsStructureIsomerName,counts.isomerName());
+			catalog.addProperty(ClassLabelConstants.JThermodynamicsStructureIsomerName,isomername);
 			atomcounts.addProperty(ClassLabelConstants.CarbonAtomCount,carbonCountS);
 			atomcounts.addProperty(ClassLabelConstants.HydrogenAtomCount,hydrogenCountS);
 			atomcounts.addProperty(ClassLabelConstants.OxygenAtomCount,oxygenCountS);

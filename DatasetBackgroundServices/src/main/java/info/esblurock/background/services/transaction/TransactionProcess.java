@@ -186,7 +186,9 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionKey(JsonObject catalog) {
-			return null;
+			JsonObject structure = catalog.get(ClassLabelConstants.JThermodynamics2DSpeciesStructure).getAsJsonObject();
+			String name = structure.get(ClassLabelConstants.JThermodynamicsStructureIsomerName).getAsString();
+			return name;
 		}
 
 		@Override
@@ -222,9 +224,12 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionKey(JsonObject catalog) {
-			JsonObject structure = catalog.get(ClassLabelConstants.JThermodynamicsBensonRuleStructure).getAsJsonObject();
-			String name = structure.get(ClassLabelConstants.BensonRuleDatabaseReference).getAsString();
-			return name;
+			
+			JsonObject structure = catalog.get(ClassLabelConstants.DatasetSpecificationForCollectionSet).getAsJsonObject();
+			String maintainer = structure.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+			String dataset = structure.get(ClassLabelConstants.DatasetName).getAsString();
+			String version = structure.get(ClassLabelConstants.DatasetVersion).getAsString();
+			return maintainer + "." + dataset + ":" + version;
 		}
 
 		@Override
@@ -308,9 +313,7 @@ public enum TransactionProcess {
 		Iterator<String> keys = prerequisites.keySet().iterator();
 		while (keys.hasNext()) {
 			String key = keys.next();
-			System.out.println("Key: " + key);
 			JsonObject fireid = prerequisites.get(key).getAsJsonObject();
-			System.out.println(JsonObjectUtilities.toString(fireid));
 			JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(fireid);
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				JsonObject pretrans = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
