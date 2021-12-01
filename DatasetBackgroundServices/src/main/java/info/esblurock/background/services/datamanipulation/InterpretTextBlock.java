@@ -172,7 +172,7 @@ public enum InterpretTextBlock {
 		public Element setUpOutputTable(JsonObject info, Element body) {
 			Element table = body.addElement("table");
 			Element hrow = table.addElement("tr");
-			hrow.addElement("th").addText("Benson Rule");
+			hrow.addElement("th").addText("Molecule");
 			hrow.addElement("th").addText("Enthalpy");
 			hrow.addElement("th").addText("Entropy");
 			return table;
@@ -189,7 +189,31 @@ public enum InterpretTextBlock {
 			return InterpretThermodynamicBlock.interpretMolecularThermodynamics(parsed, table, info);
 		}
 
-	}, ParseLinesJThermodynamicsBensonRules {
+	}, ParseLinesJThermodynamicsSubstructures {
+
+		@Override
+		public Element setUpOutputTable(JsonObject info, Element body) {
+			Element table = body.addElement("table");
+			Element hrow = table.addElement("tr");
+			hrow.addElement("th").addText("Substructure");
+			hrow.addElement("th").addText("Enthalpy");
+			hrow.addElement("th").addText("Entropy");
+			return table;
+		}
+
+		@Override
+		public boolean blockcheck(JsonObject parsed) {
+			boolean ans = parsed.get(ClassLabelConstants.RepositoryDataPartitionBlock) != null;
+			return ans;
+		}
+
+		@Override
+		public JsonObject interpret(JsonObject parsed, Element table, JsonObject info) {
+			return InterpretThermodynamicBlock.interpretSubstructureThermodynamics(parsed, table, info);
+		}
+		
+	}
+	, ParseLinesJThermodynamicsBensonRules {
 
 		@Override
 		public Element setUpOutputTable(JsonObject info, Element body) {

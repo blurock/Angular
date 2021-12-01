@@ -27,6 +27,18 @@ import thermo.exception.ThermodynamicComputeException;
 public class InterpretThermodynamicBlock {
 	public static JsonObject interpretMolecularThermodynamics(JsonObject parsed, Element table, JsonObject info) {
 		JsonObject molthermo = CreateDocumentTemplate.createTemplate("dataset:JThermodynamics2DMoleculeThermodynamics");
+		return interpretSpeciesStandardThermodynamics(molthermo,parsed,table,info);
+	}
+	
+	public static JsonObject interpretSubstructureThermodynamics(JsonObject parsed, Element table, JsonObject info) {
+		JsonObject molthermo = CreateDocumentTemplate.createTemplate("dataset:JThermodynamics2DSubstructureThermodynamics");
+		JsonObject substruct =  interpretSpeciesStandardThermodynamics(molthermo,parsed,table,info);
+		String type = info.get(ClassLabelConstants.JThermodynamicsSubstructureType).getAsString();
+		substruct.addProperty(ClassLabelConstants.JThermodynamicsSubstructureType, type);
+		return substruct;
+	}
+	
+	public static JsonObject interpretSpeciesStandardThermodynamics(JsonObject molthermo, JsonObject parsed, Element table, JsonObject info) {
 		JsonObject lines = parsed.get(ClassLabelConstants.RepositoryThermoPartitionBlock).getAsJsonObject();
 		String line1= lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1).getAsString();
 		String line1a = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1a).getAsString();
