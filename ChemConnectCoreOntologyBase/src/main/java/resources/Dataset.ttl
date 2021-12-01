@@ -2602,6 +2602,22 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                    <http://www.w3.org/2004/02/skos/core#altLabel> "hierglobalinformation"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#CatalogHierarchyJThermodynamics2DMoleculeThermodynamics
+:CatalogHierarchyJThermodynamics2DMoleculeThermodynamics rdf:type owl:Class ;
+                                                         rdfs:subClassOf :CatalogHierarchyObjectStatus ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
+                                                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                           owl:onClass :JThermodynamics2DMoleculeThermodynamics
+                                                                         ] ;
+                                                         <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
+                                                         <http://purl.org/dc/terms/identifier> "dataset:2dspeciesthermodynamics"^^xsd:string ;
+                                                         rdfs:comment "This is the temperature dependent thermodynamics, in Benson form, of a species"^^xsd:string ;
+                                                         rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
+                                                         rdfs:label "2D Species Thermodynamics"^^xsd:string ;
+                                                         <http://www.w3.org/2004/02/skos/core#altLabel> "2dspeciesthermodynamics"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#CatalogHierarchyMetaAtomDefinition
 :CatalogHierarchyMetaAtomDefinition rdf:type owl:Class ;
                                     rdfs:subClassOf :CatalogHierarchyObjectStatus ,
@@ -10601,7 +10617,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                                    owl:onClass :ThermodynamicBensonMultiplicity
                                                                  ] ;
                                                  <http://purl.org/dc/elements/1.1/type> :JThermodynamicsBensonConnectionWithMultiplicity ;
-                                                 <http://purl.org/dc/terms/identifier> "dataset:connectmult" ;
+                                                 <http://purl.org/dc/terms/identifier> "dataset:connectmult"^^xsd:string ;
                                                  rdfs:comment "This defines the connecting atom and its multiplicity within a Benson rule." ;
                                                  rdfs:label "Connection Atom With Multiplicity" ;
                                                  <http://www.w3.org/2004/02/skos/core#altLabel> "connectmult" .
@@ -16460,17 +16476,32 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#SpeciesSpecificationInChI
 :SpeciesSpecificationInChI rdf:type owl:Class ;
-                           rdfs:subClassOf :SpeciesSpecificationType .
+                           rdfs:subClassOf :SpeciesSpecificationType ;
+                           <http://purl.org/dc/elements/1.1/type> :SpeciesSpecificationInChI ;
+                           <http://purl.org/dc/terms/identifier> "dataset:INCHI"^^xsd:string ;
+                           rdfs:comment "INCHI Species Specification"^^xsd:string ;
+                           rdfs:label "INCHI Species Specification"^^xsd:string ;
+                           <http://www.w3.org/2004/02/skos/core#altLabel> "INCHI"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#SpeciesSpecificationNancyLinearForm
 :SpeciesSpecificationNancyLinearForm rdf:type owl:Class ;
-                                     rdfs:subClassOf :SpeciesSpecificationType .
+                                     rdfs:subClassOf :SpeciesSpecificationType ;
+                                     <http://purl.org/dc/elements/1.1/type> :SpeciesSpecificationNancyLinearForm ;
+                                     <http://purl.org/dc/terms/identifier> "dataset:NANCY"^^xsd:string ;
+                                     rdfs:comment "NANCY Species Specification"^^xsd:string ;
+                                     rdfs:label "NANCY Species Specification"^^xsd:string ;
+                                     <http://www.w3.org/2004/02/skos/core#altLabel> "NANCY"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#SpeciesSpecificationSMILES
 :SpeciesSpecificationSMILES rdf:type owl:Class ;
-                            rdfs:subClassOf :SpeciesSpecificationType .
+                            rdfs:subClassOf :SpeciesSpecificationType ;
+                            <http://purl.org/dc/elements/1.1/type> :SpeciesSpecificationSMILES ;
+                            <http://purl.org/dc/terms/identifier> "dataset:SMILES"^^xsd:string ;
+                            rdfs:comment "SMILES Species Specification"^^xsd:string ;
+                            rdfs:label "SMILES Species Specification"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "SMILES"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#SpeciesSpecificationType
