@@ -2618,6 +2618,22 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                          <http://www.w3.org/2004/02/skos/core#altLabel> "2dspeciesthermodynamics"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#CatalogHierarchyJThermodynamics2DSubstructureThermodynamics
+:CatalogHierarchyJThermodynamics2DSubstructureThermodynamics rdf:type owl:Class ;
+                                                             rdfs:subClassOf :CatalogHierarchyObjectStatus ,
+                                                                             [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
+                                                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                               owl:onClass :JThermodynamics2DSubstructureThermodynamics
+                                                                             ] ;
+                                                             <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
+                                                             <http://purl.org/dc/terms/identifier> "dataset:hier2dstructurethermo"^^xsd:string ;
+                                                             rdfs:comment "The thermodynamic corrections associated with the substructure (of a given type)."^^xsd:string ;
+                                                             rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
+                                                             rdfs:label "2D Substructure Thermodynamic Correction"^^xsd:string ;
+                                                             <http://www.w3.org/2004/02/skos/core#altLabel> "hier2dstructurethermo"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#CatalogHierarchyMetaAtomDefinition
 :CatalogHierarchyMetaAtomDefinition rdf:type owl:Class ;
                                     rdfs:subClassOf :CatalogHierarchyObjectStatus ,
@@ -8930,6 +8946,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
                rdfs:label "Group Homepage" .
 
 
+###  http://www.esblurock.info/dataset#HBISubstructure
+:HBISubstructure rdf:type owl:Class ;
+                 rdfs:subClassOf :JThermodynamicsSubstructureTypeChoices .
+
+
 ###  http://www.esblurock.info/dataset#HTTPAddress
 :HTTPAddress rdf:type owl:Class ;
              rdfs:subClassOf :ChemConnectPrimitiveDataStructure ;
@@ -10499,6 +10520,26 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                    <http://www.w3.org/2004/02/skos/core#altLabel> "2dspeciesstructure"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#JThermodynamics2DSubstructureThermodynamics
+:JThermodynamics2DSubstructureThermodynamics rdf:type owl:Class ;
+                                             rdfs:subClassOf :JThermodynamics2DTempDependentThermo ,
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                               owl:onClass :JThermodynamicsSubstructureType
+                                                             ] ,
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                               owl:onClass :JThermodynamics2DSpeciesStructure
+                                                             ] ;
+                                             <http://purl.org/dc/elements/1.1/type> :JThermodynamics2DSubstructureThermodynamics ;
+                                             <http://purl.org/dc/terms/identifier> "dataset:2dsubstructurethermo"^^xsd:string ;
+                                             rdfs:comment "The temperature dependent thermodynamics of a substructure of a given type"^^xsd:string ;
+                                             rdfs:label "2D Substructure Thermodynamics"^^xsd:string ;
+                                             <http://www.w3.org/2004/02/skos/core#altLabel> "2dsubstructurethermo"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#JThermodynamics2DTempDependentThermo
 :JThermodynamics2DTempDependentThermo rdf:type owl:Class ;
                                       rdfs:subClassOf :ChemConnectThermodynamicsDatabase ,
@@ -10954,6 +10995,22 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                        rdfs:comment "This is the definition of a structure. The format can be, for example, Benson Rule or nancy linear form."^^xsd:string ;
                                        rdfs:label "Structure Definition"^^xsd:string ;
                                        <http://www.w3.org/2004/02/skos/core#altLabel> "structuredef"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsSubstructureType
+:JThermodynamicsSubstructureType rdf:type owl:Class ;
+                                 rdfs:subClassOf :Classification ;
+                                 <http://purl.org/dc/elements/1.1/type> :JThermodynamicsSubstructureType ;
+                                 <http://purl.org/dc/terms/identifier> "dataset:substructurecorrectiontype"^^xsd:string ;
+                                 rdfs:comment "The type of substructure the thermodynamic correction refers to."^^xsd:string ;
+                                 rdfs:isDefinedBy :JThermodynamicsSubstructureTypeChoices ;
+                                 rdfs:label "Substructure Correction Types"^^xsd:string ;
+                                 <http://www.w3.org/2004/02/skos/core#altLabel> "substructurecorrectiontype"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsSubstructureTypeChoices
+:JThermodynamicsSubstructureTypeChoices rdf:type owl:Class ;
+                                        rdfs:subClassOf :ChemConnectClassifications .
 
 
 ###  http://www.esblurock.info/dataset#JThermodynamicsSymmetryDefinition
@@ -13185,6 +13242,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#ParseLinesJThermodynamicsMolecule
 :ParseLinesJThermodynamicsMolecule rdf:type owl:Class ;
                                    rdfs:subClassOf :InterpretTextBlock .
+
+
+###  http://www.esblurock.info/dataset#ParseLinesJThermodynamicsSubstructures
+:ParseLinesJThermodynamicsSubstructures rdf:type owl:Class ;
+                                        rdfs:subClassOf :InterpretTextBlock .
 
 
 ###  http://www.esblurock.info/dataset#ParsedLine
@@ -15867,6 +15929,11 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                    rdfs:label "Research Institute" .
 
 
+###  http://www.esblurock.info/dataset#RingStrainCorrectionSubstructure
+:RingStrainCorrectionSubstructure rdf:type owl:Class ;
+                                  rdfs:subClassOf :JThermodynamicsSubstructureTypeChoices .
+
+
 ###  http://www.esblurock.info/dataset#SampleFlameSpecies
 :SampleFlameSpecies rdf:type owl:Class ;
                     rdfs:subClassOf :Flames .
@@ -16762,6 +16829,11 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                   rdfs:comment "The start position of a block within a matrix" ;
                   rdfs:label "Start row in matrix" ;
                   <http://www.w3.org/2004/02/skos/core#altLabel> "StartRowInMatrix" .
+
+
+###  http://www.esblurock.info/dataset#StericCorrectionSubstructure
+:StericCorrectionSubstructure rdf:type owl:Class ;
+                              rdfs:subClassOf :JThermodynamicsSubstructureTypeChoices .
 
 
 ###  http://www.esblurock.info/dataset#StringNameLabel
