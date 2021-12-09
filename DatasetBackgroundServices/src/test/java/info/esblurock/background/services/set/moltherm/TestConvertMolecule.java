@@ -26,7 +26,7 @@ public class TestConvertMolecule {
 
 	@Test
 	public void test() {
-		//String structure = "c(ch3)3/oh";
+		// String structure = "c(ch3)3/oh";
 		HashSet<MetaAtomInfo> metaatoms = new HashSet<MetaAtomInfo>();
 		StringToAtomContainer convert = new StringToAtomContainer(metaatoms);
 		String form = "NANCY";
@@ -38,7 +38,7 @@ public class TestConvertMolecule {
 			String line1 = " 11  66 1 'sn''cl'4         tin tetrachloride             0 1.0 1.0     212.0j73";
 			String line1a = "";
 			str.parse(line1, line1a, false);
-			
+
 			molecule = convert.stringToAtomContainer(form, str.getNancyLinearForm());
 			AtomCounts counts = new AtomCounts(molecule);
 			System.out.println(counts.isomerName());

@@ -160,7 +160,8 @@ public class DatasetCollectionManagement {
 		JsonObject response = null;
 		if (objs.size() > 0) {
 			JsonObject collectionset = objs.get(0).getAsJsonObject();
-			JsonObject catrecordid = info.get(ClassLabelConstants.DatasetSpecificationForCollectionSet).getAsJsonObject();
+			JsonObject catrecordid = info.get(ClassLabelConstants.DatasetSpecificationForCollectionSet)
+					.getAsJsonObject();
 			JsonObject recordid = info.get(ClassLabelConstants.DatasetCollectionSetRecordIDInfo).getAsJsonObject();
 			event.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
 			String classname = info.get(ClassLabelConstants.DatabaseObjectType).getAsString();
@@ -169,7 +170,7 @@ public class DatasetCollectionManagement {
 			String datasetversion = catrecordid.get(ClassLabelConstants.DatasetVersion).getAsString();
 
 			String collection = collectionset.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
-			
+
 			body.addElement("div").addText("Classname: " + classname + "(" + datasetname + ": " + datasetversion + ")");
 			body.addElement("div").addText("Into collection: '" + collection + "'");
 			DatasetCollectionIDManagement.insertCollectionInfoDataset(classname, catrecordid, collectionset);
@@ -181,11 +182,12 @@ public class DatasetCollectionManagement {
 					"Success: Insert Dataset '" + classname + "' to Collection IDs set '" + collection + "'", arr);
 		} else {
 			response = DatabaseServicesBase.standardErrorResponse(document,
-					"Error: Insert into Collection IDs set failed, prerequisite dataset:datasetcollectionsetcreationevent not found", null);
+					"Error: Insert into Collection IDs set failed, prerequisite dataset:datasetcollectionsetcreationevent not found",
+					null);
 		}
 		return response;
 	}
-	
+
 	public static boolean writeCatalogObject(JsonObject catalog, JsonObject collectionids) {
 		boolean success = true;
 		String identifier = catalog.get(AnnotationObjectsLabels.identifier).getAsString();
@@ -195,8 +197,7 @@ public class DatasetCollectionManagement {
 			JsonObject collectionid = collectionids.get(identifier).getAsJsonObject();
 			String datasetname = collectionid.get(ClassLabelConstants.DatasetName).getAsString();
 			String datasetversion = collectionid.get(ClassLabelConstants.DatasetVersion).getAsString();
-			JsonObject recordid = catalog.get(ClassLabelConstants.DatabaseCollectionOfCurrentClass)
-					.getAsJsonObject();
+			JsonObject recordid = catalog.get(ClassLabelConstants.DatabaseCollectionOfCurrentClass).getAsJsonObject();
 			recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 			recordid.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, collectioname);
 			recordid.addProperty(ClassLabelConstants.DatasetName, datasetname);

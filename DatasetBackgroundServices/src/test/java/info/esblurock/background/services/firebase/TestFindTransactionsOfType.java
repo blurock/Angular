@@ -19,14 +19,11 @@ public class TestFindTransactionsOfType {
 
 	@Test
 	public void test1() {
-		String jsonS = "{\n"
-				+ "    service: \"FindTransactionsOfType\",\n"
-				+ "    \"prov:activity\": \"dataset:CreateDatabasePersonEvent\"\n"
-				+ "}";
+		String jsonS = "{\n" + "    service: \"FindTransactionsOfType\",\n"
+				+ "    \"prov:activity\": \"dataset:CreateDatabasePersonEvent\"\n" + "}";
 		JsonObject json = JsonObjectUtilities.jsonObjectFromString(jsonS);
 		JsonObject response = DatabaseServicesBase.process(json);
 		System.out.println(JsonObjectUtilities.toString(response));
 	}
-
 
 }

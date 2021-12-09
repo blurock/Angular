@@ -32,7 +32,8 @@ public enum ServiceCollectionQueryOntology {
 			Document document = MessageConstructor.startDocument("DatasetCreateObjectTemplate");
 			String catalogtype = json.get(ClassLabelConstants.DatabaseObjectType).getAsString();
 			JsonObject catalog = CreateDocumentTemplate.createTemplate(catalogtype);
-			JsonObject response = DatabaseServicesBase.standardServiceResponse(document, "Success: DatasetCreateObjectTemplate", catalog);
+			JsonObject response = DatabaseServicesBase.standardServiceResponse(document,
+					"Success: DatasetCreateObjectTemplate", catalog);
 			return response;
 		}
 
@@ -43,8 +44,8 @@ public enum ServiceCollectionQueryOntology {
 			Document document = MessageConstructor.startDocument("DatasetCollectionDocumentIDPairForHierarchy");
 			JsonObject catalog = json.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 			JsonObject catalogidset = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(catalog);
-			JsonObject response = DatabaseServicesBase
-					.standardServiceResponse(document, "Success: DatasetCollectionDocumentIDPairForHierarchy", catalogidset);
+			JsonObject response = DatabaseServicesBase.standardServiceResponse(document,
+					"Success: DatasetCollectionDocumentIDPairForHierarchy", catalogidset);
 			return response;
 		}
 
@@ -60,8 +61,8 @@ public enum ServiceCollectionQueryOntology {
 			String identifier = catalog.get(AnnotationObjectsLabels.identifier).getAsString();
 			SubstituteJsonValues.substituteJsonObject(catalog, source);
 			catalog.addProperty(AnnotationObjectsLabels.identifier, identifier);
-			JsonObject response = DatabaseServicesBase.standardServiceResponse(document, "Success: DatasetCreateObjectTemplate",
-					catalog);
+			JsonObject response = DatabaseServicesBase.standardServiceResponse(document,
+					"Success: DatasetCreateObjectTemplate", catalog);
 			return response;
 		}
 
@@ -73,7 +74,8 @@ public enum ServiceCollectionQueryOntology {
 			Document document = MessageConstructor.startDocument("DatasetCreateClassificationList");
 			String catalogtype = json.get(ClassLabelConstants.Classification).getAsString();
 			JsonObject lst = GenerateSimpleClassification.generateSimpleListFromDataType(catalogtype);
-			JsonObject response = DatabaseServicesBase.standardServiceResponse(document, "DatasetCreateClassificationList", lst);
+			JsonObject response = DatabaseServicesBase.standardServiceResponse(document,
+					"DatasetCreateClassificationList", lst);
 			return response;
 		}
 
@@ -85,7 +87,8 @@ public enum ServiceCollectionQueryOntology {
 			Document document = MessageConstructor.startDocument("DatasetCreateClassificationTree");
 			String catalogtype = json.get(ClassLabelConstants.Classification).getAsString();
 			JsonObject tree = DatabaseOntologyClassification.classificationTreeFromDataType(catalogtype);
-			JsonObject response = DatabaseServicesBase.standardServiceResponse(document, "Success: DatasetCreateClassificationTree",tree);
+			JsonObject response = DatabaseServicesBase.standardServiceResponse(document,
+					"Success: DatasetCreateClassificationTree", tree);
 			return response;
 		}
 

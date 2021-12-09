@@ -27,6 +27,7 @@ import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateLinksInStandardCatalogInformation;
+import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import jThergas.data.group.JThergasThermoStructureGroupPoint;
 import jThergas.exceptions.JThergasReadException;
@@ -40,6 +41,97 @@ import thermo.exception.ThermodynamicComputeException;
 
 public enum InterpretTextBlock {
 
+	ParseLinesJThermodynamicsVibrationalStructure {
+
+		@Override
+		public Element setUpOutputTable(JsonObject parsed, Element body) {
+			Element table = body.addElement("table");
+			Element hrow = table.addElement("tr");
+			hrow.addElement("th").addText("Label");
+			hrow.addElement("th").addText("Species");
+			hrow.addElement("th").addText("Frequency");
+			return table;
+		}
+
+		public boolean blockcheck(JsonObject parsed) {
+			JsonArray lines = parsed.get(ClassLabelConstants.ParsedLine).getAsJsonArray();
+			return lines.size() == 1;
+		}
+
+		@Override
+		public JsonObject interpret(JsonObject parsed, Element table, JsonObject info) {
+			JsonObject catalog = CreateDocumentTemplate.createTemplate("dataset:JThermodynamicsVibrationalStructure");
+			JsonArray lines = parsed.get(ClassLabelConstants.ParsedLine).getAsJsonArray();
+			String position = parsed.get(ClassLabelConstants.Position).getAsString();
+			if (lines.size() == 1) {
+				StringTokenizer tok = new StringTokenizer(lines.get(0).getAsString());
+				if (tok.countTokens() == 5) {
+					String modename = tok.nextToken();
+					String structure = tok.nextToken();
+					String structurename = tok.nextToken();
+					String frequency = tok.nextToken();
+					String multiplicity = tok.nextToken();
+					String molformat = info.get(ClassLabelConstants.JThermodynamicsSpeciesSpecificationType)
+							.getAsString();
+					String form = DatasetOntologyParseBase.getAltLabelFromAnnotation(molformat);
+					catalog.addProperty(ClassLabelConstants.JThermodynamicsVibrationalModeLabel, modename);
+					StringToAtomContainer stringtoatom = new StringToAtomContainer(new HashSet<MetaAtomInfo>());
+					IAtomContainer molecule;
+					try {
+						// Interpret Structure
+						molecule = stringtoatom.stringToAtomContainer(form, structure);
+						molecule.setID(structurename);
+						JsonObject structure2d = GenerateJThermodynamics2DSpeciesStructure.generate(molecule);
+						catalog.add(ClassLabelConstants.JThermodynamics2DSpeciesStructure, structure2d);
+
+						// Interpret Frequency
+						JsonObject spec = info
+								.get(ClassLabelConstants.ParameterSpecificationStructureVibrationFrequency)
+								.getAsJsonObject();
+						JsonObject value = CreateDocumentTemplate
+								.createTemplate("dataset:StructureVibrationalFrequency");
+						catalog.add(ClassLabelConstants.StructureVibrationalFrequency, value);
+						value.add(ClassLabelConstants.ParameterSpecificationStructureVibrationFrequency, spec);
+						value.addProperty(ClassLabelConstants.ValueUncertainty, "0.0");
+						value.addProperty(ClassLabelConstants.ValueAsString, frequency);
+
+						// Interpret multiplicity
+						catalog.addProperty(ClassLabelConstants.StructureVibrationalFrequencySymmetry, multiplicity);
+
+						Element row = table.addElement("tr");
+						row.addElement("td").addText(structurename);
+						row.addElement("td").addText(structure);
+						row.addElement("td").addText(frequency);
+
+					} catch (ThermodynamicComputeException e) {
+						Element row = table.addElement("tr");
+						row.addElement("td").addText(structurename);
+						row.addElement("td").addText(e.toString());
+						catalog = null;
+						// e.printStackTrace();
+					} catch (IllegalArgumentException e) {
+						Element row = table.addElement("tr");
+						row.addElement("td").addText(structurename);
+						row.addElement("td").addText(structure);
+						row.addElement("td").addText(e.toString());
+						catalog = null;
+
+					}
+
+				} else {
+					Element row = table.addElement("tr");
+					row.addElement("td").addText("not the right number of elements on the line:" + tok.countTokens());
+					catalog = null;
+				}
+			} else {
+				Element row = table.addElement("tr");
+				row.addElement("td").addText("Not just one line: " + lines.size());
+				catalog = null;
+			}
+			return catalog;
+		}
+
+	},
 	ParseLinesJThermodynamicsMetaAtoms {
 		@Override
 		public JsonObject interpret(JsonObject parsed, Element table, JsonObject info) {
@@ -69,7 +161,7 @@ public enum InterpretTextBlock {
 						"dataset:SpeciesSpecificationNancyLinearForm");
 				JsonObject recordid = catalog.get(ClassLabelConstants.DatabaseCollectionOfCurrentClass)
 						.getAsJsonObject();
-				//catalog.add(ClassLabelConstants.DatabaseCollectionOfCurrentClass, recordid);
+				// catalog.add(ClassLabelConstants.DatabaseCollectionOfCurrentClass, recordid);
 				String name = metaatomtype + "." + metaatomname;
 				recordid.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, name);
 
@@ -121,7 +213,8 @@ public enum InterpretTextBlock {
 			JsonArray lines = parsed.get(ClassLabelConstants.ParsedLine).getAsJsonArray();
 			String position = parsed.get(ClassLabelConstants.Position).getAsString();
 			StringTokenizer tok1 = new StringTokenizer(lines.get(0).getAsString());
-			JsonObject catalog = CreateDocumentTemplate.createTemplate("dataset:JThermodynamicsDisassociationEnergyOfStructure");
+			JsonObject catalog = CreateDocumentTemplate
+					.createTemplate("dataset:JThermodynamicsDisassociationEnergyOfStructure");
 			if (tok1.countTokens() == 5) {
 				StringTokenizer tok2 = new StringTokenizer(lines.get(1).getAsString());
 				if (tok2.countTokens() == 2) {
@@ -137,15 +230,18 @@ public enum InterpretTextBlock {
 					String nancy = tok2.nextToken();
 					StringToAtomContainer stringtoatom = new StringToAtomContainer(new HashSet<MetaAtomInfo>());
 					try {
-						String molformat = info.get(ClassLabelConstants.JThermodynamicsSpeciesSpecificationType).getAsString();
-						IAtomContainer molecule = stringtoatom.stringToAtomContainer(molformat, nancy);
+						String molformat = info.get(ClassLabelConstants.JThermodynamicsSpeciesSpecificationType)
+								.getAsString();
+						String form = DatasetOntologyParseBase.getAltLabelFromAnnotation(molformat);
+						IAtomContainer molecule = stringtoatom.stringToAtomContainer(form, nancy);
 						molecule.setID(nameS);
 						JsonObject structure = GenerateJThermodynamics2DSpeciesStructure.generate(molecule);
 						Double energyD = Double.valueOf(energyS);
 						Double errorD = Double.valueOf(errorS);
 						Element row = table.addElement("tr");
 						JsonObject spec = info.get(ClassLabelConstants.ParameterSpecification).getAsJsonObject();
-						JsonObject value = CreateDocumentTemplate.createTemplate("dataset:JThermodynamicDisassociationEnergy");
+						JsonObject value = CreateDocumentTemplate
+								.createTemplate("dataset:JThermodynamicDisassociationEnergy");
 						catalog.add(ClassLabelConstants.JThermodynamicDisassociationEnergy, value);
 						value.add(ClassLabelConstants.ParameterSpecification, spec);
 						value.addProperty(ClassLabelConstants.ValueUncertainty, errorD.toString());
@@ -189,7 +285,8 @@ public enum InterpretTextBlock {
 			return InterpretThermodynamicBlock.interpretMolecularThermodynamics(parsed, table, info);
 		}
 
-	}, ParseLinesJThermodynamicsSubstructures {
+	},
+	ParseLinesJThermodynamicsSubstructures {
 
 		@Override
 		public Element setUpOutputTable(JsonObject info, Element body) {
@@ -211,9 +308,9 @@ public enum InterpretTextBlock {
 		public JsonObject interpret(JsonObject parsed, Element table, JsonObject info) {
 			return InterpretThermodynamicBlock.interpretSubstructureThermodynamics(parsed, table, info);
 		}
-		
-	}
-	, ParseLinesJThermodynamicsBensonRules {
+
+	},
+	ParseLinesJThermodynamicsBensonRules {
 
 		@Override
 		public Element setUpOutputTable(JsonObject info, Element body) {
@@ -235,7 +332,7 @@ public enum InterpretTextBlock {
 		public JsonObject interpret(JsonObject parsed, Element table, JsonObject info) {
 			return InterpretThermodynamicBlock.interpretBensonRuleThermodynamics(parsed, table, info);
 		}
-		
+
 	};
 
 	/**
@@ -266,41 +363,41 @@ public enum InterpretTextBlock {
 		Element body = MessageConstructor.isolateBody(document);
 		int errorcnt = 0;
 		JsonArray catalogset = new JsonArray();
-			JsonArray parsedlineset = TransactionProcess.retrieveSetOfOutputsFromTransaction(prerequisites,
-					ClassLabelConstants.PartiionSetWithinRepositoryFile);
-			body.addElement("div").addText("Processing " + parsedlineset.size() + " blocks");
-			InterpretTextBlock method = getMethod(info);
-			Element table = method.setUpOutputTable(info, body);
-			for (int i = 0; i < parsedlineset.size(); i++) {
-				JsonObject parsed = parsedlineset.get(i).getAsJsonObject();
-				if (checkIfCompatableParse(parsed, info)) {
-					JsonObject catalog = method.interpret(parsed, table, info);
-					if (catalog != null) {
-						catalog.add(ClassLabelConstants.DatasetSpecificationForCollectionSet, catalogrecordid);
-						BaseCatalogData.insertStandardBaseInformation(catalog, owner, transactionID, "false", true);
-						CreateLinksInStandardCatalogInformation.transfer(info, catalog);
-						CreateLinksInStandardCatalogInformation.transfer(parsed, catalog);
-						CreateLinksInStandardCatalogInformation.linkCatalogObjects(parsed, 
-								"dataset:ConceptLinkRepositoryPartitionToInterpretation", catalog);
-						CreateLinksInStandardCatalogInformation.transfer(info, catalog);
-						WriteFirestoreCatalogObject.writeCatalogObject(catalog);
-						catalogset.add(catalog);
-					} else {
-						errorcnt++;
-					}
+		JsonArray parsedlineset = TransactionProcess.retrieveSetOfOutputsFromTransaction(prerequisites,
+				ClassLabelConstants.PartiionSetWithinRepositoryFile);
+		body.addElement("div").addText("Processing " + parsedlineset.size() + " blocks");
+		InterpretTextBlock method = getMethod(info);
+		Element table = method.setUpOutputTable(info, body);
+		for (int i = 0; i < parsedlineset.size(); i++) {
+			JsonObject parsed = parsedlineset.get(i).getAsJsonObject();
+			if (checkIfCompatableParse(parsed, info)) {
+				JsonObject catalog = method.interpret(parsed, table, info);
+				if (catalog != null) {
+					catalog.add(ClassLabelConstants.DatasetSpecificationForCollectionSet, catalogrecordid);
+					BaseCatalogData.insertStandardBaseInformation(catalog, owner, transactionID, "false", true);
+					CreateLinksInStandardCatalogInformation.transfer(info, catalog);
+					CreateLinksInStandardCatalogInformation.transfer(parsed, catalog);
+					CreateLinksInStandardCatalogInformation.linkCatalogObjects(parsed,
+							"dataset:ConceptLinkRepositoryPartitionToInterpretation", catalog);
+					CreateLinksInStandardCatalogInformation.transfer(info, catalog);
+					WriteFirestoreCatalogObject.writeCatalogObject(catalog);
+					catalogset.add(catalog);
 				} else {
-					String sourceformatinfo = info.get(ClassLabelConstants.FileSourceFormat).getAsString();
-					String sourceformatparsed = parsed.get(ClassLabelConstants.FileSourceFormat).getAsString();
-					body.addElement("div").addText("Incompatable parse: Expected: " 
-							+ sourceformatinfo + " Got: " + sourceformatparsed);
 					errorcnt++;
 				}
+			} else {
+				String sourceformatinfo = info.get(ClassLabelConstants.FileSourceFormat).getAsString();
+				String sourceformatparsed = parsed.get(ClassLabelConstants.FileSourceFormat).getAsString();
+				body.addElement("div")
+						.addText("Incompatable parse: Expected: " + sourceformatinfo + " Got: " + sourceformatparsed);
+				errorcnt++;
 			}
-			String message = "Successful: " + catalogset.size() + " blocks";
-			if (errorcnt > 0) {
-				message += " (Error count: " + errorcnt + ")";
-			}
-			JsonObject response = DatabaseServicesBase.standardServiceResponse(document, message, catalogset);
+		}
+		String message = "Successful: " + catalogset.size() + " blocks";
+		if (errorcnt > 0) {
+			message += " (Error count: " + errorcnt + ")";
+		}
+		JsonObject response = DatabaseServicesBase.standardServiceResponse(document, message, catalogset);
 
 		return response;
 	}

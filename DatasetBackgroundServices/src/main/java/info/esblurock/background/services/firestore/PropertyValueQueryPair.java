@@ -4,12 +4,10 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.reaction.core.ontology.base.dataset.BaseObjectJSONInterface;
 
-public class PropertyValueQueryPair  extends BaseObjectJSONInterface {
+public class PropertyValueQueryPair extends BaseObjectJSONInterface {
 	String property;
 	String value;
-	
-	
-	
+
 	public PropertyValueQueryPair() {
 		this.property = "";
 		this.value = "";
@@ -40,7 +38,7 @@ public class PropertyValueQueryPair  extends BaseObjectJSONInterface {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	
+
 	@Override
 	public JsonObject toJsonObject() {
 		JsonObject json = new JsonObject();
@@ -48,11 +46,11 @@ public class PropertyValueQueryPair  extends BaseObjectJSONInterface {
 		json.addProperty("foaf:LabelProperty", value);
 		return json;
 	}
-	
+
 	@Override
 	public void fillJsonObject(JsonObject json) {
 		property = json.get("dataset:objectype").getAsString();
 		value = json.get("foaf:LabelProperty").getAsString();
 	}
-	
+
 }

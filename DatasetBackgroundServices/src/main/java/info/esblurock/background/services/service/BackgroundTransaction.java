@@ -14,32 +14,28 @@ import info.esblurock.background.services.servicecollection.DatabaseServicesBase
 import info.esblurock.background.services.transaction.TransactionProcess;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
-@WebServlet(
-	    name = "BackgroundTransaction",
-	    urlPatterns = {"/transaction"}
-	)
-public class BackgroundTransaction  extends HttpServlet {
+@WebServlet(name = "BackgroundTransaction", urlPatterns = { "/transaction" })
+public class BackgroundTransaction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
-	/** POST
-	 * The input is one JSON argument (read in using InputStream).
-	 * The argument 'service' determines which service is to be performed
+	/**
+	 * POST The input is one JSON argument (read in using InputStream). The argument
+	 * 'service' determines which service is to be performed
 	 * {@link DatabaseServicesBase} processes the data with the service.
 	 * 
 	 * The response is application/json
 	 *
 	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response)  throws IOException {
-		
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
 		String bodyS = BackgroundService.getBody(request);
-		  JsonObject body = JsonObjectUtilities.jsonObjectFromString(bodyS);
-		  JsonObject answer = TransactionProcess.processFromTransaction(body);
-			PrintWriter out = response.getWriter();
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			out.print(JsonObjectUtilities.toString(answer));
-			out.flush();		
+		JsonObject body = JsonObjectUtilities.jsonObjectFromString(bodyS);
+		JsonObject answer = TransactionProcess.processFromTransaction(body);
+		PrintWriter out = response.getWriter();
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		out.print(JsonObjectUtilities.toString(answer));
+		out.flush();
 	}
 
 }

@@ -1,6 +1,5 @@
 package info.esblurock.background.services.service.rdfs;
 
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -12,14 +11,16 @@ import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyEleme
 public class FindRDFObjects {
 
 	/**
-	 * @param rdftype The RDF predicate (corresponding to class which generated the RDF)
+	 * @param rdftype   The RDF predicate (corresponding to class which generated
+	 *                  the RDF)
 	 * @param attribute The (primitive component) attribute of the subject
 	 * @return The response of the database read
 	 * 
-	 * The database read with two conditions:
-	 * <ul> RDFPredicate: The type
-	 * <li> RDFSubjectKey: The attribute value
-	 * <ul>
+	 *         The database read with two conditions:
+	 *         <ul>
+	 *         RDFPredicate: The type
+	 *         <li>RDFSubjectKey: The attribute value
+	 *         <ul>
 	 * 
 	 */
 	public static JsonObject findRDFFromTypeAndSubjectAttribute(String rdftype, String attribute) {
@@ -38,6 +39,5 @@ public class FindRDFObjects {
 		JsonObject response = ReadFirestoreInformation.readFirestoreCollection(setofprops, firestoreid);
 		return response;
 	}
-	
 
 }

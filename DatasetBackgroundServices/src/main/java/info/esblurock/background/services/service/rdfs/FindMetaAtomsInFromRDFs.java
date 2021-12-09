@@ -16,9 +16,11 @@ import thermo.data.structure.structure.StructureAsCML;
 public class FindMetaAtomsInFromRDFs extends FindRDFObjects {
 	/**
 	 * @param type The type of meta atom
-	 * @return The array (JsonArray) of JThermodynamicsMetaAtomInfo objects (JsonObject)
+	 * @return The array (JsonArray) of JThermodynamicsMetaAtomInfo objects
+	 *         (JsonObject)
 	 * 
-	 * If the database retrieval was unsuccessful, then an empty array is returned.
+	 *         If the database retrieval was unsuccessful, then an empty array is
+	 *         returned.
 	 */
 	public static JsonArray getMetaAtomsByType(String object, String dataset) {
 		String rdftype = "JThermodynamicsMetaAtomInfoRDF";
@@ -28,32 +30,35 @@ public class FindMetaAtomsInFromRDFs extends FindRDFObjects {
 		if (success) {
 			JsonObject result = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 			JsonArray rdfarr = result.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
-			for(int i=0;i<rdfarr.size();i++) {
+			for (int i = 0; i < rdfarr.size(); i++) {
 				JsonObject metaatomrdf = rdfarr.get(i).getAsJsonObject();
 				JsonObject metaatom = metaatomrdf.get(ClassLabelConstants.RDFJsonAsObject).getAsJsonObject();
 				arr.add(metaatom);
 			}
-	}
+		}
 		return arr;
 	}
+
 	/**
 	 * @param object This is the meta atom type
-	 * @return A list of all the JAVA meta atom definitions (MetaAtomDefinition). This can be used directly for species construction.
+	 * @return A list of all the JAVA meta atom definitions (MetaAtomDefinition).
+	 *         This can be used directly for species construction.
 	 * 
-	 * The list only contains those that had no errors in formation. 
-	 * If an error occurred, then the element will not be included in the list.
+	 *         The list only contains those that had no errors in formation. If an
+	 *         error occurred, then the element will not be included in the list.
 	 * 
 	 */
 	public static ArrayList<MetaAtomDefinition> getMetaAtomDefinitionsByType(String object) {
-		JsonArray arr = getMetaAtomsByType(object,null);
+		JsonArray arr = getMetaAtomsByType(object, null);
 		ArrayList<MetaAtomDefinition> deflist = new ArrayList<MetaAtomDefinition>();
 		if (arr != null) {
-			for(int i=0;i<arr.size();i++) {
+			for (int i = 0; i < arr.size(); i++) {
 				JsonObject metaatom = arr.get(i).getAsJsonObject();
-				JsonObject structure = metaatom.get(ClassLabelConstants.JThermodynamics2DSpeciesStructure).getAsJsonObject();
+				JsonObject structure = metaatom.get(ClassLabelConstants.JThermodynamics2DSpeciesStructure)
+						.getAsJsonObject();
 				String cml = structure.get(ClassLabelConstants.JThermodynamicsStructureAsCMLString).getAsString();
 				String name = structure.get(ClassLabelConstants.JThermodynamicsStructureName).getAsString();
-				StructureAsCML structascml = new StructureAsCML(name,cml);
+				StructureAsCML structascml = new StructureAsCML(name, cml);
 				String label = metaatom.get(ClassLabelConstants.JThermodynamicsMetaAtomLabel).getAsString();
 				String type = metaatom.get(ClassLabelConstants.JThermodynamicsMetaAtomType).getAsString();
 				MetaAtomInfo info = new MetaAtomInfo();
@@ -70,6 +75,5 @@ public class FindMetaAtomsInFromRDFs extends FindRDFObjects {
 		}
 		return deflist;
 	}
-
 
 }

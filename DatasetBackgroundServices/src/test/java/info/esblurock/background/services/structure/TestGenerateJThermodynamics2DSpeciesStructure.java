@@ -1,6 +1,5 @@
 package info.esblurock.background.services.structure;
 
-
 import java.sql.SQLException;
 import java.util.HashSet;
 
@@ -18,7 +17,7 @@ public class TestGenerateJThermodynamics2DSpeciesStructure {
 
 	@Test
 	public void test() {
-		
+
 		NancyLinearFormToMolecule convert = new NancyLinearFormToMolecule(new HashSet<MetaAtomInfo>());
 		try {
 			String nancy1 = "ch2//ch/ch3";

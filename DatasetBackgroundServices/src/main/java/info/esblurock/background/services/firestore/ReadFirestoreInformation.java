@@ -29,9 +29,9 @@ import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class ReadFirestoreInformation {
-	
-	
-	/** Read in the Catalog Object
+
+	/**
+	 * Read in the Catalog Object
 	 * 
 	 * @param firestoreid The complete FirestoreCatalogID
 	 * @return The object read in from the database
@@ -49,10 +49,11 @@ public class ReadFirestoreInformation {
 			ApiFuture<DocumentSnapshot> future = docref.get();
 			DocumentSnapshot document = future.get();
 			if (document.exists()) {
-			  Map<String,Object> mapObj = document.getData();
+				Map<String, Object> mapObj = document.getData();
 				String jsonString = new Gson().toJson(mapObj);
 				JsonObject catalog = JsonObjectUtilities.jsonObjectFromString(jsonString);
-				response = DatabaseServicesBase.standardServiceResponse(docmessage, "Success: ReadFirestoreInformation", catalog);
+				response = DatabaseServicesBase.standardServiceResponse(docmessage, "Success: ReadFirestoreInformation",
+						catalog);
 			} else {
 				String message = "Document not found: ";
 				response = DatabaseServicesBase.standardErrorResponse(docmessage, message, response);
@@ -66,22 +67,26 @@ public class ReadFirestoreInformation {
 		}
 		return response;
 	}
-	
-	/** 
+
+	/**
 	 * 
-	 * @param setofprops (SetOfPropertyValueQueryPairs) properties for query conditions
+	 * @param setofprops         (SetOfPropertyValueQueryPairs) properties for query
+	 *                           conditions
 	 * @param firestorecatalogid (FirestoreCatalogID) The collection to search from
 	 * @return response with SetOfCatalogObject object
 	 * 
-	 * The PropertyValueQueryPair are the conditions of the search, using collection.whereEqualTo
-	 * The JsonArray (in SetOfCatalogObject) is the catalog objects meeting this requirement
+	 *         The PropertyValueQueryPair are the conditions of the search, using
+	 *         collection.whereEqualTo The JsonArray (in SetOfCatalogObject) is the
+	 *         catalog objects meeting this requirement
 	 * 
-	 * Response: 
-	 * <ul>
-	 * <li> ServiceProcessSuccessful: true if successful
-	 * <li> SimpleCatalogObject: the SetOfCatalogObject of the catalog object retrieved
-	 * <li> ServiceResponseMessage: the ServiceResponseMessage with text (error text if unsuccessful)
-	 * <ul>
+	 *         Response:
+	 *         <ul>
+	 *         <li>ServiceProcessSuccessful: true if successful
+	 *         <li>SimpleCatalogObject: the SetOfCatalogObject of the catalog object
+	 *         retrieved
+	 *         <li>ServiceResponseMessage: the ServiceResponseMessage with text
+	 *         (error text if unsuccessful)
+	 *         <ul>
 	 */
 	public static JsonObject readFirestoreCollection(JsonObject setofprops, JsonObject firestorecatalogid) {
 		Document docmessage = MessageConstructor.startDocument("readFirestoreCollection");
@@ -91,32 +96,32 @@ public class ReadFirestoreInformation {
 		JsonObject response = new JsonObject();
 		try {
 			Firestore db = FirestoreBaseClass.getFirebaseDatabase();
-			CollectionReference collection = SetUpDocumentReference.setupCollection(db,firestorecatalogid);
+			CollectionReference collection = SetUpDocumentReference.setupCollection(db, firestorecatalogid);
 			Query query = null;
-			if(setofprops != null) {
-			JsonArray props = setofprops.get(ClassLabelConstants.PropertyValueQueryPair).getAsJsonArray();
-			Iterator<JsonElement> iter = props.iterator();
-			
-			Element table = body.addElement("table");
-			Element rowheader = table.addElement("tr");
-			rowheader.addElement("th","Type");
-			rowheader.addElement("th","Key");
-			while(iter.hasNext()) {
-				Element row = table.addElement("tr");
-				JsonObject pair = iter.next().getAsJsonObject();
-				String type = pair.get(ClassLabelConstants.DatabaseObjectType).getAsString();
-				String value = pair.get(ClassLabelConstants.ShortStringKey).getAsString();
-				row.addElement("td",type);
-				row.addElement("td",value);
-				if(query == null) {
-					query = collection.whereEqualTo(type,value);
-				} else {
-					query = query.whereEqualTo(type,value);
+			if (setofprops != null) {
+				JsonArray props = setofprops.get(ClassLabelConstants.PropertyValueQueryPair).getAsJsonArray();
+				Iterator<JsonElement> iter = props.iterator();
+
+				Element table = body.addElement("table");
+				Element rowheader = table.addElement("tr");
+				rowheader.addElement("th", "Type");
+				rowheader.addElement("th", "Key");
+				while (iter.hasNext()) {
+					Element row = table.addElement("tr");
+					JsonObject pair = iter.next().getAsJsonObject();
+					String type = pair.get(ClassLabelConstants.DatabaseObjectType).getAsString();
+					String value = pair.get(ClassLabelConstants.ShortStringKey).getAsString();
+					row.addElement("td", type);
+					row.addElement("td", value);
+					if (query == null) {
+						query = collection.whereEqualTo(type, value);
+					} else {
+						query = query.whereEqualTo(type, value);
+					}
 				}
 			}
-			}
 			ApiFuture<QuerySnapshot> future = null;
-			if(query == null) {
+			if (query == null) {
 				future = collection.get();
 			} else {
 				future = query.get();
@@ -127,24 +132,25 @@ public class ReadFirestoreInformation {
 				Map<String, Object> mapObj = (Map<String, Object>) document.getData();
 				String jsonString = new Gson().toJson(mapObj);
 				JsonObject rdf = JsonObjectUtilities.jsonObjectFromString(jsonString);
-				
+
 				ul.addElement("li").addText(rdf.get(ClassLabelConstants.CatalogObjectKey).getAsString());
 				setofobjs.add(rdf);
 			}
 			JsonObject set = CreateDocumentTemplate.createTemplate("dataset:SetOfCatalogObjects");
 			set.add(ClassLabelConstants.SimpleCatalogObject, setofobjs);
-			response = DatabaseServicesBase.standardServiceResponse(docmessage,"Successful read of catalog objects", set);
+			response = DatabaseServicesBase.standardServiceResponse(docmessage, "Successful read of catalog objects",
+					set);
 		} catch (IOException e) {
 			response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);
-			response.addProperty(ClassLabelConstants.ServiceResponseMessage,e.toString());
+			response.addProperty(ClassLabelConstants.ServiceResponseMessage, e.toString());
 			response.add(ClassLabelConstants.SimpleCatalogObject, null);
 		} catch (InterruptedException e) {
 			response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);
-			response.addProperty(ClassLabelConstants.ServiceResponseMessage,e.toString());
+			response.addProperty(ClassLabelConstants.ServiceResponseMessage, e.toString());
 			response.add(ClassLabelConstants.SimpleCatalogObject, null);
 		} catch (ExecutionException e) {
 			response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);
-			response.addProperty(ClassLabelConstants.ServiceResponseMessage,e.toString());
+			response.addProperty(ClassLabelConstants.ServiceResponseMessage, e.toString());
 			response.add(ClassLabelConstants.SimpleCatalogObject, null);
 		}
 		return response;

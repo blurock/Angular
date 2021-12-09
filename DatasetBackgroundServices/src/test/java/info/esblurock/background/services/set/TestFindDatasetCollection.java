@@ -22,20 +22,21 @@ public class TestFindDatasetCollection {
 	public void test() {
 		String maintainer = "Administrator";
 		String dataset = "StandardDataset";
-		 ArrayList<MetaAtomDefinition> defs = FindMetaAtomDefinitionsInDatasetCollection.findMetaAtomDefinitions(maintainer,dataset);
-		 if(defs != null) {
-			 Iterator<MetaAtomDefinition> iter = defs.iterator();
-			 System.out.println("---------------------------------------------");
-			 System.out.println("Number of definitions: " + defs.size());
-			 while(iter.hasNext()) {
-				 MetaAtomDefinition def = iter.next();
-				 System.out.println("---------------------------------------------");
-				 System.out.println(def.toString());
-			 }
-			 System.out.println("---------------------------------------------");
-		 } else {
-			 System.out.println("******** Error in reading MetaAtomDefinitions");
-		 }
+		ArrayList<MetaAtomDefinition> defs = FindMetaAtomDefinitionsInDatasetCollection
+				.findMetaAtomDefinitions(maintainer, dataset);
+		if (defs != null) {
+			Iterator<MetaAtomDefinition> iter = defs.iterator();
+			System.out.println("---------------------------------------------");
+			System.out.println("Number of definitions: " + defs.size());
+			while (iter.hasNext()) {
+				MetaAtomDefinition def = iter.next();
+				System.out.println("---------------------------------------------");
+				System.out.println(def.toString());
+			}
+			System.out.println("---------------------------------------------");
+		} else {
+			System.out.println("******** Error in reading MetaAtomDefinitions");
+		}
 	}
 
 }

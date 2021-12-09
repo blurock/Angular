@@ -11,8 +11,8 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 public class LineCommands {
 
 	public static void main(String[] args) {
-        ARQ.init();
- 		if (args.length > 0) {
+		ARQ.init();
+		if (args.length > 0) {
 			String command = args[0];
 			if (command.equals("Template")) {
 				if (args.length > 1) {
@@ -42,6 +42,7 @@ public class LineCommands {
 			System.out.println("------------------------------");
 		}
 	}
+
 	public static void commands() {
 		System.out.println("Backround Commands");
 		System.out.println("Template: Build full JsonObject Template of a class");

@@ -25,18 +25,19 @@ public enum PartitionSetOfStringObjects {
 		void partition(JsonArray partitionarr, JsonObject info, String content) {
 			JThergasTokenizer tokenizer = new JThergasTokenizer(content);
 			int count = 0;
-			while(tokenizer.countTokens() > 2) {
+			while (tokenizer.countTokens() > 2) {
 				String owner = info.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
 				String transactionID = info.get(ClassLabelConstants.TransactionID).getAsString();
-				JsonObject block = BaseCatalogData.createStandardDatabaseObject("dataset:RepositoryTherGasThermodynamicsBlock",
-						owner, transactionID, "false");
-				JsonObject thermoblock = block.get(ClassLabelConstants.RepositoryThermoPartitionBlock).getAsJsonObject();
+				JsonObject block = BaseCatalogData.createStandardDatabaseObject(
+						"dataset:RepositoryTherGasThermodynamicsBlock", owner, transactionID, "false");
+				JsonObject thermoblock = block.get(ClassLabelConstants.RepositoryThermoPartitionBlock)
+						.getAsJsonObject();
 				try {
 					tokenizer.readBlock();
-					thermoblock.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine1,tokenizer.line1);
-					thermoblock.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine1a,tokenizer.line1a);
-					thermoblock.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine2,tokenizer.line2);
-					thermoblock.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine3,tokenizer.line3);
+					thermoblock.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine1, tokenizer.line1);
+					thermoblock.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine1a, tokenizer.line1a);
+					thermoblock.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine2, tokenizer.line2);
+					thermoblock.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine3, tokenizer.line3);
 					thermoblock.addProperty(ClassLabelConstants.Position, count);
 					partitionarr.add(block);
 					count++;
@@ -49,30 +50,31 @@ public enum PartitionSetOfStringObjects {
 
 		@Override
 		String getBlockClass() {
-		return "dataset:RepositoryTherGasThermodynamicsBlock";
-			
+			return "dataset:RepositoryTherGasThermodynamicsBlock";
+
 		}
-		
-	}, PartitionToLineSet {
+
+	},
+	PartitionToLineSet {
 
 		@Override
 		void partition(JsonArray partitionarr, JsonObject info, String content) {
-			int sze = info.get(ClassLabelConstants.BlockLineCount).getAsInt();			
+			int sze = info.get(ClassLabelConstants.BlockLineCount).getAsInt();
 			System.out.println("PartitionToLineSet: Size of Partition: " + sze);
-			StringTokenizer tok = new StringTokenizer(content,"\n");
+			StringTokenizer tok = new StringTokenizer(content, "\n");
 			int count = sze;
 			int position = 0;
 			JsonArray linearr = new JsonArray();
 			String owner = info.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
 			String transactionID = info.get(ClassLabelConstants.TransactionID).getAsString();
-			while(tok.hasMoreElements()) {
-				if(count > 0) {
+			while (tok.hasMoreElements()) {
+				if (count > 0) {
 					linearr.add(tok.nextToken());
 					count--;
 				}
-				if(count == 0) {
-					JsonObject block = BaseCatalogData.createStandardDatabaseObject("dataset:RepositoryParsedToFixedBlockSize",
-							owner, transactionID, "false");
+				if (count == 0) {
+					JsonObject block = BaseCatalogData.createStandardDatabaseObject(
+							"dataset:RepositoryParsedToFixedBlockSize", owner, transactionID, "false");
 					block.add(ClassLabelConstants.ParsedLine, linearr);
 					block.addProperty(ClassLabelConstants.ElementCount, sze);
 					block.addProperty(ClassLabelConstants.Position, position);
@@ -86,29 +88,29 @@ public enum PartitionSetOfStringObjects {
 
 		@Override
 		String getBlockClass() {
-		return "dataset:RepositoryParsedToFixedBlockSize";
-			
+			return "dataset:RepositoryParsedToFixedBlockSize";
+
 		}
-		
+
 	};
+
 	abstract void partition(JsonArray partitionarr, JsonObject info, String content);
+
 	abstract String getBlockClass();
-	
-	
-	
+
 	/**
-	 * @param info The activity information (here )
+	 * @param info    The activity information (here )
 	 * @param content The string holding the content to be parsed.
 	 * @return The set of partition objects
 	 * 
-	 * The partition catalog objects are specific subclasses of RepositoryDataPartitionBlock
-	 * corresponding to type of partitioning.
+	 *         The partition catalog objects are specific subclasses of
+	 *         RepositoryDataPartitionBlock corresponding to type of partitioning.
 	 * 
-	 * The activity info is used to get:
-	 * <ul>
-	 * <li> used to get BlockLineCount, if it exists
-	 * <li> The method of partitioning (FilePartitionMethod)
-	 * <ul>
+	 *         The activity info is used to get:
+	 *         <ul>
+	 *         <li>used to get BlockLineCount, if it exists
+	 *         <li>The method of partitioning (FilePartitionMethod)
+	 *         <ul>
 	 */
 	public static JsonArray partitionString(JsonObject info, String content) {
 		JsonArray partitionarr = new JsonArray();
@@ -116,12 +118,14 @@ public enum PartitionSetOfStringObjects {
 		method.partition(partitionarr, info, content);
 		return partitionarr;
 	}
+
 	private static PartitionSetOfStringObjects getMethod(JsonObject info) {
 		String methodS = info.get(ClassLabelConstants.FilePartitionMethod).getAsString();
 		String methodkey = methodS.substring(8);
 		return PartitionSetOfStringObjects.valueOf(methodkey);
-		
+
 	}
+
 	public static String getBlockClass(JsonObject info) {
 		PartitionSetOfStringObjects method = getMethod(info);
 		return method.getBlockClass();

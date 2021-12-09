@@ -12,18 +12,18 @@ public class FindTransactionSetupTest {
 	public void test() {
 		String type = "dataset:InitialReadInOfRepositoryFile";
 		String keyword = "dataset:JThermodynamicsMetaAtoms";
-		JsonObject response = FindTransactions.findRDFShortTransactionDescriptionByType(type,keyword);
-		//System.out.println(JsonObjectUtilities.toString(response));
-		//JsonObject response = FindTransactions.findLabelFirestoreIDPairByType(type,null);
+		JsonObject response = FindTransactions.findRDFShortTransactionDescriptionByType(type, keyword);
+		// System.out.println(JsonObjectUtilities.toString(response));
+		// JsonObject response =
+		// FindTransactions.findLabelFirestoreIDPairByType(type,null);
 		JsonObjectUtilities.printResponse(response);
-		
-		
-		response = FindTransactions.findLabelFirestoreIDPairByType(type,keyword);
-		//System.out.println(JsonObjectUtilities.toString(response));
-		//JsonObject response = FindTransactions.findLabelFirestoreIDPairByType(type,null);
+
+		response = FindTransactions.findLabelFirestoreIDPairByType(type, keyword);
+		// System.out.println(JsonObjectUtilities.toString(response));
+		// JsonObject response =
+		// FindTransactions.findLabelFirestoreIDPairByType(type,null);
 		JsonObjectUtilities.printResponse(response);
-		
-		
+
 	}
 
 }

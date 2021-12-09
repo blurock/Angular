@@ -16,26 +16,24 @@ public class ReadCloudStorage {
 	public static String read(JsonObject gcsinfo) {
 		String name = gcsinfo.get(ClassLabelConstants.GCSFileName).getAsString();
 		String path = gcsinfo.get(ClassLabelConstants.GCSFilePath).getAsString();
-		return read(path,name);
+		return read(path, name);
 	}
-	
+
 	public static String read(String path, String name) {
-    	FirebaseOptions options;
-    	String fileContent = "";
+		FirebaseOptions options;
+		String fileContent = "";
 		try {
-			options = FirebaseOptions.builder()
-				    .setCredentials(GoogleCredentials.getApplicationDefault())
-				    .setStorageBucket("blurock-database.appspot.com")
-				    .build();
-	    	FirebaseApp.initializeApp(options);
-	    	Storage storage = StorageOptions.getDefaultInstance().getService();
-	    	String fileS = path + "/" + name;
-	    	Blob blob = storage.get("blurock-database.appspot.com",fileS);
-	    	fileContent = new String(blob.getContent());
+			options = FirebaseOptions.builder().setCredentials(GoogleCredentials.getApplicationDefault())
+					.setStorageBucket("blurock-database.appspot.com").build();
+			FirebaseApp.initializeApp(options);
+			Storage storage = StorageOptions.getDefaultInstance().getService();
+			String fileS = path + "/" + name;
+			Blob blob = storage.get("blurock-database.appspot.com", fileS);
+			fileContent = new String(blob.getContent());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	    return fileContent;
+		return fileContent;
 	}
 
 }

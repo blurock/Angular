@@ -25,29 +25,29 @@ public class DeleteCatalogDataObject {
 	}
 
 	/**
-	 * @param query The query with the conditions
+	 * @param query     The query with the conditions
 	 * @param batchSize The default batch
 	 * @return The number of deleted objects
 	 */
 	protected static int deleteCollection(Query query, int batchSize) {
 		int deleted = 0;
-		  try {
-		    // retrieve a small batch of documents to avoid out-of-memory errors
-		    ApiFuture<QuerySnapshot> future = query.limit(batchSize).get();
-		    
-		    // future.get() blocks on document retrieval
-		    List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-		    for (QueryDocumentSnapshot document : documents) {
-		      document.getReference().delete();
-		      ++deleted;
-		    }
-		    if (deleted >= batchSize) {
-		      // retrieve and delete another batch
-		      deleteCollection(query, batchSize);
-		    }
-		  } catch (Exception e) {
-		    System.err.println("Error deleting collection : " + e.getMessage());
-		  }
-		  return deleted;
+		try {
+			// retrieve a small batch of documents to avoid out-of-memory errors
+			ApiFuture<QuerySnapshot> future = query.limit(batchSize).get();
+
+			// future.get() blocks on document retrieval
+			List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+			for (QueryDocumentSnapshot document : documents) {
+				document.getReference().delete();
+				++deleted;
+			}
+			if (deleted >= batchSize) {
+				// retrieve and delete another batch
+				deleteCollection(query, batchSize);
+			}
+		} catch (Exception e) {
+			System.err.println("Error deleting collection : " + e.getMessage());
 		}
+		return deleted;
+	}
 }

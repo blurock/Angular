@@ -20,6 +20,6 @@ public class TestCreateTransactionTemplates {
 		String transactionS = "dataset:CreateDatabasePersonEvent";
 		JsonObject json = ProcessTransactionBase.setupCatalogObjectTemplate(transactionS);
 		System.out.println(JsonObjectUtilities.toString(json));
-		
+
 	}
 }

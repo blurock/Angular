@@ -19,20 +19,20 @@ public class TestJThergasGroupElement {
 		JThergasGroupElement groupelement4 = new JThergasGroupElement("c", 2);
 		JThergasGroupElement groupelement5 = new JThergasGroupElement("c/t", 2);
 		JThergasGroupElement groupelement6 = new JThergasGroupElement("c/d", 2);
-		ArrayList<JThergasGroupElement> lst = new  ArrayList<JThergasGroupElement>();
+		ArrayList<JThergasGroupElement> lst = new ArrayList<JThergasGroupElement>();
 		lst.add(groupelement5);
 		lst.add(groupelement6);
 		lst.add(groupelement1);
 		lst.add(groupelement2);
 		lst.add(groupelement3);
 		lst.add(groupelement4);
-		
+
 		Collections.sort(lst);
-		
-		for(JThergasGroupElement element : lst) {
+
+		for (JThergasGroupElement element : lst) {
 			System.out.println(element.getGroupElementName());
 		}
-		
+
 	}
 
 }

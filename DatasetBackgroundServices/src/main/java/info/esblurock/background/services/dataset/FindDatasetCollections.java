@@ -8,12 +8,13 @@ import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate
 import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
 
 public class FindDatasetCollections {
-	
-	
-	/** Find the FirebaseCatalogID
+
+	/**
+	 * Find the FirebaseCatalogID
 	 * 
 	 * @param classname The class name (type) of the object
-	 * @param recordid The DatasetSpecificationForCollectionSet with Catalog location specification
+	 * @param recordid  The DatasetSpecificationForCollectionSet with Catalog
+	 *                  location specification
 	 * @return The FirebaseCatalogID
 	 */
 	public static JsonObject findDatasetCollectionID(String classname, JsonObject recordid) {
@@ -21,24 +22,25 @@ public class FindDatasetCollections {
 		empty.add(ClassLabelConstants.DatasetSpecificationForCollectionSet, recordid);
 		JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(empty);
 		firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
-		
+
 		return firestoreid;
 	}
-	
-	public static JsonObject findDatasetCollectionID(String classname, String maintainer, String dataset, String version) {
+
+	public static JsonObject findDatasetCollectionID(String classname, String maintainer, String dataset,
+			String version) {
 		JsonObject empty = CreateDocumentTemplate.createTemplate(classname);
 		JsonObject recordid = empty.get(ClassLabelConstants.DatasetSpecificationForCollectionSet).getAsJsonObject();
 		recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 		recordid.addProperty(ClassLabelConstants.DatasetVersion, version);
 		recordid.addProperty(ClassLabelConstants.DatasetName, dataset);
 		recordid.addProperty(ClassLabelConstants.CatalogDataObjectStatus, "CatalogObjectStatusCurrent");
-		
+
 		JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(empty);
 		firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
-		
+
 		return firestoreid;
 	}
-	
+
 	public static JsonObject readInDatasetCollection(String classname, JsonObject recordid) {
 		JsonObject firestoreid = findDatasetCollectionID(classname, recordid);
 		JsonObject response = ReadFirestoreInformation.readFirestoreCollection(null, firestoreid);

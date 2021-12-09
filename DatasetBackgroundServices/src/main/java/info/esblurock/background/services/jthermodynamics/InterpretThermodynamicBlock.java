@@ -27,27 +27,29 @@ import thermo.exception.ThermodynamicComputeException;
 public class InterpretThermodynamicBlock {
 	public static JsonObject interpretMolecularThermodynamics(JsonObject parsed, Element table, JsonObject info) {
 		JsonObject molthermo = CreateDocumentTemplate.createTemplate("dataset:JThermodynamics2DMoleculeThermodynamics");
-		return interpretSpeciesStandardThermodynamics(molthermo,parsed,table,info);
+		return interpretSpeciesStandardThermodynamics(molthermo, parsed, table, info);
 	}
-	
+
 	public static JsonObject interpretSubstructureThermodynamics(JsonObject parsed, Element table, JsonObject info) {
-		JsonObject molthermo = CreateDocumentTemplate.createTemplate("dataset:JThermodynamics2DSubstructureThermodynamics");
-		JsonObject substruct =  interpretSpeciesStandardThermodynamics(molthermo,parsed,table,info);
+		JsonObject molthermo = CreateDocumentTemplate
+				.createTemplate("dataset:JThermodynamics2DSubstructureThermodynamics");
+		JsonObject substruct = interpretSpeciesStandardThermodynamics(molthermo, parsed, table, info);
 		String type = info.get(ClassLabelConstants.JThermodynamicsSubstructureType).getAsString();
 		substruct.addProperty(ClassLabelConstants.JThermodynamicsSubstructureType, type);
 		return substruct;
 	}
-	
-	public static JsonObject interpretSpeciesStandardThermodynamics(JsonObject molthermo, JsonObject parsed, Element table, JsonObject info) {
+
+	public static JsonObject interpretSpeciesStandardThermodynamics(JsonObject molthermo, JsonObject parsed,
+			Element table, JsonObject info) {
 		JsonObject lines = parsed.get(ClassLabelConstants.RepositoryThermoPartitionBlock).getAsJsonObject();
-		String line1= lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1).getAsString();
+		String line1 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1).getAsString();
 		String line1a = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1a).getAsString();
 		boolean line1aB = true;
-		if(line1a.length() > 0 ) {
+		if (line1a.length() > 0) {
 			line1aB = false;
 		}
-		String line2= lines.get(ClassLabelConstants.ThermodynamicsTherGasLine2).getAsString();
-		String line3= lines.get(ClassLabelConstants.ThermodynamicsTherGasLine3).getAsString();
+		String line2 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine2).getAsString();
+		String line3 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine3).getAsString();
 		String positionS = lines.get(ClassLabelConstants.Position).getAsString();
 		double positionD = lines.get(ClassLabelConstants.Position).getAsDouble();
 		int group = (int) positionD;
@@ -56,9 +58,10 @@ public class InterpretThermodynamicBlock {
 		try {
 			point.parse(line1, line1a, line2, line3, line1aB, group, group);
 			JsonObject molstructure = interpretMoleculeStructure(point, row, info);
-			molthermo.add(ClassLabelConstants.JThermodynamics2DSpeciesStructure,molstructure);
-			JsonObject molthermodynamics = molthermo.get(ClassLabelConstants.JThermodynamicStandardThermodynamics).getAsJsonObject();
-			interpretStandardThermodynamics(point,molthermodynamics,info,row);
+			molthermo.add(ClassLabelConstants.JThermodynamics2DSpeciesStructure, molstructure);
+			JsonObject molthermodynamics = molthermo.get(ClassLabelConstants.JThermodynamicStandardThermodynamics)
+					.getAsJsonObject();
+			interpretStandardThermodynamics(point, molthermodynamics, info, row);
 		} catch (JThergasReadException e) {
 			row.addElement("td").addText("Error in parse");
 			e.printStackTrace();
@@ -66,8 +69,9 @@ public class InterpretThermodynamicBlock {
 
 		return molthermo;
 	}
-	
-	private static JsonObject interpretMoleculeStructure(JThermgasThermoStructureDataPoint point, Element row, JsonObject info) {
+
+	private static JsonObject interpretMoleculeStructure(JThermgasThermoStructureDataPoint point, Element row,
+			JsonObject info) {
 		String structure = point.getStructure().getNancyLinearForm();
 		String molname = point.getStructure().getNameOfStructure();
 		HashSet<MetaAtomInfo> metaatoms = new HashSet<MetaAtomInfo>();
@@ -86,28 +90,31 @@ public class InterpretThermodynamicBlock {
 			e.printStackTrace();
 		}
 		return species2dstructure;
-		
+
 	}
 
 	public static JsonObject interpretBensonRuleThermodynamics(JsonObject parsed, Element table, JsonObject info) {
 		JsonObject bensonrule = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicBensonRuleDefinition");
 		JsonObject lines = parsed.get(ClassLabelConstants.RepositoryThermoPartitionBlock).getAsJsonObject();
-		String line1= lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1).getAsString();
+		String line1 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1).getAsString();
 		String line1a = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1a).getAsString();
-		String line2= lines.get(ClassLabelConstants.ThermodynamicsTherGasLine2).getAsString();
-		String line3= lines.get(ClassLabelConstants.ThermodynamicsTherGasLine3).getAsString();
+		String line2 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine2).getAsString();
+		String line3 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine3).getAsString();
 		double positionD = lines.get(ClassLabelConstants.Position).getAsDouble();
 		int group = (int) positionD;
-		//JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection).getAsJsonObject();
+		// JsonObject recordid =
+		// info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection).getAsJsonObject();
 		JThergasThermoStructureGroupPoint point = new JThergasThermoStructureGroupPoint();
 		Element row = table.addElement("tr");
 		try {
 			point.parse(line1, line1a, line2, line3, true, group, group);
-			JsonObject bensonrulestructure = bensonrule.get(ClassLabelConstants.JThermodynamicsBensonRuleStructure).getAsJsonObject();
-			interpretBensonRuleStructure(point,bensonrulestructure,row);
-			JsonObject bensonrulethermo = bensonrule.get(ClassLabelConstants.JThermodynamicStandardThermodynamics).getAsJsonObject();
-			interpretStandardThermodynamics(point,bensonrulethermo,info,row);
-			
+			JsonObject bensonrulestructure = bensonrule.get(ClassLabelConstants.JThermodynamicsBensonRuleStructure)
+					.getAsJsonObject();
+			interpretBensonRuleStructure(point, bensonrulestructure, row);
+			JsonObject bensonrulethermo = bensonrule.get(ClassLabelConstants.JThermodynamicStandardThermodynamics)
+					.getAsJsonObject();
+			interpretStandardThermodynamics(point, bensonrulethermo, info, row);
+
 		} catch (JThergasReadException e) {
 			row.addElement("td").addText("Error in parse");
 			e.printStackTrace();
@@ -118,68 +125,70 @@ public class InterpretThermodynamicBlock {
 	private static void interpretStandardThermodynamics(JThermgasThermoStructureDataPoint point,
 			JsonObject bensonrulethermo, JsonObject info, Element row) {
 		JThergasThermoData thermodynamics = point.getThermodynamics();
-	    // Enthalpy
-	    JsonObject enthalpyobject = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicStandardEnthalpy");
-	    bensonrulethermo.add(ClassLabelConstants.ThermodynamicStandardEnthalpy,enthalpyobject);
-	    JsonObject enthalpyspec = info.get(ClassLabelConstants.ParameterSpecificationEnthaply).getAsJsonObject();
-	    double standardEnthalpy = thermodynamics.getStandardEnthalpy();
-	    String enthalpyS = Double.toString(standardEnthalpy);
-	    enthalpyobject.add(ClassLabelConstants.ParameterSpecification, enthalpyspec);
-	    enthalpyobject.addProperty(ClassLabelConstants.ValueAsString,enthalpyS);
-	    enthalpyobject.addProperty(ClassLabelConstants.ValueUncertainty, "0.0");
-	    row.addElement("td").addText(enthalpyS);
-	    // Entropy
-	    JsonObject entropyobject = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicStandardEntropy");
-	    bensonrulethermo.add(ClassLabelConstants.ThermodynamicStandardEntropy,entropyobject);
-	    JsonObject entropyspec = info.get(ClassLabelConstants.ParameterSpecificationEntropy).getAsJsonObject();
-	    double standardEntropy = thermodynamics.getStandardEntropy();
-	    String entropyS = Double.toString(standardEntropy);
-	    entropyobject.add(ClassLabelConstants.ParameterSpecification, entropyspec);
-	    entropyobject.addProperty(ClassLabelConstants.ValueAsString,entropyS);
-	    entropyobject.addProperty(ClassLabelConstants.ValueUncertainty, "0.0");
-	    row.addElement("td").addText(entropyS);
-	    
-	    // Heat Capacity
-	    JsonObject heatcapacityspec = info.get(ClassLabelConstants.ParameterSpecificationHeatCapacity).getAsJsonObject();
-	    String temperatures[] = bensonTemperatureSortedArray(info);
-	    JsonArray cpatTarray = new JsonArray();
-	    bensonrulethermo.add(ClassLabelConstants.ThermodynamicCpAtTemperature,cpatTarray);
-	    double[] cpValues = thermodynamics.getCpValues();
-	    for(int i=0;i<temperatures.length;i++) {
-	    	if(i<cpValues.length) {
-	    		JsonObject cpatT = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicCpAtTemperature");
-	    		cpatT.addProperty(ClassLabelConstants.ThermodynamicTemperature, temperatures[i]);
-	    		JsonObject cpJ = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicHeatCapacity");
-	    		cpatT.add(ClassLabelConstants.ThermodynamicHeatCapacity, cpJ);
-	    		cpJ.add(ClassLabelConstants.ParameterSpecification, heatcapacityspec);
-	    		String cpS = Double.toString(cpValues[i]);
-	    		cpJ.addProperty(ClassLabelConstants.ValueAsString,cpS);
-	    	    cpJ.addProperty(ClassLabelConstants.ValueUncertainty, "0.0");
-	    		cpatTarray.add(cpatT);
-	    	}
-	    }
+		// Enthalpy
+		JsonObject enthalpyobject = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicStandardEnthalpy");
+		bensonrulethermo.add(ClassLabelConstants.ThermodynamicStandardEnthalpy, enthalpyobject);
+		JsonObject enthalpyspec = info.get(ClassLabelConstants.ParameterSpecificationEnthaply).getAsJsonObject();
+		double standardEnthalpy = thermodynamics.getStandardEnthalpy();
+		String enthalpyS = Double.toString(standardEnthalpy);
+		enthalpyobject.add(ClassLabelConstants.ParameterSpecification, enthalpyspec);
+		enthalpyobject.addProperty(ClassLabelConstants.ValueAsString, enthalpyS);
+		enthalpyobject.addProperty(ClassLabelConstants.ValueUncertainty, "0.0");
+		row.addElement("td").addText(enthalpyS);
+		// Entropy
+		JsonObject entropyobject = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicStandardEntropy");
+		bensonrulethermo.add(ClassLabelConstants.ThermodynamicStandardEntropy, entropyobject);
+		JsonObject entropyspec = info.get(ClassLabelConstants.ParameterSpecificationEntropy).getAsJsonObject();
+		double standardEntropy = thermodynamics.getStandardEntropy();
+		String entropyS = Double.toString(standardEntropy);
+		entropyobject.add(ClassLabelConstants.ParameterSpecification, entropyspec);
+		entropyobject.addProperty(ClassLabelConstants.ValueAsString, entropyS);
+		entropyobject.addProperty(ClassLabelConstants.ValueUncertainty, "0.0");
+		row.addElement("td").addText(entropyS);
+
+		// Heat Capacity
+		JsonObject heatcapacityspec = info.get(ClassLabelConstants.ParameterSpecificationHeatCapacity)
+				.getAsJsonObject();
+		String temperatures[] = bensonTemperatureSortedArray(info);
+		JsonArray cpatTarray = new JsonArray();
+		bensonrulethermo.add(ClassLabelConstants.ThermodynamicCpAtTemperature, cpatTarray);
+		double[] cpValues = thermodynamics.getCpValues();
+		for (int i = 0; i < temperatures.length; i++) {
+			if (i < cpValues.length) {
+				JsonObject cpatT = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicCpAtTemperature");
+				cpatT.addProperty(ClassLabelConstants.ThermodynamicTemperature, temperatures[i]);
+				JsonObject cpJ = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicHeatCapacity");
+				cpatT.add(ClassLabelConstants.ThermodynamicHeatCapacity, cpJ);
+				cpJ.add(ClassLabelConstants.ParameterSpecification, heatcapacityspec);
+				String cpS = Double.toString(cpValues[i]);
+				cpJ.addProperty(ClassLabelConstants.ValueAsString, cpS);
+				cpJ.addProperty(ClassLabelConstants.ValueUncertainty, "0.0");
+				cpatTarray.add(cpatT);
+			}
+		}
 	}
 
-	/** The list of sorted Benson temperatures from the Activity info
+	/**
+	 * The list of sorted Benson temperatures from the Activity info
 	 * 
 	 * @param info The activity information
 	 * @return The ordered list of temperatures as strings.
 	 * 
-	 * The JThermodynamicBensonTemperatures is extracted from the info
-	 * Each element is interpreted as a double.
-	 * The list is then sorted and converted back to a list of strings
+	 *         The JThermodynamicBensonTemperatures is extracted from the info Each
+	 *         element is interpreted as a double. The list is then sorted and
+	 *         converted back to a list of strings
 	 */
 	private static String[] bensonTemperatureSortedArray(JsonObject info) {
 		JsonArray tempsJ = info.get(ClassLabelConstants.JThermodynamicBensonTemperatures).getAsJsonArray();
 		double tempsD[] = new double[tempsJ.size()];
-		for(int i = 0; i<tempsJ.size(); i++) {
+		for (int i = 0; i < tempsJ.size(); i++) {
 			String tempS = tempsJ.get(i).getAsString();
 			double tempD = Double.valueOf(tempS);
 			tempsD[i] = tempD;
 		}
 		Arrays.sort(tempsD);
 		String tempsS[] = new String[tempsD.length];
-		for(int i=0; i<tempsD.length;i++) {
+		for (int i = 0; i < tempsD.length; i++) {
 			String tempS = Double.toString(tempsD[i]);
 			tempsS[i] = tempS;
 		}
@@ -187,32 +196,36 @@ public class InterpretThermodynamicBlock {
 	}
 
 	/**
-	 * @param point The JThergasThermoStructureGroupPoint 
-	 * @param bensonrulestructure The JThermodynamicsBensonRuleStructure to filled in
-	 * @param row The Element row
+	 * @param point               The JThergasThermoStructureGroupPoint
+	 * @param bensonrulestructure The JThermodynamicsBensonRuleStructure to filled
+	 *                            in
+	 * @param row                 The Element row
 	 */
-	private static void interpretBensonRuleStructure(JThergasThermoStructureGroupPoint point, 
+	private static void interpretBensonRuleStructure(JThergasThermoStructureGroupPoint point,
 			JsonObject bensonrulestructure, Element row) {
-	    String centerAtomTypeS = point.getCenterAtomTypeS();
-	    HashSet<JThergasGroupElement> groupElements = point.getGroupElements();
-	    
-	    bensonrulestructure.addProperty(ClassLabelConstants.JThermodynamicsBensonCenterAtom, centerAtomTypeS);
-	    JsonArray bensonatoms = bensonrulestructure.get(ClassLabelConstants.JThermodynamicsBensonConnectionWithMultiplicity).getAsJsonArray();
-	    for(JThergasGroupElement element : groupElements) {
-	    	String name = element.getGroupElementName();
-	    	int multiplicityI = element.getNumberOfElements();
-	    	String multiplicityS = Integer.toString(multiplicityI);
-	    	JsonObject connection = CreateDocumentTemplate.createTemplate("dataset:JThermodynamicsBensonConnectionWithMultiplicity");
-	    	connection.addProperty(ClassLabelConstants.ThermodynamicBensonMultiplicity, multiplicityS);
-	    	connection.addProperty(ClassLabelConstants.JThermodynamicsBensonConnectingAtom, name);
-	    	bensonatoms.add(connection);
-	    }
-		String bensonrulename =  bensonRuleCanonicalName(bensonrulestructure);
+		String centerAtomTypeS = point.getCenterAtomTypeS();
+		HashSet<JThergasGroupElement> groupElements = point.getGroupElements();
+
+		bensonrulestructure.addProperty(ClassLabelConstants.JThermodynamicsBensonCenterAtom, centerAtomTypeS);
+		JsonArray bensonatoms = bensonrulestructure
+				.get(ClassLabelConstants.JThermodynamicsBensonConnectionWithMultiplicity).getAsJsonArray();
+		for (JThergasGroupElement element : groupElements) {
+			String name = element.getGroupElementName();
+			int multiplicityI = element.getNumberOfElements();
+			String multiplicityS = Integer.toString(multiplicityI);
+			JsonObject connection = CreateDocumentTemplate
+					.createTemplate("dataset:JThermodynamicsBensonConnectionWithMultiplicity");
+			connection.addProperty(ClassLabelConstants.ThermodynamicBensonMultiplicity, multiplicityS);
+			connection.addProperty(ClassLabelConstants.JThermodynamicsBensonConnectingAtom, name);
+			bensonatoms.add(connection);
+		}
+		String bensonrulename = bensonRuleCanonicalName(bensonrulestructure);
 		bensonrulestructure.addProperty(ClassLabelConstants.BensonRuleDatabaseReference, bensonrulename);
 		row.addElement("td").addText(bensonrulename);
 	}
-	
-	/** Generate Benson rule canonical name.
+
+	/**
+	 * Generate Benson rule canonical name.
 	 * 
 	 * @param structure the JThermodynamicsBensonRuleStructure
 	 * @return The canonical Benson Group name
@@ -221,25 +234,28 @@ public class InterpretThermodynamicBlock {
 		ArrayList<JThergasGroupElement> sorted = orderedListOfJThergasGroupElements(structure);
 		String center = structure.get(ClassLabelConstants.JThermodynamicsBensonCenterAtom).getAsString();
 		String canonicalName = center;
-		for(JThergasGroupElement element : sorted) {
+		for (JThergasGroupElement element : sorted) {
 			String name = element.getGroupElementName();
 			int mult = element.getNumberOfElements();
 			canonicalName += "-(" + name + ")";
-			if(mult > 1) {
+			if (mult > 1) {
 				canonicalName += "/" + mult;
 			}
 		}
 		return canonicalName;
 	}
-	/** Extract JThergasGroupElement from JThermodynamicsBensonRuleStructure
+
+	/**
+	 * Extract JThergasGroupElement from JThermodynamicsBensonRuleStructure
 	 * 
 	 * @param structure the JThermodynamicsBensonRuleStructure
 	 * @return ordered list of JThergasGroupElement
 	 */
 	public static ArrayList<JThergasGroupElement> orderedListOfJThergasGroupElements(JsonObject structure) {
 		ArrayList<JThergasGroupElement> lst = new ArrayList<JThergasGroupElement>();
-		JsonArray elements = structure.get(ClassLabelConstants.JThermodynamicsBensonConnectionWithMultiplicity).getAsJsonArray();
-		for(int i=0;i<elements.size();i++) {
+		JsonArray elements = structure.get(ClassLabelConstants.JThermodynamicsBensonConnectionWithMultiplicity)
+				.getAsJsonArray();
+		for (int i = 0; i < elements.size(); i++) {
 			JsonObject element = elements.get(i).getAsJsonObject();
 			String name = element.get(ClassLabelConstants.JThermodynamicsBensonConnectingAtom).getAsString();
 			name = name.toLowerCase();

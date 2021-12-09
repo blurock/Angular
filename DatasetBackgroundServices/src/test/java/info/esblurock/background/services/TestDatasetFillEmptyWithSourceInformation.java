@@ -19,26 +19,19 @@ public class TestDatasetFillEmptyWithSourceInformation {
 	public void test() {
 		JsonObject body = new JsonObject();
 		String identifier = DatasetOntologyParseBase.getIDFromAnnotation("dataset:DatabasePerson");
-		System.out.println("Identifier: dataset:DatabasePerson = "  + identifier);
+		System.out.println("Identifier: dataset:DatabasePerson = " + identifier);
 		body.addProperty("service", "DatasetFillEmptyWithSourceInformation");
 		body.addProperty(ClassLabelConstants.DatabaseObjectType, "dataset:DatabasePerson");
-		String jsonS = "{\n"
-				+ "	\"foaf:Person\": {\n"
-				+ "	    \"foaf:name\": {\n"
-				+ "		\"foaf:familyName\":\"Blurock\",\n"
-				+ "		\"foaf:givenName\":\"Edward\",\n"
-				+ "		\"foaf:title\":\"dataset:Doctor\"\n"
-				+ "	    },\n"
-				+ "	    \"vcard:role\":\"dataset:ConceptProgrammer\"\n"
-				+ "	},\n"
+		String jsonS = "{\n" + "	\"foaf:Person\": {\n" + "	    \"foaf:name\": {\n"
+				+ "		\"foaf:familyName\":\"Blurock\",\n" + "		\"foaf:givenName\":\"Edward\",\n"
+				+ "		\"foaf:title\":\"dataset:Doctor\"\n" + "	    },\n"
+				+ "	    \"vcard:role\":\"dataset:ConceptProgrammer\"\n" + "	},\n"
 				+ "	\"dataset:title-person\":\"Edward Blurock\",\n"
-				+ "	\"dcterms:identifier\":\"dataset:personcreate\"\n"
-				+ "    }\n"
-				+ "";
+				+ "	\"dcterms:identifier\":\"dataset:personcreate\"\n" + "    }\n" + "";
 		JsonObject json = JsonObjectUtilities.jsonObjectFromString(jsonS);
 		body.add(ClassLabelConstants.ActivityInformationRecord, json);
-			JsonObject ans = DatabaseServicesBase.process(body);
-			System.out.println(JsonObjectUtilities.toString(ans));
+		JsonObject ans = DatabaseServicesBase.process(body);
+		System.out.println(JsonObjectUtilities.toString(ans));
 	}
 
 }

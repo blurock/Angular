@@ -1531,6 +1531,11 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                              owl:onClass :DescriptionTitle
                                            ] ,
                                            [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                             owl:onClass :TransactionDebugMode
+                                           ] ,
+                                           [ rdf:type owl:Restriction ;
                                              owl:onProperty <http://www.w3.org/2004/02/skos/core#inScheme> ;
                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                              owl:onClass :ChemConnectModule
@@ -2632,6 +2637,22 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                              rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
                                                              rdfs:label "2D Substructure Thermodynamic Correction"^^xsd:string ;
                                                              <http://www.w3.org/2004/02/skos/core#altLabel> "hier2dstructurethermo"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CatalogHierarchyJThermodynamicsVibrationalStructure
+:CatalogHierarchyJThermodynamicsVibrationalStructure rdf:type owl:Class ;
+                                                     rdfs:subClassOf :CatalogHierarchyObjectStatus ,
+                                                                     [ rdf:type owl:Restriction ;
+                                                                       owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
+                                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                       owl:onClass :JThermodynamicsVibrationalStructure
+                                                                     ] ;
+                                                     <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
+                                                     <http://purl.org/dc/terms/identifier> "dataset:hiervibrationalcorrection"^^xsd:string ;
+                                                     rdfs:comment "The set of Vibrational Corrections for radicals in the dataset"^^xsd:string ;
+                                                     rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
+                                                     rdfs:label "Vibrational Corrections for Radicals"^^xsd:string ;
+                                                     <http://www.w3.org/2004/02/skos/core#altLabel> "hiervibrationalcorrection"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyMetaAtomDefinition
@@ -5323,7 +5344,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DStructureExternalSymmetry
 :DStructureExternalSymmetry rdf:type owl:Class ;
-                            rdfs:subClassOf :ValueAsString ;
+                            rdfs:subClassOf :SymmetryFactorOfStructure ;
                             <http://purl.org/dc/elements/1.1/type> :DStructureExternalSymmetry ;
                             <http://purl.org/dc/terms/identifier> "dataset:2dexternalsymm"^^xsd:string ;
                             rdfs:comment "The external symmetry associated with a 2D molecular structure"^^xsd:string ;
@@ -5333,7 +5354,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DStructureInternalSymmetry
 :DStructureInternalSymmetry rdf:type owl:Class ;
-                            rdfs:subClassOf :ValueAsString ;
+                            rdfs:subClassOf :SymmetryFactorOfStructure ;
                             <http://purl.org/dc/elements/1.1/type> :DStructureInternalSymmetry ;
                             <http://purl.org/dc/terms/identifier> "dataset:2dinternalsymm"^^xsd:string ;
                             rdfs:comment "The internal symmetry for a 2D graphical structure molecule"^^xsd:string ;
@@ -5343,7 +5364,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DStructureOpticalSymmetry
 :DStructureOpticalSymmetry rdf:type owl:Class ;
-                           rdfs:subClassOf :ValueAsString ;
+                           rdfs:subClassOf :SymmetryFactorOfStructure ;
                            <http://purl.org/dc/elements/1.1/type> :DStructureOpticalSymmetry ;
                            <http://purl.org/dc/terms/identifier> "dataset:2dopticalsymm"^^xsd:string ;
                            rdfs:comment "The optical symmetry associated with a 2D molecular structure"^^xsd:string ;
@@ -10347,6 +10368,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                       <http://www.w3.org/2004/02/skos/core#altLabel> "jthermostandardthermo"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#JThermodynamicSymmetryDefinitionLabel
+:JThermodynamicSymmetryDefinitionLabel rdf:type owl:Class ;
+                                       rdfs:subClassOf :StringNameLabel ;
+                                       <http://purl.org/dc/elements/1.1/type> :JThermodynamicSymmetryDefinitionLabel ;
+                                       <http://purl.org/dc/terms/identifier> "dataset:symmetrydefinitionlabel"^^xsd:string ;
+                                       rdfs:comment "This is the name of the symmetry being defined."^^xsd:string ;
+                                       rdfs:label "Symmetry Definition Label"^^xsd:string ;
+                                       <http://www.w3.org/2004/02/skos/core#altLabel> "symmetrydefinitionlabel"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#JThermodynamics2DAtomNodeStructure
 :JThermodynamics2DAtomNodeStructure rdf:type owl:Class ;
                                     rdfs:subClassOf :StringNameLabel ,
@@ -11015,7 +11046,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#JThermodynamicsSymmetryDefinition
 :JThermodynamicsSymmetryDefinition rdf:type owl:Class ;
-                                   rdfs:subClassOf :ChemConnectElementPrimitive ;
+                                   rdfs:subClassOf :JThermodynamicsDataStructure ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                     owl:someValuesFrom :JThermodynamicsSymmetryNodeGroupDefinition
+                                                   ] ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                     owl:onClass :SymmetryFactorOfStructure
+                                                   ] ;
                                    <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
                                    <http://purl.org/dc/terms/identifier> "dataset:symmetrydefinition"^^xsd:string ;
                                    rdfs:comment "The definition of the symmetry group relative to the structure"^^xsd:string ;
@@ -11089,7 +11129,8 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                             rdfs:subClassOf :JThermodynamicsSymmetrySpecifications ,
                                                             [ rdf:type owl:Restriction ;
                                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                              owl:someValuesFrom :JThermodynamicsSymmetryDefinitionNodeLabel
+                                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                              owl:onClass :JThermodynamicsSymmetryDefinitionNodeLabel
                                                             ] ,
                                                             [ rdf:type owl:Restriction ;
                                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
@@ -11100,6 +11141,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                               owl:onClass :JThermodynamicsSymmetryDefinitionSubGroupLabel
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                              owl:onClass :StructureSymmetryType
                                                             ] ,
                                                             [ rdf:type owl:Restriction ;
                                                               owl:onProperty :hasPurpose ;
@@ -11127,13 +11173,14 @@ Under the general type of is the actual data object referenced by the ChemConnec
 :JThermodynamicsSymmetryStructureDefinition rdf:type owl:Class ;
                                             rdfs:subClassOf :ChemConnectThermodynamicsDatabase ,
                                                             [ rdf:type owl:Restriction ;
-                                                              owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                                              owl:someValuesFrom :JThermodynamicsSymmetryNodeGroupDefinition
-                                                            ] ,
-                                                            [ rdf:type owl:Restriction ;
                                                               owl:onProperty :hasPurpose ;
                                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                               owl:onClass :Purpose2DChemicalStructureDefinition
+                                                            ] ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                              owl:onClass :JThermodynamics2DGraphicalSubStructure
                                                             ] ,
                                                             [ rdf:type owl:Restriction ;
                                                               owl:onProperty <http://www.w3.org/ns/dcat#record> ;
@@ -11212,9 +11259,29 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                        <http://www.w3.org/2004/02/skos/core#altLabel> "thermoparam"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#JThermodynamicsVibrationalModeLabel
+:JThermodynamicsVibrationalModeLabel rdf:type owl:Class ;
+                                     rdfs:subClassOf :StringNameLabel ;
+                                     <http://purl.org/dc/elements/1.1/type> :JThermodynamicsVibrationalModeLabel ;
+                                     <http://purl.org/dc/terms/identifier> "dataset:vibrationmodelabel"^^xsd:string ;
+                                     rdfs:comment "Structure vibration mode label"^^xsd:string ;
+                                     rdfs:label "Structure Vibration Mode Label"^^xsd:string ;
+                                     <http://www.w3.org/2004/02/skos/core#altLabel> "vibrationmodelabel"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#JThermodynamicsVibrationalModes
+:JThermodynamicsVibrationalModes rdf:type owl:Class ;
+                                 rdfs:subClassOf :TherGasThermodynamics .
+
+
 ###  http://www.esblurock.info/dataset#JThermodynamicsVibrationalStructure
 :JThermodynamicsVibrationalStructure rdf:type owl:Class ;
                                      rdfs:subClassOf :ChemConnectThermodynamicsDatabase ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :StructureVibrationalFrequencySymmetry
+                                                     ] ,
                                                      [ rdf:type owl:Restriction ;
                                                        owl:onProperty :hasPurpose ;
                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -11228,17 +11295,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                      [ rdf:type owl:Restriction ;
                                                        owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                       owl:onClass :JThermodynamics2DGraphicalSubStructure
+                                                       owl:onClass :JThermodynamics2DSpeciesStructure
                                                      ] ,
                                                      [ rdf:type owl:Restriction ;
                                                        owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                        owl:onClass :StructureVibrationalFrequency
-                                                     ] ,
-                                                     [ rdf:type owl:Restriction ;
-                                                       owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                       owl:onClass :StructureVibrationalFrequencySymmetry
                                                      ] ;
                                      <http://purl.org/dc/elements/1.1/type> "ChemConnectCompoundStructure"^^xsd:string ;
                                      <http://purl.org/dc/terms/identifier> "dataset:vibrationalstructure"^^xsd:string ;
@@ -13173,6 +13235,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                     <http://www.w3.org/2004/02/skos/core#altLabel> "paramspecheatcapacity"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#ParameterSpecificationStructureVibrationFrequency
+:ParameterSpecificationStructureVibrationFrequency rdf:type owl:Class ;
+                                                   rdfs:subClassOf :ParameterSpecification ;
+                                                   <http://purl.org/dc/elements/1.1/type> :ParameterSpecificationStructureVibrationFrequency ;
+                                                   <http://purl.org/dc/terms/identifier> "dataset:paramspecfrequency"^^xsd:string ;
+                                                   rdfs:comment "This is the frequency specification for vibrations of substructures within a species."^^xsd:string ;
+                                                   rdfs:label "Frequency Specification"^^xsd:string ;
+                                                   <http://www.w3.org/2004/02/skos/core#altLabel> "paramspecfrequency"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#ParameterTypeClassification
 :ParameterTypeClassification rdf:type owl:Class ;
                              rdfs:subClassOf :ClassificationUnit .
@@ -13247,6 +13319,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#ParseLinesJThermodynamicsSubstructures
 :ParseLinesJThermodynamicsSubstructures rdf:type owl:Class ;
                                         rdfs:subClassOf :InterpretTextBlock .
+
+
+###  http://www.esblurock.info/dataset#ParseLinesJThermodynamicsVibrationalStructure
+:ParseLinesJThermodynamicsVibrationalStructure rdf:type owl:Class ;
+                                               rdfs:subClassOf :InterpretTextBlock .
 
 
 ###  http://www.esblurock.info/dataset#ParsedLine
@@ -16885,9 +16962,40 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                      rdfs:label "Benson Rule Structure" .
 
 
+###  http://www.esblurock.info/dataset#StructureExternalSymmetry
+:StructureExternalSymmetry rdf:type owl:Class ;
+                           rdfs:subClassOf :StructureSymmetryTypeChoices .
+
+
+###  http://www.esblurock.info/dataset#StructureInternalSymmetry
+:StructureInternalSymmetry rdf:type owl:Class ;
+                           rdfs:subClassOf :StructureSymmetryTypeChoices .
+
+
 ###  http://www.esblurock.info/dataset#StructureName
 :StructureName rdf:type owl:Class ;
                rdfs:subClassOf :KeywordUnit .
+
+
+###  http://www.esblurock.info/dataset#StructureOpticalSymmetry
+:StructureOpticalSymmetry rdf:type owl:Class ;
+                          rdfs:subClassOf :StructureSymmetryTypeChoices .
+
+
+###  http://www.esblurock.info/dataset#StructureSymmetryType
+:StructureSymmetryType rdf:type owl:Class ;
+                       rdfs:subClassOf :Classification ;
+                       <http://purl.org/dc/elements/1.1/type> :StructureSymmetryType ;
+                       <http://purl.org/dc/terms/identifier> "dataset:structuresymmetrytype"^^xsd:string ;
+                       rdfs:comment "The symmetry of the associated with the structure"^^xsd:string ;
+                       rdfs:isDefinedBy :StructureSymmetryTypeChoices ;
+                       rdfs:label "Structure Symmetry Type"^^xsd:string ;
+                       <http://www.w3.org/2004/02/skos/core#altLabel> "structuresymmetrytype"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#StructureSymmetryTypeChoices
+:StructureSymmetryTypeChoices rdf:type owl:Class ;
+                              rdfs:subClassOf :ChemConnectClassifications .
 
 
 ###  http://www.esblurock.info/dataset#StructureType2DChemicalStructure
@@ -16927,7 +17035,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#StructureVibrationalFrequency
 :StructureVibrationalFrequency rdf:type owl:Class ;
-                               rdfs:subClassOf :Frequency ;
+                               rdfs:subClassOf :ParameterValue ;
                                <http://purl.org/dc/elements/1.1/type> "ValueAsString"^^xsd:string ;
                                <http://purl.org/dc/terms/identifier> "dataset:vibrationalfrequency"^^xsd:string ;
                                rdfs:comment "The vibrational frequency associated with the total oscillation modes of the atoms within the structure. These assigned frequencies are normal and partial bond bending and stretching motions (see Table A.13 in Benson's Thermochemical Kinetics book)"^^xsd:string ;
@@ -16937,7 +17045,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#StructureVibrationalFrequencySymmetry
 :StructureVibrationalFrequencySymmetry rdf:type owl:Class ;
-                                       rdfs:subClassOf :Frequency ;
+                                       rdfs:subClassOf :ElementCount ;
                                        <http://purl.org/dc/elements/1.1/type> "ValueAsString"^^xsd:string ;
                                        <http://purl.org/dc/terms/identifier> "dataset:vibrationsymmetry"^^xsd:string ;
                                        rdfs:comment "This is the symmetry factor associated with the structure. The absolute value reflects how many modes the structure has. The sign of the factor reflects whether the harmonic oscillator values derived from the frequency should be added or subtracted. The final contribution reflects the loss of harmonic oscillators with respect to the loss of hydrogen producing a radical."^^xsd:string ;
@@ -17038,6 +17146,16 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
              rdfs:subClassOf :GraphicConcept ;
              rdfs:comment "This a a (3D) plot of a surface" ;
              rdfs:label "Surface Plot" .
+
+
+###  http://www.esblurock.info/dataset#SymmetryFactorOfStructure
+:SymmetryFactorOfStructure rdf:type owl:Class ;
+                           rdfs:subClassOf :ValueAsString ;
+                           <http://purl.org/dc/elements/1.1/type> :SymmetryFactorOfStructure ;
+                           <http://purl.org/dc/terms/identifier> "dataset:structuresymmetryfactor"^^xsd:string ;
+                           rdfs:comment "The symmetry factor associated with a type of symmetry within a given structure."^^xsd:string ;
+                           rdfs:label "Symmetry Factor of Structure"^^xsd:string ;
+                           <http://www.w3.org/2004/02/skos/core#altLabel> "structuresymmetryfactor"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#SymmetryNodeDefinitionChoices
@@ -17746,6 +17864,39 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                                      <http://www.w3.org/2004/02/skos/core#altLabel> "transmultrecid" .
 
 
+###  http://www.esblurock.info/dataset#TransactionDebugMode
+:TransactionDebugMode rdf:type owl:Class ;
+                      rdfs:subClassOf :Classification ;
+                      <http://purl.org/dc/elements/1.1/type> :TransactionDebugMode ;
+                      <http://purl.org/dc/terms/identifier> "dataset:transactiondebugmode"^^xsd:string ;
+                      rdfs:comment "This flag determines the debug level and output of a transaction. For example, a transaction can be run without altering the database to ensure that the input is correct. This label can also determine how much output, for example, if the generated catalog objects should be printed out."^^xsd:string ;
+                      rdfs:isDefinedBy :TransactionDebugModeChoices ;
+                      rdfs:label "Transaction Debug Mode"^^xsd:string ;
+                      <http://www.w3.org/2004/02/skos/core#altLabel> "transactiondebugmode"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#TransactionDebugModeChoices
+:TransactionDebugModeChoices rdf:type owl:Class ;
+                             rdfs:subClassOf :ChemConnectClassifications ;
+                             rdfs:comment "These determine the debug behavior of the transaction"^^xsd:string ;
+                             rdfs:label "Transaction Debug Choices"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#TransactionDebugWriteCatalogObjects
+:TransactionDebugWriteCatalogObjects rdf:type owl:Class ;
+                                     rdfs:subClassOf :TransactionDebugModeChoices .
+
+
+###  http://www.esblurock.info/dataset#TransactionDebugWriteNoCatalogObject
+:TransactionDebugWriteNoCatalogObject rdf:type owl:Class ;
+                                      rdfs:subClassOf :TransactionDebugModeChoices .
+
+
+###  http://www.esblurock.info/dataset#TransactionDebugWriteOneCatalogObject
+:TransactionDebugWriteOneCatalogObject rdf:type owl:Class ;
+                                       rdfs:subClassOf :TransactionDebugModeChoices .
+
+
 ###  http://www.esblurock.info/dataset#TransactionEvent
 :TransactionEvent rdf:type owl:Class ;
                   rdfs:subClassOf <http://purl.org/dc/dcmitype/Event> ,
@@ -17965,6 +18116,11 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                                rdfs:subClassOf :CatalogModificationExistingObjects ;
                                rdfs:comment "Sub-objects within the catalog object are modified. The (minor) modifications are considered to be updates or completions of the data within the catalog object." ;
                                rdfs:label "Update" .
+
+
+###  http://www.esblurock.info/dataset#TransactionModifyDatabase
+:TransactionModifyDatabase rdf:type owl:Class ;
+                           rdfs:subClassOf :TransactionDebugModeChoices .
 
 
 ###  http://www.esblurock.info/dataset#TransactionSetupBensonRule

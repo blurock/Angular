@@ -19,8 +19,8 @@ public class TestParseBensonRuleRepositoryFile {
 		try {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
-				JsonObject response = TransactionProcess.processFromTransaction(json);
-				JsonObjectUtilities.printResponse(response);
+			JsonObject response = TransactionProcess.processFromTransaction(json);
+			JsonObjectUtilities.printResponse(response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

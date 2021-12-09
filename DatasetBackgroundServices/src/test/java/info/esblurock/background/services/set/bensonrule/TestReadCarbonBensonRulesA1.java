@@ -1,6 +1,5 @@
 package info.esblurock.background.services.set.bensonrule;
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;

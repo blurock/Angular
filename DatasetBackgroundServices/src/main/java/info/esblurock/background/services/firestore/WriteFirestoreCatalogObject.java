@@ -26,17 +26,18 @@ public class WriteFirestoreCatalogObject {
 		try {
 			db = FirestoreBaseClass.getFirebaseDatabase();
 			JsonObject firestorecatalogid = catalog.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
-			message = write(db,catalog,firestorecatalogid);
+			message = write(db, catalog, firestorecatalogid);
 		} catch (IOException e) {
 			message = "Could not set up Firestore: " + e.getMessage() + "\n";
 		}
 		return message;
 	}
-	
+
 	public static String write(Firestore db, JsonObject catalog, JsonObject firestorecatalogid) {
 		DocumentReference docRef = SetUpDocumentReference.setup(db, firestorecatalogid);
 		String message = "Successful Write:\n";
-		Type type = new TypeToken<HashMap<String, Object>>() {}.getType();
+		Type type = new TypeToken<HashMap<String, Object>>() {
+		}.getType();
 		Map<String, Object> mapObj = new Gson().fromJson(catalog, type);
 		ApiFuture<WriteResult> result = docRef.set(mapObj);
 		Timestamp time = null;
@@ -44,7 +45,7 @@ public class WriteFirestoreCatalogObject {
 			time = result.get().getUpdateTime();
 			String catid = firestorecatalogid.get(ClassLabelConstants.DataCatalog).getAsString();
 			String id = firestorecatalogid.get(ClassLabelConstants.SimpleCatalogName).getAsString();
-			
+
 			message += catid + ": " + id + "(" + time.toString() + ")\n";
 		} catch (InterruptedException | ExecutionException e) {
 			message = "Catalog write to database failed: \n" + e.getMessage() + "\n";

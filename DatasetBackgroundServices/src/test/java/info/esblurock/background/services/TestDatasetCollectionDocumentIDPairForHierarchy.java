@@ -18,25 +18,17 @@ public class TestDatasetCollectionDocumentIDPairForHierarchy {
 	@Test
 	public void test() {
 		JsonObject obj = CreateDocumentTemplate.createTemplate("dataset:DatabasePerson");
-		String jsonS = "{\n"
-				+ "  \"foaf:Person\": {\n"
-				+ "    \"foaf:name\": {\n"
-				+ "      \"foaf:givenName\": \"Edward\",\n"
-				+ "      \"foaf:title\": \"Dr.\",\n"
-				+ "      \"foaf:familyName\": \"Blurock\"\n"
-				+ "    },\n"
-				+ "    \"vcard:role\": \"Researcher\"\n"
-				+ "  },\n"
-				+ "  \"dataset:title-person\": \"Edward S. Blurock\"\n"
-				+ "}\n"
-				+ "";
+		String jsonS = "{\n" + "  \"foaf:Person\": {\n" + "    \"foaf:name\": {\n"
+				+ "      \"foaf:givenName\": \"Edward\",\n" + "      \"foaf:title\": \"Dr.\",\n"
+				+ "      \"foaf:familyName\": \"Blurock\"\n" + "    },\n" + "    \"vcard:role\": \"Researcher\"\n"
+				+ "  },\n" + "  \"dataset:title-person\": \"Edward S. Blurock\"\n" + "}\n" + "";
 		JsonObject jsonsub = JsonObjectUtilities.jsonObjectFromString(jsonS);
 		SubstituteJsonValues.substituteJsonObject(obj, jsonsub);
 		JsonObject serviceJ = new JsonObject();
 		serviceJ.addProperty("service", "DatasetCollectionDocumentIDPairForHierarchy");
 		serviceJ.add("dataset:simpcatobj", obj);
-			JsonObject id = DatabaseServicesBase.process(serviceJ);
-			System.out.println(JsonObjectUtilities.toString(id));
+		JsonObject id = DatabaseServicesBase.process(serviceJ);
+		System.out.println(JsonObjectUtilities.toString(id));
 	}
 
 }

@@ -217,7 +217,8 @@ public class FindTransactions {
 					}
 				}
 			} else {
-				System.out.println("Dataset Transaction not found: " + type + "\n" + JsonObjectUtilities.toString(firestoreid));
+				System.out.println(
+						"Dataset Transaction not found: " + type + "\n" + JsonObjectUtilities.toString(firestoreid));
 				System.out.println("Empty catalog\n" + JsonObjectUtilities.toString(emptycatalog));
 			}
 		}

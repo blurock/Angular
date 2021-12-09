@@ -24,7 +24,7 @@ public class GenerateAndWriteRDFForObject {
 		JsonArray rdfs = FindRDFInClass.createSetOfJsonObjectRDFs(catalog);
 		Iterator<JsonElement> iter = rdfs.iterator();
 		Element ul = body.addElement("ul");
-		while(iter.hasNext()) {
+		while (iter.hasNext()) {
 			JsonObject json = iter.next().getAsJsonObject();
 			String timing = WriteFirestoreCatalogObject.writeCatalogObject(json);
 			String rdfpred = json.get(ClassLabelConstants.RDFPredicate).getAsString();
@@ -35,7 +35,7 @@ public class GenerateAndWriteRDFForObject {
 		JsonObject tripleset = CreateDocumentTemplate.createTemplate("dataset:SetOfCatalogObjects");
 		tripleset.add(ClassLabelConstants.SimpleCatalogObject, rdfs);
 		String finalmessage = "Success: GenerateAndWriteRDFForObject with " + rdfs.size() + " RDFs";
-		JsonObject response = DatabaseServicesBase.standardServiceResponse(document, finalmessage , tripleset);
+		JsonObject response = DatabaseServicesBase.standardServiceResponse(document, finalmessage, tripleset);
 		return response;
 	}
 }

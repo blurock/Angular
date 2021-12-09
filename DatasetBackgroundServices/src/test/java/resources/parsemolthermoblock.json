@@ -4,7 +4,7 @@
 		"dataset:datasetname": "Standard",
 		"dataset:datasetversion": "20200919",
 		"dataset:filepartitionmethod": "dataset:PartitionTherGasThermodynamics",
-		"dataset:filesourceformat": "dataset:ThergasSpeciesThermodynamics",
+		"dataset:filesourceformat": "dataset:JThermodynamicsVibrationalModes",
 		"dcterms:title": "The (original) standard set of TherGas species thermodynamics"
 	},
 	"dataset:transreqobj": {

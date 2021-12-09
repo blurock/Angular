@@ -11,18 +11,19 @@ import info.esblurock.reaction.core.ontology.base.transaction.TransactionConcept
 import info.esblurock.reaction.core.ontology.base.utilities.SubstituteJsonValues;
 
 public class ProcessTransactionBase {
-	
-	/** Generate a unique transactionID
-	 * This uses the built in UU
+
+	/**
+	 * Generate a unique transactionID This uses the built in UU
 	 * 
 	 * @return transactionID
 	 * 
 	 */
 	public static String generateTransactionID() {
-        return UUID.randomUUID().toString();
- 	}
-	
-	/** Json Template of the source of the transaction
+		return UUID.randomUUID().toString();
+	}
+
+	/**
+	 * Json Template of the source of the transaction
 	 * 
 	 * @param transaction The name of the transaction
 	 * @return A template of the source (ActivityInformation) of the transaction
@@ -32,22 +33,24 @@ public class ProcessTransactionBase {
 		JsonObject jsonobj = CreateDocumentTemplate.createTemplate(info);
 		return jsonobj;
 	}
-	
-	/** Return catalog object of transaction
+
+	/**
+	 * Return catalog object of transaction
 	 * 
 	 * @param transaction The transaction class name
 	 * @return The JSON template of the catalog object
 	 */
 	public static JsonObject setupCatalogObjectTemplate(String transaction) {
 		String catalog = TransactionConceptParsing.catalogOfTransactionSingle(transaction);
-		JsonObject jsonobj = CreateDocumentTemplate.createTemplate(catalog,true);
+		JsonObject jsonobj = CreateDocumentTemplate.createTemplate(catalog, true);
 		return jsonobj;
 	}
-	
-	/** Fill in transaction catalog object with source information
+
+	/**
+	 * Fill in transaction catalog object with source information
 	 * 
 	 * @param transaction The transaction class
-	 * @param info The source information for the transaction
+	 * @param info        The source information for the transaction
 	 * @return The catalog object with source information filled in
 	 */
 	public static JsonObject fillInSourceInformationInCatalog(String transaction, JsonObject info) {
@@ -55,8 +58,5 @@ public class ProcessTransactionBase {
 		SubstituteJsonValues.substituteJsonObject(catalog, info);
 		return catalog;
 	}
-	
-	
-	
 
 }

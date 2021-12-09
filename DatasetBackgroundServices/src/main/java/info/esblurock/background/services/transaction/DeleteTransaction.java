@@ -20,7 +20,7 @@ public class DeleteTransaction extends DeleteCatalogDataObject {
 	public static JsonObject deleteTransactionwithID(JsonObject firestoreid) {
 		JsonObject deleteresponse = null;
 		JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(firestoreid);
-		if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			JsonObject object = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 			deleteresponse = DeleteTransaction.deleteTransaction(object);
 		} else {
@@ -28,12 +28,13 @@ public class DeleteTransaction extends DeleteCatalogDataObject {
 		}
 		return deleteresponse;
 	}
+
 	/**
 	 * @param transaction The transaction JsonObject
 	 * 
-	 * This deletes the catalog objects listed in the transaction, 
-	 * the RDFs (using the TransactionID) that were created and
-	 * the transactions
+	 *                    This deletes the catalog objects listed in the
+	 *                    transaction, the RDFs (using the TransactionID) that were
+	 *                    created and the transactions
 	 */
 	public static JsonObject deleteTransaction(JsonObject transaction) {
 		Document document = MessageConstructor.startDocument("Transaction: " + transaction);
@@ -54,17 +55,17 @@ public class DeleteTransaction extends DeleteCatalogDataObject {
 		String message2 = "Deleted RDFs: " + Integer.toString(rdfdeleted);
 		body.addElement("div").addText(message2);
 		deleted += rdfdeleted;
-		
+
 		JsonObject transid = transaction.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
 		DocumentReference docref = SetUpDocumentReference.setup(db, transid);
 		docref.delete();
 		body.addElement("div").addText("Deleted Transaction");
-		
+
 		deleted++;
-		
+
 		String totalmessage = "Total number of deleted items: " + Integer.toString(deleted);
 		JsonObject response = DatabaseServicesBase.standardErrorResponse(document, totalmessage, null);
-		
+
 		return response;
 	}
 }

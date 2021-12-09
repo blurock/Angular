@@ -19,32 +19,32 @@ public class TestMessageConstructor {
 		Document document = MessageConstructor.startDocument("Title");
 		String documentS = document.asXML().toString();
 		System.out.println(documentS);
-		
+
 		System.out.println("---------------");
 		List<Node> nodes = document.content();
 		Iterator<Node> iter = nodes.iterator();
-		while(iter.hasNext()) {
+		while (iter.hasNext()) {
 			Element element = (Element) iter.next();
 			System.out.println(element.asXML().toString());
 		}
 		System.out.println("---------------");
-		
+
 		Element body = MessageConstructor.isolateBody(document);
 		body.addElement("div", "Some Text");
 		body.addElement("div", "Some more Text");
 		documentS = document.asXML().toString();
 		nodes = body.content();
-		
+
 		System.out.println("---------------");
 		System.out.println(MessageConstructor.DocumentToString(document));
 		System.out.println("---------------");
 		iter = nodes.iterator();
-		while(iter.hasNext()) {
+		while (iter.hasNext()) {
 			Element element = (Element) iter.next();
 			System.out.println(element.asXML().toString());
 		}
 		System.out.println("---------------");
-		
+
 	}
 
 }

@@ -21,22 +21,28 @@ import info.esblurock.reaction.core.ontology.base.transaction.transactionbase.ca
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class PartiionSetWithinRepositoryFileProcess {
-	
+
 	/**
 	 * @param transactionID The transactionID
-	 * @param owner The owner of the created objects
-	 * @param prerequisites The InitialReadInOfRepositoryFile, where the text content lies
-	 * @param info Source of extra information (ActivityRepositoryPartitionToCatalog), including the method of partition
-	 * @return A set of subclasses of RepositoryDataPartitionBlock, depending on the partition method.
+	 * @param owner         The owner of the created objects
+	 * @param prerequisites The InitialReadInOfRepositoryFile, where the text
+	 *                      content lies
+	 * @param info          Source of extra information
+	 *                      (ActivityRepositoryPartitionToCatalog), including the
+	 *                      method of partition
+	 * @return A set of subclasses of RepositoryDataPartitionBlock, depending on the
+	 *         partition method.
 	 * 
-	 * This calls the desired partition method (PartitionSetOfStringObjects)
-	 * For each of the partitions, additional information is added (from ActivityRepositoryPartitionToCatalog)
+	 *         This calls the desired partition method (PartitionSetOfStringObjects)
+	 *         For each of the partitions, additional information is added (from
+	 *         ActivityRepositoryPartitionToCatalog)
 	 * 
 	 */
 	public static JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
 		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
 		String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
-		JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection).getAsJsonObject();
+		JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
+				.getAsJsonObject();
 		event.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
 		Document document = MessageConstructor.startDocument("PartiionSetWithinRepositoryFile");
 		Element body = MessageConstructor.isolateBody(document);
@@ -53,7 +59,7 @@ public class PartiionSetWithinRepositoryFileProcess {
 		Element hrow = table.addElement("tr");
 		hrow.addElement("th").addText("Position");
 		hrow.addElement("th").addText("Message");
-		for(int i=0;i<objects.size();i++) {
+		for (int i = 0; i < objects.size(); i++) {
 			Element row = table.addElement("tr");
 			JsonObject catalog = objects.get(i).getAsJsonObject();
 			catalog.addProperty(ClassLabelConstants.FileSourceFormat, sourceformat);
@@ -61,7 +67,7 @@ public class PartiionSetWithinRepositoryFileProcess {
 			catalog.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
 			CreateLinksInStandardCatalogInformation.transfer(info, catalog);
 			CreateLinksInStandardCatalogInformation.transfer(staging, catalog);
-			CreateLinksInStandardCatalogInformation.linkCatalogObjects(staging, 
+			CreateLinksInStandardCatalogInformation.linkCatalogObjects(staging,
 					"dataset:ConceptLinkRepositoryFileToPartition", catalog);
 			BaseCatalogData.insertFirestoreAddress(catalog);
 			String message = WriteFirestoreCatalogObject.writeCatalogObject(catalog);
@@ -70,31 +76,36 @@ public class PartiionSetWithinRepositoryFileProcess {
 			set.add(catalog);
 		}
 		String message = "Successful: " + objects.size() + "blocks";
-		JsonObject response = DatabaseServicesBase.standardServiceResponse(document, message , set);
+		JsonObject response = DatabaseServicesBase.standardServiceResponse(document, message, set);
 		return response;
 	}
-	
-	/** Read in the content from the blob storage using transaction
+
+	/**
+	 * Read in the content from the blob storage using transaction
 	 * 
 	 * @param prerequisites The prerequisite transaction
 	 * @return The content
 	 * 
-	 * Using the InitialReadInOfRepositoryFile transaction, read in the content from the blob storage.
-	 * If the content string is empty, then the read was not successful
+	 *         Using the InitialReadInOfRepositoryFile transaction, read in the
+	 *         content from the blob storage. If the content string is empty, then
+	 *         the read was not successful
 	 * 
 	 */
 	private static String retrieveContentFromTransaction(JsonObject staging) {
 		String content = "";
-		if(staging != null) {
-			// From the RepositoryDataPartitionBlock get the blob information (GCSBlobFileInformationStaging)
+		if (staging != null) {
+			// From the RepositoryDataPartitionBlock get the blob information
+			// (GCSBlobFileInformationStaging)
 			JsonObject gcsinfo = staging.get(ClassLabelConstants.GCSBlobFileInformationStaging).getAsJsonObject();
 			// read content from blob storage
 			content = ReadCloudStorage.read(gcsinfo);
 		}
 		return content;
 	}
+
 	private static JsonObject retrieveContentCatalogObjectFromPrerequisites(JsonObject prerequisites) {
-		JsonObject staging = TransactionProcess.retrieveSingleOutputFromTransaction(prerequisites, "dataset:initreposfile");
+		JsonObject staging = TransactionProcess.retrieveSingleOutputFromTransaction(prerequisites,
+				"dataset:initreposfile");
 		return staging;
 	}
 }

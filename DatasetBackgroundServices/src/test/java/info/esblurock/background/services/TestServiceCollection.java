@@ -19,21 +19,19 @@ public class TestServiceCollection {
 		System.out.println("---------------------------------------------------");
 		System.out.println("TestServiceCollection");
 		System.out.println("---------------------------------------------------");
-		String jsonS = "{\n"
-				+ "service: DatasetCreateObjectTemplate,\n"
-				+ "\"dataset:objectype\": \"dataset:DatabasePerson\"\n"
-				+ "}\n";
-		
+		String jsonS = "{\n" + "service: DatasetCreateObjectTemplate,\n"
+				+ "\"dataset:objectype\": \"dataset:DatabasePerson\"\n" + "}\n";
+
 		JsonObject json = JsonObjectUtilities.jsonObjectFromString(jsonS);
 		String catalogtype = json.get(ClassLabelConstants.DatabaseObjectType).getAsString();
-		System.out.println(ClassLabelConstants.DatabaseObjectType +":  " + catalogtype);
+		System.out.println(ClassLabelConstants.DatabaseObjectType + ":  " + catalogtype);
 		System.out.println("---------------------------------------------------");
 
 		System.out.println(JsonObjectUtilities.toString(json));
 		System.out.println("---------------------------------------------------");
-			JsonObject answer = DatabaseServicesBase.process(json);
-			System.out.println("---------------------------------------------------");
-			System.out.println(JsonObjectUtilities.toString(answer));
+		JsonObject answer = DatabaseServicesBase.process(json);
+		System.out.println("---------------------------------------------------");
+		System.out.println(JsonObjectUtilities.toString(answer));
 	}
 
 }

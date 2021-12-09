@@ -7,22 +7,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(
-    name = "HelloAppEngine",
-    urlPatterns = {"/hello"}
-)
+@WebServlet(name = "HelloAppEngine", urlPatterns = { "/hello" })
 public class HelloAppEngine extends HttpServlet {
 
-  /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-@Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) 
-      throws IOException {
+	@Override
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-	  response.setContentType("text/html");
-	    response.getWriter().println("<h1>Hello, Google App Engine with Java 11!</h1>");
-  }
+		response.setContentType("text/html");
+		response.getWriter().println("<h1>Hello, Google App Engine with Java 11!</h1>");
+	}
 }

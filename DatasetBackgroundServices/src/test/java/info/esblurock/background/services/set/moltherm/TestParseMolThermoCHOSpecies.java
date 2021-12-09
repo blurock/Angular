@@ -15,15 +15,14 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class TestParseMolThermoCHOSpecies {
 
-
 	@Test
 	public void test() {
 		String srcpath = "src/test/java/resources/molthermo/parseMolthermoCHOSpecies.json";
 		try {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
-				JsonObject response = TransactionProcess.processFromTransaction(json);
-				JsonObjectUtilities.printResponse(response);
+			JsonObject response = TransactionProcess.processFromTransaction(json);
+			JsonObjectUtilities.printResponse(response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

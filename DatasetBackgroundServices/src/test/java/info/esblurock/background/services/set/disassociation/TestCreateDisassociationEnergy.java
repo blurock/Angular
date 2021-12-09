@@ -1,6 +1,5 @@
 package info.esblurock.background.services.set.disassociation;
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -17,18 +16,18 @@ public class TestCreateDisassociationEnergy {
 	@Test
 	public void test() {
 		String srcpath = "src/test/java/resources/disassociationenergy/createdisassociationenergies.json";
-			String content;
-			try {
-				content = Files.readString(Paths.get(srcpath));
+		String content;
+		try {
+			content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
-					System.out.println("----------------------------------------------");
-					JsonObject response = TransactionProcess.processFromTransaction(json);
-					System.out.println("----------------------------------------------");
-					JsonObjectUtilities.printResponse(response);
-					System.out.println("----------------------------------------------");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	}	
+			System.out.println("----------------------------------------------");
+			JsonObject response = TransactionProcess.processFromTransaction(json);
+			System.out.println("----------------------------------------------");
+			JsonObjectUtilities.printResponse(response);
+			System.out.println("----------------------------------------------");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

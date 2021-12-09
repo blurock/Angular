@@ -16,7 +16,7 @@ public class DeleteRDFs extends DeleteCatalogDataObject {
 	 * @param transactionid
 	 * @return The number of RDFs deleted
 	 * 
-	 *  Deleted 4 types of RDFs using the TransactionID
+	 *         Deleted 4 types of RDFs using the TransactionID
 	 * 
 	 */
 	public static int deleteRDFs(String transactionid) {
@@ -32,7 +32,7 @@ public class DeleteRDFs extends DeleteCatalogDataObject {
 		JsonObject objfirestoreid = rdfFirestoreid(classname);
 		CollectionReference collref = SetUpDocumentReference.setupCollection(db, objfirestoreid);
 		Query query = collref.whereEqualTo(ClassLabelConstants.TransactionID, transactionid);
-		return deleteCollection(query,batchsize);
+		return deleteCollection(query, batchsize);
 	}
 
 	public static JsonObject rdfFirestoreid(String classname) {

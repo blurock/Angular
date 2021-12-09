@@ -13,19 +13,20 @@ public class TestDeleteTransaction {
 	@Test
 	public void test() {
 		String type = "dataset:TransactionInterpretTextBlock";
-		//String type = "dataset:InitialReadInOfRepositoryFile";
-		//String type = "dataset:PartiionSetWithinRepositoryFile";
-		JsonObject transresponse = FindTransactions.findLabelFirestoreIDPairByType(type,null);
-		if(transresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+		// String type = "dataset:TransactionInterpretTextBlock";
+		// String type = "dataset:InitialReadInOfRepositoryFile";
+		// String type = "dataset:PartiionSetWithinRepositoryFile";
+		JsonObject transresponse = FindTransactions.findLabelFirestoreIDPairByType(type, null);
+		if (transresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			JsonObject transout = transresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 			JsonArray labelids = transout.get(ClassLabelConstants.LabelFirestoreIDPair).getAsJsonArray();
-			if(labelids.size() > 0) {
+			if (labelids.size() > 0) {
 				JsonObject first = labelids.get(0).getAsJsonObject();
 				JsonObject firestorid = first.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
 				JsonObject response = DeleteTransaction.deleteTransactionwithID(firestorid);
 				JsonObjectUtilities.printResponse(response);
 			} else {
-				System.out.println("No " + type  + " to delete");
+				System.out.println("No " + type + " to delete");
 			}
 		}
 	}

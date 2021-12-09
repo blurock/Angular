@@ -14,34 +14,32 @@ import org.dom4j.Node;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
-
-
 public class MessageConstructor {
-	
+
 	public static Document startDocument(String title) {
 		Document document = DocumentHelper.createDocument();
-		Element html = document.addElement( "html" );
+		Element html = document.addElement("html");
 		Element head = html.addElement("head");
 		head.addElement("title").addText(title);
 		html.addElement("body");
 		return document;
 	}
-	
+
 	public static Element isolateBody(Document document) {
 		Element body = null;
 		List<Node> nodes = document.selectNodes("html/body");
-			if(nodes.size() > 0) {
-				body = (Element) nodes.get(0);
-			}
+		if (nodes.size() > 0) {
+			body = (Element) nodes.get(0);
+		}
 		return body;
 	}
-	
+
 	public static Element isolateBody(String text) {
 		Element body = null;
 		try {
 			Document document = DocumentHelper.parseText(text);
 			List<Node> nodes = document.selectNodes("/body");
-			if(nodes.size() > 1) {
+			if (nodes.size() > 1) {
 				body = (Element) nodes.get(0);
 			}
 		} catch (DocumentException e) {
@@ -49,25 +47,27 @@ public class MessageConstructor {
 		}
 		return body;
 	}
+
 	public static void combineBodyIntoDocument(Document first, String second) {
 		try {
 			Document secondD = DocumentHelper.parseText(second);
-			combineBodyIntoDocument(first,secondD);
+			combineBodyIntoDocument(first, secondD);
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
 	}
+
 	public static void combineBodyIntoDocument(Document first, Document second) {
 		Element body1 = isolateBody(first);
 		Element body2 = isolateBody(second);
 		Iterator<Element> iter = body2.elementIterator();
-		while(iter.hasNext()) {
+		while (iter.hasNext()) {
 			Element element = iter.next();
 			element.detach();
 			body1.add(element);
 		}
 	}
-	
+
 	public static String DocumentToString(Document document) {
 		OutputFormat format = OutputFormat.createPrettyPrint();
 		format.setIndent(true);
@@ -77,7 +77,7 @@ public class MessageConstructor {
 		XMLWriter writer;
 		String out = "";
 		try {
-			writer = new XMLWriter(stream,format);
+			writer = new XMLWriter(stream, format);
 			writer.write(document);
 			writer.close();
 			out = stream.toString();

@@ -11,26 +11,20 @@ public class TestFindRepositoryMetaAtoms {
 
 	@Test
 	public void test2() {
-		String jsonS = "{\n"
-				+ "    service: \"FindTransactionsOfType\",\n"
+		String jsonS = "{\n" + "    service: \"FindTransactionsOfType\",\n"
 				+ "    \"prov:activity\": \"dataset:InitialReadInOfRepositoryFile\",\n"
-				+ "    \"dataset:transactionkey\": \"dataset:JThermodynamicsMetaAtoms\"\n"
-				+ "}";
+				+ "    \"dataset:transactionkey\": \"dataset:JThermodynamicsMetaAtoms\"\n" + "}";
 		JsonObject json = JsonObjectUtilities.jsonObjectFromString(jsonS);
 		JsonObject response = DatabaseServicesBase.process(json);
 		JsonObjectUtilities.printResponse(response);
-		
-		jsonS = "{\n"
-				+ "    service: \"FindTransactionChoicesOfTypeAndKey\",\n"
+
+		jsonS = "{\n" + "    service: \"FindTransactionChoicesOfTypeAndKey\",\n"
 				+ "    \"prov:activity\": \"dataset:InitialReadInOfRepositoryFile\",\n"
-				+ "    \"dataset:transactionkey\": \"dataset:JThermodynamicsMetaAtoms\"\n"
-				+ "}";
+				+ "    \"dataset:transactionkey\": \"dataset:JThermodynamicsMetaAtoms\"\n" + "}";
 		json = JsonObjectUtilities.jsonObjectFromString(jsonS);
 		response = DatabaseServicesBase.process(json);
 		JsonObjectUtilities.printResponse(response);
-		
-		
-		
+
 	}
 
 }

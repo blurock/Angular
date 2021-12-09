@@ -195,7 +195,6 @@ public enum TransactionProcess {
 		String transactionObjectName() {
 			return "dataset:DatasetTransactionEventObject";
 		}
-		
 
 	},
 	TransactionSetupBensonRule {
@@ -224,8 +223,9 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionKey(JsonObject catalog) {
-			
-			JsonObject structure = catalog.get(ClassLabelConstants.DatasetSpecificationForCollectionSet).getAsJsonObject();
+
+			JsonObject structure = catalog.get(ClassLabelConstants.DatasetSpecificationForCollectionSet)
+					.getAsJsonObject();
 			String maintainer = structure.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 			String dataset = structure.get(ClassLabelConstants.DatasetName).getAsString();
 			String version = structure.get(ClassLabelConstants.DatasetVersion).getAsString();
@@ -333,22 +333,23 @@ public enum TransactionProcess {
 	public static JsonObject retrieveSingleOutputFromTransaction(JsonObject prerequisites, String transidentifier) {
 		JsonObject catalog = null;
 		// Get the InitialReadInOfRepositoryFile transaction
-		if(prerequisites.get(transidentifier) != null) {
-		JsonObject stagingtransaction = prerequisites.get(transidentifier).getAsJsonObject();
-		// Get the set of output FirestoreID from transaction
-		JsonArray outobjects = stagingtransaction.get(ClassLabelConstants.DatabaseObjectIDOutputTransaction)
-				.getAsJsonArray();
-		if (outobjects.size() > 0) {
-			// There is only one, get the FirestoreID of RepositoryFileStaging output
-			JsonObject stagingid = outobjects.get(0).getAsJsonObject();
-			// Read the catalog object and isolate it from the response
-			JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(stagingid);
-			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-				catalog = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+		if (prerequisites.get(transidentifier) != null) {
+			JsonObject stagingtransaction = prerequisites.get(transidentifier).getAsJsonObject();
+			// Get the set of output FirestoreID from transaction
+			JsonArray outobjects = stagingtransaction.get(ClassLabelConstants.DatabaseObjectIDOutputTransaction)
+					.getAsJsonArray();
+			if (outobjects.size() > 0) {
+				// There is only one, get the FirestoreID of RepositoryFileStaging output
+				JsonObject stagingid = outobjects.get(0).getAsJsonObject();
+				// Read the catalog object and isolate it from the response
+				JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(stagingid);
+				if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+					catalog = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+				}
 			}
-		}
 		} else {
-			System.out.println("Prerequisite '" + transidentifier + "' not found in\n" + JsonObjectUtilities.toString(prerequisites));
+			System.out.println("Prerequisite '" + transidentifier + "' not found in\n"
+					+ JsonObjectUtilities.toString(prerequisites));
 		}
 		return catalog;
 	}
@@ -400,8 +401,8 @@ public enum TransactionProcess {
 		String transactionID = SystemObjectInformation.determineTransactionID();
 		String owner = SystemObjectInformation.determineOwner();
 		String transactionobjectname = process.transactionObjectName();
-		JsonObject event = BaseCatalogData.createStandardDatabaseObject(transactionobjectname, owner,
-				transactionID, owner);
+		JsonObject event = BaseCatalogData.createStandardDatabaseObject(transactionobjectname, owner, transactionID,
+				owner);
 		event.add(ClassLabelConstants.ActivityInformationRecord, info);
 		JsonObject response = process.process(event, prerequisites, info);
 		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
