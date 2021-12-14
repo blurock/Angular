@@ -2639,6 +2639,22 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                              <http://www.w3.org/2004/02/skos/core#altLabel> "hier2dstructurethermo"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#CatalogHierarchyJThermodynamicsSymmetryStructureDefinition
+:CatalogHierarchyJThermodynamicsSymmetryStructureDefinition rdf:type owl:Class ;
+                                                            rdfs:subClassOf :CatalogHierarchyObjectStatus ,
+                                                                            [ rdf:type owl:Restriction ;
+                                                                              owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
+                                                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                              owl:onClass :JThermodynamicsSymmetryStructureDefinition
+                                                                            ] ;
+                                                            <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
+                                                            <http://purl.org/dc/terms/identifier> "dataset:hiersymmetrystructuredefinition"^^xsd:string ;
+                                                            rdfs:comment "The datasset symmetry definitions"^^xsd:string ;
+                                                            rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
+                                                            rdfs:label "Symmetry Structure Definition"^^xsd:string ;
+                                                            <http://www.w3.org/2004/02/skos/core#altLabel> "hiersymmetrystructuredefinition"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#CatalogHierarchyJThermodynamicsVibrationalStructure
 :CatalogHierarchyJThermodynamicsVibrationalStructure rdf:type owl:Class ;
                                                      rdfs:subClassOf :CatalogHierarchyObjectStatus ,
@@ -11054,6 +11070,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                     owl:onClass :JThermodynamicSymmetryDefinitionLabel
+                                                   ] ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                     owl:onClass :StructureSymmetryType
+                                                   ] ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                      owl:onClass :SymmetryFactorOfStructure
                                                    ] ;
                                    <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
@@ -11143,11 +11169,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                               owl:onClass :JThermodynamicsSymmetryDefinitionSubGroupLabel
                                                             ] ,
                                                             [ rdf:type owl:Restriction ;
-                                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                              owl:onClass :StructureSymmetryType
-                                                            ] ,
-                                                            [ rdf:type owl:Restriction ;
                                                               owl:onProperty :hasPurpose ;
                                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                               owl:onClass :Purpose2DAtomStructureDefinition
@@ -11180,7 +11201,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                             [ rdf:type owl:Restriction ;
                                                               owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                              owl:onClass :JThermodynamics2DGraphicalSubStructure
+                                                              owl:onClass :JThermodynamics2DSpeciesStructure
                                                             ] ,
                                                             [ rdf:type owl:Restriction ;
                                                               owl:onProperty <http://www.w3.org/ns/dcat#record> ;
@@ -13321,6 +13342,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                         rdfs:subClassOf :InterpretTextBlock .
 
 
+###  http://www.esblurock.info/dataset#ParseLinesJThermodynamicsSymmetryDefinition
+:ParseLinesJThermodynamicsSymmetryDefinition rdf:type owl:Class ;
+                                             rdfs:subClassOf :InterpretTextBlock .
+
+
 ###  http://www.esblurock.info/dataset#ParseLinesJThermodynamicsVibrationalStructure
 :ParseLinesJThermodynamicsVibrationalStructure rdf:type owl:Class ;
                                                rdfs:subClassOf :InterpretTextBlock .
@@ -13382,6 +13408,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                       owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
                                       owl:someValuesFrom :RepositoryParsedToFixedBlockSize
                                     ] .
+
+
+###  http://www.esblurock.info/dataset#PartitionXMLListOfCatalogObjects
+:PartitionXMLListOfCatalogObjects rdf:type owl:Class ;
+                                  rdfs:subClassOf :PartitionSetOfStringObjects ;
+                                  rdfs:comment "This partitions an XML file with a list of catalog objects. Each catalog object is separated out. Only one type of catalog object is allowed to be in the list (others will be ignored)."^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#Password
