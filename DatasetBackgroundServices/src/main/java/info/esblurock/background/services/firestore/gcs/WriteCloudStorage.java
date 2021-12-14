@@ -12,7 +12,6 @@ import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.StorageClient;
 import com.google.gson.JsonArray;
@@ -46,49 +45,39 @@ public class WriteCloudStorage {
 		body.addElement("div").addText("Media Type: " + mediatype);
 		String mediasubtype = info.get(ClassLabelConstants.FileSourceMediaSubType).getAsString();
 		body.addElement("div").addText("Media  SubType: " + mediasubtype);
-		try {
-			FirebaseOptions options = FirebaseOptions.builder()
-					.setCredentials(GoogleCredentials.getApplicationDefault())
-					.setStorageBucket("blurock-database.appspot.com").build();
-			FirebaseApp.initializeApp(options);
-			Bucket bucket = StorageClient.getInstance().bucket();
-			storage = StorageOptions.getDefaultInstance().getService();
-			// Create blob
-			String formatallabel = formattype.substring(8);
-			String dirpath = "upload/" + maintainer + "/" + formatallabel;
-			String dir = dirpath + "/" + transactionid;
+		Bucket bucket = StorageClient.getInstance().bucket();
+		storage = StorageOptions.getDefaultInstance().getService();
+		// Create blob
+		String formatallabel = formattype.substring(8);
+		String dirpath = "upload/" + maintainer + "/" + formatallabel;
+		String dir = dirpath + "/" + transactionid;
 
-			body.addElement("div").addText("Write to: " + dir);
-			BlobInfo blobInfo = BlobInfo.newBuilder(bucket.getName(), dir)
-					.setContentEncoding(StandardCharsets.UTF_8.toString()).setContentType("text").build();
-			// Upload blob to GCS (same as Firebase Storage)
-			byte[] contentB = content.getBytes(StandardCharsets.UTF_8);
-			storage.create(blobInfo, contentB);
-			JsonObject catalog = BaseCatalogData.createStandardDatabaseObject("dataset:RepositoryFileStaging", owner,
-					transactionid, "false");
-			JsonObject gcsblobinfo = catalog.get(ClassLabelConstants.GCSBlobFileInformationStaging).getAsJsonObject();
-			gcsblobinfo.addProperty(ClassLabelConstants.GCSFilePath, dirpath);
-			gcsblobinfo.addProperty(ClassLabelConstants.GCSFileName, transactionid);
-			gcsblobinfo.addProperty(ClassLabelConstants.FileSourceFormat, formattype);
-			gcsblobinfo.addProperty(ClassLabelConstants.FileSourceMediaType, mediatype);
-			gcsblobinfo.addProperty(ClassLabelConstants.FileSourceMediaSubType, mediasubtype);
-			gcsblobinfo.addProperty(ClassLabelConstants.UploadFileSource, uploadsource);
+		body.addElement("div").addText("Write to: " + dir);
+		BlobInfo blobInfo = BlobInfo.newBuilder(bucket.getName(), dir)
+				.setContentEncoding(StandardCharsets.UTF_8.toString()).setContentType("text").build();
+		// Upload blob to GCS (same as Firebase Storage)
+		byte[] contentB = content.getBytes(StandardCharsets.UTF_8);
+		storage.create(blobInfo, contentB);
+		JsonObject catalog = BaseCatalogData.createStandardDatabaseObject("dataset:RepositoryFileStaging", owner,
+				transactionid, "false");
+		JsonObject gcsblobinfo = catalog.get(ClassLabelConstants.GCSBlobFileInformationStaging).getAsJsonObject();
+		gcsblobinfo.addProperty(ClassLabelConstants.GCSFilePath, dirpath);
+		gcsblobinfo.addProperty(ClassLabelConstants.GCSFileName, transactionid);
+		gcsblobinfo.addProperty(ClassLabelConstants.FileSourceFormat, formattype);
+		gcsblobinfo.addProperty(ClassLabelConstants.FileSourceMediaType, mediatype);
+		gcsblobinfo.addProperty(ClassLabelConstants.FileSourceMediaSubType, mediasubtype);
+		gcsblobinfo.addProperty(ClassLabelConstants.UploadFileSource, uploadsource);
 
-			String descrtitle = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
-			catalog.addProperty(ClassLabelConstants.DescriptionTitle, descrtitle);
+		String descrtitle = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
+		catalog.addProperty(ClassLabelConstants.DescriptionTitle, descrtitle);
 
-			JsonElement descr = info.get(ClassLabelConstants.DataDescriptionFileStaging);
-			if (descr != null) {
-				catalog.add(ClassLabelConstants.DataDescriptionFileStaging, descr);
-			}
-			JsonArray catalogarr = new JsonArray();
-			catalogarr.add(catalog);
-			response = DatabaseServicesBase.standardServiceResponse(document, "Success: WriteCloudStorage", catalogarr);
-		} catch (FileNotFoundException e) {
-			response = DatabaseServicesBase.standardErrorResponse(document, e.toString(), null);
-		} catch (IOException e) {
-			response = DatabaseServicesBase.standardErrorResponse(document, e.toString(), null);
+		JsonElement descr = info.get(ClassLabelConstants.DataDescriptionFileStaging);
+		if (descr != null) {
+			catalog.add(ClassLabelConstants.DataDescriptionFileStaging, descr);
 		}
+		JsonArray catalogarr = new JsonArray();
+		catalogarr.add(catalog);
+		response = DatabaseServicesBase.standardServiceResponse(document, "Success: WriteCloudStorage", catalogarr);
 		return response;
 	}
 }

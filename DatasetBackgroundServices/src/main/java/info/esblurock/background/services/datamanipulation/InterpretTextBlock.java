@@ -20,6 +20,7 @@ import info.esblurock.background.services.dataset.DatasetCollectionManagement;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
 import info.esblurock.background.services.jthermodynamics.InterpretThermodynamicBlock;
 import info.esblurock.background.services.jthermodynamics.structure.GenerateJThermodynamics2DSpeciesStructure;
+import info.esblurock.background.services.jthermodynamics.symmetry.InterpretSymmetryBlock;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.background.services.transaction.TransactionProcess;
@@ -333,6 +334,33 @@ public enum InterpretTextBlock {
 			return InterpretThermodynamicBlock.interpretBensonRuleThermodynamics(parsed, table, info);
 		}
 
+	}, ParseLinesJThermodynamicsSymmetryDefinition {
+
+		@Override
+		public Element setUpOutputTable(JsonObject info, Element body) {
+			Element table = body.addElement("table");
+			Element hrow = table.addElement("tr");
+			hrow.addElement("th").addText("Symmetry Label");
+			hrow.addElement("th").addText("Symmetry Type");
+			hrow.addElement("th").addText("Structure");
+			hrow.addElement("th").addText("Symmetry");
+			return table;
+		}
+
+		@Override
+		public boolean blockcheck(JsonObject parsed) {
+			boolean ans = parsed.get(ClassLabelConstants.RepositoryDataPartitionBlock) != null;
+			return ans;
+		}
+
+		@Override
+		public JsonObject interpret(JsonObject parsed, Element table, JsonObject info) {
+			JsonArray lines = parsed.get(ClassLabelConstants.ParsedLine).getAsJsonArray();
+			String content = lines.get(0).getAsString();
+			JsonObject catalog = InterpretSymmetryBlock.interpret(content,table);
+			return catalog;
+		}
+		
 	};
 
 	/**

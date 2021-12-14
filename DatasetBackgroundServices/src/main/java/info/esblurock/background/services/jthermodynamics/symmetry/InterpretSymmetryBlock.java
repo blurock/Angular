@@ -3,9 +3,12 @@ package info.esblurock.background.services.jthermodynamics.symmetry;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+import org.dom4j.Element;
 import org.json.JSONObject;
 import org.json.XML;
+import org.openscience.cdk.AtomContainer;
 import org.openscience.cdk.exception.CDKException;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.w3c.dom.Document;
 
 import com.google.gson.Gson;
@@ -30,9 +33,9 @@ public class InterpretSymmetryBlock {
 	 * @return The JsonObject representation of
 	 *         JThermodynamicsSymmetryStructureDefinition
 	 */
-	public static JsonObject interpret(String xmlString) {
+	public static JsonObject interpret(String xmlString, Element table) {
 		Document xml = XMLUtilityRoutines.convertStringToXMLDocument(xmlString);
-		return interpret(xml);
+		return interpret(xml,table);
 	}
 
 	/**
@@ -43,21 +46,42 @@ public class InterpretSymmetryBlock {
 	 * @return The JsonObject representation of
 	 *         JThermodynamicsSymmetryStructureDefinition
 	 */
-	public static JsonObject interpret(Document xml) {
-		JsonObject speciesstructure = interpretStructure(xml);
+	public static JsonObject interpret(Document xml, Element table) {
 		JsonObject symmetry = interpretSymmetry(xml);
+		String symmetryfactor = symmetry.get(ClassLabelConstants.SymmetryFactorOfStructure).getAsString();
+		String symname = symmetry.get(ClassLabelConstants.JThermodynamicSymmetryDefinitionLabel).getAsString();
+		String symtype = symmetry.get(ClassLabelConstants.StructureSymmetryType).getAsString();
+		table.addElement("td").addText(symname);
+		table.addElement("td").addText(symtype);
+		JsonObject speciesstructure = interpretStructure(xml,table);
+		table.addElement("td").addText(symmetryfactor);
 		JsonObject catalog = CreateDocumentTemplate
 				.createTemplate("dataset:JThermodynamicsSymmetryStructureDefinition");
 		catalog.add(ClassLabelConstants.JThermodynamicsSymmetryDefinition, symmetry);
-		catalog.add(ClassLabelConstants.JThermodynamics2DGraphicalSubStructure, speciesstructure);
+		catalog.add(ClassLabelConstants.JThermodynamics2DSpeciesStructure, speciesstructure);
+		//System.out.println("---------------------------------------");
+		//System.out.println(JsonObjectUtilities.toString(catalog));
+		//System.out.println("---------------------------------------");
 		return catalog;
 	}
 
-	private static JsonObject interpretStructure(Document doc) {
+	/** Extract JThermodynamics2DSpeciesStructure from the xml document
+	 * 
+	 * @param doc The document where the "molecule" structure is found
+	 * @param table A table created for the output response, this routine adds an element to the row.
+	 * @return The JThermodynamics2DSpeciesStructure created from the document
+	 * 
+	 * The "molecule" element is a CML representation of the molecule. This routine uses
+	 * GenerateJThermodynamics2DSpeciesStructure to create the full JThermodynamics2DSpeciesStructure
+	 * 
+	 */
+	private static JsonObject interpretStructure(Document doc, Element table) {
 		JsonObject structure = null;
 		String strObject = XMLUtilityRoutines.retrieveAsStringFromDocument(doc,"molecule");
 		try {
 			StructureAsCML cmlstruct = new StructureAsCML("Name", strObject);
+			String name = cmlstruct.getNameOfStructure();
+			table.addElement("td").addText(name);
 			structure = GenerateJThermodynamics2DSpeciesStructure.generate(cmlstruct.getMolecule());
 
 		} catch (CDKException ex) {
@@ -66,6 +90,14 @@ public class InterpretSymmetryBlock {
 		return structure;
 	}
 
+	/** Extract JThermodynamicsSymmetryDefinition from the document
+	 * 
+	 * @param doc The xml document where the JThermodynamicsSymmetryDefinition is extracted
+	 * @return the JThermodynamicsSymmetryDefinition structure
+	 * 
+	 * This basically, using  XMLUtilityRoutines, translates the XML represenation of JThermodynamicsSymmetryDefinition
+	 * to a JsonObject representation of JThermodynamicsSymmetryDefinition.
+	 */
 	static JsonObject interpretSymmetry(Document doc) {
 		JsonObject symmetry = XMLUtilityRoutines.getJsonObjectFromDocument(doc, ClassLabelConstants.JThermodynamicsSymmetryDefinition);
 		if (!symmetry.get(ClassLabelConstants.JThermodynamicsSymmetryNodeGroupDefinition).isJsonArray()) {

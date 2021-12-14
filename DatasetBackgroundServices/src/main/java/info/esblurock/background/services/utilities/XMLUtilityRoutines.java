@@ -111,4 +111,16 @@ public class XMLUtilityRoutines {
 		String strObject = XMLUtilityRoutines.convertXMLToString(node);
 		return strObject;
 	}
+	
+	public static String[] parseObjectsFromXMLString(String documentS, String identifier) {
+		Document document = convertStringToXMLDocument(documentS);
+		NodeList nlst = document.getElementsByTagName(identifier);
+		String[] lst = new String[nlst.getLength()];
+		for(int i=0; i < nlst.getLength();i++) {
+			Node node = nlst.item(i);
+			String content = convertXMLToString(node);
+			lst[i] = content;
+		}
+		return lst;
+	}
 }

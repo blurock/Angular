@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<list>
 <dataset:symmetrystructuredefinition>
 	<dataset:symmetrydefinition>
 		<dataset:structuresymmetryfactor>3</dataset:structuresymmetryfactor>
 		<dataset:structuresymmetrytype>dataset:StructureExternalSymmetry</dataset:structuresymmetrytype>
 		<dataset:symmetrydefinitionlabel>ExternalSymmetry-C(B1)(B1)(B1)</dataset:symmetrydefinitionlabel>
-			<dataset:nodegroupdefinition>
-				<dataset:symdefinitiontype> dataset:SymmetryNodeTypeN </dataset:symdefinitiontype>
-				<dataset:symgrouplabel> a2 </dataset:symgrouplabel>
-				<dataset:symnodelabel> 0</dataset:symnodelabel>
-			</dataset:nodegroupdefinition>
-			<dataset:nodegroupdefinition>
-				<dataset:symdefinitiontype> dataset:SymmetryNodeTypeN </dataset:symdefinitiontype>
-				<dataset:symgrouplabel> a3 </dataset:symgrouplabel>
-				<dataset:symnodelabel> 0</dataset:symnodelabel>
-			</dataset:nodegroupdefinition>
-			<dataset:nodegroupdefinition>
-				<dataset:symdefinitiontype> dataset:SymmetryNodeTypeN </dataset:symdefinitiontype>
-				<dataset:symgrouplabel> a4 </dataset:symgrouplabel>
-				<dataset:symnodelabel> 0</dataset:symnodelabel>
-			</dataset:nodegroupdefinition>
+		<dataset:nodegroupdefinition>
+			<dataset:symdefinitiontype> dataset:SymmetryNodeTypeN </dataset:symdefinitiontype>
+			<dataset:symgrouplabel> a2 </dataset:symgrouplabel>
+			<dataset:symnodelabel> 0</dataset:symnodelabel>
+		</dataset:nodegroupdefinition>
+		<dataset:nodegroupdefinition>
+			<dataset:symdefinitiontype> dataset:SymmetryNodeTypeN </dataset:symdefinitiontype>
+			<dataset:symgrouplabel> a3 </dataset:symgrouplabel>
+			<dataset:symnodelabel> 0</dataset:symnodelabel>
+		</dataset:nodegroupdefinition>
+		<dataset:nodegroupdefinition>
+			<dataset:symdefinitiontype> dataset:SymmetryNodeTypeN </dataset:symdefinitiontype>
+			<dataset:symgrouplabel> a4 </dataset:symgrouplabel>
+			<dataset:symnodelabel> 0</dataset:symnodelabel>
+		</dataset:nodegroupdefinition>
 	</dataset:symmetrydefinition>
 	<molecule id="GeneralMethylConnection"
 		xmlns="http://www.xml-cml.org/schema">
@@ -37,3 +38,4 @@
 		</bondArray>
 	</molecule>
 </dataset:symmetrystructuredefinition>
+</list>

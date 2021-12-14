@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.utilities.XMLUtilityRoutines;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
@@ -83,6 +84,33 @@ public enum PartitionSetOfStringObjects {
 					count = sze;
 					position++;
 				}
+			}
+		}
+
+		@Override
+		String getBlockClass() {
+			return "dataset:RepositoryParsedToFixedBlockSize";
+
+		}
+
+	}, PartitionXMLListOfCatalogObjects {
+
+		@Override
+		void partition(JsonArray partitionarr, JsonObject info, String content) {
+			String catalogid = info.get(ClassLabelConstants.FileSourceFormat).getAsString();
+			String[] blocks = XMLUtilityRoutines.parseObjectsFromXMLString(content, catalogid);
+			String owner = info.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+			String transactionID = info.get(ClassLabelConstants.TransactionID).getAsString();
+			for(int position = 0; position < blocks.length;position++) {
+				String portion = blocks[position];
+				JsonArray linearr = new JsonArray();
+				linearr.add(portion);
+					JsonObject block = BaseCatalogData.createStandardDatabaseObject(
+							"dataset:RepositoryParsedToFixedBlockSize", owner, transactionID, "false");
+					block.add(ClassLabelConstants.ParsedLine, linearr);
+					block.addProperty(ClassLabelConstants.ElementCount, portion.length());
+					block.addProperty(ClassLabelConstants.Position, position);
+					partitionarr.add(block);
 			}
 		}
 

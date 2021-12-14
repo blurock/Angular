@@ -13,6 +13,7 @@ public class TestDeleteTransaction {
 	@Test
 	public void test() {
 		String type = "dataset:TransactionInterpretTextBlock";
+		//String type = "dataset:TransactionInterpretTextBlock";
 		// String type = "dataset:TransactionInterpretTextBlock";
 		// String type = "dataset:InitialReadInOfRepositoryFile";
 		// String type = "dataset:PartiionSetWithinRepositoryFile";
