@@ -160,12 +160,6 @@ public enum InterpretTextBlock {
 				catalog.addProperty(ClassLabelConstants.JThermodynamicsStructureSpecification, nancy);
 				catalog.addProperty(ClassLabelConstants.JThermodynamicsSpeciesSpecificationType,
 						"dataset:SpeciesSpecificationNancyLinearForm");
-				JsonObject recordid = catalog.get(ClassLabelConstants.DatabaseCollectionOfCurrentClass)
-						.getAsJsonObject();
-				// catalog.add(ClassLabelConstants.DatabaseCollectionOfCurrentClass, recordid);
-				String name = metaatomtype + "." + metaatomname;
-				recordid.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, name);
-
 				Element row = table.addElement("tr");
 				row.addElement("td").addText(position);
 				row.addElement("td").addText(line);

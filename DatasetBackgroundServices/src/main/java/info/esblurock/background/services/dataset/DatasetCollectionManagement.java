@@ -205,7 +205,6 @@ public class DatasetCollectionManagement {
 			recordid.addProperty(ClassLabelConstants.CatalogDataObjectStatus, "CatalogObjectStatusCurrent");
 			String classname = GenericSimpleQueries.classFromIdentifier(identifier);
 			recordid.addProperty(ClassLabelConstants.DatasetCollectionObjectType, classname);
-			System.out.println("writeCatalogObject:\n" + JsonObjectUtilities.toString(recordid));
 			JsonObject catid = FindDatasetCollections.findDatasetCollectionID(classname, recordid);
 			String id = catalog.get(ClassLabelConstants.CatalogObjectKey).getAsString();
 			catid.addProperty(ClassLabelConstants.SimpleCatalogName, id);

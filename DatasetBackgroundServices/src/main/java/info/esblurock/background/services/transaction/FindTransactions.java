@@ -152,7 +152,6 @@ public class FindTransactions {
 		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			Document docmessage = MessageConstructor.startDocument("findTransactionDescriptionByType");
 			String responsemessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
-			System.out.println("RDF response message:\n" + responsemessage);
 			MessageConstructor.combineBodyIntoDocument(docmessage, responsemessage);
 			// Get Catalog object from the response
 			JsonObject result = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
@@ -199,11 +198,9 @@ public class FindTransactions {
 		if (emptycatalog != null) {
 			JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(emptycatalog);
 			firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
-			System.out.println("findDatasetTransaction:\n" + JsonObjectUtilities.toString(firestoreid));
 			JsonObject response = ReadFirestoreInformation.readFirestoreCollection(null, firestoreid);
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				JsonObject output = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
-				System.out.println(JsonObjectUtilities.toString(output));
 				JsonArray arr = output.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 				if (arr != null) {
 					if (onlyone) {

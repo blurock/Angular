@@ -22,21 +22,8 @@ public class TestPartitionMetaAtomFile {
 		try {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
-			String type = "dataset:InitialReadInOfRepositoryFile";
-			JsonObject transresponse = FindTransactions.findLabelFirestoreIDPairByType(type, null);
-			if (transresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-				JsonObject transout = transresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
-				JsonArray labelids = transout.get(ClassLabelConstants.LabelFirestoreIDPair).getAsJsonArray();
-				JsonObject first = labelids.get(0).getAsJsonObject();
-				JsonObject firestorid = first.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
-				JsonObject prerequisites = json.get(ClassLabelConstants.DatabaseIDFromRequiredTransaction)
-						.getAsJsonObject();
-				prerequisites.add("dataset:initreposfile", firestorid);
-				JsonObject response = TransactionProcess.processFromTransaction(json);
-				JsonObjectUtilities.printResponse(response);
-			} else {
-				System.out.println("Failed to get prerequisite: " + type);
-			}
+			JsonObject response = TransactionProcess.processFromTransaction(json);
+			JsonObjectUtilities.printResponse(response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

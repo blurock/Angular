@@ -61,7 +61,6 @@ public enum PartitionSetOfStringObjects {
 		@Override
 		void partition(JsonArray partitionarr, JsonObject info, String content) {
 			int sze = info.get(ClassLabelConstants.BlockLineCount).getAsInt();
-			System.out.println("PartitionToLineSet: Size of Partition: " + sze);
 			StringTokenizer tok = new StringTokenizer(content, "\n");
 			int count = sze;
 			int position = 0;

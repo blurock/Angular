@@ -87,8 +87,6 @@ public enum TransactionProcess {
 			String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
 			String username = info.get(ClassLabelConstants.username).getAsString();
 			Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent: " + username);
-			System.out
-					.println("CreateUserAccountEvent: prerequisites:\n" + JsonObjectUtilities.toString(prerequisites));
 			// Get prerequisite transaction CreateDatabasePersonEvent
 			JsonObject persontransaction = prerequisites.get("dataset:eventcreateperson").getAsJsonObject();
 			// Get DatabasePerson ID
@@ -255,7 +253,7 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionObjectName() {
-			return "dataset:DatasetCollectionManagementTransaction";
+			return "dataset:DataCollectionAddCollectionTransaction";
 		}
 
 	},
@@ -275,7 +273,7 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionObjectName() {
-			return "dataset:DatasetCollectionManagementTransaction";
+			return "dataset:DatasetCollectionAddDatasetToCollectionTransaction";
 		}
 
 	};
@@ -565,14 +563,10 @@ public enum TransactionProcess {
 		// Loop through each prerequisite
 		for (String name : prerequisitenames) {
 			String label = DatasetOntologyParseBase.getIDFromAnnotation(name);
-			System.out.println("fillInDatasetPrerequisites: " + name);
-			System.out.println("fillInDatasetPrerequisites: " + label);
 			// If the prerequisite has not been filled in yet, find it and add it in.
 			if (prerequisites.get(label) == null) {
 				JsonObject transaction = FindTransactions.findDatasetTransaction(info, name, true);
 				if (transaction != null) {
-					System.out.println(JsonObjectUtilities.toString(transaction));
-
 					JsonObject firebaseid = transaction.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
 					prerequisites.add(label, firebaseid);
 				} else {

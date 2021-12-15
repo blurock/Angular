@@ -16,9 +16,9 @@
 		}
 	},
 	"dataset:activityinfo": {
-		"dcterms:title": "Standard JThermodynamic Dataset for Meta Atoms",
+		"dcterms:title": "Standard JThermodynamic Dataset for Benson Rules",
 		"dcterms:identifier": "dataset:adddatasetcollectioninfo",
-		"dataset:objectype": "dataset:JThermodynamicsMetaAtomDefinition",
+		"dataset:objectype": "dataset:ThermodynamicBensonRuleDefinition",
 		"dataset:datasetfortypeincollection": {
 			"dataset:catalogobjectmaintainer": "Administrator",
 			"dataset:dataobjstatus": "CatalogObjectStatusCurrent",

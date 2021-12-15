@@ -17,7 +17,6 @@ public enum FindTransactionFromActivityInfo {
 			JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
 					.getAsJsonObject();
 			transaction.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
-			System.out.println("DatasetTransactionEventObject: \n" + JsonObjectUtilities.toString(recordid));
 		}
 
 	},
@@ -34,11 +33,9 @@ public enum FindTransactionFromActivityInfo {
 	abstract void fill(JsonObject info, JsonObject transaction);
 
 	public static JsonObject findTransaction(String transactiontype, JsonObject info) {
-		System.out.println("findTransaction: " + transactiontype);
 		TransactionProcess process = TransactionProcess.valueOf(transactiontype.substring(8));
 		String transactionobjectname = process.transactionObjectName();
 		String name = transactionobjectname.substring(8);
-		System.out.println("findTransaction: " + name);
 		FindTransactionFromActivityInfo fill = FindTransactionFromActivityInfo.valueOf(name);
 		JsonObject transaction = null;
 		if (fill != null) {
@@ -47,7 +44,6 @@ public enum FindTransactionFromActivityInfo {
 			shortdescr.addProperty(ClassLabelConstants.TransactionEventType, transactiontype);
 			fill.fill(info, transaction);
 		}
-		System.out.println("findTransaction: " + JsonObjectUtilities.toString(transaction));
 		return transaction;
 	}
 
