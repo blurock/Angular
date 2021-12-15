@@ -16,6 +16,7 @@
                                                  <http://www.w3.org/ns/ssn/> ,
                                                  <http://xmlns.com/foaf/0.1/> ,
                                                  <http://www.w3.org/2004/02/skos/core> ;
+                                     <http://purl.org/dc/terms/publisher> <http://purl.org/dc/aboutdcmi#DCMI> ;
                                      <http://purl.org/dc/terms/title> "DCMI Type Vocabulary"@en ;
                                      <http://purl.org/dc/terms/modified> "2012-06-14"^^xsd:date ;
                                      <http://purl.org/dc/terms/title> "DCMI Metadata Terms - other"@en .
@@ -2509,31 +2510,58 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                         <http://www.w3.org/2004/02/skos/core#altLabel> "hieridcollectionset"^^xsd:string .
 
 
-###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetCollectionTransaction
-:CatalogHierarchyDatasetCollectionTransaction rdf:type owl:Class ;
-                                              rdfs:subClassOf :CatalogHierarchyDatasetCollectionTransactionSet ,
-                                                              [ rdf:type owl:Restriction ;
-                                                                owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
-                                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                owl:onClass :DatasetCollectionManagementTransaction
-                                                              ] ;
-                                              <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
-                                              <http://purl.org/dc/terms/identifier> "dataset:hierdcollectionidstransaction"^^xsd:string ;
-                                              rdfs:comment "The transaction associated with the management of the collection IDs."^^xsd:string ;
-                                              rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
-                                              rdfs:label "Dataset ID Collection Transactions"^^xsd:string ;
-                                              <http://www.w3.org/2004/02/skos/core#altLabel> "hierdcollectionidstransaction"^^xsd:string .
+###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetCollectionSetAddDatasetEvent
+:CatalogHierarchyDatasetCollectionSetAddDatasetEvent rdf:type owl:Class ;
+                                                     rdfs:subClassOf :CatalogHierarchyDatasetCollectionSetAddDatasetEventSet ,
+                                                                     [ rdf:type owl:Restriction ;
+                                                                       owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
+                                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                       owl:onClass :DatasetCollectionAddDatasetToCollectionTransaction
+                                                                     ] ;
+                                                     <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
+                                                     <http://purl.org/dc/terms/identifier> "dataset:hierdcollectionidstransaction"^^xsd:string ;
+                                                     rdfs:comment "The transaction associated with the management of the collection IDs."^^xsd:string ;
+                                                     rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
+                                                     rdfs:label "Dataset ID Collection Transactions"^^xsd:string ;
+                                                     <http://www.w3.org/2004/02/skos/core#altLabel> "hierdcollectionidstransaction"^^xsd:string .
 
 
-###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetCollectionTransactionSet
-:CatalogHierarchyDatasetCollectionTransactionSet rdf:type owl:Class ;
-                                                 rdfs:subClassOf :CatalogObjectDatasetMaintainer ;
-                                                 <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
-                                                 <http://purl.org/dc/terms/identifier> "dataset:hierdcollectionidstransactionset"^^xsd:string ;
-                                                 rdfs:comment "The set of transactions associated with the management of the collection IDs."^^xsd:string ;
-                                                 rdfs:isDefinedBy :LabelDerivedFromCollectionIDSetLabel ;
-                                                 rdfs:label "Set of Dataset ID Collection Transactions"^^xsd:string ;
-                                                 <http://www.w3.org/2004/02/skos/core#altLabel> "hierdcollectionidstransactionset"^^xsd:string .
+###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetCollectionSetAddDatasetEventSet
+:CatalogHierarchyDatasetCollectionSetAddDatasetEventSet rdf:type owl:Class ;
+                                                        rdfs:subClassOf :CatalogObjectDatasetMaintainer ;
+                                                        <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
+                                                        <http://purl.org/dc/terms/identifier> "dataset:hierdcollectionidstransactionset"^^xsd:string ;
+                                                        rdfs:comment "The set of transactions associated with the management of the collection IDs."^^xsd:string ;
+                                                        rdfs:isDefinedBy :LabelDerivedFromCollectionIDSetLabel ;
+                                                        rdfs:label "Set of Dataset ID Collection Transactions"^^xsd:string ;
+                                                        <http://www.w3.org/2004/02/skos/core#altLabel> "hierdcollectionidstransactionset"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetCollectionSetCreationEvent
+:CatalogHierarchyDatasetCollectionSetCreationEvent rdf:type owl:Class ;
+                                                   rdfs:subClassOf :CatalogHierarchyDatasetCollectionSetCreationEventSet ,
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
+                                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                     owl:onClass :DataCollectionAddCollectionTransaction
+                                                                   ] ;
+                                                   <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
+                                                   <http://purl.org/dc/terms/identifier> "dataset:hiercreatedatasetcollection"^^xsd:string ;
+                                                   rdfs:comment "These are the dataset collection transactions"^^xsd:string ;
+                                                   rdfs:isDefinedBy :LabelDerivedFromCollectionIDSetLabel ;
+                                                   rdfs:label "A Dataset Collection"^^xsd:string ;
+                                                   <http://www.w3.org/2004/02/skos/core#altLabel> "hiercreatedatasetcollection"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetCollectionSetCreationEventSet
+:CatalogHierarchyDatasetCollectionSetCreationEventSet rdf:type owl:Class ;
+                                                      rdfs:subClassOf :CatalogObjectDatasetMaintainer ;
+                                                      <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
+                                                      <http://purl.org/dc/terms/identifier> "dataset:hieraddcollectionsettransactions"^^xsd:string ;
+                                                      rdfs:comment "The are the transactions associated with the creation of a new dataset collection."^^xsd:string ;
+                                                      rdfs:isDefinedBy :DerivedFromHierarchyClassAnnotationAltLabel ;
+                                                      rdfs:label "Set of Collection Creation Transactions"^^xsd:string ;
+                                                      <http://www.w3.org/2004/02/skos/core#altLabel> "hieraddcollectionsettransactions"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetName
@@ -5451,6 +5479,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                            <http://www.w3.org/2004/02/skos/core#altLabel> "outobjid" .
 
 
+###  http://www.esblurock.info/dataset#DataCollectionAddCollectionTransaction
+:DataCollectionAddCollectionTransaction rdf:type owl:Class ;
+                                        rdfs:subClassOf :DatasetCollectionManagementTransaction ;
+                                        <http://purl.org/dc/elements/1.1/type> :DatasetCollectionAddDatasetToCollectionTransaction ;
+                                        <http://purl.org/dc/terms/identifier> "dataset:createnewcollectiontransaction"^^xsd:string ;
+                                        rdfs:comment "Create new Collection transaction"^^xsd:string ;
+                                        rdfs:label "Create new Collection"^^xsd:string ;
+                                        <http://www.w3.org/2004/02/skos/core#altLabel> "createnewcollectiontransaction"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#DataDescriptionCatalogHierarchy
 :DataDescriptionCatalogHierarchy rdf:type owl:Class ;
                                  rdfs:subClassOf :DescriptionDataData ,
@@ -6362,6 +6400,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                    rdfs:comment "The name of the catalog object"^^xsd:string ;
                                    rdfs:label "Simple Name Object"^^xsd:string ;
                                    <http://www.w3.org/2004/02/skos/core#altLabel> "cathiersimplename"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#DatasetCollectionAddDatasetToCollectionTransaction
+:DatasetCollectionAddDatasetToCollectionTransaction rdf:type owl:Class ;
+                                                    rdfs:subClassOf :DatasetCollectionManagementTransaction ;
+                                                    <http://purl.org/dc/elements/1.1/type> :DataCollectionAddCollectionTransaction ;
+                                                    <http://purl.org/dc/terms/identifier> "dataset:transadddatasettocollection"^^xsd:string ;
+                                                    rdfs:comment "Add a dataset to a collection"^^xsd:string ;
+                                                    rdfs:label "Add Dataset"^^xsd:string ;
+                                                    <http://www.w3.org/2004/02/skos/core#altLabel> "transadddatasettocollection"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DatasetCollectionDocumentIDPairForHierarchy
@@ -19203,8 +19251,7 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 
 ###  http://www.esblurock.info/dataset
-<http://www.esblurock.info/dataset> rdf:type owl:NamedIndividual ;
-                                    <http://purl.org/dc/terms/publisher> <http://purl.org/dc/aboutdcmi#DCMI> .
+<http://www.esblurock.info/dataset> rdf:type owl:NamedIndividual .
 
 
 ###  http://www.esblurock.info/dataset#AMU
@@ -21044,8 +21091,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                     <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date .
 
 
-<http://purl.org/dc/terms/rights> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
-                                  <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
+<http://purl.org/dc/terms/rights> <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
+                                  rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                   rdfs:label "Rights"@en ;
                                   rdfs:comment "Information about rights held in and over the resource."@en ;
                                   <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
@@ -21053,8 +21100,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                   <http://purl.org/dc/terms/description> "Typically, rights information includes a statement about various property rights associated with the resource, including intellectual property rights."@en .
 
 
-<http://purl.org/dc/terms/rightsHolder> <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#rightsHolder-002> ;
-                                        rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+<http://purl.org/dc/terms/rightsHolder> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+                                        <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#rightsHolder-002> ;
                                         <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                         rdfs:comment "A person or organization owning or managing rights over the resource."@en ;
                                         <http://purl.org/dc/terms/issued> "2004-06-14"^^xsd:date ;
