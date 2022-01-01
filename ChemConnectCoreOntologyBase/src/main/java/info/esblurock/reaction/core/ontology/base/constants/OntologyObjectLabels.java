@@ -39,6 +39,9 @@ public class OntologyObjectLabels {
 	public static String entityvalue = "dataset:entityvalue";
 	public static String membervalue = "dataset:membervalue";
 	public static String tripleclass = "tripleclass";
+	
+	public static String quantitykind = "qudt:QuantityKind";
+	public static String SystemOfQuantities = "qudt:SystemOfQuantities";
 
 	
 }

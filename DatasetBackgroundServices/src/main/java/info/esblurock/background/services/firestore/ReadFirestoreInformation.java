@@ -136,10 +136,8 @@ public class ReadFirestoreInformation {
 				ul.addElement("li").addText(rdf.get(ClassLabelConstants.CatalogObjectKey).getAsString());
 				setofobjs.add(rdf);
 			}
-			JsonObject set = CreateDocumentTemplate.createTemplate("dataset:SetOfCatalogObjects");
-			set.add(ClassLabelConstants.SimpleCatalogObject, setofobjs);
 			response = DatabaseServicesBase.standardServiceResponse(docmessage, "Successful read of catalog objects",
-					set);
+					setofobjs);
 		} catch (IOException e) {
 			response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);
 			response.addProperty(ClassLabelConstants.ServiceResponseMessage, e.toString());

@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.FindDatasetCollections;
@@ -22,8 +23,16 @@ public class TestFindDatasetCollection {
 	public void test() {
 		String maintainer = "Administrator";
 		String dataset = "StandardDataset";
+		JsonObject setofprops = CreateDocumentTemplate.createTemplate("dataset:SetOfPropertyValueQueryPairs");
+		JsonArray arr = new JsonArray();
+		setofprops.add(ClassLabelConstants.PropertyValueQueryPair,arr);
+		JsonObject prop = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
+		prop.addProperty(ClassLabelConstants.DatabaseObjectType, "dataset:jthermometaatominfo.dataset:metaatomlabel");
+		prop.addProperty(ClassLabelConstants.ShortStringKey, "BensonAtom");
+		arr.add(prop);
+
 		ArrayList<MetaAtomDefinition> defs = FindMetaAtomDefinitionsInDatasetCollection
-				.findMetaAtomDefinitions(maintainer, dataset);
+				.findMetaAtomDefinitions(maintainer, dataset,null);
 		if (defs != null) {
 			Iterator<MetaAtomDefinition> iter = defs.iterator();
 			System.out.println("---------------------------------------------");

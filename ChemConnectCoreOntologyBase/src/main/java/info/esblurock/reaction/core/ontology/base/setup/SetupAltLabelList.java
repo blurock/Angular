@@ -23,6 +23,10 @@ public class SetupAltLabelList {
 		addLabelsToList(topclass4,buf);
 		String topclass5 = "dataset:TransactionEvent";
 		addLabelsToList(topclass5,buf);
+		String topclass6 = "dataset:CatalogObjectWithAnnotations";
+		addLabelsToList(topclass6,buf);
+		String topclass7 = "dataset:CatalogObjectCollection";
+		addLabelsToList(topclass7,buf);
 
 		buf.append("}\n\n");
 		return buf.toString();

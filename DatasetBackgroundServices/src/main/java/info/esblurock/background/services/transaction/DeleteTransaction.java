@@ -14,6 +14,7 @@ import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.service.rdfs.DeleteRDFs;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class DeleteTransaction extends DeleteCatalogDataObject {
 
@@ -27,6 +28,21 @@ public class DeleteTransaction extends DeleteCatalogDataObject {
 			deleteresponse = response;
 		}
 		return deleteresponse;
+	}
+	
+	/**
+	 * @param info Info with TransactionEventType and DatasetCollectionSetRecordIDInfo
+	 * @return The response for the deleted transaction
+	 * 
+	 * This finds the dataset transaction (using FindTransactions.findDatasetTransaction)
+	 * and then deletes it and the associated transaction objects (using deleteTransaction in this class)
+	 * 
+	 */
+	public static JsonObject deleteDatasetTransaction(JsonObject info) {
+		String transactiontype = info.get(ClassLabelConstants.TransactionEventType).getAsString();
+		JsonObject transaction = FindTransactions.findDatasetTransaction(info,transactiontype, true);
+		JsonObject response = deleteTransaction(transaction);
+		return response;
 	}
 
 	/**

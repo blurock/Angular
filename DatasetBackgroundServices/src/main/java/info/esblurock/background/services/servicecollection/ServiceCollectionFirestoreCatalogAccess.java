@@ -108,8 +108,7 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				MessageConstructor.combineBodyIntoDocument(document,
 						response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
-				JsonObject answer = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
-				JsonArray arr = answer.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+				JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 				JsonArray idlabellinks = new JsonArray();
 				body.addElement("h3").addText("Labels");
 				for (int i = 0; i < arr.size(); i++) {

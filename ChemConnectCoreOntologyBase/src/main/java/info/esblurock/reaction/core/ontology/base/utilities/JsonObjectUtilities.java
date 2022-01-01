@@ -128,8 +128,14 @@ public class JsonObjectUtilities {
 			System.out.println("The process was a success");
 			String message = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 			System.out.println(message);
-			JsonObject object = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
-			System.out.println(JsonObjectUtilities.toString(object));
+			if(response.get(ClassLabelConstants.SimpleCatalogObject).isJsonObject()) {
+				JsonObject object = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+				System.out.println(JsonObjectUtilities.toString(object));
+			} else {
+				JsonArray object = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+				System.out.println(JsonObjectUtilities.toString(object));
+			}
+			
 		} else {
 			System.out.println("The process was not a success");
 			String message = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();

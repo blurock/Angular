@@ -119,7 +119,7 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 				JsonObject readresponse = ReadInDatasetWithDatasetCollection.process(json);
 				if (readresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 					String docS = readresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
-					JsonObject objects = readresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+					JsonArray objects = readresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 					MessageConstructor.combineBodyIntoDocument(document, docS);
 					response = DatabaseServicesBase.standardServiceResponse(document, "Succcesful Read of objects",
 							objects);

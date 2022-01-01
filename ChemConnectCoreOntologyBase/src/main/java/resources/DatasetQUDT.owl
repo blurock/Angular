@@ -8,22 +8,21 @@
 @base <http://www.esblurock.info/dataset> .
 
 <http://www.esblurock.info/dataset> rdf:type owl:Ontology ;
-                                     owl:imports qb: ,
+                                     owl:imports <http://qudt.org/2.1/vocab/dimensionvector> ,
+                                                 <http://qudt.org/2.1/vocab/soqk> ,
+                                                 qb: ,
+                                                 <http://qudt.org/2.1/schema/qudt> ,
                                                  <http://www.w3.org/2006/vcard/ns> ,
-						 <http://qudt.org/2.1/schema/qudt> ,
-						 <http://qudt.org/2.1/schema/datatype> ,
-						 <http://qudt.org/2.1/vocab/unit> ,
-						 <http://qudt.org/2.1/vocab/quantitykind> ,
-						 <http://qudt.org/2.1/vocab/dimensionvector> ,
-						 <http://qudt.org/2.1/vocab/constant> ,
-						 <http://qudt.org/2.1/vocab/sou> ,
-						 <http://qudt.org/2.1/vocab/soqk> ,
                                                  <http://www.w3.org/ns/dcat> ,
+                                                 <http://qudt.org/2.1/vocab/constant> ,
+                                                 <http://qudt.org/2.1/vocab/quantitykind> ,
+                                                 <http://qudt.org/2.1/vocab/unit> ,
+                                                 <http://qudt.org/2.1/schema/datatype> ,
+                                                 <http://qudt.org/2.1/vocab/sou> ,
                                                  <http://www.w3.org/ns/prov-o-20130430> ,
                                                  <http://www.w3.org/ns/ssn/> ,
                                                  <http://xmlns.com/foaf/0.1/> ,
                                                  <http://www.w3.org/2004/02/skos/core> ;
-                                     <http://purl.org/dc/terms/publisher> <http://purl.org/dc/aboutdcmi#DCMI> ;
                                      <http://purl.org/dc/terms/title> "DCMI Type Vocabulary"@en ;
                                      <http://purl.org/dc/terms/modified> "2012-06-14"^^xsd:date ;
                                      <http://purl.org/dc/terms/title> "DCMI Metadata Terms - other"@en .
@@ -389,6 +388,30 @@
 
 ###  http://qudt.org/1.1/vocab/quantity#symbol
 <http://qudt.org/1.1/vocab/quantity#symbol> rdf:type owl:AnnotationProperty .
+
+
+###  http://qudt.org/schema/qudt#abbreviation
+<http://qudt.org/schema/qudt#abbreviation> rdf:type owl:AnnotationProperty .
+
+
+###  http://qudt.org/schema/qudt#conversionMultiplier
+<http://qudt.org/schema/qudt#conversionMultiplier> rdf:type owl:AnnotationProperty .
+
+
+###  http://qudt.org/schema/qudt#conversionOffset
+<http://qudt.org/schema/qudt#conversionOffset> rdf:type owl:AnnotationProperty .
+
+
+###  http://qudt.org/schema/qudt#description
+<http://qudt.org/schema/qudt#description> rdf:type owl:AnnotationProperty .
+
+
+###  http://qudt.org/schema/qudt#quantityKind
+<http://qudt.org/schema/qudt#quantityKind> rdf:type owl:AnnotationProperty .
+
+
+###  http://qudt.org/schema/qudt#symbol
+<http://qudt.org/schema/qudt#symbol> rdf:type owl:AnnotationProperty .
 
 
 ###  http://www.esblurock.info/dataset#GPSLocationID
@@ -912,6 +935,22 @@ xsd:date rdf:type rdfs:Datatype .
 #    Classes
 #################################################################
 
+###  http://org.semanticweb.owlapi/error#Error171
+<http://org.semanticweb.owlapi/error#Error171> rdf:type owl:Class .
+
+
+###  http://org.semanticweb.owlapi/error#Error172
+<http://org.semanticweb.owlapi/error#Error172> rdf:type owl:Class .
+
+
+###  http://org.semanticweb.owlapi/error#Error173
+<http://org.semanticweb.owlapi/error#Error173> rdf:type owl:Class .
+
+
+###  http://org.semanticweb.owlapi/error#Error174
+<http://org.semanticweb.owlapi/error#Error174> rdf:type owl:Class .
+
+
 ###  http://purl.org/dc/dcam/VocabularyEncodingScheme
 <http://purl.org/dc/dcam/VocabularyEncodingScheme> rdf:type owl:Class .
 
@@ -1190,6 +1229,62 @@ xsd:date rdf:type rdfs:Datatype .
 
 ###  http://qudt.org/1.1/vocab/quantity#VolumePerTimeUnit
 <http://qudt.org/1.1/vocab/quantity#VolumePerTimeUnit> rdf:type owl:Class .
+
+
+###  http://qudt.org/schema/qudt#ChemistryUnit
+<http://qudt.org/schema/qudt#ChemistryUnit> rdf:type owl:Class .
+
+
+###  http://qudt.org/schema/qudt#DimensionlessUnit
+<http://qudt.org/schema/qudt#DimensionlessUnit> rdf:type owl:Class .
+
+
+###  http://qudt.org/schema/qudt#ElectrochemistryUnit
+<http://qudt.org/schema/qudt#ElectrochemistryUnit> rdf:type owl:Class .
+
+
+###  http://qudt.org/schema/qudt#FrequencyUnit
+<http://qudt.org/schema/qudt#FrequencyUnit> rdf:type owl:Class .
+
+
+###  http://qudt.org/schema/qudt#HeatCapacityAndEntropyUnit
+<http://qudt.org/schema/qudt#HeatCapacityAndEntropyUnit> rdf:type owl:Class .
+
+
+###  http://qudt.org/schema/qudt#LengthUnit
+<http://qudt.org/schema/qudt#LengthUnit> rdf:type owl:Class .
+
+
+###  http://qudt.org/schema/qudt#MolarEnergyUnit
+<http://qudt.org/schema/qudt#MolarEnergyUnit> rdf:type owl:Class .
+
+
+###  http://qudt.org/schema/qudt#MolarHeatCapacityUnit
+<http://qudt.org/schema/qudt#MolarHeatCapacityUnit> rdf:type owl:Class .
+
+
+###  http://qudt.org/schema/qudt#PressureOrStressUnit
+<http://qudt.org/schema/qudt#PressureOrStressUnit> rdf:type owl:Class .
+
+
+###  http://qudt.org/schema/qudt#QuantityKind
+<http://qudt.org/schema/qudt#QuantityKind> rdf:type owl:Class .
+
+
+###  http://qudt.org/schema/qudt#TemperatureUnit
+<http://qudt.org/schema/qudt#TemperatureUnit> rdf:type owl:Class .
+
+
+###  http://qudt.org/schema/qudt#ThermodynamicsUnit
+<http://qudt.org/schema/qudt#ThermodynamicsUnit> rdf:type owl:Class .
+
+
+###  http://qudt.org/schema/qudt#TimeUnit
+<http://qudt.org/schema/qudt#TimeUnit> rdf:type owl:Class .
+
+
+###  http://qudt.org/schema/qudt#Unit
+<http://qudt.org/schema/qudt#Unit> rdf:type owl:Class .
 
 
 ###  http://www.esblurock.info/dataset#AbsoluteSpeciesAmount
@@ -4173,12 +4268,8 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ChemConnectThermalEnergy
 :ChemConnectThermalEnergy rdf:type owl:Class ;
-                          rdfs:subClassOf :ChemConnectEnergy ,
-                                          [ rdf:type owl:Restriction ;
-                                            owl:onProperty <http://qudt.org/schema/qudt#unitSystem> ;
-                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                            owl:onClass <http://qudt.org/schema/qudt#ThermalEnergyUnit>
-                                          ] .
+                          rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error174> ,
+                                          :ChemConnectEnergy .
 
 
 ###  http://www.esblurock.info/dataset#ChemConnectThermodynamicCompoundData
@@ -10442,12 +10533,8 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#JThermodynamicDisassociationEnergy
 :JThermodynamicDisassociationEnergy rdf:type owl:Class ;
-                                    rdfs:subClassOf :JThermodynamicMolarQuantities ,
-                                                    [ rdf:type owl:Restriction ;
-                                                      owl:onProperty <http://qudt.org/schema/qudt#specialization> ;
-                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                      owl:onClass :JThermodynamicsDisassociationEnergySpecification
-                                                    ] ;
+                                    rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error172> ,
+                                                    :JThermodynamicMolarQuantities ;
                                     <http://purl.org/dc/elements/1.1/type> :JThermodynamicDisassociationEnergy ;
                                     <http://purl.org/dc/terms/identifier> "dataset:disassociationenergyparameter"^^xsd:string ;
                                     rdfs:comment "This is the disassociation energy of loss of hydrogen for a species."^^xsd:string ;
@@ -17682,12 +17769,8 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#ThermodynamicBensonMultiplicity
 :ThermodynamicBensonMultiplicity rdf:type owl:Class ;
-                                 rdfs:subClassOf :ElementCount ,
-                                                 [ rdf:type owl:Restriction ;
-                                                   owl:onProperty <http://qudt.org/schema/qudt#unitSystem> ;
-                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                   owl:onClass <http://qudt.org/schema/qudt#CountingUnit>
-                                                 ] ,
+                                 rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error173> ,
+                                                 :ElementCount ,
                                                  [ rdf:type owl:Restriction ;
                                                    owl:onProperty :hasPurpose ;
                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -17807,12 +17890,8 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#ThermodynamicHeatCapacitySpecification
 :ThermodynamicHeatCapacitySpecification rdf:type owl:Class ;
-                                        rdfs:subClassOf :ThermodynamicsOfStructure ,
-                                                        [ rdf:type owl:Restriction ;
-                                                          owl:onProperty <http://qudt.org/schema/qudt#unitSystem> ;
-                                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                          owl:onClass <http://qudt.org/schema/qudt#HeatCapacityAndEntropyUnit>
-                                                        ] ;
+                                        rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error171> ,
+                                                        :ThermodynamicsOfStructure ;
                                         <http://purl.org/dc/elements/1.1/type> "ValueAsString"^^xsd:string ;
                                         <http://purl.org/dc/terms/identifier> "dataset:heatcapacity"^^xsd:string ;
                                         rdfs:comment "Heat Capacity of structure (associated with a temperature)" ;
@@ -18893,6 +18972,10 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 #    Individuals
 #################################################################
 
+###  http://dbpedia.org/resource/Hertz
+<http://dbpedia.org/resource/Hertz> rdf:type owl:NamedIndividual .
+
+
 ###  http://purl.org/dc/aboutdcmi#DCMI
 <http://purl.org/dc/aboutdcmi#DCMI> rdf:type owl:NamedIndividual .
 
@@ -19369,23 +19452,20 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 
 ###  http://qudt.org/vocab/unit#JoulePerMoleKelvin
-<http://qudt.org/vocab/unit#JoulePerMoleKelvin> rdf:type :MolarEntropyHeatCapacityUnit .
-
-
-###  http://qudt.org/vocab/unit#KilocaloriePerMole
-<http://qudt.org/vocab/unit#KilocaloriePerMole> <http://qudt.org/schema/qudt#conversionMultiplier> "4184"^^xsd:string ;
-                                                <http://qudt.org/schema/qudt#conversionOffset> 0.0 ;
-                                                <http://qudt.org/schema/qudt#symbol> "kcal/mol"^^xsd:string .
+<http://qudt.org/vocab/unit#JoulePerMoleKelvin> rdf:type owl:NamedIndividual ,
+                                                         :MolarEntropyHeatCapacityUnit .
 
 
 ###  http://qudt.org/vocab/unit#KilocaloriePerMoleDegreeCelsius
-<http://qudt.org/vocab/unit#KilocaloriePerMoleDegreeCelsius> rdf:type :MolarEntropyHeatCapacityUnit ;
+<http://qudt.org/vocab/unit#KilocaloriePerMoleDegreeCelsius> rdf:type owl:NamedIndividual ,
+                                                                      :MolarEntropyHeatCapacityUnit ;
                                                              <http://qudt.org/schema/qudt#conversionMultiplier> "1"^^xsd:string ;
                                                              <http://qudt.org/schema/qudt#conversionOffset> 0.0 .
 
 
 ###  http://www.esblurock.info/dataset
-<http://www.esblurock.info/dataset> rdf:type owl:NamedIndividual .
+<http://www.esblurock.info/dataset> rdf:type owl:NamedIndividual ;
+                                    <http://purl.org/dc/terms/publisher> <http://purl.org/dc/aboutdcmi#DCMI> .
 
 
 ###  http://www.esblurock.info/dataset#AMU
@@ -19401,10 +19481,10 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 ###  http://www.esblurock.info/dataset#CaloriesPerMolKelvin
 :CaloriesPerMolKelvin rdf:type owl:NamedIndividual ,
                                :MolarEntropyHeatCapacityUnit ;
-                      <http://qudt.org/schema/qudt#quantityKind> <http://qudt.org/vocab/quantity#HeatCapacity> ;
                       <http://qudt.org/schema/qudt#abbreviation> "cal/mol-K"^^xsd:string ;
                       <http://qudt.org/schema/qudt#conversionMultiplier> "4.184"^^xsd:string ;
                       <http://qudt.org/schema/qudt#conversionOffset> "0.0"^^xsd:double ;
+                      <http://qudt.org/schema/qudt#quantityKind> <http://qudt.org/vocab/quantity#HeatCapacity> ;
                       <http://qudt.org/schema/qudt#symbol> "cal/mol-K"^^xsd:string .
 
 
@@ -19547,10 +19627,10 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 ###  http://www.esblurock.info/dataset#KiloCaloriesPerMolKelvin
 :KiloCaloriesPerMolKelvin rdf:type owl:NamedIndividual ,
                                    :MolarEntropyHeatCapacityUnit ;
-                          <http://qudt.org/schema/qudt#quantityKind> <http://qudt.org/vocab/quantity#HeatCapacity> ;
                           <http://qudt.org/schema/qudt#abbreviation> "kcal/molK"^^xsd:string ;
                           <http://qudt.org/schema/qudt#conversionMultiplier> "4184.0"^^xsd:double ;
                           <http://qudt.org/schema/qudt#conversionOffset> "0.0"^^xsd:double ;
+                          <http://qudt.org/schema/qudt#quantityKind> <http://qudt.org/vocab/quantity#HeatCapacity> ;
                           <http://qudt.org/schema/qudt#symbol> "kcal/molK"^^xsd:string .
 
 
@@ -19671,21 +19751,21 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 ###  http://www.esblurock.info/dataset#caloriesPerMol
 :caloriesPerMol rdf:type owl:NamedIndividual ,
                          <http://qudt.org/schema/qudt#MolarEnergyUnit> ;
-                <http://qudt.org/schema/qudt#quantityKind> <http://qudt.org/vocab/quantity#MolarEnergy> ;
                 <http://qudt.org/schema/qudt#abbreviation> "cal/mol"^^xsd:string ;
                 <http://qudt.org/schema/qudt#conversionMultiplier> "4.184"^^xsd:double ;
                 <http://qudt.org/schema/qudt#conversionOffset> "0.0"^^xsd:double ;
+                <http://qudt.org/schema/qudt#quantityKind> <http://qudt.org/vocab/quantity#MolarEnergy> ;
                 <http://qudt.org/schema/qudt#symbol> "cal/mol"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#cmMinus1
 :cmMinus1 rdf:type owl:NamedIndividual ,
                    <http://qudt.org/schema/qudt#FrequencyUnit> ;
-          <http://qudt.org/schema/qudt#quantityKind> <http://qudt.org/vocab/quantity#Frequency> ;
           <http://www.w3.org/2004/02/skos/core#exactMatch> <http://dbpedia.org/resource/Hertz> ;
           <http://qudt.org/schema/qudt#abbreviation> "cm^-1"^^xsd:string ;
           <http://qudt.org/schema/qudt#conversionMultiplier> "2.99792458E10"^^xsd:double ;
           <http://qudt.org/schema/qudt#conversionOffset> "0.0"^^xsd:double ;
+          <http://qudt.org/schema/qudt#quantityKind> <http://qudt.org/vocab/quantity#Frequency> ;
           <http://qudt.org/schema/qudt#symbol> "cm^-1"^^xsd:string .
 
 
@@ -19711,6 +19791,18 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 [ rdf:type <http://www.w3.org/2006/vcard/ns#Contact>
 ] .
+
+[ owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+ ] .
+
+[ owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+ ] .
+
+[ owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+ ] .
+
+[ owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+ ] .
 
 [ owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
  ] .
@@ -21225,8 +21317,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                     <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date .
 
 
-<http://purl.org/dc/terms/rights> <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
-                                  rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+<http://purl.org/dc/terms/rights> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+                                  <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
                                   rdfs:label "Rights"@en ;
                                   rdfs:comment "Information about rights held in and over the resource."@en ;
                                   <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
@@ -21234,8 +21326,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                   <http://purl.org/dc/terms/description> "Typically, rights information includes a statement about various property rights associated with the resource, including intellectual property rights."@en .
 
 
-<http://purl.org/dc/terms/rightsHolder> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
-                                        <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#rightsHolder-002> ;
+<http://purl.org/dc/terms/rightsHolder> <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#rightsHolder-002> ;
+                                        rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                         <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                         rdfs:comment "A person or organization owning or managing rights over the resource."@en ;
                                         <http://purl.org/dc/terms/issued> "2004-06-14"^^xsd:date ;
@@ -21309,6 +21401,11 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                  rdfs:label "Date Valid"@en ;
                                  <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#valid-003> ;
                                  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+
+
+<http://qudt.org/vocab/unit#KilocaloriePerMole> <http://qudt.org/schema/qudt#conversionMultiplier> "4184"^^xsd:string ;
+                                                <http://qudt.org/schema/qudt#conversionOffset> 0.0 ;
+                                                <http://qudt.org/schema/qudt#symbol> "kcal/mol"^^xsd:string .
 
 
 :ContactEmail <http://purl.org/dc/terms/identifier> "vcard:email"^^xsd:string ;

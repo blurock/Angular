@@ -28,8 +28,7 @@ public class FindMetaAtomsInFromRDFs extends FindRDFObjects {
 		JsonObject response = findRDFFromTypeAndSubjectAttribute(rdftype, object);
 		boolean success = response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean();
 		if (success) {
-			JsonObject result = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
-			JsonArray rdfarr = result.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+			JsonArray rdfarr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 			for (int i = 0; i < rdfarr.size(); i++) {
 				JsonObject metaatomrdf = rdfarr.get(i).getAsJsonObject();
 				JsonObject metaatom = metaatomrdf.get(ClassLabelConstants.RDFJsonAsObject).getAsJsonObject();

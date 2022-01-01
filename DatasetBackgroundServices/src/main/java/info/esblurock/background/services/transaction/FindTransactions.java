@@ -108,10 +108,8 @@ public class FindTransactions {
 			Document docmessage = MessageConstructor.startDocument("findTransactionDescriptionByType");
 			String responsemessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 			MessageConstructor.combineBodyIntoDocument(docmessage, responsemessage);
-			// Get Catalog object from the response
-			JsonObject result = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 			// Get the set of RDFS that satisfy the criteria
-			JsonArray RDFs = result.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+			JsonArray RDFs = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 			JsonArray idpairs = new JsonArray();
 			for (int i = 0; i < RDFs.size(); i++) {
 				JsonObject RDF = RDFs.get(i).getAsJsonObject();
@@ -153,10 +151,8 @@ public class FindTransactions {
 			Document docmessage = MessageConstructor.startDocument("findTransactionDescriptionByType");
 			String responsemessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 			MessageConstructor.combineBodyIntoDocument(docmessage, responsemessage);
-			// Get Catalog object from the response
-			JsonObject result = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 			// The the set of id and label pairs
-			JsonArray pairs = result.get(ClassLabelConstants.LabelFirestoreIDPair).getAsJsonArray();
+			JsonArray pairs = response.get(ClassLabelConstants.LabelFirestoreIDPair).getAsJsonArray();
 			JsonArray transactions = new JsonArray();
 			// For each of the pairs, retrieve from the database the corresponding
 			// transactions
@@ -200,8 +196,7 @@ public class FindTransactions {
 			firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
 			JsonObject response = ReadFirestoreInformation.readFirestoreCollection(null, firestoreid);
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-				JsonObject output = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
-				JsonArray arr = output.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+				JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 				if (arr != null) {
 					if (onlyone) {
 						if (arr.size() == 1) {

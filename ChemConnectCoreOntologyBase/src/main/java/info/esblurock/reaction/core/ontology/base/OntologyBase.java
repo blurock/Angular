@@ -141,7 +141,7 @@ public class OntologyBase {
 				 */
 				
 				//String filename = "../ChemConnectCoreOntologyBase/src/main/java/resources/Dataset.ttl";
-				String filename = "/resources/Dataset.ttl";
+				String filename = "/resources/DatasetQUDT.ttl";
 				InputStream str;
 				try {
 					str = OntologyBase.class.getResourceAsStream(filename);
@@ -172,15 +172,18 @@ public class OntologyBase {
 				namespaceMap.put("http://www.w3.org/2002/07/owl#", "owl");
 				namespaceMap.put("http://www.w3.org/2000/01/rdf-schema#", "rdfs");
 				namespaceMap.put("http://www.w3.org/2001/XMLSchema#", "xsd");
-				namespaceMap.put("http://qudt.org/schema/qudt#", "qudt");
-				namespaceMap.put("http://qudt.org/vocab/unit#", "unit");
-				namespaceMap.put("http://qudt.org/1.1/vocab/quantity#", "qudt");
 				namespaceMap.put("http://www.w3.org/ns/dcat#", "dcat");
 				namespaceMap.put("http://www.esblurock.info/dataset#", "dataset");
 				namespaceMap.put("http://purl.org/dc/terms/", "dcterms");
 				namespaceMap.put("http://www.w3.org/ns/org#", "org");
 				namespaceMap.put("http://www.w3.org/ns/ssn/", "ssn");
 				namespaceMap.put("http://purl.org/linked-data/cube#", "qb");
+
+				namespaceMap.put("http://qudt.org/vocab/quantitykind/", "quantitykind");
+				namespaceMap.put("http://qudt.org/vocab/unit/", "unit");
+				namespaceMap.put("http://qudt.org/1.1/vocab/quantity#", "qudt");
+				namespaceMap.put("http://qudt.org/vocab/dimensionvector/", "dimensionvector");
+
 			}
 			return namespaceMap;
 		}
@@ -208,7 +211,11 @@ public class OntologyBase {
 				+ "PREFIX qb: <http://purl.org/linked-data/cube#>\n" + "PREFIX ssn: <http://www.w3.org/ns/ssn#>" + "\n"
 				+ "PREFIX prov: <http://www.w3.org/ns/prov#>\n" + "PREFIX qudt: <http://qudt.org/schema/qudt#>" + "\n"
 				+ "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>" + "\n"
-				+ "PREFIX qudt-vocab: <http://qudt.org/1.1/vocab/quantity#>" + "\n";
+				+ "PREFIX qudt-vocab: <http://qudt.org/1.1/vocab/quantity#>" + "\n"
+				+ "PREFIX qkdv: <http://qudt.org/vocab/dimensionvector/>\n"
+				+ "PREFIX quantitykind: <http://qudt.org/vocab/quantitykind/>\n"
+				+ "PREFIX qudt: <http://qudt.org/schema/qudt/>\n"
+				+ "PREFIX  unit: <http://qudt.org/vocab/unit/>\n";
 		return databasePrefix;
 	}
 

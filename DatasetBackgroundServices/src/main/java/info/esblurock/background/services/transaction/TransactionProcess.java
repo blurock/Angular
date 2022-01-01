@@ -16,7 +16,6 @@ import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
 import info.esblurock.background.services.firestore.gcs.PartiionSetWithinRepositoryFileProcess;
 import info.esblurock.background.services.firestore.gcs.UploadFileToGCS;
-import info.esblurock.background.services.jthermodynamics.InterpretThermodynamicBlock;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.service.rdfs.GenerateAndWriteRDFForObject;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
@@ -489,8 +488,7 @@ public enum TransactionProcess {
 		boolean success = true;
 		JsonObject transresponse = FindTransactions.findLabelFirestoreIDPairByType(transactionname, criteria);
 		if (transresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-			JsonObject transout = transresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
-			JsonArray labelids = transout.get(ClassLabelConstants.LabelFirestoreIDPair).getAsJsonArray();
+			JsonArray labelids = transresponse.get(ClassLabelConstants.LabelFirestoreIDPair).getAsJsonArray();
 			if (labelids.size() > 0) {
 				boolean go = true;
 				if (limittoone) {

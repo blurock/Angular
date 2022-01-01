@@ -17,8 +17,8 @@
 		],
 		"dataset:paramspecenthalpy": {
 			"qudt:Unit": {
-				"qudt:SystemOfQuantities": "qudt:MolarEnergyUnit",
-				"qudt:QuantityKind": "qudt:KilocaloriePerMole"
+				"qudt:SystemOfQuantities": "quantitykind:MolarEnergy",
+				"qudt:QuantityKind": "unit:KiloCAL-PER-MOL"
 			},
 			"dataset:dynamicType": "FixedParameter",
 			"skos:prefLabel": "Enthaply",
@@ -26,8 +26,8 @@
 		},
 		"dataset:paramspecentropy": {
 			"qudt:Unit": {
-				"qudt:SystemOfQuantities": "qudt:MolarEnergyUnit",
-				"qudt:QuantityKind": "qudt:caloriePerMole"
+				"qudt:SystemOfQuantities": "quantitykind:MolarEntropy",
+				"qudt:QuantityKind": "unit:J-PER-MOL-K"
 			},
 			"dataset:dynamicType": "FixedParameter",
 			"skos:prefLabel": "Entropy",
@@ -35,8 +35,8 @@
 		},
 		"dataset:paramspecheatcapacity": {
 			"qudt:Unit": {
-				"qudt:SystemOfQuantities": "qudt:MolarEnergyUnit",
-				"qudt:QuantityKind": "qudt:caloriePerMole"
+				"qudt:SystemOfQuantities": "quantitykind:MolarHeatCapacity",
+				"qudt:QuantityKind": "unit:J-PER-MOL-K"
 			},
 			"dataset:dynamicType": "FixedParameter",
 			"skos:prefLabel": "Heat Capacity",

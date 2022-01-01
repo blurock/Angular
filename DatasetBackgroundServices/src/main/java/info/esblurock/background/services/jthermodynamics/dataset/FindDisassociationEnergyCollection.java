@@ -27,8 +27,7 @@ public class FindDisassociationEnergyCollection {
 		json.addProperty(DatabaseServicesBase.service, service);
 		JsonObject response = DatabaseServicesBase.process(json);
 		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-			JsonObject catalog = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
-			JsonArray arr = catalog.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+			JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 			energylist = findDisassociationEnergy(arr);
 		}
 		return energylist;
