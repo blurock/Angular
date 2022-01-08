@@ -20,14 +20,11 @@ import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
-import info.esblurock.reaction.core.ontology.base.dataset.units.DatabaseUnitUtilities;
-import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import thermo.data.benson.BensonConnectAtomStructure;
 import thermo.data.benson.BensonGroupStructure;
 import thermo.data.benson.BensonGroupStructuresFromMolecule;
 import thermo.data.benson.SetOfBensonGroupStructures;
 import thermo.data.structure.structure.SetOfMetaAtomsForSubstitution;
-import thermo.data.structure.structure.StructureAsCML;
 
 public class ComputeBensonRulesForMolecule {
 	
@@ -148,6 +145,7 @@ public class ComputeBensonRulesForMolecule {
 		prop.addProperty(ClassLabelConstants.DatabaseObjectType, "dataset:jthermometaatominfo.dataset:metaatomlabel");
 		prop.addProperty(ClassLabelConstants.ShortStringKey, metaatomtype);
 		arr.add(prop);
+		System.out.println("Maintainer: " + maintainer + ", Dataset: " + dataset);
 		SetOfMetaAtomsForSubstitution substitute = 
 				FindMetaAtomDefinitionsInDatasetCollection.setUpSubstituteMetaAtoms(maintainer, dataset, setofprops);
 		try {

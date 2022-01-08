@@ -55,11 +55,22 @@ public class DatabaseServicesBase {
 					ServiceCollectionDatasetCollectionSetAccess agentcoll = ServiceCollectionDatasetCollectionSetAccess
 							.valueOf(service);
 					response = agentcoll.process(body);
-				} catch (IllegalArgumentException excep) {
-					response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);
-					response.addProperty(ClassLabelConstants.ServiceResponseMessage,
-							"Service not available: '" + service + "'\n" + excep.toString());
-					response.add(ClassLabelConstants.SimpleCatalogObject, null);
+				} catch (IllegalArgumentException ex3) {
+					try {
+						ServiceCollectionComputeThermodynamics computethermo = ServiceCollectionComputeThermodynamics
+								.valueOf(service);
+						response = computethermo.process(body);
+					} catch (IllegalArgumentException ex4) {
+						try {
+							ServiceCollectionDatabaseAccess access = ServiceCollectionDatabaseAccess.valueOf(service);
+							response = access.process(body);
+						} catch (IllegalArgumentException ex5) {
+							response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);
+							response.addProperty(ClassLabelConstants.ServiceResponseMessage,
+									"Service not available: '" + service + "'\n" + ex4.toString());
+							response.add(ClassLabelConstants.SimpleCatalogObject, null);
+						}
+					}
 				}
 			}
 		}

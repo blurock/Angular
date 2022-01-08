@@ -20,7 +20,8 @@ public class TestInsertDatasetCollectionInCollectionSet {
 		System.out.println("------------------------------------");
 
 		///String srcpath = "src/test/java/resources/dataset/addcollectionDisassociationEnergy.json";
-		 String srcpath = "src/test/java/resources/dataset/addcollectionMetaAtom.json";
+		// String srcpath = "src/test/java/resources/dataset/addcollectionMetaAtom.json";
+		 String srcpath = "src/test/java/resources/dataset/addcollectionSymmetry.json";
 		try {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);

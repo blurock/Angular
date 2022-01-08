@@ -2,8 +2,11 @@ package info.esblurock.reaction.core.ontology.base.dataset.units;
 
 import java.util.List;
 
+import com.google.gson.JsonObject;
 
 import info.esblurock.reaction.core.ontology.base.OntologyBase;
+import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 
 public class DatabaseUnitUtilities {
 	
@@ -131,5 +134,30 @@ public class DatabaseUnitUtilities {
 							+ "}";
 			boolean ans = OntologyBase.datasetASK(query);
 			return ans;
+		}
+		
+		public static JsonObject createEmptyParameter(String parametertype, String units, String uncertainty) {
+			JsonObject parameter = CreateDocumentTemplate.createTemplate(parametertype);
+			String query = "SELECT ?units\n"
+					+ "WHERE {\n"
+					+ "?quantitykind qudt:applicableUnit " +  units + "\n"
+							+ "}";
+			List<String> lst = OntologyBase.isolateProperty(query, "quantitykind");
+			String quantitykind= null;
+			if(lst.size() > 0) {
+				quantitykind = lst.get(0);
+			}
+			
+			JsonObject spec = CreateDocumentTemplate.createTemplate("dataset:ParameterSpecification");
+			parameter.add(ClassLabelConstants.ParameterSpecification,spec);
+			JsonObject valueunits = CreateDocumentTemplate.createTemplate("dataset:ValueUnits");
+			spec.add(ClassLabelConstants.ValueUnits,valueunits);
+			valueunits.addProperty(ClassLabelConstants.UnitsOfValue, units);
+			valueunits.addProperty(ClassLabelConstants.UnitClass, quantitykind);
+			spec.addProperty(ClassLabelConstants.ParameterLabel, parametertype.substring(8));
+			spec.addProperty(ClassLabelConstants.ParameterTypeSpecification, "dataset:FixedParameter");
+			spec.addProperty(ClassLabelConstants.DataPointUncertainty, uncertainty);
+			
+			return parameter;
 		}
 }
