@@ -1,0 +1,67 @@
+package info.esblurock.background.services.jthermodynamics.symmetry;
+
+import org.dom4j.Element;
+import org.openscience.cdk.interfaces.IAtomContainer;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import thermo.data.benson.BensonThermodynamicBase;
+import thermo.data.benson.SetOfBensonThermodynamicBase;
+import thermo.data.structure.structure.symmetry.CalculateExternalSymmetryCorrection;
+import thermo.data.structure.structure.symmetry.CalculateInternalSymmetryCorrection;
+import thermo.data.structure.structure.symmetry.SetOfSymmetryDefinitions;
+import thermo.data.structure.structure.symmetry.SymmetryDefinition;
+import thermo.exception.ThermodynamicException;
+
+public class DatabaseCalculateInternalSymmetryCorrection extends CalculateInternalSymmetryCorrection {
+	JsonArray symmetryarr;
+	
+	public DatabaseCalculateInternalSymmetryCorrection(String maintainer, String dataset,
+			CalculateExternalSymmetryCorrection external) {
+		super();
+		symmetryarr = ExtractSetOfSymmetryDefinitionsFromDataset.databaseSymmetryDefinitions(maintainer, dataset, 
+				"dataset:StructureInternalSymmetry");
+		SetOfSymmetryDefinitions setOfDefinitions = ExtractSetOfSymmetryDefinitionsFromDataset.extract(symmetryarr);
+		this.setStructureInternalSymmetry(setOfDefinitions);
+		this.setCalculateExternalSymmetryCorrection(external);
+		this.initialize();
+	}
+	
+	/**
+	 * @param molecule The molecule to analyse
+	 * @param body The body of the output response
+	 * @param info Used for unit specifications
+	 * @return The ThermodynamicContributions due to internal energy
+	 * 
+	 * 
+	 */
+	public JsonObject compute(IAtomContainer molecule, Element body, JsonObject info) {
+		SetOfBensonThermodynamicBase corrections = new SetOfBensonThermodynamicBase();
+		boolean symmetryfactor;
+		JsonObject contribution = null;
+		try {
+			symmetryfactor = calculate(molecule, corrections);
+			if(symmetryfactor) {
+				BensonThermodynamicBase thermo = corrections.get(0);
+				Double entropy = thermo.getStandardEntropy();
+				contribution = ComputeThermodynamicsSymmetryContribution.parameterWithEntropy(entropy,thermo.getName(),info);
+				SymmetryDefinition symdef = getSymmetryDefinition();
+				String symname = symdef.getElementName();
+				
+				body.addElement("div").addText("Symmetry Found: " + symname);
+				body.addElement("div").addText("Symmetry      : " + symdef.getInternalSymmetryFactor());
+				body.addElement("div").addText("Entropy       : " + entropy);
+				
+				JsonObject symdefjson = ComputeThermodynamicsSymmetryContribution.findSymmetryObjectInSet(symmetryarr,symname);
+				contribution.add(ClassLabelConstants.ChemConnectThermodynamicsDatabase,symdefjson);
+			}
+		} catch (ThermodynamicException e) {
+			e.printStackTrace();
+		}
+		return contribution;
+	}
+	
+
+}

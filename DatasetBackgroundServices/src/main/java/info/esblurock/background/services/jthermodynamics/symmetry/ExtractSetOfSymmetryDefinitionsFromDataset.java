@@ -22,6 +22,13 @@ import thermo.data.structure.structure.symmetry.SymmetryPair;
 
 public class ExtractSetOfSymmetryDefinitionsFromDataset {
 
+	/** Retrieve translated to SetOfSymmetryDefinitions from dataset
+	 * 
+	 * @param maintainer The maintainer of the dataset
+	 * @param dataset The dataset
+	 * @param symmetrytype The external symmetry type to retrieve.
+	 * @return The SetOfSymmetryDefinitions translated from the JThermodynamicsSymmetryStructureDefinition
+	 */
 	public static SetOfSymmetryDefinitions extract(String maintainer, String dataset, String symmetrytype) {
 		JsonArray definitions = databaseSymmetryDefinitions(maintainer,dataset,symmetrytype);
 		SetOfSymmetryDefinitions setofsymmetries = new SetOfSymmetryDefinitions();
@@ -35,6 +42,13 @@ public class ExtractSetOfSymmetryDefinitionsFromDataset {
 		return setofsymmetries;
 	}
 	
+	/** Translate a single JThermodynamicsSymmetryStructureDefinition to single SymmetryDefinition
+	 * 
+	 * @param symmetry The JThermodynamicsSymmetryStructureDefinition
+	 * @return The translated SymmetryDefinition
+	 * 
+	 * 
+	 */
 	public static SymmetryDefinition convertToSymmetryDefinition(JsonObject symmetry) {
 		SymmetryDefinition symmetrydefinition = null;
 		JsonObject symmdef = symmetry.get(ClassLabelConstants.JThermodynamicsSymmetryDefinition).getAsJsonObject();
@@ -72,6 +86,13 @@ public class ExtractSetOfSymmetryDefinitionsFromDataset {
 		return symmetrydefinition;
 	}
 	
+	/**
+	 * @param definitions The set of JThermodynamicsSymmetryStructureDefinition as read in from the database
+	 * @return The translated SetOfSymmetryDefinitions
+	 * 
+	 * repeated calls to convertToSymmetryDefinition
+	 * 
+	 */
 	public static SetOfSymmetryDefinitions extract(JsonArray definitions) {
 		SetOfSymmetryDefinitions setofsymmetries = new SetOfSymmetryDefinitions();
 		for(int i=0;i<definitions.size();i++) {
@@ -85,6 +106,18 @@ public class ExtractSetOfSymmetryDefinitionsFromDataset {
 	}
 	
 	
+	/**
+	 * @param maintainer The maintainer of the database
+	 * @param dataset The dataset
+	 * @param symmetrytype The specific symmetry data type
+	 * @return The set of JThermodynamicsSymmetryStructureDefinition as read in from the database
+	 * 
+	 * This sets up the SetOfPropertyValueQueryPairs to read in the JThermodynamicsSymmetryStructureDefinition from the
+	 * database.
+	 * The additional property is to specify the symmetry type in the position 
+	 * 'dataset:symmetrydefinition.dataset:structuresymmetrytype'
+	 * 
+	 */
 	public static JsonArray databaseSymmetryDefinitions(String maintainer, String dataset, String symmetrytype) {
 		JsonArray definitions = null;
 		
@@ -116,6 +149,20 @@ public class ExtractSetOfSymmetryDefinitionsFromDataset {
 		return definitions;
 	}
 	
+	/**
+	 * @param maintainer The maintainer of the dataset
+	 * @param dataset dataset name
+	 * @param symmetrytype The symmetry type
+	 * @param symmname The name of the specific symmetry element
+	 * @return The symmetry definition JThermodynamicsSymmetryStructureDefinition
+	 * 
+	 * This sets up the SetOfPropertyValueQueryPairs with
+	 * the symmetry type (dataset:symmetrydefinition.dataset:structuresymmetrytype) and 
+	 * then the name of the symmetry definition (dataset:symmetrydefinition.dataset:symmetrydefinitionlabel)
+	 * 
+	 * The work is done by the ReadInDatasetWithDatasetCollectionLabel service.
+	 * 
+	 */
 	public static JsonObject databaseSingleSymmetryDefinition(String maintainer, String dataset, String symmetrytype, String symmname) {
 		JsonObject definition = null;
 		

@@ -33,40 +33,6 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 			} else {
 				response = DatabaseServicesBase.standardErrorResponse(document, "Error: in reading ", null);
 			}
-			/*
-			 * String maintainer =
-			 * json.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-			 * JsonObject address =
-			 * DatasetCollectionIDManagement.getCollectionOfDatasetCollectionIDsSetAddress(
-			 * maintainer);
-			 * body.addElement("pre").addText(JsonObjectUtilities.toString(address));
-			 * JsonObject setofprops = null;
-			 * if(json.get(ClassLabelConstants.DatasetCollectionsSetLabel) != null) {
-			 * setofprops =
-			 * CreateDocumentTemplate.createTemplate("dataset:SetOfPropertyValueQueryPairs")
-			 * ; String label =
-			 * json.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
-			 * JsonArray props = new JsonArray(); JsonObject prop1 =
-			 * CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
-			 * prop1.addProperty(ClassLabelConstants.DatabaseObjectType,
-			 * ClassLabelConstants.DatasetCollectionsSetLabel);
-			 * prop1.addProperty(ClassLabelConstants.ShortStringKey, label);
-			 * props.add(prop1); setofprops.add(ClassLabelConstants.PropertyValueQueryPair,
-			 * props); } JsonObject response =
-			 * ReadFirestoreInformation.readFirestoreCollection(setofprops, address);
-			 * if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()
-			 * ) { String docS =
-			 * response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
-			 * MessageConstructor.combineBodyIntoDocument(document, docS); JsonObject
-			 * catalog =
-			 * response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
-			 * JsonArray arr =
-			 * catalog.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
-			 * response = DatabaseServicesBase.standardServiceResponse(document,
-			 * "Success read " + arr.size() + " sets", catalog); } else { response =
-			 * DatabaseServicesBase.standardErrorResponse(document,
-			 * "Error: in reading sets", null); }
-			 */
 			return response;
 		}
 	},
@@ -92,8 +58,9 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 					JsonObject collectionid = DatasetCollectionIDManagement.firebaseIDOfCollection(classname,
 							collectioninfo);
 					JsonObject criteria = null;
-					if (json.get(ClassLabelConstants.SetOfPropertyValueQueryPairs) != null) {
-						criteria = json.get(ClassLabelConstants.SetOfPropertyValueQueryPairs).getAsJsonObject();
+					JsonObject recordid = json.get(ClassLabelConstants.DatasetCollectionSetRecordIDInfo).getAsJsonObject();
+					if (recordid.get(ClassLabelConstants.SetOfPropertyValueQueryPairs) != null) {
+						criteria = recordid.get(ClassLabelConstants.SetOfPropertyValueQueryPairs).getAsJsonObject();
 					}
 					response = ReadFirestoreInformation.readFirestoreCollection(criteria, collectionid);
 				} else {

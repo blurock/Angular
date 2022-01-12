@@ -19,7 +19,6 @@ import thermo.data.benson.SetOfBensonThermodynamicBase;
 import thermo.data.structure.structure.symmetry.CalculateExternalSymmetryCorrection;
 import thermo.data.structure.structure.symmetry.CalculateInternalSymmetryCorrection;
 import thermo.data.structure.structure.symmetry.DetermineExternalSymmetryFromSingleDefinition;
-import thermo.data.structure.structure.symmetry.SetOfSymmetryDefinitions;
 import thermo.data.structure.structure.symmetry.SymmetryDefinition;
 import thermo.exception.ThermodynamicException;
 import thermo.properties.SProperties;
@@ -41,35 +40,14 @@ public class ComputeThermodynamicsSymmetryContribution {
 		body.addElement("div").addText("Symmetry type : " + "dataset:StructureExternalSymmetry");
 		JsonObject response = null;
 		JsonArray contributions = new JsonArray();
-		JsonArray symmarr = ExtractSetOfSymmetryDefinitionsFromDataset.databaseSymmetryDefinitions(maintainer, dataset, 
-				"dataset:StructureExternalSymmetry");
-		SetOfSymmetryDefinitions setOfDefinitions = ExtractSetOfSymmetryDefinitionsFromDataset.extract(symmarr);
-		SetOfSymmetryDefinitions secondaryDefinitions = new SetOfSymmetryDefinitions();
-		try {
-		CalculateExternalSymmetryCorrection determineTotal = new CalculateExternalSymmetryCorrection(setOfDefinitions,
-				secondaryDefinitions);
-		SetOfBensonThermodynamicBase corrections = new SetOfBensonThermodynamicBase();
-			boolean symmetryfactor = determineTotal.calculate(molecule, corrections);
-			if(symmetryfactor) {
-				BensonThermodynamicBase thermo = corrections.get(0);
-				Double entropy = thermo.getStandardEntropy();
-				JsonObject contribution = parameterWithEntropy(entropy,thermo.getName(),info);
-				SymmetryDefinition symdef = determineTotal.getMatchedSymmetry();
-				String symname = symdef.getElementName();
-				
-				body.addElement("div").addText("Symmetry Found: " + symname);
-				body.addElement("div").addText("Symmetry      : " + symdef.getInternalSymmetryFactor());
-				body.addElement("div").addText("Entropy       : " + entropy);
-				
-				JsonObject symdefjson = findSymmetryObjectInSet(symmarr,symname);
-				contribution.add(ClassLabelConstants.ChemConnectThermodynamicsDatabase,symdefjson);
-				contributions.add(contribution);
-				response = DatabaseServicesBase.standardServiceResponse(document, "Found External Symmetry Element", contributions);
-			} else {
-				response = DatabaseServicesBase.standardServiceResponse(document, "No External Symmetry Element found", contributions);
-			}
-		} catch (ThermodynamicException e) {
-			response = DatabaseServicesBase.standardErrorResponse(document, "Error in calculating external energy", null);
+		
+		DatabaseCalculateExternalSymmetryCorrection determineTotal = new DatabaseCalculateExternalSymmetryCorrection(maintainer,dataset);
+		JsonObject contribution = determineTotal.compute(molecule, body, info);
+		if(contribution != null) {
+		contributions.add(contribution);
+		response = DatabaseServicesBase.standardServiceResponse(document, "Found External Symmetry Element", contributions);
+		} else {
+			response = DatabaseServicesBase.standardErrorResponse(document, "Error External Symmetry", null);
 		}
 		return response;
 	}
@@ -129,13 +107,10 @@ public class ComputeThermodynamicsSymmetryContribution {
 		body.addElement("div").addText("dataset         : " + dataset);
 		body.addElement("div").addText("Symmetry type   : " + "dataset:StructureInternalSymmetry");
 		JsonArray contributions = new JsonArray();
-		JsonArray symmarr = ExtractSetOfSymmetryDefinitionsFromDataset.databaseSymmetryDefinitions(maintainer, dataset, 
-				"dataset:StructureExternalSymmetry");
-		SetOfSymmetryDefinitions setOfDefinitions = ExtractSetOfSymmetryDefinitionsFromDataset.extract(symmarr);
-		SetOfSymmetryDefinitions secondaryDefinitions = new SetOfSymmetryDefinitions();
 		try {
-			CalculateExternalSymmetryCorrection external = new CalculateExternalSymmetryCorrection(setOfDefinitions,secondaryDefinitions);
-			CalculateInternalSymmetryCorrection internal = new CalculateInternalSymmetryCorrection(setOfDefinitions,external);
+			DatabaseCalculateExternalSymmetryCorrection external = new DatabaseCalculateExternalSymmetryCorrection(maintainer,dataset);
+			DatabaseCalculateInternalSymmetryCorrection internal = new DatabaseCalculateInternalSymmetryCorrection(maintainer,dataset,external);
+			
 			SetOfBensonThermodynamicBase corrections = new SetOfBensonThermodynamicBase();
 			boolean symmetryfactor = internal.calculate(molecule, corrections);
 			System.out.println(corrections.toString());
