@@ -26,5 +26,11 @@ public class TestReadSymmetryDefinitions {
 	System.out.println(symmarr2nd.size());
 	//System.out.println(JsonObjectUtilities.toString(symmarr2nd));
 	System.out.println("-----------------------------------------------------------------");
+	JsonArray symmarrinternal = ExtractSetOfSymmetryDefinitionsFromDataset.databaseSymmetryDefinitions(maintainer, dataset, 
+			"dataset:tructureInternalSymmetry");	
+System.out.println("-----------------------------------------------------------------");
+System.out.println(symmarrinternal.size());
+//System.out.println(JsonObjectUtilities.toString(symmarr2nd));
+System.out.println("-----------------------------------------------------------------");
 	}
 }

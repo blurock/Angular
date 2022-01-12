@@ -101,24 +101,23 @@ public class ComputeThermodynamicsSymmetryContribution {
 	 */
 	public static JsonObject computeInternalSymmetry(String maintainer, String dataset, IAtomContainer molecule, JsonObject info) {
 		JsonObject response = null;
-		Document document = MessageConstructor.startDocument("ComputeBensonRulesForMolecule");
+		Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromInternalSymmetry");
 		Element body = MessageConstructor.isolateBody(document);
 		body.addElement("div").addText("Maintainer      : " + maintainer);
 		body.addElement("div").addText("dataset         : " + dataset);
 		body.addElement("div").addText("Symmetry type   : " + "dataset:StructureInternalSymmetry");
 		JsonArray contributions = new JsonArray();
-		try {
 			DatabaseCalculateExternalSymmetryCorrection external = new DatabaseCalculateExternalSymmetryCorrection(maintainer,dataset);
 			DatabaseCalculateInternalSymmetryCorrection internal = new DatabaseCalculateInternalSymmetryCorrection(maintainer,dataset,external);
 			
-			SetOfBensonThermodynamicBase corrections = new SetOfBensonThermodynamicBase();
-			boolean symmetryfactor = internal.calculate(molecule, corrections);
-			System.out.println(corrections.toString());
+			JsonObject contribution = internal.compute(molecule, body, info);
+			if(contribution != null) {
+				contributions.add(contribution);
+				response = DatabaseServicesBase.standardServiceResponse(document, "Found External Symmetry Element", contributions);
+				} else {
+					response = DatabaseServicesBase.standardErrorResponse(document, "Error External Symmetry", null);
+				}
 			
-			
-		} catch (ThermodynamicException e) {
-			e.printStackTrace();
-		}
 		return response;
 	}
 

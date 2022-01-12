@@ -44,15 +44,14 @@ public class DatabaseCalculateInternalSymmetryCorrection extends CalculateIntern
 		try {
 			symmetryfactor = calculate(molecule, corrections);
 			if(symmetryfactor) {
-				BensonThermodynamicBase thermo = corrections.get(0);
-				Double entropy = thermo.getStandardEntropy();
-				contribution = ComputeThermodynamicsSymmetryContribution.parameterWithEntropy(entropy,thermo.getName(),info);
 				SymmetryDefinition symdef = getSymmetryDefinition();
 				String symname = symdef.getElementName();
+				Double entropy = getInternalSymmetryValue();
+				contribution = ComputeThermodynamicsSymmetryContribution.parameterWithEntropy(entropy,symname,info);
 				
-				body.addElement("div").addText("Symmetry Found: " + symname);
-				body.addElement("div").addText("Symmetry      : " + symdef.getInternalSymmetryFactor());
-				body.addElement("div").addText("Entropy       : " + entropy);
+				body.addElement("div").addText("Internal Symmetry Found   : " + symname);
+				body.addElement("div").addText("Internal Symmetry         : " + symdef.getInternalSymmetryFactor());
+				body.addElement("div").addText("Entropy Contribution      : " + entropy);
 				
 				JsonObject symdefjson = ComputeThermodynamicsSymmetryContribution.findSymmetryObjectInSet(symmetryarr,symname);
 				contribution.add(ClassLabelConstants.ChemConnectThermodynamicsDatabase,symdefjson);

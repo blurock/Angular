@@ -1,7 +1,5 @@
 package info.esblurock.background.services.set.symmetry;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;

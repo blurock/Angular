@@ -1,4 +1,4 @@
-package info.esblurock.background.services.set.symmetry;
+package info.esblurock.background.services.set.symmetry.internal;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,7 +12,7 @@ import info.esblurock.background.services.servicecollection.DatabaseServicesBase
 import info.esblurock.background.services.transaction.TransactionProcess;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
-public class TestComputeThermodynamicsFromExternalSymmetry {
+public class TestComputeThermodynamicsFromInternalSymmetry {
 
 	@Test
 	public void test() {

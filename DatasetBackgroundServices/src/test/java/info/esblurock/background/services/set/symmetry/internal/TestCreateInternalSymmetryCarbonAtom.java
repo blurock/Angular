@@ -1,4 +1,6 @@
-package info.esblurock.background.services.set.symmetry;
+package info.esblurock.background.services.set.symmetry.internal;
+
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,19 +10,20 @@ import org.junit.Test;
 
 import com.google.gson.JsonObject;
 
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.background.services.firestore.InitiallizeSystem;
 import info.esblurock.background.services.transaction.TransactionProcess;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
-public class TestComputeThermodynamicsFromExternalSymmetry {
+public class TestCreateInternalSymmetryCarbonAtom {
 
 	@Test
 	public void test() {
-		String srcpath = "src/test/java/resources/symmetrydefinition/internal/computeThermoSymmetryDefinition.json";
+		InitiallizeSystem .initialize();
+		String srcpath = "src/test/java/resources/symmetrydefinition/internal/createInternalSymmetryCarbonAtom.json";
 		try {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
-			JsonObject response = DatabaseServicesBase.process(json);
+			JsonObject response = TransactionProcess.processFromTransaction(json);
 			JsonObjectUtilities.printResponse(response);
 		} catch (IOException e) {
 			e.printStackTrace();
