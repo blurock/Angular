@@ -90,6 +90,24 @@ public enum ServiceCollectionComputeThermodynamics {
 			return response;
 		}
 		
+	}, ComputeThermodynamicsFromOpticalIsomers {
+
+		@Override
+		public JsonObject process(JsonObject info) {
+			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromOpticalIsomers");
+			JsonObject response = null;
+			IAtomContainer molecule = convertLinearFormToMolecule(info);
+			if(molecule != null) {
+				String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+				String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();				
+				response = ComputeThermodynamicsSymmetryContribution.computeOpticalSymmetry(maintainer, dataset, molecule, info);
+			} else {
+				String errorS = "Error in interpreting molecule ";
+				response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+			}
+			return response;
+		}
+		
 	};
 	
 	public abstract JsonObject process(JsonObject json);

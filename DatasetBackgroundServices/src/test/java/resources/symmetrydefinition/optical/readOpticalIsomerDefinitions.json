@@ -8,21 +8,21 @@
 				"dataset:dataconcept-staging": "dataset:ConceptFileStaging"
 			},
 			"dataset:keyword-filestaging": [],
-			"dataset:title-staging": "Read in External Symmetry Rules for Carbon Atom",
-			"dataset:abstract-staging": "Read in External Symmetry Rules for Carbon Atom. The source of these rules is an extropolation of TherGas rules for symmetry contributions as outlined in the thesis",
+			"dataset:title-staging": "Read in Basic Optical Isomer Symmetry Rules",
+			"dataset:abstract-staging": "Read in Basic Optical Isomer Symmetry Rules. The source of these rules is an extropolation of TherGas rules for symmetry contributions as outlined in the thesis",
 			"dcterms:created": "today"
 		},
 		"dataset:uploadsrc": "dataset:LocalFileSystem",
 		"dataset:filesourceformat": "dataset:JThermodynamicSymmetry",
-		"dataset:fileidentifier": "src/test/java/resources/symmetrydefinition/ExternalSymmetryCarbonAtom.xml",
+		"dataset:fileidentifier": "src/test/java/resources/symmetrydefinition/optical/OpticalSymmetry.xml",
 		"dataset:filemediatype": "dataset:FileTypeText",
-		"dcterms:title": "External Symmetry Rules for Carbon Atom",
+		"dcterms:title": "Basic Optical Isomer Symmetry Rules",
 		"dataset:filesourcesubtype": "",
 		"dataset:datasettransactionspecification": {
 			"dataset:catalogobjectmaintainer": "Administrator",
 			"dataset:datasetname": "Standard",
 			"dataset:datasetversion": "1.0",
-			"dataset:uniquegenericname": "ExternalSymmetryCarbonAtom"
+			"dataset:uniquegenericname": "basicOpticalIsomerSymmetryRules"
 		},
 		"dcterms:identifier": "initialrepositorylocal",
 		"dcterms:BibliographicResource": [

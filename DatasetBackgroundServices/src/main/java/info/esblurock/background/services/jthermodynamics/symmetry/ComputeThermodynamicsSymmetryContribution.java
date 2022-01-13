@@ -106,21 +106,38 @@ public class ComputeThermodynamicsSymmetryContribution {
 		body.addElement("div").addText("Maintainer      : " + maintainer);
 		body.addElement("div").addText("dataset         : " + dataset);
 		body.addElement("div").addText("Symmetry type   : " + "dataset:StructureInternalSymmetry");
-		JsonArray contributions = new JsonArray();
 			DatabaseCalculateExternalSymmetryCorrection external = new DatabaseCalculateExternalSymmetryCorrection(maintainer,dataset);
 			DatabaseCalculateInternalSymmetryCorrection internal = new DatabaseCalculateInternalSymmetryCorrection(maintainer,dataset,external);
 			
-			JsonObject contribution = internal.compute(molecule, body, info);
-			if(contribution != null) {
-				contributions.add(contribution);
+			JsonArray contributions = internal.compute(molecule, body, info);
 				response = DatabaseServicesBase.standardServiceResponse(document, "Found External Symmetry Element", contributions);
-				} else {
-					response = DatabaseServicesBase.standardErrorResponse(document, "Error External Symmetry", null);
-				}
 			
 		return response;
 	}
 
+	/**
+	 * @param maintainer The maintainer of the dataset (used to find the optical symmetry elements)
+	 * @param dataset The dataset (used to find the optical symmetry elements)
+	 * @param molecule The molecule to analyze
+	 * @param info information from input (used for units of entropy)
+	 * @return The response with an array of ThermodynamicContributions
+	 */
+	public static JsonObject computeOpticalSymmetry(String maintainer, String dataset, IAtomContainer molecule, JsonObject info) {
+		JsonObject response = null;
+		Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromOpticalSymmetry");
+		Element body = MessageConstructor.isolateBody(document);
+		body.addElement("div").addText("Maintainer      : " + maintainer);
+		body.addElement("div").addText("dataset         : " + dataset);
+		body.addElement("div").addText("Symmetry type   : " + "dataset:StructureInternalSymmetry");
+		JsonArray contributions = new JsonArray();
+		DatabaseCalculateOpticalSymmetryCorrection optical = new DatabaseCalculateOpticalSymmetryCorrection(maintainer,dataset);
+		contributions = optical.compute(molecule, body, info);
+		response = DatabaseServicesBase.standardServiceResponse(document, "Found Optical Isomer Element", contributions);
+			
+		return response;
+	}
+
+	
 	/** Thermo Contribution with just entropy filled in.
 	 * 
 	 * @param entropy The entropy value
@@ -166,9 +183,13 @@ public class ComputeThermodynamicsSymmetryContribution {
 			symmetry = arr.get(i).getAsJsonObject();
 			JsonObject symdef = symmetry.get(ClassLabelConstants.JThermodynamicsSymmetryDefinition).getAsJsonObject();
 			String name = symdef.get(ClassLabelConstants.JThermodynamicSymmetryDefinitionLabel).getAsString();
+			System.out.println("'" + name + "'  :  '" + symname);
 			if(name.equals(symname)) {
 				notdone = false;
 			}
+		}
+		if(notdone) {
+			symmetry = null;
 		}
 		return symmetry;
 	}

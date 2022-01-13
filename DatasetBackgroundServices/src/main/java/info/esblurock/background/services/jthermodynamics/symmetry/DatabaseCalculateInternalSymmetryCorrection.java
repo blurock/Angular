@@ -37,17 +37,17 @@ public class DatabaseCalculateInternalSymmetryCorrection extends CalculateIntern
 	 * 
 	 * 
 	 */
-	public JsonObject compute(IAtomContainer molecule, Element body, JsonObject info) {
+	public JsonArray compute(IAtomContainer molecule, Element body, JsonObject info) {
 		SetOfBensonThermodynamicBase corrections = new SetOfBensonThermodynamicBase();
 		boolean symmetryfactor;
-		JsonObject contribution = null;
+		JsonArray contributions = new JsonArray();
 		try {
 			symmetryfactor = calculate(molecule, corrections);
 			if(symmetryfactor) {
 				SymmetryDefinition symdef = getSymmetryDefinition();
 				String symname = symdef.getElementName();
-				Double entropy = getInternalSymmetryValue();
-				contribution = ComputeThermodynamicsSymmetryContribution.parameterWithEntropy(entropy,symname,info);
+				double entropy = calculateCorrection(getInternalSymmetryValue());
+				JsonObject contribution = ComputeThermodynamicsSymmetryContribution.parameterWithEntropy(entropy,symname,info);
 				
 				body.addElement("div").addText("Internal Symmetry Found   : " + symname);
 				body.addElement("div").addText("Internal Symmetry         : " + symdef.getInternalSymmetryFactor());
@@ -55,11 +55,12 @@ public class DatabaseCalculateInternalSymmetryCorrection extends CalculateIntern
 				
 				JsonObject symdefjson = ComputeThermodynamicsSymmetryContribution.findSymmetryObjectInSet(symmetryarr,symname);
 				contribution.add(ClassLabelConstants.ChemConnectThermodynamicsDatabase,symdefjson);
+				contributions.add(contribution);
 			}
 		} catch (ThermodynamicException e) {
 			e.printStackTrace();
 		}
-		return contribution;
+		return contributions;
 	}
 	
 

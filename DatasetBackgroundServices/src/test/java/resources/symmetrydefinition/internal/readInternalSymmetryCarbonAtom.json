@@ -13,7 +13,7 @@
 			"dcterms:created": "today"
 		},
 		"dataset:uploadsrc": "dataset:LocalFileSystem",
-		"dataset:filesourceformat": "dataset:TherGasBensonRules",
+		"dataset:filesourceformat": "dataset:JThermodynamicSymmetry",
 		"dataset:fileidentifier": "src/test/java/resources/symmetrydefinition/internal/InternalSymmetryCarbonAtom.xml",
 		"dataset:filemediatype": "dataset:FileTypeText",
 		"dcterms:title": "Internal Symmetry Rules for Carbon Atom",
