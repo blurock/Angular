@@ -39,16 +39,10 @@ public class ComputeThermodynamicsSymmetryContribution {
 		body.addElement("div").addText("dataset       : " + dataset);
 		body.addElement("div").addText("Symmetry type : " + "dataset:StructureExternalSymmetry");
 		JsonObject response = null;
-		JsonArray contributions = new JsonArray();
 		
 		DatabaseCalculateExternalSymmetryCorrection determineTotal = new DatabaseCalculateExternalSymmetryCorrection(maintainer,dataset);
-		JsonObject contribution = determineTotal.compute(molecule, body, info);
-		if(contribution != null) {
-		contributions.add(contribution);
+		JsonArray contributions = determineTotal.compute(molecule, body, info);
 		response = DatabaseServicesBase.standardServiceResponse(document, "Found External Symmetry Element", contributions);
-		} else {
-			response = DatabaseServicesBase.standardErrorResponse(document, "Error External Symmetry", null);
-		}
 		return response;
 	}
 	

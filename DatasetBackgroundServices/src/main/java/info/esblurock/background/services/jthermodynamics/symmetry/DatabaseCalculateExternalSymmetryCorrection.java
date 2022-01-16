@@ -63,16 +63,16 @@ public class DatabaseCalculateExternalSymmetryCorrection extends CalculateExtern
 	 * symmetry contribution.
 	 * 
 	 */
-	public JsonObject compute(IAtomContainer molecule, Element body, JsonObject info) {
+	public JsonArray compute(IAtomContainer molecule, Element body, JsonObject info) {
 		SetOfBensonThermodynamicBase corrections = new SetOfBensonThermodynamicBase();
 		boolean symmetryfactor;
-		JsonObject contribution = null;
+		JsonArray contributions = new JsonArray();
 		try {
 			symmetryfactor = calculate(molecule, corrections);
 			if(symmetryfactor) {
 				BensonThermodynamicBase thermo = corrections.get(0);
 				Double entropy = this.getExternalSymmetryValue();
-				contribution = ComputeThermodynamicsSymmetryContribution.parameterWithEntropy(entropy,thermo.getName(),info);
+				JsonObject contribution = ComputeThermodynamicsSymmetryContribution.parameterWithEntropy(entropy,thermo.getName(),info);
 				SymmetryDefinition symdef = getSymmetryDefinition();
 				String symname = symdef.getElementName();
 				
@@ -82,11 +82,12 @@ public class DatabaseCalculateExternalSymmetryCorrection extends CalculateExtern
 				
 				JsonObject symdefjson = ComputeThermodynamicsSymmetryContribution.findSymmetryObjectInSet(getStructureExternalSymmetry(),symname);
 				contribution.add(ClassLabelConstants.ChemConnectThermodynamicsDatabase,symdefjson);
+				contributions.add(contribution);
 			}
 		} catch (ThermodynamicException e) {
 			e.printStackTrace();
 		}
-		return contribution;
+		return contributions;
 	}
 	
 	

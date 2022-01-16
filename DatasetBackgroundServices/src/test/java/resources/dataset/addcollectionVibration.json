@@ -16,15 +16,15 @@
 		}
 	},
 	"dataset:activityinfo": {
+		"dcterms:title": "Standard JThermodynamic Dataset for Vibrational Definitions",
+		"dcterms:identifier": "dataset:adddatasetcollectioninfo",
+		"dataset:objectype": "dataset:JThermodynamicsVibrationalStructure",
 		"dataset:datasetfortypeincollection": {
 			"dataset:catalogobjectmaintainer": "Administrator",
 			"dataset:dataobjstatus": "CatalogObjectStatusCurrent",
-			"dataset:datasetname": "StandardDataset",
+			"dataset:datasetname": "Standard",
 			"dataset:datasetversion": "1.0"
 		},
-		"dcterms:title": "Standard JThermodynamic Dataset JThermodynamicsDisassociationEnergyOfStructure IDs",
-		"dcterms:identifier": "dataset:adddatasetcollectioninfo",
-		"dataset:objectype": "dataset:JThermodynamicsDisassociationEnergyOfStructure",
 		"dataset:collectionsetrecordidinfo": {
 			"dataset:datasetcollectionslabel": "StandardDataset",
 			"dataset:catalogobjectmaintainer": "Administrator"

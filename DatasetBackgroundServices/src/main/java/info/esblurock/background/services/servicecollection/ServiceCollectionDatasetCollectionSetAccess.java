@@ -84,6 +84,9 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 				JsonObject collectionids = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 				json.add(ClassLabelConstants.ChemConnectDatasetCollectionIDsSet, collectionids);
 				JsonObject readresponse = ReadInDatasetWithDatasetCollection.process(json);
+				System.out.println("fReadInDatasetWithDatasetCollectionLabel");
+				System.out.println(JsonObjectUtilities.toString(json));
+				JsonObjectUtilities.printResponse(readresponse);
 				if (readresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 					String docS = readresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 					JsonArray objects = readresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
@@ -91,11 +94,18 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 					response = DatabaseServicesBase.standardServiceResponse(document, "Succcesful Read of objects",
 							objects);
 				} else {
+					/*
 					String docS = readresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
+					System.out.println("ReadInDatasetWithDatasetCollectionLabel");
+					System.out.println("-----------------------");
+					System.out.println(docS);
+					System.out.println("-----------------------");
 					MessageConstructor.combineBodyIntoDocument(document, docS);
+					*/
 					Element body = MessageConstructor.isolateBody(document);
 					body.addElement("div").addText("ReadInDatasetWithDatasetCollection Failed with:");
 					body.addElement("pre").addText(JsonObjectUtilities.toString(json));
+					
 					response = DatabaseServicesBase.standardErrorResponse(document, "Read in Collection fail", null);
 				}
 			}

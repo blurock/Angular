@@ -31,8 +31,9 @@ public class TestFindDatasetCollection {
 		prop.addProperty(ClassLabelConstants.ShortStringKey, "BensonAtom");
 		arr.add(prop);
 
-		ArrayList<MetaAtomDefinition> defs = FindMetaAtomDefinitionsInDatasetCollection
-				.findMetaAtomDefinitions(maintainer, dataset,null);
+		
+		JsonArray metaarr = FindMetaAtomDefinitionsInDatasetCollection.findMetaAtomDefinitions(maintainer, dataset,"BensonAtom");
+		ArrayList<MetaAtomDefinition> defs = FindMetaAtomDefinitionsInDatasetCollection.findMetaAtomDefinitions(metaarr);
 		if (defs != null) {
 			Iterator<MetaAtomDefinition> iter = defs.iterator();
 			System.out.println("---------------------------------------------");

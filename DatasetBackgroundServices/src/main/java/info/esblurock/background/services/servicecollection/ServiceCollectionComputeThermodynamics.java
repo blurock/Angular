@@ -8,12 +8,15 @@ import org.openscience.cdk.interfaces.IAtomContainer;
 
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.dataset.molecule.DatasetMoleculeUtilities;
 import info.esblurock.background.services.jthermodynamics.bensonrules.ComputeBensonRulesForMolecule;
+import info.esblurock.background.services.jthermodynamics.dataset.FindMetaAtomDefinitionsInDatasetCollection;
 import info.esblurock.background.services.jthermodynamics.symmetry.ComputeThermodynamicsSymmetryContribution;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import thermo.compute.utilities.StringToAtomContainer;
 import thermo.data.structure.structure.MetaAtomInfo;
+import thermo.data.structure.utilities.MoleculeUtilities;
 import thermo.exception.ThermodynamicComputeException;
 
 public enum ServiceCollectionComputeThermodynamics {
@@ -24,7 +27,7 @@ public enum ServiceCollectionComputeThermodynamics {
 		public JsonObject process(JsonObject info) {
 			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromBensonRules");
 			JsonObject response = null;
-			IAtomContainer molecule = convertLinearFormToMolecule(info);
+			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
 			if(molecule != null) {
 				String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 				String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();				
@@ -42,7 +45,7 @@ public enum ServiceCollectionComputeThermodynamics {
 		public JsonObject process(JsonObject info) {
 			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromExternalSymmetry");
 			JsonObject response = null;
-			IAtomContainer molecule = convertLinearFormToMolecule(info);
+			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
 			if(molecule != null) {
 				String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 				String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();				
@@ -60,7 +63,7 @@ public enum ServiceCollectionComputeThermodynamics {
 		public JsonObject process(JsonObject info) {
 			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromBensonRules");
 			JsonObject response = null;
-			IAtomContainer molecule = convertLinearFormToMolecule(info);
+			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
 			String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 			String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();				
 			if(molecule != null) {
@@ -78,7 +81,7 @@ public enum ServiceCollectionComputeThermodynamics {
 		public JsonObject process(JsonObject info) {
 			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromInternalSymmetry");
 			JsonObject response = null;
-			IAtomContainer molecule = convertLinearFormToMolecule(info);
+			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
 			if(molecule != null) {
 				String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 				String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();				
@@ -96,7 +99,7 @@ public enum ServiceCollectionComputeThermodynamics {
 		public JsonObject process(JsonObject info) {
 			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromOpticalIsomers");
 			JsonObject response = null;
-			IAtomContainer molecule = convertLinearFormToMolecule(info);
+			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
 			if(molecule != null) {
 				String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 				String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();				
@@ -108,23 +111,23 @@ public enum ServiceCollectionComputeThermodynamics {
 			return response;
 		}
 		
+	}, SubstituteMetaAtomsInMolecule {
+
+		@Override
+		public JsonObject process(JsonObject info) {
+			return FindMetaAtomDefinitionsInDatasetCollection.substituteMolecule(info);
+		}
+		
+	}, SubstituteAndCondenseLinearMolecule {
+
+		@Override
+		public JsonObject process(JsonObject info) {
+			return FindMetaAtomDefinitionsInDatasetCollection.substituteAndCondenseLinearMolecule(info);
+		}
+		
 	};
 	
 	public abstract JsonObject process(JsonObject json);
 	
 	
-	public static IAtomContainer convertLinearFormToMolecule(JsonObject info) {
-		String moldescription = info.get(ClassLabelConstants.JThermodynamicsStructureSpecification).getAsString();
-		String molformid = info.get(ClassLabelConstants.JThermodynamicsSpeciesSpecificationType).getAsString();
-		String molform = molformid.substring(8);
-		HashSet<MetaAtomInfo> metaatoms = new HashSet<MetaAtomInfo>();
-		StringToAtomContainer convertMoleculeString = new StringToAtomContainer(metaatoms);
-		AtomContainer molecule = null;
-		try {
-			molecule = convertMoleculeString.stringToAtomContainer(molform, moldescription);
-		} catch (ThermodynamicComputeException e) {
-			e.printStackTrace();
-		}
-		return molecule;
-	}
 }

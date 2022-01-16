@@ -45,7 +45,7 @@ public enum UploadFileToGCS {
 							"dataset:InitialReadInLocalStorageSystem");
 				}
 			} catch (IOException e) {
-				DatabaseServicesBase.standardErrorResponse(document,
+				response = DatabaseServicesBase.standardErrorResponse(document,
 						"Error in reading: '" + location + "'\n" + e.getMessage(), response);
 			}
 			return response;

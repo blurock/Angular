@@ -139,15 +139,9 @@ public class ComputeBensonRulesForMolecule {
 			IAtomContainer molecule, Element body) {
 		String metaatomtype = "BensonAtom";
 		JsonObject setofprops = CreateDocumentTemplate.createTemplate("dataset:SetOfPropertyValueQueryPairs");
-		JsonArray arr = new JsonArray();
-		setofprops.add(ClassLabelConstants.PropertyValueQueryPair,arr);
-		JsonObject prop = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
-		prop.addProperty(ClassLabelConstants.DatabaseObjectType, "dataset:jthermometaatominfo.dataset:metaatomlabel");
-		prop.addProperty(ClassLabelConstants.ShortStringKey, metaatomtype);
-		arr.add(prop);
 		System.out.println("Maintainer: " + maintainer + ", Dataset: " + dataset);
 		SetOfMetaAtomsForSubstitution substitute = 
-				FindMetaAtomDefinitionsInDatasetCollection.setUpSubstituteMetaAtoms(maintainer, dataset, setofprops);
+				FindMetaAtomDefinitionsInDatasetCollection.setUpSubstituteMetaAtoms(maintainer, dataset, metaatomtype);
 		try {
 			substitute.substitute(molecule);
 		} catch (ClassNotFoundException | CDKException | IOException e1) {

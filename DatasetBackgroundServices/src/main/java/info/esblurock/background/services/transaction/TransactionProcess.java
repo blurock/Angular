@@ -418,6 +418,7 @@ public enum TransactionProcess {
 				WriteFirestoreCatalogObject.writeCatalogObject(event);
 				String message = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 				MessageConstructor.combineBodyIntoDocument(document, message);
+				/*
 				JsonObject rdfresponse = GenerateAndWriteRDFForObject.generate(event);
 				if (rdfresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 					String rdfmessage = rdfresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
@@ -426,6 +427,7 @@ public enum TransactionProcess {
 				} else {
 					response = DatabaseServicesBase.standardErrorResponse(document, rdfresponse, event);
 				}
+				*/
 			} else {
 				String docmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 				MessageConstructor.combineBodyIntoDocument(document, docmessage);

@@ -16,7 +16,7 @@
 		}
 	},
 	"dataset:activityinfo": {
-		"dcterms:title": "Standard JThermodynamic Dataset for Symmetry Definitions",
+		"dcterms:title": "Standard JThermodynamic Dataset for Symmetry Correction Definitions",
 		"dcterms:identifier": "dataset:adddatasetcollectioninfo",
 		"dataset:objectype": "dataset:JThermodynamicsSymmetryStructureDefinition",
 		"dataset:datasetfortypeincollection": {
