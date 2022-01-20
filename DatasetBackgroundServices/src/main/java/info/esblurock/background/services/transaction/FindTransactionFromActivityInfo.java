@@ -1,5 +1,6 @@
 package info.esblurock.background.services.transaction;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
@@ -19,6 +20,23 @@ public enum FindTransactionFromActivityInfo {
 			transaction.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
 		}
 
+		@Override
+		JsonObject createSetOfProperties(JsonObject info) {
+			JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
+					.getAsJsonObject();
+			String version = recordid.get(ClassLabelConstants.DatasetVersion).getAsString();
+			JsonObject setofprops = CreateDocumentTemplate.createTemplate("dataset:SetOfPropertyValueQueryPairs");
+			JsonArray props = new JsonArray();
+			setofprops.add(ClassLabelConstants.PropertyValueQueryPair, props);
+			JsonObject prop1 = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
+			prop1.addProperty(ClassLabelConstants.DatabaseObjectType, "dataset:datasettransactionspecification.dataset:datasetversion");
+			prop1.addProperty(ClassLabelConstants.ShortStringKey, version);
+			props.add(prop1);
+			
+			return setofprops;
+		}
+		
+
 	},
 	DatasetCollectionManagementTransaction {
 
@@ -28,9 +46,15 @@ public enum FindTransactionFromActivityInfo {
 			transaction.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
 		}
 
+		@Override
+		JsonObject createSetOfProperties(JsonObject info) {
+			return null;
+		}
+
 	};
 
 	abstract void fill(JsonObject info, JsonObject transaction);
+	abstract JsonObject createSetOfProperties(JsonObject info);
 
 	public static JsonObject findTransaction(String transactiontype, JsonObject info) {
 		TransactionProcess process = TransactionProcess.valueOf(transactiontype.substring(8));
@@ -45,6 +69,17 @@ public enum FindTransactionFromActivityInfo {
 			fill.fill(info, transaction);
 		}
 		return transaction;
+	}
+	public static JsonObject determineSetOfProps(String transactiontype, JsonObject info) {
+		TransactionProcess process = TransactionProcess.valueOf(transactiontype.substring(8));
+		String transactionobjectname = process.transactionObjectName();
+		String name = transactionobjectname.substring(8);
+		FindTransactionFromActivityInfo fill = FindTransactionFromActivityInfo.valueOf(name);
+		JsonObject setofprops = null;
+		if(fill != null) {
+			setofprops = fill.createSetOfProperties(info);
+		}
+		return setofprops;
 	}
 
 }

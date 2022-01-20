@@ -11,8 +11,10 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.jthermodynamics.dataset.FindMetaAtomDefinitionsInDatasetCollection;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import thermo.data.structure.structure.SetOfMetaAtomsForSubstitution;
 import thermo.data.structure.structure.StructureAsCML;
+import thermo.data.structure.structure.matching.SubstituteLinearStructures;
 import thermo.data.structure.structure.symmetry.CalculateSymmetryCorrection;
 import thermo.exception.ThermodynamicException;
 
@@ -23,6 +25,7 @@ public class DatabaseCalculateSymmetryCorrection {
 	
 	String metaatomtype = "LinearStructure";
 	SetOfMetaAtomsForSubstitution substitute;
+	SubstituteLinearStructures linear;
 	
 	public DatabaseCalculateSymmetryCorrection(String maintainer, String dataset)  {
 		super();
@@ -31,32 +34,35 @@ public class DatabaseCalculateSymmetryCorrection {
 		opticalD = new DatabaseCalculateOpticalSymmetryCorrection(maintainer,dataset);
 		substitute = 
 				FindMetaAtomDefinitionsInDatasetCollection.setUpSubstituteMetaAtoms(maintainer, dataset, metaatomtype);
-		
+		linear = new SubstituteLinearStructures(substitute);
 	}
 	
-	public JsonObject compute(IAtomContainer molecule, Element body, JsonObject info) {
+	public JsonArray compute(IAtomContainer molecule, Element body, JsonObject info) {
 		StructureAsCML cmlstruct;
 		IAtomContainer newmolecule = null;
+		JsonArray combined2 = null;
 		try {
 			cmlstruct = new StructureAsCML(molecule);
-			newmolecule = substitute.substitute(cmlstruct);
+			newmolecule = linear.substitute(cmlstruct);
 			//substituteBack.substitute(newmolecule);
-			JsonArray contributionsE = externalD.compute(molecule, body, info);
-			JsonArray contributionsI = internalD.compute(molecule, body, info);
-			JsonArray contributionsO = opticalD.compute(molecule, body, info);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JsonArray contributionsE = externalD.compute(newmolecule, body, info);
+			System.out.println("contributionsE\n" + JsonObjectUtilities.toString(contributionsE));
+			JsonArray contributionsI = internalD.compute(newmolecule, body, info);
+			System.out.println("contributionsI\n" + JsonObjectUtilities.toString(contributionsE));
+			JsonArray combined1 = JsonObjectUtilities.combineJsonArray(contributionsE, contributionsI);
+			JsonArray contributionsO = opticalD.compute(newmolecule, body, info);
+			System.out.println("contributionsO\n" + JsonObjectUtilities.toString(contributionsE));
+			combined2 = JsonObjectUtilities.combineJsonArray(combined1, contributionsO);
+			
+			
 		} catch (CDKException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		
-		return null;
+		return combined2;
 	}
 	
 	public IAtomContainer substituteLinearAtoms(StructureAsCML struct, Element body) {

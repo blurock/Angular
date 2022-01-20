@@ -3,15 +3,19 @@ package info.esblurock.background.services.servicecollection;
 import java.util.HashSet;
 
 import org.dom4j.Document;
+import org.dom4j.Element;
 import org.openscience.cdk.AtomContainer;
 import org.openscience.cdk.interfaces.IAtomContainer;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.molecule.DatasetMoleculeUtilities;
+import info.esblurock.background.services.jthermodynamics.CalculateThermodynamicsFromVibration;
 import info.esblurock.background.services.jthermodynamics.bensonrules.ComputeBensonRulesForMolecule;
 import info.esblurock.background.services.jthermodynamics.dataset.FindMetaAtomDefinitionsInDatasetCollection;
 import info.esblurock.background.services.jthermodynamics.symmetry.ComputeThermodynamicsSymmetryContribution;
+import info.esblurock.background.services.jthermodynamics.symmetry.DatabaseCalculateSymmetryCorrection;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import thermo.compute.utilities.StringToAtomContainer;
@@ -109,6 +113,36 @@ public enum ServiceCollectionComputeThermodynamics {
 				response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
 			}
 			return response;
+		}
+		
+	}, ComputeThermodynamicsFromAllSymmetries {
+
+		@Override
+		public JsonObject process(JsonObject info) {
+			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromAllSymmetries");
+			Element body = MessageConstructor.isolateBody(document);
+			JsonObject response = null;
+			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
+			if(molecule != null) {
+				String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+				String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();
+				body.addElement("div").addText("Maintainer      : " + maintainer);
+				body.addElement("div").addText("dataset         : " + dataset);
+				DatabaseCalculateSymmetryCorrection symmcorrection = new DatabaseCalculateSymmetryCorrection(maintainer,dataset);
+				JsonArray total = symmcorrection.compute(molecule, body, info);
+				response = DatabaseServicesBase.standardServiceResponse(document, "ComputeThermodynamicsFromAllSymmetries computed: " + total.size(), total);
+			} else {
+				String errorS = "Error in interpreting molecule";
+				response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+			}
+			return response;
+		}
+		
+	}, ComputeThermodynamicsFromVibrationalModes {
+
+		@Override
+		public JsonObject process(JsonObject info) {
+			return CalculateThermodynamicsFromVibration.computeVibrationalCorrectionsForRadical(info);
 		}
 		
 	}, SubstituteMetaAtomsInMolecule {

@@ -84,9 +84,9 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 				JsonObject collectionids = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 				json.add(ClassLabelConstants.ChemConnectDatasetCollectionIDsSet, collectionids);
 				JsonObject readresponse = ReadInDatasetWithDatasetCollection.process(json);
-				System.out.println("fReadInDatasetWithDatasetCollectionLabel");
-				System.out.println(JsonObjectUtilities.toString(json));
-				JsonObjectUtilities.printResponse(readresponse);
+				//System.out.println("fReadInDatasetWithDatasetCollectionLabel");
+				//System.out.println(JsonObjectUtilities.toString(json));
+				//JsonObjectUtilities.printResponse(readresponse);
 				if (readresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 					String docS = readresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 					JsonArray objects = readresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();

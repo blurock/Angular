@@ -100,6 +100,16 @@ public class JsonObjectUtilities {
 		return totalarr;
 	}
 
+	public static JsonArray combineJsonArray(JsonArray arr1, JsonArray arr2) {
+		JsonArray answer = new JsonArray();
+		for(int i=0;i < arr1.size();i++) {
+			answer.add(arr1.get(i));
+		}
+		for(int i=0;i < arr2.size();i++) {
+			answer.add(arr2.get(i));
+		}
+		return answer;
+	}
 
 	public static String toString(JsonObject obj) {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();

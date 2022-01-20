@@ -122,7 +122,7 @@ public class ComputeThermodynamicsSymmetryContribution {
 		Element body = MessageConstructor.isolateBody(document);
 		body.addElement("div").addText("Maintainer      : " + maintainer);
 		body.addElement("div").addText("dataset         : " + dataset);
-		body.addElement("div").addText("Symmetry type   : " + "dataset:StructureInternalSymmetry");
+		body.addElement("div").addText("Symmetry type   : " + "dataset:StructureOpticalSymmetry");
 		JsonArray contributions = new JsonArray();
 		DatabaseCalculateOpticalSymmetryCorrection optical = new DatabaseCalculateOpticalSymmetryCorrection(maintainer,dataset);
 		contributions = optical.compute(molecule, body, info);
@@ -155,7 +155,7 @@ public class ComputeThermodynamicsSymmetryContribution {
 
 		JsonObject contribution = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicContributions");
 
-			contribution.add(ClassLabelConstants.ThermodynamicStandardEnthalpy, enthalpyP);
+		contribution.add(ClassLabelConstants.ThermodynamicStandardEnthalpy, enthalpyP);
 		contribution.add(ClassLabelConstants.ThermodynamicStandardEntropy, entropyP);
 		contribution.addProperty(ClassLabelConstants.DescriptionTitle, name);
 		JsonArray arr = new JsonArray();
