@@ -19,7 +19,7 @@
 		"dataset:datasetfortypeincollection": {
 			"dataset:catalogobjectmaintainer": "Administrator",
 			"dataset:dataobjstatus": "CatalogObjectStatusCurrent",
-			"dataset:datasetname": "StandardDataset",
+			"dataset:datasetname": "Standard",
 			"dataset:datasetversion": "1.0"
 		},
 		"dcterms:title": "Standard JThermodynamic Dataset JThermodynamicsDisassociationEnergyOfStructure IDs",

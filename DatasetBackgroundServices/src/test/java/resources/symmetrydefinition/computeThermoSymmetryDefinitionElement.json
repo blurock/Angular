@@ -4,7 +4,7 @@
 	"dataset:datasetname": "StandardDataset",
 	"dataset:structuredef": "ch3/ch2/ch3",
 	"dataset:structurename": "pentane",
-	"dataset:speciespectype": "dataset:NANCY",
+	"dataset:speciespectype": "dataset:SpeciesSpecificationNancyLinearForm",
 	"dataset:symmetrydefinitionlabel": "ExternalSymmetry-C(B1)(B1)(B2)(B2)",
 	"dataset:paramspecenthalpy": {
 		"qudt:Unit": {

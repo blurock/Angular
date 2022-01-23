@@ -1,4 +1,4 @@
-package info.esblurock.background.services.jthermodynamics.dataset;
+package info.esblurock.background.services.jthermodynamics.disassociation;
 
 import org.openscience.cdk.interfaces.IAtomContainer;
 

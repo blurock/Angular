@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.firestore.InitiallizeSystem;
 import info.esblurock.background.services.transaction.TransactionProcess;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
@@ -15,6 +16,7 @@ public class TestCreateDisassociationEnergy {
 
 	@Test
 	public void test() {
+		InitiallizeSystem .initialize();
 		String srcpath = "src/test/java/resources/disassociationenergy/createdisassociationenergies.json";
 		String content;
 		try {
@@ -26,7 +28,6 @@ public class TestCreateDisassociationEnergy {
 			JsonObjectUtilities.printResponse(response);
 			System.out.println("----------------------------------------------");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -1,4 +1,4 @@
-package info.esblurock.background.services.jthermodynamics.dataset;
+package info.esblurock.background.services.jthermodynamics.disassociation;
 
 import java.util.ArrayList;
 
@@ -32,13 +32,34 @@ public class FindDisassociationEnergyCollection {
 		}
 		return energylist;
 	}
+	
+	public static JsonArray getTotalDisassociationEnergyCollection(String maintainer,
+			String dataset) {
+		JsonArray arr = null;
+		String service = "ReadInDatasetWithDatasetCollectionLabel";
+		String classname = "dataset:JThermodynamicsDisassociationEnergyOfStructure";
+		JsonObject json = new JsonObject();
+		JsonObject recordid = new JsonObject();
+		json.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
+		recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
+		recordid.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, dataset);
+		json.addProperty(ClassLabelConstants.DatasetCollectionObjectType, classname);
+		json.addProperty(DatabaseServicesBase.service, service);
+		JsonObject response = DatabaseServicesBase.process(json);
+		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+			arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+		} else {
+			
+		}
+		return arr;
+	}
 
 	public static ArrayList<DisassociationEnergyWithAtomCounts> findDisassociationEnergy(JsonArray arr) {
 		ArrayList<DisassociationEnergyWithAtomCounts> energylist = new ArrayList<DisassociationEnergyWithAtomCounts>();
 		if (arr != null) {
 			for (int i = 0; i < arr.size(); i++) {
 				JsonObject energy = arr.get(i).getAsJsonObject();
-				if (energy.get(ClassLabelConstants.JThermodynamics2DSpeciesStructure) != null) {
+					if (energy.get(ClassLabelConstants.JThermodynamics2DSpeciesStructure) != null) {
 					JsonObject structure = energy.get(ClassLabelConstants.JThermodynamics2DSpeciesStructure)
 							.getAsJsonObject();
 					String cml = structure.get(ClassLabelConstants.JThermodynamicsStructureAsCMLString).getAsString();
@@ -52,11 +73,8 @@ public class FindDisassociationEnergyCollection {
 						String uncertaintyS = parameter.get(ClassLabelConstants.ValueUncertainty).getAsString();
 						Double value = Double.valueOf(valueS);
 						Double uncertainty = Double.valueOf(uncertaintyS);
-						JsonObject recordid = energy.get(ClassLabelConstants.DatabaseCollectionOfCurrentClass)
-								.getAsJsonObject();
-						String source = JsonObjectUtilities.toString(recordid);
 						DisassociationEnergyWithAtomCounts disassociation = new DisassociationEnergyWithAtomCounts(
-								molecule, source, value, uncertainty);
+								molecule, name, value, uncertainty);
 						energylist.add(disassociation);
 					} catch (CDKException e) {
 

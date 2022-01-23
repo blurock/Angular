@@ -9,6 +9,7 @@ import org.openscience.cdk.interfaces.IAtomContainer;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.dataset.parameters.ParameterUtilities;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import thermo.data.benson.SetOfBensonThermodynamicBase;
@@ -91,7 +92,7 @@ public class DatabaseCalculateOpticalSymmetryCorrection extends CalculateOptical
 					String name = symdefjson.get(ClassLabelConstants.JThermodynamicSymmetryDefinitionLabel).getAsString();
 					
 					
-					JsonObject contribution = ComputeThermodynamicsSymmetryContribution.parameterWithEntropy(entropy, symname,
+					JsonObject contribution = ParameterUtilities.parameterWithEntropy(entropy, symname,
 							info);
 
 					body.addElement("div").addText("Optical Isomer Found    :" + name);

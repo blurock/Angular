@@ -6,6 +6,7 @@ import org.openscience.cdk.interfaces.IAtomContainer;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.dataset.parameters.ParameterUtilities;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import thermo.data.benson.BensonThermodynamicBase;
@@ -48,7 +49,7 @@ public class DatabaseCalculateInternalSymmetryCorrection extends CalculateIntern
 				SymmetryDefinition symdef = getSymmetryDefinition();
 				String symname = symdef.getElementName();
 				double entropy = calculateCorrection(getInternalSymmetryValue());
-				JsonObject contribution = ComputeThermodynamicsSymmetryContribution.parameterWithEntropy(entropy,symname,info);
+				JsonObject contribution = ParameterUtilities.parameterWithEntropy(entropy,symname,info);
 				
 				body.addElement("div").addText("Internal Symmetry Found   : " + symname);
 				body.addElement("div").addText("Internal Symmetry         : " + symdef.getInternalSymmetryFactor());

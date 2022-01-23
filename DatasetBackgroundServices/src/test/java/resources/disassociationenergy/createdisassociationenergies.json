@@ -11,11 +11,11 @@
 		"dataset:blockinterpretationmethod": "dataset:ParseLinesJThermodynamicsDisassociationEnergy",
 		"dcterms:title": "The standard set of Disassociation energies for alkanes",
 		"dataset:dataobjstatus": "CatalogObjectStatusCurrent",
-		"dataset:speciespectype": "NANCY",
+		"dataset:speciespectype": "dataset:SpeciesSpecificationNancyLinearForm",
 		"qb:ComponentSpecification": {
 			"qudt:Unit": {
-				"qudt:SystemOfQuantities": "qudt:MolarEnergyUnit",
-				"qudt:QuantityKind": "qudt:KilocaloriePerMole"
+				"qudt:SystemOfQuantities": "quantitykind:MolarEnergy",
+				"qudt:QuantityKind": "unit:KiloCAL-PER-MOL"
 			},
 			"dataset:dynamicType": "FixedParameter",
 			"skos:prefLabel": "Hydrogen Disassociation Energy",

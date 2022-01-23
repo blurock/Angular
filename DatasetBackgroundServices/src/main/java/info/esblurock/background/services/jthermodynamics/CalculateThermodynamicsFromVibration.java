@@ -33,12 +33,10 @@ import thermo.exception.NotARadicalException;
 public class CalculateThermodynamicsFromVibration {
 	static String defaultentropyUnits = "unit:J-PER-MOL-K";
 	static String defaultenthalpyUnits = "unit:KiloCAL-PER-MOL";
-
 	
 	/**
 	 * @param info The input information
 	 * @return The response with the list of contributions
-	 * 
 	 * 
 	 */
 	public static JsonObject computeVibrationalCorrectionsForRadical(JsonObject info) {
@@ -97,6 +95,13 @@ public class CalculateThermodynamicsFromVibration {
 		return response;
 	}
 	
+	/** The ThermodynamicContributions from the JThermodynamicsVibrationalStructureWithCount
+	 * 
+	 * @param countdiff The JThermodynamicsVibrationalStructureWithCount
+	 * @param info The input info with the parameter specs
+	 * @param table The table forms
+	 * @return The ThermodynamicContributions from the JThermodynamicsVibrationalStructureWithCount
+	 */
 	private static JsonObject convertToThermodynamicContribution(JsonObject countdiff, JsonObject info, Element table) {
 		String matchesS = countdiff.get(ClassLabelConstants.ElementCount).getAsString();
 		JsonObject frequencyJ = countdiff.get(ClassLabelConstants.StructureVibrationalFrequency).getAsJsonObject();
@@ -154,6 +159,13 @@ public class CalculateThermodynamicsFromVibration {
 		return contribution;
 	}
 
+	/**The vibrational counts of the vibrational modes
+	 * 
+	 * @param structures The vibrational modes (JThermodynamicsVibrationalStructureWithCount)
+	 * @param molecule The radical molecule (assumed to be a radical)
+	 * @return The vibrational counts of the vibrational modes
+	 * 
+	 */
 	public static JsonArray computeVibrationalMatchCounts(JsonArray structures, IAtomContainer molecule) {
 		GetSubstructureMatches matches = new GetSubstructureMatches();
 		FrequencyCorrection frequencyCorrection = new FrequencyCorrection();
@@ -191,6 +203,14 @@ public class CalculateThermodynamicsFromVibration {
 		return vibcounts;
 	}
 	
+	/** Count difference (RH-H) for each vibrational mode
+	 * 
+	 * @param countsRH The JThermodynamicsVibrationalStructureWithCount for the H substituted radical (RH)
+	 * @param countsR The JThermodynamicsVibrationalStructureWithCount radical (R)
+	 * @return The JThermodynamicsVibrationalStructureWithCount having the count difference between RH and R
+	 * 
+	 * 
+	 */
 	private static JsonArray subtractCounts(JsonArray countsRH, JsonArray countsR) {
 		JsonArray newcounts = new JsonArray();
 		for(int i=0 ; i<countsRH.size() ; i++) {
@@ -226,6 +246,12 @@ public class CalculateThermodynamicsFromVibration {
 		return newcounts;
 	}
 	
+	/** find JThermodynamicsVibrationalStructureWithCount with same label in the array
+	 * 
+	 * @param obj The The JThermodynamicsVibrationalStructureWithCount object
+	 * @param arr The array of JThermodynamicsVibrationalStructureWithCount object
+	 * @return The matching JThermodynamicsVibrationalStructureWithCoun (through label) in the array, null if not found
+	 */
 	private static JsonObject findInArray(JsonObject obj, JsonArray arr) {
 		//JsonObject objstruct = obj.get(ClassLabelConstants.JThermodynamics2DSpeciesStructure).getAsJsonObject();
 		//String name = objstruct.get(ClassLabelConstants.JThermodynamicsStructureName).getAsString();
@@ -246,6 +272,15 @@ public class CalculateThermodynamicsFromVibration {
 	}
 	
 	
+	/** Find the contribution of the vibrational mode (through the structure of the vibrational mode).
+	 * 
+	 * @param molecule The molecule to analyse
+	 * @param vibmolecule  The molecue of the vibrational mode
+	 * @param matches The GetSubstructureMatches to determine match.
+	 * @param vibsymmetry The symmetry factor of the 
+	 * @return The contribution (number of matches times the symmetry factor), if zero, the vibrational structure was not found
+	 * 
+	 */
 	private static int calculateContribution(IAtomContainer molecule, IAtomContainer vibmolecule, GetSubstructureMatches matches, String vibsymmetry) {
         //int vibsize = vibmolecule.getAtomCount();
         List<List<RMap>> bondMatches;
@@ -268,6 +303,12 @@ public class CalculateThermodynamicsFromVibration {
 	
 	
 	
+	/** Set of JThermodynamicsVibrationalStructureWithCount in the dataset
+	 * 
+	 * @param maintainer The maintainer of the dataset
+	 * @param dataset The dataset 
+	 * @return Set of JThermodynamicsVibrationalStructureWithCount in the dataset
+	 */
 	public static JsonArray databaseAllVibrationalStructures(String maintainer, String dataset) {
 		JsonArray definitions = null;
 		

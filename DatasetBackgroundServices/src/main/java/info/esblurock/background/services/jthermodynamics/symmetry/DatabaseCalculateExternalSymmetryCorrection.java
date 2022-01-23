@@ -6,6 +6,7 @@ import org.openscience.cdk.interfaces.IAtomContainer;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.dataset.parameters.ParameterUtilities;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import thermo.data.benson.BensonThermodynamicBase;
 import thermo.data.benson.SetOfBensonThermodynamicBase;
@@ -72,7 +73,7 @@ public class DatabaseCalculateExternalSymmetryCorrection extends CalculateExtern
 			if(symmetryfactor) {
 				BensonThermodynamicBase thermo = corrections.get(0);
 				Double entropy = this.getExternalSymmetryValue();
-				JsonObject contribution = ComputeThermodynamicsSymmetryContribution.parameterWithEntropy(entropy,thermo.getName(),info);
+				JsonObject contribution = ParameterUtilities.parameterWithEntropy(entropy,thermo.getName(),info);
 				SymmetryDefinition symdef = getSymmetryDefinition();
 				String symname = symdef.getElementName();
 				

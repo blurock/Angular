@@ -2,6 +2,6 @@
 	"service": "SubstituteAndCondenseLinearMolecule",
 	"dataset:catalogobjectmaintainer": "Administrator",
 	"dataset:datasetname": "StandardDataset",
-	"dataset:speciespectype": "dataset:NANCY",
+	"dataset:speciespectype": "dataset:SpeciesSpecificationNancyLinearForm",
 	"dataset:structuredef": "h/c///c/h"
 }

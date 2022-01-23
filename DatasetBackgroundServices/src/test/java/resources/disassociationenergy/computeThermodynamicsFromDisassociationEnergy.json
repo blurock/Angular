@@ -1,8 +1,8 @@
 {
-	"service": "ComputeThermodynamicsFromInternalSymmetry",
-		"dataset:catalogobjectmaintainer": "Administrator",
-		"dataset:datasetname": "StandardDataset",
-	"dataset:structuredef": "ch3/ch2/ch3",
+	"service": "ComputeThermodynamicsForDisassociationEnergy",
+	"dataset:catalogobjectmaintainer": "Administrator",
+	"dataset:datasetname": "StandardDataset",
+	"dataset:structuredef": "ch2(ch3)/ch2/ch(.)/ch2/ch3",
 	"dataset:structurename": "pentane",
 	"dataset:speciespectype": "dataset:SpeciesSpecificationNancyLinearForm",
 	"dataset:paramspecenthalpy": {
@@ -32,5 +32,4 @@
 		"skos:prefLabel": "Heat Capacity",
 		"dataset:uncertainty": "dataset:ImpliedDigitsUncertainty"
 	}
-
-}
+	}

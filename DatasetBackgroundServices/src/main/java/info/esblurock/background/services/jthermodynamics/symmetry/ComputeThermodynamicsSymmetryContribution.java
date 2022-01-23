@@ -76,7 +76,7 @@ public class ComputeThermodynamicsSymmetryContribution {
         double correction = -gasConstant * Math.log(symmD);
 		body.addElement("div").addText("Symmetry      : " + symmD);
 		body.addElement("div").addText("Entropy       : " + correction);
-        JsonObject contribution = parameterWithEntropy(correction,symmetry.getElementName(),info);
+        JsonObject contribution = ParameterUtilities.parameterWithEntropy(correction,symmetry.getElementName(),info);
         contribution.add(ClassLabelConstants.ChemConnectThermodynamicsDatabase, symjson);
         String message = "External Symmetry contribution of " + symmetry.getElementName() + " = " + correction;
         response = DatabaseServicesBase.standardServiceResponse(document, message, contribution);
@@ -132,37 +132,6 @@ public class ComputeThermodynamicsSymmetryContribution {
 	}
 
 	
-	/** Thermo Contribution with just entropy filled in.
-	 * 
-	 * @param entropy The entropy value
-	 * @param name The name of the contribution
-	 * @param info The input with the units of entropy
-	 * @return The ThermodynamicContributions with the entropy value (the enthalpy and Cps are zero)
-	 */
-	public static JsonObject parameterWithEntropy(double entropy, String name, JsonObject info) {
-		String defaultentropyUnits = "unit:J-PER-MOL-K";
-
-		JsonObject entropyP = DatabaseUnitUtilities.createEmptyParameter("dataset:ThermodynamicStandardEntropy", 
-				defaultentropyUnits, "dataset:ImpliedDigitsUncertainty");
-		entropyP.addProperty(ClassLabelConstants.ValueAsString,Double.toHexString(entropy));
-		entropyP.addProperty(ClassLabelConstants.ValueUncertainty,"0.0");
-		ParameterUtilities.changeParameterToNewSpecification(entropyP, info, ClassLabelConstants.ParameterSpecificationEntropy);
-
-		JsonObject enthalpyP = DatabaseUnitUtilities.createEmptyParameter("dataset:ThermodynamicStandardEnthalpy", 
-				"unit:KiloCAL-PER-MOL", "dataset:ImpliedDigitsUncertainty");
-		enthalpyP.addProperty(ClassLabelConstants.ValueAsString,"0.0");
-		enthalpyP.addProperty(ClassLabelConstants.ValueUncertainty,"0.0");
-
-		JsonObject contribution = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicContributions");
-
-		contribution.add(ClassLabelConstants.ThermodynamicStandardEnthalpy, enthalpyP);
-		contribution.add(ClassLabelConstants.ThermodynamicStandardEntropy, entropyP);
-		contribution.addProperty(ClassLabelConstants.DescriptionTitle, name);
-		JsonArray arr = new JsonArray();
-		contribution.add(ClassLabelConstants.HeatCapacityTemperatureValuePair, arr);
-		
-		return contribution;
-	}
 	
 	/** Find JThermodynamicsSymmetryStructureDefinition by name
 	 * 

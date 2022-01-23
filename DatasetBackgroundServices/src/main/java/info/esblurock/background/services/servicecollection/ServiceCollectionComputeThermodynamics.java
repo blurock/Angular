@@ -14,6 +14,7 @@ import info.esblurock.background.services.dataset.molecule.DatasetMoleculeUtilit
 import info.esblurock.background.services.jthermodynamics.CalculateThermodynamicsFromVibration;
 import info.esblurock.background.services.jthermodynamics.bensonrules.ComputeBensonRulesForMolecule;
 import info.esblurock.background.services.jthermodynamics.dataset.FindMetaAtomDefinitionsInDatasetCollection;
+import info.esblurock.background.services.jthermodynamics.disassociation.CalculateThermodynamicsForDisassociationEnergy;
 import info.esblurock.background.services.jthermodynamics.symmetry.ComputeThermodynamicsSymmetryContribution;
 import info.esblurock.background.services.jthermodynamics.symmetry.DatabaseCalculateSymmetryCorrection;
 import info.esblurock.background.services.service.MessageConstructor;
@@ -143,6 +144,13 @@ public enum ServiceCollectionComputeThermodynamics {
 		@Override
 		public JsonObject process(JsonObject info) {
 			return CalculateThermodynamicsFromVibration.computeVibrationalCorrectionsForRadical(info);
+		}
+		
+	}, ComputeThermodynamicsForDisassociationEnergy {
+
+		@Override
+		public JsonObject process(JsonObject info) {
+			return CalculateThermodynamicsForDisassociationEnergy.calculate(info);
 		}
 		
 	}, SubstituteMetaAtomsInMolecule {
