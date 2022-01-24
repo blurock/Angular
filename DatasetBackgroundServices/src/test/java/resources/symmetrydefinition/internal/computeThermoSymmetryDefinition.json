@@ -2,7 +2,7 @@
 	"service": "ComputeThermodynamicsFromInternalSymmetry",
 		"dataset:catalogobjectmaintainer": "Administrator",
 		"dataset:datasetname": "StandardDataset",
-	"dataset:structuredef": "ch3/ch2/ch3",
+	"dataset:structuredef": "ch3/ch2/ch2/ch2(.)",
 	"dataset:structurename": "pentane",
 	"dataset:speciespectype": "dataset:SpeciesSpecificationNancyLinearForm",
 	"dataset:paramspecenthalpy": {

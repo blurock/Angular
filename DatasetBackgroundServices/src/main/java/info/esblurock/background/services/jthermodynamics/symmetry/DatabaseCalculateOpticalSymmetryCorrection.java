@@ -78,11 +78,9 @@ public class DatabaseCalculateOpticalSymmetryCorrection extends CalculateOptical
 		while (idef.hasNext()) {
 			SymmetryDefinition symdef = idef.next();
 			JsonObject symmetryJ = symmarr.get(count).getAsJsonObject();
-			//System.out.println("SymmetryDefinition: " + symdef.toString());
 			int symmetry;
 			try {
 				symmetry = determineSymmetry.determineSymmetry(symdef, molecule);
-				//System.out.println("Symmetry: " + symmetry);
 				if (symmetry > 0) {
 					String symname = symdef.getElementName();
 					Double symmfactor = symdef.getInternalSymmetryFactor();
