@@ -37,6 +37,7 @@ public class DatabaseCalculateInternalSymmetryCorrection extends CalculateIntern
 	 * @param info Used for unit specifications
 	 * @return The ThermodynamicContributions due to internal energy
 	 * 
+	 * The units of the entropy are the default of the JThermodynamics system.
 	 * 
 	 */
 	public JsonArray compute(IAtomContainer molecule, Element body, JsonObject info) {

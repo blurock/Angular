@@ -30,7 +30,6 @@ public class ComputeBensonRulesForMolecule {
 	
 	public static JsonObject compute(String maintainer, String dataset, IAtomContainer molecule, JsonObject info) {
 		JsonObject response = null;
-		JsonObject total = CreateDocumentTemplate.createTemplate("dataset:SetOfThermodynamicContributions");
 		Document document = MessageConstructor.startDocument("ComputeBensonRulesForMolecule");
 		Element body = MessageConstructor.isolateBody(document);
 		molecule = substituteBensonMolecule(maintainer, dataset,molecule,body);
@@ -138,7 +137,6 @@ public class ComputeBensonRulesForMolecule {
 	public static IAtomContainer substituteBensonMolecule(String maintainer, String dataset, 
 			IAtomContainer molecule, Element body) {
 		String metaatomtype = "BensonAtom";
-		JsonObject setofprops = CreateDocumentTemplate.createTemplate("dataset:SetOfPropertyValueQueryPairs");
 		System.out.println("Maintainer: " + maintainer + ", Dataset: " + dataset);
 		SetOfMetaAtomsForSubstitution substitute = 
 				FindMetaAtomDefinitionsInDatasetCollection.setUpSubstituteMetaAtoms(maintainer, dataset, metaatomtype);

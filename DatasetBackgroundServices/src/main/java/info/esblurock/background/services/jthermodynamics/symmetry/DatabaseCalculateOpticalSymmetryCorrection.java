@@ -68,7 +68,8 @@ public class DatabaseCalculateOpticalSymmetryCorrection extends CalculateOptical
 	 *         dataset), the name is retrieved from the SymmetryDefinition (from
 	 *         Jthermodynamic). Note that this assumes only one symmetry
 	 *         contribution.
-	 * 
+	 * 	 
+	 * * The units of the entropy are the default of the JThermodynamics system.
 	 */
 	public JsonArray compute(IAtomContainer molecule, Element body, JsonObject info) {
 		JsonArray contributions = new JsonArray();

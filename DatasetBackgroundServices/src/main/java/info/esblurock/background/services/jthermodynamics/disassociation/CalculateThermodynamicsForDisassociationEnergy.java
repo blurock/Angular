@@ -69,9 +69,11 @@ public class CalculateThermodynamicsForDisassociationEnergy {
 			JsonObject disassociationmatch, JsonObject info) {
 		JsonObject enthalpyparameter = disassociationmatch.get(ClassLabelConstants.JThermodynamicDisassociationEnergy).getAsJsonObject();
 		String enthalpyS = enthalpyparameter.get(ClassLabelConstants.ValueAsString).getAsString();
+		JsonObject spec = disassociationmatch.get(ClassLabelConstants.ParameterSpecification).getAsJsonObject();
+		String enthalpyspec = spec.get(ClassLabelConstants.ValueUnits).getAsString();
 		double enthalpy = Double.parseDouble(enthalpyS);
 		JsonObject contribution = 
-				ParameterUtilities.parameterWithEnthalpy(enthalpy, 
+				ParameterUtilities.parameterWithEnthalpy(enthalpyspec,enthalpy, 
 						ClassLabelConstants.ParameterSpecificationEnthaply, 
 						info);
 		contribution.add(ClassLabelConstants.ChemConnectThermodynamicsDatabase, disassociationmatch);

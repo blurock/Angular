@@ -63,6 +63,8 @@ public class DatabaseCalculateExternalSymmetryCorrection extends CalculateExtern
 	 * retrieved from the SymmetryDefinition (from Jthermodynamic). Note that this assumes only one
 	 * symmetry contribution.
 	 * 
+	 * The units of the entropy are the default of the JThermodynamics system.
+	 * 
 	 */
 	public JsonArray compute(IAtomContainer molecule, Element body, JsonObject info) {
 		SetOfBensonThermodynamicBase corrections = new SetOfBensonThermodynamicBase();
@@ -73,7 +75,6 @@ public class DatabaseCalculateExternalSymmetryCorrection extends CalculateExtern
 			if(symmetryfactor) {
 				BensonThermodynamicBase thermo = corrections.get(0);
 				Double entropy = this.getExternalSymmetryValue();
-				JsonObject contribution = ParameterUtilities.parameterWithEntropy(entropy,thermo.getName(),info);
 				SymmetryDefinition symdef = getSymmetryDefinition();
 				String symname = symdef.getElementName();
 				
@@ -82,6 +83,8 @@ public class DatabaseCalculateExternalSymmetryCorrection extends CalculateExtern
 				body.addElement("div").addText("Entropy Contribution     : " + entropy);
 				
 				JsonObject symdefjson = ComputeThermodynamicsSymmetryContribution.findSymmetryObjectInSet(getStructureExternalSymmetry(),symname);
+				
+				JsonObject contribution = ParameterUtilities.parameterWithEntropy(entropy,thermo.getName(),info);
 				contribution.add(ClassLabelConstants.ChemConnectThermodynamicsDatabase,symdefjson);
 				contributions.add(contribution);
 			}
