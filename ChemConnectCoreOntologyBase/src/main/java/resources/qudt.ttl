@@ -1045,7 +1045,6 @@ qudt:conversionCoefficient rdf:type owl:DatatypeProperty ;
 ###  http://qudt.org/schema/qudt/conversionMultiplier
 qudt:conversionMultiplier rdf:type owl:DatatypeProperty ,
                                    owl:FunctionalProperty ;
-                          rdfs:range xsd:decimal ;
                           rdfs:isDefinedBy <http://qudt.org/2.1/schema/qudt> ;
                           rdfs:label "conversion multiplier" .
 

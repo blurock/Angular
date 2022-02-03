@@ -19688,15 +19688,18 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 ###  http://qudt.org/vocab/quantitykind/MolarEnergy
 <http://qudt.org/vocab/quantitykind/MolarEnergy> rdf:type :ChemConnectEnergy ,
-                                                          :ParameterSpecificationEnthaply .
+                                                          :ParameterSpecificationEnthaply ;
+                                                 <http://qudt.org/schema/qudt/applicableUnit> :CAL-PER-MOL .
 
 
 ###  http://qudt.org/vocab/quantitykind/MolarEntropy
-<http://qudt.org/vocab/quantitykind/MolarEntropy> rdf:type :ParameterSpecificationEntropy .
+<http://qudt.org/vocab/quantitykind/MolarEntropy> rdf:type :ParameterSpecificationEntropy ;
+                                                  <http://qudt.org/schema/qudt/applicableUnit> :CAL-PER-MOL-K .
 
 
 ###  http://qudt.org/vocab/quantitykind/MolarHeatCapacity
-<http://qudt.org/vocab/quantitykind/MolarHeatCapacity> rdf:type :ParameterSpecificationHeatCapacity .
+<http://qudt.org/vocab/quantitykind/MolarHeatCapacity> rdf:type :ParameterSpecificationHeatCapacity ;
+                                                       <http://qudt.org/schema/qudt/applicableUnit> :CAL-PER-MOL-K .
 
 
 ###  http://qudt.org/vocab/quantitykind/Temperature
@@ -19738,14 +19741,23 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 :AccessAll rdf:type owl:NamedIndividual .
 
 
-###  http://www.esblurock.info/dataset#CaloriesPerMolKelvin
-:CaloriesPerMolKelvin rdf:type owl:NamedIndividual ,
-                               :MolarEntropyHeatCapacityUnit ;
-                      <http://qudt.org/schema/qudt#abbreviation> "cal/mol-K"^^xsd:string ;
-                      <http://qudt.org/schema/qudt#conversionMultiplier> "4.184"^^xsd:string ;
-                      <http://qudt.org/schema/qudt#conversionOffset> "0.0"^^xsd:double ;
-                      <http://qudt.org/schema/qudt#quantityKind> <http://qudt.org/vocab/quantity#HeatCapacity> ;
-                      <http://qudt.org/schema/qudt#symbol> "cal/mol-K"^^xsd:string .
+###  http://www.esblurock.info/dataset#CAL-PER-MOL
+:CAL-PER-MOL rdf:type owl:NamedIndividual ;
+             <http://qudt.org/schema/qudt/hasQuantityKind> <http://qudt.org/vocab/quantitykind/MolarEnergy> ;
+             <http://qudt.org/schema/qudt/abbreviation> "cal/mol"^^xsd:string ;
+             <http://qudt.org/schema/qudt/conversionMultiplier> 4.184 ;
+             <http://qudt.org/schema/qudt/conversionOffset> 0.0 ;
+             <http://qudt.org/schema/qudt/description> "The calorie per mole is a unit to measure an amount of energy per number of molecules, atoms, or other similar particles. It is defined as one calorie of energy (1 thermochemical gram calories) per one mole of substance, that is, per Avogadro’s number of particles."^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CAL-PER-MOL-K
+:CAL-PER-MOL-K rdf:type owl:NamedIndividual ;
+               <http://qudt.org/schema/qudt/hasQuantityKind> <http://qudt.org/vocab/quantitykind/MolarEntropy> ,
+                                                             <http://qudt.org/vocab/quantitykind/MolarHeatCapacity> ;
+               <http://qudt.org/schema/qudt/abbreviation> "cal/mol K"^^xsd:string ;
+               <http://qudt.org/schema/qudt/conversionMultiplier> 4.184 ;
+               <http://qudt.org/schema/qudt/conversionOffset> 0.0 ;
+               <http://qudt.org/schema/qudt/description> "the heat capacity of an object is the energy needed to increase the average kinetic energy of its molecules, which depends upon the number of KE modes which can absorb energy. Whereas, the increase in entropy for a given input of heat energy is a measure of the increase in disorder, due to that energy input. This depends on the absolute temperature, and the increase in disorder is inversely proportional to the temperature, for a given heat input. This explains why heat energy naturally flows from hot objects to colder objects."^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ConsortiumID
@@ -20006,16 +20018,6 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 ###  http://www.esblurock.info/dataset#UserTitle
 :UserTitle rdf:type owl:NamedIndividual .
-
-
-###  http://www.esblurock.info/dataset#caloriesPerMol
-:caloriesPerMol rdf:type owl:NamedIndividual ,
-                         <http://qudt.org/schema/qudt#MolarEnergyUnit> ;
-                <http://qudt.org/schema/qudt#abbreviation> "cal/mol"^^xsd:string ;
-                <http://qudt.org/schema/qudt#conversionMultiplier> "4.184"^^xsd:double ;
-                <http://qudt.org/schema/qudt#conversionOffset> "0.0"^^xsd:double ;
-                <http://qudt.org/schema/qudt#quantityKind> <http://qudt.org/vocab/quantity#MolarEnergy> ;
-                <http://qudt.org/schema/qudt#symbol> "cal/mol"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#cmMinus1
