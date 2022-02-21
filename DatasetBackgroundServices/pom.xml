@@ -3,12 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<packaging>war</packaging>
 	<version>0.1.0-SNAPSHOT</version>
 	<groupId>info.esblurock.</groupId>
 	<artifactId>DatasetBackgroundServices</artifactId>
 	<properties>
-		<appengine.maven.plugin.version>2.4.0</appengine.maven.plugin.version>
+		<appengine.maven.plugin.version>2.4.1</appengine.maven.plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.compiler.source>11</maven.compiler.source>
@@ -61,12 +60,8 @@
 			<groupId>com.google.cloud</groupId>
 			<artifactId>google-cloud-firestore</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.example.appengine.demo</groupId>
-			<artifactId>simple-jetty-main</artifactId>
-			<version>1</version>
-			<scope>provided</scope>
-		</dependency>
+		<!-- dependency> <groupId>com.example.appengine.demo</groupId> <artifactId>simple-jetty-main</artifactId> 
+			<version>1</version> <scope>provided</scope> </dependency -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -132,6 +127,7 @@
 			<groupId>info.esblurock</groupId>
 			<artifactId>ChemConnectCoreOntologyBase</artifactId>
 			<version>1.0</version>
+			<scope>compile</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
 		<dependency>
@@ -156,12 +152,69 @@
 			<artifactId>jaxp-api</artifactId>
 			<version>1.4.5</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-surefire-plugin</artifactId>
+			<version>3.0.0-M5</version>
+			<type>maven-plugin</type>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>background</finalName>
-		<!-- for hot reload of the web application -->
 		<plugins>
 			<plugin>
+
+				<groupId>org.apache.maven.plugins</groupId>
+
+				<artifactId>maven-enforcer-plugin</artifactId>
+
+				<version>3.0.0-M3</version>
+
+				<executions>
+
+					<execution>
+
+						<id>enforce-maven</id>
+
+						<goals>
+
+							<goal>enforce</goal>
+
+						</goals>
+
+						<configuration>
+
+							<rules>
+
+								<!-- appengine-maven-plugin requires Maven 3.5.0 or later -->
+
+								<requireMavenVersion>
+
+									<version>3.5.0</version>
+
+								</requireMavenVersion>
+
+							</rules>
+
+						</configuration>
+
+					</execution>
+
+				</executions>
+
+			</plugin>
+
+
+
+
+
+
+
+
+			<!-- plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-surefire-plugin</artifactId> 
+				<version>3.0.0-M3</version> </plugin -->
+
+			<!--  plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<version>3.2.0</version>
@@ -179,11 +232,11 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin -->
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>
-				<version>2.4.0</version>
+				<version>${appengine.maven.plugin.version}</version>
 				<configuration>
 					<projectId>GCLOUD_CONFIG</projectId>
 					<version>background</version>
@@ -195,7 +248,6 @@
 				<artifactId>endpoints-framework-maven-plugin</artifactId>
 				<version>2.0.1</version>
 				<configuration>
-					<!-- plugin configuration -->
 					<hostname>${endpoints.project.id}.appspot.com</hostname>
 				</configuration>
 			</plugin>
@@ -204,4 +256,5 @@
 
 	</build>
 
+	<packaging>war</packaging>
 </project>

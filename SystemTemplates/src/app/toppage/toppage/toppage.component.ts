@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModelParameterAnnotations } from 'src/app/models/modelparameterannotations';
+/*import { ModelParameterAnnotations } from 'src/app/models/modelparameterannotations';*/
 import { Observable } from 'rxjs';
 import { OntoogyannotationinfoService } from 'src/app/services/ontoogyannotationinfo.service';
 
@@ -17,21 +17,21 @@ export class ToppageComponent implements OnInit {
   title = 'SystemTemplates';
   classificationtitle = 'Classifications';
   defaultvalue = 'no value;';
-  
+
   constructor(
     private ontologyservice: OntoogyannotationinfoService
     ) { }
 
   ngOnInit(): void {
-    this.getAnnot();
+    //this.getAnnot();
   }
 
   getAnnot(): void {
-    alert("Top page");
-    this.keywordparameters = this.ontologyservice.getAnnotationsFromID('dataset:DescriptionKeyword');
-    this.titleparameters = this.ontologyservice.getAnnotationsFromID('dataset:DescriptionTitle');
-    this.descrparameters = this.ontologyservice.getAnnotationsFromID('dataset:DescriptionAbstract');
-    this.classifications = this.ontologyservice.getClassificationTree('');
+    alert('Top page');
+    //this.keywordparameters = this.ontologyservice.getAnnotationsFromID('dataset:DescriptionKeyword');
+    //this.titleparameters = this.ontologyservice.getAnnotationsFromID('dataset:DescriptionTitle');
+    //this.descrparameters = this.ontologyservice.getAnnotationsFromID('dataset:DescriptionAbstract');
+    //this.classifications = this.ontologyservice.getClassificationTree('');
   }
 
 }

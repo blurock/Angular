@@ -8,25 +8,23 @@
 @base <http://www.esblurock.info/dataset> .
 
 <http://www.esblurock.info/dataset> rdf:type owl:Ontology ;
-                                     owl:imports <http://qudt.org/2.1/vocab/dimensionvector> ,
-                                                 <http://qudt.org/2.1/vocab/soqk> ,
-                                                 qb: ,
+                                     owl:imports <http://qudt.org/2.1/schema/datatype> ,
                                                  <http://qudt.org/2.1/schema/qudt> ,
+                                                 <http://qudt.org/2.1/vocab/constant> ,
+                                                 <http://qudt.org/2.1/vocab/dimensionvector> ,
+                                                 <http://qudt.org/2.1/vocab/quantitykind> ,
+                                                 <http://qudt.org/2.1/vocab/soqk> ,
+                                                 <http://qudt.org/2.1/vocab/sou> ,
+                                                 <http://qudt.org/2.1/vocab/unit> ,
+                                                 <http://www.w3.org/2004/02/skos/core> ,
                                                  <http://www.w3.org/2006/vcard/ns> ,
                                                  <http://www.w3.org/ns/dcat> ,
-                                                 <http://qudt.org/2.1/vocab/constant> ,
-                                                 <http://qudt.org/2.1/vocab/quantitykind> ,
-                                                 <http://qudt.org/2.1/vocab/unit> ,
-                                                 <http://qudt.org/2.1/schema/datatype> ,
-                                                 <http://qudt.org/2.1/vocab/sou> ,
                                                  <http://www.w3.org/ns/prov-o-20130430> ,
                                                  <http://www.w3.org/ns/ssn/> ,
-                                                 <http://xmlns.com/foaf/0.1/> ,
-                                                 <http://www.w3.org/2004/02/skos/core> ;
-                                     <http://purl.org/dc/terms/publisher> <http://purl.org/dc/aboutdcmi#DCMI> ;
-                                     <http://purl.org/dc/terms/title> "DCMI Type Vocabulary"@en ;
+                                                 <http://xmlns.com/foaf/0.1/> ;
                                      <http://purl.org/dc/terms/modified> "2012-06-14"^^xsd:date ;
-                                     <http://purl.org/dc/terms/title> "DCMI Metadata Terms - other"@en .
+                                     <http://purl.org/dc/terms/title> "DCMI Metadata Terms - other"@en ,
+                                                                      "DCMI Type Vocabulary"@en .
 
 #################################################################
 #    Annotation properties
@@ -8297,7 +8295,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
               <http://purl.org/dc/terms/identifier> "text/html"^^xsd:string ;
               :fileextension "html"^^xsd:string ;
               rdfs:comment "HTML file" ;
-              rdfs:label "HTML" .
+              rdfs:label "HTML"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#FileTypeImage
@@ -8403,7 +8401,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                         <http://purl.org/dc/terms/identifier> "text/csv"^^xsd:string ;
                         :fileextension "csv"^^xsd:string ;
                         rdfs:comment "CSV spread sheet" ;
-                        rdfs:label "CSV" .
+                        rdfs:label "CSV"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#FileTypeSpreadSheetSpaceDelimited
@@ -19728,7 +19726,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 
 ###  http://www.esblurock.info/dataset
-<http://www.esblurock.info/dataset> rdf:type owl:NamedIndividual .
+<http://www.esblurock.info/dataset> rdf:type owl:NamedIndividual ;
+                                    <http://purl.org/dc/terms/publisher> <http://purl.org/dc/aboutdcmi#DCMI> .
 
 
 ###  http://www.esblurock.info/dataset#AMU
@@ -19743,6 +19742,7 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 ###  http://www.esblurock.info/dataset#CAL-PER-MOL
 :CAL-PER-MOL rdf:type owl:NamedIndividual ;
+             <http://qudt.org/schema/qudt/hasDimensionVector> <http://qudt.org/vocab/dimensionvector/A-1E0L2I0M1H0T-2D0> ;
              <http://qudt.org/schema/qudt/hasQuantityKind> <http://qudt.org/vocab/quantitykind/MolarEnergy> ;
              <http://qudt.org/schema/qudt/abbreviation> "cal/mol"^^xsd:string ;
              <http://qudt.org/schema/qudt/conversionMultiplier> 4.184 ;
@@ -20919,8 +20919,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 
 <http://purl.org/dc/terms/Agent> rdfs:label "Agent"@en ;
-                                 rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                  rdfs:comment "A resource that acts or has the power to act."@en ;
+                                 rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                  <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
                                  <http://purl.org/dc/terms/description> "Examples of Agent include person, organization, and software agent."@en ;
                                  <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#Agent-001> .
@@ -20966,8 +20966,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                      <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date .
 
 
-<http://purl.org/dc/terms/ISO3166> <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
-                                   rdfs:comment "The set of codes listed in ISO 3166-1 for the representation of names of countries."@en ;
+<http://purl.org/dc/terms/ISO3166> rdfs:comment "The set of codes listed in ISO 3166-1 for the representation of names of countries."@en ;
+                                   <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
                                    rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                    <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#ISO3166-004> ;
                                    <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
@@ -20977,8 +20977,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 <http://purl.org/dc/terms/ISO639-2> rdfs:seeAlso <http://lcweb.loc.gov/standards/iso639-2/langhome.html> ;
                                     <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
-                                    <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
                                     rdfs:comment "The three-letter alphabetic codes listed in ISO639-2 for the representation of names of languages."@en ;
+                                    <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
                                     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                     rdfs:label "ISO 639-2"@en ;
                                     <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#ISO639-2-003> .
@@ -20986,17 +20986,17 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 <http://purl.org/dc/terms/ISO639-3> rdfs:label "ISO 639-3"@en ;
                                     rdfs:comment "The set of three-letter codes listed in ISO 639-3 for the representation of names of languages."@en ;
-                                    <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#ISO639-3-001> ;
                                     <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
                                     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+                                    <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#ISO639-3-001> ;
                                     rdfs:seeAlso <http://www.sil.org/iso639-3/> .
 
 
 <http://purl.org/dc/terms/Jurisdiction> <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#Jurisdiction-001> ;
                                         rdfs:label "Jurisdiction"@en ;
-                                        rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+                                        rdfs:comment "The extent or range of judicial, law enforcement, or other authority."@en ;
                                         <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
-                                        rdfs:comment "The extent or range of judicial, law enforcement, or other authority."@en .
+                                        rdfs:isDefinedBy <http://purl.org/dc/terms/> .
 
 
 <http://purl.org/dc/terms/LicenseDocument> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
@@ -21056,9 +21056,9 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                                <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date .
 
 
-<http://purl.org/dc/terms/Period> rdfs:seeAlso <http://dublincore.org/documents/dcmi-period/> ;
-                                  rdfs:comment "The set of time intervals defined by their limits according to the DCMI Period Encoding Scheme."@en ;
+<http://purl.org/dc/terms/Period> rdfs:comment "The set of time intervals defined by their limits according to the DCMI Period Encoding Scheme."@en ;
                                   <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
+                                  rdfs:seeAlso <http://dublincore.org/documents/dcmi-period/> ;
                                   <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
                                   rdfs:label "DCMI Period"@en ;
                                   rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
@@ -21106,16 +21106,16 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 <http://purl.org/dc/terms/ProvenanceStatement> rdfs:label "Provenance Statement"@en ;
                                                rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                                <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
-                                               <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#ProvenanceStatement-001> ;
-                                               rdfs:comment "A statement of any changes in ownership and custody of a resource since its creation that are significant for its authenticity, integrity, and interpretation."@en .
+                                               rdfs:comment "A statement of any changes in ownership and custody of a resource since its creation that are significant for its authenticity, integrity, and interpretation."@en ;
+                                               <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#ProvenanceStatement-001> .
 
 
 <http://purl.org/dc/terms/RFC1766> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                    <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
                                    <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                    <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#RFC1766-003> ;
-                                   rdfs:comment "The set of tags, constructed according to RFC 1766, for the identification of languages."@en ;
                                    rdfs:seeAlso <http://www.ietf.org/rfc/rfc1766.txt> ;
+                                   rdfs:comment "The set of tags, constructed according to RFC 1766, for the identification of languages."@en ;
                                    rdfs:label "RFC 1766"@en .
 
 
@@ -21158,8 +21158,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                           <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#SizeOrDuration-001> ;
                                           <http://purl.org/dc/terms/description> "Examples include a number of pages, a specification of length, width, and breadth, or a period in hours, minutes, and seconds."@en ;
                                           rdfs:comment "A dimension or extent, or a time taken to play or execute."@en ;
-                                          rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
-                                          <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date .
+                                          <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
+                                          rdfs:isDefinedBy <http://purl.org/dc/terms/> .
 
 
 <http://purl.org/dc/terms/Standard> rdfs:comment "A basis for comparison; a reference point against which other things can be evaluated."@en ;
@@ -21169,8 +21169,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                     <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#Standard-001> .
 
 
-<http://purl.org/dc/terms/URI> rdfs:comment "The set of identifiers constructed according to the generic syntax for Uniform Resource Identifiers as specified by the Internet Engineering Task Force."@en ;
-                               rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+<http://purl.org/dc/terms/URI> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+                               rdfs:comment "The set of identifiers constructed according to the generic syntax for Uniform Resource Identifiers as specified by the Internet Engineering Task Force."@en ;
                                <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
                                rdfs:seeAlso <http://www.ietf.org/rfc/rfc3986.txt> ;
                                <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#URI-003> ;
@@ -21180,19 +21180,19 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 <http://purl.org/dc/terms/W3CDTF> rdfs:label "W3C-DTF"@en ;
                                   rdfs:comment "The set of dates and times constructed according to the W3C Date and Time Formats Specification."@en ;
-                                  rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                   <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#W3CDTF-003> ;
+                                  rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                   <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
-                                  rdfs:seeAlso <http://www.w3.org/TR/NOTE-datetime> ;
-                                  <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date .
+                                  <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
+                                  rdfs:seeAlso <http://www.w3.org/TR/NOTE-datetime> .
 
 
 <http://purl.org/dc/terms/abstract> rdfs:label "Abstract"@en ;
                                     <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                     <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#abstract-003> ;
                                     <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
-                                    rdfs:comment "A summary of the resource."@en ;
-                                    rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+                                    rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+                                    rdfs:comment "A summary of the resource."@en .
 
 
 <http://purl.org/dc/terms/accessRights> <http://purl.org/dc/terms/description> "Access Rights may include information regarding access or restrictions based on privacy, security, or other policies."@en ;
@@ -21213,8 +21213,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 
 <http://purl.org/dc/terms/accrualPeriodicity> <http://purl.org/dc/terms/modified> "2010-10-11"^^xsd:date ;
-                                              <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#accrualPeriodicity-003> ;
                                               rdfs:label "Accrual Periodicity"@en ;
+                                              <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#accrualPeriodicity-003> ;
                                               rdfs:comment "The frequency with which items are added to a collection."@en ;
                                               rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                               <http://purl.org/dc/terms/issued> "2005-06-13"^^xsd:date .
@@ -21223,8 +21223,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 <http://purl.org/dc/terms/accrualPolicy> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                          <http://purl.org/dc/terms/issued> "2005-06-13"^^xsd:date ;
                                          <http://purl.org/dc/terms/modified> "2010-10-11"^^xsd:date ;
-                                         <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#accrualPolicy-003> ;
                                          rdfs:comment "The policy governing the addition of items to a collection."@en ;
+                                         <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#accrualPolicy-003> ;
                                          rdfs:label "Accrual Policy"@en .
 
 
@@ -21237,8 +21237,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                        rdfs:label "Alternative Title"@en .
 
 
-<http://purl.org/dc/terms/audience> <http://purl.org/dc/terms/issued> "2001-05-21"^^xsd:date ;
-                                    rdfs:comment "A class of entity for whom the resource is intended or useful."@en ;
+<http://purl.org/dc/terms/audience> rdfs:comment "A class of entity for whom the resource is intended or useful."@en ;
+                                    <http://purl.org/dc/terms/issued> "2001-05-21"^^xsd:date ;
                                     <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#audience-003> ;
                                     rdfs:label "Audience"@en ;
                                     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
@@ -21270,8 +21270,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                       <http://purl.org/dc/terms/issued> "2001-05-21"^^xsd:date .
 
 
-<http://purl.org/dc/terms/contributor> rdfs:comment "An entity responsible for making contributions to the resource."@en ;
-                                       <http://purl.org/dc/terms/modified> "2010-10-11"^^xsd:date ;
+<http://purl.org/dc/terms/contributor> <http://purl.org/dc/terms/modified> "2010-10-11"^^xsd:date ;
+                                       rdfs:comment "An entity responsible for making contributions to the resource."@en ;
                                        rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                        <http://purl.org/dc/terms/description> "Examples of a Contributor include a person, an organization, or a service."@en ;
                                        <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
@@ -21291,8 +21291,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 <http://purl.org/dc/terms/created> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                    rdfs:comment "Date of creation of the resource."@en ;
                                    <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#created-003> ;
-                                   <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                    rdfs:label "Date Created"@en ;
+                                   <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                    <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date .
 
 
@@ -21318,8 +21318,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                         <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#dateAccepted-002> ;
                                         <http://purl.org/dc/terms/issued> "2002-07-13"^^xsd:date ;
                                         <http://purl.org/dc/terms/description> "Examples of resources to which a Date Accepted may be relevant are a thesis (accepted by a university department) or an article (accepted by a journal)."@en ;
-                                        rdfs:label "Date Accepted"@en ;
                                         rdfs:comment "Date of acceptance of the resource."@en ;
+                                        rdfs:label "Date Accepted"@en ;
                                         rdfs:isDefinedBy <http://purl.org/dc/terms/> .
 
 
@@ -21343,16 +21343,16 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 <http://purl.org/dc/terms/description> <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                        rdfs:label "Description"@en ;
                                        rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+                                       rdfs:comment "An account of the resource."@en ;
                                        <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#descriptionT-001> ;
                                        <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
-                                       rdfs:comment "An account of the resource."@en ;
                                        <http://purl.org/dc/terms/description> "Description may include but is not limited to: an abstract, a table of contents, a graphical representation, or a free-text account of the resource."@en .
 
 
 <http://purl.org/dc/terms/educationLevel> <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                           rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
-                                          <http://purl.org/dc/terms/issued> "2002-07-13"^^xsd:date ;
                                           rdfs:label "Audience Education Level"@en ;
+                                          <http://purl.org/dc/terms/issued> "2002-07-13"^^xsd:date ;
                                           rdfs:comment "A class of entity, defined in terms of progression through an educational or training context, for which the described resource is intended."@en ;
                                           <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#educationLevel-002> .
 
@@ -21361,21 +21361,21 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                   <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
                                   rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                   rdfs:comment "The size or duration of the resource."@en ;
-                                  rdfs:label "Extent"@en ;
-                                  <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#extent-003> .
+                                  <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#extent-003> ;
+                                  rdfs:label "Extent"@en .
 
 
 <http://purl.org/dc/terms/format> <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
-                                  <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#formatT-001> ;
                                   <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
+                                  <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#formatT-001> ;
                                   rdfs:comment "The file format, physical medium, or dimensions of the resource."@en ;
                                   <http://purl.org/dc/terms/description> "Examples of dimensions include size and duration. Recommended best practice is to use a controlled vocabulary such as the list of Internet Media Types [MIME]."@en ;
                                   rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                   rdfs:label "Format"@en .
 
 
-<http://purl.org/dc/terms/hasFormat> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
-                                     <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+<http://purl.org/dc/terms/hasFormat> <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+                                     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                      <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#hasFormat-003> ;
                                      <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                      rdfs:label "Has Format"@en ;
@@ -21393,8 +21393,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 
 <http://purl.org/dc/terms/hasVersion> <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#hasVersion-003> ;
-                                      rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                       rdfs:comment "A related resource that is a version, edition, or adaptation of the described resource."@en ;
+                                      rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                       <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
                                       rdfs:label "Has Version"@en ;
                                       <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
@@ -21410,8 +21410,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                       <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date .
 
 
-<http://purl.org/dc/terms/instructionalMethod> <http://purl.org/dc/terms/issued> "2005-06-13"^^xsd:date ;
-                                               <http://purl.org/dc/terms/description> "Instructional Method will typically include ways of presenting instructional materials or conducting instructional activities, patterns of learner-to-learner and learner-to-instructor interactions, and mechanisms by which group and individual levels of learning are measured.  Instructional methods include all aspects of the instruction and learning processes from planning and implementation through evaluation and feedback."@en ;
+<http://purl.org/dc/terms/instructionalMethod> <http://purl.org/dc/terms/description> "Instructional Method will typically include ways of presenting instructional materials or conducting instructional activities, patterns of learner-to-learner and learner-to-instructor interactions, and mechanisms by which group and individual levels of learning are measured.  Instructional methods include all aspects of the instruction and learning processes from planning and implementation through evaluation and feedback."@en ;
+                                               <http://purl.org/dc/terms/issued> "2005-06-13"^^xsd:date ;
                                                rdfs:label "Instructional Method"@en ;
                                                <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                                rdfs:comment "A process, used to engender knowledge, attitudes and skills, that the described resource is designed to support."@en ;
@@ -21431,8 +21431,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 <http://purl.org/dc/terms/isPartOf> <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                     rdfs:label "Is Part Of"@en ;
                                     <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#isPartOf-003> ;
-                                    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
                                     <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
+                                    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
                                     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                     rdfs:comment "A related resource in which the described resource is physically or logically included."@en .
 
@@ -21455,8 +21455,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                         <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#isReplacedBy-003> .
 
 
-<http://purl.org/dc/terms/isRequiredBy> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
-                                        <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+<http://purl.org/dc/terms/isRequiredBy> <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+                                        rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                         <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
                                         rdfs:label "Is Required By"@en ;
                                         <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#isRequiredBy-003> ;
@@ -21465,8 +21465,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 
 <http://purl.org/dc/terms/isVersionOf> rdfs:label "Is Version Of"@en ;
-                                       rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                        rdfs:comment "A related resource of which the described resource is a version, edition, or adaptation."@en ;
+                                       rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                        <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
                                        <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
                                        <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#isVersionOf-003> ;
@@ -21476,8 +21476,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 <http://purl.org/dc/terms/issued> <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                   rdfs:comment "Date of formal issuance (e.g., publication) of the resource."@en ;
-                                  rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                   <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#issued-003> ;
+                                  rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                   <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
                                   rdfs:label "Date Issued"@en .
 
@@ -21494,8 +21494,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 <http://purl.org/dc/terms/license> <http://purl.org/dc/terms/issued> "2004-06-14"^^xsd:date ;
                                    rdfs:label "License"@en ;
                                    rdfs:comment "A legal document giving official permission to do something with the resource."@en ;
-                                   <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                    <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#license-002> ;
+                                   <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                    rdfs:isDefinedBy <http://purl.org/dc/terms/> .
 
 
@@ -21529,26 +21529,26 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                       <http://purl.org/dc/terms/issued> "2004-09-20"^^xsd:date ;
                                       rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                       <http://purl.org/dc/terms/description> "The statement may include a description of any changes successive custodians made to the resource."@en ;
-                                      <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#provenance-002> ;
-                                      rdfs:label "Provenance"@en .
+                                      rdfs:label "Provenance"@en ;
+                                      <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#provenance-002> .
 
 
 <http://purl.org/dc/terms/publisher> <http://purl.org/dc/terms/modified> "2010-10-11"^^xsd:date ;
                                      <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
                                      rdfs:label "Publisher"@en ;
-                                     <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#publisherT-001> ;
                                      <http://purl.org/dc/terms/description> "Examples of a Publisher include a person, an organization, or a service."@en ;
+                                     <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#publisherT-001> ;
                                      rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                      rdfs:comment "An entity responsible for making the resource available."@en .
 
 
-<http://purl.org/dc/terms/references> rdfs:comment "A related resource that is referenced, cited, or otherwise pointed to by the described resource."@en ;
-                                      rdfs:label "References"@en ;
+<http://purl.org/dc/terms/references> rdfs:label "References"@en ;
+                                      rdfs:comment "A related resource that is referenced, cited, or otherwise pointed to by the described resource."@en ;
                                       <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                       <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
                                       <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#references-003> ;
-                                      rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
-                                      <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
+                                      <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
+                                      rdfs:isDefinedBy <http://purl.org/dc/terms/> .
 
 
 <http://purl.org/dc/terms/relation> <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
@@ -21575,12 +21575,12 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                     rdfs:label "Requires"@en ;
                                     rdfs:comment "A related resource that is required by the described resource to support its function, delivery, or coherence."@en ;
                                     rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
-                                    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en ;
-                                    <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date .
+                                    <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
+                                    <http://www.w3.org/2004/02/skos/core#note> "This term is intended to be used with non-literal values as defined in the DCMI Abstract Model (http://dublincore.org/documents/abstract-model/).  As of December 2007, the DCMI Usage Board is seeking a way to express this intention with a formal range declaration."@en .
 
 
-<http://purl.org/dc/terms/rights> <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
-                                  rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+<http://purl.org/dc/terms/rights> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+                                  <http://purl.org/dc/terms/issued> "2008-01-14"^^xsd:date ;
                                   rdfs:label "Rights"@en ;
                                   rdfs:comment "Information about rights held in and over the resource."@en ;
                                   <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
@@ -21588,8 +21588,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                   <http://purl.org/dc/terms/description> "Typically, rights information includes a statement about various property rights associated with the resource, including intellectual property rights."@en .
 
 
-<http://purl.org/dc/terms/rightsHolder> rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
-                                        <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#rightsHolder-002> ;
+<http://purl.org/dc/terms/rightsHolder> <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#rightsHolder-002> ;
+                                        rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                         <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                         rdfs:comment "A person or organization owning or managing rights over the resource."@en ;
                                         <http://purl.org/dc/terms/issued> "2004-06-14"^^xsd:date ;
@@ -21602,8 +21602,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                   rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                   <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
                                   <http://purl.org/dc/terms/hasVersion> <http://dublincore.org/usage/terms/history/#sourceT-001> ;
-                                  rdfs:comment "A related resource from which the described resource is derived."@en ;
-                                  <http://purl.org/dc/terms/description> "The described resource may be derived from the related resource in whole or in part. Recommended best practice is to identify the related resource by means of a string conforming to a formal identification system."@en .
+                                  <http://purl.org/dc/terms/description> "The described resource may be derived from the related resource in whole or in part. Recommended best practice is to identify the related resource by means of a string conforming to a formal identification system."@en ;
+                                  rdfs:comment "A related resource from which the described resource is derived."@en .
 
 
 <http://purl.org/dc/terms/spatial> rdfs:label "Spatial Coverage"@en ;
@@ -21624,8 +21624,8 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                    rdfs:isDefinedBy <http://purl.org/dc/terms/> .
 
 
-<http://purl.org/dc/terms/tableOfContents> rdfs:comment "A list of subunits of the resource."@en ;
-                                           <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
+<http://purl.org/dc/terms/tableOfContents> <http://purl.org/dc/terms/issued> "2000-07-11"^^xsd:date ;
+                                           rdfs:comment "A list of subunits of the resource."@en ;
                                            rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
                                            rdfs:label "Table Of Contents"@en ;
                                            <http://purl.org/dc/terms/modified> "2008-01-14"^^xsd:date ;
@@ -21665,9 +21665,9 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
                                  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
 
 
-<http://qudt.org/vocab/unit#KilocaloriePerMole> <http://qudt.org/schema/qudt#conversionMultiplier> "4184"^^xsd:string ;
+<http://qudt.org/vocab/unit#KilocaloriePerMole> <http://qudt.org/schema/qudt#symbol> "kcal/mol"^^xsd:string ;
                                                 <http://qudt.org/schema/qudt#conversionOffset> 0.0 ;
-                                                <http://qudt.org/schema/qudt#symbol> "kcal/mol"^^xsd:string .
+                                                <http://qudt.org/schema/qudt#conversionMultiplier> "4184"^^xsd:string .
 
 
 :ContactEmail <http://purl.org/dc/terms/identifier> "vcard:email"^^xsd:string ;
@@ -21677,174 +21677,174 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
               <http://purl.org/dc/elements/1.1/type> "Email" .
 
 
-:ContactInfoData rdfs:comment "A link to another contact, and the type of link" ;
-                 <http://purl.org/dc/elements/1.1/type> "ContactInfoData"^^xsd:string ;
-                 <http://www.w3.org/2004/02/skos/core#altLabel> "contact"^^xsd:string ;
+:ContactInfoData <http://www.w3.org/2004/02/skos/core#altLabel> "contact"^^xsd:string ;
                  <http://purl.org/dc/terms/identifier> "dataset:ContactInfoData"^^xsd:string ;
+                 <http://purl.org/dc/elements/1.1/type> "ContactInfoData"^^xsd:string ;
+                 rdfs:comment "A link to another contact, and the type of link" ;
                  rdfs:label "Contact Information"^^xsd:string .
 
 
 :ContactLocationInformation rdfs:comment "The basic location information for an address" ;
-                            <http://www.w3.org/2004/02/skos/core#altLabel> "location"^^xsd:string ;
+                            <http://purl.org/dc/terms/identifier> "vcard:Location"^^xsd:string ;
                             <http://purl.org/dc/elements/1.1/type> "ContactLocationInformation"^^xsd:string ;
                             rdfs:label "Contact Location Information"^^xsd:string ;
-                            <http://purl.org/dc/terms/identifier> "vcard:Location"^^xsd:string .
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "location"^^xsd:string .
 
 
-:ContactSiteOf rdfs:label "HTTP site of institution"^^xsd:string ;
-               <http://purl.org/dc/terms/identifier> "foaf:workInfoHomepage"^^xsd:string ;
+:ContactSiteOf <http://www.w3.org/2004/02/skos/core#altLabel> "httpinst"^^xsd:string ;
+               rdfs:label "HTTP site of institution"^^xsd:string ;
                <http://purl.org/dc/elements/1.1/type> "HTTPAddress" ;
-               <http://www.w3.org/2004/02/skos/core#altLabel> "httpinst"^^xsd:string ;
-               rdfs:comment "The URL of a site or organization" .
+               rdfs:comment "The URL of a site or organization" ;
+               <http://purl.org/dc/terms/identifier> "foaf:workInfoHomepage"^^xsd:string .
 
 
 :DOI <http://www.w3.org/2004/02/skos/core#altLabel> "doi" ;
+     <http://purl.org/dc/terms/identifier> "datacite:PrimaryResourceIdentifier"^^xsd:string ;
      rdfs:comment "The DOI string of a reference. There is no checking of format, but it should not have the http: prefix" ;
      rdfs:label "DOI reference"^^xsd:string ;
-     <http://purl.org/dc/terms/identifier> "datacite:PrimaryResourceIdentifier"^^xsd:string ;
      <http://purl.org/dc/elements/1.1/type> :DOI .
 
 
 :DataSetReference <http://purl.org/dc/elements/1.1/type> "DataSetReference"^^xsd:string ;
-                  <http://www.w3.org/2004/02/skos/core#altLabel> "ref"^^xsd:string ;
-                  rdfs:label "Data Set Reference"^^xsd:string ;
                   rdfs:comment "The information about a bibliographical reference" ;
-                  <http://purl.org/dc/terms/identifier> "dcterms:BibliographicResource"^^xsd:string .
+                  rdfs:label "Data Set Reference"^^xsd:string ;
+                  <http://purl.org/dc/terms/identifier> "dcterms:BibliographicResource"^^xsd:string ;
+                  <http://www.w3.org/2004/02/skos/core#altLabel> "ref"^^xsd:string .
 
 
-:DateCreated rdfs:comment "This refers to when the data in the data object was originally created/published. This is different from when the data object was entered into the database."^^xsd:string ;
+:DateCreated <http://purl.org/dc/terms/identifier> "dcterms:created"^^xsd:string ;
              rdfs:isDefinedBy <http://purl.org/dc/terms/created> ;
+             rdfs:comment "This refers to when the data in the data object was originally created/published. This is different from when the data object was entered into the database."^^xsd:string ;
              <http://purl.org/dc/elements/1.1/type> "DateCreated" ;
-             <http://purl.org/dc/terms/identifier> "dcterms:created"^^xsd:string ;
-             rdfs:label "creation date of data within object" ;
-             <http://www.w3.org/2004/02/skos/core#altLabel> "create"^^xsd:string .
+             <http://www.w3.org/2004/02/skos/core#altLabel> "create"^^xsd:string ;
+             rdfs:label "creation date of data within object" .
 
 
 :DescriptionAbstract <http://purl.org/dc/elements/1.1/type> "Paragraph" ;
                      rdfs:comment "A paragraph description of the entity" ;
-                     <http://purl.org/dc/terms/identifier> "dcterms:description"^^xsd:string ;
                      <http://www.w3.org/2004/02/skos/core#altLabel> "abstract"^^xsd:string ;
-                     rdfs:label "This is a longer (paragraph) description"^^xsd:string .
+                     rdfs:label "This is a longer (paragraph) description"^^xsd:string ;
+                     <http://purl.org/dc/terms/identifier> "dcterms:description"^^xsd:string .
 
 
 :DescriptionDataData <http://purl.org/dc/elements/1.1/type> "DescriptionDataData"^^xsd:string ;
+                     rdfs:label "Description Data"^^xsd:string ;
                      rdfs:comment "A standard general description of a object" ;
                      <http://purl.org/dc/terms/identifier> "dc:description"^^xsd:string ;
-                     <http://www.w3.org/2004/02/skos/core#altLabel> "descr"^^xsd:string ;
-                     rdfs:label "Description Data"^^xsd:string .
+                     <http://www.w3.org/2004/02/skos/core#altLabel> "descr"^^xsd:string .
 
 
-:DescriptionKeyword <http://www.w3.org/2004/02/skos/core#altLabel> "keyword"^^xsd:string ;
+:DescriptionKeyword <http://purl.org/dc/terms/identifier> "dcat:keyword"^^xsd:string ;
+                    <http://www.w3.org/2004/02/skos/core#altLabel> "keyword"^^xsd:string ;
                     rdfs:comment "A keyword describing the entity" ;
-                    <http://purl.org/dc/terms/identifier> "dcat:keyword"^^xsd:string ;
                     rdfs:label "Description Keyword" ;
                     <http://purl.org/dc/elements/1.1/type> :DescriptionKeyword .
 
 
 :DescriptionTitle <http://purl.org/dc/elements/1.1/type> "OneLine" ;
-                  <http://purl.org/dc/terms/identifier> "dcterms:title"^^xsd:string ;
                   rdfs:comment "This is a paragraph description" ;
+                  <http://www.w3.org/2004/02/skos/core#altLabel> "title"^^xsd:string ;
                   rdfs:label "Title" ;
-                  <http://www.w3.org/2004/02/skos/core#altLabel> "title"^^xsd:string .
+                  <http://purl.org/dc/terms/identifier> "dcterms:title"^^xsd:string .
 
 
-:GPSLatitude <http://purl.org/dc/terms/identifier> "geo:lat"^^xsd:string ;
-             <http://www.w3.org/2004/02/skos/core#altLabel> "lat"^^xsd:string ;
-             rdfs:comment "The latitude coordinates as a string" ;
+:GPSLatitude <http://www.w3.org/2004/02/skos/core#altLabel> "lat"^^xsd:string ;
              rdfs:label "GPS Latitude"^^xsd:string ;
+             rdfs:comment "The latitude coordinates as a string" ;
+             <http://purl.org/dc/terms/identifier> "geo:lat"^^xsd:string ;
              <http://purl.org/dc/elements/1.1/type> "GPSData" .
 
 
-:GPSLocation <http://purl.org/dc/elements/1.1/type> "GPSLocation"^^xsd:string ;
+:GPSLocation <http://purl.org/dc/terms/identifier> "geo:location"^^xsd:string ;
              rdfs:comment "This has the GPS coordinates, both latitute and longitude." ;
              rdfs:label "GPS Location" ;
              <http://www.w3.org/2004/02/skos/core#altLabel> "gpsloc"^^xsd:string ;
-             <http://purl.org/dc/terms/identifier> "geo:location"^^xsd:string .
+             <http://purl.org/dc/elements/1.1/type> "GPSLocation"^^xsd:string .
 
 
 :GPSLongitude <http://purl.org/dc/elements/1.1/type> "GPSData" ;
-              <http://www.w3.org/2004/02/skos/core#altLabel> "long"^^xsd:string ;
-              rdfs:comment "The longitude coordinates as a string" ;
+              <http://purl.org/dc/terms/identifier> "geo:long"^^xsd:string ;
               rdfs:label "GPS Longitude"^^xsd:string ;
-              <http://purl.org/dc/terms/identifier> "geo:long"^^xsd:string .
+              rdfs:comment "The longitude coordinates as a string" ;
+              <http://www.w3.org/2004/02/skos/core#altLabel> "long"^^xsd:string .
 
 
 :LocationAddress <http://purl.org/dc/elements/1.1/type> "Paragraph" ;
-                 <http://www.w3.org/2004/02/skos/core#altLabel> "street"^^xsd:string ;
-                 <http://purl.org/dc/terms/identifier> "vcard:street-address"^^xsd:string ;
                  rdfs:label "Street address"^^xsd:string ;
-                 rdfs:comment "The address in several lines" .
+                 <http://purl.org/dc/terms/identifier> "vcard:street-address"^^xsd:string ;
+                 rdfs:comment "The address in several lines" ;
+                 <http://www.w3.org/2004/02/skos/core#altLabel> "street"^^xsd:string .
 
 
-:LocationCity rdfs:label "City name"^^xsd:string ;
+:LocationCity <http://www.w3.org/2004/02/skos/core#altLabel> "city"^^xsd:string ;
               rdfs:comment "The city name as a string" ;
-              <http://www.w3.org/2004/02/skos/core#altLabel> "city"^^xsd:string ;
               <http://purl.org/dc/terms/identifier> "vcard:locality"^^xsd:string ;
-              <http://purl.org/dc/elements/1.1/type> "LocationCity" .
+              <http://purl.org/dc/elements/1.1/type> "LocationCity" ;
+              rdfs:label "City name"^^xsd:string .
 
 
-:LocationCountry rdfs:label "Country name"^^xsd:string ;
+:LocationCountry <http://purl.org/dc/terms/identifier> "vcard:country-name"^^xsd:string ;
+                 <http://www.w3.org/2004/02/skos/core#altLabel> "country"^^xsd:string ;
                  rdfs:comment "The full name of a country" ;
                  <http://purl.org/dc/elements/1.1/type> "LocationCountry" ;
-                 <http://purl.org/dc/terms/identifier> "vcard:country-name"^^xsd:string ;
-                 <http://www.w3.org/2004/02/skos/core#altLabel> "country"^^xsd:string .
+                 rdfs:label "Country name"^^xsd:string .
 
 
-:LocationPostcode <http://www.w3.org/2004/02/skos/core#altLabel> "postcode"^^xsd:string ;
+:LocationPostcode <http://purl.org/dc/terms/identifier> "vcard:postal-code"^^xsd:string ;
                   rdfs:label "Location Postcode" ;
-                  rdfs:comment "The post code. The form depends on the country." ;
+                  <http://www.w3.org/2004/02/skos/core#altLabel> "postcode"^^xsd:string ;
                   <http://purl.org/dc/elements/1.1/type> "ShortString" ;
-                  <http://purl.org/dc/terms/identifier> "vcard:postal-code"^^xsd:string .
+                  rdfs:comment "The post code. The form depends on the country." .
 
 
-:NameOfPerson <http://purl.org/dc/terms/identifier> "foaf:name"^^xsd:string ;
+:NameOfPerson <http://www.w3.org/2004/02/skos/core#altLabel> "pname"^^xsd:string ;
               rdfs:label "Name of Person" ;
-              <http://www.w3.org/2004/02/skos/core#altLabel> "pname"^^xsd:string ;
-              rdfs:comment "The full name of a person (including title)" ;
-              <http://purl.org/dc/elements/1.1/type> "NameOfPerson"^^xsd:string .
+              <http://purl.org/dc/terms/identifier> "foaf:name"^^xsd:string ;
+              <http://purl.org/dc/elements/1.1/type> "NameOfPerson"^^xsd:string ;
+              rdfs:comment "The full name of a person (including title)" .
 
 
 :Organization rdfs:comment "All the descriptive information about an organization" ;
-              <http://purl.org/dc/elements/1.1/type> "Organization"^^xsd:string ;
-              rdfs:label "Organization"^^xsd:string ;
               <http://www.w3.org/2004/02/skos/core#altLabel> "org"^^xsd:string ;
+              rdfs:label "Organization"^^xsd:string ;
+              <http://purl.org/dc/elements/1.1/type> "Organization"^^xsd:string ;
               <http://purl.org/dc/terms/identifier> "org:Organization"^^xsd:string .
 
 
-:OrganizationClassification <http://purl.org/dc/terms/identifier> "org:role"^^xsd:string ;
-                            <http://www.w3.org/2004/02/skos/core#altLabel> "orgclass"^^xsd:string ;
-                            <http://purl.org/dc/elements/1.1/type> "Classification" ;
+:OrganizationClassification <http://purl.org/dc/elements/1.1/type> "Classification" ;
                             rdfs:isDefinedBy :OrganizationClassifications ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "orgclass"^^xsd:string ;
                             rdfs:label "Organization Classification" ;
-                            rdfs:comment "This is the type of organization associated with the entity." .
+                            rdfs:comment "This is the type of organization associated with the entity." ;
+                            <http://purl.org/dc/terms/identifier> "org:role"^^xsd:string .
 
 
 :OrganizationDescription rdfs:label "Organization information"^^xsd:string ;
-                         <http://purl.org/dc/elements/1.1/type> "OrganizationDescription"^^xsd:string ;
                          <http://purl.org/dc/terms/identifier> "org:Organization"^^xsd:string ;
-                         <http://www.w3.org/2004/02/skos/core#altLabel> "orginfo"^^xsd:string ;
-                         rdfs:comment "This is the basic informtion about an organization" .
+                         <http://purl.org/dc/elements/1.1/type> "OrganizationDescription"^^xsd:string ;
+                         rdfs:comment "This is the basic informtion about an organization" ;
+                         <http://www.w3.org/2004/02/skos/core#altLabel> "orginfo"^^xsd:string .
 
 
 :OrganizationName rdfs:label "Organization Name" ;
                   <http://purl.org/dc/elements/1.1/type> :OrganizationName ;
-                  <http://www.w3.org/2004/02/skos/core#altLabel> "orgname"^^xsd:string ;
+                  <http://purl.org/dc/terms/identifier> "org:FormalOrganization"^^xsd:string ;
                   rdfs:comment "This is the organizational unit which this class describes. This is for example an institute of a university or a department of a company."^^xsd:string ;
-                  <http://purl.org/dc/terms/identifier> "org:FormalOrganization"^^xsd:string .
+                  <http://www.w3.org/2004/02/skos/core#altLabel> "orgname"^^xsd:string .
 
 
 :OrganizationalUnit rdfs:label "Organizational Unit" ;
-                    <http://purl.org/dc/terms/identifier> "org:OrganizationalUnit"^^xsd:string ;
                     <http://www.w3.org/2004/02/skos/core#altLabel> "orgunit"^^xsd:string ;
+                    <http://purl.org/dc/terms/identifier> "org:OrganizationalUnit"^^xsd:string ;
                     <http://purl.org/dc/elements/1.1/type> "ShortString" ;
                     rdfs:comment "This is a sub-division of the organization. Within a larger institute of a university, there are often thematic groups (usually headed by a professor)."^^xsd:string .
 
 
-:PersonalDescription rdfs:label "Personal Information"^^xsd:string ;
-                     <http://purl.org/dc/terms/identifier> "foaf:Person"^^xsd:string ;
+:PersonalDescription <http://purl.org/dc/terms/identifier> "foaf:Person"^^xsd:string ;
+                     rdfs:label "Personal Information"^^xsd:string ;
                      <http://purl.org/dc/elements/1.1/type> "PersonalDescription"^^xsd:string ;
-                     rdfs:comment "The basic information about a person" ;
-                     <http://www.w3.org/2004/02/skos/core#altLabel> "person"^^xsd:string .
+                     <http://www.w3.org/2004/02/skos/core#altLabel> "person"^^xsd:string ;
+                     rdfs:comment "The basic information about a person" .
 
 
 :ReferenceString <http://purl.org/dc/terms/identifier> "dataset:referencestring"^^xsd:string ;
@@ -21855,49 +21855,49 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 
 :SourceKey <http://purl.org/dc/elements/1.1/type> "SourceKey" ;
-           <http://purl.org/dc/terms/identifier> "dcat:dataset"^^xsd:string ;
-           rdfs:comment "This is the catalog and organization which produced the data."^^xsd:string ;
+           <http://www.w3.org/2004/02/skos/core#altLabel> "source"^^xsd:string ;
            rdfs:label "source key"^^xsd:string ;
-           <http://www.w3.org/2004/02/skos/core#altLabel> "source"^^xsd:string .
+           <http://purl.org/dc/terms/identifier> "dcat:dataset"^^xsd:string ;
+           rdfs:comment "This is the catalog and organization which produced the data."^^xsd:string .
 
 
-:SubOrganizationOf <http://www.w3.org/2004/02/skos/core#altLabel> "suborg"^^xsd:string ;
+:SubOrganizationOf <http://purl.org/dc/terms/identifier> "org:unitOf"^^xsd:string ;
+                   <http://www.w3.org/2004/02/skos/core#altLabel> "suborg"^^xsd:string ;
                    <http://purl.org/dc/elements/1.1/type> :SubOrganizationOf ;
-                   <http://purl.org/dc/terms/identifier> "org:unitOf"^^xsd:string ;
-                   rdfs:label "Suborganization of" ;
-                   rdfs:comment "This describes the main organization governing organiation, for example the university or company"^^xsd:string .
+                   rdfs:comment "This describes the main organization governing organiation, for example the university or company"^^xsd:string ;
+                   rdfs:label "Suborganization of" .
 
 
 :TemperatureSensor <http://www.w3.org/ns/sosa/madeObservation> :TemperatureMeasurement .
 
 
 :UserClassification rdfs:label "User Classification" ;
-                    <http://purl.org/dc/terms/identifier> "vcard:role"^^xsd:string ;
-                    <http://purl.org/dc/elements/1.1/type> "UserClassification" ;
                     <http://www.w3.org/2004/02/skos/core#altLabel> "userclass"^^xsd:string ;
+                    <http://purl.org/dc/elements/1.1/type> "UserClassification" ;
                     rdfs:isDefinedBy :PersonClassification ;
-                    rdfs:comment "The professional role of the person: researchre, professor, CEO, etc."^^xsd:string .
+                    rdfs:comment "The professional role of the person: researchre, professor, CEO, etc."^^xsd:string ;
+                    <http://purl.org/dc/terms/identifier> "vcard:role"^^xsd:string .
 
 
-:UserTitle <http://www.w3.org/2004/02/skos/core#altLabel> "usertitle"^^xsd:string ;
+:UserTitle <http://purl.org/dc/terms/identifier> "foaf:title"^^xsd:string ;
            <http://purl.org/dc/elements/1.1/type> "Classification" ;
            rdfs:isDefinedBy :UserTitleChoices ;
            rdfs:comment "This is the title of the person." ;
-           <http://purl.org/dc/terms/identifier> "foaf:title"^^xsd:string ;
+           <http://www.w3.org/2004/02/skos/core#altLabel> "usertitle"^^xsd:string ;
            rdfs:label "User Title" .
 
 
-:familyName <http://www.w3.org/2004/02/skos/core#altLabel> "fname"^^xsd:string ;
-            rdfs:label "Family Name" ;
-            <http://purl.org/dc/terms/identifier> "foaf:familyName"^^xsd:string ;
+:familyName rdfs:label "Family Name" ;
+            <http://www.w3.org/2004/02/skos/core#altLabel> "fname"^^xsd:string ;
             <http://purl.org/dc/elements/1.1/type> :familyName ;
-            rdfs:comment "The family name (surname)" .
+            rdfs:comment "The family name (surname)" ;
+            <http://purl.org/dc/terms/identifier> "foaf:familyName"^^xsd:string .
 
 
 :givenName rdfs:label "Given Name" ;
            <http://purl.org/dc/terms/identifier> "foaf:givenName"^^xsd:string ;
-           <http://www.w3.org/2004/02/skos/core#altLabel> "given"^^xsd:string ;
            rdfs:comment "This is the given name of the person. This is the list of names (if multiple) not including the family name." ;
+           <http://www.w3.org/2004/02/skos/core#altLabel> "given"^^xsd:string ;
            <http://purl.org/dc/elements/1.1/type> :givenName .
 
 
@@ -22151,4 +22151,4 @@ basic geo vocab
 ] .
 
 
-###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

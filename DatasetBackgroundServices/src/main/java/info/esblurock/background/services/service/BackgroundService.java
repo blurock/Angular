@@ -18,7 +18,7 @@ import info.esblurock.background.services.servicecollection.DatabaseServicesBase
 import info.esblurock.background.services.servicecollection.ServiceCollectionQueryOntology;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
-@WebServlet(name = "BackgroundService", urlPatterns = { "/service" })
+//@WebServlet(name = "BackgroundService", urlPatterns = { "/service" })
 public class BackgroundService extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -32,7 +32,6 @@ public class BackgroundService extends HttpServlet {
 	 *
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
 		String bodyS = getBody(request);
 		JsonObject body = JsonObjectUtilities.jsonObjectFromString(bodyS);
 		JsonObject answer = DatabaseServicesBase.process(body);
