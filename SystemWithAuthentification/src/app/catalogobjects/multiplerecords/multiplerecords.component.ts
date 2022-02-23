@@ -20,7 +20,7 @@ objanno: any;
   @Input() refinfo: any;
   @Input() objlabel: string;
   @Input() primary = true;
-  @Output() refinfochange = new EventEmitter<any>();
+ // @Output() refinfochange = new EventEmitter<any>();
 
 
   constructor() { }
@@ -67,7 +67,7 @@ objanno: any;
         this.refinfo.push(element);
       }
 
-      this.refinfochange.emit(this.refinfo);
+      //this.refinfochange.emit(this.refinfo);
   }
 
 }

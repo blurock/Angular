@@ -24,8 +24,8 @@
 					<div *ngFor="let ref of refinfo">
 						<div class="multboxelement">
 							<cdk-virtual-scroll-viewport [itemSize]="18 * 7" class="viewport">
-								<app-referenceinformation [annoinfo]="annoinfo" [(refinfo)]="ref">
-								</app-referenceinformation>
+								<!--app-referenceinformation [annoinfo]="annoinfo" [(refinfo)]="ref">
+								</app-referenceinformation -->
 							</cdk-virtual-scroll-viewport>
 						</div>
 					</div>
@@ -34,14 +34,14 @@
 		</div>
 		<div class="subobjectref" *ngSwitchCase="'NameOfPerson'">
 			<div *ngFor="let ref of refinfo" width="100%">
-				<app-nameofperson [annoinfo]="annoinfo" [(namedata)]="ref">
-				</app-nameofperson>
+				<!-- app-nameofperson [annoinfo]="annoinfo" [(namedata)]="ref">
+				</app-nameofperson -->
 			</div>
 		</div>
 		<div class="objectref" *ngSwitchCase="'ObjectSiteReference'">
 			<div *ngFor="let ref of refinfo" width="100%">
-				<app-objectsitereference [annoinfo]="annoinfo" [(refinfo)]="ref">
-				</app-objectsitereference>
+				<!--app-objectsitereference [annoinfo]="annoinfo" [(refinfo)]="ref">
+				</app-objectsitereference -->
 			</div>
 		</div>
 		<div>
