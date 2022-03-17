@@ -23,6 +23,8 @@ export class HeaderComponent {
 	}
 
 	login() {
+		this.router.navigateByUrl('/sign-in');
+		/*
 		this.auth
 			.loginViaGoogle()
 			.pipe(
@@ -51,6 +53,7 @@ export class HeaderComponent {
 					}
 				}
 			);
+			*/
 	}
 
 	logout() {

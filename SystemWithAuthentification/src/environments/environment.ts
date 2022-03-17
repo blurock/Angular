@@ -3,19 +3,19 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  apiURL: 'http://localhost:8080',
-  firebase: {
-    apiKey: 'AIzaSyCI6851gPulMki7d4oSVlMkAaolt8o_Br0',
-    authDomain: 'blurock-firebase.firebaseapp.com',
-    databaseURL: 'https://blurock-firebase.firebaseio.com',
-    projectId: 'blurock-firebase',
-    storageBucket: 'blurock-firebase.appspot.com',
-    messagingSenderId: '814571995343',
-    appId: '1:814571995343:web:e048df62138c9d76b737ba',
-    measurementId: 'YOUR measurementId HERE',
-    
-  },
+	production: false,
+	useEmulators: true,
+	apiURL: 'http://localhost:4200',
+	firebase: {
+		apiKey: 'AIzaSyBFHXqA8MXdv-KbON_IU78BItS9KangM1Y',
+		authDomain: 'blurock-database.firebaseapp.com',
+		databaseURL: 'http://localhost:8083',
+		projectId: 'blurock-database',
+		storageBucket: 'blurock-database.appspot.com',
+		messagingSenderId: '814571995343',
+		appId: '1:814571995343:web:e048df62138c9d76b737ba',
+		measurementId: 'YOUR measurementId HERE'
+	},
 };
 
 /*

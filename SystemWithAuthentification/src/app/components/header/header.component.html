@@ -1,10 +1,11 @@
+
 <mat-toolbar color="primary">
   <mat-toolbar-row >
-    <button 
+    <!-- button 
       mat-button 
       routerLink="/feed"
       matTooltip="🐱Gram Home"
-      >Gram</button>
+      >Gram</button -->
     <span class="spacer"></span>
     <ng-container *ngIf="user$ | async as user; else loginIcon">
       <button 
@@ -40,5 +41,7 @@
         </mat-icon>
       </button>
     </ng-template>
+
+
   </mat-toolbar-row>
 </mat-toolbar>

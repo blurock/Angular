@@ -5,12 +5,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Base64;
 import java.util.Iterator;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 import com.google.gson.JsonObject;
 
@@ -32,6 +35,24 @@ public class BackgroundService extends HttpServlet {
 	 *
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		// Not sure about 'name of header' 
+		// From const headers = new Headers({'Authorization': 'Bearer ' + authToken });
+		// In 
+		try {
+			boolean sucess = request.authenticate(response);
+		} catch (IOException | ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		String authHeader = request.getHeader("authorization");
+		String encodedValue = authHeader.split(" ")[1];
+		System.out.println("Base64-encoded Authorization Value: <em>" + encodedValue);
+		byte[] decodedValue = Base64.getDecoder().decode(encodedValue);
+		System.out.println("</em><br/>Base64-decoded Authorization Value: <em>" + decodedValue);
+		System.out.println("</em>");
+		
+		
 		String bodyS = getBody(request);
 		JsonObject body = JsonObjectUtilities.jsonObjectFromString(bodyS);
 		JsonObject answer = DatabaseServicesBase.process(body);

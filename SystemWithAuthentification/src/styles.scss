@@ -14,6 +14,30 @@ body {
   font-size: 8pt;
   float: right;
 }
+.login-card {
+	width: 350px;
+	padding: 10px;
+}
+.full-width {
+	width: 100%;
+}
+.full-width-padded {
+	width: 100%;
+	padding: 3px;
+}
+.half-width {
+	width: 50%;
+	padding: 3px;
+}
+.center-title {
+	text-align: center;	
+}
+.password-section {
+	padding: 20px;
+}
+.google-section {
+	padding: 20px;
+}
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';

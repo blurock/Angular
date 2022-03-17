@@ -11,40 +11,39 @@ import { HeaderComponent } from './components/header/header.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { AppFirebaseModule } from './app-firebase/app-firebase.module';
 import { AppMaterialModule } from './app-material/app-material.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { RepositorydatafileComponent } from './catalogobjects/repository/repositorydatafile/repositorydatafile.component';
-import {MatCardModule} from '@angular/material/card';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatFormFieldModule} from '@angular/material/form-field'; 
-import {MatInputModule} from '@angular/material/input';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import {MatSelectModule} from '@angular/material/select';
-import {ScrollingModule} from '@angular/cdk/scrolling'; 
-import {MatSidenavModule} from '@angular/material/sidenav'; 
+import { MatSelectModule } from '@angular/material/select';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {CdkScrollableModule} from '@angular/cdk/scrolling';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 
-import {MatTreeModule} from '@angular/material/tree';
-import {MatDialogModule} from '@angular/material/dialog';
-import { MatTabsModule} from '@angular/material/tabs';
-import {MatListModule} from '@angular/material/list';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatListModule } from '@angular/material/list';
 
 
 import { CatalogbaseextraComponent } from './catalogobjects/catalogbaseextra/catalogbaseextra.component';
@@ -64,97 +63,135 @@ import { ClassificationtreeComponent } from './primitives/classificationtree/cla
 import { ObjectsitereferenceComponent } from './catalogobjects/catalogbaseobjects/objectsitereference/objectsitereference.component';
 import { HttpaddressComponent } from './primitives/httpaddress/httpaddress.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SignInComponent } from './components/login/sign-in/sign-in.component';
+import { AuthService } from './services/auth.service';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { USE_DEVICE_LANGUAGE, USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/compat/auth';
+import { AngularFirestoreModule, USE_EMULATOR as USE_FIRESTORE_EMULATOR, SETTINGS as FIRESTORE_SETTINGS } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule, USE_EMULATOR as USE_DATABASE_EMULATOR } from '@angular/fire/compat/database';
+import { AngularFireStorageModule, USE_EMULATOR as USE_STORAGE_EMULATOR } from '@angular/fire/compat/storage';
+import { HomepageComponent } from './layout/homepage/homepage.component';
+import { ToppageComponent } from './layout/toppage/toppage.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { TopnavComponent } from './layout/topnav/topnav.component';
+import { TextcardComponent } from './layout/homepage/textcard/textcard.component';
+//import { USE_EMULATOR as FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
+
 
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CreateComponent,
-    FeedComponent,
-    ProfileCardComponent,
-    HeaderComponent,
-    RepositorydatafileComponent,
-    CatalogbasedataComponent,
-    CatalogbaseextraComponent,
-    DatadatadescriptionComponent,
-    OnelineprimitiveComponent,
-    TextareaprimitiveComponent,
-    CatalogconceptpurposeComponent,
-    KeywordlistprimitiveComponent,
-    CatalogidComponent,
-    SimplechoiceprimitiveComponent,
-    MultiplerecordsComponent,
-    ReferenceinformationComponent,
-    NameofpersonComponent,
-    DoiComponent,
-    ClassificationtreeComponent,
-    ObjectsitereferenceComponent,
-    HttpaddressComponent
-  ],
-  imports: [
-    AppFirebaseModule,
-    AppMaterialModule,
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatInputModule,
-    MatDividerModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatTooltipModule,
-    MatSnackBarModule,
-    HttpClientModule,
-    MatCardModule,
-    RouterModule,
-    MatGridListModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatChipsModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatExpansionModule,
-    MatCheckboxModule,
-    CdkScrollableModule,
-    MatTreeModule,
-    MatDialogModule,
-    MatTabsModule,
-    MatSelectModule,
-    MatNativeDateModule,
-    ReactiveFormsModule,
-    CommonModule,
-    ScrollingModule,
-    MatSidenavModule,
-    MatListModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    NgbModule
-  ],
-  exports: [AngularFireModule, AngularFireAuthModule,
-    MatButtonModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatIconModule,
-    MatInputModule,
-    MatMenuModule,
-    MatNativeDateModule,
-    MatSelectModule,
-    MatSnackBarModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		CreateComponent,
+		FeedComponent,
+		ProfileCardComponent,
+		HeaderComponent,
+		RepositorydatafileComponent,
+		CatalogbasedataComponent,
+		CatalogbaseextraComponent,
+		DatadatadescriptionComponent,
+		OnelineprimitiveComponent,
+		TextareaprimitiveComponent,
+		CatalogconceptpurposeComponent,
+		KeywordlistprimitiveComponent,
+		CatalogidComponent,
+		SimplechoiceprimitiveComponent,
+		MultiplerecordsComponent,
+		ReferenceinformationComponent,
+		NameofpersonComponent,
+		DoiComponent,
+		ClassificationtreeComponent,
+		ObjectsitereferenceComponent,
+		HttpaddressComponent,
+		SignInComponent,
+		ForgotPasswordComponent,
+		SignUpComponent,
+		VerifyEmailComponent,
+		DashboardComponent,
+		HomepageComponent,
+		ToppageComponent,
+		TopnavComponent,
+		TextcardComponent
+	],
+	imports: [
+		AppFirebaseModule,
+		AppMaterialModule,
+		BrowserModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		MatInputModule,
+		MatDividerModule,
+		MatIconModule,
+		MatToolbarModule,
+		MatMenuModule,
+		MatButtonModule,
+		MatButtonModule,
+		MatMenuModule,
+		MatTooltipModule,
+		MatSnackBarModule,
+		HttpClientModule,
+		MatCardModule,
+		RouterModule,
+		MatGridListModule,
+		MatFormFieldModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
+		MatChipsModule,
+		ReactiveFormsModule,
+		FormsModule,
+		MatExpansionModule,
+		MatCheckboxModule,
+		CdkScrollableModule,
+		MatTreeModule,
+		MatDialogModule,
+		MatTabsModule,
+		MatSelectModule,
+		MatNativeDateModule,
+		ReactiveFormsModule,
+		CommonModule,
+		ScrollingModule,
+		MatSidenavModule,
+		MatListModule,
+		AngularFireModule.initializeApp(environment.firebase),
+		AngularFirestoreModule,
+		AngularFireStorageModule,
+		AngularFireDatabaseModule,
+		NgbModule,
+		LayoutModule
+	],
+	exports: [AngularFireModule, AngularFireAuthModule,
+		MatButtonModule,
+		MatCardModule,
+		MatCheckboxModule,
+		MatChipsModule,
+		MatDatepickerModule,
+		MatDialogModule,
+		MatDividerModule,
+		MatExpansionModule,
+		MatGridListModule,
+		MatIconModule,
+		MatInputModule,
+		MatMenuModule,
+		MatNativeDateModule,
+		MatSelectModule,
+		MatSnackBarModule,
+		MatTabsModule,
+		MatToolbarModule,
+		MatTooltipModule,
+	],
+	providers: [
+		{ provide: FIRESTORE_SETTINGS, useValue: { ignoreUndefinedProperties: true } },
+		{ provide: USE_AUTH_EMULATOR, useValue: environment.useEmulators ? ['http://localhost:9099'] : undefined },
+		{ provide: USE_FIRESTORE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 8083] : undefined },
+		{ provide: USE_STORAGE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9199] : undefined },
+		{ provide: USE_DATABASE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9000] : undefined },
+		{ provide: USE_DEVICE_LANGUAGE, useValue: true },
+        AuthService],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }
