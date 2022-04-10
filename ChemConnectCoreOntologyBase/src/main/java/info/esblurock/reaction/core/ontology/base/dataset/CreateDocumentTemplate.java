@@ -1,16 +1,106 @@
 package info.esblurock.reaction.core.ontology.base.dataset;
 
 import java.util.Iterator;
+import java.util.Set;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import info.esblurock.reaction.core.ontology.base.classification.DatabaseOntologyClassification;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
+import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.dataset.annotations.BaseAnnotationObjects;
 
 public class CreateDocumentTemplate {
+    
+    public static JsonObject createTemplateWithAnnotations(String classname) {
+        JsonObject annotations = new JsonObject();
+        JsonObject obj = createSubTemplateWithAnnotations(classname, annotations, true);
+        JsonObject information = new JsonObject();
+        information.add("dataobject", obj);
+        information.add("annotations", annotations);
+        return information;
+    }
 	
+	private static JsonObject createSubTemplateWithAnnotations(String classname, JsonObject annotations, boolean arrexample) {
+        JsonObject obj = new JsonObject();
+        addAnnotations(classname, annotations);
+        CompoundObjectDimensionSet set1 = ParseCompoundObject.getCompoundElements(classname);
+        Iterator<CompoundObjectDimensionInformation> iter = set1.iterator();
+        while(iter.hasNext()) {
+            CompoundObjectDimensionInformation info = iter.next();
+            String dimidentifier = DatasetOntologyParseBase.getIDFromAnnotation(info.getClassname());
+            if(info.isCompoundobject()) {
+                if(info.isSinglet()) {
+                    JsonObject subelements = createSubTemplateWithAnnotations(info.getClassname(),annotations, arrexample);
+                    obj.add(dimidentifier,subelements);
+                } else {
+                    JsonArray arr = new JsonArray();
+                    obj.add(dimidentifier, arr);
+                    if(arrexample) {
+                        JsonObject arrobj = createSubTemplateWithAnnotations(info.getClassname(),annotations,arrexample);
+                        arr.add(arrobj);
+                    }
+                }
+            } else {
+                String singlevalue = "not assigned";
+                if(info.isClassification()) {
+                    singlevalue = "Unassigned classification: " + info.getClassname();
+                    String classification = info.getClassname();
+                    JsonObject classificationanno = DatabaseOntologyClassification.classificationTreeFromDataType(classification);
+                    JsonObject choices = classificationanno.get("dataobject").getAsJsonObject();
+                    JsonObject choiceanno = classificationanno.get("annotations").getAsJsonObject();
+                    mergeIntoAnnotations(choiceanno,annotations);
+                    obj.add("classification", choices);
+                }
+                if(info.isSinglet()) {
+                    obj.addProperty(dimidentifier, singlevalue);
+                } else {
+                    JsonArray arr = new JsonArray();
+                    obj.add(dimidentifier, arr);
+                    if(arrexample) {
+                        arr.add(singlevalue);
+                    }
+                }
+            }
+        }
+        return obj;
+    }
 
-	public static JsonObject createTemplate(String classname) {
+
+    private static void mergeIntoAnnotations(JsonObject choiceanno, JsonObject annotations) {
+        Set<String> keys = choiceanno.keySet();
+        for(String key : keys) {
+            JsonObject info = choiceanno.get(key).getAsJsonObject();
+            annotations.add(key, info);
+        }
+    }
+
+
+    private static void addAnnotations(String classname, JsonObject annotationset) {
+        BaseAnnotationObjects annotations = DatasetOntologyParseBase.getAnnotationStructureFromIDObject(classname);
+        JsonObject anno = new JsonObject();
+        String label = annotations.getLabel();
+        if(label.length() == 0) {
+            label = classname;
+        }
+        anno.addProperty(AnnotationObjectsLabels.label, label);
+        String id = annotations.getLabel();
+        if(id.length() == 0) {
+            id = classname;
+        }
+        anno.addProperty(AnnotationObjectsLabels.identifier, id);
+        String comment = annotations.getComment();
+        if(comment.length() == 0) {
+            comment = label;
+        }
+        anno.addProperty(AnnotationObjectsLabels.comment, comment);
+        anno.addProperty(ClassLabelConstants.CatalogElementType, classname);
+        annotationset.add(classname, anno);
+    }
+
+
+    public static JsonObject createTemplate(String classname) {
 		return createTemplate(classname,false);
 	}
 	
@@ -21,7 +111,7 @@ public class CreateDocumentTemplate {
 		return obj;
 	}
 	
-	public static JsonObject createSubTemplate(String classname, boolean arrexample) {
+	private static JsonObject createSubTemplate(String classname, boolean arrexample) {
 		JsonObject obj = new JsonObject();
 		CompoundObjectDimensionSet set1 = ParseCompoundObject.getCompoundElements(classname);
 		Iterator<CompoundObjectDimensionInformation> iter = set1.iterator();

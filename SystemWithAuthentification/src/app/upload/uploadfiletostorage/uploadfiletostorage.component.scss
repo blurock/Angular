@@ -1,0 +1,27 @@
+.file-input {  
+  display: none;
+}
+.browse-button {
+	width: 100px;
+	position: center;
+}
+.upload-btn {
+  margin-right: 10px
+}
+.browse-card {
+	width: 600px;
+	position: center;
+}
+.card-body {
+	width: 100%;
+}
+.uploadform {
+	width: 400px;
+}
+textarea {
+        overflow-x: scroll;
+        overflow-y: scroll;
+        width: 100%;
+        height: 100px;
+        resize: none; /* Remove this if you want the user to resize the textarea */
+    }

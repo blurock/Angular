@@ -37,21 +37,38 @@ public class DatabaseOntologyClassification {
 	}
 	public static JsonObject classificationTreeFromChoices(String choices) {
 		ClassificationHierarchy hier = DatabaseOntologyClassification.getClassificationHierarchy(choices);
-		return classificationTreeFromHierarchy(hier);
+		JsonObject annotations = new JsonObject();
+		JsonObject hierarchy = classificationTreeFromHierarchy(hier, annotations);
+		JsonObject information = new JsonObject();
+		information.add("dataobject", hierarchy);
+		information.add("annotations", annotations);
+		return information;
 	}
-	public static JsonObject classificationTreeFromHierarchy(ClassificationHierarchy hier) {
+	public static JsonObject classificationTreeFromHierarchy(ClassificationHierarchy hier,JsonObject annotations) {
 		JsonObject obj = new JsonObject();
-		obj.addProperty(AnnotationObjectsLabels.identifier, hier.getAnnotations().getIdentifier());
-		JsonArray lst = new JsonArray();
-		JsonObject nodeobj = CreateDocumentTemplate.createTemplate(classificationinfoelement);
-		nodeobj.addProperty(AnnotationObjectsLabels.label, hier.getAnnotations().getLabel());
-		nodeobj.addProperty(AnnotationObjectsLabels.comment, hier.getAnnotations().getComment());
-		nodeobj.addProperty(ClassLabelConstants.CatalogElementType, hier.getClassification());
-		obj.add(ClassLabelConstants.ClassificationInfoElement, nodeobj);
+        String subclassname = hier.getClassification();
+        obj.addProperty(AnnotationObjectsLabels.identifier, hier.getAnnotations().getIdentifier());
+        obj.addProperty(ClassLabelConstants.CatalogElementType, subclassname);
+        JsonArray lst = new JsonArray();
+		
+        BaseAnnotationObjects subannotations = hier.getAnnotations();
+        JsonObject clsobj = new JsonObject();
+        String label = subannotations.getLabel();
+        if(label.length() == 0) {
+            label = subclassname;
+        }
+        clsobj.addProperty(AnnotationObjectsLabels.label, label);
+        String comment = subannotations.getComment();
+        if(comment.length() == 0) {
+            comment = label;
+        }
+        clsobj.addProperty(AnnotationObjectsLabels.comment, comment);
+        clsobj.addProperty(ClassLabelConstants.CatalogElementType, subclassname);
+        annotations.add(subclassname,  clsobj);
 		Set<ClassificationHierarchy> set = hier.getSubclassificatons();
 		Iterator<ClassificationHierarchy> iter = set.iterator();
 		while(iter.hasNext()) {
-			JsonObject subnode = classificationTreeFromHierarchy(iter.next());
+			JsonObject subnode = classificationTreeFromHierarchy(iter.next(), annotations);
 			lst.add(subnode);
 		}
 		obj.add(ClassLabelConstants.ClassificationInfoTree, lst);

@@ -4841,8 +4841,8 @@ Under the general type of is the actual data object referenced by the ChemConnec
                     rdfs:subClassOf :ConceptFileSource ;
                     <http://purl.org/dc/elements/1.1/type> "DataTypeConcept" ;
                     <http://purl.org/dc/terms/identifier> "dataset:dataconcept-staging" ;
-                    :objectconcept :FileSourceTypes ;
                     rdfs:comment "The concept associated with staging a file" ;
+                    rdfs:isDefinedBy :FileSourceTypes ;
                     rdfs:label "Concept File Staging" ;
                     <http://www.w3.org/2004/02/skos/core#altLabel> "dataconcept-staging" .
 
@@ -8222,6 +8222,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                         <http://purl.org/dc/elements/1.1/type> :FileSourceMediaSubType ;
                         <http://purl.org/dc/terms/identifier> "dataset:filesourcesubtype"^^xsd:string ;
                         rdfs:comment "This is the media subtype of a file from the IANA specifications"^^xsd:string ;
+                        rdfs:isDefinedBy :FileMediaTypes ;
                         rdfs:label "File Media Subtype"^^xsd:string ;
                         <http://www.w3.org/2004/02/skos/core#altLabel> "filesourcesubtype"^^xsd:string .
 
@@ -8233,6 +8234,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                      <http://purl.org/dc/elements/1.1/type> :FileSourceMediaType ;
                      <http://purl.org/dc/terms/identifier> "dataset:filemediatype"^^xsd:string ;
                      rdfs:comment "IANA media type of the file source. This the general type. This is used in conjunction with FileSourceMediaSubType"^^xsd:string ;
+                     rdfs:isDefinedBy :FileMediaTypes ;
                      rdfs:label "IANA media type"^^xsd:string ;
                      <http://www.w3.org/2004/02/skos/core#altLabel> "filemediatype"^^xsd:string .
 
@@ -14667,9 +14669,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
 :PurposeFileStaging rdf:type owl:Class ;
                     rdfs:subClassOf :PurposeFileSource ;
                     <http://purl.org/dc/elements/1.1/type> "PurposeKeyword" ;
-                    <http://purl.org/dc/terms/identifier> "dataset:purposekey-filestaging" ;
                     :objectpurpose :PurposeConceptFileStaging ;
                     rdfs:comment "The purpose of the file staging" ;
+                    rdfs:isDefinedBy "dataset:purposekey-filestaging"^^xsd:string ;
                     rdfs:label "File Staging Purpose" ;
                     <http://www.w3.org/2004/02/skos/core#altLabel> "purposekey-filestaging" .
 

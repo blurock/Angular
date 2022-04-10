@@ -34,16 +34,18 @@ import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatSidenavModule } from '@angular/material/sidenav';
-
+import {MatStepperModule} from '@angular/material/stepper';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-
 import { MatTreeModule } from '@angular/material/tree';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
+
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 
 
 import { CatalogbaseextraComponent } from './catalogobjects/catalogbaseextra/catalogbaseextra.component';
@@ -79,6 +81,15 @@ import { ToppageComponent } from './layout/toppage/toppage.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { TopnavComponent } from './layout/topnav/topnav.component';
 import { TextcardComponent } from './layout/homepage/textcard/textcard.component';
+import { UploadstepsComponent } from './upload/uploadsteps/uploadsteps.component';
+import { UploadfiletostorageComponent } from './upload/uploadfiletostorage/uploadfiletostorage.component';
+import { UploadfileinformationComponent } from './upload/uploadfileinformation/uploadfileinformation.component';
+import { BibliographicinformationComponent } from './upload/bibliographicinformation/bibliographicinformation.component';
+import { SetofauthorsComponent } from './upload/setofauthors/setofauthors.component';
+import { SubmitfileandinformatioonComponent } from './upload/submitfileandinformatioon/submitfileandinformatioon.component';
+import { ParseuploadedfileComponent } from './upload/parseuploadedfile/parseuploadedfile.component';
+import { CreatecatalogobjectsfrompartitionsComponent } from './upload/createcatalogobjectsfrompartitions/createcatalogobjectsfrompartitions.component';
+import { UnitspecificationComponent } from './upload/unitspecification/unitspecification.component';
 //import { USE_EMULATOR as FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
 
 
@@ -116,7 +127,16 @@ import { TextcardComponent } from './layout/homepage/textcard/textcard.component
 		HomepageComponent,
 		ToppageComponent,
 		TopnavComponent,
-		TextcardComponent
+		TextcardComponent,
+		UploadstepsComponent,
+  UploadfiletostorageComponent,
+  UploadfileinformationComponent,
+  BibliographicinformationComponent,
+  SetofauthorsComponent,
+  SubmitfileandinformatioonComponent,
+  ParseuploadedfileComponent,
+  CreatecatalogobjectsfrompartitionsComponent,
+  UnitspecificationComponent
 	],
 	imports: [
 		AppFirebaseModule,
@@ -162,7 +182,9 @@ import { TextcardComponent } from './layout/homepage/textcard/textcard.component
 		AngularFireStorageModule,
 		AngularFireDatabaseModule,
 		NgbModule,
-		LayoutModule
+		LayoutModule,
+		MatStepperModule,
+  MatProgressBarModule
 	],
 	exports: [AngularFireModule, AngularFireAuthModule,
 		MatButtonModule,

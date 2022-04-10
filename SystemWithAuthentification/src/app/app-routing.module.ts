@@ -14,6 +14,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { ToppageComponent } from './layout/toppage/toppage.component';
+import {UploadstepsComponent} from './upload/uploadsteps/uploadsteps.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([FEED]);
 
@@ -21,6 +22,7 @@ const routes: Routes = [
 	{ path: '', component: ToppageComponent },
 	{ path: 'sign-in', component: SignInComponent },
 	{ path: 'register-user', component: SignUpComponent },
+	{ path: 'uploaddatabaseitem', component: UploadstepsComponent, canActivate: [AuthGuard] },
 	{ path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
 	{ path: 'forgot-password', component: ForgotPasswordComponent },
 	{ path: 'verify-email-address', component: VerifyEmailComponent },

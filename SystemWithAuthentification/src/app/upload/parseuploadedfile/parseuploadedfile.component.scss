@@ -1,0 +1,52 @@
+.loading {
+background: lightblue;
+	border: 5px solid gray;
+}
+.source {
+	background: lightgrey;
+}
+.sourcecatalog {
+	border: 2px solid gray;
+	padding: 10px;
+	width: 50%
+}
+.title {
+	text-align: center; 
+	font-size: x-large;
+	font-style: italic;
+}
+.subtitlebox {
+	border: 2px solid gray;
+}
+.propertybox {
+	border: 2px solid lightgray;
+}
+.propertylabel {
+	width: 30%;
+	color: grey;
+	text-align: left; 
+}
+.propertyvalue {
+		width: 70%;
+		font-weight: bold;
+}
+.propertylabelcount {
+	width: 30%;
+	color: grey;
+	text-align: left; 
+}
+.propertyvaluecount {
+		width: 55%;
+		font-weight: bold;
+		
+}
+.propertycount {
+		width: 15%;
+		font-weight: bold;
+		
+}
+.submitbutton {
+	width: 100%;
+	background: lightgray;
+}
+	

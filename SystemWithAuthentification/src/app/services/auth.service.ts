@@ -85,9 +85,9 @@ export class AuthService {
 		return user !== null && user.emailVerified !== false ? true : false;
 	}
 	// Sign in with Google
-	GoogleAuth()  {
+	GoogleAuth() {
 		return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-
+			alert(res);
 			alert(JSON.parse(localStorage.getItem('user')!));
 			this.ngZone.run(() => {
 				this.router.navigate(['dashboard']);

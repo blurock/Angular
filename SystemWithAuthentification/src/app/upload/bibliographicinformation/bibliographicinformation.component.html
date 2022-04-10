@@ -1,0 +1,31 @@
+<button mat-button color="primary" (click)="addreferencegroup()">{{addreference}}</button>
+<div *ngFor="let reference of references.controls; ; let empIndex=index">
+	<mat-card class="bibliocard">
+		<mat-card-content>
+		
+		<div class="author" [formGroup]="reference">
+		
+				<mat-form-field class="bibliotitle">
+					<mat-label>{{bibliolabel}}</mat-label>
+					<input matInput formControlName="ReferenceTitle" placeholder="Manuscript Title">
+					<mat-hint>{{bibliohint}}</mat-hint>
+				</mat-form-field>
+				<mat-form-field class="biblioreference">
+					<mat-label>{{referencelabel}}</mat-label>
+					<input matInput formControlName="ReferenceString"
+						placeholder="Rocket J. Squirrel, J. of Irreproducible Res., vol. 666, pg. 2000-2001 (1984)">
+					<mat-hint>{{referencehint}}</mat-hint>
+				</mat-form-field>
+				<mat-form-field class="biblioreference">
+					<mat-label>{{doilabel}}</mat-label>
+					<input matInput formControlName="DOI"
+						placeholder="https://doi.org/10.1016/j.jir.2020.01.01">
+					<mat-hint>{{doihint}}</mat-hint>
+				</mat-form-field>
+				<app-setofauthors [index]="empIndex" (newItemEvent)="addAuthor($event)"></app-setofauthors>
+				
+				
+		</div>
+		</mat-card-content>
+	</mat-card>
+</div>

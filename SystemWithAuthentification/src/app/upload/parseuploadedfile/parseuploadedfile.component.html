@@ -1,0 +1,62 @@
+<form [formGroup]="parseinfoform" class="infoform">
+	<mat-label></mat-label>
+
+	<mat-grid-list cols="8" rowHeight="50px">
+
+		<ng-container *ngIf='uploadinfoform.get("FileSourceFormat").value; else loading'>
+
+			<mat-grid-tile [colspan]="8" background="lightgray">
+				<mat-label class="title">{{uploadinfoform.get("FileSourceTitle").value}}</mat-label>
+			</mat-grid-tile>
+
+			<mat-grid-tile [colspan]="8" class="propertybox">
+				<mat-label class="propertylabel" matTooltip="{{labels.filesourceformathint}}">
+					{{labels.filesourceformatlabel}}</mat-label>
+				<mat-label class="propertyvalue">{{uploadinfoform.get("FileSourceFormat").value}}</mat-label>
+			</mat-grid-tile>
+
+			<mat-grid-tile [colspan]="4" class="propertybox">
+				<mat-label class="propertylabel" matTooltip="{{labels.genericnamehint}}">{{labels.genericnamelabel}}
+				</mat-label>
+				<mat-label class="propertyvalue">{{uploadinfoform.get("CatalogObjectUniqueGenericLabel").value}}
+				</mat-label>
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="4" class="propertybox">
+				<mat-label class="propertylabel" matTooltip="{{labels.datasetnamehint}}">{{labels.datasetnamelabel}}
+				</mat-label>
+				<mat-label class="propertyvalue">{{uploadinfoform.get("DatasetName").value}}
+					({{uploadinfoform.get("DatasetVersion").value}})</mat-label>
+			</mat-grid-tile>
+
+
+
+			<mat-grid-tile [colspan]="4" class="propertybox">
+				<mat-label class="propertylabel" matTooltip="{{labels.cataloghint}}">{{labels.cataloglabel}}</mat-label>
+				<mat-label class="propertyvalue">{{getSourceCatalog()}}</mat-label>
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="4" class="propertybox">
+				<mat-label class="propertylabelcount" matTooltip="{{labels.partitionMethodhint}}">
+					{{labels.partitionMethodlabel}}</mat-label>
+				<mat-label class="propertyvaluecount">
+					{{formatInformation[uploadinfoform.get("FileSourceFormat").value]["dataset:partitionMethod"]}}
+				</mat-label>
+				<mat-label matTooltip="{{labels.linecountlabel}}" class="propertycount">{{blockCount()}}</mat-label>
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="8">
+				<button mat-button class="submitbutton" (click)="submitParse()">Parse Uploaded File with the information
+					above</button>
+			</mat-grid-tile>
+
+		</ng-container>
+		<ng-template #loading>
+			<mat-grid-tile [colspan]="8" class="loading">
+				<mat-label>Need to choose File Format (in File Information step)</mat-label>
+			</mat-grid-tile>
+		</ng-template>
+
+
+	</mat-grid-list>
+</form>
+<pre>
+{{parseResult}}
+</pre>

@@ -10,6 +10,7 @@ import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLab
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
+import info.esblurock.reaction.core.ontology.base.dataset.annotations.BaseAnnotationObjects;
 
 public class GenerateSimpleClassification {
 	
@@ -35,21 +36,35 @@ public class GenerateSimpleClassification {
 	 */
 	public static JsonObject generateSimpleListFromChoices(String classname) {
 		String classificationinfo = "dataset:ClassificationInfo";
-		JsonObject obj = CreateDocumentTemplate.createTemplate(classificationinfo);
+		JsonObject anno = new JsonObject();
 		JsonArray lst = new JsonArray();
 		ClassificationHierarchy hier = DatabaseOntologyClassification.getClassificationHierarchy(classname);
 		Set<ClassificationHierarchy> set = hier.getSubclassificatons();
 		Iterator<ClassificationHierarchy> iter = set.iterator();
 		while(iter.hasNext()) {
 			ClassificationHierarchy classification = iter.next();
+            String subclassname = classification.getClassification();
+            BaseAnnotationObjects annotations = classification.getAnnotations();
+			lst.add(subclassname);
 			JsonObject clsobj = new JsonObject();
-			clsobj.addProperty(AnnotationObjectsLabels.label, classification.getAnnotations().getLabel());
-			clsobj.addProperty(AnnotationObjectsLabels.comment, classification.getAnnotations().getComment());
-			clsobj.addProperty(AnnotationObjectsLabels.type, classification.getClassification());
-			lst.add(clsobj);
+			String label = annotations.getLabel();
+			if(label.length() == 0) {
+			    label = subclassname;
+			}
+			clsobj.addProperty(AnnotationObjectsLabels.label, label);
+			String comment = annotations.getComment();
+			if(comment.length() == 0) {
+			    comment = label;
+			}
+			clsobj.addProperty(AnnotationObjectsLabels.comment, comment);
+			clsobj.addProperty(ClassLabelConstants.CatalogElementType, subclassname);
+			anno.add(subclassname,  clsobj);
 		}
-		obj.add(ClassLabelConstants.ClassificationInfoElement, lst);
-		return obj;
+		JsonObject information = new JsonObject();
+	      information.add("dataobject", lst);
+	      information.add("annotations", anno);
+
+		return information;
 	}
 	
 }

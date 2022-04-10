@@ -1,0 +1,87 @@
+<form [formGroup]="createform" class="infoform">
+	<mat-label></mat-label>
+
+	<mat-grid-list cols="8" rowHeight="50px">
+		<ng-container *ngIf='uploadinfoform.get("FileSourceFormat").value; else loading'>
+			<mat-grid-tile [colspan]="8" background="lightgray">
+				<mat-label class="title">{{uploadinfoform.get("FileSourceTitle").value}}</mat-label>
+			</mat-grid-tile>
+
+			<mat-grid-tile [colspan]="8" class="propertybox">
+				<mat-label class="propertylabel" matTooltip="{{labels.filesourceformathint}}">
+					{{labels.filesourceformatlabel}}</mat-label>
+				<mat-label class="propertyvalue">{{uploadinfoform.get("FileSourceFormat").value}}</mat-label>
+			</mat-grid-tile>
+
+			<mat-grid-tile [colspan]="4" class="propertybox">
+				<mat-label class="propertylabel" matTooltip="{{labels.genericnamehint}}">{{labels.genericnamelabel}}
+				</mat-label>
+				<mat-label class="propertyvalue">{{uploadinfoform.get("CatalogObjectUniqueGenericLabel").value}}
+				</mat-label>
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="4" class="propertybox">
+				<mat-label class="propertylabel" matTooltip="{{labels.datasetnamehint}}">{{labels.datasetnamelabel}}
+				</mat-label>
+				<mat-label class="propertyvalue">{{uploadinfoform.get("DatasetName").value}}
+					({{uploadinfoform.get("DatasetVersion").value}})</mat-label>
+			</mat-grid-tile>
+
+			<mat-grid-tile [colspan]="4" class="propertybox">
+				<mat-label class="propertylabel" matTooltip="{{labels.cataloghint}}">{{labels.cataloglabel}}</mat-label>
+				<mat-label class="propertyvalue">{{getSourceCatalog()}}</mat-label>
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="4" class="propertybox">
+				<mat-label class="propertylabelcount" matTooltip="{{labels.partitionMethodhint}}">
+					{{labels.partitionMethodlabel}}</mat-label>
+				<mat-label class="propertyvaluecount">
+					{{formatInformation[uploadinfoform.get("FileSourceFormat").value]["dataset:interpretMethod"]}}
+				</mat-label>
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="8">
+
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="8">
+				<button mat-button class="submitbutton" (click)="submitInterpret()">Add Database objects with parsed
+					file</button>
+			</mat-grid-tile>
+
+		</ng-container>
+		<ng-template #loading>
+			<mat-grid-tile [colspan]="8" class="loading">
+				<mat-label>Need to choose File Format (in File Information step)</mat-label>
+			</mat-grid-tile>
+		</ng-template>
+
+	</mat-grid-list>
+	<ng-container *ngIf='uploadinfoform.get("FileSourceFormat").value'>
+	<ng-container *ngIf='testUnit(enthalpyunitlabel)'>
+		<app-unitspecification 
+		[units]="getUnitChoices(enthalpyunitlabel)"
+			[(uncertaintyInformation)]="uncertaintyInformation" [(unitparameters)]="enthalpy"
+			[(unitclass)]="enthalpyunitlabel">
+		</app-unitspecification>
+		</ng-container>
+		<ng-container *ngIf='testUnit(entropyunitlabel)'>
+		<app-unitspecification [units]="getUnitChoices(entropyunitlabel)"
+			[(uncertaintyInformation)]="uncertaintyInformation" [(unitparameters)]="entropy"
+			[(unitclass)]="entropyunitlabel">
+		</app-unitspecification>
+		</ng-container>
+		<ng-container *ngIf='testUnit(heatcapacityunitlabel)'>
+		<app-unitspecification [units]="getUnitChoices(heatcapacityunitlabel)"
+			[(uncertaintyInformation)]="uncertaintyInformation" [(unitparameters)]="heatcapacity"
+			[(unitclass)]="heatcapacityunitlabel">
+		</app-unitspecification>
+		</ng-container>
+		<ng-container *ngIf='testUnit(frequencyunitlabel)'>
+		<app-unitspecification [units]="getUnitChoices(frequencyunitlabel)"
+			[(uncertaintyInformation)]="uncertaintyInformation" [(unitparameters)]="frequency"
+			[(unitclass)]="frequencyunitlabel">
+		</app-unitspecification>
+</ng-container>
+			</ng-container>
+
+</form>
+<pre>
+	{{interpretResult}}
+</pre>

@@ -1,3 +1,22 @@
 <!--app-header></app-header -->
 <app-header></app-header>
-<router-outlet></router-outlet>
+
+<mat-sidenav-container class="example-container">
+	<mat-sidenav mode="side" opened>
+		<button mat-raised-button class="toggle" color="blue">Home</button>
+		<button mat-raised-button class="toggle" color="blue" (click)="uploaddata()">Upload Data</button>
+		<button mat-raised-button class="toggle" color="lightblue" [matMenuTriggerFor]="readfiles">Read File</button>
+
+		<mat-menu #readfiles="matMenu">
+			<button mat-menu-item (click)="uploadfile()">Upload File</button>
+			<button mat-menu-item (click)="fromURL()">From URL</button>
+			<button mat-menu-item (click)="fromInterface()">From UI</button>
+		</mat-menu>
+	</mat-sidenav>
+	<mat-sidenav-content>
+		<div class="div-toggle">
+			<button mat-raised-button class="toggle" color="primary">Toggle Menu</button>
+		</div>
+		<router-outlet></router-outlet>
+	</mat-sidenav-content>
+</mat-sidenav-container>

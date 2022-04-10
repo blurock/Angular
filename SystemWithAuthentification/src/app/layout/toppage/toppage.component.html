@@ -1,6 +1,4 @@
 <div class="grid-container">
-
-
   <mat-grid-list cols="2" rowHeight="400px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
     <app-textcard [title]="card.title" [contentfile]="card.content" [bcolor]="card.color"></app-textcard>

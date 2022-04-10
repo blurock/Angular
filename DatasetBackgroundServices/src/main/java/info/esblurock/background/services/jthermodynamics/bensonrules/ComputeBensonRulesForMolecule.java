@@ -248,7 +248,7 @@ public class ComputeBensonRulesForMolecule {
 		String classname = "dataset:ThermodynamicBensonRuleDefinition";
 		String service = "ReadInDatasetWithDatasetCollectionLabel";
 		JsonObject json = new JsonObject();
-		JsonObject recordid = CreateDocumentTemplate.createSubTemplate("dataset:DatasetCollectionSetRecordIDInfo", false);
+		JsonObject recordid = CreateDocumentTemplate.createTemplate("dataset:DatasetCollectionSetRecordIDInfo", false);
 		recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 		recordid.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, dataset);
 		json.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
