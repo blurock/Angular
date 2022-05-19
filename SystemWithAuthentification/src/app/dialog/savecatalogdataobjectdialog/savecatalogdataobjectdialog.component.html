@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Save Data Object <strong>{{type}}</strong> at Firestore Database Address</h1>
+<div mat-dialog-content>
+<ng-container *ngIf='objectdisplay; else askobjectview'>
+<div>
+<button mat-button class="viewobjectbutton" (click)="toggleObjectView()">Hide JSON</button>
+</div>
+<div>
+<pre>{{dataobject | json}}</pre>
+</div>
+</ng-container>
+<ng-template #askobjectview>
+<button mat-button class="viewobjectbutton" (click)="toggleObjectView()">View Object as JSON</button>
+</ng-template>
+<app-firesytorecatalogid #firestoreid [(anno)]="anno"></app-firesytorecatalogid>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="saveDataClick()">Save</button>
+</div>

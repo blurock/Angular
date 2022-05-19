@@ -1,15 +1,18 @@
 package info.esblurock.reaction.core.ontology.base.dataset;
 
 import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import info.esblurock.reaction.core.ontology.base.classification.DatabaseOntologyClassification;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.annotations.BaseAnnotationObjects;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class CreateDocumentTemplate {
     
@@ -43,6 +46,7 @@ public class CreateDocumentTemplate {
                     }
                 }
             } else {
+                JsonObject anno = addAnnotations(info.getClassname(), annotations);
                 String singlevalue = "not assigned";
                 if(info.isClassification()) {
                     singlevalue = "Unassigned classification: " + info.getClassname();
@@ -51,7 +55,7 @@ public class CreateDocumentTemplate {
                     JsonObject choices = classificationanno.get("dataobject").getAsJsonObject();
                     JsonObject choiceanno = classificationanno.get("annotations").getAsJsonObject();
                     mergeIntoAnnotations(choiceanno,annotations);
-                    obj.add("classification", choices);
+                    anno.add("classification", choices);
                 }
                 if(info.isSinglet()) {
                     obj.addProperty(dimidentifier, singlevalue);
@@ -70,14 +74,14 @@ public class CreateDocumentTemplate {
 
     private static void mergeIntoAnnotations(JsonObject choiceanno, JsonObject annotations) {
         Set<String> keys = choiceanno.keySet();
-        for(String key : keys) {
-            JsonObject info = choiceanno.get(key).getAsJsonObject();
-            annotations.add(key, info);
+        for(String keyname : keys) {
+            JsonObject info = choiceanno.get(keyname).getAsJsonObject();
+            annotations.add(keyname, info);
         }
     }
 
 
-    private static void addAnnotations(String classname, JsonObject annotationset) {
+    private static JsonObject addAnnotations(String classname, JsonObject annotationset) {
         BaseAnnotationObjects annotations = DatasetOntologyParseBase.getAnnotationStructureFromIDObject(classname);
         JsonObject anno = new JsonObject();
         String label = annotations.getLabel();
@@ -97,6 +101,7 @@ public class CreateDocumentTemplate {
         anno.addProperty(AnnotationObjectsLabels.comment, comment);
         anno.addProperty(ClassLabelConstants.CatalogElementType, classname);
         annotationset.add(classname, anno);
+        return anno;
     }
 
 

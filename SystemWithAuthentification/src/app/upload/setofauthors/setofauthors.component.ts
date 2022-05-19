@@ -10,7 +10,9 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SetofauthorsComponent implements OnInit {
 
 	@Input() index: number;
+	@Input() titleInformation: any;
 	@Output() newItemEvent = new EventEmitter<FormGroup>();
+	@Output() deleteItemEvent = new EventEmitter<FormGroup>();
 
 	authors: FormArray;
 
@@ -40,6 +42,10 @@ export class SetofauthorsComponent implements OnInit {
 		author.get('index').setValue(this.index);
 		this.authors.push(author);
 		this.newItemEvent.emit(author);
+	}
+	
+	deleteAuthor(authorIndex: number): void {
+		this.authors.removeAt(authorIndex);
 	}
 
 	ngOnInit(): void {

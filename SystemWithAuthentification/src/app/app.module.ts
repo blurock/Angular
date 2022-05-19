@@ -90,6 +90,22 @@ import { SubmitfileandinformatioonComponent } from './upload/submitfileandinform
 import { ParseuploadedfileComponent } from './upload/parseuploadedfile/parseuploadedfile.component';
 import { CreatecatalogobjectsfrompartitionsComponent } from './upload/createcatalogobjectsfrompartitions/createcatalogobjectsfrompartitions.component';
 import { UnitspecificationComponent } from './upload/unitspecification/unitspecification.component';
+import { SimpledatabaseobjectstructureComponent } from './catalogobjects/simpledatabaseobjectstructure/simpledatabaseobjectstructure.component';
+import { DatasetrepositoryfilestagingComponent } from './catalogobjects/repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
+import { FiresytorecatalogidComponent } from './catalogobjects/firesytorecatalogid/firesytorecatalogid.component';
+import { CollectiondocumentidpairaddressComponent } from './catalogobjects/recordobjects/collectiondocumentidpairaddress/collectiondocumentidpairaddress.component';
+import { DatasetreferenceComponent } from './catalogobjects/datasetreference/datasetreference.component';
+import { BibsetofauthorsComponent } from './catalogobjects/datasetreference/bibsetofauthors/bibsetofauthors.component';
+import { DataobjectlinkComponent } from './catalogobjects/catalogbaseobjects/dataobjectlink/dataobjectlink.component';
+import { SetofdataobjectlinksComponent } from './catalogobjects/catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
+import { LoadchildDirective } from './catalogobjects/catalogbaseobjects/loadchild.directive';
+import { RdftripleComponent } from './catalogobjects/catalogbaseobjects/rdftriple/rdftriple.component';
+import { SetofsitereferencesComponent } from './catalogobjects/catalogbaseobjects/setofsitereferences/setofsitereferences.component';
+import { GcsblobfileinformationstagingComponent } from './catalogobjects/repository/gcsblobfileinformationstaging/gcsblobfileinformationstaging.component';
+import { SavecatalogdataobjectdialogComponent } from './dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
+import { SavecatalogdataobjectComponent } from './dialog/savecatalogdataobject/savecatalogdataobject.component';
+import { MenutreedialogComponent, MenutreedialogWindow } from './primitives/menutreedialog/menutreedialog.component';
+import { MenuItemComponent } from './primitives/menu-item/menu-item.component';
 //import { USE_EMULATOR as FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
 
 
@@ -136,7 +152,24 @@ import { UnitspecificationComponent } from './upload/unitspecification/unitspeci
   SubmitfileandinformatioonComponent,
   ParseuploadedfileComponent,
   CreatecatalogobjectsfrompartitionsComponent,
-  UnitspecificationComponent
+  UnitspecificationComponent,
+  SimpledatabaseobjectstructureComponent,
+  DatasetrepositoryfilestagingComponent,
+  FiresytorecatalogidComponent,
+  CollectiondocumentidpairaddressComponent,
+  DatasetreferenceComponent,
+  BibsetofauthorsComponent,
+  DataobjectlinkComponent,
+  SetofdataobjectlinksComponent,
+  LoadchildDirective,
+  RdftripleComponent,
+  SetofsitereferencesComponent,
+  GcsblobfileinformationstagingComponent,
+  SavecatalogdataobjectdialogComponent,
+  SavecatalogdataobjectComponent,
+  MenutreedialogComponent,
+  MenuItemComponent,
+  MenutreedialogWindow
 	],
 	imports: [
 		AppFirebaseModule,

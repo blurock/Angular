@@ -5,12 +5,10 @@
 	<mat-sidenav mode="side" opened>
 		<button mat-raised-button class="toggle" color="blue">Home</button>
 		<button mat-raised-button class="toggle" color="blue" (click)="uploaddata()">Upload Data</button>
-		<button mat-raised-button class="toggle" color="lightblue" [matMenuTriggerFor]="readfiles">Read File</button>
+		<button mat-raised-button class="toggle" color="lightblue" [matMenuTriggerFor]="catalog">Catalog</button>
 
-		<mat-menu #readfiles="matMenu">
-			<button mat-menu-item (click)="uploadfile()">Upload File</button>
-			<button mat-menu-item (click)="fromURL()">From URL</button>
-			<button mat-menu-item (click)="fromInterface()">From UI</button>
+		<mat-menu #catalog="matMenu">
+			<button mat-menu-item (click)="repositoryStaging()">Repository Staging</button>
 		</mat-menu>
 	</mat-sidenav>
 	<mat-sidenav-content>

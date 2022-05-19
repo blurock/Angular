@@ -1,4 +1,4 @@
-export class BaseCatalogInterface {
+export class BaseCatalogInterface  {
 	
 	showData: boolean;
 	toggleView($event) {

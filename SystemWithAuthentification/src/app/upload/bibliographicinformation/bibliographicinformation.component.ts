@@ -10,6 +10,7 @@ import { SetofauthorsComponent } from '../setofauthors/setofauthors.component';
 export class BibliographicinformationComponent implements OnInit {
 
 	@Input() references: FormArray;
+	@Input() titleInformation: any;
 	@Output() newItemEvent = new EventEmitter<FormGroup>();
 	constructor(private formbuilder: FormBuilder) { }
 

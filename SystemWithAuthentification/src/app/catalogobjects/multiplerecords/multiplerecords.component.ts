@@ -59,15 +59,6 @@ objanno: any;
       element[Ontologyconstants.foafFamilyName] = 'Bunny';
       this.refinfo.push(element);
       }
-      if (this.recordtype == 'ObjectSiteReference') {
-        const element = {};
-        element[Ontologyconstants.datasethttpaddress] = 'http:/www.unknown.com';
-        element[Ontologyconstants.datasethttpaddresstype] = 'unknown';
-        element[Ontologyconstants.datasethttpaddresssrcloc] = 'Repository';
-        this.refinfo.push(element);
-      }
-
-      //this.refinfochange.emit(this.refinfo);
   }
 
 }

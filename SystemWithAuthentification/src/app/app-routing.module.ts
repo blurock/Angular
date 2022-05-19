@@ -15,7 +15,8 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { ToppageComponent } from './layout/toppage/toppage.component';
 import {UploadstepsComponent} from './upload/uploadsteps/uploadsteps.component';
-
+import {RepositorydatafileComponent} from '../app/catalogobjects/repository/repositorydatafile/repositorydatafile.component';
+import {DatasetrepositoryfilestagingComponent} from '../app/catalogobjects/repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([FEED]);
 
 const routes: Routes = [
@@ -26,9 +27,10 @@ const routes: Routes = [
 	{ path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
 	{ path: 'forgot-password', component: ForgotPasswordComponent },
 	{ path: 'verify-email-address', component: VerifyEmailComponent },
+	{ path: 'catalog/repositorystaging', component: DatasetrepositoryfilestagingComponent},
 	{
 		path: 'feed',
-		component: FeedComponent,
+		component: RepositorydatafileComponent,
 	},
 	{
 		path: 'create',

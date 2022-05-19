@@ -4,4 +4,5 @@
       <attribute name="provider-id" value="maven-lib-provider"/>
     </node>
   </facet>
+  <facet id="wst.jsdt.web"/>
 </root>

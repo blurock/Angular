@@ -7,8 +7,12 @@
 	</mat-step>
 	<mat-step [stepControl]="uploadinfoform" errorMessage="All information is required in some form.">
 		<ng-template matStepLabel>File Information</ng-template>
-		<app-uploadfileinformation [(uploadinfoform)]="uploadinfoform" [(references)]="references"
-			(newItemEvent)="addReference($event)" [(filesourcetypechoices)]="formatList"></app-uploadfileinformation>
+		<app-uploadfileinformation [(uploadinfoform)]="uploadinfoform" 
+		[(references)]="references"
+			(newItemEvent)="addReference($event)" 
+			[(filesourcetypechoices)]="formatList"
+			[(titleInformation)]="titleInformation"></app-uploadfileinformation>
+			
 		<div>
 			<button mat-button matStepperPrevious>Back</button>
 			<button mat-button matStepperNext>Next</button>

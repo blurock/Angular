@@ -4,9 +4,11 @@
 		<mat-card-content>
 		
 <div class="author" [formGroup]="author">
-			<mat-form-field>
+			<mat-form-field appearance="fill" class="fileformat">
 				<mat-label>{{authortitle}}</mat-label>
-				<input matInput formControlName="AuthorNameTitle" placeholder="Squirrel">
+				<mat-select formControlName="AuthorNameTitle">
+					<mat-option *ngFor="let choice of titleInformation" [value]="choice['dc:type']">{{choice['rdfs:label']}}</mat-option>
+				</mat-select>
 			</mat-form-field>
 			<mat-form-field>
 				<mat-label>{{authorgivennamelabel}}</mat-label>
@@ -17,7 +19,6 @@
 				<mat-label>{{authorfamilynamelabel}}</mat-label>
 				<input matInput formControlName="AuthorFamilyName" placeholder="Sir">
 			</mat-form-field>
-
 </div>
 		</mat-card-content>
 	</mat-card>

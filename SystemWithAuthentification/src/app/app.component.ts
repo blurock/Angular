@@ -14,8 +14,8 @@ export class AppComponent {
 		private router: Router
 	) { }
 
-	uploadfile(): void {
-		alert('Load File');
+	repositoryStaging(): void {
+		this.router.navigateByUrl('/catalog/repositorystaging');
 	}
 	fromURL(): void {
 		alert('from URL');

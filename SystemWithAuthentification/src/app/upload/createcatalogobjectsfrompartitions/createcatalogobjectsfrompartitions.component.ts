@@ -127,7 +127,7 @@ export class CreatecatalogobjectsfrompartitionsComponent implements OnInit {
 
 	}
 
-	formatValue() {
+	formatValue(): string {
 		return this.uploadinfoform.get('FileSourceFormat').value;
 	}
 

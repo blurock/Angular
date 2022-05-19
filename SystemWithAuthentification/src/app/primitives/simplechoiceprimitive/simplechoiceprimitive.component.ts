@@ -35,37 +35,55 @@ export class SimplechoiceprimitiveComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
+    alert("Init");
+    this.findChoices();
+    
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.findChoices();
+    
   }
 
   findChoices(): void {
     if (!this.filled) {
+      alert("FindChoices");
       const anno = this.annoinfo[this.annoref];
-      this.title = anno[Ontologyconstants.rdfslabel];
       const choiceanno = anno[this.choiceLabel];
-      const subclasses = choiceanno.subclassifications;
+      const classification = choiceanno['classification'];
+      this.title = choiceanno[Ontologyconstants.rdfslabel];
+      if(classification != null) {
+        const subclasses = classification['classificationtree'];
+        if(subclasses != null) {
       this.choicesList = [];
       this.choice = null;
+      alert("FindChoices: subclasses: " + subclasses.length);
       for (let i = 0; i < subclasses.length; i++) {
-        const element = subclasses[i];
-        const susanno = element.catalogAnnotations;
-        const ontobj = element.classification;
-        const alabel = susanno[this.rdfslabel];
-        const acomment = susanno[this.rdfscomment];
-        const celement = { ontobject: ontobj, label: alabel, comment: acomment };
-        this.choicesList.push(celement);
-        if (this.selectedValue == celement.ontobject) {
+        const classelement = subclasses[i];
+        const type = classelement['dataset:catalogtype'];
+        const typeinfo = this.annoinfo[type];
+        if(typeinfo != null) {
+        const alabel = typeinfo[this.rdfslabel];
+        const acomment = typeinfo[this.rdfscomment];
+          const celement = { ontobject: type, label: alabel, comment: acomment };
+          this.choicesList.push(celement);
+                  if (this.selectedValue == celement.ontobject) {
           this.choice = celement;
+        }
+
+        } else {
+          alert("Type not found: " + type);
         }
       };
       if (this.choice == null) {
         this.choice = this.choicesList[0];
       }
-
       this.filled = true;
+      } else {
+        alert("no classification tree");
+      }
+      } else {
+        alert('No classifications');
+      }
     }
   }
   selectionPicked($event) {

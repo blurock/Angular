@@ -19,23 +19,6 @@ export class UploadinterfaceconstantsService {
 	public doilabel = 'Identification';
 	public doihint = 'The DOI or ISBN or any other appropriate identifier';
 
-	public filesourcetitlelabel = 'Title of Source File';
-	public filesourcetitlehint = 'One line description (at least 15 characters)';
-	public filesourceabstractlabel = 'Abstract';
-	public filesourceabstracthint = 'Description of source file (at least 15 characters)';
-
-	public filesourceformatlabel = 'File Format';
-	public filesourceformathint = 'Will determine how the file is processed';
-
-	public genericnamelabel = 'Source Generic Name';
-	public genericnamehint = 'A unique name for this dataset object process';
-
-	public datasetnamelabel = 'Source set name';
-	public datasetnamehint = 'Source name (refers to same collection of sources)';
-
-	public versionlabel = 'Version';
-	public versionhint = 'Refers to version of this data source';
-
   public linecountlabel = 'Lines in Block';
   public linecounthint = 'The number of lines in each parsed block of the file'
   

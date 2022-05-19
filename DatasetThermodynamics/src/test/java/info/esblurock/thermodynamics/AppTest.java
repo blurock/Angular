@@ -1,4 +1,4 @@
-package info.esblurock.DatasetThermodynamics;
+package info.esblurock.thermodynamics;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -1,0 +1,64 @@
+import { Input, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IdentifiersService } from '../../../const/identifiers.service';
+import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { NavItem } from '../../../primitives/nav-item';
+import { MenutreeserviceService } from '../../../services/menutreeservice.service';
+
+@Component({
+	selector: 'app-gcsblobfileinformationstaging',
+	templateUrl: './gcsblobfileinformationstaging.component.html',
+	styleUrls: ['./gcsblobfileinformationstaging.component.scss']
+})
+export class GcsblobfileinformationstagingComponent implements OnInit {
+
+	objectform: FormGroup;
+
+	@Input() anno: any;
+
+	items: NavItem[];
+
+	rdfslabel = Ontologyconstants.rdfslabel;
+	rdfscomment = Ontologyconstants.rdfscomment;
+	formatmenulabel = 'dataset:FileSourceFormat';
+	formatButtonLabel = 'File Format';
+	formatButtonValue = 'Choose';
+
+	constructor(
+		private formBuilder: FormBuilder,
+		public identifiers: IdentifiersService,
+		private menusetup: MenutreeserviceService) { }
+
+	ngOnInit(): void {
+		this.objectform = this.formBuilder.group({
+			DescriptionAbstract: ['', Validators.required],
+			FileSourceFormat: ['', Validators.required],
+			GCSFileName: ['', Validators.required],
+			GCSFilePath: ['', Validators.required],
+		});
+		this.items = this.menusetup.findChoices(this.anno, this.formatmenulabel);
+
+	}
+
+	setData(catalog: any): void {
+		this.objectform.get('DescriptionAbstract').setValue(catalog[this.identifiers.DescriptionAbstract]);
+		this.objectform.get('FileSourceFormat').setValue(catalog[this.identifiers.FileSourceFormat]);
+		this.formatButtonValue = this.anno[catalog[this.identifiers.FileSourceFormat]][this.rdfslabel];
+		this.objectform.get('GCSFileName').setValue(catalog[this.identifiers.GCSFileName]);
+		this.objectform.get('GCSFilePath').setValue(catalog[this.identifiers.GCSFilePath]);
+	}
+
+	getData(catalog: any): void {
+		const gcsinfo = {};
+		catalog[this.identifiers.GCSBlobFileInformationStaging] = gcsinfo;
+		gcsinfo[this.identifiers.DescriptionAbstract] = this.objectform.get('DescriptionAbstract').value;
+		gcsinfo[this.identifiers.FileSourceFormat] = this.objectform.get('FileSourceFormat').value;
+		gcsinfo[this.identifiers.GCSFileName] = this.objectform.get('GCSFileName').value;
+		gcsinfo[this.identifiers.GCSFilePath] = this.objectform.get('GCSFilePath').value;
+	}
+	setFileFormat($event: string): void {
+		this.objectform.get('FileSourceFormat').setValue($event);
+		this.formatButtonValue = this.anno[$event][this.rdfslabel];
+	}
+
+}

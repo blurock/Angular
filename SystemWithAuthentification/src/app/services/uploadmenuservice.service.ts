@@ -108,6 +108,39 @@ export class UploadmenuserviceService {
 		},
 
 	};
+	
+	TITLES = [
+		{
+			'dc:type': 'dataset:Professor',
+			'rdfs:label': 'Prof.',
+			'rdfs:comment': 'the academic rank of professor in a university or other institution'
+		},
+		{
+			'dc:type': 'dataset:Eur_Ing',
+			'rdfs:label': 'Eur Ing',
+			'rdfs:comment': 'engineers registered as European Engineers with the European Federation of National Engineering Associations'
+		},
+		{
+			'dc:type': 'dataset:Doctor',
+			'rdfs:label': 'Dr.',
+			'rdfs:comment': 'Academic title of doctor or Ph.D'
+		},
+		 {
+			 'dc:type': 'dataset:Mister',
+			'rdfs:label': 'Mr.',
+			'rdfs:comment': 'Mister'
+		},
+		{
+			'dc:type': 'dataset:Ms',
+			'rdfs:label': 'Ms.',
+			'rdfs:comment': 'Ms.'
+		},
+		{
+			'dc:type': 'Lord',
+			'rdfs:label': 'Lord',
+			'rdfs:comment': 'male barons, viscounts, earls, and marquesses, as well as some of their children'
+		}
+		]
 
 
 	constructor(private httpClient: HttpClient) { }
@@ -122,6 +155,9 @@ export class UploadmenuserviceService {
 
 	public getUncertaintyChoices(): Observable<any> {
 		return of(this.UNCERTAINTY);
+	}
+	public getTitleChoices(): Observable<any> {
+		return of(this.TITLES);
 	}
 
 }

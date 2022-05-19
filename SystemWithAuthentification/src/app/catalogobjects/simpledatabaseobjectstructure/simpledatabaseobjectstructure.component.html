@@ -1,0 +1,58 @@
+<mat-card class="cardbase">
+	<mat-card-header>
+		<mat-card-title-group class="title">
+			<mat-card-subtitle>Basic Object Information</mat-card-subtitle>
+		</mat-card-title-group>
+	</mat-card-header>
+
+<mat-card-content>
+<form [formGroup]="objectform" >
+<mat-grid-list cols="3" rowHeight="100px">
+<mat-grid-tile [colspan]="1">
+			<mat-form-field class="namefield">
+				<mat-label>{{anno['dataset:DatabaseObjectType'][rdfslabel]}}</mat-label>
+				<input matInput formControlName="DatabaseObjectType" class="namefield">
+				<mat-hint>{{anno['dataset:DatabaseObjectType'][rdfscomment]}}</mat-hint>
+			</mat-form-field>
+</mat-grid-tile>
+<mat-grid-tile [colspan]="1">
+			<mat-form-field  class="namefield">
+				<mat-label>{{anno['dataset:CatalogObjectKey'][rdfslabel]}}</mat-label>
+				<input matInput formControlName="CatalogObjectKey">
+				<mat-hint>{{anno['dataset:CatalogObjectKey'][rdfscomment]}}</mat-hint>
+			</mat-form-field>
+</mat-grid-tile>
+<mat-grid-tile [colspan]="1">
+			<mat-form-field  class="namefield">
+				<mat-label>{{anno['dataset:TransactionID'][rdfslabel]}}</mat-label>
+				<input matInput formControlName="TransactionID">
+				<mat-hint>{{anno['dataset:TransactionID'][rdfscomment]}}</mat-hint>
+			</mat-form-field>
+</mat-grid-tile>
+
+<mat-grid-tile [colspan]="1">
+			<mat-form-field class="namefield">
+				<mat-label>{{anno['dataset:CatalogObjectOwner'][rdfslabel]}}</mat-label>
+				<input matInput formControlName="CatalogObjectOwner" class="namefield">
+				<mat-hint>{{anno['dataset:CatalogObjectOwner'][rdfscomment]}}</mat-hint>
+			</mat-form-field>
+</mat-grid-tile>
+<mat-grid-tile [colspan]="1">
+			<mat-form-field  class="namefield">
+				<mat-label>{{anno['dataset:CatalogObjectAccessRead'][rdfslabel]}}</mat-label>
+				<input matInput formControlName="CatalogObjectAccessRead">
+				<mat-hint>{{anno['dataset:CatalogObjectAccessRead'][rdfscomment]}}</mat-hint>
+			</mat-form-field>
+</mat-grid-tile>
+<mat-grid-tile [colspan]="1">
+			<mat-form-field  class="namefield">
+				<mat-label>{{anno['dataset:CatalogObjectAccessModify'][rdfslabel]}}</mat-label>
+				<input matInput formControlName="CatalogObjectAccessModify">
+				<mat-hint>{{anno['dataset:CatalogObjectAccessModify'][rdfscomment]}}</mat-hint>
+			</mat-form-field>
+</mat-grid-tile>
+
+</mat-grid-list>
+</form>
+</mat-card-content>
+</mat-card>

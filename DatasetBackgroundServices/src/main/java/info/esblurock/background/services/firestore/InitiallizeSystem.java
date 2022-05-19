@@ -24,15 +24,14 @@ public class InitiallizeSystem {
 				options = FirebaseOptions.builder().setCredentials(GoogleCredentials.getApplicationDefault())
 						.setStorageBucket("blurock-database.appspot.com").build();
 				 } else {
-					 FileInputStream serviceAccount =
-							  new FileInputStream("path/to/serviceAccountKey.json");
+					 //FileInputStream serviceAccount =
+							  //new FileInputStream("path/to/serviceAccountKey.json");
 
-							FirebaseOptions options = new FirebaseOptions.Builder()
-							  .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+							options = new FirebaseOptions.Builder()
+							  .setCredentials(GoogleCredentials.getApplicationDefault())
+							  //.setStorageBucket("blurock-database.appspot.com")
 							  .setStorageBucket("blurock-database.appspot.com")
 							  .build();
-
-							FirebaseApp.initializeApp(options);
 				}
 				FirebaseApp.initializeApp(options);
 			} catch (IOException e) {

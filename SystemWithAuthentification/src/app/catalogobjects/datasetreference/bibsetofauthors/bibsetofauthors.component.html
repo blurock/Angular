@@ -1,0 +1,26 @@
+<button mat-button color="primary" (click)="addAuthor()">{{addauthor}}</button>
+<div *ngFor="let author of authors.controls; ; let authorIndex=index">
+	<mat-card class="bibliocard">
+		<mat-card-content>
+		
+			<div class="author" [formGroup]="author">
+				<mat-form-field appearance="fill" class="fileformat">
+					<mat-label>{{anno['AuthorNameTitle'][rdfslabel]}}</mat-label>
+					<mat-select formControlName="AuthorNameTitle">
+						<mat-option *ngFor="let choice of titleInformation" [value]="choice['dc:type']">
+							{{choice['rdfs:label']}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>{{anno['AuthorGivenName'][rdfslabel]}}</mat-label>
+					<input matInput formControlName="AuthorGivenName" placeholder="Rocket J.">
+					<mat-hint>{{anno['AuthorGivenName'][rdfscomment]}}</mat-hint>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>{{anno['AuthorFamilyName'][rdfslabel]}}</mat-label>
+					<input matInput formControlName="AuthorFamilyName" placeholder="Sir">
+				</mat-form-field>
+			</div>
+		</mat-card-content>
+	</mat-card>
+</div>

@@ -9,6 +9,7 @@ import { EventEmitter } from '@angular/core';
   selector: 'app-catalogbasedata',
   templateUrl: './catalogbasedata.component.html',
   styleUrls: ['./catalogbasedata.component.scss']
+  
 })
 export class CatalogbasedataComponent implements OnInit, AfterViewInit, OnChanges {
 
@@ -24,12 +25,20 @@ export class CatalogbasedataComponent implements OnInit, AfterViewInit, OnChange
 @Output() toggleView = new EventEmitter<boolean>();
 
   showExtra: boolean;
-
+  titleloc: string;
+ descrloc: string;
   
   @ViewChild('extracatinfo') extra: CatalogbaseextraComponent;
   @ViewChild('datadescription') description: DatadatadescriptionComponent;
 
   constructor() { }
+  
+  ngOnInit(): void {
+    this.showExtra = false;
+    this.descrloc = 'descr-' + this.descriptionsuffix;
+    this.titleloc = 'title-' + this.descriptionsuffix;
+  }
+  
   ngOnChanges(changes: SimpleChanges): void {
     this.setData(this.baseobjdata, this.annoinfo);
   }
@@ -37,9 +46,6 @@ export class CatalogbasedataComponent implements OnInit, AfterViewInit, OnChange
 
   }
 
-  ngOnInit(): void {
-    this.showExtra = false;
-  }
 
   toggleExtra(): void {
     if (this.showExtra) {

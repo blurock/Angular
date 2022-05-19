@@ -31,8 +31,10 @@ export class UploadstepsComponent implements OnInit {
 	uploadInformation: string
 	parseResult: string;
 	interpretResult: string;
+	titles: string[];
+	titleInformation: any;
 
-	public filemediatype = "text/*";
+	public filemediatype = "dataset:FileTypeText";
 	public filemediasubtype = "";
 	public uploadfilesource = "dataset:LocalFileSystem";
 	public maintainer = "Administrator";
@@ -40,7 +42,8 @@ export class UploadstepsComponent implements OnInit {
 
 	unitset = ["quantitykind:MolarEnergy", "quantitykind:MolarEntropy", "quantitykind:MolarHeatCapacity", "quantitykind:Frequency"];
 
-	constructor(private _formBuilder: FormBuilder,
+	constructor(
+		private _formBuilder: FormBuilder,
 		private uploadService: UploadmenuserviceService) { }
 
 	ngOnInit() {
@@ -76,6 +79,14 @@ export class UploadstepsComponent implements OnInit {
 		}, (error) => {
 			console.log("An error accessing getFormatClassification Service");
 		})
+		
+		this.uploadService.getTitleChoices().subscribe((data) => {
+			this.titleInformation = data;
+			this.titles = Object.keys(data);
+		}, (error) => {
+			console.log("An error accessing getTitleChoices() Service");
+		})
+		
 
 		this.uploadService.getUnitSet(this.unitset).subscribe((data) => {
 			this.unitInformation = data;
@@ -131,7 +142,7 @@ export class UploadstepsComponent implements OnInit {
 		jsonact['dataset:filesourceformat'] = this.uploadinfoform.get('FileSourceFormat').value;
 		jsonact['dcterms:title'] = this.uploadinfoform.get('FileSourceTitle').value;
 		jsonact['dataset:filepartitionmethod'] = this.getFormatValue('dataset:partitionMethod');
-		jsonact['dataset:blocklinecount'] = this.getFormatValue('dataset:partitionMethod');
+		jsonact['dataset:blocklinecount'] = this.getFormatValue('dataset:blocklinecount');
 		jsonact['dataset:collectionobjecttype'] = this.getFormatValue('dcat:catalog');
 		return json;
 	}
@@ -160,7 +171,7 @@ export class UploadstepsComponent implements OnInit {
         jsonpurpose['dataset:dataconcept-staging'] = 'dataset:ConceptFileStaging';
         
         jsonstaging['dataset:title-staging'] = this.uploadinfoform.get('FileSourceTitle').value;
-        jsonstaging['dataset:abstract-staging'] = "";
+        jsonstaging['dataset:abstract-staging'] = this.uploadinfoform.get('FileSourceAbstract').value;
         let dateTime = new Date();
         const DATE_TIME_FORMAT = 'YYYY-MM-DDTHH:mm'; 
         jsonstaging['dcterms:created'] = moment(dateTime, DATE_TIME_FORMAT);

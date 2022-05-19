@@ -1,5 +1,10 @@
 import { Input, Output, EventEmitter, Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
+import { UploadinterfaceconstantsService } from '../uploadinterfaceconstants.service';
+import { OntologycatalogService } from '../../services/ontologycatalog.service';
+import {Ontologyconstants} from '../../const/ontologyconstants';
+import {IdentifiersService} from '../../const/identifiers.service';
+
 
 @Component({
 	selector: 'app-uploadfileinformation',
@@ -11,19 +16,17 @@ export class UploadfileinformationComponent implements OnInit {
 	@Input() uploadinfoform: FormGroup;
 	@Input() references: FormArray;
 	@Input() filesourcetypechoices: string[];
+	@Input() titleInformation: any;
 	@Output() newItemEvent = new EventEmitter<FormGroup>();
 
-	filesourcetitlelabel = 'Title of Source File';
-	filesourcetitlehint = 'One line description';
+catalogobj: any;
+annoinfo: any;
+display = false;
+message = 'Initializing';
+	rdfslabel = Ontologyconstants.rdfslabel;
+	rdfscomment = Ontologyconstants.rdfscomment;
 
-	filesourceformatlabel = 'File Format';
-	filesourceformathint = 'Will determine how the file is processed';
-	/*
-	filesourcetypechoices: string[] = ['JThermodynamicsVibrationalModes',
-		'TherGasBensonRules',
-		'ThergasSpeciesThermodynamics'];
-*/
-	genericnamelabel = 'Source Generic Name';
+	genericnamelabel = 'Generic'
 	genericnamehint = 'A unique name for this dataset object process';
 
 	datasetnamelabel = 'Source set name';
@@ -32,9 +35,31 @@ export class UploadfileinformationComponent implements OnInit {
 	versionlabel = 'Version';
 	versionhint = 'Refers to version of this data source';
 
-	constructor() { }
+	constructor(public annotations: OntologycatalogService,
+	public identifiers: IdentifiersService,
+		public labels: UploadinterfaceconstantsService) { }
 
 	ngOnInit(): void {
+		const catalogtype = 'dataset:ActivityRepositoryInitialReadLocalFile';
+		this.annotations.getNewCatalogObject(catalogtype).subscribe({
+			next: (responsedata: any) => {
+				this.message = 'got response';
+				this.message = responsedata;
+				const response = responsedata;
+				this.message = 'response JSON';
+				this.message = response[Ontologyconstants.message];
+				if (response[Ontologyconstants.successful]) {
+					const catalog = response[Ontologyconstants.catalogobject];
+					this.catalogobj = catalog[Ontologyconstants.outputobject];
+					this.annoinfo = catalog[Ontologyconstants.annotations];
+					this.display = true;
+				} else {
+					this.message = responsedata;
+				}
+			},
+			error: (info: any) => { alert('Get Annotations failed:' + this.message); }
+		});
+
 	}
 
 	addReference(reference: FormGroup): void {

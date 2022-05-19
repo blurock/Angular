@@ -22,7 +22,9 @@
 						placeholder="https://doi.org/10.1016/j.jir.2020.01.01">
 					<mat-hint>{{doihint}}</mat-hint>
 				</mat-form-field>
-				<app-setofauthors [index]="empIndex" (newItemEvent)="addAuthor($event)"></app-setofauthors>
+				<app-setofauthors [index]="empIndex" 
+				[(titleInformation)]="titleInformation"
+				(newItemEvent)="addAuthor($event)"></app-setofauthors>
 				
 				
 		</div>

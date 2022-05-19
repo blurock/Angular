@@ -14,4 +14,10 @@ public static datasethttpaddress = 'dataset:HttpAddress';
 public static datasethttpaddresstype = 'dataset:HttpAddressType';
 public static datasethttpaddresssrcloc = 'dataset:HttpAddressSourceLocation';
 
+public static successful = 'dataset:servicesuccessful';
+public static message = 'dataset:serviceresponsemessage';
+public static catalogobject = 'dataset:simpcatobj';
+public static outputobject = 'dataobj';
+public static annotations = 'annotations';
+
 }
