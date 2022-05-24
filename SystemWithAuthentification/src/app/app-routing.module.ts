@@ -17,6 +17,7 @@ import { ToppageComponent } from './layout/toppage/toppage.component';
 import {UploadstepsComponent} from './upload/uploadsteps/uploadsteps.component';
 import {RepositorydatafileComponent} from '../app/catalogobjects/repository/repositorydatafile/repositorydatafile.component';
 import {DatasetrepositoryfilestagingComponent} from '../app/catalogobjects/repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
+import {RepositorydatapartitionblockComponent} from '../app/catalogobjects/repository/repositorydatapartitionblock/repositorydatapartitionblock.component';
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([FEED]);
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
 	{ path: 'forgot-password', component: ForgotPasswordComponent },
 	{ path: 'verify-email-address', component: VerifyEmailComponent },
 	{ path: 'catalog/repositorystaging', component: DatasetrepositoryfilestagingComponent},
+	{ path: 'catalog/partition', component: RepositorydatapartitionblockComponent},
 	{
 		path: 'feed',
 		component: RepositorydatafileComponent,

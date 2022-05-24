@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CollectiondocumentidpairaddressComponent } from '../recordobjects/collectiondocumentidpairaddress/collectiondocumentidpairaddress.component';
 import { IdentifiersService } from '../../const/identifiers.service';
@@ -10,32 +10,41 @@ import { Ontologyconstants } from '../../const/ontologyconstants';
 	templateUrl: './firesytorecatalogid.component.html',
 	styleUrls: ['./firesytorecatalogid.component.scss']
 })
-export class FiresytorecatalogidComponent implements OnInit {
+export class FiresytorecatalogidComponent implements OnInit,AfterViewInit {
 
 	@Input() anno: any;
 
 	display = false
 
 	objectform: FormGroup;
-	catalogID: any;
 	documentdpairaddress: FormArray;
 	message: string;
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = 'rdfs:comment';
-
+	catalogID: any;
 
 	constructor(
 		private formBuilder: FormBuilder,
-		public identifiers: IdentifiersService) { }
-
-	ngOnInit(): void {
-		this.message = 'No FirestoreID';
-		this.objectform = this.formBuilder.group({
+		public identifiers: IdentifiersService) {
+					this.objectform = this.formBuilder.group({
 			DataCatalog: ['', Validators.required],
 			SimpleCatalogName: ['', Validators.required],
 		});
+this.documentdpairaddress = new FormArray([]);
+		 }
+ngAfterViewInit() {
+	this.message = "checked";
+		if(this.catalogID != null) {
+			alert(JSON.stringify(this.catalogID));
+			this.setData(this.catalogID);
+		}
+	
+}
+	ngOnInit(): void {
+		this.message = 'No FirestoreID';
 	}
 	public setData(catalogID: any) {
+		this.catalogID = catalogID;
 		if (catalogID != null) {
 			this.objectform.get('DataCatalog').setValue(catalogID[this.identifiers.DataCatalog]);
 			this.objectform.get('SimpleCatalogName').setValue(catalogID[this.identifiers.SimpleCatalogName]);
@@ -53,9 +62,6 @@ export class FiresytorecatalogidComponent implements OnInit {
 				collectionidpair.get('DatasetDocumentID').setValue(pair[this.identifiers.DatasetDocumentID]);
 				collectionidpair.get('DatasetIDLevel').setValue(pair[this.identifiers.DatasetIDLevel]);
 			}
-
-
-
 			this.display = true;
 		}
 	}
@@ -69,7 +75,6 @@ export class FiresytorecatalogidComponent implements OnInit {
 			catalogID[this.identifiers.CollectionDocumentIDPairAddress] = catalogpairobj;
 			const pairarray = [];
 			catalogpairobj[this.identifiers.CollectionDocumentIDPair] = pairarray;
-
 			for (let i = 0; i < this.documentdpairaddress.length; i++) {
 				const address = this.documentdpairaddress.at(i);
 				const addresspair = {};

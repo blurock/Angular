@@ -1,4 +1,4 @@
-import { Input, Output, Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
+import { Input, Output, Component, AfterViewInit, EventEmitter, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { IdentifiersService } from '../../../const/identifiers.service';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
@@ -11,13 +11,15 @@ import { NavItem } from '../../../primitives/nav-item';
 	templateUrl: './dataobjectlink.component.html',
 	styleUrls: ['./dataobjectlink.component.scss']
 })
-export class DataobjectlinkComponent implements OnInit {
+export class DataobjectlinkComponent implements AfterViewInit {
 	linkform: FormGroup;
 	display = false;
 	conceptmenulabel = 'dataset:DataTypeConcept';
 	conceptitems: NavItem[];
 	formatmenulabel = 'dataset:DatabaseObjectType';
 	items: NavItem[];
+	
+	catalog: any;
 
 	@Input() anno: any;
 	@Output() deleteEvent: EventEmitter<number> = new EventEmitter<number>();
@@ -30,14 +32,17 @@ export class DataobjectlinkComponent implements OnInit {
 	constructor(
 		private formBuilder: FormBuilder,
 		public identifiers: IdentifiersService,
-		private menusetup: MenutreeserviceService) { }
-
-
-	ngOnInit(): void {
+		private menusetup: MenutreeserviceService) {
 		this.linkform = this.objectlinkform();
+	}
+
+
+	ngAfterViewInit(): void {
 		this.items = this.menusetup.findChoices(this.anno, this.formatmenulabel);
 		this.conceptitems = this.menusetup.findChoices(this.anno, this.conceptmenulabel);
-
+		if(this.catalog != null) {
+			this.setData(this.catalog);
+		}
 	}
 	objectlinkform(): FormGroup {
 		const objectform = this.formBuilder.group({
@@ -57,13 +62,20 @@ export class DataobjectlinkComponent implements OnInit {
 	}
 
 	setData(catalog: any) {
+		this.catalog = catalog;
 		if (catalog != null) {
 			this.display = true;
 			this.linkform = this.objectlinkform();
 			this.linkform.get('DatabaseObjectType').setValue(catalog[this.identifiers.DatabaseObjectType]);
 			this.linkform.get('DataTypeConcept').setValue(catalog[this.identifiers.DataTypeConcept]);
+			
 			const firestoreidvalues = catalog[this.identifiers.FirestoreCatalogID];
-			this.firestoreid.setData(firestoreidvalues);
+			if (this.firestoreid != null) {
+				this.firestoreid.setData(firestoreidvalues);
+			} else {
+
+			}
+			
 		}
 	}
 
@@ -71,7 +83,10 @@ export class DataobjectlinkComponent implements OnInit {
 		if (catalog != null) {
 			catalog[this.identifiers.DatabaseObjectType] = this.linkform.get('DatabaseObjectType').value;
 			catalog[this.identifiers.DataTypeConcept] = this.linkform.get('DataTypeConcept').value;
-			this.firestoreid.getData(catalog);
+			if (this.firestoreid != null) {
+				this.firestoreid.getData(catalog);
+			} else {
+			}
 		}
 	}
 	setFileDatabaseObjectType($event: string): void {

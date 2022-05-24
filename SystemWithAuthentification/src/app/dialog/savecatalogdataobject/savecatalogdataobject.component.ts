@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SavecatalogdataobjectdialogComponent } from '../savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
 import { BaseCatalogInterface } from '../../primitives/basecataloginterface';
@@ -13,6 +13,7 @@ import { Ontologyconstants } from '../../const/ontologyconstants';
 export class SavecatalogdataobjectComponent extends BaseCatalogInterface {
 	catalogobj: any;
 	annoinfo: any;
+	annoReady = new EventEmitter<any>();
 
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
@@ -20,7 +21,7 @@ export class SavecatalogdataobjectComponent extends BaseCatalogInterface {
 
 	catalogtype: string;
 	display = false;
-
+	
 	constructor(
 		public dialog: MatDialog,
 		public annotations: OntologycatalogService,
@@ -30,7 +31,7 @@ export class SavecatalogdataobjectComponent extends BaseCatalogInterface {
 
 	public getCatalogAnnoations(): void {
 		this.message = 'Waiting for Info call';
-		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
+	    this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
 			next: (responsedata: any) => {
 				this.message = 'got response';
 				this.message = responsedata;
@@ -42,6 +43,7 @@ export class SavecatalogdataobjectComponent extends BaseCatalogInterface {
 					this.catalogobj = catalog[Ontologyconstants.outputobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];
 					this.display = true;
+					this.annoReady.emit(this.display);
 				} else {
 					this.message = responsedata;
 				}
@@ -52,6 +54,7 @@ export class SavecatalogdataobjectComponent extends BaseCatalogInterface {
 	}
 
 	public openDialog(catalog: any): void {
+		alert("openDialog:" + JSON.stringify(catalog));
 		const dialogRef = this.dialog.open(SavecatalogdataobjectdialogComponent, {
 			data: { catalog: catalog, annotations: this.annoinfo }
 		});
@@ -59,15 +62,5 @@ export class SavecatalogdataobjectComponent extends BaseCatalogInterface {
 		dialogRef.afterClosed().subscribe(result => {
 			alert(result);
 		});
-
-		/*
-	   const dialogRef = this.dialog.open(SavecatalogdataobjectdialogComponent, {
-		 data: dataobject,
-	   });
-   
-	   dialogRef.afterClosed().subscribe(result => {
-		 alert(result);
-	   });
-	   */
 	}
 }

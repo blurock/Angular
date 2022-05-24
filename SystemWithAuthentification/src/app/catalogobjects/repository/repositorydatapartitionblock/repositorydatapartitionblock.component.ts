@@ -9,58 +9,65 @@ import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesyto
 import { IdentifiersService } from '../../../const/identifiers.service';
 import { SetofdataobjectlinksComponent } from '../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
 import { SetofsitereferencesComponent } from '../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
-import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {SavecatalogdataobjectdialogComponent} from '../../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
-import {SavecatalogdataobjectComponent} from '../../../dialog/savecatalogdataobject/savecatalogdataobject.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SavecatalogdataobjectdialogComponent } from '../../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
+import { SavecatalogdataobjectComponent } from '../../../dialog/savecatalogdataobject/savecatalogdataobject.component';
+import { NavItem } from '../../../primitives/nav-item';
+import { MenutreeserviceService } from '../../../services/menutreeservice.service';
+
 @Component({
-	selector: 'app-datasetrepositoryfilestaging',
-	templateUrl: './datasetrepositoryfilestaging.component.html',
-	styleUrls: ['./datasetrepositoryfilestaging.component.scss']
+	selector: 'app-repositorydatapartitionblock',
+	templateUrl: './repositorydatapartitionblock.component.html',
+	styleUrls: ['./repositorydatapartitionblock.component.scss']
 })
-export class DatasetrepositoryfilestagingComponent extends SavecatalogdataobjectComponent implements OnInit, AfterViewInit {
+export class RepositorydatapartitionblockComponent extends SavecatalogdataobjectComponent implements OnInit {
 
 	objectform: FormGroup;
-	catalogtype: string;
-	
-	constructor(
-		public dialog: MatDialog,
-		private formBuilder: FormBuilder,
-		public annotations: OntologycatalogService,
-		public identifiers: IdentifiersService) {
-		super(dialog,annotations,identifiers,
-		);
-	}
-
-	descriptionsuffix = 'descr-filestaging';
-	menuclass = "dataset:FileSourceFormat";
-
-	descr: string;
+	items: NavItem[];
+	formatmenulabel = 'dataset:FileSourceFormat';
+	partitionitems: NavItem[];
+	partitionmenulabel = 'dataset:FilePartitionMethod';
 
 	@ViewChild('simpledata') simpledata: SimpledatabaseobjectstructureComponent;
 	@ViewChild('firestoreid') firestoreid: FiresytorecatalogidComponent;
 	@ViewChild('references') references: DatasetreferenceComponent;
 	@ViewChild('objectlinks') objectlinks: SetofdataobjectlinksComponent;
 	@ViewChild('weblinks') weblinks: SetofsitereferencesComponent;
-	@ViewChild('gcs') gcs: DatasetreferenceComponent;
 
+
+	constructor(
+		private menusetup: MenutreeserviceService,
+		public dialog: MatDialog,
+		private formBuilder: FormBuilder,
+		public annotations: OntologycatalogService,
+		public identifiers: IdentifiersService) {
+		super(dialog, annotations, identifiers,
+		);
+		this.catalogtype = 'dataset:RepositoryDataPartitionBlock';
+		this.getCatalogAnnoations();
+	}
 
 	ngOnInit(): void {
 		this.objectform = this.formBuilder.group({
-			DescriptionTitle: ['', Validators.required]
+			FilePartitionMethod: ['', Validators.required],
+			FileSourceFormat: ['File Format', Validators.required],
+			Position: ['', Validators.required]
 		});
-
 	}
+
 	ngAfterViewInit(): void {
-	this.catalogtype = 'dataset:RepositoryFileStaging';
-	this.getCatalogAnnoations();
-}
+		this.annoReady.subscribe(result => {
+			this.items = this.menusetup.findChoices(this.annoinfo, this.formatmenulabel);
+			this.partitionitems = this.menusetup.findChoices(this.annoinfo, this.partitionmenulabel);
+			alert(this.partitionitems.length);
+      });
+	}
 
 	public setDefaultData(): void {
 		if (this.simpledata != null) {
 			this.setData(repository);
 		}
-		
 	}
 
 	public setData(catalog: any): void {
@@ -70,19 +77,14 @@ export class DatasetrepositoryfilestagingComponent extends Savecatalogdataobject
 			this.firestoreid.setData(firestoreidvalues);
 			const refs = catalog[this.identifiers.DataSetReference];
 			this.references.setData(refs);
-			const gcs = catalog[this.identifiers.GCSBlobFileInformationStaging];
-			this.gcs.setData(gcs);
 			const olinks = catalog[this.identifiers.DataObjectLink];
 			this.objectlinks.setData(olinks);
 			const wlinks = catalog[this.identifiers.ObjectSiteReference];
 			this.objectlinks.setData(wlinks);
-		    const rtitle = catalog[this.identifiers.DescriptionTitle];
-			this.objectform.get('DescriptionTitle').setValue(catalog[this.identifiers.DescriptionTitle]);
+			this.objectform.get('FilePartitionMethod').setValue(catalog[this.identifiers.FilePartitionMethod]);
+			this.objectform.get('FileSourceFormat').setValue(catalog[this.identifiers.FileSourceFormat]);
+			this.objectform.get('Position').setValue(catalog[this.identifiers.Position]);
 		}
-	}
-	
-	public openMenu() {
-		
 	}
 
 	public saveCatalog(): void {
@@ -92,13 +94,22 @@ export class DatasetrepositoryfilestagingComponent extends Savecatalogdataobject
 	}
 	public getData(catalog: any): void {
 		if (this.simpledata != null) {
+			catalog[this.identifiers.FilePartitionMethod] = this.objectform.get('FilePartitionMethod').value;
+			catalog[this.identifiers.FileSourceFormat] = this.objectform.get('FileSourceFormat').value;
+			catalog[this.identifiers.Position] = this.objectform.get('Position').value;
 			this.simpledata.getData(catalog);
 			this.references.getData(catalog);
 			this.weblinks.getData(catalog);
 			this.objectlinks.getData(catalog);
-			this.gcs.getData(catalog);
 			this.firestoreid.getData(catalog);
 		}
 	}
+	setFileFormat($event: string): void {
+		this.objectform.get('FileSourceFormat').setValue($event);
+	}
+	setPartition($event: string): void {
+		this.objectform.get('FilePartitionMethod').setValue($event);
+	}
+
 
 }

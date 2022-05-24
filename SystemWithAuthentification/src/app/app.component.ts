@@ -17,6 +17,9 @@ export class AppComponent {
 	repositoryStaging(): void {
 		this.router.navigateByUrl('/catalog/repositorystaging');
 	}
+	partition(): void {
+		this.router.navigateByUrl('/catalog/partition');
+	}
 	fromURL(): void {
 		alert('from URL');
 	}

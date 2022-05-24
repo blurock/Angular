@@ -37,7 +37,6 @@ export class SetofsitereferencesComponent implements OnInit {
 	public addObjectLink(link: any): void {
 		const componentRef = this.dynamicChild.viewContainerRef.createComponent(ObjectsitereferenceComponent);
 		componentRef.instance.anno = this.anno;
-		this.cdRef.detectChanges();
 		componentRef.instance.setData(link);
 		componentRef.instance.deleteEvent.subscribe((index) => {
 			this.linkarray.splice(index,1);
@@ -71,6 +70,8 @@ export class SetofsitereferencesComponent implements OnInit {
 			linkform.getData(link);
 			links.push(link);
 		}
+		} else {
+			alert("SetofsitereferencesComponent: catalog null");
 		}
 	}
 

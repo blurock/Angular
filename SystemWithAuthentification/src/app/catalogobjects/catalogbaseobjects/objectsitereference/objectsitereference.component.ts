@@ -26,15 +26,18 @@ siteitems: NavItem[];
   constructor(
 		private formBuilder: FormBuilder,
 		public identifiers: IdentifiersService,
-		private menusetup: MenutreeserviceService) { }
-
-  
-   ngOnInit(): void {
+		private menusetup: MenutreeserviceService) {
 		this.objectform = this.formBuilder.group({
 			index: [''],
 			HTTPAddress: ['', Validators.required],
 			HttpAddressInformationType: ['', Validators.required],
 		});
+      
+      
+     }
+
+  
+   ngOnInit(): void {
 		this.siteitems = this.menusetup.findChoices(this.anno,this.siteclass);
   }
   

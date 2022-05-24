@@ -18,9 +18,6 @@ export class MenutreeserviceService {
 	public findChoices(anno: any, annoref: string): NavItem[] {
 		const navitemarray: NavItem[] = [];
 		const choiceanno = anno[annoref];
-				alert("findChoices: " + annoref);
-				alert("findChoices: " + JSON.stringify(choiceanno));
-
 		const classification: any = choiceanno[this.classificationlabel];
 		if (classification != null) {
 			this.subchoices(anno, classification, navitemarray);

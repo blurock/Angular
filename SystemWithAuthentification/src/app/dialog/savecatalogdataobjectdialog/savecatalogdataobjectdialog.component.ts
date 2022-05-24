@@ -23,18 +23,21 @@ export class SavecatalogdataobjectdialogComponent implements AfterViewInit {
 		public dialogRef: MatDialogRef<SavecatalogdataobjectComponent>,
 		public identifiers: IdentifiersService,
 		@Inject(MAT_DIALOG_DATA) public inputdata: any,
-
-	) { }
+	) {
+		//this.dataobject = {label: 'hello'};
+		//this.type = 'this type';
+		this.dataobject = this.inputdata['catalog'];
+		this.type = this.dataobject[this.identifiers.DatabaseObjectType];
+		this.anno = this.inputdata['annotations'];
+		this.dataobjectstring = "SavecatalogdataobjectdialogComponent"
+		//this.dataobjectstring = JSON.stringify(this.dataobject);
+	 }
 
 	toggleObjectView() {
     this.objectdisplay = !this.objectdisplay
   }
   
 	ngAfterViewInit(): void {
-		this.dataobject = this.inputdata['catalog'];
-		this.type = this.dataobject[this.identifiers.DatabaseObjectType];
-		this.anno = this.inputdata['annotations'];
-		this.dataobjectstring = JSON.stringify(this.dataobject);
 		const firestore = this.dataobject[this.identifiers.FirestoreCatalogID];
 		this.firestoreid.setData(firestore);
 	}

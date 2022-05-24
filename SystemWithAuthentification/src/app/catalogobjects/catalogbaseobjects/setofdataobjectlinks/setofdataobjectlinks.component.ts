@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { FormArray } from '@angular/forms';
 import { LoadchildDirective } from '../loadchild.directive';
 import { RdftripleComponent } from '../rdftriple/rdftriple.component'
 import { DataobjectlinkComponent } from '../dataobjectlink/dataobjectlink.component';
-import { Directive, ViewContainerRef,ComponentRef , ChangeDetectorRef} from '@angular/core';
+import { Directive, ViewContainerRef, ComponentRef, ChangeDetectorRef } from '@angular/core';
 import { IdentifiersService } from '../../../const/identifiers.service';
 
 @Component({
@@ -12,16 +13,16 @@ import { IdentifiersService } from '../../../const/identifiers.service';
 })
 export class SetofdataobjectlinksComponent implements OnInit {
 
-@ViewChild(LoadchildDirective, { static: true })
-  dynamicChild!: LoadchildDirective;
-public orderedViewContainer: ViewContainerRef;
+	@ViewChild(LoadchildDirective, { static: true })
+	dynamicChild!: LoadchildDirective;
+	public orderedViewContainer: ViewContainerRef;
 
 	linkarray = [];
 
 	@Input() anno: any;
-	
+
 	constructor(
-		private cdRef:ChangeDetectorRef,
+		private cdRef: ChangeDetectorRef,
 		public identifiers: IdentifiersService) { }
 
 	ngOnInit(): void {
@@ -44,8 +45,6 @@ public orderedViewContainer: ViewContainerRef;
 	public addObjectLink(link: any): void {
 		const componentRef = this.dynamicChild.viewContainerRef.createComponent(DataobjectlinkComponent);
 		componentRef.instance.anno = this.anno;
-		this.cdRef.detectChanges();
-		componentRef.instance.setData(link);
 		componentRef.instance.deleteEvent.subscribe((index) => {
 			this.linkarray.splice(index,1);
 			componentRef.destroy();
@@ -53,6 +52,7 @@ public orderedViewContainer: ViewContainerRef;
 		})
 		componentRef.instance.setIndex(this.linkarray.length);
 		this.linkarray.push(componentRef.instance);
+		componentRef.instance.setData(link);
 	}
 	
 	resetLinkArray(): void {
@@ -63,18 +63,21 @@ public orderedViewContainer: ViewContainerRef;
 			}
 	}
 
+
 	public setData(links: any[]): void {
 		for (let link of links) {
 			this.addObjectLink(link);
 		}
 	}
 	public getData(catalog: any): void {
-		const links = [];
-		catalog[this.identifiers.DataObjectLink] = links
-		for (let linkform of this.linkarray) {
-			const link = {};
-			linkform.getData(link);
-			links.push(link);
+		if (catalog != null) {
+			const links = [];
+			catalog[this.identifiers.DataObjectLink] = links;
+			for (let linkform of this.linkarray) {
+				const link = {};
+				linkform.getData(link);
+				links.push(link);
+			}
 		}
 	}
 }

@@ -64,9 +64,11 @@ export class IdentifiersService {
 	public FileSourceMediaSubType = 'dataset:filesourcesubtype';
 	public FileSourceIdentifier = 'dataset:fileidentifier';
 	
+	public RepositoryDataPartitionBlock = 'dataset:RepositoryDataFilePartition';
 	public ActivityRepositoryPartitionToCatalog = 'dataset:partitionfilefromrepository';
 	public BlockLineCount = 'dataset:blocklinecount';
 	public FilePartitionMethod = 'dataset:filepartitionmethod';
+	public Position = 'qb:order';
 	
 	
 	constructor() { }

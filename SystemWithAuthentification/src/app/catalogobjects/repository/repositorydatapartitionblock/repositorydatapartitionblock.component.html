@@ -1,0 +1,45 @@
+<mat-card class="cardbase">
+	<mat-card-header>
+		<mat-card-title-group class="title-group">
+			<mat-card-title class="title">File Partition Element</mat-card-title>
+			<button class="rbutton" (click)="setDefaultData()">submit</button>
+			<button class="rbutton" (click)="saveCatalog()">save</button>
+		</mat-card-title-group>
+	</mat-card-header>
+	<mat-card-content>
+		<ng-container *ngIf='display; else loading'>
+			<div>
+				<form [formGroup]="objectform">
+					<mat-form-field class="namefield">
+						<input matInput formControlName="FileSourceFormat" [matMenuTriggerFor]="menu.childMenu">
+						<mat-hint>{{annoinfo['dataset:FileSourceFormat'][rdfscomment]}}</mat-hint>
+					</mat-form-field>
+					<app-menu-item #menu [items]="items" (selectionEvent)="setFilePartition($event)"></app-menu-item>
+					<mat-form-field class="namefield">
+						<mat-label>{{annoinfo['dataset:Position'][rdfslabel]}}</mat-label>
+						<input matInput formControlName="Position" class="namefield">
+						<mat-hint>{{annoinfo['dataset:Position'][rdfscomment]}}</mat-hint>
+					</mat-form-field>
+					<mat-form-field class="namefield">
+						<input matInput formControlName="FilePartitionMethod"
+							[matMenuTriggerFor]="partitionmenu.childMenu">
+						<mat-hint>{{annoinfo['dataset:FilePartitionMethod'][rdfscomment]}}</mat-hint>
+					</mat-form-field>
+					<app-menu-item #partitionmenu [items]="partitionitems" (selectionEvent)="setPartition($event)">
+					</app-menu-item>
+				</form>
+			</div>
+
+			<app-setofsitereferences #weblinks [(anno)]="annoinfo"></app-setofsitereferences>
+			<app-setofdataobjectlinks #objectlinks [(anno)]="annoinfo"></app-setofdataobjectlinks>
+			<app-datasetreference #references [(anno)]="annoinfo"></app-datasetreference>
+			<app-simpledatabaseobjectstructure #simpledata [(anno)]="annoinfo"></app-simpledatabaseobjectstructure>
+			<app-firesytorecatalogid #firestoreid [(anno)]="annoinfo"></app-firesytorecatalogid>
+		</ng-container>
+		<ng-template #loading>
+			<div>
+				{{message}}
+			</div>
+		</ng-template>
+	</mat-card-content>
+</mat-card>
