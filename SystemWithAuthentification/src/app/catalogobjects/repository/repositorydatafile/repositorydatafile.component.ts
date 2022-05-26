@@ -19,10 +19,11 @@ export class RepositorydatafileComponent extends BaseCatalogInterface implements
 	title = 'one line description';
 	titletip: string;
 	showExtra = false;
+	descriptionsuffix = 'FileStaging';
+
 
 	parameters: Observable<any>;
 	baseobjdata: any;
-	descriptionsuffix = 'filestaging';
 	descriptiondata: any;
 	catidobj: any;
 	catalogobj: any;
@@ -31,7 +32,7 @@ export class RepositorydatafileComponent extends BaseCatalogInterface implements
 	message: string;
 
 	@ViewChild('basedataobj') baseobj: CatalogbasedataComponent;
-	@ViewChild('description') description: DatadatadescriptionComponent;
+	//@ViewChild('description') description: DatadatadescriptionComponent;
 	@ViewChild('catid') catid: CatalogidComponent;
 
 	constructor(private annotations: OntologycatalogService) {
@@ -39,17 +40,20 @@ export class RepositorydatafileComponent extends BaseCatalogInterface implements
 	}
 
 	ngOnInit(): void {
+		alert("Init");
 		this.annotations.getNewCatalogObject('dataset:RepositoryFileStaging').subscribe({
 			next: (responsedata: any) => {
 				const response = this.messageToJSON(responsedata);
 				this.message = response[Ontologyconstants.message] as string;
 				if (response[Ontologyconstants.successful]) {
+					alert("Annotations");
 					const catalog = response[Ontologyconstants.catalogobject];
 					this.catalogobj = catalog[Ontologyconstants.outputobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];
 					this.baseobjdata = this.catalogobj;
-					const descr = 'descr-' + this.descriptionsuffix;
-					this.descriptiondata = this.catalogobj[descr];
+					alert(JSON.stringify(this.baseobjdata));
+					//const descr = 'descr-' + this.descriptionsuffix;
+					//this.descriptiondata = this.catalogobj[descr];
 					this.catidobj = this.catalogobj.catid;
 					this.reflabel = 'ref';
 				} else {
@@ -64,10 +68,12 @@ export class RepositorydatafileComponent extends BaseCatalogInterface implements
 		if (this.baseobj != null) {
 			this.baseobj.setData(info, annoinfo);
 		}
+		/*
 		if (this.description != null) {
 			const descr = 'descr-' + this.descriptionsuffix;
-			this.description.setData(info[descr], annoinfo);
+			this.description.setData(info[descr]);
 		}
+		*/
 		if (this.catid != null) {
 			this.catid.setData(info.catid, annoinfo);
 		}

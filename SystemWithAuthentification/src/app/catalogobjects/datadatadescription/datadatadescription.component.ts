@@ -1,62 +1,114 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { IdentifiersService } from '../../const/identifiers.service';
+import { Ontologyconstants } from '../../const/ontologyconstants';
+import { MenutreeserviceService } from '../../services/menutreeservice.service';
+import {CatalogconceptpurposeComponent} from '../../catalogobjects/catalogconceptpurpose/catalogconceptpurpose.component';
+import {KeywordlistprimitiveComponent} from '../../primitives/keywordlistprimitive/keywordlistprimitive.component';
 
 @Component({
-  selector: 'app-datadatadescription',
-  templateUrl: './datadatadescription.component.html',
-  styleUrls: ['./datadatadescription.component.scss']
+	selector: 'app-datadatadescription',
+	templateUrl: './datadatadescription.component.html',
+	styleUrls: ['./datadatadescription.component.scss']
 })
-export class DatadatadescriptionComponent implements OnInit, OnChanges {
-
-  title: string;
-  abstracttext: string;
-  purposeconcept: string;
-  keywords: string;
-  fieldwidth = 'full';
-
-  @Input() descriptiondata: any;
-  @Input() descriptionsuffix: string;
-  @Input() annoinfo: any;
-
-  descr: string;
-  abst: string;
-  purconloc: string;
-  keywordloc: string;
-
-  abstrlabel: string;
-  abstrdescr: string;
-  titlelabel: string;
-  titledescr: string;
+export class DatadatadescriptionComponent implements AfterViewInit {
 
 
-  constructor() { }
-  ngOnChanges(changes: SimpleChanges): void {
-    this.abst = 'abstract-' + this.descriptionsuffix;
-    this.purconloc = 'purpose-' + this.descriptionsuffix;
-    this.keywordloc = 'keyword-' + this.descriptionsuffix;
-    this.setData(this.descriptiondata, this.annoinfo);
-  }
+	@ViewChild('concept') concept: CatalogconceptpurposeComponent;
+	@ViewChild('keywords') keywords: KeywordlistprimitiveComponent;
 
-  ngOnInit(): void {
-  }
-  setData(info: any, annoinfo: any): void {
+	objectform: FormGroup;
+	message: string;
+	rdfsidentifier = 'dcterms:identifier';
+	rdfslabel = Ontologyconstants.rdfslabel;
+	rdfscomment = Ontologyconstants.rdfscomment;
+	
+	@Input() descriptionsuffix: string;
+	@Input() annoinfo: any;
 
-    if (annoinfo != null) {
-      const abstrloc = 'abstract-' + this.descriptionsuffix;
-      const abstranno = annoinfo[abstrloc];
-      const rdfslabel = 'rdfs:label';
-      const rdfsdescr = 'rdfs:comment';
-      this.abstrlabel = abstranno[rdfslabel];
-      this.abstrdescr = abstranno[rdfsdescr];
-      const titleloc = 'title-' + this.descriptionsuffix;
-      const titleanno = annoinfo[titleloc];
-      this.titlelabel = titleanno[rdfslabel];
-      this.titledescr = titleanno[rdfsdescr];
-    }
-    if (info != null) {
-      this.title = info[this.descr];
-      this.abstracttext = info[this.abst];
-      this.purposeconcept = info[this.purconloc];
-      this.keywords = info[this.keywordloc];
-    }
-  }
+
+	description: string;
+	header: string;
+	title: string;
+	abst: string;
+	purconloc: string;
+	keywordloc: string;
+
+	abstrlabel: string;
+	abstrhint: string;
+	titlelabel: string;
+	titlehint: string;
+
+
+	constructor(
+		private formBuilder: FormBuilder
+	) {
+		this.objectform = this.formBuilder.group({
+			DescriptionAbstract: ['', Validators.required],
+			DescriptionTitle: ['', Validators.required],
+		});
+		this.message = 'No Description';
+	}
+	
+	ngAfterViewInit(): void {
+		this.setLabels(this.descriptionsuffix);
+	}
+	
+
+
+	setLabels(suffix: string): void {
+		if (suffix.length == 0) {
+      	    this.description = 'dataset:DataDataDescription';
+			this.abst = 'dataset:DescriptionAbstract';
+			this.title = 'dataset:DescriptionTitle';
+			this.purconloc = 'dataset:PurposeConcept';
+			this.keywordloc = 'dataset:DescriptionKeyword';
+		} else {
+      	    this.description = 'dataset:DataDescription' + suffix;
+			this.abst = 'dataset:DescriptionAbstract' + suffix;
+			this.title = 'dataset:DescriptionTitle' + suffix;
+			this.purconloc = 'dataset:PurposeConcept' + suffix;
+			this.keywordloc = 'dataset:DescriptionKeyword' + suffix;
+		}
+		this.header = this.annoinfo[this.description][this.rdfslabel];
+    	this.abstrlabel = this.annoinfo[this.abst][this.rdfslabel];
+	this.abstrhint =  this.annoinfo[this.abst][this.rdfscomment];
+	this.titlelabel =  this.annoinfo[this.title][this.rdfslabel];
+	this.titlehint =  this.annoinfo[this.title][this.rdfscomment];
+	}
+
+	public getData(catalog: any) {
+    const descranno = this.annoinfo[this.description];
+		const identabstr = this.annoinfo[this.abst];
+		const identtitle = this.annoinfo[this.title];
+		const identpurcon = this.annoinfo[this.purconloc];
+		const identkeyword = this.annoinfo[this.keywordloc];
+		const description = {};
+		catalog[descranno[this.rdfsidentifier]] = description;
+		description[identabstr[this.rdfsidentifier]] = this.objectform.get('DescriptionAbstract').value;
+		description[identtitle[this.rdfsidentifier]] = this.objectform.get('DescriptionTitle').value;
+		const info = {};
+		this.concept.getData(info);
+		const conceptid = identpurcon[this.rdfsidentifier];
+		description[conceptid] = info;
+		const keys = this.keywords.getKeys();
+		const keyid = identkeyword[this.rdfsidentifier];
+		description[keyid] = keys;
+	}
+
+	public setData(description: any) {
+		const identabstr = this.annoinfo[this.abst];
+		const identtitle = this.annoinfo[this.title];
+		const identpurcon = this.annoinfo[this.purconloc];
+		const identkeyword = this.annoinfo[this.keywordloc];
+		this.objectform.get('DescriptionAbstract').setValue(description[identabstr[this.rdfsidentifier]]);
+		this.objectform.get('DescriptionTitle').setValue(description[identtitle[this.rdfsidentifier]]);
+		const info = description[identpurcon];
+		description.setData(info);
+		const keyid = identkeyword[this.rdfsidentifier];
+		const keys = description[keyid];
+		this.keywords.setKeys(keys);
+	}
+
+
 }

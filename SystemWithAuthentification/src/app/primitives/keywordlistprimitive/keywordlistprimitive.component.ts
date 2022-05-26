@@ -16,15 +16,13 @@ selectable = true;
   keywords: string[] = [];
 
   keywordtitle: string;
-  @Input() keywordparameter: string;
   constructor() {
   }
 
   ngOnInit(): void {
-    this.setData(this.keywordparameter);
   }
 
-  setData(keywords: string): void {
+  setKeys(keywords: string): void {
 
     let num = 0;
     const keys = keywords.split(',');
@@ -32,6 +30,18 @@ selectable = true;
       this.keywords.push(keys[num].trim());
     }
   }
+  getKeys(): string{
+    let keys = '';
+    for(let key of this.keywords) {
+      if(keys.length > 0) {
+        keys = keys + ', ';
+      }
+      keys = keys + key;
+    }
+    alert("Keywords: " + keys);
+    return keys;
+  }
+  
    add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;

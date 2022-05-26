@@ -89,11 +89,13 @@ public class CreateDocumentTemplate {
             label = classname;
         }
         anno.addProperty(AnnotationObjectsLabels.label, label);
-        String id = annotations.getLabel();
+        
+        String id = annotations.getIdentifier();
         if(id.length() == 0) {
             id = classname;
         }
         anno.addProperty(AnnotationObjectsLabels.identifier, id);
+        
         String comment = annotations.getComment();
         if(comment.length() == 0) {
             comment = label;

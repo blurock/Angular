@@ -28,6 +28,7 @@ export class RepositorydatapartitionblockComponent extends Savecatalogdataobject
 	formatmenulabel = 'dataset:FileSourceFormat';
 	partitionitems: NavItem[];
 	partitionmenulabel = 'dataset:FilePartitionMethod';
+	
 
 	@ViewChild('simpledata') simpledata: SimpledatabaseobjectstructureComponent;
 	@ViewChild('firestoreid') firestoreid: FiresytorecatalogidComponent;

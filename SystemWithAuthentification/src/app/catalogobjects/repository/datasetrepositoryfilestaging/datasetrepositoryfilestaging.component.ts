@@ -13,6 +13,8 @@ import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@ang
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {SavecatalogdataobjectdialogComponent} from '../../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
 import {SavecatalogdataobjectComponent} from '../../../dialog/savecatalogdataobject/savecatalogdataobject.component';
+import {DatadatadescriptionComponent} from '../../datadatadescription/datadatadescription.component';
+
 @Component({
 	selector: 'app-datasetrepositoryfilestaging',
 	templateUrl: './datasetrepositoryfilestaging.component.html',
@@ -32,7 +34,7 @@ export class DatasetrepositoryfilestagingComponent extends Savecatalogdataobject
 		);
 	}
 
-	descriptionsuffix = 'descr-filestaging';
+	descriptionsuffix = 'FileStaging';
 	menuclass = "dataset:FileSourceFormat";
 
 	descr: string;
@@ -43,6 +45,7 @@ export class DatasetrepositoryfilestagingComponent extends Savecatalogdataobject
 	@ViewChild('objectlinks') objectlinks: SetofdataobjectlinksComponent;
 	@ViewChild('weblinks') weblinks: SetofsitereferencesComponent;
 	@ViewChild('gcs') gcs: DatasetreferenceComponent;
+	@ViewChild('description') description: DatadatadescriptionComponent;
 
 
 	ngOnInit(): void {
@@ -54,6 +57,7 @@ export class DatasetrepositoryfilestagingComponent extends Savecatalogdataobject
 	ngAfterViewInit(): void {
 	this.catalogtype = 'dataset:RepositoryFileStaging';
 	this.getCatalogAnnoations();
+	alert("after annotations: " + this.descriptionsuffix);
 }
 
 	public setDefaultData(): void {
@@ -78,6 +82,7 @@ export class DatasetrepositoryfilestagingComponent extends Savecatalogdataobject
 			this.objectlinks.setData(wlinks);
 		    const rtitle = catalog[this.identifiers.DescriptionTitle];
 			this.objectform.get('DescriptionTitle').setValue(catalog[this.identifiers.DescriptionTitle]);
+			
 		}
 	}
 	
@@ -98,6 +103,7 @@ export class DatasetrepositoryfilestagingComponent extends Savecatalogdataobject
 			this.objectlinks.getData(catalog);
 			this.gcs.getData(catalog);
 			this.firestoreid.getData(catalog);
+			this.description.getData(catalog);
 		}
 	}
 
