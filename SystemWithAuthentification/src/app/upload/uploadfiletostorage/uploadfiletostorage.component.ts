@@ -15,8 +15,6 @@ export class UploadfiletostorageComponent implements OnInit {
 
 	imageURL: string;
 	constructor(public fb: FormBuilder) {
-		// Reactive Form
-
 	}
 	ngOnInit(): void {
 	}
@@ -37,8 +35,9 @@ export class UploadfiletostorageComponent implements OnInit {
 		reader.readAsDataURL(file)
 	}
 	uploadFileEvt(imgFile: any) {
+		alert(imgFile);
 		if (imgFile.target.files && imgFile.target.files[0]) {
-			const file = (event.target as HTMLInputElement).files[0];
+			const file = (imgFile.target as HTMLInputElement).files[0];
 			this.uploadForm.patchValue({
 				avatar: file,
 				FileSourceIdentifier: file.name

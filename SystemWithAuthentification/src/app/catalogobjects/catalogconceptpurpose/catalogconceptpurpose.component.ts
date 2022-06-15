@@ -10,7 +10,7 @@ import { MenutreeserviceService } from '../../services/menutreeservice.service';
 	templateUrl: './catalogconceptpurpose.component.html',
 	styleUrls: ['./catalogconceptpurpose.component.scss']
 })
-export class CatalogconceptpurposeComponent implements OnInit, AfterViewInit {
+export class CatalogconceptpurposeComponent implements OnInit {
 
 	objectform: FormGroup;
 
@@ -25,6 +25,7 @@ export class CatalogconceptpurposeComponent implements OnInit, AfterViewInit {
 	purposeitems: NavItem[];
 
     header: string
+    message = 'Initializing';
     pair: string;
 	conceptlabel: string;
 	purposelabel: string;
@@ -48,13 +49,9 @@ export class CatalogconceptpurposeComponent implements OnInit, AfterViewInit {
 	
 	ngOnInit(): void {
 		this.setLabels(this.descriptionsuffix);
-	}
-	
-		ngAfterViewInit(): void {
 		this.conceptitems = this.menusetup.findChoices(this.annoinfo, this.conceptloc);
 		this.purposeitems = this.menusetup.findChoices(this.annoinfo, this.purposeloc);
 	}
-
 	
 	setLabels(suffix: string) {
 		this.pair = 'dataset:PurposeConcept' + suffix;
@@ -77,8 +74,20 @@ export class CatalogconceptpurposeComponent implements OnInit, AfterViewInit {
 	}
 	
 	setData(info: any): void {
-				this.objectform.get('Concept').setValue(info[this.conceptid]);
-				this.objectform.get('Purpose').setValue(this.purposeid);
+		this.setLabels(this.descriptionsuffix);
+		if(info != null) {
+			const purpose = info[this.purposeid];
+			if(purpose != null) {
+				this.objectform.get('Purpose').setValue(purpose);
+			}
+			const concept = info[this.conceptid];
+			if(concept != null) {
+				this.objectform.get('Concept').setValue(concept);
+			}
+		}
+		
+				
+				
 	}
 	
 	setConcept($event) {

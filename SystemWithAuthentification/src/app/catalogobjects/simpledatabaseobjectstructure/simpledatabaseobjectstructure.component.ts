@@ -20,17 +20,19 @@ export class SimpledatabaseobjectstructureComponent implements OnInit {
 
 	constructor(
 		private formBuilder: FormBuilder,
-		public identifiers: IdentifiersService) { }
-
-	ngOnInit(): void {
-		this.objectform = this.formBuilder.group({
-			DatabaseObjectType: ['', Validators.required],
-			CatalogObjectAccessRead: ['', Validators.required],
-			CatalogObjectOwner: ['', Validators.required],
-			CatalogObjectKey: ['', Validators.required],
-			CatalogObjectAccessModify: ['', Validators.required],
+		public identifiers: IdentifiersService) { 
+					this.objectform = this.formBuilder.group({
+			DatabaseObjectType: [''],
+			CatalogObjectAccessRead: [''],
+			CatalogObjectOwner: [''],
+			CatalogObjectKey: [''],
+			CatalogObjectAccessModify: [''],
 			TransactionID: [''],
 		});
+
+		}
+
+	ngOnInit(): void {
 
 	}
 

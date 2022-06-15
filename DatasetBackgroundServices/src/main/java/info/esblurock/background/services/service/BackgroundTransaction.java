@@ -2,14 +2,19 @@ package info.esblurock.background.services.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Base64;
+
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
+
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.firestore.InitiallizeSystem;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.background.services.transaction.TransactionProcess;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
@@ -27,8 +32,19 @@ public class BackgroundTransaction extends HttpServlet {
 	 *
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		String bodyS = BackgroundService.getBody(request);
+	    InitiallizeSystem.initialize();
+	    
+	    
+	    String bodyS = IOUtils.toString(request.getInputStream(), "UTF-8");
+	    
+        String authHeader = request.getHeader("authorization");
+        System.out.println("Authorization: '" + authHeader + "'");
+        String encodedValue = authHeader.split(" ")[1];
+        System.out.println("Base64-encoded Authorization Value: <em>" + encodedValue);
+        byte[] decodedValue = Base64.getDecoder().decode(encodedValue);
+        System.out.println("</em><br/>Base64-decoded Authorization Value: <em>" + decodedValue);
+        System.out.println("</em>");
+	    
 		JsonObject body = JsonObjectUtilities.jsonObjectFromString(bodyS);
 		JsonObject answer = TransactionProcess.processFromTransaction(body);
 		PrintWriter out = response.getWriter();

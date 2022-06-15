@@ -11,9 +11,7 @@ background: lightblue;
 	width: 50%
 }
 .title {
-	text-align: center; 
-	font-size: x-large;
-	font-style: italic;
+	width: 100%;
 }
 .subtitlebox {
 	border: 2px solid gray;
@@ -47,6 +45,18 @@ background: lightblue;
 }
 .submitbutton {
 	width: 100%;
-	background: lightgray;
 }
+.generic {
+	width: 100%;
+		padding: 20px;
+}
+.datasetname {
+	width: 100%;
+	padding: 20px;
+}
+.version {
+	width: 100%;
+		padding: 20px;
+}
+
 	

@@ -2,13 +2,19 @@ package info.esblurock.background.services.catalog;
 
 import org.junit.Test;
 
+import com.google.gson.JsonObject;
+
+import info.esblurock.background.services.transaction.FindTransactionFromActivityInfo;
 import info.esblurock.reaction.core.ontology.base.classification.ClassificationHierarchy;
 import info.esblurock.reaction.core.ontology.base.classification.DatabaseOntologyClassification;
+import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.dataset.annotations.BaseAnnotationObjects;
+import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class ObjectPurposeAnnotationTest {
-
+    
 	@Test
 	public void test() {
 

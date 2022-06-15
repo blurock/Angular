@@ -1,28 +1,20 @@
 <mat-stepper #stepper>
-	<mat-step [stepControl]="uploadForm" errorMessage="File Selection is required.">
-		<ng-template matStepLabel>Select File to Upload</ng-template>
-		<app-uploadfiletostorage [(uploadForm)]="uploadForm" [filemediatype]="filemediatype"></app-uploadfiletostorage>
-		<button mat-button (click)="displayJsonObject()">JSON</button>
-		<button mat-raised-button matStepperNext>Next</button>
-	</mat-step>
 	<mat-step [stepControl]="uploadinfoform" errorMessage="All information is required in some form.">
 		<ng-template matStepLabel>File Information</ng-template>
-		<app-uploadfileinformation [(uploadinfoform)]="uploadinfoform" 
-		[(references)]="references"
-			(newItemEvent)="addReference($event)" 
-			[(filesourcetypechoices)]="formatList"
-			[(titleInformation)]="titleInformation"></app-uploadfileinformation>
-			
+		<app-uploadfileinformation #uploadinfo></app-uploadfileinformation>
 		<div>
 			<button mat-button matStepperPrevious>Back</button>
 			<button mat-button matStepperNext>Next</button>
 		</div>
 	</mat-step>
-	<mat-step [stepControl]="senduploadfile" errorMessage="File not sent">
-		<ng-template matStepLabel>Upload File</ng-template>
-		<app-submitfileandinformatioon [(uploadinfo)]="uploadInformation" 
-		(submitUploadEvent)="submitUpload($event)">
-		</app-submitfileandinformatioon>
+	<mat-step >
+		<ng-template matStepLabel>Stage File</ng-template>
+		<ng-container *ngIf='uploadinfo != null; else wait'>
+		<app-submitfileandinformatioon #stagefile (uploadinfo)="uploadinfo" ></app-submitfileandinformatioon>
+		</ng-container>
+		<ng-template  #wait>
+		Wait
+		</ng-template>
 		<div>
 			<button mat-button matStepperPrevious>Back</button>
 			<button mat-button matStepperNext>Next</button>
@@ -30,16 +22,13 @@
 	</mat-step>
 	<mat-step [stepControl]="parseinfoform" errorMessage="File not sent">
 		<ng-template matStepLabel>Parse into Blocks</ng-template>
-		<app-parseuploadedfile [(uploadinfoform)]="uploadinfoform" 
-		[(formatInformation)]="formatInformation"
-			[(parseinfoform)]="parseinfoform"
-			(submitParseEvent)="submitParseEvent($event)"
-			[(parseResult)]="parseResult"></app-parseuploadedfile>
+		<app-parseuploadedfile [(uploadinfoform)]="uploadinfoform"></app-parseuploadedfile>
 		<div>
 			<button mat-button matStepperPrevious>Back</button>
 			<button mat-button matStepperNext>Next</button>
 		</div>
 	</mat-step>
+	<!--
 	<mat-step>
 	<ng-template matStepLabel>Catalog Objects</ng-template>
 	<app-createcatalogobjectsfrompartitions
@@ -56,6 +45,7 @@
 			<button mat-button matStepperNext>Next</button>
 		</div>
 	</mat-step>
+	-->
 	<mat-step>
 		<ng-template matStepLabel>Done</ng-template>
 		<p>You are now done.</p>

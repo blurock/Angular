@@ -133,12 +133,14 @@ public enum TransactionProcess {
 
 				JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
 						.getAsJsonObject();
-				catalog.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
+				//catalog.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
 				BaseCatalogData.insertFirestoreAddress(catalog);
 				CreateLinksInStandardCatalogInformation.addPrerequisitesToDataObjectLink(catalog, prerequisites);
 				CreateLinksInStandardCatalogInformation.transfer(info, catalog);
-				WriteFirestoreCatalogObject.writeCatalogObject(catalog);
 				event.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
+		        JsonObject transfirestoreID = BaseCatalogData.insertFirestoreAddress(event);
+                catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction,transfirestoreID.deepCopy());
+                WriteFirestoreCatalogObject.writeCatalogObject(catalog);
 			}
 			return response;
 		}
@@ -400,6 +402,11 @@ public enum TransactionProcess {
 		String transactionobjectname = process.transactionObjectName();
 		JsonObject event = BaseCatalogData.createStandardDatabaseObject(transactionobjectname, owner, transactionID,
 				owner);
+        String title = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
+        JsonObject shortdescr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
+        shortdescr.addProperty(ClassLabelConstants.TransactionEventType, transaction);
+        shortdescr.addProperty(ClassLabelConstants.DataTypeComment, title);
+		//event.addProperty(ClassLabelConstants.TransactionEventType, transname);
 		event.add(ClassLabelConstants.ActivityInformationRecord, info);
 		JsonObject response = process.process(event, prerequisites, info);
 		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
@@ -407,17 +414,13 @@ public enum TransactionProcess {
 			JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 			if (arr.size() > 0) {
 				JsonObject catalog = arr.get(0).getAsJsonObject();
-				String title = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
-				JsonObject shortdescr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
-				shortdescr.addProperty(ClassLabelConstants.TransactionEventType, transaction);
-				shortdescr.addProperty(ClassLabelConstants.DataTypeComment, title);
-				shortdescr.addProperty(ClassLabelConstants.TransactionKey, process.transactionKey(catalog));
+		        shortdescr.addProperty(ClassLabelConstants.TransactionKey, process.transactionKey(catalog));
 				JsonArray output = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 				GenerateTransactionEventObject.addDatabaseObjectIDOutputTransaction(event, output);
-				BaseCatalogData.insertFirestoreAddress(event);
 				WriteFirestoreCatalogObject.writeCatalogObject(event);
 				String message = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 				MessageConstructor.combineBodyIntoDocument(document, message);
+				response.add(ClassLabelConstants.TransactionEventObject, event);
 				/*
 				JsonObject rdfresponse = GenerateAndWriteRDFForObject.generate(event);
 				if (rdfresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {

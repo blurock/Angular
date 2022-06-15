@@ -2,8 +2,10 @@ package info.esblurock.background.services.firestore.gcs;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -93,9 +95,18 @@ public enum UploadFileToGCS {
 
 		@Override
 		JsonObject process(String transactionID, String owner, String maintainer, JsonObject info) {
-			Document document = MessageConstructor.startDocument("InitialReadFromWebLocation");
+			Document document = MessageConstructor.startDocument("InitialReadFromStringSource");
 			Element body = MessageConstructor.isolateBody(document);
-			String content = info.get(ClassLabelConstants.FileSourceIdentifier).getAsString();
+			String contentutf8 = info.get(ClassLabelConstants.FileSourceIdentifier).getAsString();
+			String content = "";
+            try {
+                content = URLDecoder.decode(contentutf8,"UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            System.out.println("-------------");
+            System.out.println(content);
+            System.out.println("-------------");
 			body.addElement("pre").addText("String content: '" + content + "'");
 			JsonObject response = WriteCloudStorage.writeString(transactionID, owner, maintainer, content, info,
 					"dcat:StringSource");
@@ -151,7 +162,6 @@ public enum UploadFileToGCS {
 			JsonObject gcsstaging = arr.get(0).getAsJsonObject();
 			gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadInLocalStorageSystem");
 			gcsstaging.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
-			BaseCatalogData.insertFirestoreAddress(gcsstaging);
 			JsonObject stagingblob = gcsstaging.get(ClassLabelConstants.GCSBlobFileInformationStaging)
 					.getAsJsonObject();
 			String description = info.get(ClassLabelConstants.DescriptionTitle).getAsString();

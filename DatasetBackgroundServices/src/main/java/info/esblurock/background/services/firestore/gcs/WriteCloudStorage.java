@@ -12,6 +12,8 @@ import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import com.google.cloud.storage.StorageOptions.Builder;
+import com.google.cloud.storage.testing.RemoteStorageHelper;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.StorageClient;
@@ -36,7 +38,7 @@ public class WriteCloudStorage {
 	 */
 	public static JsonObject writeString(String transactionid, String owner, String maintainer, String content,
 			JsonObject info, String uploadsource) {
-		Storage storage;
+		Storage storage = null;
 		Document document = MessageConstructor.startDocument("WriteCloudStorage");
 		Element body = MessageConstructor.isolateBody(document);
 		JsonObject response = new JsonObject();
@@ -47,7 +49,9 @@ public class WriteCloudStorage {
 		String mediasubtype = info.get(ClassLabelConstants.FileSourceMediaSubType).getAsString();
 		body.addElement("div").addText("Media  SubType: " + mediasubtype);
 		Bucket bucket = StorageClient.getInstance().bucket();
+
 		storage = StorageOptions.getDefaultInstance().getService();
+	   
 		// Create blob
 		String formatallabel = formattype.substring(8);
 		String dirpath = "upload/" + maintainer + "/" + formatallabel;

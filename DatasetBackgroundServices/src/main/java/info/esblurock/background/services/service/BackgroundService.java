@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.firestore.InitiallizeSystem;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.background.services.servicecollection.ServiceCollectionQueryOntology;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
@@ -39,12 +40,15 @@ public class BackgroundService extends HttpServlet {
 		// Not sure about 'name of header' 
 		// From const headers = new Headers({'Authorization': 'Bearer ' + authToken });
 		// In 
+	    /*
 		try {
 			boolean sucess = request.authenticate(response);
 		} catch (IOException | ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
+		*/
+	    
 		String authHeader = request.getHeader("authorization");
 		String encodedValue = authHeader.split(" ")[1];
 		System.out.println("Base64-encoded Authorization Value: <em>" + encodedValue);
@@ -52,7 +56,7 @@ public class BackgroundService extends HttpServlet {
 		System.out.println("</em><br/>Base64-decoded Authorization Value: <em>" + decodedValue);
 		System.out.println("</em>");
 		
-		
+		InitiallizeSystem.initialize();
 		String bodyS = getBody(request);
 		JsonObject body = JsonObjectUtilities.jsonObjectFromString(bodyS);
 		JsonObject answer = DatabaseServicesBase.process(body);

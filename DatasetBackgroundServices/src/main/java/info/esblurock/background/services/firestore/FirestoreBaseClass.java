@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
+import com.google.cloud.storage.StorageOptions;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -14,7 +15,7 @@ import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate
 public class FirestoreBaseClass {
 
 	public static String projectId = "blurock-database";
-	public static String host = "localhost:8081";
+	public static String host = "localhost:8083";
 
 	private static Firestore database = null;
 
@@ -51,8 +52,10 @@ public class FirestoreBaseClass {
 
 		GoogleCredentials cred = GoogleCredentials.getApplicationDefault();
 		FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder().setProjectId(projectId)
-				.setCredentials(cred).setEmulatorHost("localhost:8081").build();
-
+				.setCredentials(cred)
+				.setEmulatorHost("localhost:8083")
+				.build();
+		 
 		Firestore db = firestoreOptions.getService();
 		return db;
 

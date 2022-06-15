@@ -4,10 +4,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
-import info.esblurock.reaction.core.ontology.base.constants.OntologyObjectLabels;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
-import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
-import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRoutines;
+import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 
 public enum FindTransactionFromActivityInfo {
 
@@ -18,6 +16,7 @@ public enum FindTransactionFromActivityInfo {
 			JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
 					.getAsJsonObject();
 			transaction.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
+            BaseCatalogData.insertFirestoreAddress(transaction);
 		}
 
 		@Override

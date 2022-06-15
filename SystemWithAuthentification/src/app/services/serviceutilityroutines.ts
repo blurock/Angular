@@ -1,4 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 export class ServiceUtilityRoutines {
      public static getServerErrorMessage(error: HttpErrorResponse): string {
@@ -17,5 +17,13 @@ export class ServiceUtilityRoutines {
             }
 
         }
+    }
+    
+    public static setupHeader(): HttpHeaders {
+         		const headerdata = new HttpHeaders()
+			.set('content-type', 'application/json')
+			.set('Authorization', ' AccessToken xxxxxxx')
+			.set('Access-Control-Allow-Origin', '*');
+		return headerdata;
     }
 }

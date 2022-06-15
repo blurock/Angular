@@ -19,6 +19,7 @@ public class InitiallizeSystem {
 
 	private static void intializeFirebase() {
 		if (options == null) {
+		    System.out.println("No Initialization");
 			try {
 			if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
 				options = FirebaseOptions.builder().setCredentials(GoogleCredentials.getApplicationDefault())
@@ -31,12 +32,16 @@ public class InitiallizeSystem {
 							  .setCredentials(GoogleCredentials.getApplicationDefault())
 							  //.setStorageBucket("blurock-database.appspot.com")
 							  .setStorageBucket("blurock-database.appspot.com")
+							  
 							  .build();
 				}
+			System.out.println("Iniitalizing FirebaseApp");
 				FirebaseApp.initializeApp(options);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		} else {
+		    System.out.println("Already initialized");
 		}
 	}
 }

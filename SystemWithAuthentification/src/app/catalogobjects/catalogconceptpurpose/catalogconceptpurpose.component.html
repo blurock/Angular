@@ -1,3 +1,8 @@
+
+<div>
+Purpose Concept
+</div>
+<ng-container *ngIf='annoinfo != null; else loading'>
 	<form [formGroup]="objectform">
 			<mat-card class="paircard">
 			<mat-card-header>
@@ -34,3 +39,10 @@
 				</mat-card-content>
 			</mat-card>
 	</form>
+</ng-container>
+			<ng-template #loading>
+			<div>
+				{{message}}
+			</div>
+		</ng-template>
+

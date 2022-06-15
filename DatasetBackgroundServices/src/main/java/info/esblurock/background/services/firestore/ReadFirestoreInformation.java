@@ -22,6 +22,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.dataset.FindDatasetCollections;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
@@ -29,6 +30,23 @@ import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class ReadFirestoreInformation {
+    
+    /**
+     * @param classname The name of the class of the object to retrieve
+     * @param datasetid The DatasetTransactionSpecificationForCollection of the dataset
+     * @param id The id of the object in the collection
+     * @return response with the read catalog object
+     */
+    public static JsonObject readFromDatasetSpecificationForCollectionSet(String classname, JsonObject datasetid, String id) {
+        System.out.println("readFromDatasetSpecificationForCollectionSet: " + classname);
+        JsonObject firestoreid = FindDatasetCollections.findDatasetCollectionID(classname, datasetid);
+        System.out.println("readFromDatasetSpecificationForCollectionSet\n" + JsonObjectUtilities.toString(firestoreid));
+        firestoreid.addProperty(ClassLabelConstants.SimpleCatalogName, id);
+        System.out.println("readFromDatasetSpecificationForCollectionSet\n" + JsonObjectUtilities.toString(firestoreid));
+        JsonObject response = readFirestoreCatalogObject(firestoreid);
+        
+        return response;
+    }
 
 	/**
 	 * Read in the Catalog Object
@@ -128,6 +146,7 @@ public class ReadFirestoreInformation {
 			}
 			List<QueryDocumentSnapshot> documents = future.get().getDocuments();
 			Element ul = body.addElement("ul");
+			if(documents.size() > 0 ) {
 			for (DocumentSnapshot document : documents) {
 				Map<String, Object> mapObj = (Map<String, Object>) document.getData();
 				String jsonString = new Gson().toJson(mapObj);
@@ -138,6 +157,9 @@ public class ReadFirestoreInformation {
 			}
 			response = DatabaseServicesBase.standardServiceResponse(docmessage, "Successful read of catalog objects",
 					setofobjs);
+			} else {
+	            response = DatabaseServicesBase.standardErrorResponse(docmessage, "No documents",null);
+			}
 		} catch (IOException e) {
 			response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);
 			response.addProperty(ClassLabelConstants.ServiceResponseMessage, e.toString());

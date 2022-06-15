@@ -107,6 +107,9 @@ import { SavecatalogdataobjectComponent } from './dialog/savecatalogdataobject/s
 import { MenutreedialogComponent, MenutreedialogWindow } from './primitives/menutreedialog/menutreedialog.component';
 import { MenuItemComponent } from './primitives/menu-item/menu-item.component';
 import { RepositorydatapartitionblockComponent } from './catalogobjects/repository/repositorydatapartitionblock/repositorydatapartitionblock.component';
+import { VisualizefileComponent } from './dialog/visualizefile/visualizefile.component';
+import { RuntransactiondialogComponent } from './dialog/runtransactiondialog/runtransactiondialog.component';
+import { FetchcatalogobjectComponent } from './dialog/fetchcatalogobject/fetchcatalogobject.component';
 //import { USE_EMULATOR as FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
 
 
@@ -171,7 +174,10 @@ import { RepositorydatapartitionblockComponent } from './catalogobjects/reposito
   MenutreedialogComponent,
   MenuItemComponent,
   MenutreedialogWindow,
-  RepositorydatapartitionblockComponent
+  RepositorydatapartitionblockComponent,
+  VisualizefileComponent,
+  RuntransactiondialogComponent,
+  FetchcatalogobjectComponent
 	],
 	imports: [
 		AppFirebaseModule,

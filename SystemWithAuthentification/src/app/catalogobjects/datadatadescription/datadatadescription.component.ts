@@ -11,7 +11,7 @@ import {KeywordlistprimitiveComponent} from '../../primitives/keywordlistprimiti
 	templateUrl: './datadatadescription.component.html',
 	styleUrls: ['./datadatadescription.component.scss']
 })
-export class DatadatadescriptionComponent implements AfterViewInit {
+export class DatadatadescriptionComponent implements OnInit {
 
 
 	@ViewChild('concept') concept: CatalogconceptpurposeComponent;
@@ -50,8 +50,14 @@ export class DatadatadescriptionComponent implements AfterViewInit {
 		this.message = 'No Description';
 	}
 	
-	ngAfterViewInit(): void {
+	ngOnInit(): void {
 		this.setLabels(this.descriptionsuffix);
+		this.header = this.annoinfo[this.description][this.rdfslabel];
+    	this.abstrlabel = this.annoinfo[this.abst][this.rdfslabel];
+	this.abstrhint =  this.annoinfo[this.abst][this.rdfscomment];
+	this.titlelabel =  this.annoinfo[this.title][this.rdfslabel];
+	this.titlehint =  this.annoinfo[this.title][this.rdfscomment];
+		
 	}
 	
 
@@ -70,11 +76,6 @@ export class DatadatadescriptionComponent implements AfterViewInit {
 			this.purconloc = 'dataset:PurposeConcept' + suffix;
 			this.keywordloc = 'dataset:DescriptionKeyword' + suffix;
 		}
-		this.header = this.annoinfo[this.description][this.rdfslabel];
-    	this.abstrlabel = this.annoinfo[this.abst][this.rdfslabel];
-	this.abstrhint =  this.annoinfo[this.abst][this.rdfscomment];
-	this.titlelabel =  this.annoinfo[this.title][this.rdfslabel];
-	this.titlehint =  this.annoinfo[this.title][this.rdfscomment];
 	}
 
 	public getData(catalog: any) {
@@ -103,11 +104,14 @@ export class DatadatadescriptionComponent implements AfterViewInit {
 		const identkeyword = this.annoinfo[this.keywordloc];
 		this.objectform.get('DescriptionAbstract').setValue(description[identabstr[this.rdfsidentifier]]);
 		this.objectform.get('DescriptionTitle').setValue(description[identtitle[this.rdfsidentifier]]);
-		const info = description[identpurcon];
-		description.setData(info);
+		const conpurid = identpurcon[this.rdfsidentifier];
+		const info = description[conpurid];
+		this.concept.setData(info);
 		const keyid = identkeyword[this.rdfsidentifier];
 		const keys = description[keyid];
-		this.keywords.setKeys(keys);
+		if(keys != null ) {
+			this.keywords.setKeys(keys);
+		}
 	}
 
 

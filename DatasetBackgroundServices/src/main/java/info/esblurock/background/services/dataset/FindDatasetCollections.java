@@ -6,6 +6,7 @@ import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class FindDatasetCollections {
 
@@ -20,7 +21,11 @@ public class FindDatasetCollections {
 	public static JsonObject findDatasetCollectionID(String classname, JsonObject recordid) {
 		JsonObject empty = CreateDocumentTemplate.createTemplate(classname);
 		empty.add(ClassLabelConstants.DatasetSpecificationForCollectionSet, recordid);
+		// In some objects, this conflicts 
+		empty.remove(ClassLabelConstants.DatasetTransactionSpecificationForCollection);
+        System.out.println("findDatasetCollectionID: \n" + JsonObjectUtilities.toString(empty));
 		JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(empty);
+        System.out.println("findDatasetCollectionID: \n" + JsonObjectUtilities.toString(firestoreid));
 		firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
 
 		return firestoreid;

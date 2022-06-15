@@ -59,10 +59,11 @@ public class BaseCatalogData {
 		}
 	}
 	
-	public static void insertFirestoreAddress(JsonObject obj) {
+	public static JsonObject insertFirestoreAddress(JsonObject obj) {
 		JsonObject address = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(obj);
 		address.remove(AnnotationObjectsLabels.identifier);
 		obj.add(ClassLabelConstants.FirestoreCatalogID, address);
+		return address;
 	}
 	
 	public static JsonObject createStandardDatabaseObject(String classname, String owner, String transactionID, String publicB) {

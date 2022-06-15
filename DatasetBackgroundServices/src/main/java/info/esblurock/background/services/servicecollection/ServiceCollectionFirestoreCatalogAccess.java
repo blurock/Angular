@@ -141,6 +141,30 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 		}
 
 	},
+	ReadSpecificCatalogObjectInDataset {
+	    
+	    @Override
+        public JsonObject process(JsonObject json) {
+	    String id = json.get(ClassLabelConstants.CatalogObjectKey).getAsString();
+	    String classname = json.get(ClassLabelConstants.DatabaseObjectType).getAsString();
+	    JsonObject datasetid = json.get(ClassLabelConstants.DatasetSpecificationForCollectionSet).getAsJsonObject();
+	    
+	    System.out.println("-----------------------------------------------------");
+	    System.out.println(JsonObjectUtilities.toString(json));
+        System.out.println("-----------------------------------------------------");
+	    
+        System.out.println("-----------------------------------------------------");
+	    System.out.println("ID: " + id);
+	    System.out.println("Classname: " + classname);
+	    System.out.println("DatasetID:\n" + JsonObjectUtilities.toString(datasetid));
+        System.out.println("-----------------------------------------------------");
+        
+        JsonObject response = ReadFirestoreInformation.readFromDatasetSpecificationForCollectionSet(classname, datasetid, id);
+	    JsonObjectUtilities.printResponse(response);
+	    
+	    return response;
+	    }
+	},
 	FindTransactionsOfType {
 
 		@Override
@@ -161,6 +185,15 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 			return response;
 		}
 
+	},
+	FindSpecificTransactionInDataset {
+	    public JsonObject process(JsonObject json) {
+	    JsonObject info = json.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
+	    String type = json.get(ClassLabelConstants.TransactionEventType).getAsString();
+	    String transactionID = json.get(ClassLabelConstants.TransactionID).getAsString();
+	    JsonObject response = FindTransactions.findSpecificDatasetTransaction(info, type, transactionID);
+	    return response;
+	}
 	};
 
 	public abstract JsonObject process(JsonObject json);

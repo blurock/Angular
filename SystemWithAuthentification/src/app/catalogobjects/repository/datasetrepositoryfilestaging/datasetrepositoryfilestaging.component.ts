@@ -32,6 +32,9 @@ export class DatasetrepositoryfilestagingComponent extends Savecatalogdataobject
 		public identifiers: IdentifiersService) {
 		super(dialog,annotations,identifiers,
 		);
+			this.catalogtype = 'dataset:DatasetRepositoryFileStaging';
+	this.getCatalogAnnoations();
+
 	}
 
 	descriptionsuffix = 'FileStaging';
@@ -55,9 +58,6 @@ export class DatasetrepositoryfilestagingComponent extends Savecatalogdataobject
 
 	}
 	ngAfterViewInit(): void {
-	this.catalogtype = 'dataset:RepositoryFileStaging';
-	this.getCatalogAnnoations();
-	alert("after annotations: " + this.descriptionsuffix);
 }
 
 	public setDefaultData(): void {
@@ -81,8 +81,12 @@ export class DatasetrepositoryfilestagingComponent extends Savecatalogdataobject
 			const wlinks = catalog[this.identifiers.ObjectSiteReference];
 			this.objectlinks.setData(wlinks);
 		    const rtitle = catalog[this.identifiers.DescriptionTitle];
-			this.objectform.get('DescriptionTitle').setValue(catalog[this.identifiers.DescriptionTitle]);
-			
+		    const descr = catalog['descr-filestaging'];
+		    this.description.setData(descr);
+		    const title = catalog[this.identifiers.DescriptionTitle];
+		    if(title != null) {
+			this.objectform.get('DescriptionTitle').setValue(title);
+			}
 		}
 	}
 	
