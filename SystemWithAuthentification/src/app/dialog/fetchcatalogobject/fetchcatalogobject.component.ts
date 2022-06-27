@@ -91,6 +91,16 @@ export class FetchcatalogobjectComponent implements OnInit {
 				}
 			}})
 }
+
+setDataFromFile(): void {
+	if(this.catalog != null) {
+		const response = {};
+		response['dataset:servicesuccessful'] = 'true';
+		response['dataset:serviceresponsemessage'] = 'Catalog interpreted from file';
+		response['dataset:simpcatobj'] = this.catalog;
+		this.dialogRef.close(response);
+	}
+}
 uploadFileEvt(imgFile: any): void {
 	if(imgFile.target.files && imgFile.target.files[0]) {
 	const file = (imgFile.target as HTMLInputElement).files[0];

@@ -1,18 +1,30 @@
 package info.esblurock.reaction.core.ontology.base.utilities;
 
+import com.google.common.collect.MapDifference;
+import com.google.common.collect.MapDifference.ValueDifference;
+import com.google.common.collect.Maps;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 
 public class JsonObjectUtilities {
@@ -170,6 +182,379 @@ public class JsonObjectUtilities {
 		}
 		return obj;
 	}
+	public static JsonArray jsonDifference(JsonObject originalobject, JsonObject newobject) {
+	    Gson gson = new Gson();
+	    Type type = new TypeToken<Map<String, Object>>(){}.getType();
+
+	    Map<String, Object> originalobjectMap = gson.fromJson(originalobject, type);
+	    Map<String, Object> newobjectMap = gson.fromJson(newobject, type);
+	    JsonArray changes = new JsonArray();
+	    JsonArray recordID = new JsonArray();
+	    mapDifference(originalobjectMap,newobjectMap, changes, 0, recordID);
+	    return changes;
+	}
+	public static void mapDifference(Map<String, Object> originalobjectMap, Map<String, Object> newobjectMap,
+	        JsonArray changes, int level, JsonArray recordID) {
+	    Set<String> originalobjectkeydiff = new HashSet<String>();
+	    originalobjectkeydiff.addAll(originalobjectMap.keySet());
+	       	    originalobjectkeydiff.removeAll(newobjectMap.keySet());
+	    
+        Set<String> newobjectdiffkeys = new HashSet<String>();
+        newobjectdiffkeys.addAll(newobjectMap.keySet());
+        newobjectdiffkeys.removeAll(originalobjectMap.keySet());
+        newobjectdiffkeys.removeAll(originalobjectkeydiff);
+        
+        for(String key: originalobjectkeydiff ) {
+            JsonArray newrecordid = newRecordID(recordID,level,key);
+            Object left = originalobjectMap.get(key);
+            addDeletedObject(left,changes,newrecordid);
+        }
+        for(String key: newobjectdiffkeys ) {
+            JsonArray newrecordid = newRecordID(recordID,level,key);
+            Object left = newobjectMap.get(key);
+            addAddedOjbect(left,changes,newrecordid);
+            
+        }
+         
+        
+        MapDifference<String, Object> diff = Maps.difference(newobjectMap, originalobjectMap);
+        Map<String, ValueDifference<Object>> entries = diff.entriesDiffering();
+	    Set<String> keys = entries.keySet();
+	    
+	    for(String key : keys) {
+	        JsonArray newrecordid = newRecordID(recordID,level,key);
+	        ValueDifference<Object> entrydifference = entries.get(key);
+	        Object right = entrydifference.rightValue();
+	        Object left = entrydifference.leftValue();
+            if(right != null) {
+                if(left != null) {
+                mapDifferenceSub(key,right,left, changes, level+1,newrecordid);
+                } else {
+                    System.out.println(level + ":  Key: " + key + "Right side: '" + right + "'   no left element");
+                }
+            } else if(left != null) {
+                System.out.println(level + ":  Key: " + key + "Left side: '" + left + "'   no right element");
+            }
+	    }
+	}
+	
+	static JsonArray newRecordID(JsonArray recordid, int level, String key) {
+	    JsonArray newrecordid = new JsonArray();
+	    for(int i=0; i<recordid.size();i++) {
+	        JsonObject id = recordid.get(i).getAsJsonObject();
+	        JsonObject newid = id.deepCopy();
+	        newrecordid.add(newid);
+	    }
+        JsonObject levelid = new JsonObject();
+        levelid.addProperty(ClassLabelConstants.Position, level);
+        levelid.addProperty(ClassLabelConstants.RecordObjectID, key);
+        newrecordid.add(levelid);
+	    return newrecordid;
+	}
+	/*
+	 * This routine assumes that the new elements are at the front of the list.
+	 */
 	
 	
+    public static void mapDifference(ArrayList<Map<String, Object>> originalobjectMap, 
+            ArrayList<Map<String, Object>> newobjectMap,
+            JsonArray changes, int level, JsonArray recordID) {
+        
+        ArrayList<Integer> indiciesorig = new ArrayList<Integer>();
+        ArrayList<Integer> indiciesnew = new ArrayList<Integer>();
+        for(int i=0;i<originalobjectMap.size(); i++) {
+            indiciesorig.add(i);
+        }
+        for(int i=0;i<newobjectMap.size(); i++) {
+            indiciesnew.add(i);
+        }
+
+        
+        findDifferencePairs(originalobjectMap, newobjectMap,
+                changes,level,recordID,
+                indiciesorig,indiciesnew);
+        
+       
+         if(newobjectMap.size() > 0) {
+            for(int i=0; i<newobjectMap.size(); i++) {
+                String index= Integer.toString(indiciesnew.get(i));
+                JsonArray newrecordid = newRecordID(recordID,level,index);
+                JsonObject change = new JsonObject();
+                
+                Type typeOfHashMap = new TypeToken<Map<String, String>>() { }.getType();
+                Gson gson = new GsonBuilder().create();
+                JsonObject added = (JsonObject) gson.toJsonTree(newobjectMap.get(i), typeOfHashMap);
+                change.addProperty(AnnotationObjectsLabels.identifier, ClassLabelConstants.CatalogRecordAddition);
+                change.add(ClassLabelConstants.ChemConnectCompoundDataStructure, added);
+                change.add("dataset:recordid", newrecordid);
+                changes.add(change);
+                }
+            }
+         if(originalobjectMap.size() > 0) {
+             for(int i=0; i<originalobjectMap.size(); i++) {
+                 String index= Integer.toString(indiciesorig.get(i));
+                 JsonArray newrecordid = newRecordID(recordID,level,index);
+                 JsonObject change = new JsonObject();
+                 
+                 Type typeOfHashMap = new TypeToken<Map<String, String>>() { }.getType();
+                 Gson gson = new GsonBuilder().create();
+                 JsonObject added = (JsonObject) gson.toJsonTree(originalobjectMap.get(i), typeOfHashMap);
+                 change.addProperty(AnnotationObjectsLabels.identifier, ClassLabelConstants.CatalogRecordDeletion);
+                 change.add(ClassLabelConstants.ChemConnectCompoundDataStructure, added);
+                 change.add("dataset:recordid", newrecordid);
+                 changes.add(change);
+                 }
+             }
+    }
+    
+    public static class DifferenceTotals implements Comparable<DifferenceTotals> {
+        
+        public DifferenceTotals(int iorig, int inew, int tot) {
+            indexoriginal = iorig;
+            indexnew = inew;
+            total = tot;
+        }
+        
+        public int indexoriginal;
+        public int indexnew;
+        int total;
+        @Override
+        public int compareTo(DifferenceTotals o) {     
+            return this.total - o.total;
+        }
+        public String toString() {
+            return indexoriginal + ":" + indexnew + "  " + total + "\n";
+        }
+    }
+    
+    public static void findDifferencePairs(ArrayList<Map<String, Object>> originalobjectMap, 
+            ArrayList<Map<String, Object>> newobjectMap,
+            JsonArray changes, int level, JsonArray recordID,
+            ArrayList<Integer> indiciesorig, ArrayList<Integer> indiciesnew) {
+        ArrayList<DifferenceTotals> compairs = setUpDifferences(originalobjectMap,newobjectMap);
+        while(compairs.size() > 0) {
+            DifferenceTotals best = compairs.get(0);
+            int iorig = best.indexoriginal;
+            int inew = best.indexnew;
+            int origpos = findindex(iorig,indiciesorig);
+            int newpos = findindex(inew,indiciesnew);
+            
+            Map<String, Object> origobj = originalobjectMap.get(origpos);
+            Map<String, Object> newobj = newobjectMap.get(newpos);
+            
+            String index = iorig + ":" + inew;
+            JsonArray newrecordid = newRecordID(recordID,level,index);
+            mapDifference(origobj,newobj,changes,level,newrecordid);
+           
+            remove(iorig,indiciesorig, originalobjectMap);
+            remove(inew,indiciesnew, newobjectMap);
+            remove(iorig,inew,compairs);
+                    
+        }
+
+    }
+    
+    public static int findindex(int index, ArrayList<Integer> indicies) {
+        int i=0;
+        boolean notdone = true;
+        int found = 0;
+        while(notdone && i < indicies.size()) {
+            if(index == indicies.get(i)) {
+                notdone = false;
+                found = i;
+            }
+            i++;
+        }
+        return found;
+    }
+    
+    public static ArrayList<DifferenceTotals> setUpDifferences(ArrayList<Map<String, Object>> origMap, ArrayList<Map<String, Object>> newMap) {
+        ArrayList<DifferenceTotals> totals = new ArrayList<DifferenceTotals>();
+        for(int i=0; i< origMap.size(); i++) {
+            Map<String, Object> origObj = origMap.get(i);
+            for(int j=0; j<newMap.size(); j++) {
+                Map<String, Object> newObj = newMap.get(j);
+                
+                MapDifference<String, Object> diff = Maps.difference(origObj, newObj);
+                Map<String, ValueDifference<Object>> entries = diff.entriesDiffering();
+                Map<String, Object> right = diff.entriesOnlyOnLeft();
+                Map<String, Object> left = diff.entriesOnlyOnRight();
+                int total = entries.keySet().size() + right.keySet().size() + left.keySet().size();
+                
+                DifferenceTotals summary = new DifferenceTotals(i,j,total);
+                totals.add(summary);
+            }
+        }
+        Collections.sort(totals);
+        return totals;
+    }
+    
+    public static void remove(int index, ArrayList<Integer> indicies, ArrayList<Map<String, Object>> maparray) {
+        int i = 0;
+        boolean notdone = true;
+        while(notdone && i < maparray.size()) {
+            if(indicies.get(i) == index) {
+                indicies.remove(i);
+                maparray.remove(i);
+                notdone = false;
+            } else {
+                i++;
+            }
+        }
+    }
+    public static void remove(int iorig, int inew, ArrayList<DifferenceTotals> compair) {
+        int i = 0;
+        while(i < compair.size()) {
+            DifferenceTotals total = compair.get(i);
+            if(total.indexoriginal == iorig) {
+                compair.remove(i);
+            } else if(total.indexnew == inew) {
+                compair.remove(i);
+            } else {
+                i++;
+            }
+        }
+           }
+    
+    public static int findBestMatch(Map<String, Object> reference, ArrayList<Map<String, Object>> lst) {
+        
+        int max = reference.keySet().size();
+        int best = 0;
+        boolean notdone = true;
+        int i=lst.size()-1;
+        while(notdone) {
+            if(i >= 0) {
+            Map<String, Object> obj = lst.get(i);
+            MapDifference<String, Object> diff = Maps.difference(reference, obj);
+            Map<String, ValueDifference<Object>> entries = diff.entriesDiffering();
+            Map<String, Object> right = diff.entriesOnlyOnLeft();
+            Map<String, Object> left = diff.entriesOnlyOnRight();
+            int total = entries.keySet().size() + right.keySet().size() + left.keySet().size();
+            if(total < max) {
+                max = total;
+                best = i;
+            }
+            i--;
+            } else {
+                notdone = false;
+            }
+        }
+        return best;
+    }
+    
+    public static boolean removeMatch(Map<String, Object> reference, ArrayList<Map<String, Object>> lst,ArrayList<Integer> indicies) {
+        
+        boolean notdone = true;
+        boolean removed = false;
+        int i=0;
+        while(notdone) {
+            Map<String, Object> obj = lst.get(i);
+            MapDifference<String, Object> diff = Maps.difference(reference, obj);
+            boolean equ = diff.areEqual();
+            Map<String, ValueDifference<Object>> entries = diff.entriesDiffering();
+            Map<String, Object> right = diff.entriesOnlyOnLeft();
+            Map<String, Object> left = diff.entriesOnlyOnRight();
+            int total = entries.keySet().size() + right.keySet().size() + left.keySet().size();
+            if(equ) {
+                notdone = false;
+                removed = true;
+                lst.remove(i);
+                indicies.remove(i);
+            }
+            i++;
+            if(i>= lst.size()) {
+                notdone = false;
+            }
+        }
+        return removed;
+    }
+    
+	/*
+	static void mapDifference(ArrayList<Map<String, Object>> originalobjectMap, 
+	        ArrayList<Map<String, Object>> newobjectMap,
+	        JsonArray changes, int level, JsonArray recordID) {
+	    int lsize = Math.max(newobjectMap.size(), originalobjectMap.size());
+	    level += 1;
+	    for(int i=0;i<lsize; i++) {
+            int iorig = originalobjectMap.size() -i -1;
+            int inew = newobjectMap.size() -i -1;
+	        if(iorig >= 0) {
+	            if(inew >= 0) {
+	                Object originalobject = originalobjectMap.get(iorig);
+	                Object newobject = newobjectMap.get(inew);
+	                JsonArray newrecordid = newRecordID(recordID,level,Integer.toString(iorig));
+	                mapDifferenceSub(Integer.toString(i),originalobject,newobject,changes,level+1,newrecordid);
+	            } else {
+	                Object originalobject = originalobjectMap.get(iorig);
+	                JsonArray newrecordid = newRecordID(recordID,level,Integer.toString(iorig));
+	                addAddedOjbect(originalobject,changes,newrecordid);
+	            }
+	        } else {
+	            Object newobject = newobjectMap.get(inew);
+	            JsonArray newrecordid = newRecordID(recordID,level,Integer.toString(inew));
+	            addDeletedObject(newobject,changes,newrecordid);
+	        }
+	        
+            
+	    }
+        
+	}
+	*/
+	static void mapDifferenceSub(String key, Object right, Object left,
+	        JsonArray changes, int level, JsonArray recordID) {
+        
+	    if(right instanceof String) {
+	        addChangedComponent((String) right,(String) left,changes,recordID);
+        } else if(right instanceof Map){
+            mapDifference((Map<String, Object>) right, (Map<String, Object>) left, changes,level,recordID);
+        } else if(right instanceof ArrayList) {
+            mapDifference((ArrayList<Map<String, Object>>) right, (ArrayList<Map<String, Object>>) left,changes,level,recordID);
+        }
+	}
+    static void addDeletedObject(Object right, JsonArray changes, JsonArray recordID) {
+        JsonObject change = new JsonObject();
+        change.add("dataset:recordid", recordID);
+        
+        if(right instanceof String) {
+            change.addProperty(AnnotationObjectsLabels.identifier, ClassLabelConstants.CatalogComponentDeletion);
+            change.addProperty(ClassLabelConstants.TransactionComponentOldValue,(String) right);
+        } else {
+            change.addProperty(AnnotationObjectsLabels.identifier, ClassLabelConstants.CatalogRecordDeletion);
+            JsonObject jsonright = objectToJson(right);
+            change.add(ClassLabelConstants.ChemConnectCompoundBase, jsonright);
+        }
+        changes.add(change);
+    }
+    static JsonObject objectToJson(Object obj) {
+        GsonBuilder gsonMapBuilder = new GsonBuilder();          
+        Gson gsonObject = gsonMapBuilder.create();  
+        Type type = new TypeToken<Map<String, Object>>(){}.getType();
+        String json = gsonObject.toJson(obj, type);
+        JsonObject jsonobj = JsonObjectUtilities.jsonObjectFromString(json);
+        return jsonobj;
+    }
+    static void addAddedOjbect(Object left, JsonArray changes, JsonArray recordID) {
+        JsonObject change = new JsonObject();
+        change.add("dataset:recordid", recordID);
+	    
+	    if(left instanceof String) {
+	        change.addProperty(AnnotationObjectsLabels.identifier, ClassLabelConstants.CatalogComponentAddition);
+	        change.addProperty(ClassLabelConstants.TransactionComponentNewValue,(String) left);
+	    } else {
+            change.addProperty(AnnotationObjectsLabels.identifier, ClassLabelConstants.CatalogRecordAddition);
+            JsonObject jsonleft = objectToJson(left);
+            change.add(ClassLabelConstants.ChemConnectCompoundBase, (JsonElement) jsonleft);
+	    }
+        changes.add(change);
+	}
+	
+	static void addChangedComponent(String right, String left, JsonArray changes, JsonArray recordID) {
+        JsonObject change = new JsonObject();
+        change.addProperty(AnnotationObjectsLabels.identifier, ClassLabelConstants.CatalogComponentModification);
+        change.addProperty(ClassLabelConstants.TransactionComponentOldValue,(String) right);
+        change.addProperty(ClassLabelConstants.TransactionComponentNewValue,(String) left);
+        change.add("dataset:recordid", recordID);
+        changes.add(change);
+
+	}
 }

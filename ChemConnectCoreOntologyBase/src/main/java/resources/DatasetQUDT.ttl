@@ -1460,15 +1460,23 @@ xsd:date rdf:type rdfs:Datatype .
                                    rdfs:subClassOf :ActivityInformationRecordBase ,
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                     owl:someValuesFrom :CatalogComponentAddition
+                                                   ] ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                     owl:someValuesFrom :CatalogComponentDeletion
+                                                   ] ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                      owl:someValuesFrom :CatalogComponentModification
                                                    ] ,
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                                     owl:someValuesFrom :CatalogMultipleRecordAddition
+                                                     owl:someValuesFrom :CatalogRecordAddition
                                                    ] ,
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                                     owl:someValuesFrom :CatalogMultipleRecordDeletion
+                                                     owl:someValuesFrom :CatalogRecordDeletion
                                                    ] ,
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty <http://purl.org/dc/terms/hasPart> ;
@@ -2499,6 +2507,36 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                  <http://www.w3.org/2004/02/skos/core#altLabel> "base" .
 
 
+###  http://www.esblurock.info/dataset#CatalogComponentAddition
+:CatalogComponentAddition rdf:type owl:Class ;
+                          rdfs:subClassOf :CatalogModificationInformation ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onClass :TransactionComponentNewValue
+                                          ] ;
+                          <http://purl.org/dc/elements/1.1/type> :CatalogComponentAddition ;
+                          <http://purl.org/dc/terms/identifier> "dataset:componentaddition"^^xsd:string ;
+                          rdfs:comment "A component string was added to the original catalog object."^^xsd:string ;
+                          rdfs:label "Catalog Component Addition"^^xsd:string ;
+                          <http://www.w3.org/2004/02/skos/core#altLabel> "componentaddition"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CatalogComponentDeletion
+:CatalogComponentDeletion rdf:type owl:Class ;
+                          rdfs:subClassOf :CatalogModificationInformation ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onClass :TransactionComponentOldValue
+                                          ] ;
+                          <http://purl.org/dc/elements/1.1/type> :CatalogComponentDeletion ;
+                          <http://purl.org/dc/terms/identifier> "dataset:componentdeletion"^^xsd:string ;
+                          rdfs:comment "A component string was eliminated from the original catalog object."^^xsd:string ;
+                          rdfs:label "Catalog Component Deletion"^^xsd:string ;
+                          <http://www.w3.org/2004/02/skos/core#altLabel> "componentdeletion"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#CatalogComponentModification
 :CatalogComponentModification rdf:type owl:Class ;
                               rdfs:subClassOf :CatalogModificationInformation ,
@@ -2511,16 +2549,6 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                 owl:onClass :TransactionComponentOldValue
-                                              ] ,
-                                              [ rdf:type owl:Restriction ;
-                                                owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                owl:onClass :TransactionDatabaseComponentID
-                                              ] ,
-                                              [ rdf:type owl:Restriction ;
-                                                owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                owl:onClass :TransactionDatabaseComponentRecordID
                                               ] ;
                               <http://purl.org/dc/elements/1.1/type> "CatalogComponentModification" ;
                               <http://purl.org/dc/terms/identifier> "dataset:catmodcomp" ;
@@ -3104,7 +3132,12 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#CatalogModificationInformation
 :CatalogModificationInformation rdf:type owl:Class ;
-                                rdfs:subClassOf :ChemConnectCompoundBase ;
+                                rdfs:subClassOf :ChemConnectCompoundBase ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :ChemConnectCompoundDataStructure
+                                                ] ;
                                 <http://purl.org/dc/elements/1.1/type> "CatalogModificationInformation" ;
                                 <http://purl.org/dc/terms/identifier> "dataset:catmodinfo" ;
                                 rdfs:comment "The information pertaining to a record being modified, added or deleted" ;
@@ -3115,46 +3148,6 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 ###  http://www.esblurock.info/dataset#CatalogModifications
 :CatalogModifications rdf:type owl:Class ;
                       rdfs:subClassOf :ChemConnectClassifications .
-
-
-###  http://www.esblurock.info/dataset#CatalogMultipleRecordAddition
-:CatalogMultipleRecordAddition rdf:type owl:Class ;
-                               rdfs:subClassOf :CatalogMultipleRecordModification ;
-                               <http://purl.org/dc/elements/1.1/type> "CatalogMultipleRecordAddition" ;
-                               <http://purl.org/dc/terms/identifier> "dataset:catmodmultadd" ;
-                               rdfs:comment "The information pertaining to a multiple record having been added" ;
-                               rdfs:label "Catalog Multiple Record Addition" ;
-                               <http://www.w3.org/2004/02/skos/core#altLabel> "catmodmultadd" .
-
-
-###  http://www.esblurock.info/dataset#CatalogMultipleRecordDeletion
-:CatalogMultipleRecordDeletion rdf:type owl:Class ;
-                               rdfs:subClassOf :CatalogMultipleRecordModification ;
-                               <http://purl.org/dc/elements/1.1/type> "CatalogMultipleRecordDeletion" ;
-                               <http://purl.org/dc/terms/identifier> "dataset:catmodmultdel" ;
-                               rdfs:comment "The information pertaining to a multiple record having been deleted" ;
-                               rdfs:label "Catalog Multiple Record Deletion" ;
-                               <http://www.w3.org/2004/02/skos/core#altLabel> "catmodmultdel" .
-
-
-###  http://www.esblurock.info/dataset#CatalogMultipleRecordModification
-:CatalogMultipleRecordModification rdf:type owl:Class ;
-                                   rdfs:subClassOf :CatalogModificationInformation ,
-                                                   [ rdf:type owl:Restriction ;
-                                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                     owl:onClass :TransactionDatabaseMultipleContainerID
-                                                   ] ,
-                                                   [ rdf:type owl:Restriction ;
-                                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                     owl:onClass :TransactionDatabaseMultipleRecordID
-                                                   ] ;
-                                   <http://purl.org/dc/elements/1.1/type> "CatalogMulitipleRecordModification" ;
-                                   <http://purl.org/dc/terms/identifier> "dataset:catmodmult" ;
-                                   rdfs:comment "The information pertaining to a multiple record having been deleted or added" ;
-                                   rdfs:label "Catalog Multiple Record Modification" ;
-                                   <http://www.w3.org/2004/02/skos/core#altLabel> "catmodmult" .
 
 
 ###  http://www.esblurock.info/dataset#CatalogObjectAccessModify
@@ -3348,6 +3341,36 @@ This event is usually associated with an action initiated by the GUI, such as a 
                     rdfs:comment "The path of the catalog element" ;
                     rdfs:label "Catalog Path Element" ;
                     <http://www.w3.org/2004/02/skos/core#prefLabel> "catpath" .
+
+
+###  http://www.esblurock.info/dataset#CatalogRecordAddition
+:CatalogRecordAddition rdf:type owl:Class ;
+                       rdfs:subClassOf :CatalogModificationInformation ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onClass :ChemConnectCompoundDataStructure
+                                       ] ;
+                       <http://purl.org/dc/elements/1.1/type> :CatalogRecordAddition ;
+                       <http://purl.org/dc/terms/identifier> "dataset:recordaddition"^^xsd:string ;
+                       rdfs:comment "A complete record was added to the original catalog object. The record listed is the information added to the original."^^xsd:string ;
+                       rdfs:label "Catalog Record Addition"^^xsd:string ;
+                       <http://www.w3.org/2004/02/skos/core#altLabel> "recordaddition"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CatalogRecordDeletion
+:CatalogRecordDeletion rdf:type owl:Class ;
+                       rdfs:subClassOf :CatalogModificationInformation ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                         owl:onClass :ChemConnectCompoundDataStructure
+                                       ] ;
+                       <http://purl.org/dc/elements/1.1/type> :CatalogRecordDeletion ;
+                       <http://purl.org/dc/terms/identifier> "dataset:recorddeletion"^^xsd:string ;
+                       rdfs:comment "A complete record was deleted from catalog object. The record is the information deleted."^^xsd:string ;
+                       rdfs:label "Catalog Record Deletion"^^xsd:string ;
+                       <http://www.w3.org/2004/02/skos/core#altLabel> "recorddeletion"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogUserManagementEvent
@@ -16195,6 +16218,26 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                                     rdfs:subClassOf :ServiceCollectionFirestoreCatalogAccess .
 
 
+###  http://www.esblurock.info/dataset#RecordIDReference
+:RecordIDReference rdf:type owl:Class ;
+                   rdfs:subClassOf :ChemConnectCompoundBase ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :Position
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :RecordObjectID
+                                   ] ;
+                   <http://purl.org/dc/elements/1.1/type> :RecordIDReference ;
+                   <http://purl.org/dc/terms/identifier> "dataset:recordid"^^xsd:string ;
+                   rdfs:comment "The record ID in an address within a catalog object. The position is the level within the catalog object. Within a array, this address is an integer."^^xsd:string ;
+                   rdfs:label "Record ID in Address"^^xsd:string ;
+                   <http://www.w3.org/2004/02/skos/core#altLabel> "recordidaddress"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#RecordObjectID
 :RecordObjectID rdf:type owl:Class ;
                 rdfs:subClassOf :DatabaseID ,
@@ -18473,39 +18516,9 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                                 rdfs:subClassOf :DatabaseID ;
                                 <http://purl.org/dc/elements/1.1/type> :TransactionDatabaseComponentID ;
                                 <http://purl.org/dc/terms/identifier> "dataset:transcompid" ;
-                                rdfs:comment "This is the identifier (altlabel) of the component in question" ;
+                                rdfs:comment "This is the identifier of the component in question"^^xsd:string ;
                                 rdfs:label "Component ID" ;
                                 <http://www.w3.org/2004/02/skos/core#altLabel> "transcompid"^^xsd:string .
-
-
-###  http://www.esblurock.info/dataset#TransactionDatabaseComponentRecordID
-:TransactionDatabaseComponentRecordID rdf:type owl:Class ;
-                                      rdfs:subClassOf :RecordObjectID ;
-                                      <http://purl.org/dc/elements/1.1/type> "DatabaseID" ;
-                                      <http://purl.org/dc/terms/identifier> "dataset:tranmultcomprecid" ;
-                                      rdfs:comment "This is the record ID containing the component" ;
-                                      rdfs:label "Component Record ID" ;
-                                      <http://www.w3.org/2004/02/skos/core#altLabel> "transmultcomprecid" .
-
-
-###  http://www.esblurock.info/dataset#TransactionDatabaseMultipleContainerID
-:TransactionDatabaseMultipleContainerID rdf:type owl:Class ;
-                                        rdfs:subClassOf :RecordObjectID ;
-                                        <http://purl.org/dc/elements/1.1/type> "DatabaseID" ;
-                                        <http://purl.org/dc/terms/identifier> "dataset:transmultcontid" ;
-                                        rdfs:comment "This is the ID of the container holding the record to be deleted or added" ;
-                                        rdfs:label "Multiple Record Container ID" ;
-                                        <http://www.w3.org/2004/02/skos/core#altLabel> "transmultcontid" .
-
-
-###  http://www.esblurock.info/dataset#TransactionDatabaseMultipleRecordID
-:TransactionDatabaseMultipleRecordID rdf:type owl:Class ;
-                                     rdfs:subClassOf :RecordObjectID ;
-                                     <http://purl.org/dc/elements/1.1/type> "DatabaseID" ;
-                                     <http://purl.org/dc/terms/identifier> "dataset:transmultrecid"^^xsd:string ;
-                                     rdfs:comment "This is the ID of the record that is being deleted or added" ;
-                                     rdfs:label "Multiple Record ID" ;
-                                     <http://www.w3.org/2004/02/skos/core#altLabel> "transmultrecid" .
 
 
 ###  http://www.esblurock.info/dataset#TransactionDebugMode

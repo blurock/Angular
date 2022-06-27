@@ -18,6 +18,7 @@ import {UploadstepsComponent} from './upload/uploadsteps/uploadsteps.component';
 import {RepositorydatafileComponent} from '../app/catalogobjects/repository/repositorydatafile/repositorydatafile.component';
 import {DatasetrepositoryfilestagingComponent} from '../app/catalogobjects/repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
 import {RepositorydatapartitionblockComponent} from '../app/catalogobjects/repository/repositorydatapartitionblock/repositorydatapartitionblock.component';
+import {ManagedatasetrepositoryfilestagingComponent} from '../app/catalogobjects/repository/managedatasetrepositoryfilestaging/managedatasetrepositoryfilestaging.component';
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([FEED]);
 
 const routes: Routes = [
@@ -28,7 +29,7 @@ const routes: Routes = [
 	{ path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
 	{ path: 'forgot-password', component: ForgotPasswordComponent },
 	{ path: 'verify-email-address', component: VerifyEmailComponent },
-	{ path: 'catalog/repositorystaging', component: DatasetrepositoryfilestagingComponent},
+	{ path: 'catalog/repositorystaging', component: ManagedatasetrepositoryfilestagingComponent},
 	{ path: 'catalog/partition', component: RepositorydatapartitionblockComponent},
 	{
 		path: 'feed',

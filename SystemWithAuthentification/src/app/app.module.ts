@@ -110,6 +110,7 @@ import { RepositorydatapartitionblockComponent } from './catalogobjects/reposito
 import { VisualizefileComponent } from './dialog/visualizefile/visualizefile.component';
 import { RuntransactiondialogComponent } from './dialog/runtransactiondialog/runtransactiondialog.component';
 import { FetchcatalogobjectComponent } from './dialog/fetchcatalogobject/fetchcatalogobject.component';
+import { ManagedatasetrepositoryfilestagingComponent } from './catalogobjects/repository/managedatasetrepositoryfilestaging/managedatasetrepositoryfilestaging.component';
 //import { USE_EMULATOR as FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
 
 
@@ -177,7 +178,8 @@ import { FetchcatalogobjectComponent } from './dialog/fetchcatalogobject/fetchca
   RepositorydatapartitionblockComponent,
   VisualizefileComponent,
   RuntransactiondialogComponent,
-  FetchcatalogobjectComponent
+  FetchcatalogobjectComponent,
+  ManagedatasetrepositoryfilestagingComponent
 	],
 	imports: [
 		AppFirebaseModule,

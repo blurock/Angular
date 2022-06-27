@@ -60,13 +60,6 @@ export class DatasetrepositoryfilestagingComponent extends Savecatalogdataobject
 	ngAfterViewInit(): void {
 }
 
-	public setDefaultData(): void {
-		if (this.simpledata != null) {
-			this.setData(repository);
-		}
-		
-	}
-
 	public setData(catalog: any): void {
 		if (this.simpledata != null) {
 			this.simpledata.setData(catalog);
@@ -94,11 +87,6 @@ export class DatasetrepositoryfilestagingComponent extends Savecatalogdataobject
 		
 	}
 
-	public saveCatalog(): void {
-		const catalog = {};
-		this.getData(catalog);
-		this.openDialog(catalog);
-	}
 	public getData(catalog: any): void {
 		if (this.simpledata != null) {
 			this.simpledata.getData(catalog);
