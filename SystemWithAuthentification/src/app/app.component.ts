@@ -20,6 +20,9 @@ export class AppComponent {
 	partition(): void {
 		this.router.navigateByUrl('/catalog/partition');
 	}
+	partitionblock() {
+		this.router.navigateByUrl('/catalog/partition');
+	}
 	fromURL(): void {
 		alert('from URL');
 	}

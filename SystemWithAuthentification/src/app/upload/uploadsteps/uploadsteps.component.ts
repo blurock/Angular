@@ -1,8 +1,9 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild,EventEmitter  } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { UploadmenuserviceService } from '../../services/uploadmenuservice.service';
 import {UploadfileinformationComponent} from '../uploadfileinformation/uploadfileinformation.component';
+import {SubmitfileandinformatioonComponent} from '../submitfileandinformatioon/submitfileandinformatioon.component';
 
 @Component({
 	selector: 'app-uploadsteps',
@@ -39,10 +40,16 @@ export class UploadstepsComponent implements OnInit {
 	unitset = ["quantitykind:MolarEnergy", "quantitykind:MolarEntropy", "quantitykind:MolarHeatCapacity", "quantitykind:Frequency"];
 	
 	@ViewChild('uploadinfo') uploadinfo: UploadfileinformationComponent;
-
+	@ViewChild('stagefile') stagefile: SubmitfileandinformatioonComponent;
+	
+	repositorystaging = new EventEmitter<any>();
+	
 	constructor(
 		private _formBuilder: FormBuilder,
-		private uploadService: UploadmenuserviceService) { }
+		private uploadService: UploadmenuserviceService) { 
+			
+			
+		}
 
 	ngOnInit() {
 
@@ -51,8 +58,10 @@ export class UploadstepsComponent implements OnInit {
 
 		this.references = new FormArray([]);
 		this.uploadInformation = '';
-
-		
+/*
+        this.repositorystaging.subscribe((data) => {
+			});
+		*/
 		this.uploadService.getTitleChoices().subscribe((data) => {
 			this.titleInformation = data;
 			this.titles = Object.keys(data);

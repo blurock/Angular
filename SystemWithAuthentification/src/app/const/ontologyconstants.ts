@@ -20,5 +20,12 @@ export class Ontologyconstants {
 	public static catalogobject = 'dataset:simpcatobj';
 	public static outputobject = 'dataobj';
 	public static annotations = 'annotations';
+	
+	public static DatabaseIDFromRequiredTransaction = 'dataset:transreqobj';
+	
+	public static InitialReadInOfRepositoryFile = 'dataset:initreposfile';
+	public static PartiionSetWithinRepositoryFile = 'dataset:partitionfile';
+	public static TransactionInterpretTextBlock = 'dataset:interprettextblocktransaction';
+	
 
 }

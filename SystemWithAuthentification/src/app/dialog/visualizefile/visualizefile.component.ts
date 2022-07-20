@@ -8,18 +8,36 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 })
 export class VisualizefileComponent implements OnInit {
 
-	@Input() dataimage: any;
-	@Input() filename: string;
+public filename = 'not initial';
+public catalog = {};
+public catalogS = 'not initialized';
 
   constructor(    
     public dialogRef: MatDialogRef<VisualizefileComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-) { }
+) { 
+  /*
+  this.filename = data['filename'];
+  this.catalog = data['dataimage'];
+  alert("VisualizefileComponent: " + this.filename);
+  if(this.catalog != null) {
+    this.catalogS = JSON.stringify(this.catalog);
+  } else {
+    alert("VisualizefileComponent: no catalog");
+  }
+  */
+}
 
   ngOnInit(): void {
+    this.filename = "The File";
   }
   
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close('Cancel');
+     alert("Cancel");
+  }
+  saveDataClick() {
+    this.dialogRef.close('save data file simulation');
+     alert("save data file simulation");
   }
 }

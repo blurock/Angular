@@ -7,24 +7,31 @@
 
 	<mat-card-content>
 		<mat-grid-list cols="6" rowHeight="100px">
-			<mat-grid-tile [colspan]="3">
-				<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchInformation()"
-				matTooltip="{{loadfromdatabase}}">
+		<mat-grid-tile [colspan]="2">
+			<button mat-mini-fab color="primary" class="display-btn" 
+			matTooltip="{{displaydescbutton}}"
+			(click)="displayTransactionInput()">{{displaybutton}}</button>
+		</mat-grid-tile>
+			<mat-grid-tile [colspan]="2">
+				<button mat-mini-fab color="primary" class="fetch-btn" 
+				(click)="fetchInformation()"
+					matTooltip="{{loadfromdatabase}}">
 					{{fetchstaging}}
 				</button>
 			</mat-grid-tile>
-			<mat-grid-tile [colspan]="3">
-				<button mat-mini-fab color="primary" class="submit-btn" (click)="submitInformation()"
+			<mat-grid-tile [colspan]="2">
+				<button mat-mini-fab color="primary" class="submit-btn" 
+				(click)="submitInformation()"
 					matTooltip="{{subtransaction}}">
 					{{submit}}
 				</button>
 			</mat-grid-tile>
-		</mat-grid-list>	
-	<mat-divider></mat-divider>
-	<div [innerHTML]="resultHtml"></div>
-	<mat-divider></mat-divider>
-	<app-datasetrepositoryfilestaging #filestaging></app-datasetrepositoryfilestaging>
-		</mat-card-content>
+		</mat-grid-list>
+		<mat-divider></mat-divider>
+		<div [innerHTML]="resultHtml"></div>
+		<mat-divider></mat-divider>
+		<app-datasetrepositoryfilestaging #filestaging></app-datasetrepositoryfilestaging>
+	</mat-card-content>
 </mat-card>
 <mat-card>
 	<mat-card-header>
@@ -32,6 +39,7 @@
 			<mat-card-subtitle>{{transactionidsubtitle}}</mat-card-subtitle>
 		</mat-card-title-group>
 	</mat-card-header>
-			<app-firesytorecatalogid #tranactionfirestoreid [(anno)]="annoinfo"></app-firesytorecatalogid>
 	<mat-card-content>
-
+		<app-firesytorecatalogid #tranactionfirestoreid [(anno)]="annoinfo"></app-firesytorecatalogid>
+	</mat-card-content>
+</mat-card>

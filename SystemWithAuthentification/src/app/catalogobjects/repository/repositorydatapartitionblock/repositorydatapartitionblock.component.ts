@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, EventEmitter, Input } from '@angular/core';
 import { OntologycatalogService } from 'src/app/services/ontologycatalog.service';
 import { BaseCatalogInterface } from 'src/app/primitives/basecataloginterface';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
@@ -21,13 +21,25 @@ import { MenutreeserviceService } from '../../../services/menutreeservice.servic
 	templateUrl: './repositorydatapartitionblock.component.html',
 	styleUrls: ['./repositorydatapartitionblock.component.scss']
 })
-export class RepositorydatapartitionblockComponent extends SavecatalogdataobjectComponent implements OnInit {
+export class RepositorydatapartitionblockComponent  implements OnInit,AfterViewInit {
 
 	objectform: FormGroup;
 	items: NavItem[];
-	formatmenulabel = 'dataset:FileSourceFormat';
 	partitionitems: NavItem[];
+	display = false;
+	annoinfo: any
+	fixedtype = false;
+	postype =0;
+
+	formatmenulabel = 'dataset:FileSourceFormat';
 	partitionmenulabel = 'dataset:FilePartitionMethod';
+	title = 'File Partition Element';
+	rdfslabel = Ontologyconstants.rdfslabel;
+	rdfscomment = Ontologyconstants.rdfscomment;
+	identifier = Ontologyconstants.dctermsidentifier;
+
+	
+	@Input() annoReady: EventEmitter<any>;
 	
 
 	@ViewChild('simpledata') simpledata: SimpledatabaseobjectstructureComponent;
@@ -39,17 +51,18 @@ export class RepositorydatapartitionblockComponent extends Savecatalogdataobject
 
 	constructor(
 		private menusetup: MenutreeserviceService,
-		public dialog: MatDialog,
 		private formBuilder: FormBuilder,
-		public annotations: OntologycatalogService,
 		public identifiers: IdentifiersService) {
-		super(dialog, annotations, identifiers,
-		);
-		this.catalogtype = 'dataset:RepositoryDataPartitionBlock';
-		this.getCatalogAnnoations();
+			
+      
+      
 	}
 
 	ngOnInit(): void {
+		
+
+		
+		
 		this.objectform = this.formBuilder.group({
 			FilePartitionMethod: ['', Validators.required],
 			FileSourceFormat: ['File Format', Validators.required],
@@ -58,21 +71,43 @@ export class RepositorydatapartitionblockComponent extends Savecatalogdataobject
 	}
 
 	ngAfterViewInit(): void {
-		this.annoReady.subscribe(result => {
+				this.annoReady.subscribe(result => {
+			this.annoinfo = result;
 			this.items = this.menusetup.findChoices(this.annoinfo, this.formatmenulabel);
 			this.partitionitems = this.menusetup.findChoices(this.annoinfo, this.partitionmenulabel);
-			alert(this.partitionitems.length);
+			this.display = true;
       });
+
+	}
+	
+	public setDataFormat(typeInfo: any) {
+		const fmt = typeInfo['format'];
+		if(fmt == 'dataset:TherGasBensonRules') {
+			this.objectform.get('FileSourceFormat').setValue('dataset:TherGasBensonRules');
+			this.objectform.get('FilePartitionMethod').setValue('dataset:PartitionTherGasThermodynamics');
+			this.postype =0;
+		} else if(fmt == 'dataset:JThermodynamicsDisassociationEnergyFormat') {
+			this.objectform.get('FileSourceFormat').setValue('dataset:JThermodynamicsDisassociationEnergyFormat');
+			this.objectform.get('FilePartitionMethod').setValue('dataset:PartitionToLineSet');
+			this.postype =1;
+		} else if(fmt == 'dataset:JThermodynamicsMetaAtomFormat') {
+			this.objectform.get('FileSourceFormat').setValue('dataset:JThermodynamicsMetaAtomFormat');
+			this.objectform.get('FilePartitionMethod').setValue('dataset:PartitionToLineSet');
+			this.postype =1;
+		} else if(fmt == 'dataset:JThermodynamicsVibrationalModes') {
+			this.objectform.get('FileSourceFormat').setValue('dataset:JThermodynamicsVibrationalModes');
+			this.objectform.get('FilePartitionMethod').setValue('dataset:PartitionToLineSet');
+			this.postype =1;
+		} 
+		this.fixedtype = true;
 	}
 
-	public setDefaultData(): void {
-		if (this.simpledata != null) {
-			this.setData(repository);
-		}
-	}
 
 	public setData(catalog: any): void {
 		if (this.simpledata != null) {
+			this.objectform.get('FilePartitionMethod').setValue(catalog[this.identifiers.FilePartitionMethod]);
+			this.objectform.get('FileSourceFormat').setValue(catalog[this.identifiers.FileSourceFormat]);
+			this.setPosition(catalog);
 			this.simpledata.setData(catalog);
 			const firestoreidvalues = catalog[this.identifiers.FirestoreCatalogID];
 			this.firestoreid.setData(firestoreidvalues);
@@ -80,19 +115,24 @@ export class RepositorydatapartitionblockComponent extends Savecatalogdataobject
 			this.references.setData(refs);
 			const olinks = catalog[this.identifiers.DataObjectLink];
 			this.objectlinks.setData(olinks);
+
+
 			const wlinks = catalog[this.identifiers.ObjectSiteReference];
-			this.objectlinks.setData(wlinks);
-			this.objectform.get('FilePartitionMethod').setValue(catalog[this.identifiers.FilePartitionMethod]);
-			this.objectform.get('FileSourceFormat').setValue(catalog[this.identifiers.FileSourceFormat]);
+			this.weblinks.setData(wlinks);
+		}
+	}
+	
+	setPosition(catalog: any) {
+		if(this.postype == 0) {
+		    const thermoid = this.annoinfo['dataset:RepositoryThermoPartitionBlock'][this.identifier];
+			const thermo = catalog[thermoid];
+			this.objectform.get('Position').setValue(thermo[this.identifiers.Position]);
+		} else {
 			this.objectform.get('Position').setValue(catalog[this.identifiers.Position]);
 		}
 	}
 
-	public saveCatalog(): void {
-		const catalog = {};
-		this.getData(catalog);
-		this.openDialog(catalog);
-	}
+
 	public getData(catalog: any): void {
 		if (this.simpledata != null) {
 			catalog[this.identifiers.FilePartitionMethod] = this.objectform.get('FilePartitionMethod').value;
@@ -106,10 +146,15 @@ export class RepositorydatapartitionblockComponent extends Savecatalogdataobject
 		}
 	}
 	setFileFormat($event: string): void {
-		this.objectform.get('FileSourceFormat').setValue($event);
+		if(!this.fixedtype){
+			this.objectform.get('FileSourceFormat').setValue($event);
+		}
+		
 	}
-	setPartition($event: string): void {
+	setFilePartition($event: string): void {
+		if(!this.fixedtype){
 		this.objectform.get('FilePartitionMethod').setValue($event);
+		}
 	}
 
 

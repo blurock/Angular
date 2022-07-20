@@ -1,0 +1,34 @@
+<mat-card>
+	<mat-card-header>
+		<mat-card-title-group class="title-group">
+			<mat-card-title class="title">{{title}}</mat-card-title>
+		</mat-card-title-group>
+	</mat-card-header>
+	<mat-card-content>
+		<ng-container *ngIf='display; else loading'>
+			<div>
+				<form [formGroup]="objectform">
+					<mat-form-field class="countfield">
+						<mat-label>{{annoinfo['dataset:BlockLineCount'][rdfslabel]}}</mat-label>
+						<input matInput formControlName="BlockLineCount"  [readonly]="true">
+						<mat-hint>{{annoinfo['dataset:BlockLineCount'][rdfscomment]}}</mat-hint>
+					</mat-form-field>
+					<mat-form-field class="parsedlines">
+						<mat-label>{{annoinfo['dataset:ParsedLine'][rdfslabel]}}</mat-label>
+						<textarea matInput formControlName="ParsedLine" cdkTextareaAutosize
+							#autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+						<mat-hint>{{annoinfo['dataset:ParsedLine'][rdfscomment]}}</mat-hint>
+					</mat-form-field>
+				</form>
+			</div>
+
+		</ng-container>
+		<ng-template #loading>
+			<div>
+				{{message}}
+			</div>
+		</ng-template>
+
+		<app-repositorydatapartitionblock #partition [(annoReady)]="annoReady"></app-repositorydatapartitionblock>
+	</mat-card-content>
+</mat-card>

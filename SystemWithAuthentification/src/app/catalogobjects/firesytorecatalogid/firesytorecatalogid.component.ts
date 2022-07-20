@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, OnChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CollectiondocumentidpairaddressComponent } from '../recordobjects/collectiondocumentidpairaddress/collectiondocumentidpairaddress.component';
 import { IdentifiersService } from '../../const/identifiers.service';
@@ -10,40 +10,39 @@ import { Ontologyconstants } from '../../const/ontologyconstants';
 	templateUrl: './firesytorecatalogid.component.html',
 	styleUrls: ['./firesytorecatalogid.component.scss']
 })
-export class FiresytorecatalogidComponent implements OnInit,AfterViewInit {
+export class FiresytorecatalogidComponent implements AfterViewInit {
 
 	@Input() anno: any;
 
-	display = false
+	@Input() catalogID: any;
+	display: boolean;
 
 	objectform: FormGroup;
 	documentdpairaddress: FormArray;
-	message: string;
+	message = 'No FirestoreID';
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = 'rdfs:comment';
-	catalogID: any;
+
 
 	constructor(
 		private formBuilder: FormBuilder,
 		public identifiers: IdentifiersService) {
-					this.objectform = this.formBuilder.group({
+		this.objectform = this.formBuilder.group({
 			DataCatalog: ['', Validators.required],
 			SimpleCatalogName: ['', Validators.required],
 		});
-this.documentdpairaddress = new FormArray([]);
-		 }
-ngAfterViewInit() {
-	this.message = "checked";
-		if(this.catalogID != null) {
-			alert(JSON.stringify(this.catalogID));
-			this.setData(this.catalogID);
-		}
-	
-}
-	ngOnInit(): void {
-		this.message = 'No FirestoreID';
+		this.documentdpairaddress = new FormArray([]);
+		this.display = false;
 	}
+
+ngAfterViewInit(): void {
+	if(this.catalogID != null) {
+		this.setData(this.catalogID);
+	}
+	}
+
 	public setData(catalogID: any) {
+		this.message = '  Set FirestoreID';
 		this.catalogID = catalogID;
 		if (catalogID != null) {
 			this.objectform.get('DataCatalog').setValue(catalogID[this.identifiers.DataCatalog]);

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { FormArray } from '@angular/forms';
-import { LoadchildDirective } from '../loadchild.directive';
+import { LoadChildDirective } from '../../../directives/load-child.directive';
 import { RdftripleComponent } from '../rdftriple/rdftriple.component'
 import { DataobjectlinkComponent } from '../dataobjectlink/dataobjectlink.component';
 import { Directive, ViewContainerRef, ComponentRef, ChangeDetectorRef } from '@angular/core';
@@ -13,16 +13,17 @@ import { IdentifiersService } from '../../../const/identifiers.service';
 })
 export class SetofdataobjectlinksComponent implements OnInit {
 
-	@ViewChild(LoadchildDirective, { static: true })
-	dynamicChild!: LoadchildDirective;
+	@ViewChild(LoadChildDirective, { static: true } )
+	dynamicChild!: LoadChildDirective;
 	public orderedViewContainer: ViewContainerRef;
 
 	linkarray = [];
+	message = 'Initializing';
 
 	@Input() anno: any;
 
 	constructor(
-		private cdRef: ChangeDetectorRef,
+		//private cdRef: ChangeDetectorRef,
 		public identifiers: IdentifiersService) { }
 
 	ngOnInit(): void {
@@ -43,26 +44,42 @@ export class SetofdataobjectlinksComponent implements OnInit {
 	}
 
 	public addObjectLink(link: any): void {
+		/*
+		this.linkarray.push(link);
+		*/
+	
 		const componentRef = this.dynamicChild.viewContainerRef.createComponent(DataobjectlinkComponent);
 		componentRef.instance.anno = this.anno;
+		componentRef.instance.catalog = link;
+		/*
 		componentRef.instance.deleteEvent.subscribe((index) => {
 			this.linkarray.splice(index,1);
 			componentRef.destroy();
 			this.resetLinkArray();
 		})
+		*/
 		componentRef.instance.setIndex(this.linkarray.length);
 		this.linkarray.push(componentRef.instance);
+		
 		componentRef.instance.setData(link);
+		
+		
+	}
+	
+	deleteEvent(index: number) {
+			this.linkarray.splice(index,1);
+			this.resetLinkArray();		
 	}
 	
 	resetLinkArray(): void {
+		/*
 		let index = 0;
 		for (let linkform of this.linkarray) {
 			linkform.setIndex(index);
 			index++;
 			}
+			*/
 	}
-
 
 	public setData(links: any[]): void {
 		for (let link of links) {
@@ -73,11 +90,13 @@ export class SetofdataobjectlinksComponent implements OnInit {
 		if (catalog != null) {
 			const links = [];
 			catalog[this.identifiers.DataObjectLink] = links;
+			/*
 			for (let linkform of this.linkarray) {
 				const link = {};
 				linkform.getData(link);
 				links.push(link);
 			}
+			*/
 		}
 	}
 }

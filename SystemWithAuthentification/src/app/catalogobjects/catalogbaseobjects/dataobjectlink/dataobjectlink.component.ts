@@ -1,4 +1,4 @@
-import { Input, Output, Component, AfterViewInit, EventEmitter, ViewChild } from '@angular/core';
+import { Input, Output, Component, OnInit, AfterViewInit, EventEmitter, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { IdentifiersService } from '../../../const/identifiers.service';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
@@ -11,18 +11,19 @@ import { NavItem } from '../../../primitives/nav-item';
 	templateUrl: './dataobjectlink.component.html',
 	styleUrls: ['./dataobjectlink.component.scss']
 })
-export class DataobjectlinkComponent implements AfterViewInit {
+export class DataobjectlinkComponent implements OnInit {
 	linkform: FormGroup;
 	display = false;
 	conceptmenulabel = 'dataset:DataTypeConcept';
 	conceptitems: NavItem[];
 	formatmenulabel = 'dataset:DatabaseObjectType';
 	items: NavItem[];
+	firestoreidvalues: any;
 	
-	catalog: any;
 
 	@Input() anno: any;
-	@Output() deleteEvent: EventEmitter<number> = new EventEmitter<number>();
+	@Input() catalog: any;
+	//@Output() deleteEvent: EventEmitter<number> = new EventEmitter<number>();
 
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = 'rdfs:comment';
@@ -34,15 +35,20 @@ export class DataobjectlinkComponent implements AfterViewInit {
 		public identifiers: IdentifiersService,
 		private menusetup: MenutreeserviceService) {
 		this.linkform = this.objectlinkform();
+		
 	}
+	
 
-
-	ngAfterViewInit(): void {
-		this.items = this.menusetup.findChoices(this.anno, this.formatmenulabel);
+	ngOnInit(): void {
+		this.items = this.menusetup.findChoices(this.anno, this.formatmenulabel);	
 		this.conceptitems = this.menusetup.findChoices(this.anno, this.conceptmenulabel);
+		/*
 		if(this.catalog != null) {
 			this.setData(this.catalog);
+		} else {
+			
 		}
+		*/
 	}
 	objectlinkform(): FormGroup {
 		const objectform = this.formBuilder.group({
@@ -54,7 +60,7 @@ export class DataobjectlinkComponent implements AfterViewInit {
 	}
 
 	deleteLink() {
-		this.deleteEvent.emit(this.linkform.get('index').value);
+		//this.deleteEvent.emit(this.linkform.get('index').value);
 	}
 
 	setIndex(index: number): void {
@@ -62,24 +68,30 @@ export class DataobjectlinkComponent implements AfterViewInit {
 	}
 
 	setData(catalog: any) {
+		
 		this.catalog = catalog;
-		if (catalog != null) {
-			this.display = true;
+		if (this.catalog != null) {
+			
+			
+			
 			this.linkform = this.objectlinkform();
-			this.linkform.get('DatabaseObjectType').setValue(catalog[this.identifiers.DatabaseObjectType]);
-			this.linkform.get('DataTypeConcept').setValue(catalog[this.identifiers.DataTypeConcept]);
+			this.linkform.get('DatabaseObjectType').setValue(this.catalog[this.identifiers.DatabaseObjectType]);
+			this.linkform.get('DataTypeConcept').setValue(this.catalog[this.identifiers.DataTypeConcept]);
 			
-			const firestoreidvalues = catalog[this.identifiers.FirestoreCatalogID];
+			
+			this.firestoreidvalues = this.catalog[this.identifiers.FirestoreCatalogID];
 			if (this.firestoreid != null) {
-				this.firestoreid.setData(firestoreidvalues);
+				this.firestoreid.setData(this.firestoreidvalues);
 			} else {
-
-			}
-			
+				alert('firestore null');
+			}			
+			this.display = true;
 		}
+		
 	}
 
 	getData(catalog: any): void {
+		/*
 		if (catalog != null) {
 			catalog[this.identifiers.DatabaseObjectType] = this.linkform.get('DatabaseObjectType').value;
 			catalog[this.identifiers.DataTypeConcept] = this.linkform.get('DataTypeConcept').value;
@@ -88,6 +100,7 @@ export class DataobjectlinkComponent implements AfterViewInit {
 			} else {
 			}
 		}
+		*/
 	}
 	setFileDatabaseObjectType($event: string): void {
 		this.linkform.get('DatabaseObjectType').setValue($event);

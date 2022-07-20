@@ -1,5 +1,6 @@
 <mat-card class="bibliocard">
 	<mat-card-content>
+	
 		<form  class="linkform" [formGroup]="linkform">
 				<mat-form-field class="linkconcept">
 					<mat-label>{{anno['dataset:DatabaseObjectType'][rdfslabel]}}</mat-label>
@@ -20,7 +21,16 @@
 					</button>
 		</form>
 		<div>
-			<app-firesytorecatalogid #firestoreid [(anno)]="anno"></app-firesytorecatalogid>
+		<ng-container *ngIf='display; else loading'>
+		
+			<app-firesytorecatalogid #firestoreid  [(catalogID)]="firestoreidvalues"   [(anno)]="anno"></app-firesytorecatalogid>
+		
+		</ng-container>
+		<ng-template #loading>
+	<div>
+		No Firestore ID
+	</div>
+		</ng-template>
 		</div>
 	</mat-card-content>
 </mat-card>

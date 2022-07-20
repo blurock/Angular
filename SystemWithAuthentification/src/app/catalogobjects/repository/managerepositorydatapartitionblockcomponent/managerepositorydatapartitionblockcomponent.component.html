@@ -1,0 +1,47 @@
+<mat-card class="cardbase">
+	<mat-card-header>
+		<mat-card-title-group class="title-group">
+			<mat-card-title class="title">{{title}}</mat-card-title>
+		</mat-card-title-group>
+	</mat-card-header>
+	<mat-card-content>
+
+		<mat-grid-list cols="8" rowHeight="100px">
+			<mat-grid-tile [colspan]="2">
+				<button mat-mini-fab color="primary" class="display-btn" matTooltip="{{displaydescbutton}}"
+					(click)="displayCatalogInfo()">{{displaybutton}}</button>
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="2">
+				<button mat-mini-fab color="primary" class="fetch-btn" matTooltip="{{fetchdescr}}"
+					(click)="fetchInformation()">{{fetchbutton}}</button>
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="2">
+				<button mat-mini-fab color="primary" class="rbutton" matTooltip="((savedesc))"
+					(click)="saveCatalog()">{{savebutton}}</button>
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="2">
+				<button mat-mini-fab color="primary" class="rtypebutton"
+					[matMenuTriggerFor]="ctypes">{{ctypelabel}}</button>
+			</mat-grid-tile>
+		</mat-grid-list>
+		<mat-divider></mat-divider>
+			
+		<ng-container *ngIf="ctypeid==0">
+			<app-repositoryparsedtofixedblocksize #fixedpartitionblock [(cataloginfo)]="cataloginfo"></app-repositoryparsedtofixedblocksize>
+		</ng-container>
+		<ng-container *ngIf="ctypeid==1">
+			<app-repositorythergasthermodynamicsblock #thermopartitionblock [(cataloginfo)]="cataloginfo"></app-repositorythergasthermodynamicsblock>
+		</ng-container>
+		
+		<mat-divider></mat-divider>
+		<div [innerHTML]="message"></div>
+	</mat-card-content>
+	<mat-menu #ctypes="matMenu">
+		<span *ngFor="let ctype of catalogtypes; let i = index">
+			<button mat-menu-item (click)="setCatalogType(i)">
+				{{ctype.label}}
+			</button>
+		</span>
+	</mat-menu>
+
+</mat-card>

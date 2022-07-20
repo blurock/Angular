@@ -1,9 +1,7 @@
 <mat-card class="cardbase">
 	<mat-card-header>
 		<mat-card-title-group class="title-group">
-			<mat-card-title class="title">File Partition Element</mat-card-title>
-			<button class="rbutton" (click)="setDefaultData()">submit</button>
-			<button class="rbutton" (click)="saveCatalog()">save</button>
+			<mat-card-subtitle class="title">{{title}}</mat-card-subtitle>
 		</mat-card-title-group>
 	</mat-card-header>
 	<mat-card-content>
@@ -11,21 +9,23 @@
 			<div>
 				<form [formGroup]="objectform">
 					<mat-form-field class="namefield">
-						<input matInput formControlName="FileSourceFormat" [matMenuTriggerFor]="menu.childMenu">
+					<mat-label>{{annoinfo['dataset:FileSourceFormat'][rdfslabel]}}</mat-label>
+						<input matInput formControlName="FileSourceFormat" [matMenuTriggerFor]="menu.childMenu" [readonly]="fixedtype">
 						<mat-hint>{{annoinfo['dataset:FileSourceFormat'][rdfscomment]}}</mat-hint>
 					</mat-form-field>
-					<app-menu-item #menu [items]="items" (selectionEvent)="setFilePartition($event)"></app-menu-item>
+					<app-menu-item #menu [items]="items" (selectionEvent)="setFileFormat($event)"></app-menu-item>
 					<mat-form-field class="namefield">
 						<mat-label>{{annoinfo['dataset:Position'][rdfslabel]}}</mat-label>
 						<input matInput formControlName="Position" class="namefield">
 						<mat-hint>{{annoinfo['dataset:Position'][rdfscomment]}}</mat-hint>
 					</mat-form-field>
 					<mat-form-field class="namefield">
+					<mat-label>{{annoinfo['dataset:FilePartitionMethod'][rdfslabel]}}</mat-label>
 						<input matInput formControlName="FilePartitionMethod"
-							[matMenuTriggerFor]="partitionmenu.childMenu">
+							[matMenuTriggerFor]="partitionmenu.childMenu" [readonly]="fixedtype">
 						<mat-hint>{{annoinfo['dataset:FilePartitionMethod'][rdfscomment]}}</mat-hint>
 					</mat-form-field>
-					<app-menu-item #partitionmenu [items]="partitionitems" (selectionEvent)="setPartition($event)">
+					<app-menu-item #partitionmenu [items]="partitionitems" (selectionEvent)="setFilePartition($event)">
 					</app-menu-item>
 				</form>
 			</div>

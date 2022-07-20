@@ -7,6 +7,7 @@ import { FiresytorecatalogidComponent } from '../../catalogobjects/firesytorecat
 import { DatasetrepositoryfilestagingComponent } from '../../catalogobjects/repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
 import { UploadfileinformationComponent } from '../uploadfileinformation/uploadfileinformation.component';
 import { Ontologyconstants } from '../../const/ontologyconstants';
+import { VisualizefileComponent } from '../../dialog/visualizefile/visualizefile.component';
 
 @Component({
 	selector: 'app-submitfileandinformatioon',
@@ -16,6 +17,8 @@ import { Ontologyconstants } from '../../const/ontologyconstants';
 export class SubmitfileandinformatioonComponent implements OnInit {
 
 	@Input() uploadinfo: UploadfileinformationComponent;
+	@Input() catalogObject: EventEmitter<any>;
+	 
 
 	@ViewChild('filestaging') filestaging: DatasetrepositoryfilestagingComponent;
 	@ViewChild('tranactionfirestoreid') tranactionfirestoreid: FiresytorecatalogidComponent;
@@ -24,12 +27,14 @@ export class SubmitfileandinformatioonComponent implements OnInit {
 	readinfailed = 'Catalog Read in failed or canceled';
 	filestagingsubtitle = 'File staging transaction submission'
 	loadfromdatabase = 'Load previously generated staging information from database (or file)'
-	submit = 'Submit Transaction'
+	submit = 'Submit'
 	subtransaction = 'Submit staging transaction with given information';
-	fetchstaging = 'Fetch From Database';
+	fetchstaging = 'Database';
 	failedsubmission = 'Failed Submission';
 	transactionidsubtitle = 'Transaction ID for Staging';
-
+	displaydescbutton = 'Display Transaction Input';
+	displaybutton = 'Display';
+	
 	identifier = Ontologyconstants.dctermsidentifier;
 
 	resultHtml: string;
@@ -60,6 +65,7 @@ export class SubmitfileandinformatioonComponent implements OnInit {
 				if (success == 'true') {
 					this.catalog = result['dataset:simpcatobj'];
 					this.filestaging.setData(this.catalog);
+					this.catalogObject.emit(this.catalog);
 					this.tranafirestoreid = this.catalog['dataset:transactionforobject'];
 					this.tranactionfirestoreid.setData(this.tranafirestoreid);
 				} else {
@@ -87,6 +93,7 @@ export class SubmitfileandinformatioonComponent implements OnInit {
 					this.catalog = result['dataset:simpcatobj'];
 					if (this.catalog != null) {
 						this.filestaging.setData(this.catalog);
+					    this.catalogObject.emit(this.catalog);
 						this.tranafirestoreid = this.catalog['dataset:transactionforobject'];
 						if(this.tranafirestoreid != null) {
 							this.tranactionfirestoreid.setData(this.tranafirestoreid);
@@ -99,5 +106,14 @@ export class SubmitfileandinformatioonComponent implements OnInit {
 			}
 		});
 	}
-
+	displayTransactionInput(): void {
+		alert("displayTransactionInput()" + this.uploadinfo);
+		const activity = {};
+		this.uploadinfo.getData(activity);
+		alert(JSON.stringify(activity));
+		let title = 'Activity Value';
+		const myDialogRef = this.dialog.open(VisualizefileComponent, {
+			data: { filename: title, dataimage: activity },
+		});
+}
 }

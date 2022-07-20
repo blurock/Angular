@@ -1,5 +1,7 @@
 <div class="address">
+<!--
 	<ng-container *ngIf='display; else loading'>
+	-->
 	<form [formGroup]="objectform">
 		<div *ngFor="let pair of documentdpairaddress.controls; ; let pairIndex=index">
 			<mat-card class="paircard">
@@ -44,16 +46,19 @@
 			<mat-grid-tile [colspan]="1">
 				<mat-form-field class="namefield">
 					<mat-label>{{anno['dataset:SimpleCatalogName'][rdfslabel]}}</mat-label>
-					<input matInput formControlName="SimpleCatalogName">
+					<input matInput formControlName="SimpleCatalogName"  class="namefield">
 					<mat-hint>{{anno['dataset:SimpleCatalogName'][rdfscomment]}}</mat-hint>
 				</mat-form-field>
 			</mat-grid-tile>
 		</mat-grid-list>
 
 	</form>
+	<!--
 	</ng-container>
 <ng-template #loading>
 	<div>
 		{{message}}
 	</div>
-</ng-template></div>
+</ng-template>
+-->
+</div>

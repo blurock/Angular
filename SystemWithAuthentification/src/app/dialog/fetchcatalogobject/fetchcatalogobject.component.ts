@@ -83,49 +83,51 @@ export class FetchcatalogobjectComponent implements OnInit {
 		this.runservice.run(json).subscribe({
 			next: (responsedata: any) => {
 				const success = responsedata['dataset:servicesuccessful'];
-				if(success == 'true') {
-				  this.dialogRef.close(responsedata);
+				if (success == 'true') {
+					this.dialogRef.close(responsedata);
 				} else {
 					this.message = responsedata['dataset:serviceresponsemessage'];
 					this.dialogRef.close(responsedata);
 				}
-			}})
-}
+			}
+		})
+	}
 
-setDataFromFile(): void {
-	if(this.catalog != null) {
-		const response = {};
-		response['dataset:servicesuccessful'] = 'true';
-		response['dataset:serviceresponsemessage'] = 'Catalog interpreted from file';
-		response['dataset:simpcatobj'] = this.catalog;
-		this.dialogRef.close(response);
+	setDataFromFile(): void {
+		if (this.catalog != null) {
+			const response = {};
+			response['dataset:servicesuccessful'] = 'true';
+			response['dataset:serviceresponsemessage'] = 'Catalog interpreted from file';
+			response['dataset:simpcatobj'] = this.catalog;
+			this.dialogRef.close(response);
+		}
 	}
-}
-uploadFileEvt(imgFile: any): void {
-	if(imgFile.target.files && imgFile.target.files[0]) {
-	const file = (imgFile.target as HTMLInputElement).files[0];
-	this.uploadForm.patchValue({
-		FileSourceIdentifier: file.name
-	});
-	const reader = new FileReader();
-	reader.onload = (e: any) => {
-		this.dataimage = e.target.result;
-		this.catalog = this.getCatalogObject();
-	};
-	reader.readAsText(imgFile.target.files[0]);
-} else {
+	uploadFileEvt(imgFile: any): void {
+		if (imgFile.target.files && imgFile.target.files[0]) {
+			const file = (imgFile.target as HTMLInputElement).files[0];
+			this.uploadForm.patchValue({
+				FileSourceIdentifier: file.name
+			});
+			const reader = new FileReader();
+			reader.onload = (e: any) => {
+				this.dataimage = e.target.result;
+				this.catalog = this.getCatalogObject();
+				this.setDataFromFile();
+			};
+			reader.readAsText(imgFile.target.files[0]);
+		} else {
 
-}
+		}
 	}
-getCatalogObject(): any {
-	let catalog = {};
-	if (this.dataimage != null) {
-		catalog = JSON.parse(this.dataimage);
+	getCatalogObject(): any {
+		let catalog = {};
+		if (this.dataimage != null) {
+			catalog = JSON.parse(this.dataimage);
+		}
+		return catalog;
 	}
-	return catalog;
-}
-setStatus($event: string): void {
-	this.idForm.get('CatalogDataObjectStatus').setValue($event);
-}
+	setStatus($event: string): void {
+		this.idForm.get('CatalogDataObjectStatus').setValue($event);
+	}
 
 }

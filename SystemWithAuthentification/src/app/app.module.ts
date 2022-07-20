@@ -111,7 +111,12 @@ import { VisualizefileComponent } from './dialog/visualizefile/visualizefile.com
 import { RuntransactiondialogComponent } from './dialog/runtransactiondialog/runtransactiondialog.component';
 import { FetchcatalogobjectComponent } from './dialog/fetchcatalogobject/fetchcatalogobject.component';
 import { ManagedatasetrepositoryfilestagingComponent } from './catalogobjects/repository/managedatasetrepositoryfilestaging/managedatasetrepositoryfilestaging.component';
-//import { USE_EMULATOR as FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
+import { ManagerepositorydatapartitionblockcomponentComponent } from './catalogobjects/repository/managerepositorydatapartitionblockcomponent/managerepositorydatapartitionblockcomponent.component';
+import { RepositorythergasthermodynamicsblockComponent } from './catalogobjects/repository/partition/repositorythergasthermodynamicsblock/repositorythergasthermodynamicsblock.component';
+import { RepositoryparsedtofixedblocksizeComponent } from './catalogobjects/repository/partition/repositoryparsedtofixedblocksize/repositoryparsedtofixedblocksize.component';
+import { RepositorythermopartitionblockComponent } from './catalogobjects/repository/partition/repositorythermopartitionblock/repositorythermopartitionblock.component';
+import { ViewcatalogandsavetolocalfileComponent } from './dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { LoadChildDirective } from './directives/load-child.directive';
 
 
 
@@ -179,7 +184,13 @@ import { ManagedatasetrepositoryfilestagingComponent } from './catalogobjects/re
   VisualizefileComponent,
   RuntransactiondialogComponent,
   FetchcatalogobjectComponent,
-  ManagedatasetrepositoryfilestagingComponent
+  ManagedatasetrepositoryfilestagingComponent,
+  ManagerepositorydatapartitionblockcomponentComponent,
+  RepositorythergasthermodynamicsblockComponent,
+  RepositoryparsedtofixedblocksizeComponent,
+  RepositorythermopartitionblockComponent,
+  ViewcatalogandsavetolocalfileComponent,
+  LoadChildDirective
 	],
 	imports: [
 		AppFirebaseModule,

@@ -10,7 +10,7 @@
 	<mat-step >
 		<ng-template matStepLabel>Stage File</ng-template>
 		<ng-container *ngIf='uploadinfo != null; else wait'>
-		<app-submitfileandinformatioon #stagefile (uploadinfo)="uploadinfo" ></app-submitfileandinformatioon>
+		<app-submitfileandinformatioon #stagefile  [uploadinfo]="uploadinfo"  [(catalogObject)]='repositorystaging'></app-submitfileandinformatioon>
 		</ng-container>
 		<ng-template  #wait>
 		Wait
@@ -20,14 +20,16 @@
 			<button mat-button matStepperNext>Next</button>
 		</div>
 	</mat-step>
+	
 	<mat-step [stepControl]="parseinfoform" errorMessage="File not sent">
 		<ng-template matStepLabel>Parse into Blocks</ng-template>
-		<app-parseuploadedfile [(uploadinfoform)]="uploadinfoform"></app-parseuploadedfile>
+		<app-parseuploadedfile  [(repositorystagingO)]='repositorystaging' [(stagefile)]='stagefile'></app-parseuploadedfile>
 		<div>
 			<button mat-button matStepperPrevious>Back</button>
 			<button mat-button matStepperNext>Next</button>
 		</div>
 	</mat-step>
+	
 	<!--
 	<mat-step>
 	<ng-template matStepLabel>Catalog Objects</ng-template>

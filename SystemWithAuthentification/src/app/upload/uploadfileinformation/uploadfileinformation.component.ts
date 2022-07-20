@@ -37,8 +37,8 @@ export class UploadfileinformationComponent implements OnInit {
     
     
 	resultHtml = "";
-	formatInformation: any;
 	uploadinfoform: FormGroup;
+	formatInformation: any;
 	filesourcetypechoices: string[];
 	dataimage = null;
 
@@ -114,14 +114,15 @@ export class UploadfileinformationComponent implements OnInit {
 		return this.annoinfo;
 	}
 	
-		fetchInformation() {
+	fetchInformation() {
 		const dialogRef = this.dialog.open(FetchcatalogobjectComponent, {
 		data: { annoinfo: this.annoinfo, maintainer: this.maintainer, fromdatabase: false },
 			});
 
-		dialogRef.afterClosed().subscribe(result => {
-			if(result != null) {
-				this.setData(result);
+		dialogRef.afterClosed().subscribe(response => {
+			if(response['dataset:servicesuccessful'] == 'true') {
+				const activity = response['dataset:simpcatobj']
+				this.setData(activity);
 				} else {
 					alert(this.readinfailed);
 				}
@@ -132,16 +133,19 @@ export class UploadfileinformationComponent implements OnInit {
 
 
 	public getData(activity: any) {
+		alert("getData( 1")
 		activity['prov:activity'] = "dataset:InitialReadInOfRepositoryFile";
 		const json = {};
 		activity['dataset:activityinfo'] = json;
 		json['dataset:filesourceformat'] = this.uploadinfoform.get('FileSourceFormat').value;
 		json['dcterms:title'] = this.uploadinfoform.get('FileSourceTitle').value;
+		alert("getData( 2")
 
 		json['dataset:fileidentifier'] = encodeURI(this.dataimage);
 		json['dataset:filemediatype'] = this.filemediatype;
 		json['dataset:filesourcesubtype'] = this.filemediasubtype;
 		json['dataset:uploadsrc'] = this.uploadfilesource;
+		alert("getData( 3")
 
 		const jsonstaging = {};
 		json['descr-filestaging'] = jsonstaging;
@@ -150,6 +154,7 @@ export class UploadfileinformationComponent implements OnInit {
 		jsonstaging['dataset:purpose-filestaging'] = jsonpurpose;
 		jsonpurpose['dataset:purposekey-filestaging'] = "dataset:PurposeFileStaging";
 		jsonpurpose['dataset:dataconcept-staging'] = 'dataset:ConceptFileStaging';
+		alert("getData( 4")
 
 		jsonstaging['dataset:title-staging'] = this.uploadinfoform.get('FileSourceTitle').value;
 		jsonstaging['dataset:abstract-staging'] = this.uploadinfoform.get('FileSourceAbstract').value;
@@ -157,13 +162,16 @@ export class UploadfileinformationComponent implements OnInit {
 		const DATE_TIME_FORMAT = 'YYYY-MM-DDTHH:mm';
 		jsonstaging['dcterms:created'] = moment(dateTime, DATE_TIME_FORMAT);
 		const jsontransspec = {};
+		alert("getData( 5")
 		json['dataset:datasettransactionspecification'] = jsontransspec;
 		jsontransspec['dataset:datasetname'] = this.uploadinfoform.get('DatasetName').value;
 		jsontransspec['dataset:datasetversion'] = this.uploadinfoform.get('DatasetVersion').value;
 		jsontransspec['dataset:uniquegenericname'] = this.uploadinfoform.get('CatalogObjectUniqueGenericLabel').value;
 		jsontransspec['dataset:catalogobjectmaintainer'] = this.maintainer;
+		alert("getData( 6")
 
 		this.addSetOfReferencesAndLinks(json);
+		alert("getData( 7")
 	}
 
 	public setData(activity: any) {
@@ -223,6 +231,7 @@ export class UploadfileinformationComponent implements OnInit {
 			let reader = new FileReader();
 			reader.onload = (e: any) => {
 				this.dataimage = e.target.result;
+				
 			};
 			reader.readAsText(imgFile.target.files[0]);
 
