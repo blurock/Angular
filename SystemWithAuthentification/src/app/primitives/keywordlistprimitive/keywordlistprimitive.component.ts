@@ -42,7 +42,6 @@ export class KeywordlistprimitiveComponent implements OnInit {
 			}
 			keys = keys + key;
 		}
-		alert("Keywords: " + keys);
 		return keys;
 	}
 

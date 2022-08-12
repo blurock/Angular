@@ -2,12 +2,14 @@ import { Input, Output, EventEmitter, Component, OnInit, ViewChild } from '@angu
 import { FormGroup } from '@angular/forms';
 import { RuntransactiondialogComponent } from '../../dialog/runtransactiondialog/runtransactiondialog.component';
 import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FiresytorecatalogidComponent } from '../../catalogobjects/firesytorecatalogid/firesytorecatalogid.component';
 import { DatasetrepositoryfilestagingComponent } from '../../catalogobjects/repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
 import { UploadfileinformationComponent } from '../uploadfileinformation/uploadfileinformation.component';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { VisualizefileComponent } from '../../dialog/visualizefile/visualizefile.component';
+import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { ManageuserserviceService } from '../../services/manageuserservice.service';
 
 @Component({
 	selector: 'app-submitfileandinformatioon',
@@ -23,7 +25,7 @@ export class SubmitfileandinformatioonComponent implements OnInit {
 	@ViewChild('filestaging') filestaging: DatasetrepositoryfilestagingComponent;
 	@ViewChild('tranactionfirestoreid') tranactionfirestoreid: FiresytorecatalogidComponent;
 
-
+    errormaintainer = 'Error in determining maintainer';
 	readinfailed = 'Catalog Read in failed or canceled';
 	filestagingsubtitle = 'File staging transaction submission'
 	loadfromdatabase = 'Load previously generated staging information from database (or file)'
@@ -34,6 +36,7 @@ export class SubmitfileandinformatioonComponent implements OnInit {
 	transactionidsubtitle = 'Transaction ID for Staging';
 	displaydescbutton = 'Display Transaction Input';
 	displaybutton = 'Display';
+	title = 'File Staging';
 	
 	identifier = Ontologyconstants.dctermsidentifier;
 
@@ -44,9 +47,16 @@ export class SubmitfileandinformatioonComponent implements OnInit {
 	catalog: any;
 
 	constructor(
+		manageuser: ManageuserserviceService,
 		public dialog: MatDialog
 	) {
-		this.maintainer = 'Administrator';
+		manageuser.determineMaintainer().subscribe(result => {
+			if (result != null) {
+				this.maintainer = result;
+			} else {
+				alert(this.errormaintainer);
+			}
+		});
 	}
 
 	ngOnInit(): void {
@@ -107,13 +117,21 @@ export class SubmitfileandinformatioonComponent implements OnInit {
 		});
 	}
 	displayTransactionInput(): void {
-		alert("displayTransactionInput()" + this.uploadinfo);
-		const activity = {};
-		this.uploadinfo.getData(activity);
-		alert(JSON.stringify(activity));
-		let title = 'Activity Value';
-		const myDialogRef = this.dialog.open(VisualizefileComponent, {
-			data: { filename: title, dataimage: activity },
+		const catalog = {};
+		this.filestaging.getData(catalog);
+		const dialogConfig = new MatDialogConfig();
+
+		dialogConfig.disableClose = false;
+		dialogConfig.autoFocus = true;
+
+		dialogConfig.data = {
+			filename: this.title,
+			dataimage: catalog
+		};
+
+		const myDialogRef = this.dialog.open(ViewcatalogandsavetolocalfileComponent, dialogConfig);
+
+		myDialogRef.afterClosed().subscribe(result => {
 		});
 }
 }

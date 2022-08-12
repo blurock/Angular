@@ -21,15 +21,25 @@
 		</div>
 	</mat-step>
 	
-	<mat-step [stepControl]="parseinfoform" errorMessage="File not sent">
-		<ng-template matStepLabel>Parse into Blocks</ng-template>
+	<mat-step [stepControl]="parseinfoform" errorMessage="Parse setup information incomplete">
+	
+		<ng-template matStepLabel>Parse into Blocks Setup</ng-template>
 		<app-parseuploadedfile  [(repositorystagingO)]='repositorystaging' [(stagefile)]='stagefile'></app-parseuploadedfile>
 		<div>
 			<button mat-button matStepperPrevious>Back</button>
 			<button mat-button matStepperNext>Next</button>
 		</div>
+		
 	</mat-step>
-	
+
+	<mat-step [stepControl]="parseinfoform" errorMessage="File not sent">
+		<ng-template matStepLabel>Parse into Blocks Transaction</ng-template>
+	    <app-parsefiletransaction [(catalogObject)]='parseFile'></app-parsefiletransaction>
+		<div>
+			<button mat-button matStepperPrevious>Back</button>
+			<button mat-button matStepperNext>Next</button>
+		</div>
+	</mat-step>	
 	<!--
 	<mat-step>
 	<ng-template matStepLabel>Catalog Objects</ng-template>

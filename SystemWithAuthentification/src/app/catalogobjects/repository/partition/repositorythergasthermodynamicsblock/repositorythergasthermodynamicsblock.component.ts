@@ -104,4 +104,5 @@ export class RepositorythergasthermodynamicsblockComponent extends Savecatalogda
    public setFormat(cataloginfo: any) {
 	   this.partition.setDataFormat(cataloginfo);
    }
+
 }

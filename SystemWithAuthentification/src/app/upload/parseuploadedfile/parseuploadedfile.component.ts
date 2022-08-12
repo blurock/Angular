@@ -8,12 +8,13 @@ import { OntologycatalogService } from '../../services/ontologycatalog.service';
 import { SubmitfileandinformatioonComponent } from '../submitfileandinformatioon/submitfileandinformatioon.component';
 import { DatasetrepositoryfilestagingComponent } from '../../catalogobjects/repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
 import { DatasetreferenceComponent } from '../../catalogobjects/datasetreference/datasetreference.component';
-import {GcsblobfileinformationstagingComponent} from '../../catalogobjects/repository/gcsblobfileinformationstaging/gcsblobfileinformationstaging.component';
+import { GcsblobfileinformationstagingComponent } from '../../catalogobjects/repository/gcsblobfileinformationstaging/gcsblobfileinformationstaging.component';
 import { FiresytorecatalogidComponent } from '../../catalogobjects/firesytorecatalogid/firesytorecatalogid.component';
-import { SavecatalogdataobjectdialogComponent } from '../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
-import { VisualizefileComponent } from '../../dialog/visualizefile/visualizefile.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IdentifiersService } from '../../const/identifiers.service';
+import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { ManageuserserviceService } from '../../services/manageuserservice.service';
+import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
 
 
 @Component({
@@ -26,16 +27,17 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 	@Input() uploadinfoform: FormGroup;
 	@Input() stagefile: SubmitfileandinformatioonComponent;
 	@Input() repositorystagingO: EventEmitter<any>;
-	
+
 	parseinfoform: FormGroup;
 	formatInformation: any;
 	filesourcetypechoices: string[];
 	repositorystaging: any;
-	public maintainer = 'Administrator';
+	maintainer: string;
 	catalogobj: any;
 	annoinfo: any;
 	topdisplay = false;
 	tranafirestoreid: any;
+	title: string;
 
 	repcatalogobj: any;
 	repannoinfo: any;
@@ -47,31 +49,50 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 	rdfslabel = Ontologyconstants.rdfslabel;
 	identifier = 'dcterms:identifier';
 	rdfscomment = Ontologyconstants.rdfscomment;
+
+	readinfailed = 'Catalog object read failed';
+	errormaintainer = 'Error in determining maintainer';
 	nostaginginfo = 'No staging information';
-	stagingprerequiitesubtitle ="Staging Prerequisite Transacton"
+	stagingprerequiitesubtitle = "Staging Prerequisite Transacton"
 	parsedescbutton = 'Parse Uploaded File with the information above';
 	parsebutton = 'Parse';
 	displaydescbutton = 'Display Transaction Input';
 	displaybutton = 'Display';
-	loadfromdatabase ='Load Parse Information from database';
-	load ='load';
+	loadfromdatabase = 'Load Parse Information from database';
+	load = 'load';
 
 	titleid: string;
 	gcsstagingblobid: string;
 	formatid: string;
 	methodid: string;
+	specforcolid: string;
+	datasetid: string;
+    datasetverid: string;
+	genericlabelid: string;
+	maintainerid: string;
+
 
 	@ViewChild('gcs') gcs: GcsblobfileinformationstagingComponent;
 	@ViewChild('prereqfirestoreid') prereqfirestoreid: FiresytorecatalogidComponent;
 
 
 	constructor(
+		manageuser: ManageuserserviceService,
 		public annotations: OntologycatalogService,
 		private _formBuilder: FormBuilder,
 		public labels: UploadinterfaceconstantsService,
 		private uploadService: UploadmenuserviceService,
 		public identifiers: IdentifiersService,
 		public dialog: MatDialog) {
+		manageuser.determineMaintainer().subscribe(result => {
+			if (result != null) {
+				this.maintainer = result;
+			} else {
+				alert(this.errormaintainer);
+			}
+		});
+
+
 		this.repositorystaging = null;
 
 
@@ -80,9 +101,12 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 			DescriptionTitle: ['', Validators.required],
 			FileSourceFormat: ['', Validators.required],
 			FilePartitionMethod: ['', Validators.required],
-			DatasetCollectionObjectType: ['', Validators.required]
+			DatasetCollectionObjectType: ['', Validators.required],
+			CatalogObjectUniqueGenericLabel: ['', Validators.required],
+			DatasetName: ['', Validators.required],
+			DatasetVersion: ['', Validators.required]
 		});
-		
+
 		this.uploadService.getFormatClassification().subscribe((data) => {
 			this.formatInformation = data;
 			this.filesourcetypechoices = Object.keys(data);
@@ -100,8 +124,8 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 				this.setFileStaging(catalog);
 			}
 		});
-		
-		
+
+
 		const catalogtype = 'dataset:ActivityRepositoryPartitionToCatalog';
 
 		this.annotations.getNewCatalogObject(catalogtype).subscribe({
@@ -156,6 +180,11 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 		this.titleid = this.annoinfo['dataset:DescriptionTitle'][this.identifier];
 		this.methodid = this.annoinfo['dataset:FilePartitionMethod'][this.identifier];
 		this.formatid = this.annoinfo['dataset:FileSourceFormat'][this.identifier];
+		this.specforcolid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
+		this.datasetid = this.annoinfo['dataset:DatasetName'][this.identifier];
+		this.datasetverid = this.annoinfo['dataset:DatasetVersion'][this.identifier];
+		this.genericlabelid = this.annoinfo['dataset:CatalogObjectUniqueGenericLabel'][this.identifier];
+		this.maintainerid = this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier];
 	}
 	setRepIDs(): void {
 		this.gcsstagingblobid = this.repannoinfo['dataset:GCSBlobFileInformationStaging'][this.identifier];
@@ -165,24 +194,34 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 		if (staging != null) {
 			this.setIDs();
 			this.setRepIDs();
-			this.parseinfoform.get('DescriptionTitle').setValue(staging[this.titleid]);
-			const fmt = staging[this.gcsstagingblobid][this.formatid];
+			const titl = staging[this.titleid]
+			this.parseinfoform.get('DescriptionTitle').setValue(titl);
+			const fmt = staging[this.formatid];
 			this.parseinfoform.get('FileSourceFormat').setValue(fmt);
-			const pmeth = this.formatInformation[fmt]['dataset:partitionMethod'];
+			const pmeth = staging[this.methodid];
 			this.parseinfoform.get('FilePartitionMethod').setValue(pmeth);
-			const objtype = this.formatInformation[fmt]['dataset:partitionMethod'];
-			this.parseinfoform.get('DatasetCollectionObjectType').setValue(objtype);
-			
-			this.display = true;
 			this.repositorystaging = staging;
+			
 			const gcsdata = staging[this.gcsstagingblobid];
-			if(gcsdata != null ) {
+			if (gcsdata != null) {
 				this.gcs.setData(gcsdata);
 			} else {
 				alert("Cloud Storage Information is not defined")
 			}
+			
+			const specforcol = staging[this.specforcolid];
+			if(specforcol != null) {
+				const dataset = specforcol[this.datasetid];
+				this.parseinfoform.get('DatasetName').setValue(dataset);
+				const datasetver = specforcol[this.datasetverid];
+				this.parseinfoform.get('DatasetVersion').setValue(datasetver);
+				const genericlabel = specforcol[this.genericlabelid];
+				this.parseinfoform.get('CatalogObjectUniqueGenericLabel').setValue(genericlabel);
+			}
+			
+			this.display = true;
 			this.tranafirestoreid = staging['dataset:firestorecatalog'];
-			if(this.tranafirestoreid != null){
+			if (this.tranafirestoreid != null) {
 				this.prereqfirestoreid.setData(this.tranafirestoreid);
 			} else {
 				alert("Staging transaction ID is not defined");
@@ -190,7 +229,6 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 		} else {
 			alert('staging is not defined');
 		}
-
 	}
 
 	getForm(): FormGroup {
@@ -250,59 +288,74 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 		const jsonact = {};
 		json['dataset:activityinfo'] = jsonact;
 		const jsontransspec = {};
-		alert(this.identifier);
-		alert(this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier]);
-		jsonact[this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier]] = jsontransspec;
-		alert('createParseActivity() 0');
-	/*
-		jsontransspec[this.repannoinfo['dataset:DatasetName'][this.identifier]] = this.uploadinfoform.get('DatasetName').value;
-		alert('createParseActivity() 1');
-		jsontransspec[this.repannoinfo['dataset:DatasetVersion'][this.identifier]] = this.uploadinfoform.get('DatasetVersion').value;
-		alert('createParseActivity() 2');
-		jsontransspec[this.repannoinfo['dataset:CatalogObjectUniqueGenericLabel'][this.identifier]] = this.uploadinfoform.get('CatalogObjectUniqueGenericLabel').value;
-		alert('createParseActivity() 3');
-		jsontransspec[this.repannoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.maintainer;
-*/
-       this.gcs.getData(jsonact);
-		alert('createParseActivity() 4');
-
+		jsonact[this.specforcolid] = jsontransspec;
+		jsontransspec[this.datasetid] = this.parseinfoform.get('DatasetName').value;
+		jsontransspec[this.datasetverid] = this.parseinfoform.get('DatasetVersion').value;
+		jsontransspec[this.genericlabelid] = this.parseinfoform.get('CatalogObjectUniqueGenericLabel').value;
+		jsontransspec[this.maintainerid] = this.maintainer;
+			
+		this.gcs.getData(jsonact);
 		jsonact[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.parseinfoform.get('FileSourceFormat').value;
-		jsonact[this.annoinfo['dataset:FilePartitionMethod'][this.identifier]] = this.formatInformation[this.parseinfoform.get('FileSourceFormat').value]['dataset:partitionMethod']
-		alert('createParseActivity() 5');
+
+		const fmt = this.formatInformation[this.parseinfoform.get('FileSourceFormat').value];
+		if (fmt != null) {
+			jsonact[this.annoinfo['dataset:FilePartitionMethod'][this.identifier]] = this.formatInformation[this.parseinfoform.get('FileSourceFormat').value]['dataset:partitionMethod']
+		} else {
+			jsonact[this.annoinfo['dataset:FilePartitionMethod'][this.identifier]] = "";
+		}
 		jsonact[this.annoinfo['dataset:BlockLineCount'][this.identifier]] = this.blockCount();
-		jsonact[this.annoinfo['dataset:DatasetCollectionObjectType'][this.identifier]] = this.getSourceCatalog();
-		alert('createParseActivity() 6');
 		jsonact[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.parseinfoform.get('DescriptionTitle').value;
-		
-		alert('createParseActivity() 7');
+
 		let prerequisites = {};
 		const dummy = {};
 		this.prereqfirestoreid.getData(dummy);
-		alert('prerequisites 1');
 		prerequisites[Ontologyconstants.InitialReadInOfRepositoryFile] = dummy[this.identifiers.FirestoreCatalogID];
-		alert('prerequisites 2');
 		json[Ontologyconstants.DatabaseIDFromRequiredTransaction] = prerequisites;
-		alert('prerequisites 3');
 
 		return json;
 	}
-fetchInformation() {
-	alert("Fetch");
-}
+	fetchInformation() {
+		const dialogRef = this.dialog.open(FetchcatalogobjectComponent, {
+			data: { annoinfo: this.annoinfo, maintainer: this.maintainer, fromdatabase: false },
+		});
+
+		dialogRef.afterClosed().subscribe(response => {
+			if (response['dataset:servicesuccessful'] == 'true') {
+				const activity = response['dataset:simpcatobj']
+				alert(JSON.stringify(activity));
+				const staging = activity['dataset:activityinfo'];
+				if (staging != null) {
+					this.setFileStaging(staging);
+				} else {
+					alert(' activityinfo ot found');
+				}
+
+			} else {
+				alert(this.readinfailed);
+			}
+		});
+	}
 	submitParse() {
 		alert("submit");
 		const activity = this.createParseActivity();
 		alert(JSON.stringify(activity))
 	}
+
 	displayTransactionInput(): void {
 		const activity = this.createParseActivity();
-		alert(JSON.stringify(activity));
-		let title = 'Activity Value';
-		if(this.parseinfoform.get('dataset:DescriptionTitle')) {
-			title = this.parseinfoform.get('dataset:DescriptionTitle').value;
-		}
-		const myDialogRef = this.dialog.open(VisualizefileComponent, {
-			data: { filename: title, dataimage: activity },
+		const dialogConfig = new MatDialogConfig();
+		dialogConfig.disableClose = false;
+		dialogConfig.autoFocus = true;
+		this.title = 'Activity Value';
+
+		dialogConfig.data = {
+			filename: this.title,
+			dataimage: activity
+		};
+
+		const myDialogRef = this.dialog.open(ViewcatalogandsavetolocalfileComponent, dialogConfig);
+
+		myDialogRef.afterClosed().subscribe(result => {
 		});
-}
+	}
 }

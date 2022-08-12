@@ -19,6 +19,9 @@ import {RepositorydatafileComponent} from '../app/catalogobjects/repository/repo
 import {DatasetrepositoryfilestagingComponent} from '../app/catalogobjects/repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
 import {ManagerepositorydatapartitionblockcomponentComponent} from '../app/catalogobjects/repository/managerepositorydatapartitionblockcomponent/managerepositorydatapartitionblockcomponent.component';
 import {ManagedatasetrepositoryfilestagingComponent} from '../app/catalogobjects/repository/managedatasetrepositoryfilestaging/managedatasetrepositoryfilestaging.component';
+import { ManagedatasettransactioneventobjectComponent} from '../app/catalogobjects/transaction/managedatasettransactioneventobject/managedatasettransactioneventobject.component';
+import { ActivityrepositoryinitialreadlocalfileComponent } from '../app/catalogobjects/activity/repository/activityrepositoryinitialreadlocalfile/activityrepositoryinitialreadlocalfile.component';
+
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([FEED]);
 
 const routes: Routes = [
@@ -31,6 +34,12 @@ const routes: Routes = [
 	{ path: 'verify-email-address', component: VerifyEmailComponent },
 	{ path: 'catalog/repositorystaging', component: ManagedatasetrepositoryfilestagingComponent},
 	{ path: 'catalog/partition', component: ManagerepositorydatapartitionblockcomponentComponent},
+	{ path: 'catalog/transaction', component: ManagedatasettransactioneventobjectComponent,
+	children: [
+      
+        { path: 'InitialReadInOfRepositoryFile', component:  ActivityrepositoryinitialreadlocalfileComponent, outlet: "activity"}
+     
+    ],},
 	{
 		path: 'feed',
 		component: RepositorydatafileComponent,
@@ -40,7 +49,8 @@ const routes: Routes = [
 		component: CreateComponent,
 		canActivate: [AngularFireAuthGuard],
 		data: { authGuardPipe: redirectUnauthorizedToLogin },
-	},
+	}
+	
 ];
 
 @NgModule({

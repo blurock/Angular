@@ -6,8 +6,11 @@ import { of, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ManageuserserviceService {
+  
+  public errormaintainer = 'Error in determining maintainer';
 
   constructor(private httpClient: HttpClient) { }
+
 
 
    determineMaintainer(): Observable<string> {

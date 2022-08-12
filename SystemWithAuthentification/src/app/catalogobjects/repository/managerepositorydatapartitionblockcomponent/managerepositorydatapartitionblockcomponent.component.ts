@@ -3,9 +3,12 @@ import { RepositorydatapartitionblockComponent } from '../repositorydatapartitio
 import { FetchcatalogobjectComponent } from '../../../dialog/fetchcatalogobject/fetchcatalogobject.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
-import {RepositoryparsedtofixedblocksizeComponent} from '../partition/repositoryparsedtofixedblocksize/repositoryparsedtofixedblocksize.component';
-import {RepositorythergasthermodynamicsblockComponent} from '../partition/repositorythergasthermodynamicsblock/repositorythergasthermodynamicsblock.component';
-import {ViewcatalogandsavetolocalfileComponent} from'../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { RepositoryparsedtofixedblocksizeComponent } from '../partition/repositoryparsedtofixedblocksize/repositoryparsedtofixedblocksize.component';
+import { RepositorythergasthermodynamicsblockComponent } from '../partition/repositorythergasthermodynamicsblock/repositorythergasthermodynamicsblock.component';
+import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { SavecatalogdataobjectdialogComponent } from '../../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
+import {InterfaceconstantsService} from '../../../const/interfaceconstants.service';
+
 @Component({
 	selector: 'app-managerepositorydatapartitionblockcomponent',
 	templateUrl: './managerepositorydatapartitionblockcomponent.component.html',
@@ -13,30 +16,20 @@ import {ViewcatalogandsavetolocalfileComponent} from'../../../dialog/viewcatalog
 })
 export class ManagerepositorydatapartitionblockcomponentComponent implements OnInit {
 
-	title = 'Manage Partition Block';
+	title = 'Manage Repository File Staging';
 	readinfailed = 'Catalog object read failed';
-	errormaintainer = 'Error in determining maintainer';
 	ctypechoice = 'Partition Type to Visualize';
 	displaydescbutton = 'Display Partition as JSON';
 	displaybutton = 'Display';
-	savdescr = 'Save to database';
+	savedescr = 'Save to database';
 	savebutton = 'Save';
 	fetchdescr = 'Retrieve from Database';
 	fetchbutton = 'Retrieve';
+	errorcatalogtypes = 'Error in determining catalog types';
 
 	maintainer: string;
 	annoinfo: any;
-
-	catalogtypes = [
-		{ label: 'Benson Rules', format: 'dataset:TherGasBensonRules', 
-		catalog: 'dataset:RepositoryTherGasThermodynamicsBlock', id: 1 },
-		{ label: 'Disassociation Energy', format: 'dataset:JThermodynamicsDisassociationEnergyFormat',
-		 catalog: 'dataset:RepositoryParsedToFixedBlockSize', id: 0, BlockLineCount: 1 },
-		{ label: 'Meta Atom', format: 'dataset:JThermodynamicsMetaAtomFormat', 
-		catalog: 'dataset:RepositoryParsedToFixedBlockSize', id: 0, BlockLineCount: 1  },
-		{ label: 'Vibrational Modes', format: 'dataset:JThermodynamicsVibrationalModes',
-		 catalog: 'dataset:RepositoryParsedToFixedBlockSize', id: 0, BlockLineCount: 1  }
-	];
+    catalogtypes: any;
 
 
 	catalogtype: string;
@@ -44,8 +37,6 @@ export class ManagerepositorydatapartitionblockcomponentComponent implements OnI
 	ctypeid: number
 	cataloginfo: any
 	catalog: any;
-	tranafirestoreid: any;
-	tranactionfirestoreid: any;
 	message = 'info not initialized';
 
 
@@ -54,56 +45,73 @@ export class ManagerepositorydatapartitionblockcomponentComponent implements OnI
 
 
 	constructor(manageuser: ManageuserserviceService,
+	    interfaceconstants: InterfaceconstantsService,
 		public dialog: MatDialog,
 		public dialogvis: MatDialog) {
 		manageuser.determineMaintainer().subscribe(result => {
 			if (result != null) {
 				this.maintainer = result;
 			} else {
-				alert(this.errormaintainer);
+				alert(manageuser.errormaintainer);
 			}
 		});
+		
+		interfaceconstants.getTherGasCatalogTypes().subscribe(result => {
+			if (result != null) {
+				this.catalogtypes = result;
+			} else {
+				alert(interfaceconstants.errorcatalogtypes);
+			}
+			})
 	}
 
 	ngOnInit(): void {
 		this.setCatalogType(1);
 	}
 	public saveCatalog(): void {
-		/*
-			const catalog = {};
-			this.getData(catalog);
-			this.openDialog(catalog);
-			*/
+		const catalog = {};
+		this.getData(catalog);
+		this.openDialog(catalog);
 	}
+
+	public openDialog(catalog: any): void {
+		const dialogRef = this.dialog.open(SavecatalogdataobjectdialogComponent, {
+			data: { catalog: catalog, annotations: this.annoinfo }
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			alert(result);
+		});
+	}
+
 	getAnnotations(): any {
 		let annoinfo = {};
-		if(this.ctypeid == 0) {
+		if (this.ctypeid == 0) {
 			annoinfo = this.fixedpartitionblock.annoinfo;
-		} else if(this.ctypeid == 1) {
+		} else if (this.ctypeid == 1) {
 			annoinfo = this.thermopartitionblock.annoinfo;
 		}
 		return annoinfo;
 	}
-	
+
 	setData(catalog: any): void {
-		if(this.ctypeid == 0) {
+		if (this.ctypeid == 0) {
 			this.fixedpartitionblock.setData(catalog);
-		} else if(this.ctypeid == 1) {
+		} else if (this.ctypeid == 1) {
 			this.thermopartitionblock.setData(catalog);
 		}
 	}
 	getData(catalog: any): void {
-		alert("ManagerepositorydatapartitionblockcomponentComponent: getData " + this.ctypeid )
-		if(this.ctypeid == 0) {
+		if (this.ctypeid == 0) {
 			this.fixedpartitionblock.getData(catalog);
-		} else if(this.ctypeid == 1) {
+		} else if (this.ctypeid == 1) {
 			this.thermopartitionblock.getData(catalog);
 		}
-		
+
 	}
-	
+
 	fetchInformation(): void {
-		
+
 		this.annoinfo = this.getAnnotations();
 		const dialogRef = this.dialog.open(FetchcatalogobjectComponent, {
 			data: { annoinfo: this.annoinfo, maintainer: this.maintainer, fromdatabase: true, catalogtype: this.catalogtype },
@@ -111,64 +119,55 @@ export class ManagerepositorydatapartitionblockcomponentComponent implements OnI
 
 		dialogRef.afterClosed().subscribe(result => {
 			if (result != null) {
-				
+
 				const success = result['dataset:servicesuccessful'];
 				this.message = result['dataset:serviceresponsemessage'];
 				if (success == 'true') {
 					this.catalog = result['dataset:simpcatobj'];
 					this.setData(this.catalog);
-					this.tranafirestoreid = this.catalog['dataset:transactionforobject'];
-					//this.tranactionfirestoreid.setData(this.tranafirestoreid);
-					
 				} else {
-					alert('Fail to fetch Partition Block');
 					this.message = 'Fail to fetch Partition Block';
 				}
-				
+
 			} else {
 				this.message = this.readinfailed;
 			}
 
 		});
-		
+
 	}
 
 	setCatalogType(ctype: number): void {
-		this.ctypelabel = this.catalogtypes[ctype]['label'];
-		this.ctypeid = this.catalogtypes[ctype]['id'];
-		this.catalogtype = this.catalogtypes[ctype]['catalog'];
+		this.ctypelabel = this.catalogtypes[ctype].label;
+		this.ctypeid = this.catalogtypes[ctype].id;
+		this.catalogtype = this.catalogtypes[ctype].catalog;
 		this.cataloginfo = this.catalogtypes[ctype];
-		if(this.ctypeid == 0) {
+		if (this.ctypeid == 0) {
 			this.fixedpartitionblock.setFormat(this.cataloginfo);
-		} else if(this.ctypeid == 1) {
+		} else if (this.ctypeid == 1) {
 			this.thermopartitionblock.setFormat(this.cataloginfo);
 		}
 	}
 	displayCatalogInfo(): void {
-		
+
 		const catalog = {};
-		//this.getData(catalog);
+		this.getData(catalog);
 		let title = this.ctypelabel;
-		
-		    const dialogConfig = new MatDialogConfig();
 
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
+		const dialogConfig = new MatDialogConfig();
 
-    dialogConfig.data = {
-        filename: title, 
-        dataimage: catalog
-    };
-/*
-		*/
+		dialogConfig.disableClose = false;
+		dialogConfig.autoFocus = true;
+
+		dialogConfig.data = {
+			filename: title,
+			dataimage: catalog
+		};
+
 		const myDialogRef = this.dialogvis.open(ViewcatalogandsavetolocalfileComponent, dialogConfig);
-		
-		myDialogRef.afterClosed().subscribe(result => {
-			alert("Done: ");
-			alert("Done: " + result);
-			});
-		//alert("displayCatalogInfo() done: \n\n" + JSON.stringify(catalog));
 
-}
+		myDialogRef.afterClosed().subscribe(result => {
+		});
+	}
 
 }

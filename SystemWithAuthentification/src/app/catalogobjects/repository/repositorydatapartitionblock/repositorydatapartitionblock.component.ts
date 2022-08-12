@@ -71,7 +71,7 @@ export class RepositorydatapartitionblockComponent  implements OnInit,AfterViewI
 	}
 
 	ngAfterViewInit(): void {
-				this.annoReady.subscribe(result => {
+		this.annoReady.subscribe(result => {
 			this.annoinfo = result;
 			this.items = this.menusetup.findChoices(this.annoinfo, this.formatmenulabel);
 			this.partitionitems = this.menusetup.findChoices(this.annoinfo, this.partitionmenulabel);

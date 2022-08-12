@@ -117,7 +117,14 @@ import { RepositoryparsedtofixedblocksizeComponent } from './catalogobjects/repo
 import { RepositorythermopartitionblockComponent } from './catalogobjects/repository/partition/repositorythermopartitionblock/repositorythermopartitionblock.component';
 import { ViewcatalogandsavetolocalfileComponent } from './dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { LoadChildDirective } from './directives/load-child.directive';
-
+import { ParsefiletransactionComponent } from './upload/parsefiletransaction/parsefiletransaction.component';
+import { DatasettransactioneventobjectComponent } from './catalogobjects/transaction/datasettransactioneventobject/datasettransactioneventobject.component';
+import { DatasettransactionspecificationforcollectionComponent } from './catalogobjects/datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
+import { ManagedatasettransactioneventobjectComponent } from './catalogobjects/transaction/managedatasettransactioneventobject/managedatasettransactioneventobject.component';
+import { FindspecifictransactionindatasetComponent } from './dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
+import { ActivityrepositoryinitialreadlocalfileComponent } from './catalogobjects/activity/repository/activityrepositoryinitialreadlocalfile/activityrepositoryinitialreadlocalfile.component';
+import {DatasetrepositoryfileComponent} from './catalogobjects/activity/repository/datasetrepositoryfile/datasetrepositoryfile.component';
+import { ActivityinformationComponent } from './catalogobjects/transaction/activityinformation/activityinformation.component';
 
 
 
@@ -190,7 +197,15 @@ import { LoadChildDirective } from './directives/load-child.directive';
   RepositoryparsedtofixedblocksizeComponent,
   RepositorythermopartitionblockComponent,
   ViewcatalogandsavetolocalfileComponent,
-  LoadChildDirective
+  LoadChildDirective,
+  ParsefiletransactionComponent,
+  DatasettransactioneventobjectComponent,
+  DatasettransactionspecificationforcollectionComponent,
+  ManagedatasettransactioneventobjectComponent,
+  FindspecifictransactionindatasetComponent,
+  ActivityrepositoryinitialreadlocalfileComponent,
+  DatasetrepositoryfileComponent,
+  ActivityinformationComponent
 	],
 	imports: [
 		AppFirebaseModule,

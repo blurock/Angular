@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatasetrepositoryfilestagingComponent } from '../datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FetchcatalogobjectComponent } from '../../../dialog/fetchcatalogobject/fetchcatalogobject.component';
+import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { SavecatalogdataobjectdialogComponent } from '../../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
+import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 
 @Component({
 	selector: 'app-managedatasetrepositoryfilestaging',
@@ -10,21 +13,37 @@ import { FetchcatalogobjectComponent } from '../../../dialog/fetchcatalogobject/
 })
 export class ManagedatasetrepositoryfilestagingComponent implements OnInit {
 
-	title = 'Manage Repository File Staging';
 	loadfromdatabase = 'Load object from file or database';
-	fetchstaging = 'upload';
+	fetchstaging = 'Retrieve';
 	readinfailed = 'Read of staging information failed (problem with server)';
+	displaydescbutton = 'Display Partition as JSON';
+	displaybutton = 'Display';
+	savedescr = 'Save to database';
+	savebutton = 'Save';
+	title = 'File Staging'
+
 
 	@ViewChild('staging') staging: DatasetrepositoryfilestagingComponent;
 
 
 	annoinfo: any;
-	maintainer = 'Administrator';
+	maintainer: string;
 	resultHtml: string;
 
 	constructor(
-		public dialog: MatDialog
-	) { }
+		public dialogvis: MatDialog,
+		public dialog: MatDialog,
+		manageuser: ManageuserserviceService
+	) {
+		manageuser.determineMaintainer().subscribe(result => {
+			if (result != null) {
+				this.maintainer = result;
+			} else {
+				alert(manageuser.errormaintainer);
+			}
+		});
+
+	 }
 
 	ngOnInit(): void {
 	}
@@ -37,14 +56,10 @@ export class ManagedatasetrepositoryfilestagingComponent implements OnInit {
 
 		dialogRef.afterClosed().subscribe(result => {
 			if (result != null) {
-        alert("Return");
 				const success = result['dataset:servicesuccessful'];
 				this.resultHtml = result['dataset:serviceresponsemessage'];
-				alert(success);
 				if (success == 'true') {
 					const catalog = result['dataset:simpcatobj'];
-					alert(catalog);
-					alert(JSON.stringify(catalog));
 					if (catalog != null) {
 						this.staging.setData(catalog);
 					}
@@ -56,4 +71,40 @@ export class ManagedatasetrepositoryfilestagingComponent implements OnInit {
 
 		});
 	}
+		displayCatalogInfo(): void {
+
+		const catalog = {};
+		this.staging.getData(catalog);
+
+		const dialogConfig = new MatDialogConfig();
+
+		dialogConfig.disableClose = false;
+		dialogConfig.autoFocus = true;
+
+		dialogConfig.data = {
+			filename: this.title,
+			dataimage: catalog
+		};
+
+		const myDialogRef = this.dialogvis.open(ViewcatalogandsavetolocalfileComponent, dialogConfig);
+
+		myDialogRef.afterClosed().subscribe(result => {
+		});
+	}
+	public saveCatalog(): void {
+		const catalog = {};
+		this.staging.getData(catalog);
+		this.openDialog(catalog);
+	}
+
+	public openDialog(catalog: any): void {
+		const dialogRef = this.dialog.open(SavecatalogdataobjectdialogComponent, {
+			data: { catalog: catalog, annotations: this.annoinfo }
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			alert(result);
+		});
+	}
+
 }

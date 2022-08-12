@@ -43,12 +43,11 @@ export class UploadstepsComponent implements OnInit {
 	@ViewChild('stagefile') stagefile: SubmitfileandinformatioonComponent;
 	
 	repositorystaging = new EventEmitter<any>();
+	parseFile = new EventEmitter<any>();
 	
 	constructor(
 		private _formBuilder: FormBuilder,
 		private uploadService: UploadmenuserviceService) { 
-			
-			
 		}
 
 	ngOnInit() {
@@ -58,10 +57,6 @@ export class UploadstepsComponent implements OnInit {
 
 		this.references = new FormArray([]);
 		this.uploadInformation = '';
-/*
-        this.repositorystaging.subscribe((data) => {
-			});
-		*/
 		this.uploadService.getTitleChoices().subscribe((data) => {
 			this.titleInformation = data;
 			this.titles = Object.keys(data);
@@ -82,9 +77,6 @@ export class UploadstepsComponent implements OnInit {
 		}, (error) => {
 			console.log("An error accessing getUnitSet Service");
 		})
-		
-
-
 	}
 	
 	ngAfterViewInit() {

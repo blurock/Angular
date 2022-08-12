@@ -1,5 +1,6 @@
 import { Input, Component, OnInit, ViewChild, ElementRef, VERSION } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
 
 @Component({
 	selector: 'app-uploadfiletostorage',

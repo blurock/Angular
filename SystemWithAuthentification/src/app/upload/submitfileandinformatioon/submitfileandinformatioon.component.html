@@ -40,6 +40,13 @@
 		</mat-card-title-group>
 	</mat-card-header>
 	<mat-card-content>
-		<app-firesytorecatalogid #tranactionfirestoreid [(anno)]="annoinfo"></app-firesytorecatalogid>
+	<ng-container *ngIf='filestaging.annoinfo != null; else loading'>
+		<app-firesytorecatalogid #tranactionfirestoreid [(anno)]="filestaging.annoinfo"></app-firesytorecatalogid>
+	</ng-container>
+	<ng-template #loading>
+	<div>
+		Loading
+	</div>
+</ng-template>
 	</mat-card-content>
 </mat-card>

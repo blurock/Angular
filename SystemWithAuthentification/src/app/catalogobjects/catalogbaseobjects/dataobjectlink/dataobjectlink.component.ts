@@ -19,7 +19,7 @@ export class DataobjectlinkComponent implements OnInit {
 	formatmenulabel = 'dataset:DatabaseObjectType';
 	items: NavItem[];
 	firestoreidvalues: any;
-	
+
 
 	@Input() anno: any;
 	@Input() catalog: any;
@@ -35,20 +35,13 @@ export class DataobjectlinkComponent implements OnInit {
 		public identifiers: IdentifiersService,
 		private menusetup: MenutreeserviceService) {
 		this.linkform = this.objectlinkform();
-		
+
 	}
-	
+
 
 	ngOnInit(): void {
-		this.items = this.menusetup.findChoices(this.anno, this.formatmenulabel);	
+		this.items = this.menusetup.findChoices(this.anno, this.formatmenulabel);
 		this.conceptitems = this.menusetup.findChoices(this.anno, this.conceptmenulabel);
-		/*
-		if(this.catalog != null) {
-			this.setData(this.catalog);
-		} else {
-			
-		}
-		*/
 	}
 	objectlinkform(): FormGroup {
 		const objectform = this.formBuilder.group({
@@ -68,30 +61,29 @@ export class DataobjectlinkComponent implements OnInit {
 	}
 
 	setData(catalog: any) {
-		
+
 		this.catalog = catalog;
 		if (this.catalog != null) {
-			
-			
-			
+
+
+
 			this.linkform = this.objectlinkform();
 			this.linkform.get('DatabaseObjectType').setValue(this.catalog[this.identifiers.DatabaseObjectType]);
 			this.linkform.get('DataTypeConcept').setValue(this.catalog[this.identifiers.DataTypeConcept]);
-			
-			
+
+
 			this.firestoreidvalues = this.catalog[this.identifiers.FirestoreCatalogID];
 			if (this.firestoreid != null) {
 				this.firestoreid.setData(this.firestoreidvalues);
 			} else {
-				alert('firestore null');
-			}			
+
+			}
 			this.display = true;
 		}
-		
+
 	}
 
 	getData(catalog: any): void {
-		/*
 		if (catalog != null) {
 			catalog[this.identifiers.DatabaseObjectType] = this.linkform.get('DatabaseObjectType').value;
 			catalog[this.identifiers.DataTypeConcept] = this.linkform.get('DataTypeConcept').value;
@@ -100,7 +92,6 @@ export class DataobjectlinkComponent implements OnInit {
 			} else {
 			}
 		}
-		*/
 	}
 	setFileDatabaseObjectType($event: string): void {
 		this.linkform.get('DatabaseObjectType').setValue($event);
