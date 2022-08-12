@@ -269,7 +269,5 @@ public class FindTransactions {
             response = DatabaseServicesBase.standardErrorResponse(document, "Error in creating: " + type, null);
         }
         return response;
-
     }
-
 }

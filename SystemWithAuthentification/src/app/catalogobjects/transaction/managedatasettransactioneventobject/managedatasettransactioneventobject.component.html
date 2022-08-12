@@ -1,0 +1,33 @@
+<mat-card>
+<mat-card-header>
+<mat-card-title>
+{{title}}
+</mat-card-title>
+</mat-card-header>
+<mat-card-content>
+		<mat-grid-list cols="6" rowHeight="100px">
+			<mat-grid-tile [colspan]="2">
+				<button mat-mini-fab color="primary" class="display-btn" matTooltip="{{displaydescbutton}}"
+					(click)="displayCatalogInfo()">{{displaybutton}}</button>
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="2">
+				<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchInformation()"
+				matTooltip="{{loadfromdatabase}}">
+					{{fetch}}
+				</button>
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="2">
+				<button mat-mini-fab color="primary" class="rbutton" matTooltip="{{savedescr}}"
+					(click)="saveCatalog()">{{savebutton}}</button>
+			</mat-grid-tile>
+		</mat-grid-list>
+
+		<mat-grid-list cols="6" rowHeight="100px">
+			<mat-grid-tile [colspan]="6">
+			<div [innerHTML]="resultHtml"></div>
+			</mat-grid-tile>
+		</mat-grid-list>	
+
+<app-datasettransactioneventobject #transevent></app-datasettransactioneventobject>
+</mat-card-content>
+</mat-card>

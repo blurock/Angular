@@ -56,11 +56,17 @@ public enum FindTransactionFromActivityInfo {
 	abstract JsonObject createSetOfProperties(JsonObject info);
 
 	public static JsonObject findTransaction(String transactiontype, JsonObject info) {
+	    JsonObject transaction = null;
+	    String transactionobjectname = "";
+	    String name = "";
+	    
 		TransactionProcess process = TransactionProcess.valueOf(transactiontype.substring(8));
-		String transactionobjectname = process.transactionObjectName();
-		String name = transactionobjectname.substring(8);
+        System.out.println("findTransaction   '" + transactiontype + "'  " + transactiontype.substring(8));
+		transactionobjectname = process.transactionObjectName();
+		name = transactionobjectname.substring(8);
+        System.out.println("findTransaction   '" + transactionobjectname + "'  '" + name + "'");
 		FindTransactionFromActivityInfo fill = FindTransactionFromActivityInfo.valueOf(name);
-		JsonObject transaction = null;
+		
 		if (fill != null) {
 			transaction = CreateDocumentTemplate.createTemplate(transactionobjectname);
 			JsonObject shortdescr = transaction.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();

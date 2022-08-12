@@ -1,0 +1,12 @@
+<mat-card>
+	<mat-card-header>
+		<mat-card-subtitle>
+			{{activityname}}
+		</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<ng-container *ngIf='activityname =="ActivityRepositoryInitialReadLocalFile";'>
+			<app-activityrepositoryinitialreadlocalfile #readlocal></app-activityrepositoryinitialreadlocalfile>
+		</ng-container>
+	</mat-card-content>
+</mat-card>

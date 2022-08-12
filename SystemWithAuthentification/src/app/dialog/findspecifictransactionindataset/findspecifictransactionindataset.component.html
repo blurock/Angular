@@ -1,0 +1,63 @@
+<mat-card class="matcard">
+	<mat-card-content>
+
+		<ng-container *ngIf='annoinfo != null; else waiting'>
+			<form [formGroup]="idForm">
+				<mat-grid-list cols="6" rowHeight="100px">
+
+
+					<mat-grid-tile [colspan]="6">
+						<mat-form-field class="generic">
+							<mat-label>{{annoinfo['dataset:CatalogObjectUniqueGenericLabel'][rdfslabel]}}
+							</mat-label>
+							<input matInput formControlName="CatalogObjectUniqueGenericLabel">
+							<mat-hint>{{annoinfo['dataset:CatalogObjectUniqueGenericLabel'][rdfscomment]}}
+							</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="6">
+						<mat-form-field class="datasetname">
+							<mat-label>{{annoinfo['dataset:DatasetName'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="DatasetName">
+							<mat-hint>{{annoinfo['dataset:DatasetName'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="6">
+						<mat-form-field class="transactions">
+							<mat-label>{{transactionslabel}}</mat-label>
+							<input matInput formControlName="TransactionEventType"
+								[matMenuTriggerFor]="transactionsmenu.childMenu">
+							<mat-hint>{{transactionshint}}</mat-hint>
+						</mat-form-field>
+						<app-menu-item #transactionsmenu [items]="transactionsitems"
+							(selectionEvent)="setTransaction($event)">
+						</app-menu-item>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="6">
+						<mat-form-field class="transactionid">
+							<mat-label>{{annoinfo['dataset:TransactionID'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="TransactionID" placeholder="1.0">
+							<mat-hint>{{annoinfo['dataset:TransactionID'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="6">
+						<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchFromDatabaser()"
+							[disabled]="idForm.invalid">
+							Fetch from Dataset
+						</button>
+					</mat-grid-tile>
+
+				</mat-grid-list>
+			</form>
+
+		</ng-container>
+		<ng-template #waiting>
+			{{waiting}}
+		</ng-template>
+	</mat-card-content>
+	<mat-card-footer>
+		<button mat-button (click)="onNoClick()">Cancel</button>
+		<button mat-button (click)="fetchFromDatabaseObject()" cdkFocusInitial>Ok</button>
+	</mat-card-footer>
+
+</mat-card>

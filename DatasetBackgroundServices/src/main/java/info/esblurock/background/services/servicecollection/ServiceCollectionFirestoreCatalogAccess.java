@@ -191,6 +191,7 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 	    JsonObject info = json.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
 	    String type = json.get(ClassLabelConstants.TransactionEventType).getAsString();
 	    String transactionID = json.get(ClassLabelConstants.TransactionID).getAsString();
+	    System.out.println("FindSpecificTransactionInDataset: '" + type);
 	    JsonObject response = FindTransactions.findSpecificDatasetTransaction(info, type, transactionID);
 	    return response;
 	}

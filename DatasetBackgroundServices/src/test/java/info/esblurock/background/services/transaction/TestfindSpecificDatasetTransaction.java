@@ -27,7 +27,7 @@ public class TestfindSpecificDatasetTransaction {
         JsonObject info = JsonObjectUtilities.jsonObjectFromString(infoS);
         String type = "dataset:InitialReadInOfRepositoryFile";
         System.out.println("--------------- FindTransactionFromActivityInfo.findTransaction -----------");
-        String ID = "1bc8cc70-12c0-40ee-ae8a-9604b204e0f6";
+        String ID = "7b3e9241-8add-4054-a14d-794dd56b7f57";
         //String ID = "xxx1bc8cc70-12c0-40ee-ae8a-9604b204e0f6";
         JsonObject reponse = FindTransactions.findSpecificDatasetTransaction(info, type, ID);
         JsonObjectUtilities.printResponse(reponse);
