@@ -188,11 +188,20 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 	},
 	FindSpecificTransactionInDataset {
 	    public JsonObject process(JsonObject json) {
+	        JsonObject response = null;
 	    JsonObject info = json.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
 	    String type = json.get(ClassLabelConstants.TransactionEventType).getAsString();
 	    String transactionID = json.get(ClassLabelConstants.TransactionID).getAsString();
-	    System.out.println("FindSpecificTransactionInDataset: '" + type);
-	    JsonObject response = FindTransactions.findSpecificDatasetTransaction(info, type, transactionID);
+	    System.out.println("FindSpecificTransactionInDataset: '" + type + "'");
+	    try {
+	    response = FindTransactions.findSpecificDatasetTransaction(info, type, transactionID);
+	    } catch(Exception ex) {
+	        response = new JsonObject();
+            response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);
+            response.addProperty(ClassLabelConstants.ServiceResponseMessage,
+                    "Error in reading Transaction:\n" + ex.toString());
+            response.add(ClassLabelConstants.SimpleCatalogObject, null);	        
+	    }
 	    return response;
 	}
 	};

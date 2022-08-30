@@ -125,6 +125,9 @@ import { FindspecifictransactionindatasetComponent } from './dialog/findspecific
 import { ActivityrepositoryinitialreadlocalfileComponent } from './catalogobjects/activity/repository/activityrepositoryinitialreadlocalfile/activityrepositoryinitialreadlocalfile.component';
 import {DatasetrepositoryfileComponent} from './catalogobjects/activity/repository/datasetrepositoryfile/datasetrepositoryfile.component';
 import { ActivityinformationComponent } from './catalogobjects/transaction/activityinformation/activityinformation.component';
+import { ListoffirestoreidsComponent } from './catalogobjects/listoffirestoreids/listoffirestoreids.component';
+import { ActivityrepositorypartitiontocatalogComponent } from './catalogobjects/activity/repository/activityrepositorypartitiontocatalog/activityrepositorypartitiontocatalog.component';
+import { FirestorelistelementComponent } from './catalogobjects/listoffirestoreids/firestorelistelement/firestorelistelement.component';
 
 
 
@@ -205,7 +208,10 @@ import { ActivityinformationComponent } from './catalogobjects/transaction/activ
   FindspecifictransactionindatasetComponent,
   ActivityrepositoryinitialreadlocalfileComponent,
   DatasetrepositoryfileComponent,
-  ActivityinformationComponent
+  ActivityinformationComponent,
+  ListoffirestoreidsComponent,
+  ActivityrepositorypartitiontocatalogComponent,
+  FirestorelistelementComponent
 	],
 	imports: [
 		AppFirebaseModule,

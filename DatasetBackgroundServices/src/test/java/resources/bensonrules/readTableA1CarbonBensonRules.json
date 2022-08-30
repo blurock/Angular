@@ -1,5 +1,5 @@
 {
-	"prov:activity": "dataset:InitialReadInOfRepositoryFile",
+	"prov:activity": "dataset:InitialReadInLocalStorageSystem",
 	"dataset:transreqobj": {},
 	"dataset:activityinfo": {
 		"descr-filestaging": {

@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { VisualizefileComponent } from '../../../../dialog/visualizefile/visualizefile.component';
-import {DatasetrepositoryfileComponent} from '../datasetrepositoryfile/datasetrepositoryfile.component';
+import { DatasetrepositoryfileComponent } from '../datasetrepositoryfile/datasetrepositoryfile.component';
 
 @Component({
 	selector: 'app-activityrepositoryinitialreadlocalfile',
@@ -26,20 +26,18 @@ export class ActivityrepositoryinitialreadlocalfileComponent implements OnInit {
 	annoinfo: any;
 	maintainer: string;
 	dataimage = null;
-	
+
 	@ViewChild('reposfile') reposfile: DatasetrepositoryfileComponent;
 
 	constructor(
 		public annotations: OntologycatalogService,
 		manageuser: ManageuserserviceService,
 		private _formBuilder: FormBuilder,
-		public dialog: MatDialog
+		public dialog: MatDialog,
+		private cd: ChangeDetectorRef
 	) {
-    		this.infoform = this._formBuilder.group({
-			FileSourceIdentifier: ['No file selected'],
-		});
 
-    
+
 		manageuser.determineMaintainer().subscribe(result => {
 			if (result != null) {
 				this.maintainer = result;
@@ -56,9 +54,8 @@ export class ActivityrepositoryinitialreadlocalfileComponent implements OnInit {
 					const catalog = response[Ontologyconstants.catalogobject];
 					this.catalogobj = catalog[Ontologyconstants.outputobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];
-					alert("annoinfo: " + JSON.stringify(this.annoinfo));
 				} else {
-          alert("Error: " + JSON.stringify(responsedata));
+					alert("Error: " + JSON.stringify(responsedata));
 					this.message = JSON.stringify(responsedata);
 				}
 			},
@@ -69,27 +66,28 @@ export class ActivityrepositoryinitialreadlocalfileComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.infoform = this._formBuilder.group({
+			FileSourceIdentifier: ['No file selected'],
+			Identifier: ['No file', Validators.required]
+		});
 	}
-	uploadFileEvt(imgFile: any) {
-		alert('uploadFileEvt(imgFile: any)');
+	uploadFileEvt(imgFile: any): void  {
 		if (imgFile.target.files && imgFile.target.files[0]) {
-		alert('uploadFileEvt(imgFile: any) 1' + imgFile);
-		
+			alert('uploadFileEvt(imgFile: any) 1' + imgFile);
+
 			const file = (event.target as HTMLInputElement).files[0];
-			alert('uploadFileEvt(imgFile: any) 1' + file);
 			this.infoform.patchValue({
 				FileSourceIdentifier: file.name
 			});
-			alert('uploadFileEvt(imgFile: any)' + file.name + '   ' +  this.infoform.get('').value );
-			let reader = new FileReader();
+			const reader = new FileReader();
 			reader.onload = (e: any) => {
 				this.dataimage = e.target.result;
-			
+
 			};
 			reader.readAsText(imgFile.target.files[0]);
 
 		} else {
-             alert(this.uploadfnotsuccessful);
+			alert(this.uploadfnotsuccessful);
 		}
 	}
 
@@ -100,17 +98,19 @@ export class ActivityrepositoryinitialreadlocalfileComponent implements OnInit {
 
 	}
 
-    getData(catalog: any): void {
-		
+	getData(catalog: any): void {
 		const spec = this.infoform.get('FileSourceIdentifier').value;
 		catalog[this.annoinfo['dataset:FileSourceIdentifier'][this.identifier]] = spec;
-		
 		this.reposfile.getData(catalog);
 	}
 	setData(catalog: any) {
 		const spec = catalog[this.annoinfo['dataset:FileSourceIdentifier'][this.identifier]];
-		this.infoform.get('FileSourceIdentifier').setValue(spec);
-		this.reposfile.getData(catalog);
+		this.infoform.get('Identifier').setValue(spec);
+		this.infoform.patchValue({
+			FileSourceIdentifier: spec
+		});
+		this.cd.detectChanges();
+		this.reposfile.setData(catalog);
 	}
 
 }

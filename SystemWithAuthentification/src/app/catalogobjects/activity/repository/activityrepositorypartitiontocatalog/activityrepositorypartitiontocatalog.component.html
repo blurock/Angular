@@ -1,0 +1,44 @@
+	<ng-container *ngIf='topdisplay; else loading'>
+		<form [formGroup]="parseinfoform" class="infoform">
+			<mat-grid-list cols="8" rowHeight="100px">
+				<mat-grid-tile [colspan]="8">
+					<mat-form-field class="title">
+						<mat-label>{{annoinfo['dataset:DescriptionTitle'][rdfslabel]}}</mat-label>
+						<input matInput formControlName="DescriptionTitle">
+						<mat-hint>{{annoinfo['dataset:DescriptionTitle'][rdfscomment]}}</mat-hint>
+					</mat-form-field>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="4">
+					<mat-form-field appearance="fill" class="fileformat">
+						<mat-label>{{annoinfo['dataset:FileSourceFormat'][rdfslabel]}}</mat-label>
+						<mat-select formControlName="FileSourceFormat">
+							<mat-option *ngFor="let choice of filesourcetypechoices" [value]="choice">{{choice}}
+							</mat-option>
+						</mat-select>
+						<mat-hint>{{annoinfo['dataset:FileSourceFormat'][rdfscomment]}}</mat-hint>
+					</mat-form-field>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="4">
+					<mat-form-field class="version">
+						<mat-label>{{annoinfo['dataset:FilePartitionMethod'][rdfslabel]}}</mat-label>
+						<input matInput formControlName="FilePartitionMethod" [readonly]="true">
+						<mat-hint>{{annoinfo['dataset:FilePartitionMethod'][rdfscomment]}}</mat-hint>
+					</mat-form-field>
+				</mat-grid-tile>
+				<!--
+				<mat-grid-tile [colspan]="4">
+					<mat-form-field class="version">
+						<mat-label>{{annoinfo['dataset:DatasetCollectionObjectType'][rdfslabel]}}</mat-label>
+						<input matInput formControlName="DatasetCollectionObjectType" [readonly]="true">
+						<mat-hint>{{annoinfo['dataset:DatasetCollectionObjectType'][rdfscomment]}}</mat-hint>
+					</mat-form-field>
+				</mat-grid-tile>
+				-->
+			</mat-grid-list>
+		</form>
+	</ng-container>
+	<ng-template #loading>
+		<mat-grid-tile [colspan]="8" class="loading">
+			<mat-label>{{nostaginginfo}}</mat-label>
+		</mat-grid-tile>
+	</ng-template>

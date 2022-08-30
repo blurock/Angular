@@ -232,6 +232,7 @@ public class FindTransactions {
         if (emptycatalog != null) {
             JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(emptycatalog);
             firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
+            firestoreid.addProperty(ClassLabelConstants.SimpleCatalogName, transactionID);
             JsonObject setofprops = FindTransactionFromActivityInfo.determineSetOfProps(type, info);
 
             JsonObject idprop = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
@@ -261,6 +262,10 @@ public class FindTransactions {
                     
                 }
             } else {
+                String idS = JsonObjectUtilities.toString(firestoreid);
+                System.out.println(idS);
+                Element pre = body.addElement("pre");
+                pre.addText(idS);
                 String rdfmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
                 MessageConstructor.combineBodyIntoDocument(document, rdfmessage);
                 response = DatabaseServicesBase.standardErrorResponse(document, "Error in reading database", null);

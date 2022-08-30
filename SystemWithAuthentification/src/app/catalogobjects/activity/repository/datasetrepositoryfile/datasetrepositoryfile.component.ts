@@ -36,20 +36,17 @@ export class DatasetrepositoryfileComponent implements OnInit {
 
 
 	constructor(
-		private _formBuilder: FormBuilder,
+		private formBuilder: FormBuilder,
 		private menusetup: MenutreeserviceService
 	) {
-		this.infoform = this._formBuilder.group({
-			FileSourceFormat: ['', Validators.required],
-			FileSourceTitle: ['', Validators.required],
-			FileSourceAbstract: ['', Validators.required],
-			DatasetName: ['', Validators.required],
-			DatasetVersion: ['', Validators.required],
-			CatalogObjectUniqueGenericLabel: ['', Validators.required],
-		});
 	}
 	ngOnInit(): void {
 		this.items = this.menusetup.findChoices(this.annoinfo, this.formatmenulabel);
+		this.infoform = this.formBuilder.group({
+			FileSourceFormat: ['', Validators.required],
+			FileSourceTitle: ['', Validators.required],
+			FileSourceAbstract: ['', Validators.required]
+		});
 
 	}
 
@@ -71,11 +68,7 @@ export class DatasetrepositoryfileComponent implements OnInit {
 
 		const jsontransspec = {};
 		catalog['dataset:datasettransactionspecification'] = jsontransspec;
-		jsontransspec['dataset:datasetname'] = this.infoform.get('DatasetName').value;
-		jsontransspec['dataset:datasetversion'] = this.infoform.get('DatasetVersion').value;
-		jsontransspec['dataset:uniquegenericname'] = this.infoform.get('CatalogObjectUniqueGenericLabel').value;
-		jsontransspec['dataset:catalogobjectmaintainer'] = this.maintainer;
-
+		this.transspec.getData(jsontransspec);
 		this.addSetOfReferencesAndLinks(catalog);
 		this.transspec.getData(catalog);
 	}
@@ -91,9 +84,7 @@ export class DatasetrepositoryfileComponent implements OnInit {
 			this.infoform.get('FileSourceTitle').setValue(json['dcterms:title']);
 			const jsontransspec = json['dataset:datasettransactionspecification'];
 			if (jsontransspec != null) {
-				this.infoform.get('DatasetName').setValue(jsontransspec['dataset:datasetname']);
-				this.infoform.get('DatasetVersion').setValue(jsontransspec['dataset:datasetversion']);
-				this.infoform.get('CatalogObjectUniqueGenericLabel').setValue(jsontransspec['dataset:uniquegenericname']);
+				this.transspec.setData(jsontransspec);
 			} else {
 			}
 			const jsonstaging = json['descr-filestaging'];
@@ -113,11 +104,11 @@ export class DatasetrepositoryfileComponent implements OnInit {
 		if (refs != null) {
 			this.references.setData(refs);
 		}
-		const web = activity.get('foaf:page');
+		const web = activity['foaf:page'];
 		if (web != null) {
 			this.weblinks.setData(web);
 		}
-		const obj = activity.get('skos:mappingRelation');
+		const obj = activity['skos:mappingRelation'];
 		if (obj != null) {
 			this.objectlinks.setData(obj);
 		}

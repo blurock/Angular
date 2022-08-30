@@ -1,5 +1,5 @@
 <ng-container *ngIf='annoinfo != null; else loading'>
-	<form [formGroup]="uploadinfoform" class="infoform">
+	<form [formGroup]="infoform">
 
 		<mat-grid-list cols="6" rowHeight="100px">
 			<mat-grid-tile [colspan]="4">
@@ -25,30 +25,6 @@
 					<mat-hint>{{annoinfo['dataset:DescriptionAbstractFileStaging'][rdfscomment]}}</mat-hint>
 				</mat-form-field>
 			</mat-grid-tile>
-			<!--
-			<mat-grid-tile [colspan]="3">
-				<mat-form-field class="generic">
-					<mat-label>{{annoinfo['dataset:CatalogObjectUniqueGenericLabel'][rdfslabel]}}</mat-label>
-					<input matInput formControlName="CatalogObjectUniqueGenericLabel"
-						placeholder="ThisSourceUniqueName'">
-					<mat-hint>{{annoinfo['dataset:CatalogObjectUniqueGenericLabel'][rdfscomment]}}</mat-hint>
-				</mat-form-field>
-			</mat-grid-tile>
-			<mat-grid-tile [colspan]="2">
-				<mat-form-field class="datasetname">
-					<mat-label>{{annoinfo['dataset:DatasetName'][rdfslabel]}}</mat-label>
-					<input matInput formControlName="DatasetName" placeholder="SourceSetData">
-					<mat-hint>{{annoinfo['dataset:DatasetName'][rdfscomment]}}</mat-hint>
-				</mat-form-field>
-			</mat-grid-tile>
-			<mat-grid-tile [colspan]="1">
-				<mat-form-field class="version">
-					<mat-label>{{annoinfo['dataset:DatasetVersion'][rdfslabel]}}</mat-label>
-					<input matInput formControlName="DatasetVersion" placeholder="1.0">
-					<mat-hint>{{annoinfo['dataset:DatasetVersion'][rdfscomment]}}</mat-hint>
-				</mat-form-field>
-			</mat-grid-tile>
-			-->
 		</mat-grid-list>
 	</form>
 	<app-datasettransactionspecificationforcollection #transspec [(annoinfo)]="annoinfo"></app-datasettransactionspecificationforcollection>

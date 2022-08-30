@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { NavItem } from '../primitives/nav-item';
 import { Ontologyconstants } from '../const/ontologyconstants';
+
+
 @Injectable({
 	providedIn: 'root'
 })
@@ -12,6 +14,7 @@ export class MenutreeserviceService {
 	annoreflabel = 'annoref';
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = 'rdfs:comment';
+	dataobjectlabel = 'dataobject';
 	classificationlabel = 'classification';
 
 
@@ -23,6 +26,18 @@ export class MenutreeserviceService {
 			this.subchoices(anno, classification, navitemarray);
 		} else {
 			alert('No classifications');
+		}
+		return navitemarray;
+	}
+	
+	public findTransactionChoices(transactiontree: any): NavItem[] {
+		const classification = transactiontree[this.dataobjectlabel];
+		const anno = transactiontree[this.annotationslabel];
+		const navitemarray: NavItem[] = [];
+		if (classification != null) {
+			this.subchoices(anno, classification, navitemarray);
+		} else {
+			alert('No classifications registered');
 		}
 		return navitemarray;
 	}

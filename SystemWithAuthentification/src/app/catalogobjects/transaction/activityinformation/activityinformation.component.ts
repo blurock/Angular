@@ -1,50 +1,51 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {ActivityrepositoryinitialreadlocalfileComponent} from '../../activity/repository/activityrepositoryinitialreadlocalfile/activityrepositoryinitialreadlocalfile.component';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { ActivityrepositoryinitialreadlocalfileComponent } from '../../activity/repository/activityrepositoryinitialreadlocalfile/activityrepositoryinitialreadlocalfile.component';
 
 @Component({
-  selector: 'app-activityinformation',
-  templateUrl: './activityinformation.component.html',
-  styleUrls: ['./activityinformation.component.scss']
+	selector: 'app-activityinformation',
+	templateUrl: './activityinformation.component.html',
+	styleUrls: ['./activityinformation.component.scss']
 })
 export class ActivityinformationComponent implements OnInit {
-  
-  activityinfoid = 'dataset:activityinfo';
 
-  activityname: string;
-  activities = ['ActivityRepositoryInitialReadLocalFile'];
-  
-  @ViewChild('readlocal') readlocal: ActivityrepositoryinitialreadlocalfileComponent;
+	@Input() activityname: string;
 
-  constructor() { }
+	activityinfoid = 'dataset:activityinfo';
+	noactivity = false;
 
-  ngOnInit(): void {
-    this.setActivity(this.activities[0]);
-  }
-  
-  setActivity(select: any): void {
-    this.activityname = select;
-  }
-  
-  getData(catalog: any): void {
-    const activity = {};
-    catalog[this.activityinfoid] = activity;
-    alert(this.activityname);
-    if(this.activityname == 'ActivityRepositoryInitialReadLocalFile') {
-    alert(this.activityname + '  this.readlocal.getData(activity);');
-      this.readlocal.getData(activity);
-    } else {
-      alert('No activity information');
-    }
-    
-  }
-  
-  setData(catalog: any): void {
-    const activity = catalog[this.activityinfoid];
-    if(this.activityname == 'ActivityRepositoryInitialReadLocalFile') {
-      this.readlocal.setData(activity);
-    } else {
-      alert('No activity information');
-    }
-  }
+
+	public activities = ['dataset:ActivityRepositoryInitialReadLocalFile'];
+
+	@ViewChild('readlocal') readlocal: ActivityrepositoryinitialreadlocalfileComponent;
+
+	constructor() { }
+
+	ngOnInit(): void {
+ 		if (this.activityname == '') {
+			this.noactivity = true;
+		}
+	}
+
+	setActivity(select: any): void {
+		this.activityname = select;
+	}
+
+	getData(activity: any): void {
+		if (!this.noactivity) {
+			if (this.activityname == 'dataset:ActivityRepositoryInitialReadLocalFile') {
+				this.readlocal.getData(activity);
+			} else {
+				alert('Not known activity information: ' +  this.activityname);
+			}
+		}
+	}
+
+	setData(activity: any): void {
+		const activityB = this.activityname == 'dataset:ActivityRepositoryInitialReadLocalFile';
+		if (activityB) {
+			this.readlocal.setData(activity);
+		} else {
+		}
+	}
 
 }

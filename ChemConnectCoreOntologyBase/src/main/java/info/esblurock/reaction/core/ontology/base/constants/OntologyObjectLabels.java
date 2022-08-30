@@ -1,5 +1,4 @@
 package info.esblurock.reaction.core.ontology.base.constants;
-
 public class OntologyObjectLabels {
 	public static String elementType = "elementType";
 	public static String elementInformation ="elementinfo";
@@ -20,8 +19,11 @@ public class OntologyObjectLabels {
 	public static String member= "skos:member";
 	public static String isDefinedBy = "rdfs:isDefinedBy";
 	public static String label = "rdfs:label";
-	public static String dctype = "<http://purl.org/dc/elements/1.1/type>";
-	public static String requires = "<http://purl.org/dc/terms/requires>";
+    public static String dctype =      "<http://purl.org/dc/elements/1.1/type>";
+    public static String dctermstype = "<http://purl.org/dc/terms/type>";
+    public static String dctermstypesimple = "dcterms:type";
+    public static String requires = "<http://purl.org/dc/terms/requires>";
+    public static String requiressimple = "dcterms:requires";
 	
 	public static String recordsSinglet = "recordsSinglet";
 	public static String recordsMultiple = "recordsMultiple";
@@ -42,6 +44,8 @@ public class OntologyObjectLabels {
 	
 	public static String quantitykind = "qudt:QuantityKind";
 	public static String SystemOfQuantities = "qudt:SystemOfQuantities";
-
+	
+    public static String sourcesimple = "dcterms:source";
+    public static String source = "<http://purl.org/dc/terms/source>";
 	
 }

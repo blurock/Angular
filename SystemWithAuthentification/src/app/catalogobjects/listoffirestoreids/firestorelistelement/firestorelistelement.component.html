@@ -1,0 +1,15 @@
+<mat-card class="cardbase">
+	<mat-card-header>
+		<mat-card-title-group class="addlink">
+			<button mat-button class="deletelinkbutton" (click)="deleteLink()">
+				<mat-icon>delete</mat-icon>
+			</button>
+		</mat-card-title-group>
+	</mat-card-header>
+
+	<mat-card-content>		
+<app-firesytorecatalogid #firestoreid [(anno)]="anno" [(catalogID)]="catalogID"></app-firesytorecatalogid>
+	</mat-card-content>
+</mat-card>
+
+

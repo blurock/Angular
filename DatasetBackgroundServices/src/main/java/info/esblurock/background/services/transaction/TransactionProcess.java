@@ -120,6 +120,64 @@ public enum TransactionProcess {
 			return "dataset:UserManagementTransactionObject";
 		}
 
+	}, InitialReadFromUserInterface {
+        @Override
+        JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+            TransactionProcess process = TransactionProcess.valueOf("InitialReadInOfRepositoryFile");
+            return process.process(event, prerequisites, info);
+        }
+
+        @Override
+        String transactionKey(JsonObject catalog) {
+            JsonObject gcsblob = catalog.get(ClassLabelConstants.GCSBlobFileInformationStaging).getAsJsonObject();
+            String key = gcsblob.get(ClassLabelConstants.FileSourceFormat).getAsString();
+            return key;
+        }
+
+        @Override
+        String transactionObjectName() {
+            return "dataset:DatasetTransactionEventObject";
+        }
+	    
+	}, InitialReadFromWebLocation {
+        @Override
+        JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+            TransactionProcess process = TransactionProcess.valueOf("InitialReadInOfRepositoryFile");
+            return process.process(event, prerequisites, info);
+        }
+
+        @Override
+        String transactionKey(JsonObject catalog) {
+            JsonObject gcsblob = catalog.get(ClassLabelConstants.GCSBlobFileInformationStaging).getAsJsonObject();
+            String key = gcsblob.get(ClassLabelConstants.FileSourceFormat).getAsString();
+            return key;
+        }
+
+        @Override
+        String transactionObjectName() {
+            return "dataset:DatasetTransactionEventObject";
+        }
+	   
+	}, InitialReadInLocalStorageSystem {
+
+        @Override
+        JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+            TransactionProcess process = TransactionProcess.valueOf("InitialReadInOfRepositoryFile");
+            return process.process(event, prerequisites, info);
+        }
+
+        @Override
+        String transactionKey(JsonObject catalog) {
+            JsonObject gcsblob = catalog.get(ClassLabelConstants.GCSBlobFileInformationStaging).getAsJsonObject();
+            String key = gcsblob.get(ClassLabelConstants.FileSourceFormat).getAsString();
+            return key;
+        }
+
+        @Override
+        String transactionObjectName() {
+            return "dataset:DatasetTransactionEventObject";
+        }
+	    
 	},
 	InitialReadInOfRepositoryFile {
 		@Override

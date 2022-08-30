@@ -73,9 +73,7 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 
 	}
 
-	public setData(catalog: any): void {
-		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
-		const jsontransspec = catalog[specid];
+	public setData(jsontransspec: any): void {
 		const status = jsontransspec[this.annoinfo['dataset:CatalogDataObjectStatus'][this.identifier]];
 		this.idForm.get('CatalogDataObjectStatus').setValue(status);
 		const datasetname = jsontransspec[this.annoinfo['dataset:DatasetName'][this.identifier]];

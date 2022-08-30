@@ -57,7 +57,6 @@ export class DatasetreferenceComponent implements OnInit {
 	}
 	public setData(refs: []): void {
 		this.references = new FormArray([]);
-		
 		for (const ref of refs) {
 			const objectform = this.referenceform();
 			objectform.get('DOI').setValue(ref[this.identifiers.DOI]);

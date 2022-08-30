@@ -1,5 +1,6 @@
 <ng-container *ngIf='annoinfo != null; else loading'>
-<mat-grid-list cols="6" rowHeight="100px">
+	<mat-grid-list cols="6" rowHeight="100px">
+		<form [formGroup]="infoform">
 			<mat-grid-tile [colspan]="1">
 				<!-- Select File -->
 				<input type="file" accept="text/*" (change)="uploadFileEvt($event)" #fileUpload class="file-input">
@@ -21,8 +22,10 @@
 					<mat-icon>visibility</mat-icon>
 				</button>
 			</mat-grid-tile>
-</mat-grid-list>
-<app-datasetrepositoryfile #reposfile [(annoinfo)]="annoinfo" [(maintainer)]="maintainer"></app-datasetrepositoryfile>
+		</form>
+	</mat-grid-list>
+	<app-datasetrepositoryfile #reposfile [(annoinfo)]="annoinfo" [(maintainer)]="maintainer">
+	</app-datasetrepositoryfile>
 </ng-container>
 <ng-template #loading>
 	<div>

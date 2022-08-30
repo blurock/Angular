@@ -63,6 +63,7 @@ export class ManagedatasettransactioneventobjectComponent implements OnInit {
 						this.transevent.setData(catalog);
 					}
 				} else {
+					alert("Error in reading: " + JSON.stringify(result));
 				}
 			} else {
 				this.resultHtml = this.readinfailed;

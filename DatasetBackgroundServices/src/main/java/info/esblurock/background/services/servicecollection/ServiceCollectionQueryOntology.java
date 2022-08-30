@@ -9,6 +9,7 @@ import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.service.rdfs.GenerateAndWriteRDFForObject;
 import info.esblurock.reaction.core.ontology.base.classification.DatabaseOntologyClassification;
 import info.esblurock.reaction.core.ontology.base.classification.GenerateSimpleClassification;
+import info.esblurock.reaction.core.ontology.base.classification.TransactionEventHierarchy;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
@@ -92,7 +93,30 @@ public enum ServiceCollectionQueryOntology {
 			return response;
 		}
 
-	};
+	},
+    DatasetCreateTransactionTree {
+
+        @Override
+        public JsonObject process(JsonObject json) {
+            Document document = MessageConstructor.startDocument("DatasetCreateTransactionTree");
+            JsonObject tree = null;
+            if(json != null) {
+                if(json.get(ClassLabelConstants.TransactionEvent) != null) {
+                    String transaction = json.get(ClassLabelConstants.TransactionEvent).getAsString();
+                    tree = TransactionEventHierarchy.generate(transaction);
+                } else {
+                    tree = TransactionEventHierarchy.generate();
+                }                
+            } else {
+                tree = TransactionEventHierarchy.generate();
+            }
+            
+            JsonObject response = DatabaseServicesBase.standardServiceResponse(document,
+                    "Success: DatasetCreateTransactionTree", tree);
+            return response;
+        }
+
+    };
 
 	public abstract JsonObject process(JsonObject json);
 }

@@ -13,8 +13,8 @@ import { Ontologyconstants } from '../../const/ontologyconstants';
 export class FiresytorecatalogidComponent implements AfterViewInit {
 
 	@Input() anno: any;
-
 	@Input() catalogID: any;
+	
 	display: boolean;
 
 	objectform: FormGroup;
@@ -34,6 +34,8 @@ export class FiresytorecatalogidComponent implements AfterViewInit {
 		this.documentdpairaddress = new FormArray([]);
 		this.display = false;
 	}
+	
+
 
 ngAfterViewInit(): void {
 	if(this.catalogID != null) {
