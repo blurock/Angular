@@ -204,6 +204,12 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 	    }
 	    return response;
 	}
+	}, ReadCatalogObjectWithFirestoreAddress {
+	    public JsonObject process(JsonObject json) {
+	        JsonObject firestoreid = json.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+	        JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(firestoreid);
+	        return response;
+	    }
 	};
 
 	public abstract JsonObject process(JsonObject json);

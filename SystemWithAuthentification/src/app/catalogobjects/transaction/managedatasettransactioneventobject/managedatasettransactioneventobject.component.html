@@ -22,12 +22,23 @@
 			</mat-grid-tile>
 		</mat-grid-list>
 
-		<mat-grid-list cols="6" rowHeight="100px">
+
+<app-datasettransactioneventobject #transevent></app-datasettransactioneventobject>
+
+</mat-card-content>
+</mat-card>
+<mat-card>
+<mat-card-header>
+<mat-card-title>
+HTML Output
+</mat-card-title>
+</mat-card-header>
+<mat-card-content>
+		<mat-grid-list cols="6">
 			<mat-grid-tile [colspan]="6">
 			<div [innerHTML]="resultHtml"></div>
 			</mat-grid-tile>
 		</mat-grid-list>	
 
-<app-datasettransactioneventobject #transevent></app-datasettransactioneventobject>
 </mat-card-content>
 </mat-card>

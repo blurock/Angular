@@ -1,8 +1,12 @@
 <mat-card class="cardbase">
 	<mat-card-header>
 		<mat-card-title-group class="addlink">
+		{{title}}
 			<button mat-button class="deletelinkbutton" (click)="deleteLink()">
 				<mat-icon>delete</mat-icon>
+			</button>
+			<button mat-button class="deletelinkbutton" (click)="getCatalogObject()">
+				<mat-icon>visibility</mat-icon>
 			</button>
 		</mat-card-title-group>
 	</mat-card-header>
@@ -11,5 +15,20 @@
 <app-firesytorecatalogid #firestoreid [(anno)]="anno" [(catalogID)]="catalogID"></app-firesytorecatalogid>
 	</mat-card-content>
 </mat-card>
+<ng-container *ngIf='objdisplay;'>
+<mat-card>
+<mat-card-header>
+<mat-card-title>
+{{objectcontent}}
+</mat-card-title>
+</mat-card-header>
+<mat-card-content>
+		<textarea appTextareaAutosize 
+		class="md-textarea scrollable textarea-scrollable form-control"
+		rows="5"
+>{{catalogobject | json}}</textarea>
+</mat-card-content>
+</mat-card>
+</ng-container>
 
 
