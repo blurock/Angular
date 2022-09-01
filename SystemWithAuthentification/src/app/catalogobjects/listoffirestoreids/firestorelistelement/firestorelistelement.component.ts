@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, AfterViewInit, ViewChild, EventEmitter } from '@angular/core';
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
-import { IdentifiersService } from '../../../const/identifiers.service';
-import {RunserviceprocessService} from '../../../services/runserviceprocess.service';
+import { RunserviceprocessService } from '../../../services/runserviceprocess.service';
+import { LoadChildDirective } from '../../../directives/load-child.directive';
+import { GeneralcatalogobjectvisualizationComponent } from '../../generalcatalogobjectvisualization/generalcatalogobjectvisualization.component';
 
 @Component({
 	selector: 'app-firestorelistelement',
@@ -10,24 +11,26 @@ import {RunserviceprocessService} from '../../../services/runserviceprocess.serv
 })
 export class FirestorelistelementComponent implements OnInit, AfterViewInit {
 
+
 	@Input() anno: any;
 	@Input() catalogID: any;
-	@Output() deleteEvent : EventEmitter<number> = new EventEmitter<number>();
+	@Output() deleteEvent: EventEmitter<number> = new EventEmitter<number>();
 
 	index: number;
 	title: string;
-	catalogobject: any;
+	catalogobject = {};
 	catalogjson: string;
 	objectcontent = 'Object Content';
 	objdisplay = false;
-	
+
 	serviceid = 'service';
 
 	@ViewChild('firestoreid') firestoreid: FiresytorecatalogidComponent;
+	@ViewChild('catalogview') catalogview: GeneralcatalogobjectvisualizationComponent;
 
 	constructor(
 		private runservice: RunserviceprocessService
-	) { 
+	) {
 		this.title = 'Firestore Object';
 	}
 
@@ -53,7 +56,8 @@ export class FirestorelistelementComponent implements OnInit, AfterViewInit {
 		this.deleteEvent.emit(this.index);
 	}
 
-    getCatalogObject() {
+	getCatalogObject() {
+		this.objdisplay = true;
 		const json = {};
 		json[this.serviceid] = 'ReadCatalogObjectWithFirestoreAddress';
 		this.firestoreid.getData(json);
@@ -63,8 +67,7 @@ export class FirestorelistelementComponent implements OnInit, AfterViewInit {
 				if (success == 'true') {
 					this.catalogobject = responsedata['dataset:simpcatobj'];
 					if (this.catalogobject != null) {
-						this.catalogjson = JSON.stringify(this.catalogobject);
-						this.objdisplay = true;
+						this.catalogview.setData(this.catalogobject);
 					} else {
 						alert('Result null');
 					}

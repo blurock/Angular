@@ -12,7 +12,7 @@ import { Ontologyconstants } from '../../const/ontologyconstants';
 })
 export class SavecatalogdataobjectComponent extends BaseCatalogInterface {
 	catalogobj: any;
-	public annoinfo: any;
+	public annoinfo = null;
 	annoReady = new EventEmitter<any>();
 
 	rdfslabel = Ontologyconstants.rdfslabel;

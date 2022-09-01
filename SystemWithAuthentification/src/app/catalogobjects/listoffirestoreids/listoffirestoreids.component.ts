@@ -14,6 +14,7 @@ export class ListoffirestoreidsComponent implements OnInit {
 
 	listofids = [];
 
+
 	@Input() annoinfo: any;
 	@Input() listtitle: string;
 

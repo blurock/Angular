@@ -43,6 +43,7 @@ export class DatasettransactioneventobjectComponent implements OnInit {
 	objtypeid: string;
 	transidid: string;
 	ownerid: string;
+	activityinfotype: any;
 
 	activityname = 'dataset:ActivityRepositoryInitialReadLocalFile';
 
@@ -110,9 +111,9 @@ export class DatasettransactioneventobjectComponent implements OnInit {
 	}
 
 	setTransaction($event: string): void {
-		const info = this.transanno[$event];
-		if (info != null) {
-			this.activityname = info['dcterms:source'];
+		this.activityinfotype = this.transanno[$event];
+		if (this.activityinfotype != null) {
+			this.activityname = this.activityinfotype['dcterms:source'];
 			this.transactionlabel = this.activityname;
 			if (this.activityname != null) {
 				this.activitydisplay = true;
