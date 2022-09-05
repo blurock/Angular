@@ -64,6 +64,7 @@ ngAfterViewInit(): void {
 				collectionidpair.get('DatasetIDLevel').setValue(pair[this.identifiers.DatasetIDLevel]);
 			}
 			this.display = true;
+			
 		}
 	}
 

@@ -54,7 +54,6 @@ export class ListoffirestoreidsComponent implements OnInit {
 		})
 
 		this.listofids.push(componentRef.instance);
-		componentRef.instance.setData(firestoreid);
 	}
 	resetLinkArray(): void {
 		let index = 0;

@@ -9,7 +9,7 @@ import { GeneralcatalogobjectvisualizationComponent } from '../../generalcatalog
 	templateUrl: './firestorelistelement.component.html',
 	styleUrls: ['./firestorelistelement.component.scss']
 })
-export class FirestorelistelementComponent implements OnInit, AfterViewInit {
+export class FirestorelistelementComponent implements OnInit {
 
 
 	@Input() anno: any;
@@ -37,11 +37,6 @@ export class FirestorelistelementComponent implements OnInit, AfterViewInit {
 	ngOnInit(): void {
 	}
 
-	ngAfterViewInit(): void {
-		if (this.catalogID != null) {
-			this.setData(this.catalogID);
-		}
-	}
 
 	setData(catalogID: any): void {
 		this.firestoreid.setData(catalogID);
