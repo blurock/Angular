@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
@@ -13,8 +13,9 @@ import { DatasetrepositoryfileComponent } from '../datasetrepositoryfile/dataset
 	styleUrls: ['./activityrepositoryinitialreadlocalfile.component.scss']
 })
 export class ActivityrepositoryinitialreadlocalfileComponent implements OnInit {
+	
+	@Input() annoinfo: any;
 
-	message: string;
 	catalogtype = 'dataset:ActivityRepositoryInitialReadLocalFile';
 	uploadfnotsuccessful = 'Upload of local file not successful';
 	rdfslabel = Ontologyconstants.rdfslabel;
@@ -22,8 +23,6 @@ export class ActivityrepositoryinitialreadlocalfileComponent implements OnInit {
 	identifier = Ontologyconstants.dctermsidentifier;
 
 	infoform: FormGroup;
-	catalogobj: any;
-	annoinfo: any;
 	maintainer: string;
 	dataimage = null;
 
@@ -45,23 +44,6 @@ export class ActivityrepositoryinitialreadlocalfileComponent implements OnInit {
 				alert(manageuser.errormaintainer);
 			}
 		});
-		this.message = 'Waiting for Info call';
-		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
-			next: (responsedata: any) => {
-				const response = responsedata;
-				this.message = response[Ontologyconstants.message];
-				if (response[Ontologyconstants.successful]) {
-					const catalog = response[Ontologyconstants.catalogobject];
-					this.catalogobj = catalog[Ontologyconstants.outputobject];
-					this.annoinfo = catalog[Ontologyconstants.annotations];
-				} else {
-					alert("Error: " + JSON.stringify(responsedata));
-					this.message = JSON.stringify(responsedata);
-				}
-			},
-			error: (info: any) => { alert('Get Annotations failed:' + this.message); }
-		});
-
 
 	}
 
@@ -99,15 +81,16 @@ export class ActivityrepositoryinitialreadlocalfileComponent implements OnInit {
 	}
 
 	getData(catalog: any): void {
-		const spec = this.infoform.get('FileSourceIdentifier').value;
-		catalog[this.annoinfo['dataset:FileSourceIdentifier'][this.identifier]] = spec;
+		const filesrcid = this.infoform.get('FileSourceIdentifier').value;
+		catalog[this.annoinfo['dataset:FileSourceIdentifier'][this.identifier]] = filesrcid;
 		this.reposfile.getData(catalog);
+		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
 	}
 	setData(catalog: any) {
-		const spec = catalog[this.annoinfo['dataset:FileSourceIdentifier'][this.identifier]];
-		this.infoform.get('Identifier').setValue(spec);
+		const filesrcid = catalog[this.annoinfo['dataset:FileSourceIdentifier'][this.identifier]];
+		this.infoform.get('Identifier').setValue(filesrcid);
 		this.infoform.patchValue({
-			FileSourceIdentifier: spec
+			FileSourceIdentifier: filesrcid
 		});
 		this.cd.detectChanges();
 		this.reposfile.setData(catalog);

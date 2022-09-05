@@ -1,74 +1,119 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
+import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
+import { DatasettransactionspecificationforcollectionComponent } from '../../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
 
 
 @Component({
-  selector: 'app-activityrepositorypartitiontocatalog',
-  templateUrl: './activityrepositorypartitiontocatalog.component.html',
-  styleUrls: ['./activityrepositorypartitiontocatalog.component.scss']
+	selector: 'app-activityrepositorypartitiontocatalog',
+	templateUrl: './activityrepositorypartitiontocatalog.component.html',
+	styleUrls: ['./activityrepositorypartitiontocatalog.component.scss']
 })
 export class ActivityrepositorypartitiontocatalogComponent implements OnInit {
-  
-  
-  parseinfoform: FormGroup;
-  	maintainer: string;
-  	message: string;
-	catalogobj: any;
+
+	@Input() annoinput: any;
+
+	parseinfoform: FormGroup;
+	maintainer: string;
+	//message: string;
+	//catalogobj: any;
+	//annoinfo: any;
+	//topdisplay = false;
+	rdfslabel = Ontologyconstants.rdfslabel;
+	rdfscomment = Ontologyconstants.rdfscomment;
+	identifier = Ontologyconstants.dctermsidentifier;
+	formatInformation: any;
+	filesourcetypechoices: string[];
+	showblkcnt = true;
+	
 	annoinfo: any;
-	topdisplay = false;
 
-  
-  	errormaintainer = 'Error in determining maintainer';
+	blkcntid = '';
+	descrtitleid = '';
+	formatid = '';
+	methodid = '';
+	specid = '';
+
+	errormaintainer = 'Error in determining maintainer';
+	getannofilefnotsuccessful = 'Error in retrieving File Format information';
+
+	@ViewChild('spec') spec: DatasettransactionspecificationforcollectionComponent;
 
 
-  constructor(
-    public annotations: OntologycatalogService,
-    manageuser: ManageuserserviceService,
-    private _formBuilder: FormBuilder
-  ) {
-    		this.parseinfoform = this._formBuilder.group({
-			BlockLineCount: ['1'],
+	constructor(
+		private uploadService: UploadmenuserviceService,
+		public annotations: OntologycatalogService,
+		manageuser: ManageuserserviceService,
+		private _formBuilder: FormBuilder
+	) {
+		this.parseinfoform = this._formBuilder.group({
+			BlockLineCount: ['not applicable'],
 			DescriptionTitle: ['', Validators.required],
 			FileSourceFormat: ['', Validators.required],
 			FilePartitionMethod: ['', Validators.required],
-			DatasetCollectionObjectType: ['', Validators.required],
 		});
-		
-				manageuser.determineMaintainer().subscribe(result => {
+
+		manageuser.determineMaintainer().subscribe(result => {
 			if (result != null) {
 				this.maintainer = result;
 			} else {
 				alert(this.errormaintainer);
 			}
 		});
+		this.uploadService.getFormatClassification().subscribe((data) => {
+			this.formatInformation = data;
+			this.filesourcetypechoices = Object.keys(data);
+			for (const element of Object.entries(data)) {
+				const key = element[0];
+			}
+		}, (error) => {
+			alert(this.getannofilefnotsuccessful);
+		})
 
-		const catalogtype = 'dataset:ActivityRepositoryPartitionToCatalog';
 
-		this.annotations.getNewCatalogObject(catalogtype).subscribe({
-			next: (responsedata: any) => {
-				this.message = 'got response';
-				this.message = responsedata;
-				const response = responsedata;
-				this.message = 'response JSON';
-				this.message = response[Ontologyconstants.message];
-				if (response[Ontologyconstants.successful]) {
-					const catalog = response[Ontologyconstants.catalogobject];
-					this.catalogobj = catalog[Ontologyconstants.outputobject];
-					this.annoinfo = catalog[Ontologyconstants.annotations];
-					this.topdisplay = true;
-				} else {
-					this.message = responsedata;
-				}
-			},
-			error: (info: any) => { alert('Get Annotations failed:' + this.message); }
-		});
+	}
 
-   }
+	ngOnInit(): void {
+    this.annoinfo = this.annoinput;
+	}
 
-  ngOnInit(): void {
-  }
+	setIDs() {
+		this.blkcntid = this.annoinfo['dataset:BlockLineCount'][this.identifier];
+		this.descrtitleid = this.annoinfo['dataset:DescriptionTitle'][this.identifier];
+		this.formatid = this.annoinfo['dataset:FileSourceFormat'][this.identifier];
+		this.methodid = this.annoinfo['dataset:FilePartitionMethod'][this.identifier];
+		this.specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];;
+	}
+
+	setData(activity: any): void {
+		this.setIDs()
+		this.parseinfoform.get('BlockLineCount').setValue(activity[this.blkcntid]);
+		this.parseinfoform.get('DescriptionTitle').setValue(activity[this.descrtitleid]);
+		this.parseinfoform.get('FileSourceFormat').setValue(activity[this.formatid]);
+		this.parseinfoform.get('FilePartitionMethod').setValue(activity[this.methodid]);
+		this.spec.setData(activity[this.specid]);
+	}
+	getData(activity: any): void {
+		this.setIDs();
+		activity[this.blkcntid] = this.parseinfoform.get('BlockLineCount').value;
+		activity[this.descrtitleid] = this.parseinfoform.get('DescriptionTitle').value;
+		activity[this.formatid] = this.parseinfoform.get('FileSourceFormat').value;
+		activity[this.methodid] = this.parseinfoform.get('FilePartitionMethod').value;
+		this.spec.getData(activity);
+	}
+
+	selectFileFormat($event): void {
+		this.parseinfoform.get('FilePartitionMethod').setValue(this.formatInformation[$event]['dataset:partitionMethod']);
+		const blkcnt = this.formatInformation[$event]['dataset:blocklinecount'];
+		if (blkcnt.length > 0) {
+			this.showblkcnt = true;
+		} else {
+			this.showblkcnt = false;
+		}
+		this.parseinfoform.get('BlockLineCount').setValue(blkcnt);
+	}
 
 }

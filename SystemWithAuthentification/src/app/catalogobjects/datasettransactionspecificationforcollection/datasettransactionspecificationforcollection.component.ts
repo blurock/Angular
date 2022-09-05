@@ -44,7 +44,6 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 			SimpleCatalogName: ['', Validators.required],
 			CatalogDataObjectStatus: ['', Validators.required]
 		});
-
 		manageuser.determineMaintainer().subscribe(result => {
 			if (result != null) {
 				this.maintainer = result;
@@ -56,7 +55,6 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 
 	ngOnInit(): void {
 		this.items = this.menusetup.findChoices(this.annoinfo, this.statusitems);
-		
 	}
 
 	public getData(catalog: any): void {

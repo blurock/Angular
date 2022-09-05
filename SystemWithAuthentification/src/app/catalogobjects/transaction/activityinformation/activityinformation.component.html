@@ -8,8 +8,13 @@
 		</mat-card-subtitle>
 	</mat-card-header>
 	<mat-card-content>
-		<ng-container *ngIf='activityname =="dataset:ActivityRepositoryInitialReadLocalFile";'>
-			<app-activityrepositoryinitialreadlocalfile #readlocal></app-activityrepositoryinitialreadlocalfile>
+		<ng-container *ngIf='display;'>
+			<ng-container *ngIf='activityname == "dataset:ActivityRepositoryInitialReadLocalFile";'>
+				<app-activityrepositoryinitialreadlocalfile #readlocal [(annoinfo)]="annoinfo"></app-activityrepositoryinitialreadlocalfile>
+			</ng-container>
+			<ng-container *ngIf='activityname == "dataset:ActivityRepositoryPartitionToCatalog";'>
+				<app-activityrepositorypartitiontocatalog #partition [(annoinput)]="annoinfo"></app-activityrepositorypartitiontocatalog>
+			</ng-container>
 		</ng-container>
 	</mat-card-content>
 </mat-card>

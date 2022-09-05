@@ -42,14 +42,6 @@
 							<mat-hint>{{annoinfo['dataset:DatasetVersion'][rdfscomment]}}</mat-hint>
 						</mat-form-field>
 					</mat-grid-tile>
-					<mat-grid-tile [colspan]="6">
-						<mat-form-field class="cname">
-							<mat-label>{{annoinfo['dataset:SimpleCatalogName'][rdfslabel]}}</mat-label>
-							<input matInput formControlName="SimpleCatalogName" placeholder="1.0">
-							<mat-hint>{{annoinfo['dataset:SimpleCatalogName'][rdfscomment]}}</mat-hint>
-						</mat-form-field>
-					</mat-grid-tile>
-					
 				</mat-grid-list>
 			</ng-container>
 			<ng-template #waiting>

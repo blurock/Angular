@@ -1,4 +1,4 @@
-<ng-container *ngIf='annoinfo != null; else loading'>
+<ng-container *ngIf='annoinfo != null;'>
 	<mat-grid-list cols="6" rowHeight="100px">
 		<form [formGroup]="infoform">
 			<mat-grid-tile [colspan]="1">
@@ -26,9 +26,5 @@
 	</mat-grid-list>
 	<app-datasetrepositoryfile #reposfile [(annoinfo)]="annoinfo" [(maintainer)]="maintainer">
 	</app-datasetrepositoryfile>
+			<app-datasettransactionspecificationforcollection #spec [(annoinfo)]="annoinfo"></app-datasettransactionspecificationforcollection>
 </ng-container>
-<ng-template #loading>
-	<div>
-		Activity:{{message}}
-	</div>
-</ng-template>
