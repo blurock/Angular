@@ -451,7 +451,7 @@ public enum TransactionProcess {
 
 	abstract String transactionObjectName();
 
-	public static JsonObject processFromTransaction(String transaction, JsonObject prerequisites, JsonObject info) {
+	public static JsonObject processFromTransaction(String transaction, JsonObject prerequisites, JsonArray prerequisitelist, JsonObject info) {
 		Document document = MessageConstructor.startDocument("Transaction: " + transaction);
 		String transname = transaction.substring(8);
 		TransactionProcess process = TransactionProcess.valueOf(transname);
@@ -471,11 +471,15 @@ public enum TransactionProcess {
 
 			JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 			if (arr.size() > 0) {
-				JsonObject catalog = arr.get(0).getAsJsonObject();
+ 				JsonObject catalog = arr.get(0).getAsJsonObject();
 		        shortdescr.addProperty(ClassLabelConstants.TransactionKey, process.transactionKey(catalog));
 				JsonArray output = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 				GenerateTransactionEventObject.addDatabaseObjectIDOutputTransaction(event, output);
+
+                event.add(ClassLabelConstants.RequiredTransactionIDAndType, prerequisitelist);
+                 
 				WriteFirestoreCatalogObject.writeCatalogObject(event);
+               
 				String message = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 				MessageConstructor.combineBodyIntoDocument(document, message);
 				response.add(ClassLabelConstants.TransactionEventObject, event);
@@ -518,10 +522,10 @@ public enum TransactionProcess {
 		String transaction = json.get(ClassLabelConstants.TransactionEventType).getAsString();
 		// Dataset transaction events (subclass of DatabaseTransactionEvent), then can
 		// be filled in automatically
-		fillInDatasetPrerequisites(transaction, json);
+		JsonArray prerequisitelist = fillInDatasetPrerequisites(transaction, json);
 		JsonObject prerequisites = getPrerequisiteObjects(json);
 		JsonObject info = json.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
-		return processFromTransaction(transaction, prerequisites, info);
+		return processFromTransaction(transaction, prerequisites, prerequisitelist, info);
 	}
 
 	/**
@@ -607,7 +611,7 @@ public enum TransactionProcess {
 	 * 
 	 * 
 	 */
-	public static void fillInDatasetPrerequisites(String eventtype, JsonObject json) {
+	public static JsonArray fillInDatasetPrerequisites(String eventtype, JsonObject json) {
 		// Get Activity info of the input
 		JsonObject info = json.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
 		// Get prequisites, if not there, create prerequisites object
@@ -622,6 +626,7 @@ public enum TransactionProcess {
 		List<String> prerequisitenames = OntologyUtilityRoutines.exactlyOnePropertyMultiple(eventtype,
 				OntologyObjectLabels.requires);
 		// Loop through each prerequisite
+		JsonArray prerequisitelist = new JsonArray();
 		for (String name : prerequisitenames) {
 			String label = DatasetOntologyParseBase.getIDFromAnnotation(name);
 			// If the prerequisite has not been filled in yet, find it and add it in.
@@ -629,12 +634,13 @@ public enum TransactionProcess {
 				JsonObject transaction = FindTransactions.findDatasetTransaction(info, name, true);
 				if (transaction != null) {
 					JsonObject firebaseid = transaction.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+					prerequisitelist.add(firebaseid);
 					prerequisites.add(label, firebaseid);
 				} else {
 					System.out.println("No transaction found");
 				}
 			}
 		}
-
+		return prerequisitelist;
 	}
 }
