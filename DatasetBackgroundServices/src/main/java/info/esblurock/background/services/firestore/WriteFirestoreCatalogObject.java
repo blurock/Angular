@@ -39,17 +39,26 @@ public class WriteFirestoreCatalogObject {
 		Type type = new TypeToken<HashMap<String, Object>>() {
 		}.getType();
 		Map<String, Object> mapObj = new Gson().fromJson(catalog, type);
-		ApiFuture<WriteResult> result = docRef.set(mapObj);
+		ApiFuture<WriteResult> result =  null;
 		Timestamp time = null;
 		try {
-			time = result.get().getUpdateTime();
-			String catid = firestorecatalogid.get(ClassLabelConstants.DataCatalog).getAsString();
-			String id = firestorecatalogid.get(ClassLabelConstants.SimpleCatalogName).getAsString();
+		      result = docRef.set(mapObj);
+		        try {
+		            time = result.get().getUpdateTime();
+		            String catid = firestorecatalogid.get(ClassLabelConstants.DataCatalog).getAsString();
+		            String id = firestorecatalogid.get(ClassLabelConstants.SimpleCatalogName).getAsString();
 
-			message += catid + ": " + id + "(" + time.toString() + ")\n";
-		} catch (InterruptedException | ExecutionException e) {
-			message = "Catalog write to database failed: \n" + e.getMessage() + "\n";
+		            message += catid + ": " + id + "(" + time.toString() + ")\n";
+		        } catch (InterruptedException | ExecutionException e) {
+		            message = "Catalog write to database failed: \n" + e.getMessage() + "\n";
+		        }
+
+		} catch(Exception ex) {
+		    message = "Failed write: " + ex.getMessage() + "\n";
 		}
+		
+		
+		
 		return message;
 	}
 }

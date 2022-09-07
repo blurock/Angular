@@ -56,12 +56,16 @@ export class RepositoryparsedtofixedblocksizeComponent implements OnInit {
 
 	public setData(catalog: any) {
 		const cntid = this.annoinfo['dataset:BlockLineCount'][this.identifier];
+		alert("RepositoryparsedtofixedblocksizeComponent: "  + cntid);
+		alert("RepositoryparsedtofixedblocksizeComponent: "  + catalog[cntid]);
 		this.objectform.get('BlockLineCount').setValue(catalog[cntid]);
 		const lnsid = this.annoinfo['dataset:ParsedLine'][this.identifier];
 		const lines = catalog[lnsid];
-		let text = "\n";
+		let text = "";
 		for (let line of lines) {
-			text.concat(line).concat('\n');
+			alert(line);
+			alert(text);
+			text = text.concat(line).concat('\n');
 		}
 		this.objectform.get('ParsedLine').setValue(text);
 		this.partition.setData(catalog);
