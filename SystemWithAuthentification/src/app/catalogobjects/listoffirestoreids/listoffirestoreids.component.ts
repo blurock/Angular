@@ -74,7 +74,7 @@ export class ListoffirestoreidsComponent implements OnInit {
 		for (const firestoreid of this.listofids) {
       		const fire = {};
       		firestoreid.getData(fire);
-			firestoreids.push(fire);
+			firestoreids.push(fire[this.identifiers.FirestoreCatalogID]);
 		}
 	}
 }

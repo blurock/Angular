@@ -41,6 +41,10 @@ export class FirestorelistelementComponent implements OnInit {
 	setData(catalogID: any): void {
 		this.firestoreid.setData(catalogID);
 	}
+	
+	getData(catalog: any): void {
+		this.firestoreid.getData(catalog);
+		}
 
 	public setIndex(index: number): void {
 		this.index = index;
