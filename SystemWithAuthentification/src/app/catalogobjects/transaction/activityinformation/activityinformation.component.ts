@@ -3,6 +3,7 @@ import { ActivityrepositoryinitialreadlocalfileComponent } from '../../activity/
 import { ActivityrepositorypartitiontocatalogComponent } from '../../activity/repository/activityrepositorypartitiontocatalog/activityrepositorypartitiontocatalog.component';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
+import { ActivityinformationinterpretdisassociationenergyComponent } from '../../activity/repository/activityinformationinterpretdisassociationenergy/activityinformationinterpretdisassociationenergy.component';
 
 @Component({
 	selector: 'app-activityinformation',
@@ -24,6 +25,7 @@ export class ActivityinformationComponent implements OnInit {
 
 	@ViewChild('readlocal') readlocal: ActivityrepositoryinitialreadlocalfileComponent;
 	@ViewChild('partition') partition: ActivityrepositorypartitiontocatalogComponent;
+	@ViewChild('disassociation') disassociation: ActivityinformationinterpretdisassociationenergyComponent;
 
 	constructor(
 		public annotations: OntologycatalogService
@@ -49,7 +51,11 @@ export class ActivityinformationComponent implements OnInit {
 				this.readlocal.getData(activity);
 			} else if (this.activityname == 'dataset:ActivityRepositoryPartitionToCatalog') {
 				this.partition.getData(activity);
-			} else {
+			} else if (this.activityname == 'dataset:ActivityInformationInterpretDisassociationEnergy') {
+				this.disassociation.getData(activity);
+			}
+			
+			else {
 				alert('Not known activity information: ' + this.activityname);
 			}
 		}
@@ -61,6 +67,8 @@ export class ActivityinformationComponent implements OnInit {
 			this.readlocal.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityRepositoryPartitionToCatalog') {
 			this.partition.setData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationInterpretDisassociationEnergy') {
+				this.disassociation.getData(activity);
 		} else {
 			alert('Not known activity information: ' + this.activityname);
 		}

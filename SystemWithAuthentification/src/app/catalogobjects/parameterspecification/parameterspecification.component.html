@@ -1,0 +1,61 @@
+<mat-card class="card">
+	<mat-card-header>
+		<mat-card-title-group class="title-group">
+			<mat-card-subtitle class="title">{{title}}</mat-card-subtitle>
+		</mat-card-title-group>
+	</mat-card-header>
+	<mat-card-content>
+<form [formGroup]="paramspecform" class="infoform">
+	<mat-grid-list cols="6" rowHeight="75px" class="unitset">
+	
+		<mat-grid-tile [colspan]="2" background="lightgray">
+			<mat-form-field class="label">
+				<mat-label>{{annoinfo['dataset:ParameterLabel'][rdfslabel]}}</mat-label>
+				<input matInput formControlName="ParameterLabel">
+				<mat-hint>{{annoinfo['dataset:ParameterLabel'][rdfscomment]}}</mat-hint>
+			</mat-form-field>
+		</mat-grid-tile>
+
+		<mat-grid-tile [colspan]="2" background="lightgray">
+			<mat-form-field class="label">
+				<mat-label>{{annoinfo['dataset:UnitsOfValue'][rdfslabel]}}</mat-label>
+				<mat-select formControlName="UnitsOfValue">
+					<mat-option *ngFor="let choice of unitsarray" [value]="choice">{{choice}}</mat-option>
+				</mat-select>
+				<mat-hint>{{annoinfo['dataset:UnitsOfValue'][rdfscomment]}}</mat-hint>
+			</mat-form-field>
+		</mat-grid-tile>
+
+		<mat-grid-tile [colspan]="2" background="lightgray">
+			<mat-form-field class="label">
+				<mat-label>{{annoinfo['dataset:DataPointUncertainty'][rdfslabel]}}</mat-label>
+											<input matInput formControlName="DataPointUncertainty"
+								[matMenuTriggerFor]="menu.childMenu">
+				<mat-hint>{{annoinfo['dataset:DataPointUncertainty'][rdfscomment]}}</mat-hint>
+          <app-menu-item #menu [items]="items" (selectionEvent)="setUncertainty($event)"></app-menu-item>
+			</mat-form-field>
+		</mat-grid-tile>
+
+		<mat-grid-tile [colspan]="3" background="lightgray">
+			<mat-form-field class="label">
+				<mat-label>{{annoinfo['dataset:UnitClass'][rdfslabel]}}</mat-label>
+				<input matInput formControlName="UnitClass">
+				<mat-hint>{{annoinfo['dataset:UnitClass'][rdfscomment]}}</mat-hint>
+			</mat-form-field>
+		</mat-grid-tile>
+
+		<mat-grid-tile [colspan]="3" background="lightgray">
+			<mat-form-field class="label">
+				<mat-label>{{annoinfo['dataset:ParameterTypeSpecification'][rdfslabel]}}</mat-label>
+				<input matInput formControlName="ParameterTypeSpecification">
+				<mat-hint>{{annoinfo['dataset:ParameterTypeSpecification'][rdfscomment]}}</mat-hint>
+			</mat-form-field>
+		</mat-grid-tile>
+		
+
+	</mat-grid-list>
+
+
+</form>
+	</mat-card-content>
+</mat-card>

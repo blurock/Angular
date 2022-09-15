@@ -18,6 +18,23 @@ export class OntologycatalogService {
 	constructor(private readonly snackBar: MatSnackBar,
 		private httpClient: HttpClient) {
 	}
+	
+		PARAMETERDEFINITIONS = {
+		'dataset:ParameterSpecificationHDisassociationEnergy': {
+			'qudt:QuantityKind': 'quantitykind:MolarEnergy',
+			'dataset:dynamicType': 'FixedParameter',
+			'skos:prefLabel': 'MolarEnergy',
+			'qudt:Unit': ['unit:KiloCAL-PER-MOL', 'unit:KiloJ-PER-MOL', 'dataset:CAL-PER-MOL', 'unit:J-PER-MOL']
+		}
+	}
+	public getParameterSet(choices: string[]): Observable<any> {
+		const set = {};
+		for(let choice of choices) {
+			set[choice] = this.PARAMETERDEFINITIONS[choice];
+		}
+		return of(set);
+	}
+
 
 
 	public getAnnotationsFromID(id: string): Observable<any> {

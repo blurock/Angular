@@ -12,6 +12,7 @@ public class ParseCompoundObject {
 	static String recordtype = "<http://www.w3.org/ns/dcat#record>";
 	static String hasPartttype = "<http://purl.org/dc/terms/hasPart>";
 	static String compoundclass = "dataset:ChemConnectCompoundBase";
+	static String compoundexpclass = "dataset:ChemConnectCompoundExpData";
 	static String classificationtype = "dataset:Classification";
 
 	public static CompoundObjectDimensionSet getCompoundElements(String classname) {
@@ -38,7 +39,8 @@ public class ParseCompoundObject {
 		
 		for(Map<String, String> map : stringlst) {
 			String elementType = map.get("record");
-			boolean compoundobject = OntologyUtilityRoutines.isSubClassOf(elementType, compoundclass, false);
+			//boolean compoundobject = OntologyUtilityRoutines.isSubClassOf(elementType, compoundclass, false);
+			boolean compoundobject = isCompoundObject(elementType);
 			String cardinalityS = map.get("cardinality");
 			boolean singlet = true;
 			int cardinality = 0;
@@ -56,5 +58,11 @@ public class ParseCompoundObject {
 					cardinalityS, singlet,compoundobject, classification);
 			set.add(info);
 		}
+	}
+	
+	private static boolean isCompoundObject(String elementType) {
+        boolean compoundbaseobject = OntologyUtilityRoutines.isSubClassOf(elementType, compoundclass, false);
+        boolean compoundexpobject = OntologyUtilityRoutines.isSubClassOf(elementType, compoundexpclass, false);
+        return compoundbaseobject || compoundexpobject;
 	}
 }

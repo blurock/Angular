@@ -15,6 +15,10 @@
 			<ng-container *ngIf='activityname == "dataset:ActivityRepositoryPartitionToCatalog";'>
 				<app-activityrepositorypartitiontocatalog #partition [(annoinput)]="annoinfo"></app-activityrepositorypartitiontocatalog>
 			</ng-container>
+			<ng-container *ngIf='activityname == "dataset:ActivityInformationInterpretDisassociationEnergy";'>
+				<app-activityinformationinterpretdisassociationenergy #disassociation [(annoinfo)]="annoinfo"></app-activityinformationinterpretdisassociationenergy>
+			</ng-container>
+			
 		</ng-container>
 	</mat-card-content>
 </mat-card>

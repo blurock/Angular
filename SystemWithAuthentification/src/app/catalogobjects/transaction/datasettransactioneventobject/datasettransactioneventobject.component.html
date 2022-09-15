@@ -8,64 +8,80 @@
 		<ng-container *ngIf='display; else loading'>
 			<div>
 				<form [formGroup]="objectform">
-				<mat-grid-list cols="6" rowHeight="100px">
-				<mat-grid-tile [colspan]="6">
-					<mat-form-field class="namefield">
-						<mat-label>{{annoinfo['dataset:DataTypeComment'][rdfslabel]}}</mat-label>
-						<input matInput formControlName="DataTypeComment" class="namefield">
-						<mat-hint>{{annoinfo['dataset:DataTypeComment'][rdfscomment]}}</mat-hint>
-					</mat-form-field>
-				</mat-grid-tile>
-				<mat-grid-tile [colspan]="2">
-					<mat-form-field class="namefield">
-						<mat-label>{{annoinfo['dataset:TransactionEventType'][rdfslabel]}}</mat-label>
-						<input matInput formControlName="TransactionEventType" class="namefield" [readonly]="true">
-						<mat-hint>{{annoinfo['dataset:TransactionEventType'][rdfscomment]}}</mat-hint>
-					</mat-form-field>
-				</mat-grid-tile>
-				<mat-grid-tile [colspan]="2">
-					<mat-form-field class="namefield">
-						<mat-label>{{annoinfo['dataset:TransactionKey'][rdfslabel]}}</mat-label>
-						<input matInput formControlName="TransactionKey" class="namefield" [readonly]="true">
-						<mat-hint>{{annoinfo['dataset:TransactionKey'][rdfscomment]}}</mat-hint>
-					</mat-form-field>
-				</mat-grid-tile>
-				<mat-grid-tile [colspan]="2">
-					<mat-form-field class="namefield">
-						<mat-label>{{annoinfo['dataset:DatabaseObjectType'][rdfslabel]}}</mat-label>
-						<input matInput formControlName="DatabaseObjectType" class="namefield" [readonly]="true">
-						<mat-hint>{{annoinfo['dataset:DatabaseObjectType'][rdfscomment]}}</mat-hint>
-					</mat-form-field>
-				</mat-grid-tile>
-				<mat-grid-tile [colspan]="2">
-					<mat-form-field class="namefield">
-						<mat-label>{{annoinfo['dataset:CatalogObjectOwner'][rdfslabel]}}</mat-label>
-						<input matInput formControlName="CatalogObjectOwner" class="namefield" [readonly]="true">
-						<mat-hint>{{annoinfo['dataset:CatalogObjectOwner'][rdfscomment]}}</mat-hint>
-					</mat-form-field>
-				</mat-grid-tile>
-				<mat-grid-tile [colspan]="4">
-					<mat-form-field class="namefield">
-						<mat-label>{{annoinfo['dataset:TransactionID'][rdfslabel]}}</mat-label>
-						<input matInput formControlName="TransactionID" class="namefield" [readonly]="true">
-						<mat-hint>{{annoinfo['dataset:TransactionID'][rdfscomment]}}</mat-hint>
-					</mat-form-field>
-				</mat-grid-tile>
-				</mat-grid-list>
+					<mat-grid-list cols="6" rowHeight="100px">
+						<mat-grid-tile [colspan]="6">
+							<mat-form-field class="namefield">
+								<mat-label>{{annoinfo['dataset:DataTypeComment'][rdfslabel]}}</mat-label>
+								<input matInput formControlName="DataTypeComment" class="namefield">
+								<mat-hint>{{annoinfo['dataset:DataTypeComment'][rdfscomment]}}</mat-hint>
+							</mat-form-field>
+						</mat-grid-tile>
+						<mat-grid-tile [colspan]="2">
+							<mat-form-field class="namefield">
+								<mat-label>{{annoinfo['dataset:TransactionEventType'][rdfslabel]}}</mat-label>
+								<input matInput formControlName="TransactionEventType" class="namefield"
+									[readonly]="true">
+								<mat-hint>{{annoinfo['dataset:TransactionEventType'][rdfscomment]}}</mat-hint>
+							</mat-form-field>
+						</mat-grid-tile>
+						<mat-grid-tile [colspan]="2">
+							<mat-form-field class="namefield">
+								<mat-label>{{annoinfo['dataset:TransactionKey'][rdfslabel]}}</mat-label>
+								<input matInput formControlName="TransactionKey" class="namefield" [readonly]="true">
+								<mat-hint>{{annoinfo['dataset:TransactionKey'][rdfscomment]}}</mat-hint>
+							</mat-form-field>
+						</mat-grid-tile>
+						<mat-grid-tile [colspan]="2">
+							<mat-form-field class="namefield">
+								<mat-label>{{annoinfo['dataset:DatabaseObjectType'][rdfslabel]}}</mat-label>
+								<input matInput formControlName="DatabaseObjectType" class="namefield"
+									[readonly]="true">
+								<mat-hint>{{annoinfo['dataset:DatabaseObjectType'][rdfscomment]}}</mat-hint>
+							</mat-form-field>
+						</mat-grid-tile>
+						<mat-grid-tile [colspan]="2">
+							<mat-form-field class="namefield">
+								<mat-label>{{annoinfo['dataset:CatalogObjectOwner'][rdfslabel]}}</mat-label>
+								<input matInput formControlName="CatalogObjectOwner" class="namefield"
+									[readonly]="true">
+								<mat-hint>{{annoinfo['dataset:CatalogObjectOwner'][rdfscomment]}}</mat-hint>
+							</mat-form-field>
+						</mat-grid-tile>
+						<mat-grid-tile [colspan]="4">
+							<mat-form-field class="namefield">
+								<mat-label>{{annoinfo['dataset:TransactionID'][rdfslabel]}}</mat-label>
+								<input matInput formControlName="TransactionID" class="namefield" [readonly]="true">
+								<mat-hint>{{annoinfo['dataset:TransactionID'][rdfscomment]}}</mat-hint>
+							</mat-form-field>
+						</mat-grid-tile>
+					</mat-grid-list>
 				</form>
 			</div>
-		<ng-container *ngIf='displaytransactions;'>
-			<button mat-menu-item color="primary" [matMenuTriggerFor]="menu.childMenu">
-               <span>{{transactionlabel}}</span>
-            </button>
-			<app-menu-item #menu [items]="items" (selectionEvent)="setTransaction($event)"></app-menu-item>
-		</ng-container>
-       <ng-container *ngIf='activitydisplay;'>
-			<app-activityinformation #activity [activityname]="activityname"></app-activityinformation>
-        </ng-container>
-        <app-listoffirestoreids #outputobjects [(annoinfo)]="annoinfo" [(listtitle)]="outputtransactions"></app-listoffirestoreids>
-        <app-listoffirestoreids #requiredobjects [(annoinfo)]="annoinfo" [(listtitle)]="inputtransactions"></app-listoffirestoreids>
-			<app-datasettransactionspecificationforcollection #spec [(annoinfo)]="annoinfo"></app-datasettransactionspecificationforcollection>
+			<ng-container *ngIf='displaytransactions; else loadingchoices'>
+				<button mat-menu-item color="primary" [matMenuTriggerFor]="menu.childMenu">
+					<span>{{transactionlabel}}</span>
+				</button>
+				<app-menu-item #menu [items]="items" (selectionEvent)="setTransaction($event)"></app-menu-item>
+			</ng-container>
+			<ng-template #loadingchoices>
+				<div>
+					Loading Transaction Choices
+				</div>
+			</ng-template>
+			<ng-container *ngIf='activitydisplay; else loadingactivity'>
+				<app-activityinformation #activity [activityname]="activityname"></app-activityinformation>
+			</ng-container>
+			<ng-template #loadingactivity>
+				<div>
+					Loading Activity
+				</div>
+			</ng-template>
+			<app-listoffirestoreids #outputobjects [(annoinfo)]="annoinfo" [(listtitle)]="outputtransactions">
+			</app-listoffirestoreids>
+			<app-listoffirestoreids #requiredobjects [(annoinfo)]="annoinfo" [(listtitle)]="inputtransactions">
+			</app-listoffirestoreids>
+			<app-datasettransactionspecificationforcollection #spec [(annoinfo)]="annoinfo">
+			</app-datasettransactionspecificationforcollection>
 			<app-firesytorecatalogid #firestoreid [(anno)]="annoinfo"></app-firesytorecatalogid>
 		</ng-container>
 		<ng-template #loading>

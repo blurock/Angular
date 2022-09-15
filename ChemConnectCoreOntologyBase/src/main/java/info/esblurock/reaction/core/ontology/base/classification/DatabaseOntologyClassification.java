@@ -33,6 +33,9 @@ public class DatabaseOntologyClassification {
 
 	public static JsonObject classificationTreeFromDataType(String datatype) {
 		String choices = DatasetOntologyParseBase.getAnnotationObject(datatype, AnnotationObjectsLabels.isDefinedBy);
+		if(choices.length() == 0) {
+		    choices = "dataset:NoChoices";
+		}
 		return classificationTreeFromChoices(choices);
 	}
 	public static JsonObject classificationTreeFromChoices(String choices) {

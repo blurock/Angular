@@ -6,6 +6,7 @@ import { Observable, of } from 'rxjs';
 	providedIn: 'root'
 })
 export class UploadmenuserviceService {
+	
 
 	DATATYPES = {
 		'dataset:JThermodynamicsVibrationalModes': {
@@ -159,5 +160,7 @@ export class UploadmenuserviceService {
 	public getTitleChoices(): Observable<any> {
 		return of(this.TITLES);
 	}
+	
+	
 
 }

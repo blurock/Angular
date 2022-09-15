@@ -194,12 +194,9 @@ export class DatasettransactioneventobjectComponent implements OnInit {
 		const act = {};
 		catalog[this.activityid] = act;
 		this.activity.getData(act);
-	alert("DatasettransactioneventobjectComponent: getData() 6");
-		
 		const out = [];
 		catalog['dataset:transoutobjid'] = out;
 		this.outputobjects.getData(out);
-	alert("DatasettransactioneventobjectComponent: getData() 7");
 	}
 
 	public setData(catalog: any): void {

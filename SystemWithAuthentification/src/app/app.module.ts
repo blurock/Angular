@@ -129,6 +129,8 @@ import { ListoffirestoreidsComponent } from './catalogobjects/listoffirestoreids
 import { ActivityrepositorypartitiontocatalogComponent } from './catalogobjects/activity/repository/activityrepositorypartitiontocatalog/activityrepositorypartitiontocatalog.component';
 import { FirestorelistelementComponent } from './catalogobjects/listoffirestoreids/firestorelistelement/firestorelistelement.component';
 import { GeneralcatalogobjectvisualizationComponent } from './catalogobjects/generalcatalogobjectvisualization/generalcatalogobjectvisualization.component';
+import { ActivityinformationinterpretdisassociationenergyComponent } from './catalogobjects/activity/repository/activityinformationinterpretdisassociationenergy/activityinformationinterpretdisassociationenergy.component';
+import { ParameterspecificationComponent } from './catalogobjects/parameterspecification/parameterspecification.component';
 
 
 
@@ -213,7 +215,9 @@ import { GeneralcatalogobjectvisualizationComponent } from './catalogobjects/gen
   ListoffirestoreidsComponent,
   ActivityrepositorypartitiontocatalogComponent,
   FirestorelistelementComponent,
-  GeneralcatalogobjectvisualizationComponent
+  GeneralcatalogobjectvisualizationComponent,
+  ActivityinformationinterpretdisassociationenergyComponent,
+  ParameterspecificationComponent
 	],
 	imports: [
 		AppFirebaseModule,

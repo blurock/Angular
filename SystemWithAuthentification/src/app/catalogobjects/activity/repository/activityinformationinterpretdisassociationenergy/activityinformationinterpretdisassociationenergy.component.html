@@ -1,0 +1,60 @@
+<mat-card class="card">
+	<mat-card-header>
+		<mat-card-title-group class="title-group">
+			<mat-card-subtitle class="title">{{title}}</mat-card-subtitle>
+		</mat-card-title-group>
+	</mat-card-header>
+	<mat-card-content>
+		<ng-container *ngIf='annoinfo != null; else loading'>
+			<form [formGroup]="objectform" class="infoform">
+				<mat-grid-list cols="6" rowHeight="100px">
+
+					<mat-grid-tile [colspan]="6">
+						<mat-form-field class="title">
+							<mat-label>{{annoinfo['dataset:DescriptionTitle'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="DescriptionTitle">
+							<mat-hint>{{annoinfo['dataset:DescriptionTitle'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+
+					<mat-grid-tile [colspan]="3">
+						<mat-form-field class="title">
+							<mat-label>{{annoinfo['dataset:FileSourceFormat'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="FileSourceFormat">
+							<mat-hint>{{annoinfo['dataset:FileSourceFormat'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+
+					<mat-grid-tile [colspan]="3">
+						<mat-form-field class="title">
+							<mat-label>{{annoinfo['dataset:BlockInterpretationMethod'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="BlockInterpretationMethod">
+							<mat-hint>{{annoinfo['dataset:BlockInterpretationMethod'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+
+				</mat-grid-list>
+			</form>
+
+			<ng-container *ngIf='display; else specdisplayoff'>
+
+				<app-parameterspecification #paramspec [(annoinfo)]="annoinfo" [(parameterinfo)]="molarenergy">
+				</app-parameterspecification>
+
+				<app-datasettransactionspecificationforcollection #spec [(annoinfo)]="annoinfo">
+				</app-datasettransactionspecificationforcollection>
+			</ng-container>
+			<ng-template #specdisplayoff>
+				<div>
+					Specifification display disabled
+				</div>
+			</ng-template>
+
+		</ng-container>
+		<ng-template #loading>
+			<div>
+				Loading Activity information
+			</div>
+		</ng-template>
+	</mat-card-content>
+</mat-card>
