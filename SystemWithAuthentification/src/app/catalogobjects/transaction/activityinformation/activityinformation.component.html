@@ -18,6 +18,15 @@
 			<ng-container *ngIf='activityname == "dataset:ActivityInformationInterpretDisassociationEnergy";'>
 				<app-activityinformationinterpretdisassociationenergy #disassociation [(annoinfo)]="annoinfo"></app-activityinformationinterpretdisassociationenergy>
 			</ng-container>
+			<ng-container *ngIf='activityname == "dataset:ActivityInformationInterpretBensonRuleData";'>
+				<app-activityinformationinterpretthermodynamicblock #benson [(annoinfo)]="annoinfo" [(fileformat)]='bensonformat'></app-activityinformationinterpretthermodynamicblock>
+			</ng-container>
+			<ng-container *ngIf='activityname == "dataset:ActivityInformationInterpretSubstructureThermodynamics";'>
+				<app-activityinformationinterpretthermodynamicblock #structure [(annoinfo)]="annoinfo" [(fileformat)]='structureformat'></app-activityinformationinterpretthermodynamicblock>
+			</ng-container>
+			<ng-container *ngIf='activityname == "dataset:ActivityInformationMolecularThermodynamics";'>
+				<app-activityinformationinterpretthermodynamicblock #species [(annoinfo)]="annoinfo" [(fileformat)]='speciesformat'></app-activityinformationinterpretthermodynamicblock>
+			</ng-container>
 			
 		</ng-container>
 	</mat-card-content>

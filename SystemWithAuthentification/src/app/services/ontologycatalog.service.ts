@@ -25,6 +25,24 @@ export class OntologycatalogService {
 			'dataset:dynamicType': 'FixedParameter',
 			'skos:prefLabel': 'MolarEnergy',
 			'qudt:Unit': ['unit:KiloCAL-PER-MOL', 'unit:KiloJ-PER-MOL', 'dataset:CAL-PER-MOL', 'unit:J-PER-MOL']
+		},
+		'dataset:ParameterSpecificationEnthaply': {
+			'qudt:QuantityKind': 'quantitykind:MolarEnergy',
+			'dataset:dynamicType': 'FixedParameter',
+			'skos:prefLabel': 'MolarEnergy',
+			'qudt:Unit': ['unit:KiloCAL-PER-MOL', 'unit:KiloJ-PER-MOL', 'dataset:CAL-PER-MOL', 'unit:J-PER-MOL']
+		},
+		'dataset:ParameterSpecificationEntropy': {
+			'qudt:QuantityKind': 'quantitykind:MolarEntropy',
+			'dataset:dynamicType': 'FixedParameter',
+			'skos:prefLabel': 'MolarEntropy',
+			'qudt:Unit': ['unit:J-PER-MOL-K', 'dataset:CAL-PER-MOL-K']
+		},
+		'dataset:ParameterSpecificationHeatCapacity': {
+			'qudt:QuantityKind': 'quantitykind:MolarHeatCapacity',
+			'dataset:dynamicType': 'FixedParameter',
+			'skos:prefLabel': 'MolarHeatCapacity',
+			'qudt:Unit': ['unit:J-PER-MOL-K', 'dataset:CAL-PER-MOL-K']
 		}
 	}
 	public getParameterSet(choices: string[]): Observable<any> {

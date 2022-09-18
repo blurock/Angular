@@ -4,7 +4,7 @@ import { ActivityrepositorypartitiontocatalogComponent } from '../../activity/re
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { ActivityinformationinterpretdisassociationenergyComponent } from '../../activity/repository/activityinformationinterpretdisassociationenergy/activityinformationinterpretdisassociationenergy.component';
-
+import {ActivityinformationinterpretthermodynamicblockComponent} from '../../activity/repository/activityinformationinterpretthermodynamicblock/activityinformationinterpretthermodynamicblock.component';
 @Component({
 	selector: 'app-activityinformation',
 	templateUrl: './activityinformation.component.html',
@@ -22,11 +22,18 @@ export class ActivityinformationComponent implements OnInit {
 	annoinfo: any;
 	catalogobj: any;
 	display = false;
+	
+	bensonformat = 'dataset:TherGasBensonRules';
+	structureformat = 'dataset:TherGasSubstructureThermodynamics';
+	specifiesformat = 'dataset:ThergasSpeciesThermodynamics';
 
 	@ViewChild('readlocal') readlocal: ActivityrepositoryinitialreadlocalfileComponent;
 	@ViewChild('partition') partition: ActivityrepositorypartitiontocatalogComponent;
 	@ViewChild('disassociation') disassociation: ActivityinformationinterpretdisassociationenergyComponent;
-
+    @ViewChild('benson') benson: ActivityinformationinterpretthermodynamicblockComponent;
+    @ViewChild('structure') structure: ActivityinformationinterpretthermodynamicblockComponent;
+    @ViewChild('species') species: ActivityinformationinterpretthermodynamicblockComponent;
+    
 	constructor(
 		public annotations: OntologycatalogService
 	) { }
@@ -53,9 +60,13 @@ export class ActivityinformationComponent implements OnInit {
 				this.partition.getData(activity);
 			} else if (this.activityname == 'dataset:ActivityInformationInterpretDisassociationEnergy') {
 				this.disassociation.getData(activity);
-			}
-			
-			else {
+			} else if (this.activityname == 'dataset:ActivityInformationInterpretBensonRuleData') {
+				this.benson.getData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationInterpretSubstructureThermodynamics') {
+				this.structure.getData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationMolecularThermodynamics') {
+				this.species.getData(activity);
+		} else {
 				alert('Not known activity information: ' + this.activityname);
 			}
 		}
@@ -68,7 +79,13 @@ export class ActivityinformationComponent implements OnInit {
 		} else if (this.activityname == 'dataset:ActivityRepositoryPartitionToCatalog') {
 			this.partition.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretDisassociationEnergy') {
-				this.disassociation.getData(activity);
+				this.disassociation.setData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationInterpretBensonRuleData') {
+				this.benson.getData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationInterpretSubstructureThermodynamics') {
+				this.structure.setData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationMolecularThermodynamics') {
+				this.species.setData(activity);
 		} else {
 			alert('Not known activity information: ' + this.activityname);
 		}

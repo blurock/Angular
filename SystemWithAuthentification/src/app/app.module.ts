@@ -131,6 +131,7 @@ import { FirestorelistelementComponent } from './catalogobjects/listoffirestorei
 import { GeneralcatalogobjectvisualizationComponent } from './catalogobjects/generalcatalogobjectvisualization/generalcatalogobjectvisualization.component';
 import { ActivityinformationinterpretdisassociationenergyComponent } from './catalogobjects/activity/repository/activityinformationinterpretdisassociationenergy/activityinformationinterpretdisassociationenergy.component';
 import { ParameterspecificationComponent } from './catalogobjects/parameterspecification/parameterspecification.component';
+import { ActivityinformationinterpretthermodynamicblockComponent } from './catalogobjects/activity/repository/activityinformationinterpretthermodynamicblock/activityinformationinterpretthermodynamicblock.component';
 
 
 
@@ -217,7 +218,8 @@ import { ParameterspecificationComponent } from './catalogobjects/parameterspeci
   FirestorelistelementComponent,
   GeneralcatalogobjectvisualizationComponent,
   ActivityinformationinterpretdisassociationenergyComponent,
-  ParameterspecificationComponent
+  ParameterspecificationComponent,
+  ActivityinformationinterpretthermodynamicblockComponent
 	],
 	imports: [
 		AppFirebaseModule,
