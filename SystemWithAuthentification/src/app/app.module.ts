@@ -132,6 +132,7 @@ import { GeneralcatalogobjectvisualizationComponent } from './catalogobjects/gen
 import { ActivityinformationinterpretdisassociationenergyComponent } from './catalogobjects/activity/repository/activityinformationinterpretdisassociationenergy/activityinformationinterpretdisassociationenergy.component';
 import { ParameterspecificationComponent } from './catalogobjects/parameterspecification/parameterspecification.component';
 import { ActivityinformationinterpretthermodynamicblockComponent } from './catalogobjects/activity/repository/activityinformationinterpretthermodynamicblock/activityinformationinterpretthermodynamicblock.component';
+import { ActivityinformationinterpretvibrationalmodeComponent } from './catalogobjects/activity/repository/activityinformationinterpretvibrationalmode/activityinformationinterpretvibrationalmode.component';
 
 
 
@@ -219,7 +220,8 @@ import { ActivityinformationinterpretthermodynamicblockComponent } from './catal
   GeneralcatalogobjectvisualizationComponent,
   ActivityinformationinterpretdisassociationenergyComponent,
   ParameterspecificationComponent,
-  ActivityinformationinterpretthermodynamicblockComponent
+  ActivityinformationinterpretthermodynamicblockComponent,
+  ActivityinformationinterpretvibrationalmodeComponent
 	],
 	imports: [
 		AppFirebaseModule,

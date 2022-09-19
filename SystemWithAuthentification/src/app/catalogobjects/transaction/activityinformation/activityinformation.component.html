@@ -27,6 +27,9 @@
 			<ng-container *ngIf='activityname == "dataset:ActivityInformationMolecularThermodynamics";'>
 				<app-activityinformationinterpretthermodynamicblock #species [(annoinfo)]="annoinfo" [(fileformat)]='speciesformat'></app-activityinformationinterpretthermodynamicblock>
 			</ng-container>
+			<ng-container *ngIf='activityname == "dataset:ActivityInformationInterpretVibrationalMode";'>
+				<app-activityinformationinterpretvibrationalmode #frequency [(annoinfo)]="annoinfo"></app-activityinformationinterpretvibrationalmode>
+			</ng-container>
 			
 		</ng-container>
 	</mat-card-content>

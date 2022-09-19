@@ -5,6 +5,7 @@ import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { ActivityinformationinterpretdisassociationenergyComponent } from '../../activity/repository/activityinformationinterpretdisassociationenergy/activityinformationinterpretdisassociationenergy.component';
 import {ActivityinformationinterpretthermodynamicblockComponent} from '../../activity/repository/activityinformationinterpretthermodynamicblock/activityinformationinterpretthermodynamicblock.component';
+import {ActivityinformationinterpretvibrationalmodeComponent} from '../../activity/repository/activityinformationinterpretvibrationalmode/activityinformationinterpretvibrationalmode.component';
 @Component({
 	selector: 'app-activityinformation',
 	templateUrl: './activityinformation.component.html',
@@ -26,6 +27,7 @@ export class ActivityinformationComponent implements OnInit {
 	bensonformat = 'dataset:TherGasBensonRules';
 	structureformat = 'dataset:TherGasSubstructureThermodynamics';
 	specifiesformat = 'dataset:ThergasSpeciesThermodynamics';
+	frequencyformat = 'dataset:JThermodynamicsVibrationalModes';
 
 	@ViewChild('readlocal') readlocal: ActivityrepositoryinitialreadlocalfileComponent;
 	@ViewChild('partition') partition: ActivityrepositorypartitiontocatalogComponent;
@@ -33,6 +35,8 @@ export class ActivityinformationComponent implements OnInit {
     @ViewChild('benson') benson: ActivityinformationinterpretthermodynamicblockComponent;
     @ViewChild('structure') structure: ActivityinformationinterpretthermodynamicblockComponent;
     @ViewChild('species') species: ActivityinformationinterpretthermodynamicblockComponent;
+    @ViewChild('frequency') frequency: ActivityinformationinterpretvibrationalmodeComponent;
+    
     
 	constructor(
 		public annotations: OntologycatalogService
@@ -66,6 +70,8 @@ export class ActivityinformationComponent implements OnInit {
 				this.structure.getData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationMolecularThermodynamics') {
 				this.species.getData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationInterpretVibrationalMode') {
+				this.frequency.getData(activity);
 		} else {
 				alert('Not known activity information: ' + this.activityname);
 			}
@@ -86,6 +92,8 @@ export class ActivityinformationComponent implements OnInit {
 				this.structure.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationMolecularThermodynamics') {
 				this.species.setData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationInterpretVibrationalMode') {
+				this.frequency.setData(activity);
 		} else {
 			alert('Not known activity information: ' + this.activityname);
 		}

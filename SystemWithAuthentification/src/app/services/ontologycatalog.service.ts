@@ -43,6 +43,12 @@ export class OntologycatalogService {
 			'dataset:dynamicType': 'FixedParameter',
 			'skos:prefLabel': 'MolarHeatCapacity',
 			'qudt:Unit': ['unit:J-PER-MOL-K', 'dataset:CAL-PER-MOL-K']
+		},
+		'dataset:ParameterSpecificationStructureVibrationFrequency': {
+			'qudt:QuantityKind': 'quantitykind:Frequency',
+			'dataset:dynamicType': 'FixedParameter',
+			'skos:prefLabel': 'Frequency',
+			'qudt:Unit': ['unit:PER-SEC', 'unit:HZ', 'dataset:cmMinus1']
 		}
 	}
 	public getParameterSet(choices: string[]): Observable<any> {
