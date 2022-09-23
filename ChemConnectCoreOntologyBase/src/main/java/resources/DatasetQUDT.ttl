@@ -1567,7 +1567,12 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#ActivityInformationDatasetCollectionSetManipulation
 :ActivityInformationDatasetCollectionSetManipulation rdf:type owl:Class ;
-                                                     rdfs:subClassOf :ActivityInformationRecordBase .
+                                                     rdfs:subClassOf :ActivityInformationRecordBase ,
+                                                                     [ rdf:type owl:Restriction ;
+                                                                       owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                       owl:onClass :DatasetCollectionSetRecordIDInfo
+                                                                     ] .
 
 
 ###  http://www.esblurock.info/dataset#ActivityInformationInterpretBensonRuleData
@@ -6627,7 +6632,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                     <http://purl.org/dc/elements/1.1/type> :DatabaseObjectType ;
                     <http://purl.org/dc/terms/identifier> "dataset:objectype"^^xsd:string ;
                     rdfs:comment "This is the data type of the referenced object." ;
-                    rdfs:isDefinedBy :SimpleCatalogObject ;
+                    rdfs:isDefinedBy :ChemConnectDatabaseBaseElement ;
                     rdfs:label "Database Object Type" ;
                     <http://www.w3.org/2004/02/skos/core#altLabel> "objecttype" .
 
@@ -6703,7 +6708,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                             owl:onProperty <http://purl.org/dc/terms/type> ;
                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                             owl:onClass :DatasetTransactionEventObject
-                                          ] .
+                                          ] ;
+                          <http://purl.org/dc/elements/1.1/type> :DatabaseTransactionEvent ;
+                          <http://purl.org/dc/terms/identifier> "dataset:transactiondatabaseevent"^^xsd:string ;
+                          rdfs:comment "The set of transactions for manipulating the database (consisting of collections)."^^xsd:string ;
+                          rdfs:label "Database Transaction"^^xsd:string ;
+                          <http://www.w3.org/2004/02/skos/core#altLabel> "transactiondatabaseevent"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DatasetCatalogHierarchy
@@ -6840,10 +6850,20 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                        owl:onClass :DatasetCollectionSetCreationEvent
                                                      ] ,
                                                      [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://purl.org/dc/terms/source> ;
+                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                       owl:onClass :ActivityInformationDatasetCollectionSetAddDataset
+                                                     ] ,
+                                                     [ rdf:type owl:Restriction ;
                                                        owl:onProperty <http://www.w3.org/ns/dcat#catalog> ;
                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                        owl:onClass :ChemConnectDatasetCollectionIDsSet
-                                                     ] .
+                                                     ] ;
+                                     <http://purl.org/dc/elements/1.1/type> :DatasetCollectionSetAddDatasetEvent ;
+                                     <http://purl.org/dc/terms/identifier> "dataset:collectionadddatasettransaction"^^xsd:string ;
+                                     rdfs:comment "Add a dataset to a collection"^^xsd:string ;
+                                     rdfs:label "Add Dataset"^^xsd:string ;
+                                     <http://www.w3.org/2004/02/skos/core#altLabel> "collectionadddatasettransaction"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#DatasetCollectionSetCreationEvent
@@ -6852,7 +6872,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty <http://purl.org/dc/terms/source> ;
                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                     owl:onClass :DatasetCollectionSetRecordIDInfo
+                                                     owl:onClass :ActivityInformationDatasetCollectionSetCreation
                                                    ] ,
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty <http://www.w3.org/ns/dcat#catalog> ;
@@ -6862,7 +6882,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                    <http://purl.org/dc/elements/1.1/type> :DatasetCollectionSetCreationEvent ;
                                    <http://purl.org/dc/terms/identifier> "dataset:datasetcollectionsetcreationevent"^^xsd:string ;
                                    rdfs:comment "The transaction creates a dataset collection set. The dataset collection set has the information on where a compatible set of dataset objects are."^^xsd:string ;
-                                   rdfs:label "Dataset Collection Set Creation"^^xsd:string ;
+                                   rdfs:label "Collection Creation"^^xsd:string ;
                                    <http://www.w3.org/2004/02/skos/core#altLabel> "datasetcollectionsetcreationevent"^^xsd:string .
 
 
@@ -6877,7 +6897,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                       <http://purl.org/dc/elements/1.1/type> :DatasetCollectionSetManagementEvents ;
                                       <http://purl.org/dc/terms/identifier> "dataset:datasetcollectionsetmanage"^^xsd:string ;
                                       rdfs:comment "These transaction manipulate the dataset management sets and the catalog object managed by these collection sets."^^xsd:string ;
-                                      rdfs:label "Dataset Collection Set Management Transactions"^^xsd:string ;
+                                      rdfs:label "Collection Set Management"^^xsd:string ;
                                       <http://www.w3.org/2004/02/skos/core#altLabel> "datasetcollectionsetmanage"^^xsd:string .
 
 
@@ -19089,32 +19109,6 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                                      <http://www.w3.org/2004/02/skos/core#altLabel> "interpretvibrationaltransaction"^^xsd:string .
 
 
-###  http://www.esblurock.info/dataset#TransactionIsolateThermodynamicFileBlocks
-:TransactionIsolateThermodynamicFileBlocks rdf:type owl:Class ;
-                                           rdfs:subClassOf :TransactionThermodynamics ,
-                                                           [ rdf:type owl:Restriction ;
-                                                             owl:onProperty <http://purl.org/dc/terms/requires> ;
-                                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                             owl:onClass :TransactionInterpretThermodynamicBlockLines
-                                                           ] ,
-                                                           [ rdf:type owl:Restriction ;
-                                                             owl:onProperty <http://purl.org/dc/terms/source> ;
-                                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                             owl:onClass :ActivityInformationIsolateBlockThermodynamics
-                                                           ] ,
-                                                           [ rdf:type owl:Restriction ;
-                                                             owl:onProperty <http://www.w3.org/ns/dcat#catalog> ;
-                                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                             owl:onClass :JThermodynamicsTherGasBlockLines
-                                                           ] ;
-                                           <http://purl.org/dc/dcam/memberOf> :FileReadThermodynamicsToDatabase ;
-                                           <http://purl.org/dc/elements/1.1/type> :TransactionIsolateThermodynamicFileBlocks ;
-                                           <http://purl.org/dc/terms/identifier> "dataset:isolatethermoblock"^^xsd:string ;
-                                           rdfs:comment "This takes the complete file of thermodynamic information (Benson rules or temperature dependent thermodynamics of a structure or molecule) and isolates out the individual thermodyanamic specifications. This is from the original thermodynamic specification format of the TherGas program."^^xsd:string ;
-                                           rdfs:label "Isolate Thermo Block"^^xsd:string ;
-                                           <http://www.w3.org/2004/02/skos/core#altLabel> "isolatethermoblock"^^xsd:string .
-
-
 ###  http://www.esblurock.info/dataset#TransactionKey
 :TransactionKey rdf:type owl:Class ;
                 rdfs:subClassOf :StringNameLabel ;
@@ -19149,11 +19143,6 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 ###  http://www.esblurock.info/dataset#TransactionModifyDatabase
 :TransactionModifyDatabase rdf:type owl:Class ;
                            rdfs:subClassOf :TransactionDebugModeChoices .
-
-
-###  http://www.esblurock.info/dataset#TransactionThermodynamics
-:TransactionThermodynamics rdf:type owl:Class ;
-                           rdfs:subClassOf :TransactionEvent .
 
 
 ###  http://www.esblurock.info/dataset#TransitionObjectConcept

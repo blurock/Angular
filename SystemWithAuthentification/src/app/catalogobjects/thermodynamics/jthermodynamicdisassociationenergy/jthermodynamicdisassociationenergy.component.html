@@ -6,7 +6,14 @@
 	</mat-card-header>
 	<mat-card-content>
 		<ng-container *ngIf='display; else loading'>
-
+			<ng-container *ngIf='specdisplay; else specloading'>
+				<app-parametervalue #energy [(annoinfo)]="annoinfo" [(parameterinfo)]="molarenergy" [(title)]="energytitle"></app-parametervalue>
+			</ng-container>
+			<ng-template #loading>
+				<div>
+					Specification being loaded
+				</div>
+			</ng-template>
 			<app-chemconnectthermodynamicsdatabase #base [(annoinfo)]="annoinfo" [(catalogtype)]="catalogtype">
 			</app-chemconnectthermodynamicsdatabase>
 

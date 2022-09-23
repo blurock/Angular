@@ -141,6 +141,7 @@ import { DatasetcollectionsetrecordidinfoComponent } from './catalogobjects/acti
 import { ChemconnectthermodynamicsdatabaseComponent } from './catalogobjects/thermodynamics/chemconnectthermodynamicsdatabase/chemconnectthermodynamicsdatabase.component';
 import { JthermodynamicdisassociationenergyComponent } from './catalogobjects/thermodynamics/jthermodynamicdisassociationenergy/jthermodynamicdisassociationenergy.component';
 import { ManagegeneralcatalogobjectvisComponent } from './catalogobjects/managegeneralcatalogobjectvis/managegeneralcatalogobjectvis.component';
+import { ParametervalueComponent } from './catalogobjects/parametervalue/parametervalue.component';
 
 
 
@@ -237,7 +238,8 @@ import { ManagegeneralcatalogobjectvisComponent } from './catalogobjects/manageg
   DatasetcollectionsetrecordidinfoComponent,
   ChemconnectthermodynamicsdatabaseComponent,
   JthermodynamicdisassociationenergyComponent,
-  ManagegeneralcatalogobjectvisComponent
+  ManagegeneralcatalogobjectvisComponent,
+  ParametervalueComponent
 	],
 	imports: [
 		AppFirebaseModule,
