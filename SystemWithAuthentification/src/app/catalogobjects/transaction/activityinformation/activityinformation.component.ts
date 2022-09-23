@@ -6,6 +6,10 @@ import { OntologycatalogService } from '../../../services/ontologycatalog.servic
 import { ActivityinformationinterpretdisassociationenergyComponent } from '../../activity/repository/activityinformationinterpretdisassociationenergy/activityinformationinterpretdisassociationenergy.component';
 import {ActivityinformationinterpretthermodynamicblockComponent} from '../../activity/repository/activityinformationinterpretthermodynamicblock/activityinformationinterpretthermodynamicblock.component';
 import {ActivityinformationinterpretvibrationalmodeComponent} from '../../activity/repository/activityinformationinterpretvibrationalmode/activityinformationinterpretvibrationalmode.component';
+import {ActivityinformationinterpretsymmetryinformationComponent} from '../../activity/repository/activityinformationinterpretsymmetryinformation/activityinformationinterpretsymmetryinformation.component';
+import {ActivityinformationinterpretmetaatomComponent} from '../../activity/repository/activityinformationinterpretmetaatom/activityinformationinterpretmetaatom.component';
+import {ActivityinformationdatasetcollectionsetadddatasetComponent} from '../../activity/collectionset/activityinformationdatasetcollectionsetadddataset/activityinformationdatasetcollectionsetadddataset.component';
+import {ActivityinformationdatasetcollectionsetcreationComponent} from '../../activity/collectionset/activityinformationdatasetcollectionsetcreation/activityinformationdatasetcollectionsetcreation.component';
 @Component({
 	selector: 'app-activityinformation',
 	templateUrl: './activityinformation.component.html',
@@ -36,6 +40,10 @@ export class ActivityinformationComponent implements OnInit {
     @ViewChild('structure') structure: ActivityinformationinterpretthermodynamicblockComponent;
     @ViewChild('species') species: ActivityinformationinterpretthermodynamicblockComponent;
     @ViewChild('frequency') frequency: ActivityinformationinterpretvibrationalmodeComponent;
+    @ViewChild('symmetry') symmetry: ActivityinformationinterpretsymmetryinformationComponent;
+    @ViewChild('metaatom') metaatom: ActivityinformationinterpretmetaatomComponent;
+    @ViewChild('collectionadd') collectionadd: ActivityinformationdatasetcollectionsetadddatasetComponent;
+    @ViewChild('collectioncreate') collectioncreate: ActivityinformationdatasetcollectionsetcreationComponent;
     
     
 	constructor(
@@ -72,6 +80,14 @@ export class ActivityinformationComponent implements OnInit {
 				this.species.getData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretVibrationalMode') {
 				this.frequency.getData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationInterpretSymmetryInformation') {
+				this.symmetry.getData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationInterpretMetaAtom') {
+				this.metaatom.getData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetAddDataset') {
+				this.collectionadd.getData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetCreation') {
+				this.collectioncreate.getData(activity);
 		} else {
 				alert('Not known activity information: ' + this.activityname);
 			}
@@ -94,6 +110,14 @@ export class ActivityinformationComponent implements OnInit {
 				this.species.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretVibrationalMode') {
 				this.frequency.setData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationInterpretSymmetryInformation') {
+				this.symmetry.setData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationInterpretMetaAtom') {
+				this.metaatom.setData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetAddDataset') {
+				this.collectionadd.setData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetCreation') {
+				this.collectioncreate.setData(activity);
 		} else {
 			alert('Not known activity information: ' + this.activityname);
 		}

@@ -133,6 +133,14 @@ import { ActivityinformationinterpretdisassociationenergyComponent } from './cat
 import { ParameterspecificationComponent } from './catalogobjects/parameterspecification/parameterspecification.component';
 import { ActivityinformationinterpretthermodynamicblockComponent } from './catalogobjects/activity/repository/activityinformationinterpretthermodynamicblock/activityinformationinterpretthermodynamicblock.component';
 import { ActivityinformationinterpretvibrationalmodeComponent } from './catalogobjects/activity/repository/activityinformationinterpretvibrationalmode/activityinformationinterpretvibrationalmode.component';
+import { ActivityinformationinterpretsymmetryinformationComponent } from './catalogobjects/activity/repository/activityinformationinterpretsymmetryinformation/activityinformationinterpretsymmetryinformation.component';
+import { ActivityinformationinterpretmetaatomComponent } from './catalogobjects/activity/repository/activityinformationinterpretmetaatom/activityinformationinterpretmetaatom.component';
+import { ActivityinformationdatasetcollectionsetadddatasetComponent } from './catalogobjects/activity/collectionset/activityinformationdatasetcollectionsetadddataset/activityinformationdatasetcollectionsetadddataset.component';
+import { ActivityinformationdatasetcollectionsetcreationComponent } from './catalogobjects/activity/collectionset/activityinformationdatasetcollectionsetcreation/activityinformationdatasetcollectionsetcreation.component';
+import { DatasetcollectionsetrecordidinfoComponent } from './catalogobjects/activity/collectionset/datasetcollectionsetrecordidinfo/datasetcollectionsetrecordidinfo.component';
+import { ChemconnectthermodynamicsdatabaseComponent } from './catalogobjects/thermodynamics/chemconnectthermodynamicsdatabase/chemconnectthermodynamicsdatabase.component';
+import { JthermodynamicdisassociationenergyComponent } from './catalogobjects/thermodynamics/jthermodynamicdisassociationenergy/jthermodynamicdisassociationenergy.component';
+import { ManagegeneralcatalogobjectvisComponent } from './catalogobjects/managegeneralcatalogobjectvis/managegeneralcatalogobjectvis.component';
 
 
 
@@ -221,7 +229,15 @@ import { ActivityinformationinterpretvibrationalmodeComponent } from './catalogo
   ActivityinformationinterpretdisassociationenergyComponent,
   ParameterspecificationComponent,
   ActivityinformationinterpretthermodynamicblockComponent,
-  ActivityinformationinterpretvibrationalmodeComponent
+  ActivityinformationinterpretvibrationalmodeComponent,
+  ActivityinformationinterpretsymmetryinformationComponent,
+  ActivityinformationinterpretmetaatomComponent,
+  ActivityinformationdatasetcollectionsetadddatasetComponent,
+  ActivityinformationdatasetcollectionsetcreationComponent,
+  DatasetcollectionsetrecordidinfoComponent,
+  ChemconnectthermodynamicsdatabaseComponent,
+  JthermodynamicdisassociationenergyComponent,
+  ManagegeneralcatalogobjectvisComponent
 	],
 	imports: [
 		AppFirebaseModule,

@@ -33,6 +33,9 @@ export class AppComponent {
 		alert('from Interface');
 	}
 	uploaddata(): void {
-		this.router.navigateByUrl('/uploaddatabaseitem');
+		this.router.navigateByUrl('/catalog/catalogobject');
+	}
+	catalog(): void {
+		
 	}
 }

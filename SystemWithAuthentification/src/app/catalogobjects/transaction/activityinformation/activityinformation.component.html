@@ -10,27 +10,49 @@
 	<mat-card-content>
 		<ng-container *ngIf='display;'>
 			<ng-container *ngIf='activityname == "dataset:ActivityRepositoryInitialReadLocalFile";'>
-				<app-activityrepositoryinitialreadlocalfile #readlocal [(annoinfo)]="annoinfo"></app-activityrepositoryinitialreadlocalfile>
+				<app-activityrepositoryinitialreadlocalfile #readlocal [(annoinfo)]="annoinfo">
+				</app-activityrepositoryinitialreadlocalfile>
 			</ng-container>
 			<ng-container *ngIf='activityname == "dataset:ActivityRepositoryPartitionToCatalog";'>
-				<app-activityrepositorypartitiontocatalog #partition [(annoinput)]="annoinfo"></app-activityrepositorypartitiontocatalog>
+				<app-activityrepositorypartitiontocatalog #partition [(annoinput)]="annoinfo">
+				</app-activityrepositorypartitiontocatalog>
 			</ng-container>
 			<ng-container *ngIf='activityname == "dataset:ActivityInformationInterpretDisassociationEnergy";'>
-				<app-activityinformationinterpretdisassociationenergy #disassociation [(annoinfo)]="annoinfo"></app-activityinformationinterpretdisassociationenergy>
+				<app-activityinformationinterpretdisassociationenergy #disassociation [(annoinfo)]="annoinfo">
+				</app-activityinformationinterpretdisassociationenergy>
 			</ng-container>
 			<ng-container *ngIf='activityname == "dataset:ActivityInformationInterpretBensonRuleData";'>
-				<app-activityinformationinterpretthermodynamicblock #benson [(annoinfo)]="annoinfo" [(fileformat)]='bensonformat'></app-activityinformationinterpretthermodynamicblock>
+				<app-activityinformationinterpretthermodynamicblock #benson [(annoinfo)]="annoinfo"
+					[(fileformat)]='bensonformat'></app-activityinformationinterpretthermodynamicblock>
 			</ng-container>
 			<ng-container *ngIf='activityname == "dataset:ActivityInformationInterpretSubstructureThermodynamics";'>
-				<app-activityinformationinterpretthermodynamicblock #structure [(annoinfo)]="annoinfo" [(fileformat)]='structureformat'></app-activityinformationinterpretthermodynamicblock>
+				<app-activityinformationinterpretthermodynamicblock #structure [(annoinfo)]="annoinfo"
+					[(fileformat)]='structureformat'></app-activityinformationinterpretthermodynamicblock>
 			</ng-container>
 			<ng-container *ngIf='activityname == "dataset:ActivityInformationMolecularThermodynamics";'>
-				<app-activityinformationinterpretthermodynamicblock #species [(annoinfo)]="annoinfo" [(fileformat)]='speciesformat'></app-activityinformationinterpretthermodynamicblock>
+				<app-activityinformationinterpretthermodynamicblock #species [(annoinfo)]="annoinfo"
+					[(fileformat)]='speciesformat'></app-activityinformationinterpretthermodynamicblock>
 			</ng-container>
 			<ng-container *ngIf='activityname == "dataset:ActivityInformationInterpretVibrationalMode";'>
-				<app-activityinformationinterpretvibrationalmode #frequency [(annoinfo)]="annoinfo"></app-activityinformationinterpretvibrationalmode>
+				<app-activityinformationinterpretvibrationalmode #frequency [(annoinfo)]="annoinfo">
+				</app-activityinformationinterpretvibrationalmode>
 			</ng-container>
-			
-		</ng-container>
+			<ng-container *ngIf='activityname == "dataset:ActivityInformationInterpretSymmetryInformation";'>
+				<app-activityinformationinterpretsymmetryinformation #symmetry [(annoinfo)]="annoinfo">
+				</app-activityinformationinterpretsymmetryinformation>
+			</ng-container>
+			<ng-container *ngIf='activityname == "dataset:ActivityInformationInterpretMetaAtom";'>
+				<app-activityinformationinterpretmetaatom #metaatom [(annoinfo)]="annoinfo">
+				</app-activityinformationinterpretmetaatom>
+			</ng-container>
+			<ng-container *ngIf='activityname == "dataset:ActivityInformationDatasetCollectionSetAddDataset";'>
+				<app-activityinformationdatasetcollectionsetadddataset #collectionadd [(annoinfo)]="annoinfo">
+				</app-activityinformationdatasetcollectionsetadddataset>
+			</ng-container>
+			<ng-container *ngIf='activityname == "dataset:ActivityInformationDatasetCollectionSetCreation";'>
+				<app-activityinformationdatasetcollectionsetcreation #collectioncreate [(annoinfo)]="annoinfo">
+				</app-activityinformationdatasetcollectionsetcreation>
+			</ng-container>
+			</ng-container>
 	</mat-card-content>
 </mat-card>

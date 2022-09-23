@@ -21,6 +21,7 @@ import {ManagerepositorydatapartitionblockcomponentComponent} from '../app/catal
 import {ManagedatasetrepositoryfilestagingComponent} from '../app/catalogobjects/repository/managedatasetrepositoryfilestaging/managedatasetrepositoryfilestaging.component';
 import { ManagedatasettransactioneventobjectComponent} from '../app/catalogobjects/transaction/managedatasettransactioneventobject/managedatasettransactioneventobject.component';
 import { ActivityrepositoryinitialreadlocalfileComponent } from '../app/catalogobjects/activity/repository/activityrepositoryinitialreadlocalfile/activityrepositoryinitialreadlocalfile.component';
+import { ManagegeneralcatalogobjectvisComponent } from '../app/catalogobjects/managegeneralcatalogobjectvis/managegeneralcatalogobjectvis.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([FEED]);
 
@@ -34,6 +35,7 @@ const routes: Routes = [
 	{ path: 'verify-email-address', component: VerifyEmailComponent },
 	{ path: 'catalog/repositorystaging', component: ManagedatasetrepositoryfilestagingComponent},
 	{ path: 'catalog/partition', component: ManagerepositorydatapartitionblockcomponentComponent},
+	{ path: 'catalog/catalog', component: ManagegeneralcatalogobjectvisComponent},
 	{ path: 'catalog/transaction', component: ManagedatasettransactioneventobjectComponent,
 	children: [
       
