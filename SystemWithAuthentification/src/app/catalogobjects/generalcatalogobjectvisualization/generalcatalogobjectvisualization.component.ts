@@ -4,7 +4,7 @@ import { LoadChildDirective } from '../../directives/load-child.directive';
 import { DatasetrepositoryfilestagingComponent } from '../repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
 import { RepositoryparsedtofixedblocksizeComponent } from '../repository/partition/repositoryparsedtofixedblocksize/repositoryparsedtofixedblocksize.component';
 import {JthermodynamicdisassociationenergyComponent} from '../thermodynamics/jthermodynamicdisassociationenergy/jthermodynamicdisassociationenergy.component';
-
+import {JthermodynamicsvibrationalstructureComponent} from '../thermodynamics/jthermodynamicsvibrationalstructure/jthermodynamicsvibrationalstructure.component';
 @Component({
 	selector: 'app-generalcatalogobjectvisualization',
 	templateUrl: './generalcatalogobjectvisualization.component.html',
@@ -38,6 +38,11 @@ export class GeneralcatalogobjectvisualizationComponent implements OnInit {
 		} else if (catalogtype === 'dataset:JThermodynamicsDisassociationEnergyOfStructure') {
 			if (this.isNotSetUp) {
 				this.componentRef = this.dynamicChild.viewContainerRef.createComponent(JthermodynamicdisassociationenergyComponent);
+				this.isNotSetUp = false;
+			}
+		} else if (catalogtype === 'dataset:JThermodynamicsVibrationalStructure') {
+			if (this.isNotSetUp) {
+				this.componentRef = this.dynamicChild.viewContainerRef.createComponent(JthermodynamicsvibrationalstructureComponent);
 				this.isNotSetUp = false;
 			}
 		} else {

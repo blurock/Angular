@@ -6,11 +6,11 @@ import { ParametervalueComponent } from '../../parametervalue/parametervalue.com
 import { Jthermodynamics2dspeciesstructureComponent } from '../jthermodynamics2dspeciesstructure/jthermodynamics2dspeciesstructure.component';
 
 @Component({
-	selector: 'app-jthermodynamicdisassociationenergy',
-	templateUrl: './jthermodynamicdisassociationenergy.component.html',
-	styleUrls: ['./jthermodynamicdisassociationenergy.component.scss']
+  selector: 'app-jthermodynamicsvibrationalstructure',
+  templateUrl: './jthermodynamicsvibrationalstructure.component.html',
+  styleUrls: ['./jthermodynamicsvibrationalstructure.component.scss']
 })
-export class JthermodynamicdisassociationenergyComponent implements OnInit {
+export class JthermodynamicsvibrationalstructureComponent implements OnInit {
 
 	message: string;
 	annoinfo: any;
@@ -22,15 +22,15 @@ export class JthermodynamicdisassociationenergyComponent implements OnInit {
 
 	@Output() annoReady = new EventEmitter<any>();
 
-	molarenergyparameter = 'dataset:ParameterSpecificationHDisassociationEnergy';
-	molarenergy: any;
-	energytitle = 'Hydrogen Disassociation Energy Value';
+	frequencyparameter = 'dataset:ParameterSpecificationStructureVibrationFrequency';
+	frequency: any;
+	frequencytitle = 'Frequency Associated with Structure';
 
-	catalogtype = 'dataset:JThermodynamicsDisassociationEnergyOfStructure';
-	title = 'H Disassociation Energy of Structure';
+	catalogtype = 'dataset:JThermodynamicsVibrationalStructure';
+	title = 'Frequency Associated with a Structure';
 
 	@ViewChild('base') base: ChemconnectthermodynamicsdatabaseComponent;
-	@ViewChild('energy') energy: ParametervalueComponent;
+	@ViewChild('freqobject') freqobject: ParametervalueComponent;
 	@ViewChild('structure') structure: Jthermodynamics2dspeciesstructureComponent;
 
 	constructor(
@@ -38,10 +38,10 @@ export class JthermodynamicdisassociationenergyComponent implements OnInit {
 	) {
 		this.getCatalogAnnoations();
 		const set = [];
-		set.push(this.molarenergyparameter);
+		set.push(this.frequencyparameter);
 		annotations.getParameterSet(set).subscribe({
 			next: (data: any) => {
-				this.molarenergy = data[this.molarenergyparameter];
+				this.frequency = data[this.frequencyparameter];
 				this.specdisplay = true;
 			}
 		});
@@ -71,9 +71,9 @@ export class JthermodynamicdisassociationenergyComponent implements OnInit {
 	}
 	getData(catalog: any): void {
 		this.base.getData(catalog);
-		const energyvalue = {};
-		this.energy.getData(energyvalue);
-		catalog[this.annoinfo['dataset:JThermodynamicDisassociationEnergy'][this.identifier]] = energyvalue;
+		const value = {};
+		this.freqobject.getData(value);
+		catalog[this.annoinfo['dataset:StructureVibrationalFrequency'][this.identifier]] = value;
 		const struct = {};
 		this.structure.getData(struct);
 		catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]] = struct;
@@ -81,8 +81,8 @@ export class JthermodynamicdisassociationenergyComponent implements OnInit {
 	}
 	setData(catalog: any): void {
 		this.base.setData(catalog);
-		const energyvalue = catalog.get('dataset:JThermodynamicDisassociationEnergy').value;
-		this.energy.setData(energyvalue);
+		const value = catalog.get('dataset:StructureVibrationalFrequency').value;
+		this.freqobject.setData(value);
 		const struct = catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
 		this.structure.setData(struct);
 	}

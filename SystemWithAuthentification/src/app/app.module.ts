@@ -144,6 +144,7 @@ import { ManagegeneralcatalogobjectvisComponent } from './catalogobjects/manageg
 import { ParametervalueComponent } from './catalogobjects/parametervalue/parametervalue.component';
 import { Jthermodynamics2dspeciesstructureComponent } from './catalogobjects/thermodynamics/jthermodynamics2dspeciesstructure/jthermodynamics2dspeciesstructure.component';
 import { JthermodynamicsatomcountsetComponent } from './catalogobjects/thermodynamics/jthermodynamicsatomcountset/jthermodynamicsatomcountset.component';
+import { JthermodynamicsvibrationalstructureComponent } from './catalogobjects/thermodynamics/jthermodynamicsvibrationalstructure/jthermodynamicsvibrationalstructure.component';
 
 
 
@@ -243,7 +244,8 @@ import { JthermodynamicsatomcountsetComponent } from './catalogobjects/thermodyn
   ManagegeneralcatalogobjectvisComponent,
   ParametervalueComponent,
   Jthermodynamics2dspeciesstructureComponent,
-  JthermodynamicsatomcountsetComponent
+  JthermodynamicsatomcountsetComponent,
+  JthermodynamicsvibrationalstructureComponent
 	],
 	imports: [
 		AppFirebaseModule,
