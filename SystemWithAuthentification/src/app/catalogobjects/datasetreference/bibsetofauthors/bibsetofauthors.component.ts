@@ -68,7 +68,7 @@ export class BibsetofauthorsComponent implements OnInit {
 			index: [''],
 			AuthorFamilyName: ['', Validators.required],
 			AuthorGivenName: [''],
-			AuthorNameTitle: [''],
+			AuthorNameTitle: ['']
 		});
 	}
 
