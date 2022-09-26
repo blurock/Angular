@@ -13,6 +13,7 @@ public class ParseCompoundObject {
 	static String hasPartttype = "<http://purl.org/dc/terms/hasPart>";
 	static String compoundclass = "dataset:ChemConnectCompoundBase";
 	static String compoundexpclass = "dataset:ChemConnectCompoundExpData";
+	static String thermoclass = "dataset:JThermodynamicsDataStructure";
 	static String classificationtype = "dataset:Classification";
 
 	public static CompoundObjectDimensionSet getCompoundElements(String classname) {
@@ -63,6 +64,7 @@ public class ParseCompoundObject {
 	private static boolean isCompoundObject(String elementType) {
         boolean compoundbaseobject = OntologyUtilityRoutines.isSubClassOf(elementType, compoundclass, false);
         boolean compoundexpobject = OntologyUtilityRoutines.isSubClassOf(elementType, compoundexpclass, false);
-        return compoundbaseobject || compoundexpobject;
+        boolean compoundthermoobject = OntologyUtilityRoutines.isSubClassOf(elementType, thermoclass, false);
+        return compoundbaseobject || compoundexpobject || compoundthermoobject;
 	}
 }

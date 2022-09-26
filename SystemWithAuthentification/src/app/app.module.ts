@@ -142,6 +142,8 @@ import { ChemconnectthermodynamicsdatabaseComponent } from './catalogobjects/the
 import { JthermodynamicdisassociationenergyComponent } from './catalogobjects/thermodynamics/jthermodynamicdisassociationenergy/jthermodynamicdisassociationenergy.component';
 import { ManagegeneralcatalogobjectvisComponent } from './catalogobjects/managegeneralcatalogobjectvis/managegeneralcatalogobjectvis.component';
 import { ParametervalueComponent } from './catalogobjects/parametervalue/parametervalue.component';
+import { Jthermodynamics2dspeciesstructureComponent } from './catalogobjects/thermodynamics/jthermodynamics2dspeciesstructure/jthermodynamics2dspeciesstructure.component';
+import { JthermodynamicsatomcountsetComponent } from './catalogobjects/thermodynamics/jthermodynamicsatomcountset/jthermodynamicsatomcountset.component';
 
 
 
@@ -239,7 +241,9 @@ import { ParametervalueComponent } from './catalogobjects/parametervalue/paramet
   ChemconnectthermodynamicsdatabaseComponent,
   JthermodynamicdisassociationenergyComponent,
   ManagegeneralcatalogobjectvisComponent,
-  ParametervalueComponent
+  ParametervalueComponent,
+  Jthermodynamics2dspeciesstructureComponent,
+  JthermodynamicsatomcountsetComponent
 	],
 	imports: [
 		AppFirebaseModule,

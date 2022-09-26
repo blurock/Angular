@@ -3,6 +3,8 @@ import { OntologycatalogService } from '../../../services/ontologycatalog.servic
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { ChemconnectthermodynamicsdatabaseComponent } from '../chemconnectthermodynamicsdatabase/chemconnectthermodynamicsdatabase.component';
 import {ParametervalueComponent} from '../../parametervalue/parametervalue.component';
+import {Jthermodynamics2dspeciesstructureComponent} from '../jthermodynamics2dspeciesstructure/jthermodynamics2dspeciesstructure.component';
+
 @Component({
 	selector: 'app-jthermodynamicdisassociationenergy',
 	templateUrl: './jthermodynamicdisassociationenergy.component.html',
@@ -29,6 +31,7 @@ export class JthermodynamicdisassociationenergyComponent implements OnInit {
 
 	@ViewChild('base') base: ChemconnectthermodynamicsdatabaseComponent;
 	@ViewChild('energy') energy: ParametervalueComponent;
+	@ViewChild('structure') structure: Jthermodynamics2dspeciesstructureComponent;
 
 	constructor(
 		public annotations: OntologycatalogService,
@@ -71,6 +74,10 @@ export class JthermodynamicdisassociationenergyComponent implements OnInit {
 		const energyvalue = {};
 		this.energy.getData(energyvalue);
 		catalog[this.annoinfo['dataset:JThermodynamicDisassociationEnergy'][this.identifier]]=energyvalue;
+		const struct = {};
+		this.structure.getData(struct);
+		catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]]=struct;
+		
 	}
 	setData(catalog: any): void {
 		this.base.setData(catalog);
