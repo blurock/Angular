@@ -51,6 +51,13 @@ export class JthermodynamicsatomcountsetComponent implements OnInit {
 			countarray.push(countelement);
 		}
 	}
+	
+	setData(counts:any) {
+    this.countform.get('CarbonAtomCount').setValue(counts[this.annoinfo['dataset:CarbonAtomCount'][this.identifier]]);
+    this.countform.get('HydrogenAtomCount').setValue(counts[this.annoinfo['dataset:HydrogenAtomCount'][this.identifier]]);
+    this.countform.get('OxygenAtomCount').setValue(counts[this.annoinfo['dataset:OxygenAtomCount'][this.identifier]]);
+    this.setAtomCountData(counts[this.annoinfo['dataset:OxygenAtomCount'][this.identifier]])
+  }
 
 	setAtomCountData(atomcounts: []): void {
 		for (const count of atomcounts) {

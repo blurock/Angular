@@ -83,6 +83,8 @@ export class JthermodynamicdisassociationenergyComponent implements OnInit {
 		this.base.setData(catalog);
 		const energyvalue = catalog.get('dataset:JThermodynamicDisassociationEnergy').value;
 		this.energy.setData(energyvalue);
+		const struct = catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
+		this.structure.setData(struct);
 	}
 
 }

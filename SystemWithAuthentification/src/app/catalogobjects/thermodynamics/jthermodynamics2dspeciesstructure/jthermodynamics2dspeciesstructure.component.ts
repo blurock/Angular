@@ -45,7 +45,8 @@ export class Jthermodynamics2dspeciesstructureComponent implements OnInit {
 		this.counts.getData(structurecounts);
 	}
 	setData(structure: any): void {
-
+const structurecounts = structure[this.annoinfo['dataset:JThermodynamicsAtomCountSet'][this.identifier]]
+this.counts.setData(structurecounts);
 	}
 
 }
