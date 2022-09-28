@@ -5,6 +5,11 @@ import { DatasetrepositoryfilestagingComponent } from '../repository/datasetrepo
 import { RepositoryparsedtofixedblocksizeComponent } from '../repository/partition/repositoryparsedtofixedblocksize/repositoryparsedtofixedblocksize.component';
 import {JthermodynamicdisassociationenergyComponent} from '../thermodynamics/jthermodynamicdisassociationenergy/jthermodynamicdisassociationenergy.component';
 import {JthermodynamicsvibrationalstructureComponent} from '../thermodynamics/jthermodynamicsvibrationalstructure/jthermodynamicsvibrationalstructure.component';
+import { Jthermodynamics2dmoleculethermodynamicsComponent} from '../thermodynamics/jthermodynamics2dmoleculethermodynamics/jthermodynamics2dmoleculethermodynamics.component';
+import {Jthermodynamics2dsubstructurethermodynamicsComponent} from '../thermodynamics/jthermodynamics2dsubstructurethermodynamics/jthermodynamics2dsubstructurethermodynamics.component';
+import {ThermodynamicbensonruledefinitionComponent} from '../thermodynamics/thermodynamicbensonruledefinition/thermodynamicbensonruledefinition.component';
+import {JthermodynamicsmetaatomdefinitionComponent} from '../thermodynamics/jthermodynamicsmetaatomdefinition/jthermodynamicsmetaatomdefinition.component';
+
 @Component({
 	selector: 'app-generalcatalogobjectvisualization',
 	templateUrl: './generalcatalogobjectvisualization.component.html',
@@ -45,7 +50,28 @@ export class GeneralcatalogobjectvisualizationComponent implements OnInit {
 				this.componentRef = this.dynamicChild.viewContainerRef.createComponent(JthermodynamicsvibrationalstructureComponent);
 				this.isNotSetUp = false;
 			}
-		} else {
+		} else if (catalogtype === 'dataset:JThermodynamics2DSpeciesStructure') {
+			if (this.isNotSetUp) {
+				this.componentRef = this.dynamicChild.viewContainerRef.createComponent( Jthermodynamics2dmoleculethermodynamicsComponent);
+				this.isNotSetUp = false;
+			}			
+		} else if (catalogtype === 'dataset:JThermodynamics2DSubstructureThermodynamics') {
+			if (this.isNotSetUp) {
+				this.componentRef = this.dynamicChild.viewContainerRef.createComponent( Jthermodynamics2dsubstructurethermodynamicsComponent);
+				this.isNotSetUp = false;
+			}						
+		} else if(catalogtype === 'dataset:ThermodynamicBensonRuleDefinition') {
+		    if (this.isNotSetUp) {
+				this.componentRef = this.dynamicChild.viewContainerRef.createComponent( ThermodynamicbensonruledefinitionComponent);
+				this.isNotSetUp = false;
+			}						
+		} else if(catalogtype === 'dataset:JThermodynamicsMetaAtomDefinition') {
+		    if (this.isNotSetUp) {
+				this.componentRef = this.dynamicChild.viewContainerRef.createComponent( JthermodynamicsmetaatomdefinitionComponent);
+				this.isNotSetUp = false;
+			}									
+		}
+		else {
 			alert("catalog object not found: '" + catalogtype + "'");
 		}
 		

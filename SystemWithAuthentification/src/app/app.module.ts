@@ -145,6 +145,12 @@ import { ParametervalueComponent } from './catalogobjects/parametervalue/paramet
 import { Jthermodynamics2dspeciesstructureComponent } from './catalogobjects/thermodynamics/jthermodynamics2dspeciesstructure/jthermodynamics2dspeciesstructure.component';
 import { JthermodynamicsatomcountsetComponent } from './catalogobjects/thermodynamics/jthermodynamicsatomcountset/jthermodynamicsatomcountset.component';
 import { JthermodynamicsvibrationalstructureComponent } from './catalogobjects/thermodynamics/jthermodynamicsvibrationalstructure/jthermodynamicsvibrationalstructure.component';
+import { JthermodynamicstandardthermodynamicsComponent } from './catalogobjects/thermodynamics/jthermodynamicstandardthermodynamics/jthermodynamicstandardthermodynamics.component';
+import { Jthermodynamics2dmoleculethermodynamicsComponent } from './catalogobjects/thermodynamics/jthermodynamics2dmoleculethermodynamics/jthermodynamics2dmoleculethermodynamics.component';
+import { Jthermodynamics2dsubstructurethermodynamicsComponent } from './catalogobjects/thermodynamics/jthermodynamics2dsubstructurethermodynamics/jthermodynamics2dsubstructurethermodynamics.component';
+import { JthermodynamicsbensonrulestructureComponent } from './catalogobjects/thermodynamics/jthermodynamicsbensonrulestructure/jthermodynamicsbensonrulestructure.component';
+import { ThermodynamicbensonruledefinitionComponent } from './catalogobjects/thermodynamics/thermodynamicbensonruledefinition/thermodynamicbensonruledefinition.component';
+import { JthermodynamicsmetaatomdefinitionComponent } from './catalogobjects/thermodynamics/jthermodynamicsmetaatomdefinition/jthermodynamicsmetaatomdefinition.component';
 
 
 
@@ -245,7 +251,13 @@ import { JthermodynamicsvibrationalstructureComponent } from './catalogobjects/t
   ParametervalueComponent,
   Jthermodynamics2dspeciesstructureComponent,
   JthermodynamicsatomcountsetComponent,
-  JthermodynamicsvibrationalstructureComponent
+  JthermodynamicsvibrationalstructureComponent,
+  JthermodynamicstandardthermodynamicsComponent,
+  Jthermodynamics2dmoleculethermodynamicsComponent,
+  Jthermodynamics2dsubstructurethermodynamicsComponent,
+  JthermodynamicsbensonrulestructureComponent,
+  ThermodynamicbensonruledefinitionComponent,
+  JthermodynamicsmetaatomdefinitionComponent
 	],
 	imports: [
 		AppFirebaseModule,

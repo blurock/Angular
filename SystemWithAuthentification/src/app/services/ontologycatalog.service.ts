@@ -49,6 +49,12 @@ export class OntologycatalogService {
 			'dataset:dynamicType': 'FixedParameter',
 			'skos:prefLabel': 'Frequency',
 			'qudt:Unit': ['unit:PER-SEC', 'unit:HZ', 'dataset:cmMinus1']
+		},
+		'dataset:ParameterSpecificationTemperature': {
+			'qudt:QuantityKind': 'quantitykind:Temperature',
+			'dataset:dynamicType': 'FixedParameter',
+			'skos:prefLabel': 'Temperature',
+			'qudt:Unit': ['unit:K', 'unit:DEG_R','unit:DEG_F','unit:DEG_C','unit:DEG_MilliDEG_C', 'unit:PlankTemperature']
 		}
 	}
 	public getParameterSet(choices: string[]): Observable<any> {

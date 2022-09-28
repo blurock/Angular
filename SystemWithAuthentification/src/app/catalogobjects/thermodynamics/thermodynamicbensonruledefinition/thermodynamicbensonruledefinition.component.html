@@ -1,0 +1,19 @@
+<mat-card>
+	<mat-card-header>
+	{{title}}
+	</mat-card-header>
+	<mat-card-content>
+		<ng-container *ngIf='display; else loading'>
+		
+		<app-jthermodynamicsbensonrulestructure #bensonstructure [(annoinfo)]="annoinfo"></app-jthermodynamicsbensonrulestructure>
+		<app-jthermodynamicstandardthermodynamics #thermo [(annoinfo)]="annoinfo"></app-jthermodynamicstandardthermodynamics>
+			<app-chemconnectthermodynamicsdatabase #base [(annoinfo)]="annoinfo" [(catalogtype)]="catalogtype">
+			</app-chemconnectthermodynamicsdatabase>
+		</ng-container>
+		<ng-template #loading>
+			<div>
+				{{message}}
+			</div>
+		</ng-template>
+	</mat-card-content>
+</mat-card>

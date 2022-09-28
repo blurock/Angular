@@ -44,6 +44,7 @@ export class MenutreeserviceService {
 
 	subchoices(anno: any, classification: any, navitemarray: NavItem[]): void {
 		const subclasses = classification['dataset:classificationtree'];
+		
 		if (subclasses != null) {
 			for (let i = 0; i < subclasses.length; i++) {
 				const classelement = subclasses[i];

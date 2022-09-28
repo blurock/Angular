@@ -23,7 +23,12 @@ export class ManagegeneralcatalogobjectvisComponent implements OnInit {
 	choices = ['dataset:RepositoryFileStaging',
 	'dataset:RepositoryParsedToFixedBlockSize',
 	'dataset:JThermodynamicsDisassociationEnergyOfStructure',
-	'dataset:JThermodynamicsVibrationalStructure'];
+	'dataset:JThermodynamicsVibrationalStructure',
+	'dataset:JThermodynamics2DSpeciesStructure',
+	'dataset:JThermodynamics2DSubstructureThermodynamics',
+	'dataset:ThermodynamicBensonRuleDefinition',
+	'dataset:JThermodynamicsMetaAtomDefinition'];
+	
 	choice = 'Choose Catalog Object';
 
 	displaydescbutton = 'Display Partition as JSON';
