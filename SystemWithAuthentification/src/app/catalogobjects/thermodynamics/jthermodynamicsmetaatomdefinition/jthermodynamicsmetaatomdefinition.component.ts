@@ -101,7 +101,7 @@ export class JthermodynamicsmetaatomdefinitionComponent implements OnInit {
 		this.base.getData(catalog);
 		const struct = {};
 		this.structure.getData(struct);
-		catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]] = struct;
+		meta[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]] = struct;
 
 	}
 	setData(catalog: any): void {
@@ -123,7 +123,7 @@ export class JthermodynamicsmetaatomdefinitionComponent implements OnInit {
 
 
 		this.base.setData(catalog);
-		const struct = catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
+		const struct = meta[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
 		this.structure.setData(struct);
 	}
 

@@ -27,7 +27,8 @@ export class ManagegeneralcatalogobjectvisComponent implements OnInit {
 	'dataset:JThermodynamics2DSpeciesStructure',
 	'dataset:JThermodynamics2DSubstructureThermodynamics',
 	'dataset:ThermodynamicBensonRuleDefinition',
-	'dataset:JThermodynamicsMetaAtomDefinition'];
+	'dataset:JThermodynamicsMetaAtomDefinition',
+	'dataset:JThermodynamicsSymmetryStructureDefinition'];
 	
 	choice = 'Choose Catalog Object';
 

@@ -9,6 +9,7 @@ import { Jthermodynamics2dmoleculethermodynamicsComponent} from '../thermodynami
 import {Jthermodynamics2dsubstructurethermodynamicsComponent} from '../thermodynamics/jthermodynamics2dsubstructurethermodynamics/jthermodynamics2dsubstructurethermodynamics.component';
 import {ThermodynamicbensonruledefinitionComponent} from '../thermodynamics/thermodynamicbensonruledefinition/thermodynamicbensonruledefinition.component';
 import {JthermodynamicsmetaatomdefinitionComponent} from '../thermodynamics/jthermodynamicsmetaatomdefinition/jthermodynamicsmetaatomdefinition.component';
+import {JthermodynamicssymmetrystructuredefinitionComponent} from '../thermodynamics/jthermodynamicssymmetrystructuredefinition/jthermodynamicssymmetrystructuredefinition.component';
 
 @Component({
 	selector: 'app-generalcatalogobjectvisualization',
@@ -70,7 +71,13 @@ export class GeneralcatalogobjectvisualizationComponent implements OnInit {
 				this.componentRef = this.dynamicChild.viewContainerRef.createComponent( JthermodynamicsmetaatomdefinitionComponent);
 				this.isNotSetUp = false;
 			}									
+		} else if(catalogtype === 'dataset:JThermodynamicsSymmetryStructureDefinition') {
+		    if (this.isNotSetUp) {
+				this.componentRef = this.dynamicChild.viewContainerRef.createComponent( JthermodynamicssymmetrystructuredefinitionComponent);
+				this.isNotSetUp = false;
+			}									
 		}
+		
 		else {
 			alert("catalog object not found: '" + catalogtype + "'");
 		}

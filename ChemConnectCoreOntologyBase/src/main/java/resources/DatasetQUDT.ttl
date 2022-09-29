@@ -3312,7 +3312,6 @@ This event is usually associated with an action initiated by the GUI, such as a 
                   rdfs:subClassOf :ShortStringKey ;
                   <http://purl.org/dc/elements/1.1/type> :CatalogObjectKey ;
                   <http://purl.org/dc/terms/identifier> "dataset:catalogkey" ;
-                  <http://purl.org/dc/terms/source> :SimpleCatalogName ;
                   rdfs:comment "This is a unique (automatically generated) key to identify this catalog object. The key itself is generated using a UUID generator (https://www.uuidgenerator.net/api/guid)."^^xsd:string ;
                   rdfs:label "Catalog Object Key"^^xsd:string ;
                   <http://www.w3.org/2004/02/skos/core#altLabel> "catalogkey"^^xsd:string .
@@ -9499,7 +9498,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#HBISubstructure
 :HBISubstructure rdf:type owl:Class ;
-                 rdfs:subClassOf :JThermodynamicsSubstructureTypeChoices .
+                 rdfs:subClassOf :JThermodynamicsSubstructureTypeChoices ;
+                 rdfs:comment "Hydrogen Atom Bond Increments (HBI) structure"^^xsd:string ;
+                 rdfs:label "HBI Structure"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#HDisassociationMolarEnergy
@@ -10926,6 +10927,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                       [ rdf:type owl:Restriction ;
                                                         owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                        owl:onClass :ParameterSpecificationHeatCapacity
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                        owl:onClass :ParameterSpecificationTemperature
+                                                      ] ,
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                         owl:onClass :ThermodynamicStandardEnthalpy
                                                       ] ,
                                                       [ rdf:type owl:Restriction ;
@@ -11376,11 +11387,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                                   owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                                   owl:onClass :JThermodynamics2DSpeciesStructure
-                                                                ] ,
-                                                                [ rdf:type owl:Restriction ;
-                                                                  owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
-                                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                  owl:onClass :JThermodynamicsDisassociationEnergyOfStructure
                                                                 ] ;
                                                 <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
                                                 <http://purl.org/dc/terms/identifier> "dataset:disassociation"^^xsd:string ;
@@ -13915,6 +13921,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                    rdfs:isDefinedBy :Frequency ;
                                                    rdfs:label "Frequency Specification"^^xsd:string ;
                                                    <http://www.w3.org/2004/02/skos/core#altLabel> "paramspecfrequency"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#ParameterSpecificationTemperature
+:ParameterSpecificationTemperature rdf:type owl:Class ;
+                                   rdfs:subClassOf :ParameterSpecification ;
+                                   <http://purl.org/dc/elements/1.1/type> :ThermodynamicTemperature ;
+                                   <http://purl.org/dc/terms/identifier> "dataset:thermotemperature"^^xsd:string ;
+                                   rdfs:comment "The specification of a temperature value"^^xsd:string ;
+                                   rdfs:label "Temperature"^^xsd:string ;
+                                   <http://www.w3.org/2004/02/skos/core#altLabel> "thermotemperature"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ParameterTypeClassification
@@ -16740,7 +16756,9 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#RingStrainCorrectionSubstructure
 :RingStrainCorrectionSubstructure rdf:type owl:Class ;
-                                  rdfs:subClassOf :JThermodynamicsSubstructureTypeChoices .
+                                  rdfs:subClassOf :JThermodynamicsSubstructureTypeChoices ;
+                                  rdfs:comment "This is the ring substructure, possibly with substitutions, associated with a particular ring strain energy"^^xsd:string ;
+                                  rdfs:label "Ring Strain Structure"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#SampleFlameSpecies
@@ -17697,7 +17715,9 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#StericCorrectionSubstructure
 :StericCorrectionSubstructure rdf:type owl:Class ;
-                              rdfs:subClassOf :JThermodynamicsSubstructureTypeChoices .
+                              rdfs:subClassOf :JThermodynamicsSubstructureTypeChoices ;
+                              rdfs:comment "This is the substructure associated with the steric hindrance energy"^^xsd:string ;
+                              rdfs:label "Steric Hindrance Structure"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#StringNameLabel
@@ -18496,7 +18516,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                                               [ rdf:type owl:Restriction ;
                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                owl:onClass :ThermodynamicHeatCapacity
+                                                owl:onClass :ThermodynamicHeatCapacityValue
                                               ] ,
                                               [ rdf:type owl:Restriction ;
                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;

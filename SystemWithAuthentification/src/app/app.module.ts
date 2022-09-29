@@ -151,6 +151,7 @@ import { Jthermodynamics2dsubstructurethermodynamicsComponent } from './catalogo
 import { JthermodynamicsbensonrulestructureComponent } from './catalogobjects/thermodynamics/jthermodynamicsbensonrulestructure/jthermodynamicsbensonrulestructure.component';
 import { ThermodynamicbensonruledefinitionComponent } from './catalogobjects/thermodynamics/thermodynamicbensonruledefinition/thermodynamicbensonruledefinition.component';
 import { JthermodynamicsmetaatomdefinitionComponent } from './catalogobjects/thermodynamics/jthermodynamicsmetaatomdefinition/jthermodynamicsmetaatomdefinition.component';
+import { JthermodynamicssymmetrystructuredefinitionComponent } from './catalogobjects/thermodynamics/jthermodynamicssymmetrystructuredefinition/jthermodynamicssymmetrystructuredefinition.component';
 
 
 
@@ -257,7 +258,8 @@ import { JthermodynamicsmetaatomdefinitionComponent } from './catalogobjects/the
   Jthermodynamics2dsubstructurethermodynamicsComponent,
   JthermodynamicsbensonrulestructureComponent,
   ThermodynamicbensonruledefinitionComponent,
-  JthermodynamicsmetaatomdefinitionComponent
+  JthermodynamicsmetaatomdefinitionComponent,
+  JthermodynamicssymmetrystructuredefinitionComponent
 	],
 	imports: [
 		AppFirebaseModule,
