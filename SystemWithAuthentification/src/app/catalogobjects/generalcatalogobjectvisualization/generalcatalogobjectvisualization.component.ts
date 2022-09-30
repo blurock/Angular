@@ -10,7 +10,7 @@ import {Jthermodynamics2dsubstructurethermodynamicsComponent} from '../thermodyn
 import {ThermodynamicbensonruledefinitionComponent} from '../thermodynamics/thermodynamicbensonruledefinition/thermodynamicbensonruledefinition.component';
 import {JthermodynamicsmetaatomdefinitionComponent} from '../thermodynamics/jthermodynamicsmetaatomdefinition/jthermodynamicsmetaatomdefinition.component';
 import {JthermodynamicssymmetrystructuredefinitionComponent} from '../thermodynamics/jthermodynamicssymmetrystructuredefinition/jthermodynamicssymmetrystructuredefinition.component';
-
+import {RepositorythergasthermodynamicsblockComponent} from '../repository/partition/repositorythergasthermodynamicsblock/repositorythergasthermodynamicsblock.component';
 @Component({
 	selector: 'app-generalcatalogobjectvisualization',
 	templateUrl: './generalcatalogobjectvisualization.component.html',
@@ -74,6 +74,11 @@ export class GeneralcatalogobjectvisualizationComponent implements OnInit {
 		} else if(catalogtype === 'dataset:JThermodynamicsSymmetryStructureDefinition') {
 		    if (this.isNotSetUp) {
 				this.componentRef = this.dynamicChild.viewContainerRef.createComponent( JthermodynamicssymmetrystructuredefinitionComponent);
+				this.isNotSetUp = false;
+			}									
+		} else if(catalogtype === 'dataset:RepositoryTherGasThermodynamicsBlock') {
+		    if (this.isNotSetUp) {
+				this.componentRef = this.dynamicChild.viewContainerRef.createComponent( RepositorythergasthermodynamicsblockComponent);
 				this.isNotSetUp = false;
 			}									
 		}

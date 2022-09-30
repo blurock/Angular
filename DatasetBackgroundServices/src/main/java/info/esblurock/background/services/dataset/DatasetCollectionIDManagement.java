@@ -55,6 +55,7 @@ public class DatasetCollectionIDManagement {
 		JsonObject idcollection = BaseCatalogData.createStandardDatabaseObject(
 				"dataset:ChemConnectDatasetCollectionIDsSet", owner, transactionID, "false");
 		idcollection.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
+		idcollection.addProperty(ClassLabelConstants.CatalogObjectOwner, owner);
 		idcollection.addProperty(ClassLabelConstants.DescriptionAbstract, descr);
 		idcollection.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, collectionname);
 		BaseCatalogData.insertFirestoreAddress(idcollection);

@@ -22,6 +22,7 @@ export class ManagegeneralcatalogobjectvisComponent implements OnInit {
 	
 	choices = ['dataset:RepositoryFileStaging',
 	'dataset:RepositoryParsedToFixedBlockSize',
+	'dataset:RepositoryTherGasThermodynamicsBlock',
 	'dataset:JThermodynamicsDisassociationEnergyOfStructure',
 	'dataset:JThermodynamicsVibrationalStructure',
 	'dataset:JThermodynamics2DSpeciesStructure',

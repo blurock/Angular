@@ -55,7 +55,9 @@ public class BaseCatalogData {
 		String type = GenericSimpleQueries.classFromIdentifier(obj.get(AnnotationObjectsLabels.identifier).getAsString());
 		obj.addProperty(ClassLabelConstants.DatabaseObjectType, type);
 		if(computeaddress) {
+		    System.out.println("Compute Address obj:\n" + JsonObjectUtilities.toString(obj));
 			insertFirestoreAddress(obj);
+            System.out.println("Compute Address with:\n" + JsonObjectUtilities.toString(obj));
 		}
 	}
 	
@@ -67,8 +69,11 @@ public class BaseCatalogData {
 	}
 	
 	public static JsonObject createStandardDatabaseObject(String classname, String owner, String transactionID, String publicB) {
+	    System.out.println("createStandardDatabaseObject");
 		JsonObject obj = CreateDocumentTemplate.createTemplate(classname);
+        System.out.println("Document Template createStandardDatabaseObject:\n" + JsonObjectUtilities.toString(obj));
 		insertStandardBaseInformation(obj,owner,transactionID,publicB);
+        System.out.println("Compute Address createStandardDatabaseObject:\n" + JsonObjectUtilities.toString(obj));
 		return obj;
 	}
 	

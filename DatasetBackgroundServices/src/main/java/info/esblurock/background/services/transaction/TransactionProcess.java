@@ -458,8 +458,11 @@ public enum TransactionProcess {
 		String transactionID = SystemObjectInformation.determineTransactionID();
 		String owner = SystemObjectInformation.determineOwner();
 		String transactionobjectname = process.transactionObjectName();
+        System.out.println("------------processFromTransaction-------\n" + owner);
 		JsonObject event = BaseCatalogData.createStandardDatabaseObject(transactionobjectname, owner, transactionID,
 				owner);
+	      System.out.println("------------processFromTransaction-------\n" + JsonObjectUtilities.toString(event));
+
         String title = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
         JsonObject shortdescr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
         shortdescr.addProperty(ClassLabelConstants.TransactionEventType, transaction);
@@ -467,6 +470,8 @@ public enum TransactionProcess {
 		//event.addProperty(ClassLabelConstants.TransactionEventType, transname);
 		event.add(ClassLabelConstants.ActivityInformationRecord, info);
 		JsonObject response = process.process(event, prerequisites, info);
+        BaseCatalogData.insertFirestoreAddress(event);
+		
 		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 
 			JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
@@ -477,7 +482,6 @@ public enum TransactionProcess {
 				GenerateTransactionEventObject.addDatabaseObjectIDOutputTransaction(event, output);
 
                 event.add(ClassLabelConstants.RequiredTransactionIDAndType, prerequisitelist);
-                 
 				WriteFirestoreCatalogObject.writeCatalogObject(event);
                
 				String message = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();

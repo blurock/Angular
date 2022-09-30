@@ -131,7 +131,8 @@ public class DatasetCollectionManagement {
 		Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent");
 		Element body = MessageConstructor.isolateBody(document);
 		String descr = info.get(ClassLabelConstants.DescriptionAbstract).getAsString();
-		body.addElement("div").addText("Maintainer      : " + maintainer);
+        body.addElement("div").addText("Owner           : " + owner);
+        body.addElement("div").addText("Maintainer      : " + maintainer);
 		body.addElement("div").addText("Collection Name : " + collectionname);
 		JsonObject idcollection = DatasetCollectionIDManagement
 				.createEmptyChemConnectCurrentDatasetIDSet(collectionname, owner, transactionID, maintainer, descr);
