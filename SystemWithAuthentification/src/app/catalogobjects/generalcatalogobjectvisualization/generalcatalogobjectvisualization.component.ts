@@ -11,6 +11,7 @@ import {ThermodynamicbensonruledefinitionComponent} from '../thermodynamics/ther
 import {JthermodynamicsmetaatomdefinitionComponent} from '../thermodynamics/jthermodynamicsmetaatomdefinition/jthermodynamicsmetaatomdefinition.component';
 import {JthermodynamicssymmetrystructuredefinitionComponent} from '../thermodynamics/jthermodynamicssymmetrystructuredefinition/jthermodynamicssymmetrystructuredefinition.component';
 import {RepositorythergasthermodynamicsblockComponent} from '../repository/partition/repositorythergasthermodynamicsblock/repositorythergasthermodynamicsblock.component';
+import {ChemconnectdatasetcollectionidssetComponent} from '../datasetcollection/chemconnectdatasetcollectionidsset/chemconnectdatasetcollectionidsset.component';
 @Component({
 	selector: 'app-generalcatalogobjectvisualization',
 	templateUrl: './generalcatalogobjectvisualization.component.html',
@@ -79,6 +80,11 @@ export class GeneralcatalogobjectvisualizationComponent implements OnInit {
 		} else if(catalogtype === 'dataset:RepositoryTherGasThermodynamicsBlock') {
 		    if (this.isNotSetUp) {
 				this.componentRef = this.dynamicChild.viewContainerRef.createComponent( RepositorythergasthermodynamicsblockComponent);
+				this.isNotSetUp = false;
+			}									
+		} else if(catalogtype === 'dataset:ChemConnectDatasetCollectionIDsSet') {
+		    if (this.isNotSetUp) {
+				this.componentRef = this.dynamicChild.viewContainerRef.createComponent( ChemconnectdatasetcollectionidssetComponent);
 				this.isNotSetUp = false;
 			}									
 		}

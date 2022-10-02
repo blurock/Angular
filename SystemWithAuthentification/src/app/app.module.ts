@@ -152,6 +152,8 @@ import { JthermodynamicsbensonrulestructureComponent } from './catalogobjects/th
 import { ThermodynamicbensonruledefinitionComponent } from './catalogobjects/thermodynamics/thermodynamicbensonruledefinition/thermodynamicbensonruledefinition.component';
 import { JthermodynamicsmetaatomdefinitionComponent } from './catalogobjects/thermodynamics/jthermodynamicsmetaatomdefinition/jthermodynamicsmetaatomdefinition.component';
 import { JthermodynamicssymmetrystructuredefinitionComponent } from './catalogobjects/thermodynamics/jthermodynamicssymmetrystructuredefinition/jthermodynamicssymmetrystructuredefinition.component';
+import { ChemconnectdatasetcollectionidssetComponent } from './catalogobjects/datasetcollection/chemconnectdatasetcollectionidsset/chemconnectdatasetcollectionidsset.component';
+import { DatasetspecificationforcollectionsetComponent } from './catalogobjects/datasetcollection/datasetspecificationforcollectionset/datasetspecificationforcollectionset.component';
 
 
 
@@ -259,7 +261,9 @@ import { JthermodynamicssymmetrystructuredefinitionComponent } from './catalogob
   JthermodynamicsbensonrulestructureComponent,
   ThermodynamicbensonruledefinitionComponent,
   JthermodynamicsmetaatomdefinitionComponent,
-  JthermodynamicssymmetrystructuredefinitionComponent
+  JthermodynamicssymmetrystructuredefinitionComponent,
+  ChemconnectdatasetcollectionidssetComponent,
+  DatasetspecificationforcollectionsetComponent
 	],
 	imports: [
 		AppFirebaseModule,

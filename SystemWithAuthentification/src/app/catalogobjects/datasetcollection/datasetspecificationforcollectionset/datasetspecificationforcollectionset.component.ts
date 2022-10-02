@@ -1,16 +1,17 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Ontologyconstants } from '../../const/ontologyconstants';
-import { ManageuserserviceService } from '../../services/manageuserservice.service';
-import { MenutreeserviceService } from '../../services/menutreeservice.service';
-import { NavItem } from '../../primitives/nav-item';
+import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { ManageuserserviceService } from '../../../services/manageuserservice.service';
+import { MenutreeserviceService } from '../../../services/menutreeservice.service';
+import { NavItem } from '../../../primitives/nav-item';
 
 @Component({
-	selector: 'app-datasettransactionspecificationforcollection',
-	templateUrl: './datasettransactionspecificationforcollection.component.html',
-	styleUrls: ['./datasettransactionspecificationforcollection.component.scss']
+	selector: 'app-datasetspecificationforcollectionset',
+	templateUrl: './datasetspecificationforcollectionset.component.html',
+	styleUrls: ['./datasetspecificationforcollectionset.component.scss']
 })
-export class DatasettransactionspecificationforcollectionComponent implements OnInit {
+export class DatasetspecificationforcollectionsetComponent implements OnInit {
+
 
 	@Input() annoinfo: any;
 	@Input() subtitle: string;
@@ -28,9 +29,6 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 
 
 	waiting = 'waiting for annotations ';
-	
-
-
 
 	constructor(
 		public fb: FormBuilder,
@@ -38,11 +36,10 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 		private menusetup: MenutreeserviceService
 	) {
 		this.idForm = this.fb.group({
-			DatasetName: ['', Validators.required],
-			DatasetVersion: ['', Validators.required],
+			DatasetName: ['Standard', Validators.required],
+			DatasetVersion: ['1.0', Validators.required],
 			CatalogObjectUniqueGenericLabel: ['', Validators.required],
-			SimpleCatalogName: ['', Validators.required],
-			CatalogDataObjectStatus: ['', Validators.required]
+			CatalogDataObjectStatus: ['CatalogObjectStatusCurrent', Validators.required]
 		});
 		manageuser.determineMaintainer().subscribe(result => {
 			if (result != null) {
@@ -54,24 +51,22 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 	}
 
 	ngOnInit(): void {
-		if(this.subtitle == null) {
+		if (this.subtitle == null) {
 			this.subtitle = 'Specification for Collection';
 		}
 		this.items = this.menusetup.findChoices(this.annoinfo, this.statusitems);
 	}
+	
+	function() {
+    alert("Hello");
+  }
 
-	public getData(catalog: any): void {
-		const jsontransspec = {};
-		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
-		catalog[specid] = jsontransspec;
-
-		jsontransspec[this.annoinfo['dataset:CatalogDataObjectStatus'][this.identifier]] = this.idForm.get('CatalogDataObjectStatus').value;
-		jsontransspec[this.annoinfo['dataset:DatasetName'][this.identifier]] = this.idForm.get('DatasetName').value;
-		jsontransspec[this.annoinfo['dataset:DatasetVersion'][this.identifier]] = this.idForm.get('DatasetVersion').value;
-		jsontransspec[this.annoinfo['dataset:CatalogObjectUniqueGenericLabel'][this.identifier]] = this.idForm.get('CatalogObjectUniqueGenericLabel').value;
-		jsontransspec['dataset:catalogobjectmaintainer'] = this.maintainer;
-		this.transspec = jsontransspec;
-
+	getData(catalog: any): void {
+		catalog[this.annoinfo['dataset:CatalogDataObjectStatus'][this.identifier]] = this.idForm.get('CatalogDataObjectStatus').value;
+		catalog[this.annoinfo['dataset:DatasetName'][this.identifier]] = this.idForm.get('DatasetName').value;
+		catalog[this.annoinfo['dataset:DatasetVersion'][this.identifier]] = this.idForm.get('DatasetVersion').value;
+		catalog[this.annoinfo['dataset:CatalogObjectUniqueGenericLabel'][this.identifier]] = this.idForm.get('CatalogObjectUniqueGenericLabel').value;
+		catalog['dataset:catalogobjectmaintainer'] = this.maintainer;
 	}
 
 	public setData(jsontransspec: any): void {
@@ -86,6 +81,7 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 		this.maintainer = jsontransspec['dataset:catalogobjectmaintainer'];
 		this.transspec = jsontransspec;
 	}
+
 
 
 }
