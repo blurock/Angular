@@ -72,7 +72,7 @@ public class BaseCatalogData {
 	    System.out.println("createStandardDatabaseObject");
 		JsonObject obj = CreateDocumentTemplate.createTemplate(classname);
         System.out.println("Document Template createStandardDatabaseObject:\n" + JsonObjectUtilities.toString(obj));
-		insertStandardBaseInformation(obj,owner,transactionID,publicB);
+		insertStandardBaseInformation(obj,owner,transactionID,publicB,false);
         System.out.println("Compute Address createStandardDatabaseObject:\n" + JsonObjectUtilities.toString(obj));
 		return obj;
 	}

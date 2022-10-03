@@ -52,6 +52,7 @@ public class DatasetCollectionIDManagement {
 	 */
 	public static JsonObject createEmptyChemConnectCurrentDatasetIDSet(String collectionname, String owner,
 			String transactionID, String maintainer, String descr) {
+	    System.out.println("Owner: " + owner);
 		JsonObject idcollection = BaseCatalogData.createStandardDatabaseObject(
 				"dataset:ChemConnectDatasetCollectionIDsSet", owner, transactionID, "false");
 		idcollection.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);

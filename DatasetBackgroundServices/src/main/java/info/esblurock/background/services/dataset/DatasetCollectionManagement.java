@@ -4,6 +4,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
@@ -12,6 +13,7 @@ import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.service.rdfs.GenerateAndWriteRDFForObject;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.background.services.transaction.TransactionProcess;
+import info.esblurock.reaction.core.ontology.base.collectionset.CollectionSetUtilities;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
@@ -128,6 +130,7 @@ public class DatasetCollectionManagement {
 		JsonObject collectionid = info.get(ClassLabelConstants.DatasetSpecificationForCollectionSet).getAsJsonObject();
 		String maintainer = recordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 		String collectionname = recordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+		String collectiontype = info.get("dcat:dataset").getAsString();
 		event.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
 		event.add(ClassLabelConstants.DatasetCollectionsSetLabel, collectionid);
 		Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent");
@@ -141,6 +144,9 @@ public class DatasetCollectionManagement {
         body.addElement("div").addText("Default Version      : " + collectionid.get(ClassLabelConstants.DatasetVersion));
 		JsonObject idcollection = DatasetCollectionIDManagement
 				.createEmptyChemConnectCurrentDatasetIDSet(collectionname, owner, transactionID, maintainer, descr);
+		fillInDatasetCollectionWithDefaults(collectiontype,collectionid,idcollection);
+        JsonObject transfirestoreID = BaseCatalogData.insertFirestoreAddress(event);
+        idcollection.add(ClassLabelConstants.FirestoreCatalogIDForTransaction,transfirestoreID.deepCopy());
 		WriteFirestoreCatalogObject.writeCatalogObject(idcollection);
 		putInLocalVersion(idcollection);
 		JsonArray arr = new JsonArray();
@@ -148,6 +154,25 @@ public class DatasetCollectionManagement {
 		JsonObject response = DatabaseServicesBase.standardServiceResponse(document,
 				"Succes: Create Dataset Collection IDs set", arr);
 		return response;
+	}
+	
+	static void fillInDatasetCollectionWithDefaults(String collectionname, JsonObject idcollection, JsonObject collectionid) {
+	    JsonArray datasets = CollectionSetUtilities.collectionDatasetInfo(collectionname);
+	    for(JsonElement element : datasets) {
+	        JsonObject dataset = (JsonObject) element;
+	        JsonObject id = new JsonObject();
+            String maintainer = idcollection.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+            id.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
+            String status = idcollection.get(ClassLabelConstants.CatalogDataObjectStatus).getAsString();
+            id.addProperty(ClassLabelConstants.CatalogDataObjectStatus, status);
+            String datasetname = idcollection.get(ClassLabelConstants.DatasetName).getAsString();
+            id.addProperty(ClassLabelConstants.DatasetName, datasetname);
+            String version = idcollection.get(ClassLabelConstants.DatasetVersion).getAsString();
+            id.addProperty(ClassLabelConstants.DatasetVersion, version);
+            
+            String identifier = dataset.get(AnnotationObjectsLabels.identifier).getAsString();
+            collectionid.add(identifier, id);
+	    }
 	}
 
 	/**
