@@ -32,11 +32,16 @@
 						</mat-form-field>
 					</mat-grid-tile>
 				</mat-grid-list>
-				<app-datasetspecificationforcollectionset #benson [(annoinfo)]="annoinfo" [(subtitle)]="bensontitle"></app-datasetspecificationforcollectionset>
-				<app-datasetspecificationforcollectionset #disassociation [(annoinfo)]="annoinfo" [(subtitle)]="disassociationtitle"></app-datasetspecificationforcollectionset>
-				<app-datasetspecificationforcollectionset #metaatom [(annoinfo)]="annoinfo" [(subtitle)]="metaatomtitle"></app-datasetspecificationforcollectionset>
-				<app-datasetspecificationforcollectionset #symmetry [(annoinfo)]="annoinfo" [(subtitle)]="symmetrytitle"></app-datasetspecificationforcollectionset>
-				<app-datasetspecificationforcollectionset #vibrational [(annoinfo)]="annoinfo" [(subtitle)]="vibrationaltitle"></app-datasetspecificationforcollectionset>
+				<app-datasetspecificationforcollectionset #benson [(annoinfo)]="annoinfo" [(subtitle)]="bensontitle" 
+				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
+				<app-datasetspecificationforcollectionset #disassociation [(annoinfo)]="annoinfo" [(subtitle)]="disassociationtitle" 
+				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
+				<app-datasetspecificationforcollectionset #metaatom [(annoinfo)]="annoinfo" [(subtitle)]="metaatomtitle" 
+				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
+				<app-datasetspecificationforcollectionset #symmetry [(annoinfo)]="annoinfo" [(subtitle)]="symmetrytitle" 
+				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
+				<app-datasetspecificationforcollectionset #vibrational [(annoinfo)]="annoinfo" [(subtitle)]="vibrationaltitle" 
+				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
 			</ng-container>
 			<ng-template #waiting>
 				Spec: waiting for annotations

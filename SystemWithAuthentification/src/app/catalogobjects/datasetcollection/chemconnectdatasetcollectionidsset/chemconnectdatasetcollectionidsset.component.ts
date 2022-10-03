@@ -89,10 +89,11 @@ export class ChemconnectdatasetcollectionidssetComponent implements OnInit {
 		catalog[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.idForm.get('CatalogDataObjectMaintainer').value;
 		catalog[this.annoinfo['dataset:DatasetCollectionsSetLabel'][this.identifier]] = this.idForm.get('DatasetCollectionsSetLabel').value;
 		catalog[this.annoinfo['dataset:DescriptionAbstract'][this.identifier]] = this.idForm.get('DescriptionAbstract').value;
+
 		const bensoncolid = {};
-		this.benson.function();
 		this.benson.getData(bensoncolid);
 		catalog[this.annoinfo['dataset:DatasetSpecificationBensonRuleDefinition'][this.identifier]] = bensoncolid;
+
 		const disassociationcolid = {};
 		this.disassociation.getData(disassociationcolid);
 		catalog[this.annoinfo['dataset:DatasetSpecificationDisassociationEnergyOfStructure'][this.identifier]] = disassociationcolid;
