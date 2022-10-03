@@ -154,6 +154,7 @@ import { JthermodynamicsmetaatomdefinitionComponent } from './catalogobjects/the
 import { JthermodynamicssymmetrystructuredefinitionComponent } from './catalogobjects/thermodynamics/jthermodynamicssymmetrystructuredefinition/jthermodynamicssymmetrystructuredefinition.component';
 import { ChemconnectdatasetcollectionidssetComponent } from './catalogobjects/datasetcollection/chemconnectdatasetcollectionidsset/chemconnectdatasetcollectionidsset.component';
 import { DatasetspecificationforcollectionsetComponent } from './catalogobjects/datasetcollection/datasetspecificationforcollectionset/datasetspecificationforcollectionset.component';
+import { ThermodynamicsdatasetcollectionidssetComponent } from './catalogobjects/datasetcollection/thermodynamicsdatasetcollectionidsset/thermodynamicsdatasetcollectionidsset.component';
 
 
 
@@ -263,7 +264,8 @@ import { DatasetspecificationforcollectionsetComponent } from './catalogobjects/
   JthermodynamicsmetaatomdefinitionComponent,
   JthermodynamicssymmetrystructuredefinitionComponent,
   ChemconnectdatasetcollectionidssetComponent,
-  DatasetspecificationforcollectionsetComponent
+  DatasetspecificationforcollectionsetComponent,
+  ThermodynamicsdatasetcollectionidssetComponent
 	],
 	imports: [
 		AppFirebaseModule,

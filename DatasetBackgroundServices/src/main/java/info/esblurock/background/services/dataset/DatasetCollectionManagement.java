@@ -125,15 +125,20 @@ public class DatasetCollectionManagement {
 		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
 		String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
 		JsonObject recordid = info.get(ClassLabelConstants.DatasetCollectionSetRecordIDInfo).getAsJsonObject();
+		JsonObject collectionid = info.get(ClassLabelConstants.DatasetSpecificationForCollectionSet).getAsJsonObject();
 		String maintainer = recordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 		String collectionname = recordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
 		event.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
+		event.add(ClassLabelConstants.DatasetCollectionsSetLabel, collectionid);
 		Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent");
 		Element body = MessageConstructor.isolateBody(document);
 		String descr = info.get(ClassLabelConstants.DescriptionAbstract).getAsString();
-        body.addElement("div").addText("Owner           : " + owner);
-        body.addElement("div").addText("Maintainer      : " + maintainer);
-		body.addElement("div").addText("Collection Name : " + collectionname);
+        body.addElement("div").addText("Owner                : " + owner);
+        body.addElement("div").addText("Maintainer           : " + maintainer);
+        body.addElement("div").addText("Collection Name      : " + collectionname);
+        body.addElement("div").addText("Default Dataset Name : " + collectionid.get(ClassLabelConstants.DatasetName));
+        body.addElement("div").addText("Default Status       : " + collectionid.get(ClassLabelConstants.CatalogDataObjectStatus));
+        body.addElement("div").addText("Default Version      : " + collectionid.get(ClassLabelConstants.DatasetVersion));
 		JsonObject idcollection = DatasetCollectionIDManagement
 				.createEmptyChemConnectCurrentDatasetIDSet(collectionname, owner, transactionID, maintainer, descr);
 		WriteFirestoreCatalogObject.writeCatalogObject(idcollection);

@@ -1,7 +1,4 @@
 <mat-card class="matcard">
-	<mat-card-header>
-		<mat-card-subtitle>{{subtitle}}</mat-card-subtitle>
-	</mat-card-header>
 	<mat-card-content>
 		<form [formGroup]="idForm">
 			<ng-container *ngIf='annoinfo != null; else waiting'>
@@ -32,16 +29,6 @@
 						</mat-form-field>
 					</mat-grid-tile>
 				</mat-grid-list>
-				<app-datasetspecificationforcollectionset #benson [(annoinfo)]="annoinfo" [(subtitle)]="bensontitle" 
-				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
-				<app-datasetspecificationforcollectionset #disassociation [(annoinfo)]="annoinfo" [(subtitle)]="disassociationtitle" 
-				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
-				<app-datasetspecificationforcollectionset #metaatom [(annoinfo)]="annoinfo" [(subtitle)]="metaatomtitle" 
-				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
-				<app-datasetspecificationforcollectionset #symmetry [(annoinfo)]="annoinfo" [(subtitle)]="symmetrytitle" 
-				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
-				<app-datasetspecificationforcollectionset #vibrational [(annoinfo)]="annoinfo" [(subtitle)]="vibrationaltitle" 
-				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
 			</ng-container>
 			<ng-template #waiting>
 				Spec: waiting for annotations

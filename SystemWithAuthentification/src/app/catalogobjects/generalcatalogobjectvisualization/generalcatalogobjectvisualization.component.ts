@@ -11,7 +11,8 @@ import {ThermodynamicbensonruledefinitionComponent} from '../thermodynamics/ther
 import {JthermodynamicsmetaatomdefinitionComponent} from '../thermodynamics/jthermodynamicsmetaatomdefinition/jthermodynamicsmetaatomdefinition.component';
 import {JthermodynamicssymmetrystructuredefinitionComponent} from '../thermodynamics/jthermodynamicssymmetrystructuredefinition/jthermodynamicssymmetrystructuredefinition.component';
 import {RepositorythergasthermodynamicsblockComponent} from '../repository/partition/repositorythergasthermodynamicsblock/repositorythergasthermodynamicsblock.component';
-import {ChemconnectdatasetcollectionidssetComponent} from '../datasetcollection/chemconnectdatasetcollectionidsset/chemconnectdatasetcollectionidsset.component';
+import {ThermodynamicsdatasetcollectionidssetComponent} from '../datasetcollection/thermodynamicsdatasetcollectionidsset/thermodynamicsdatasetcollectionidsset.component';
+
 @Component({
 	selector: 'app-generalcatalogobjectvisualization',
 	templateUrl: './generalcatalogobjectvisualization.component.html',
@@ -82,9 +83,9 @@ export class GeneralcatalogobjectvisualizationComponent implements OnInit {
 				this.componentRef = this.dynamicChild.viewContainerRef.createComponent( RepositorythergasthermodynamicsblockComponent);
 				this.isNotSetUp = false;
 			}									
-		} else if(catalogtype === 'dataset:ChemConnectDatasetCollectionIDsSet') {
+		} else if(catalogtype === 'dataset:ThermodynamicsDatasetCollectionIDsSet') {
 		    if (this.isNotSetUp) {
-				this.componentRef = this.dynamicChild.viewContainerRef.createComponent( ChemconnectdatasetcollectionidssetComponent);
+				this.componentRef = this.dynamicChild.viewContainerRef.createComponent( ThermodynamicsdatasetcollectionidssetComponent);
 				this.isNotSetUp = false;
 			}									
 		}
