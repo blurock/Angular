@@ -2720,7 +2720,7 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                      [ rdf:type owl:Restriction ;
                                                        owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                       owl:onClass :ChemConnectDatasetCollectionIDsSet
+                                                       owl:onClass :ThermodynamicsDatasetCollectionIDsSet
                                                      ] ;
                                      <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
                                      <http://purl.org/dc/terms/identifier> "dataset:hierdatasetcollectionids"^^xsd:string ;
@@ -3751,6 +3751,11 @@ This transaction is in combination with another transaction responsible for crea
                                     <http://www.w3.org/2004/02/skos/core#altLabel> "documentelementdata" .
 
 
+###  http://www.esblurock.info/dataset#ChemConnectDatasetCollection
+:ChemConnectDatasetCollection rdf:type owl:Class ;
+                              rdfs:subClassOf :ChemConnectConceptProperties .
+
+
 ###  http://www.esblurock.info/dataset#ChemConnectDatasetCollectionIDsSet
 :ChemConnectDatasetCollectionIDsSet rdf:type owl:Class ;
                                     rdfs:subClassOf :ChemConnectDataStructure ,
@@ -3768,37 +3773,7 @@ This transaction is in combination with another transaction responsible for crea
                                                       owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                       owl:onClass :DescriptionAbstract
-                                                    ] ,
-                                                    [ rdf:type owl:Restriction ;
-                                                      owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                      owl:onClass :DatasetSpecificationBensonRuleDefinition
-                                                    ] ,
-                                                    [ rdf:type owl:Restriction ;
-                                                      owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                      owl:onClass :DatasetSpecificationDisassociationEnergyOfStructure
-                                                    ] ,
-                                                    [ rdf:type owl:Restriction ;
-                                                      owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                      owl:onClass :DatasetSpecificationMetaAtomDefinition
-                                                    ] ,
-                                                    [ rdf:type owl:Restriction ;
-                                                      owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                      owl:onClass :DatasetSpecificationSymmetryStructureDefinition
-                                                    ] ,
-                                                    [ rdf:type owl:Restriction ;
-                                                      owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                      owl:onClass :DatasetSpecificationVibrationalStructure
-                                                    ] ;
-                                    <http://purl.org/dc/elements/1.1/type> :ChemConnectDatasetCollectionIDsSet ;
-                                    <http://purl.org/dc/terms/identifier> "dataset:datasetcollectionids"^^xsd:string ;
-                                    rdfs:comment "The set of IDs of the catalog collections of the objects to be used together as a set. This class object is identified with the DatasetCollectionSetLabel."^^xsd:string ;
-                                    rdfs:label "Set of Collection IDs for a dataset"^^xsd:string ;
-                                    <http://www.w3.org/2004/02/skos/core#altLabel> "datasetcollectionids"^^xsd:string .
+                                                    ] .
 
 
 ###  http://www.esblurock.info/dataset#ChemConnectDefineSubCatagory
@@ -6882,7 +6857,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                      [ rdf:type owl:Restriction ;
                                                        owl:onProperty <http://www.w3.org/ns/dcat#catalog> ;
                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                       owl:onClass :ChemConnectDatasetCollectionIDsSet
+                                                       owl:onClass :ThermodynamicsDatasetCollectionIDsSet
                                                      ] ;
                                      <http://purl.org/dc/elements/1.1/type> :DatasetCollectionSetAddDatasetEvent ;
                                      <http://purl.org/dc/terms/identifier> "dataset:collectionadddatasettransaction"^^xsd:string ;
@@ -6902,7 +6877,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty <http://www.w3.org/ns/dcat#catalog> ;
                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                     owl:onClass :ChemConnectDatasetCollectionIDsSet
+                                                     owl:onClass :ThermodynamicsDatasetCollectionIDsSet
                                                    ] ;
                                    <http://purl.org/dc/elements/1.1/type> :DatasetCollectionSetCreationEvent ;
                                    <http://purl.org/dc/terms/identifier> "dataset:datasetcollectionsetcreationevent"^^xsd:string ;
@@ -7117,7 +7092,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DatasetSpecificationBensonRuleDefinition
 :DatasetSpecificationBensonRuleDefinition rdf:type owl:Class ;
-                                          rdfs:subClassOf :DatasetSpecificationForCollectionSet ;
+                                          rdfs:subClassOf :ThermodynamicDatasetCollection ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://www.w3.org/ns/dcat#catalog> ;
+                                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass :ThermodynamicBensonRuleDefinition
+                                                          ] ;
                                           <http://purl.org/dc/terms/identifier> "dataset:bensonrulecolspec"^^xsd:string ;
                                           rdfs:comment "This is the collection specification for the Benson Rule definitions"^^xsd:string ;
                                           rdfs:label "Collection Benson Rules"^^xsd:string ;
@@ -7126,7 +7106,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DatasetSpecificationDisassociationEnergyOfStructure
 :DatasetSpecificationDisassociationEnergyOfStructure rdf:type owl:Class ;
-                                                     rdfs:subClassOf :DatasetSpecificationForCollectionSet ;
+                                                     rdfs:subClassOf :ThermodynamicDatasetCollection ,
+                                                                     [ rdf:type owl:Restriction ;
+                                                                       owl:onProperty <http://www.w3.org/ns/dcat#catalog> ;
+                                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                       owl:onClass :JThermodynamicsDisassociationEnergyOfStructure
+                                                                     ] ;
                                                      <http://purl.org/dc/terms/identifier> "dataset:disassociationcolspec"^^xsd:string ;
                                                      rdfs:comment "This is the collection specification for the Disassociation Energy definitions"^^xsd:string ;
                                                      rdfs:label "Collection Disassociation Energies"^^xsd:string ;
@@ -7149,11 +7134,6 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                       [ rdf:type owl:Restriction ;
                                                         owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                        owl:onClass :CatalogObjectUniqueGenericLabel
-                                                      ] ,
-                                                      [ rdf:type owl:Restriction ;
-                                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                         owl:onClass :DatasetName
                                                       ] ,
                                                       [ rdf:type owl:Restriction ;
@@ -7170,7 +7150,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DatasetSpecificationMetaAtomDefinition
 :DatasetSpecificationMetaAtomDefinition rdf:type owl:Class ;
-                                        rdfs:subClassOf :DatasetSpecificationForCollectionSet ;
+                                        rdfs:subClassOf :ThermodynamicDatasetCollection ,
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty <http://www.w3.org/ns/dcat#catalog> ;
+                                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                          owl:onClass :JThermodynamicsMetaAtomDefinition
+                                                        ] ;
                                         <http://purl.org/dc/terms/identifier> "dataset:metaatomdefinitioncolspec"^^xsd:string ;
                                         rdfs:comment "This is the collection specification for the Meta Atom definitions"^^xsd:string ;
                                         rdfs:label "Collection Meta Atoms"^^xsd:string ;
@@ -7179,7 +7164,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DatasetSpecificationSymmetryStructureDefinition
 :DatasetSpecificationSymmetryStructureDefinition rdf:type owl:Class ;
-                                                 rdfs:subClassOf :DatasetSpecificationForCollectionSet ;
+                                                 rdfs:subClassOf :ThermodynamicDatasetCollection ,
+                                                                 [ rdf:type owl:Restriction ;
+                                                                   owl:onProperty <http://www.w3.org/ns/dcat#catalog> ;
+                                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                   owl:onClass :JThermodynamicsSymmetryStructureDefinition
+                                                                 ] ;
                                                  <http://purl.org/dc/terms/identifier> "dataset:symmetrystructuredefinitioncolspec"^^xsd:string ;
                                                  rdfs:comment "This is the collection specification for the symmetry definitions"^^xsd:string ;
                                                  rdfs:label "Collection Symmetry Definitions"^^xsd:string ;
@@ -7188,7 +7178,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DatasetSpecificationVibrationalStructure
 :DatasetSpecificationVibrationalStructure rdf:type owl:Class ;
-                                          rdfs:subClassOf :DatasetSpecificationForCollectionSet ;
+                                          rdfs:subClassOf :ThermodynamicDatasetCollection ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://www.w3.org/ns/dcat#catalog> ;
+                                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass :JThermodynamicsVibrationalStructure
+                                                          ] ;
                                           <http://purl.org/dc/terms/identifier> "dataset:vibrationalstructurecolspec"^^xsd:string ;
                                           rdfs:comment "This is the collection specification for the Vibrationn Energy contribution definitions"^^xsd:string ;
                                           rdfs:label "Collection Vibrational Structures"^^xsd:string ;
@@ -7212,7 +7207,12 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DatasetTransactionSpecificationForCollection
 :DatasetTransactionSpecificationForCollection rdf:type owl:Class ;
-                                              rdfs:subClassOf :DatasetSpecificationForCollectionSet ;
+                                              rdfs:subClassOf :DatasetSpecificationForCollectionSet ,
+                                                              [ rdf:type owl:Restriction ;
+                                                                owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                owl:onClass :CatalogObjectUniqueGenericLabel
+                                                              ] ;
                                               <http://purl.org/dc/elements/1.1/type> :DatasetTransactionSpecificationForCollection ;
                                               <http://purl.org/dc/terms/identifier> "dataset:datasettransactionspecification"^^xsd:string ;
                                               rdfs:comment "This is the information needed by the Dataset transaction to put the transaction in the correct place in the Hierarchy."^^xsd:string ;
@@ -9549,7 +9549,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                   [ rdf:type owl:Restriction ;
                                                     owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                    owl:onClass :ChemConnectDatasetCollectionIDsSet
+                                                    owl:onClass :ThermodynamicsDatasetCollectionIDsSet
                                                   ] ;
                                   rdfs:comment "This retrieves the set of ChemConnectDatasetCollectionIDsSet for a given maintainer (CatalogDataObjectMaintainer). If a specific ChemConnectDatasetCollectionIDsSet is needed, then the DatasetCollectionsSetLabel can be used."^^xsd:string .
 
@@ -17072,7 +17072,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                                                  [ rdf:type owl:Restriction ;
                                                    owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                   owl:onClass :ChemConnectDatasetCollectionIDsSet
+                                                   owl:onClass :ThermodynamicsDatasetCollectionIDsSet
                                                  ] ,
                                                  [ rdf:type owl:Restriction ;
                                                    owl:onProperty <http://www.w3.org/ns/dcat#record> ;
@@ -18611,6 +18611,17 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                               <http://www.w3.org/2004/02/skos/core#altLabel> "cpattemp"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#ThermodynamicDatasetCollection
+:ThermodynamicDatasetCollection rdf:type owl:Class ;
+                                rdfs:subClassOf :ChemConnectDatasetCollection ;
+                                <http://purl.org/dc/elements/1.1/type> :ThermodynamicDatasetCollection ;
+                                <http://purl.org/dc/terms/identifier> "dataset:thermodynamicdatasetcollection"^^xsd:string ;
+                                rdfs:comment "This is the dataset associated with the calculation of temperature dependent thermodyanics given 2D-graphical representations of the molecular species."^^xsd:string ;
+                                rdfs:isDefinedBy :ThermodynamicsDatasetCollectionIDsSet ;
+                                rdfs:label "Thermodynamics Dataset"^^xsd:string ;
+                                <http://www.w3.org/2004/02/skos/core#altLabel> "thermodynamicdatasetcollection"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#ThermodynamicDisassociationEnergy
 :ThermodynamicDisassociationEnergy rdf:type owl:Class ;
                                    rdfs:subClassOf :ThermodynamicsOfStructure .
@@ -18715,6 +18726,41 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                           rdfs:comment "The associated temperature of a thermodynamic property" ;
                           rdfs:label "Thermodynamic Temperature" ;
                           <http://www.w3.org/2004/02/skos/core#altLabel> "thermotemperature" .
+
+
+###  http://www.esblurock.info/dataset#ThermodynamicsDatasetCollectionIDsSet
+:ThermodynamicsDatasetCollectionIDsSet rdf:type owl:Class ;
+                                       rdfs:subClassOf :ChemConnectDatasetCollectionIDsSet ,
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                         owl:onClass :DatasetSpecificationBensonRuleDefinition
+                                                       ] ,
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                         owl:onClass :DatasetSpecificationDisassociationEnergyOfStructure
+                                                       ] ,
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                         owl:onClass :DatasetSpecificationMetaAtomDefinition
+                                                       ] ,
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                         owl:onClass :DatasetSpecificationSymmetryStructureDefinition
+                                                       ] ,
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                         owl:onClass :DatasetSpecificationVibrationalStructure
+                                                       ] ;
+                                       <http://purl.org/dc/elements/1.1/type> :ThermodynamicsDatasetCollectionIDsSet ;
+                                       <http://purl.org/dc/terms/identifier> "dataset:datasetcollectionids"^^xsd:string ;
+                                       rdfs:comment "The set of IDs of the catalog collections of the objects to be used together as a set. This class object is identified with the DatasetCollectionSetLabel."^^xsd:string ;
+                                       rdfs:label "Set of Collection IDs for a dataset"^^xsd:string ;
+                                       <http://www.w3.org/2004/02/skos/core#altLabel> "datasetcollectionids"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ThermodynamicsOfStructure
