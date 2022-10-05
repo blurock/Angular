@@ -155,6 +155,9 @@ import { JthermodynamicssymmetrystructuredefinitionComponent } from './catalogob
 import { ChemconnectdatasetcollectionidssetComponent } from './catalogobjects/datasetcollection/chemconnectdatasetcollectionidsset/chemconnectdatasetcollectionidsset.component';
 import { DatasetspecificationforcollectionsetComponent } from './catalogobjects/datasetcollection/datasetspecificationforcollectionset/datasetspecificationforcollectionset.component';
 import { ThermodynamicsdatasetcollectionidssetComponent } from './catalogobjects/datasetcollection/thermodynamicsdatasetcollectionidsset/thermodynamicsdatasetcollectionidsset.component';
+import { ManagedatasetcollectionsComponent } from './catalogobjects/datasetcollection/managedatasetcollections/managedatasetcollections.component';
+import { CreatenewdatasetcollectionComponent } from './catalogobjects/datasetcollection/createnewdatasetcollection/createnewdatasetcollection.component';
+import { VisualizedatasetcollectionidsComponent } from './catalogobjects/datasetcollection/visualizedatasetcollectionids/visualizedatasetcollectionids.component';
 
 
 
@@ -265,7 +268,10 @@ import { ThermodynamicsdatasetcollectionidssetComponent } from './catalogobjects
   JthermodynamicssymmetrystructuredefinitionComponent,
   ChemconnectdatasetcollectionidssetComponent,
   DatasetspecificationforcollectionsetComponent,
-  ThermodynamicsdatasetcollectionidssetComponent
+  ThermodynamicsdatasetcollectionidssetComponent,
+  ManagedatasetcollectionsComponent,
+  CreatenewdatasetcollectionComponent,
+  VisualizedatasetcollectionidsComponent
 	],
 	imports: [
 		AppFirebaseModule,

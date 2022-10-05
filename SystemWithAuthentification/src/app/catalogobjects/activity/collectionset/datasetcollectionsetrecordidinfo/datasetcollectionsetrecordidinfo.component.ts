@@ -24,7 +24,7 @@ export class DatasetcollectionsetrecordidinfoComponent implements OnInit {
 		private formBuilder: FormBuilder,
 	) {
 		this.objectform = this.formBuilder.group({
-			DescriptionTitle: ['', Validators.required],
+			DatasetCollectionsSetLabel: ['', Validators.required],
 			CatalogDataObjectMaintainer: ['', Validators.required],
 		});
 
@@ -44,12 +44,12 @@ export class DatasetcollectionsetrecordidinfoComponent implements OnInit {
 	}
 
 	getData(activity: any): void {
-		activity[this.annoinfo['dataset:DescriptionAbstract'][this.identifier]] = this.objectform.get('DescriptionAbstract').value;
+		activity[this.annoinfo['dataset:DatasetCollectionsSetLabel'][this.identifier]] = this.objectform.get('DatasetCollectionsSetLabel').value;
 		const mlabel = this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier];
 		activity[mlabel] = this.objectform.get('CatalogDataObjectMaintainer').value;
 	}
 	setData(activity: any): void {
-		this.objectform.get('DescriptionAbstract').setValue(activity[this.annoinfo['dataset:DescriptionAbstract']]);
+		this.objectform.get('DatasetCollectionsSetLabel').setValue(activity[this.annoinfo['dataset:DatasetCollectionsSetLabel']]);
 		this.objectform.get('CatalogDataObjectMaintainer').setValue(activity[this.annoinfo['dataset:CatalogDataObjectMaintainer']]);
 	}
 

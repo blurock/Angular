@@ -335,6 +335,26 @@ public enum TransactionProcess {
 			return "dataset:DatasetCollectionAddDatasetToCollectionTransaction";
 		}
 
+	},
+	DatabaseDeleteTransaction {
+
+        @Override
+        JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+           JsonObject firestoreid = info.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+           JsonObject response = DeleteTransaction.deleteTransactionwithID(firestoreid);
+            return response;
+        }
+
+        @Override
+        String transactionKey(JsonObject catalog) {
+            return null;
+        }
+
+        @Override
+        String transactionObjectName() {
+            return "dataset:DatasetTransactionEventObject";
+            }
+	    
 	};
 
 	public static void addLinkToCatalog(JsonArray catalogobjs, JsonObject linkobj, String type, String concept) {
@@ -473,7 +493,7 @@ public enum TransactionProcess {
         BaseCatalogData.insertFirestoreAddress(event);
 		
 		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-
+            if(!response.get(ClassLabelConstants.SimpleCatalogObject).isJsonNull()) {
 			JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 			if (arr.size() > 0) {
  				JsonObject catalog = arr.get(0).getAsJsonObject();
@@ -504,6 +524,10 @@ public enum TransactionProcess {
 				body.addElement("div").addText("No partitions executed, no catalog objects written");
 				response = DatabaseServicesBase.standardErrorResponse(document, "No partitions executed", response);
 			}
+            } else {
+                Element body = MessageConstructor.isolateBody(document);
+                body.addElement("div").addText("No Catalog Object generated");
+            }
 		}
 		return response;
 	}

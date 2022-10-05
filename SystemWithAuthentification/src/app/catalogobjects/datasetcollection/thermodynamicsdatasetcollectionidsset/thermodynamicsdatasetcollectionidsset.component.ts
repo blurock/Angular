@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, ViewChild } from '@angular/core';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { DatasetspecificationforcollectionsetComponent } from '../datasetspecificationforcollectionset/datasetspecificationforcollectionset.component';
@@ -20,7 +20,7 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 	@ViewChild('symmetry') symmetry: DatasetspecificationforcollectionsetComponent;
 	@ViewChild('vibrational') vibrational: DatasetspecificationforcollectionsetComponent;
 
-	@Output() annoReady = new EventEmitter<any>();
+	@Input() annoReady: EventEmitter<any>;
 
 	transspec: any;
 
@@ -40,7 +40,7 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 	symmetrytitle = 'Symmetry Structures';
 	vibrationaltitle = 'Vibrational Energy Structures';
 
-	maintainer: string;
+	maintainer = "Public";
 	waiting = 'waiting for annotations ';
 
 
@@ -52,8 +52,6 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 			if (result != null) {
 				this.maintainer = result;
 				this.collectionid.setMaintainer(this.maintainer);
-				
-				
 			} else {
 				alert(manageuser.errormaintainer);
 			}
@@ -74,7 +72,12 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 					const catalog = response[Ontologyconstants.catalogobject];
 					this.catalogobj = catalog[Ontologyconstants.outputobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];
-					this.annoReady.emit(this.annoinfo);
+					if(this.annoReady != null) {
+            			this.annoReady.emit(this.annoinfo);
+          			} else {
+                  alert("annoReady is null");
+                }
+					
 				} else {
 					this.message = responsedata;
 				}
@@ -110,23 +113,22 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 	}
 
 	public setData(catalog: any): void {
-    
         this.collectionid.setData(catalog);
-		
-		const bensoncolid = catalog[this.annoinfo['dataset:DatasetSpecificationBensonRuleDefinition'][this.identifier]];
+        
+		const bensoncolid = catalog['dataset:bensonrulecolspec'];
 		this.benson.setData(bensoncolid);
 
-		const disassociationcolid = catalog[this.annoinfo['dataset:DatasetSpecificationDisassociationEnergyOfStructure'][this.identifier]];
+		const disassociationcolid = catalog['dataset:disassociationcolspec'];
 		this.disassociation.setData(disassociationcolid);
 
-		const metaatomcolid = catalog[this.annoinfo['dataset:DatasetSpecificationMetaAtomDefinition'][this.identifier]];
+		const metaatomcolid = catalog['dataset:metaatomdefinitioncolspec'];
 		this.metaatom.setData(metaatomcolid);
 
-		const symmetrycolid = catalog[this.annoinfo['dataset:DatasetSpecificationSymmetryStructureDefinition'][this.identifier]];
+		const symmetrycolid = catalog['dataset:symmetrystructuredefinitioncolspec'];
 		this.symmetry.setData(symmetrycolid);
 
-		const vibrationalcolid = catalog[this.annoinfo['dataset:DatasetSpecificationVibrationalStructure'][this.identifier]];
-		this.vibrational.getData(vibrationalcolid);
+		const vibrationalcolid = catalog['dataset:vibrationalstructurecolspec'];
+		this.vibrational.setData(vibrationalcolid);
 	}
 
 

@@ -53,7 +53,8 @@ public class DeleteTransaction extends DeleteCatalogDataObject {
 	 *                    created and the transactions
 	 */
 	public static JsonObject deleteTransaction(JsonObject transaction) {
-		Document document = MessageConstructor.startDocument("Transaction: " + transaction);
+	    String idS = transaction.get(ClassLabelConstants.CatalogObjectKey).getAsString();
+		Document document = MessageConstructor.startDocument("Transaction: " + idS);
 		Element body = MessageConstructor.isolateBody(document);
 		getFirestoreID();
 		int deleted = 0;
@@ -80,7 +81,7 @@ public class DeleteTransaction extends DeleteCatalogDataObject {
 		deleted++;
 
 		String totalmessage = "Total number of deleted items: " + Integer.toString(deleted);
-		JsonObject response = DatabaseServicesBase.standardErrorResponse(document, totalmessage, null);
+		JsonObject response = DatabaseServicesBase.standardServiceResponse(document, totalmessage, null);
 
 		return response;
 	}

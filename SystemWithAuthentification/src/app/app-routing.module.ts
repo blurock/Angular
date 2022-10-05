@@ -22,7 +22,7 @@ import {ManagedatasetrepositoryfilestagingComponent} from '../app/catalogobjects
 import { ManagedatasettransactioneventobjectComponent} from '../app/catalogobjects/transaction/managedatasettransactioneventobject/managedatasettransactioneventobject.component';
 import { ActivityrepositoryinitialreadlocalfileComponent } from '../app/catalogobjects/activity/repository/activityrepositoryinitialreadlocalfile/activityrepositoryinitialreadlocalfile.component';
 import { ManagegeneralcatalogobjectvisComponent } from '../app/catalogobjects/managegeneralcatalogobjectvis/managegeneralcatalogobjectvis.component';
-
+import {ManagedatasetcollectionsComponent} from '../app/catalogobjects/datasetcollection/managedatasetcollections/managedatasetcollections.component';
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([FEED]);
 
 const routes: Routes = [
@@ -36,6 +36,7 @@ const routes: Routes = [
 	{ path: 'catalog/repositorystaging', component: ManagedatasetrepositoryfilestagingComponent},
 	{ path: 'catalog/partition', component: ManagerepositorydatapartitionblockcomponentComponent},
 	{ path: 'catalog/catalog', component: ManagegeneralcatalogobjectvisComponent},
+	{ path: 'catalog/collection', component: ManagedatasetcollectionsComponent},
 	{ path: 'catalog/transaction', component: ManagedatasettransactioneventobjectComponent,
 	children: [
       

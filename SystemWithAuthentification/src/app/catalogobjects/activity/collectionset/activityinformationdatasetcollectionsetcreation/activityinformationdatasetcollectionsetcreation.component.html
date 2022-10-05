@@ -6,8 +6,7 @@
 	</mat-card-header>
 	<mat-card-content>
 		<ng-container *ngIf='annoinfo != null; else loading'>
-			<app-datasetcollectionsetrecordidinfo #record [(annoinfo)]="annoinfo">
-			</app-datasetcollectionsetrecordidinfo>
+			
 
 			<form [formGroup]="objectform" class="infoform">
 				<mat-grid-list cols="6" rowHeight="100px">
@@ -20,7 +19,7 @@
 					</mat-grid-tile>
 
 					<mat-grid-tile [colspan]="6">
-						<mat-form-field class="filesourcetitle">
+						<mat-form-field class="abstract">
 							<mat-label>{{annoinfo['dataset:DescriptionAbstract'][rdfslabel]}}</mat-label>
 							<textarea matInput formControlName="DescriptionAbstract"></textarea>
 							<mat-hint>{{annoinfo['dataset:DescriptionAbstract'][rdfscomment]}}</mat-hint>
@@ -31,6 +30,12 @@
 
 
 			</form>
+						<app-datasetcollectionsetrecordidinfo #record [(annoinfo)]="annoinfo">
+			</app-datasetcollectionsetrecordidinfo>
+			<app-datasetspecificationforcollectionset #collection [(annoinfo)]="annoinfo" 
+			[(maintainer)]="maintainer" [(subtitle)]="spectitle"></app-datasetspecificationforcollectionset>
+
+
 		</ng-container>
 		<ng-template #loading>
 			<div>

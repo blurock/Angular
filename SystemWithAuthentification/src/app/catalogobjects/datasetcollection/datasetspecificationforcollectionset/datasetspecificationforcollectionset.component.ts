@@ -37,6 +37,8 @@ export class DatasetspecificationforcollectionsetComponent implements OnInit {
 		private menusetup: MenutreeserviceService
 	) {
 		this.idForm = this.fb.group({
+			CatalogDataObjectStatus: ['Standard', Validators.required],
+			CatalogDataObjectMaintainer: ['Standard', Validators.required],
 			DatasetName: ['Standard', Validators.required],
 			DatasetVersion: ['1.0', Validators.required],
 		});

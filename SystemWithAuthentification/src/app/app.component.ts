@@ -38,4 +38,7 @@ export class AppComponent {
 	catalog(): void {
 		
 	}
+	datasetcollection() {
+		this.router.navigateByUrl('/catalog/collection');
+	}
 }

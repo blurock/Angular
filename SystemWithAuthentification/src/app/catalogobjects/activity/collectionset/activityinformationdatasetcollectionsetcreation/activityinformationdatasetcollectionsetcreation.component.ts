@@ -2,6 +2,8 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import {DatasetcollectionsetrecordidinfoComponent} from '../datasetcollectionsetrecordidinfo/datasetcollectionsetrecordidinfo.component';
+import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
+import {DatasetspecificationforcollectionsetComponent} from '../../../datasetcollection/datasetspecificationforcollectionset/datasetspecificationforcollectionset.component';
 
 @Component({
   selector: 'app-activityinformationdatasetcollectionsetcreation',
@@ -15,18 +17,33 @@ export class ActivityinformationdatasetcollectionsetcreationComponent implements
 	identifier = Ontologyconstants.dctermsidentifier;
 	
 	@Input() annoinfo: any;
+	maintainer: string;
 	
 	objectform: FormGroup;
 	title = 'Activity Information for creating a collection';
+	spectitle = 'Default Collection ID Specification';
 
 	@ViewChild('record') record: DatasetcollectionsetrecordidinfoComponent;
+	@ViewChild('collection') collection: DatasetcollectionsetrecordidinfoComponent;
+
 
   constructor(
+    manageuser: ManageuserserviceService,
     	private formBuilder: FormBuilder
   ) {
     		this.objectform = this.formBuilder.group({
+            DatasetCollectionType: ['', Validators.required],
 			DescriptionTitle: ['', Validators.required],
 			DescriptionAbstract: ['', Validators.required],
+		});
+		this.objectform.get('DatasetCollectionType').setValue('dataset:ThermodynamicDatasetCollection');
+   		manageuser.determineMaintainer().subscribe(result => {
+			if (result != null) {
+				this.maintainer = result;
+
+			} else {
+				alert(manageuser.errormaintainer);
+			}
 		});
 
    }
@@ -35,17 +52,25 @@ export class ActivityinformationdatasetcollectionsetcreationComponent implements
   }
   
   	getData(activity: any): void {
+		activity[this.annoinfo['dataset:DatasetCollectionType'][this.identifier]] = this.objectform.get('DatasetCollectionType').value;
 		activity[this.annoinfo['dataset:DescriptionAbstract'][this.identifier]] = this.objectform.get('DescriptionAbstract').value;
 		activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle').value;
+		activity['dcterms:identifier'] = this.annoinfo['dataset:ActivityInformationDatasetCollectionSetCreation'][this.identifier];
 		const recorddata = {};
 		this.record.getData(recorddata);
 		activity[this.annoinfo['dataset:DatasetCollectionSetRecordIDInfo'][this.identifier]] = recorddata;
+		const collectiondata = {};
+		this.collection.getData(collectiondata);
+		activity[this.annoinfo['dataset:DatasetSpecificationForCollectionSet'][this.identifier]] = collectiondata;
 	}
 	setData(activity: any): void {
+		this.objectform.get('DatasetCollectionType').setValue(activity[this.annoinfo['dataset:DatasetCollectionType']]);
 		this.objectform.get('DescriptionAbstract').setValue(activity[this.annoinfo['dataset:DescriptionAbstract']]);
 		this.objectform.get('DescriptionTitle').setValue(activity[this.annoinfo['dataset:DescriptionTitle']]);
 		const recorddata = activity[this.annoinfo['dataset:DatasetCollectionSetRecordIDInfo'][this.identifier]];
 		this.record.setData(recorddata);
+		const collectiondata = activity[this.annoinfo['dataset:DatasetSpecificationForCollectionSet'][this.identifier]];
+		this.collection.setData(collectiondata);
 		}
 
 }

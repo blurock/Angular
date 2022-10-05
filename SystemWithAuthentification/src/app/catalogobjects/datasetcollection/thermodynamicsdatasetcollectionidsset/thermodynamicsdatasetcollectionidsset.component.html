@@ -4,8 +4,7 @@
 	</mat-card-header>
 	<mat-card-content>
 			<ng-container *ngIf='annoinfo != null; else waiting'>
-			<app-chemconnectdatasetcollectionidsset [(annoinfo)]="annoinfo"></app-chemconnectdatasetcollectionidsset>
-			
+			<app-chemconnectdatasetcollectionidsset #collectionid [(annoinfo)]="annoinfo"></app-chemconnectdatasetcollectionidsset>
 				<app-datasetspecificationforcollectionset #benson [(annoinfo)]="annoinfo" [(subtitle)]="bensontitle" 
 				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
 				<app-datasetspecificationforcollectionset #disassociation [(annoinfo)]="annoinfo" [(subtitle)]="disassociationtitle" 
@@ -18,7 +17,7 @@
 				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
 			</ng-container>
 			<ng-template #waiting>
-				Spec: waiting for annotations
+				Initializing Collection Dataset IDs
 			</ng-template>
 	</mat-card-content>
 </mat-card>

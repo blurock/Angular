@@ -20,12 +20,12 @@ export class SubmitfileandinformatioonComponent implements OnInit {
 
 	@Input() uploadinfo: UploadfileinformationComponent;
 	@Input() catalogObject: EventEmitter<any>;
-	 
+
 
 	@ViewChild('filestaging') filestaging: DatasetrepositoryfilestagingComponent;
 	@ViewChild('tranactionfirestoreid') tranactionfirestoreid: FiresytorecatalogidComponent;
 
-    errormaintainer = 'Error in determining maintainer';
+	errormaintainer = 'Error in determining maintainer';
 	readinfailed = 'Catalog Read in failed or canceled';
 	filestagingsubtitle = 'File staging transaction submission'
 	loadfromdatabase = 'Load previously generated staging information from database (or file)'
@@ -37,7 +37,7 @@ export class SubmitfileandinformatioonComponent implements OnInit {
 	displaydescbutton = 'Display Transaction Input';
 	displaybutton = 'Display';
 	title = 'File Staging';
-	
+
 	identifier = Ontologyconstants.dctermsidentifier;
 
 	resultHtml: string;
@@ -103,9 +103,9 @@ export class SubmitfileandinformatioonComponent implements OnInit {
 					this.catalog = result['dataset:simpcatobj'];
 					if (this.catalog != null) {
 						this.filestaging.setData(this.catalog);
-					    this.catalogObject.emit(this.catalog);
+						this.catalogObject.emit(this.catalog);
 						this.tranafirestoreid = this.catalog['dataset:transactionforobject'];
-						if(this.tranafirestoreid != null) {
+						if (this.tranafirestoreid != null) {
 							this.tranactionfirestoreid.setData(this.tranafirestoreid);
 						}
 					}
@@ -133,5 +133,5 @@ export class SubmitfileandinformatioonComponent implements OnInit {
 
 		myDialogRef.afterClosed().subscribe(result => {
 		});
-}
+	}
 }
