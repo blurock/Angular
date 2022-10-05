@@ -3775,6 +3775,10 @@ This transaction is in combination with another transaction responsible for crea
 :ChemConnectDatasetCollectionIDsSet rdf:type owl:Class ;
                                     rdfs:subClassOf :ChemConnectDataStructure ,
                                                     [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                      owl:someValuesFrom :DatasetSpecificationForCollectionSet
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
                                                       owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                       owl:onClass :CatalogDataObjectMaintainer
@@ -4674,7 +4678,22 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#CollectionDocumentIDPair
 :CollectionDocumentIDPair rdf:type owl:Class ;
-                          rdfs:subClassOf :ChemConnectCompoundBase ;
+                          rdfs:subClassOf :ChemConnectCompoundBase ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onClass :DatasetCollectionID
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onClass :DatasetDocumentID
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                            owl:onClass :DatasetIDLevel
+                                          ] ;
                           <http://purl.org/dc/elements/1.1/type> :CollectionDocumentIDPair ;
                           <http://purl.org/dc/terms/identifier> "dataset:collectiondocpair"^^xsd:string ;
                           rdfs:comment "This is the collection ID and document ID pair associated with the position of the information within the database. This pair is associated with the Firestore database structure."^^xsd:string ;
@@ -18736,32 +18755,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#ThermodynamicsDatasetCollectionIDsSet
 :ThermodynamicsDatasetCollectionIDsSet rdf:type owl:Class ;
-                                       rdfs:subClassOf :ChemConnectDatasetCollectionIDsSet ,
-                                                       [ rdf:type owl:Restriction ;
-                                                         owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                         owl:onClass :DatasetSpecificationBensonRuleDefinition
-                                                       ] ,
-                                                       [ rdf:type owl:Restriction ;
-                                                         owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                         owl:onClass :DatasetSpecificationDisassociationEnergyOfStructure
-                                                       ] ,
-                                                       [ rdf:type owl:Restriction ;
-                                                         owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                         owl:onClass :DatasetSpecificationMetaAtomDefinition
-                                                       ] ,
-                                                       [ rdf:type owl:Restriction ;
-                                                         owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                         owl:onClass :DatasetSpecificationSymmetryStructureDefinition
-                                                       ] ,
-                                                       [ rdf:type owl:Restriction ;
-                                                         owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                         owl:onClass :DatasetSpecificationVibrationalStructure
-                                                       ] ;
+                                       rdfs:subClassOf :ChemConnectDatasetCollectionIDsSet ;
                                        <http://purl.org/dc/elements/1.1/type> :ThermodynamicsDatasetCollectionIDsSet ;
                                        <http://purl.org/dc/terms/identifier> "dataset:datasetcollectionids"^^xsd:string ;
                                        rdfs:comment "The set of IDs of the catalog collections of the objects to be used together as a set. This class object is identified with the DatasetCollectionSetLabel."^^xsd:string ;
