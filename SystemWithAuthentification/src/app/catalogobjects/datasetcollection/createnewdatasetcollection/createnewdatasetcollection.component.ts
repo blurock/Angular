@@ -127,6 +127,8 @@ export class CreatenewdatasetcollectionComponent implements OnInit {
 		myDialogRef.afterClosed().subscribe(result => {
 		});
 	}
+	
+
 
 	deleteTransaction(): void {
 		alert("deleteTransaction()");

@@ -44,8 +44,6 @@ export class ChemconnectdatasetcollectionidssetComponent implements OnInit {
 		catalog[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.idForm.get('CatalogDataObjectMaintainer').value;
 		catalog[this.annoinfo['dataset:DatasetCollectionsSetLabel'][this.identifier]] = this.idForm.get('DatasetCollectionsSetLabel').value;
 		catalog[this.annoinfo['dataset:DescriptionAbstract'][this.identifier]] = this.idForm.get('DescriptionAbstract').value;
-
-
 	}
 
 	public setData(catalog: any): void {

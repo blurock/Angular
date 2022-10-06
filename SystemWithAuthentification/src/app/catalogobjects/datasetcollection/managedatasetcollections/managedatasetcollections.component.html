@@ -1,8 +1,6 @@
 <mat-tab-group>
   <mat-tab label="Visualize">
-
-  <app-visualizedatasetcollectionids [(newCollection)]="newCollection" [(annoReady)]="annoReady"> </app-visualizedatasetcollectionids>
-
+  <app-visualizedatasetcollectionids [(newCollection)]="newCollection" [(annoReady)]="annoReady" [(maintainer)]="maintainer" [(annoinfo)]="cataloganno"> </app-visualizedatasetcollectionids>
   </mat-tab>
   <mat-tab label="Create">
   <app-createnewdatasetcollection [(maintainer)]="maintainer" [(newCollection)]="newCollection" [(cataloganno)]="cataloganno"></app-createnewdatasetcollection>

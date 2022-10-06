@@ -158,6 +158,7 @@ import { ThermodynamicsdatasetcollectionidssetComponent } from './catalogobjects
 import { ManagedatasetcollectionsComponent } from './catalogobjects/datasetcollection/managedatasetcollections/managedatasetcollections.component';
 import { CreatenewdatasetcollectionComponent } from './catalogobjects/datasetcollection/createnewdatasetcollection/createnewdatasetcollection.component';
 import { VisualizedatasetcollectionidsComponent } from './catalogobjects/datasetcollection/visualizedatasetcollectionids/visualizedatasetcollectionids.component';
+import { FetchcollectiondatasetidsComponent } from './dialog/fetchcollectiondatasetids/fetchcollectiondatasetids.component';
 
 
 
@@ -271,7 +272,8 @@ import { VisualizedatasetcollectionidsComponent } from './catalogobjects/dataset
   ThermodynamicsdatasetcollectionidssetComponent,
   ManagedatasetcollectionsComponent,
   CreatenewdatasetcollectionComponent,
-  VisualizedatasetcollectionidsComponent
+  VisualizedatasetcollectionidsComponent,
+  FetchcollectiondatasetidsComponent
 	],
 	imports: [
 		AppFirebaseModule,

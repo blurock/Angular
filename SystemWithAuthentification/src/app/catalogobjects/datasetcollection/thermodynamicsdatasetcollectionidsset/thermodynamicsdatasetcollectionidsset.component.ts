@@ -88,27 +88,26 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 
 
 	public getData(catalog: any): void {
-
         this.collectionid.getData(catalog);
 		const bensoncolid = {};
 		this.benson.getData(bensoncolid);
-		catalog[this.annoinfo['dataset:DatasetSpecificationBensonRuleDefinition'][this.identifier]] = bensoncolid;
+		catalog['dataset:bensonrulecolspec'] = bensoncolid;
 
 		const disassociationcolid = {};
 		this.disassociation.getData(disassociationcolid);
-		catalog[this.annoinfo['dataset:DatasetSpecificationDisassociationEnergyOfStructure'][this.identifier]] = disassociationcolid;
+		catalog['dataset:disassociationcolspec'] = disassociationcolid;
 
 		const metaatomcolid = {};
 		this.metaatom.getData(metaatomcolid);
-		catalog[this.annoinfo['dataset:DatasetSpecificationMetaAtomDefinition'][this.identifier]] = metaatomcolid;
+		catalog['dataset:metaatomdefinitioncolspec'] = metaatomcolid;
 
 		const symmetrycolid = {};
 		this.symmetry.getData(symmetrycolid);
-		catalog[this.annoinfo['dataset:DatasetSpecificationSymmetryStructureDefinition'][this.identifier]] = symmetrycolid;
+		catalog['dataset:symmetrystructuredefinitioncolspec'] = symmetrycolid;
 
 		const vibrationalcolid = {};
 		this.vibrational.getData(vibrationalcolid);
-		catalog[this.annoinfo['dataset:DatasetSpecificationVibrationalStructure'][this.identifier]] = vibrationalcolid;
+		catalog['dataset:vibrationalstructurecolspec'] = vibrationalcolid;
 
 	}
 

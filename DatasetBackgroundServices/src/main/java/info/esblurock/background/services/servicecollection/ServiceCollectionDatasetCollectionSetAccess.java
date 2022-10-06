@@ -16,7 +16,7 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public enum ServiceCollectionDatasetCollectionSetAccess {
 
-	GetListOfDatasetCollectionIDsSet {
+   GetListOfDatasetCollectionIDsSet {
 
 		@Override
 		public JsonObject process(JsonObject json) {
