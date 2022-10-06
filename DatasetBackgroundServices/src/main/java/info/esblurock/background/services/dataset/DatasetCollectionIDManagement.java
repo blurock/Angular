@@ -1,7 +1,9 @@
 package info.esblurock.background.services.dataset;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import info.esblurock.reaction.core.ontology.base.collectionset.CollectionSetUtilities;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
@@ -76,8 +78,9 @@ public class DatasetCollectionIDManagement {
 	 *                          (DatasetSpecificationForCollectionSet) is inserted.
 	 * 
 	 */
-	public static void insertCollectionInfoDataset(String classname, JsonObject recordid, JsonObject collectionids) {
-		String identifier = DatasetOntologyParseBase.getIDFromAnnotation(classname);
+	public static void insertCollectionInfoDataset(String classname, String collectiontype, JsonObject recordid, JsonObject collectionids) {
+	    JsonArray collectioninfo = CollectionSetUtilities.collectionDatasetInfo(collectiontype);
+		String identifier = CollectionSetUtilities.datasetIdentifierInDatasetIDs(collectiontype, collectioninfo);
 		collectionids.add(identifier, recordid);
 	}
 

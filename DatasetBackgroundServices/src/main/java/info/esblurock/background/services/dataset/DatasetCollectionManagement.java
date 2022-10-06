@@ -156,8 +156,9 @@ public class DatasetCollectionManagement {
 		return response;
 	}
 	
-	static void fillInDatasetCollectionWithDefaults(String collectionname, JsonObject idcollection, JsonObject collectionid) {
-	    JsonArray datasets = CollectionSetUtilities.collectionDatasetInfo(collectionname);
+	static void fillInDatasetCollectionWithDefaults(String collectiontype, JsonObject idcollection, JsonObject collectionid) {
+	    collectionid.addProperty(ClassLabelConstants.DatasetCollectionType, collectiontype);
+	    JsonArray datasets = CollectionSetUtilities.collectionDatasetInfo(collectiontype);
 	    for(JsonElement element : datasets) {
 	        JsonObject dataset = (JsonObject) element;
 	        JsonObject id = new JsonObject();
@@ -191,6 +192,7 @@ public class DatasetCollectionManagement {
 		JsonObject response = null;
 		if (objs.size() > 0) {
 			JsonObject collectionset = objs.get(0).getAsJsonObject();
+			String collectiontype = collectionset.get(ClassLabelConstants.DatasetCollectionType).getAsString();
 			JsonObject catrecordid = info.get(ClassLabelConstants.DatasetSpecificationForCollectionSet)
 					.getAsJsonObject();
 			JsonObject recordid = info.get(ClassLabelConstants.DatasetCollectionSetRecordIDInfo).getAsJsonObject();
@@ -204,7 +206,7 @@ public class DatasetCollectionManagement {
 
 			body.addElement("div").addText("Classname: " + classname + "(" + datasetname + ": " + datasetversion + ")");
 			body.addElement("div").addText("Into collection: '" + collection + "'");
-			DatasetCollectionIDManagement.insertCollectionInfoDataset(classname, catrecordid, collectionset);
+			DatasetCollectionIDManagement.insertCollectionInfoDataset(classname, collectiontype, catrecordid, collectionset);
 			WriteFirestoreCatalogObject.writeCatalogObject(collectionset);
 			putInLocalVersion(collectionset);
 			JsonArray arr = new JsonArray();
