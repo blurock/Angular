@@ -2751,40 +2751,13 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                         <http://www.w3.org/2004/02/skos/core#altLabel> "hieridcollectionset"^^xsd:string .
 
 
-###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetCollectionSetAddDatasetEvent
-:CatalogHierarchyDatasetCollectionSetAddDatasetEvent rdf:type owl:Class ;
-                                                     rdfs:subClassOf :CatalogHierarchyDatasetCollectionSetAddDatasetEventSet ,
-                                                                     [ rdf:type owl:Restriction ;
-                                                                       owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
-                                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                       owl:onClass :DatasetCollectionAddDatasetToCollectionTransaction
-                                                                     ] ;
-                                                     <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
-                                                     <http://purl.org/dc/terms/identifier> "dataset:hierdcollectionidstransaction"^^xsd:string ;
-                                                     rdfs:comment "The transaction associated with the management of the collection IDs."^^xsd:string ;
-                                                     rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
-                                                     rdfs:label "Dataset ID Collection Transactions"^^xsd:string ;
-                                                     <http://www.w3.org/2004/02/skos/core#altLabel> "hierdcollectionidstransaction"^^xsd:string .
-
-
-###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetCollectionSetAddDatasetEventSet
-:CatalogHierarchyDatasetCollectionSetAddDatasetEventSet rdf:type owl:Class ;
-                                                        rdfs:subClassOf :CatalogObjectDatasetMaintainer ;
-                                                        <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
-                                                        <http://purl.org/dc/terms/identifier> "dataset:hierdcollectionidstransactionset"^^xsd:string ;
-                                                        rdfs:comment "The set of transactions associated with the management of the collection IDs."^^xsd:string ;
-                                                        rdfs:isDefinedBy :LabelDerivedFromCollectionIDSetLabel ;
-                                                        rdfs:label "Set of Dataset ID Collection Transactions"^^xsd:string ;
-                                                        <http://www.w3.org/2004/02/skos/core#altLabel> "hierdcollectionidstransactionset"^^xsd:string .
-
-
 ###  http://www.esblurock.info/dataset#CatalogHierarchyDatasetCollectionSetCreationEvent
 :CatalogHierarchyDatasetCollectionSetCreationEvent rdf:type owl:Class ;
                                                    rdfs:subClassOf :CatalogHierarchyDatasetCollectionSetCreationEventSet ,
                                                                    [ rdf:type owl:Restriction ;
                                                                      owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
                                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                     owl:onClass :DataCollectionAddCollectionTransaction
+                                                                     owl:onClass :DatasetCollectionManagementTransaction
                                                                    ] ;
                                                    <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
                                                    <http://purl.org/dc/terms/identifier> "dataset:hiercreatedatasetcollection"^^xsd:string ;
@@ -3786,6 +3759,11 @@ This transaction is in combination with another transaction responsible for crea
                                                     [ rdf:type owl:Restriction ;
                                                       owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :DatasetCollectionType
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                       owl:onClass :DatasetCollectionsSetLabel
                                                     ] ,
                                                     [ rdf:type owl:Restriction ;
@@ -4703,7 +4681,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#CollectionDocumentIDPairAddress
 :CollectionDocumentIDPairAddress rdf:type owl:Class ;
-                                 rdfs:subClassOf :CollectionDocumentIDPair ,
+                                 rdfs:subClassOf :ChemConnectCompoundBase ,
                                                  [ rdf:type owl:Restriction ;
                                                    owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                    owl:someValuesFrom :CollectionDocumentIDPair
