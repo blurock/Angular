@@ -7,7 +7,7 @@
 						<mat-form-field class="label">
 							<mat-label>{{annoinfo['dataset:CatalogDataObjectMaintainer'][rdfslabel]}}
 							</mat-label>
-							<input matInput formControlName="CatalogDataObjectMaintainer">
+							<input matInput formControlName="CatalogDataObjectMaintainer" [readonly]="maintainernotchange">
 							<mat-hint>{{annoinfo['dataset:CatalogDataObjectMaintainer'][rdfscomment]}}
 							</mat-hint>
 						</mat-form-field>

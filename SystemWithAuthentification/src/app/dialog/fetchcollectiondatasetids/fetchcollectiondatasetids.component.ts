@@ -22,6 +22,7 @@ export class FetchcollectiondatasetidsComponent implements OnInit {
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
+	maintainernotchange = true;
 
 	title = 'Fetch Dataset Collection IDs';
 
@@ -57,6 +58,10 @@ export class FetchcollectiondatasetidsComponent implements OnInit {
 		this.dataimage = 'texxxxxt';
 		this.idForm.get('CatalogDataObjectMaintainer').setValue(this.maintainer);
 	}
+		public setMaintainer(maintainer: string): void {
+		this.idForm.get('CatalogDataObjectMaintainer').setValue(maintainer);
+	}
+
 	onNoClick(): void {
 		this.dialogRef.close();
 	}
@@ -68,8 +73,6 @@ export class FetchcollectiondatasetidsComponent implements OnInit {
 		json['dataset:collectionsetrecordidinfo'] = recordid;
 		recordid[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.idForm.get('CatalogDataObjectMaintainer').value;
 		recordid[this.annoinfo['dataset:DatasetCollectionsSetLabel'][this.identifier]] = this.idForm.get('DatasetCollectionsSetLabel').value;
-		alert("FetchcollectiondatasetidsComponent");
-		alert(JSON.stringify(json));
 		this.runservice.run(json).subscribe({
 			next: (responsedata: any) => {
 				const success = responsedata['dataset:servicesuccessful'];

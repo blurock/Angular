@@ -18,6 +18,7 @@ export class DatasetcollectionsetrecordidinfoComponent implements OnInit {
 
 	objectform: FormGroup;
 	title = 'Collection Record ID';
+	maintainernotchange = true;
 
 	constructor(
 		manageuser: ManageuserserviceService,
@@ -41,6 +42,14 @@ export class DatasetcollectionsetrecordidinfoComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+	}
+	
+	public setMaintainer(maintainer: string): void {
+		this.objectform.get('CatalogDataObjectMaintainer').setValue(maintainer);
+	}
+	
+	invalid(): boolean {
+		return this.objectform.invalid;
 	}
 
 	getData(activity: any): void {

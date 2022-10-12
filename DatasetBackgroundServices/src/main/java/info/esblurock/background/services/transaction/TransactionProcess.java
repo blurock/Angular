@@ -7,6 +7,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.SystemObjectInformation;
@@ -312,7 +313,7 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionObjectName() {
-			return "dataset:DataCollectionAddCollectionTransaction";
+			return "dataset:DatasetCollectionManagementTransaction";
 		}
 
 	},
@@ -332,7 +333,7 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionObjectName() {
-			return "dataset:DatasetCollectionAddDatasetToCollectionTransaction";
+			return "dataset:DatasetCollectionManagementTransaction";
 		}
 
 	},
@@ -490,7 +491,7 @@ public enum TransactionProcess {
 		//event.addProperty(ClassLabelConstants.TransactionEventType, transname);
 		event.add(ClassLabelConstants.ActivityInformationRecord, info);
 		JsonObject response = process.process(event, prerequisites, info);
-        BaseCatalogData.insertFirestoreAddress(event);
+		JsonObject transfirestoreid = BaseCatalogData.insertFirestoreAddress(event);
 		
 		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
             if(!response.get(ClassLabelConstants.SimpleCatalogObject).isJsonNull()) {

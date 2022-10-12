@@ -12,13 +12,14 @@ import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcata
 })
 export class VisualizedatasetcollectionidsComponent implements OnInit {
 
-	@Input() newCollection: EventEmitter<any>;
+	@Output() newCollectionV = new EventEmitter<any>();
 	@Input() annoReady: EventEmitter<any>;
 	@Input() maintainer: string;
 	@Input() annoinfo: any;
 
 	title = 'Collection Set ID';
 	readinfailed = 'Could not read in Collection Set';
+	readincanceled = 'Fetch canceled';
 	loadfromdatabase = 'Load Collection Set';
 	fetch = 'fetch';
 	displaybutton = 'Display';
@@ -35,10 +36,15 @@ export class VisualizedatasetcollectionidsComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
-
+/*
 		this.newCollection.subscribe(result => {
 			this.thermocollectionset.setData(result);
 		});
+		*/
+	}
+	
+	setData(catalog) {
+		this.thermocollectionset.setData(catalog);		
 	}
 
 	fetchInformation() {
@@ -52,11 +58,13 @@ export class VisualizedatasetcollectionidsComponent implements OnInit {
 				this.resultHtml = result['dataset:serviceresponsemessage'];
 				if (success == 'true') {
 					this.catalog = result['dataset:simpcatobj'];
-					this.thermocollectionset.setData(this.catalog);
+					this.setData(this.catalog);
+					this.newCollectionV.emit(this.catalog);
 				} else {
+					alert(this.readinfailed);
 				}
 			} else {
-				this.resultHtml = this.readinfailed;
+				alert(this.readincanceled);
 			}
 
 		});

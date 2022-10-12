@@ -9,6 +9,7 @@ import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class DatasetCollectionIDManagement {
 
@@ -80,7 +81,7 @@ public class DatasetCollectionIDManagement {
 	 */
 	public static void insertCollectionInfoDataset(String classname, String collectiontype, JsonObject recordid, JsonObject collectionids) {
 	    JsonArray collectioninfo = CollectionSetUtilities.collectionDatasetInfo(collectiontype);
-		String identifier = CollectionSetUtilities.datasetIdentifierInDatasetIDs(collectiontype, collectioninfo);
+		String identifier = CollectionSetUtilities.datasetIdentifierInDatasetIDs(classname, collectioninfo);
 		collectionids.add(identifier, recordid);
 	}
 

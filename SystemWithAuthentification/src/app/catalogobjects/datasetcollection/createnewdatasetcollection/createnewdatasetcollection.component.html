@@ -19,7 +19,8 @@
 			-->
 			<mat-grid-tile [colspan]="3">
 				<button mat-mini-fab color="primary" class="submit-btn" (click)="submitInformation()"
-					matTooltip="{{subtransaction}}">
+					matTooltip="{{subtransaction}}"
+					[disabled]="invalid()">
 					{{submit}}
 				</button>
 			</mat-grid-tile>

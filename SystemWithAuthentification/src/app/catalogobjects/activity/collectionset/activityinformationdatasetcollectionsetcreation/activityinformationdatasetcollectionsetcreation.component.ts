@@ -51,6 +51,12 @@ export class ActivityinformationdatasetcollectionsetcreationComponent implements
   ngOnInit(): void {
   }
   
+  invalid(): boolean {
+    return this.objectform.invalid ||
+    this.record.invalid() ||
+    this.collection.invalid(); 
+  }
+  
   	getData(activity: any): void {
 		activity[this.annoinfo['dataset:DatasetCollectionType'][this.identifier]] = this.objectform.get('DatasetCollectionType').value;
 		activity[this.annoinfo['dataset:DescriptionAbstract'][this.identifier]] = this.objectform.get('DescriptionAbstract').value;

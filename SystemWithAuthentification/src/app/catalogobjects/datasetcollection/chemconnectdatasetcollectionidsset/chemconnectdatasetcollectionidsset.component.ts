@@ -11,13 +11,14 @@ import { OntologycatalogService } from '../../../services/ontologycatalog.servic
 export class ChemconnectdatasetcollectionidssetComponent implements OnInit {
 
     @Input() annoinfo: any;
+    @Input() maintainer: string;
 
 	transspec: any;
 
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
-
+maintainernotchange = true;
 
 	idForm: FormGroup;
 	waiting = 'waiting for annotations ';
@@ -31,9 +32,11 @@ export class ChemconnectdatasetcollectionidssetComponent implements OnInit {
 			DatasetCollectionsSetLabel: ['', Validators.required],
 			DescriptionAbstract: ['', Validators.required],
 		});
+		
 	}
 
 	ngOnInit(): void {
+		this.idForm.get('CatalogDataObjectMaintainer').setValue(this.maintainer);
 	}
 	
 	public setMaintainer(maintainer: string): void {
@@ -47,8 +50,8 @@ export class ChemconnectdatasetcollectionidssetComponent implements OnInit {
 	}
 
 	public setData(catalog: any): void {
-		const status = catalog[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]];
-		this.idForm.get('CatalogDataObjectMaintainer').setValue(status);
+		const maintainer = catalog[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]];
+		this.idForm.get('CatalogDataObjectMaintainer').setValue(maintainer);
 		const datasetname = catalog[this.annoinfo['dataset:DatasetCollectionsSetLabel'][this.identifier]];
 		this.idForm.get('DatasetCollectionsSetLabel').setValue(datasetname);
 		const version = catalog[this.annoinfo['dataset:DescriptionAbstract'][this.identifier]];

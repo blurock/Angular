@@ -4,7 +4,7 @@
 	</mat-card-header>
 	<mat-card-content>
 			<ng-container *ngIf='annoinfo != null; else waiting'>
-			<app-chemconnectdatasetcollectionidsset #collectionid [(annoinfo)]="annoinfo"></app-chemconnectdatasetcollectionidsset>
+			<app-chemconnectdatasetcollectionidsset #collectionid [(annoinfo)]="annoinfo" [(maintainer)]="maintainer"></app-chemconnectdatasetcollectionidsset>
 				<app-datasetspecificationforcollectionset #benson [(annoinfo)]="annoinfo" [(subtitle)]="bensontitle" 
 				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
 				<app-datasetspecificationforcollectionset #disassociation [(annoinfo)]="annoinfo" [(subtitle)]="disassociationtitle" 

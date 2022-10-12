@@ -1,8 +1,9 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter,ViewChild } from '@angular/core';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
-
-
+import {CreatenewdatasetcollectionComponent} from '../createnewdatasetcollection/createnewdatasetcollection.component';
+import {ModifydatasetcollectionidsComponent} from '../modifydatasetcollectionids/modifydatasetcollectionids.component';
+import {VisualizedatasetcollectionidsComponent} from '../visualizedatasetcollectionids/visualizedatasetcollectionids.component';
 @Component({
 	selector: 'app-managedatasetcollections',
 	templateUrl: './managedatasetcollections.component.html',
@@ -19,6 +20,9 @@ export class ManagedatasetcollectionsComponent implements OnInit {
 	cataloganno: any;
 	maintainer: string;
 	
+	@ViewChild('createcollection') createcollection: CreatenewdatasetcollectionComponent;
+	@ViewChild('modifycollection') modifycollection: ModifydatasetcollectionidsComponent;
+	@ViewChild('visualcollection') visualcollection: VisualizedatasetcollectionidsComponent;
 
 	constructor(
 		manageuser: ManageuserserviceService,
@@ -39,6 +43,22 @@ export class ManagedatasetcollectionsComponent implements OnInit {
       this.annoReady.subscribe(result => {
         this.cataloganno = result;
         });
-	}
-
+ 	}
+ 	
+ 	setData(collectionids: any) {
+		 this.createcollection.setTransaction(collectionids);
+		 this.modifycollection.setPrerequisite(collectionids);
+		 this.visualcollection.setData(collectionids);
+	 }
+ 	
+    newCollectionV(collectionids: any){
+				this.setData(collectionids);
+				};
+    newCollectionM(collectionids: any){
+		this.setData(collectionids);
+		}
+    newCollectionC(collectionids: any){
+		this.setData(collectionids);
+		}
+		
 }

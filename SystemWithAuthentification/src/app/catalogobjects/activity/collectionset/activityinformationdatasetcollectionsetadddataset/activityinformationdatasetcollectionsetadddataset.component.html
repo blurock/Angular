@@ -30,9 +30,6 @@
 							</app-menu-item>
 						</mat-form-field>
 					</mat-grid-tile>
-					
-					
-
 				</mat-grid-list>
 
 
@@ -40,8 +37,8 @@
 
 			<ng-container *ngIf='display; else specdisplayoff'>
 
-				<app-datasettransactionspecificationforcollection #spec [(annoinfo)]="annoinfo">
-				</app-datasettransactionspecificationforcollection>
+				<app-datasetspecificationforcollectionset #spec [(annoinfo)]="annoinfo" [(maintainer)]="maintainer" [(subtitle)]="subtitle">
+				</app-datasetspecificationforcollectionset>
 
 			</ng-container>
 			<ng-template #specdisplayoff>

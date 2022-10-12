@@ -192,6 +192,11 @@ public class DatasetCollectionManagement {
 		JsonObject response = null;
 		if (objs.size() > 0) {
 			JsonObject collectionset = objs.get(0).getAsJsonObject();
+            String origabstract = collectionset.get(ClassLabelConstants.DescriptionAbstract).getAsString();
+            String newtitle = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
+            String newabstract = newtitle + "\n\n" + origabstract;
+            collectionset.addProperty(ClassLabelConstants.DescriptionAbstract, newabstract);
+            collectionset.addProperty(ClassLabelConstants.DescriptionTitle, newtitle);
 			String collectiontype = collectionset.get(ClassLabelConstants.DatasetCollectionType).getAsString();
 			JsonObject catrecordid = info.get(ClassLabelConstants.DatasetSpecificationForCollectionSet)
 					.getAsJsonObject();
@@ -207,6 +212,12 @@ public class DatasetCollectionManagement {
 			body.addElement("div").addText("Classname: " + classname + "(" + datasetname + ": " + datasetversion + ")");
 			body.addElement("div").addText("Into collection: '" + collection + "'");
 			DatasetCollectionIDManagement.insertCollectionInfoDataset(classname, collectiontype, catrecordid, collectionset);
+			collectionset.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
+			String newlabel = recordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+			collectionset.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, newlabel);
+            BaseCatalogData.insertFirestoreAddress(collectionset);
+            JsonObject transfirestoreid = BaseCatalogData.insertFirestoreAddress(event);
+            collectionset.add(ClassLabelConstants.FirestoreCatalogIDForTransaction, transfirestoreid);
 			WriteFirestoreCatalogObject.writeCatalogObject(collectionset);
 			putInLocalVersion(collectionset);
 			JsonArray arr = new JsonArray();

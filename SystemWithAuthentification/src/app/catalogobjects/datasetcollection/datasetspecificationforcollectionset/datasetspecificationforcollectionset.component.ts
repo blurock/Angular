@@ -21,14 +21,9 @@ export class DatasetspecificationforcollectionsetComponent implements OnInit {
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
-	//statusitems = 'dataset:CatalogDataObjectStatus';
 	status = 'CatalogObjectStatusCurrent';
-	
-
 
 	idForm: FormGroup;
-	//items: NavItem[];
-
 
 	waiting = 'waiting for annotations ';
 
@@ -48,6 +43,10 @@ export class DatasetspecificationforcollectionsetComponent implements OnInit {
 		if (this.subtitle == null) {
 			this.subtitle = 'Specification for Collection';
 		}
+	}
+	
+	invalid(): boolean {
+		return this.idForm.invalid;
 	}
 	
 	setStatus(newstatus: string) {

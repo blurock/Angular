@@ -159,6 +159,7 @@ import { ManagedatasetcollectionsComponent } from './catalogobjects/datasetcolle
 import { CreatenewdatasetcollectionComponent } from './catalogobjects/datasetcollection/createnewdatasetcollection/createnewdatasetcollection.component';
 import { VisualizedatasetcollectionidsComponent } from './catalogobjects/datasetcollection/visualizedatasetcollectionids/visualizedatasetcollectionids.component';
 import { FetchcollectiondatasetidsComponent } from './dialog/fetchcollectiondatasetids/fetchcollectiondatasetids.component';
+import { ModifydatasetcollectionidsComponent } from './catalogobjects/datasetcollection/modifydatasetcollectionids/modifydatasetcollectionids.component';
 
 
 
@@ -273,7 +274,8 @@ import { FetchcollectiondatasetidsComponent } from './dialog/fetchcollectiondata
   ManagedatasetcollectionsComponent,
   CreatenewdatasetcollectionComponent,
   VisualizedatasetcollectionidsComponent,
-  FetchcollectiondatasetidsComponent
+  FetchcollectiondatasetidsComponent,
+  ModifydatasetcollectionidsComponent
 	],
 	imports: [
 		AppFirebaseModule,

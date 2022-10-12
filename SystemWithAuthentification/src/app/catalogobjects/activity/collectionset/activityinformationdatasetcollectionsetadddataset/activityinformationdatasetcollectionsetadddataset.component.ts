@@ -6,6 +6,9 @@ import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 import { NavItem } from '../../../../primitives/nav-item';
 import {DatasetcollectionsetrecordidinfoComponent} from '../datasetcollectionsetrecordidinfo/datasetcollectionsetrecordidinfo.component';
+import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
+import {DatasetspecificationforcollectionsetComponent} from '../../../datasetcollection/datasetspecificationforcollectionset/datasetspecificationforcollectionset.component';
+
 
 @Component({
   selector: 'app-activityinformationdatasetcollectionsetadddataset',
@@ -20,16 +23,19 @@ export class ActivityinformationdatasetcollectionsetadddatasetComponent implemen
 	
 	@Input() annoinfo: any;
 	
+	maintainer: string;
 	objectform: FormGroup;
 	items: NavItem[];
 	title = 'Activity Information for adding dataset to collection';
 	speciesspec = 'dataset:DatabaseObjectType';
 	display = true;
+	subtitle = 'Dataset ID to Insert';
 
-	@ViewChild('spec') spec: DatasettransactionspecificationforcollectionComponent;
+	@ViewChild('spec') spec: DatasetspecificationforcollectionsetComponent;
 	@ViewChild('record') record: DatasetcollectionsetrecordidinfoComponent;
 
   constructor(
+    manageuser: ManageuserserviceService,
     	private formBuilder: FormBuilder,
 		private menusetup: MenutreeserviceService
 
@@ -38,12 +44,26 @@ export class ActivityinformationdatasetcollectionsetadddatasetComponent implemen
 			DescriptionTitle: ['', Validators.required],
 			DatabaseObjectType: ['', Validators.required],
 		});
+   		manageuser.determineMaintainer().subscribe(result => {
+			if (result != null) {
+				this.maintainer = result;
+
+			} else {
+				alert(manageuser.errormaintainer);
+			}
+		});
 
    }
 
   ngOnInit(): void {
-    this.items = [];
-    		this.items = this.menusetup.findChoices(this.annoinfo, this.speciesspec);
+    this.items = this.menusetup.findChoices(this.annoinfo, this.speciesspec);
+  }
+  
+  public invalid(): boolean {
+    let ans = this.objectform.invalid;
+    ans = ans || this.spec.invalid();
+    ans = ans || this.record.invalid();
+    return ans;
   }
   
   	getData(activity: any): void {
@@ -54,14 +74,15 @@ export class ActivityinformationdatasetcollectionsetadddatasetComponent implemen
 		activity[this.annoinfo['dataset:DatasetCollectionSetRecordIDInfo'][this.identifier]] = recorddata;
 		const specvalue = {};
 		this.spec.getData(specvalue);
-		activity[this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier]] = specvalue;
+		activity[this.annoinfo['dataset:DatasetSpecificationForCollectionSet'][this.identifier]] = specvalue;
 	}
 	setData(activity: any): void {
 		this.objectform.get('DatabaseObjectType').setValue(activity[this.annoinfo['dataset:DatabaseObjectType']]);
 		this.objectform.get('DescriptionTitle').setValue(activity[this.annoinfo['dataset:DescriptionTitle']]);
 		const recorddata = activity[this.annoinfo['dataset:DatasetCollectionSetRecordIDInfo'][this.identifier]];
 		this.record.setData(recorddata);
-		this.spec.setData(activity);
+		const specdata = activity[this.annoinfo['dataset:DatasetSpecificationForCollectionSet'][this.identifier]];
+		this.spec.setData(specdata);
 		}
 
   

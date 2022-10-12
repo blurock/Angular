@@ -61,6 +61,14 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 
 	ngOnInit(): void {
 	}
+	
+	invalid(): boolean {
+    return this.benson.invalid() ||
+    this.disassociation.invalid() ||
+    this.metaatom.invalid() ||
+    this.symmetry.invalid() ||
+    this.vibrational.invalid();
+  }
 
 	public getCatalogAnnoations(): void {
 		this.message = 'Waiting for Info call';
@@ -113,7 +121,7 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 
 	public setData(catalog: any): void {
         this.collectionid.setData(catalog);
-        
+
 		const bensoncolid = catalog['dataset:bensonrulecolspec'];
 		this.benson.setData(bensoncolid);
 
@@ -128,7 +136,7 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 
 		const vibrationalcolid = catalog['dataset:vibrationalstructurecolspec'];
 		this.vibrational.setData(vibrationalcolid);
-	}
+ 	}
 
 
 }
