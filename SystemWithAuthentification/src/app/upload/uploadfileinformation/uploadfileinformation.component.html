@@ -1,4 +1,36 @@
-<ng-container *ngIf='display; else loading'>
+
+<mat-card class="card">
+	<mat-card-header>
+		<mat-card-title-group class="title-group">
+			<mat-card-subtitle class="title">{{title}}</mat-card-subtitle>
+		</mat-card-title-group>
+	</mat-card-header>
+	<mat-card-content>
+<ng-container *ngIf='annoinfo != null; else loading'>
+
+		<mat-grid-list cols="6" rowHeight="100px">
+			<mat-grid-tile [colspan]="2">
+				<button mat-mini-fab color="primary" class="display-btn" matTooltip="{{displaydescbutton}}"
+					(click)="displayCatalogInfo()">{{displaybutton}}</button>
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="2">
+				<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchInformation()"
+					matTooltip="{{loadfromdatabase}}">
+					{{fetch}}
+				</button>
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="2">
+				<button mat-mini-fab color="primary" class="rbutton" matTooltip="{{submitdescr}}"
+					(click)="submit()"
+					[disabled]="invalid()"
+					>{{submitbutton}}</button>
+			</mat-grid-tile>
+		
+		</mat-grid-list>
+
+<app-activityrepositoryinitialreadlocalfile #upload [(annoinfo)]="annoinfo"></app-activityrepositoryinitialreadlocalfile>
+
+<!--
 	<form [formGroup]="uploadinfoform" class="infoform">
 
 		<mat-grid-list cols="6" rowHeight="100px">
@@ -8,7 +40,7 @@
 				</button>
 			</mat-grid-tile>
 			<mat-grid-tile [colspan]="1">
-				<!-- Select File -->
+				
 				<input type="file" accept="text/*" (change)="uploadFileEvt($event)" #fileUpload class="file-input">
 
 				<button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
@@ -81,10 +113,12 @@
 	<app-setofsitereferences #weblinks [(anno)]="annoinfo"></app-setofsitereferences>
 	<app-setofdataobjectlinks #objectlinks [(anno)]="annoinfo"></app-setofdataobjectlinks>
 	<app-datasetreference #references [(anno)]="annoinfo"></app-datasetreference>
-
+-->
 </ng-container>
 <ng-template #loading>
 	<div>
 		{{message}}
 	</div>
 </ng-template>
+	</mat-card-content>
+</mat-card>

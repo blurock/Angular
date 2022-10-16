@@ -1,9 +1,10 @@
 {
-    "/api/cataloginfo": {
-        "target": "http://localhost:8080/_ah/api/ontologyannotations/v1/cataloginfo",
-        "secure": false,
+    "/localapi": {
+        "target": "http://localhost:8080/",
+        "secure": "false",
         "logLevel": "debug",
-        "changeOrigin": "true",
-        "pathRewrite": {"^/api": ""}
+        "pathRewrite": {
+        "^/localapi": ""
+      }
     }
 }

@@ -50,6 +50,13 @@ export class DatasetrepositoryfileComponent implements OnInit {
 
 	}
 
+    invalid(): boolean {
+		let ans = true;
+		if(this.transspec != null) {
+			ans = this.transspec.invalid() || this.infoform.invalid;
+		}
+		return ans;
+	}
 
 	public getData(catalog: any): void {
 		catalog['dataset:keyword-filestaging'] = this.keywords.getKeys();
@@ -113,6 +120,10 @@ export class DatasetrepositoryfileComponent implements OnInit {
 			this.objectlinks.setData(obj);
 		}
 	}
+ 
+     setFileFormat(format: string): void {
+		 this.infoform.get('FileSourceFormat').setValue(format);
+	 }
 
 
 

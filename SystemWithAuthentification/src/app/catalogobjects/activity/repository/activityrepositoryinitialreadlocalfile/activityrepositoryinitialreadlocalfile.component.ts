@@ -21,7 +21,9 @@ export class ActivityrepositoryinitialreadlocalfileComponent implements OnInit {
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
-
+    title = 'Read Local File Activity Informaton for Transaction';
+    
+    
 	infoform: FormGroup;
 	maintainer: string;
 	dataimage = null;
@@ -53,6 +55,15 @@ export class ActivityrepositoryinitialreadlocalfileComponent implements OnInit {
 			Identifier: ['No file', Validators.required]
 		});
 	}
+	
+	invalid(): boolean {
+	     let ans = true;
+	     if(this.reposfile != null) {
+			 ans = this.reposfile.invalid() || this.infoform.invalid;
+		 }
+		 return ans;
+	}
+	
 	uploadFileEvt(imgFile: any): void  {
 		if (imgFile.target.files && imgFile.target.files[0]) {
 			alert('uploadFileEvt(imgFile: any) 1' + imgFile);

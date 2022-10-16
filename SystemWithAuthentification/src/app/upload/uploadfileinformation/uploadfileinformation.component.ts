@@ -10,10 +10,12 @@ import { SetofsitereferencesComponent } from '../../catalogobjects/catalogbaseob
 import { DatasetreferenceComponent } from '../../catalogobjects/datasetreference/datasetreference.component';
 import { UploadmenuserviceService } from '../../services/uploadmenuservice.service';
 import { VisualizefileComponent } from '../../dialog/visualizefile/visualizefile.component';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
 import { KeywordlistprimitiveComponent } from '../../primitives/keywordlistprimitive/keywordlistprimitive.component';
 import { HttpUrlEncodingCodec } from '@angular/common/http';
+import {ActivityrepositoryinitialreadlocalfileComponent} from '../../catalogobjects/activity/repository/activityrepositoryinitialreadlocalfile/activityrepositoryinitialreadlocalfile.component';
+import {ViewcatalogandsavetolocalfileComponent} from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 
 @Component({
 	selector: 'app-uploadfileinformation',
@@ -21,7 +23,121 @@ import { HttpUrlEncodingCodec } from '@angular/common/http';
 	styleUrls: ['./uploadfileinformation.component.scss']
 })
 export class UploadfileinformationComponent implements OnInit {
+	
+	catalogobj: any;
+	annoinfo: any;
+	activitydata: any;
+	maintainer: string;
+	
+	getannotationsfnotsuccessful = 'Initialization not successful';
+	message = 'Initializing';
+	title = 'Upload File to Respository';
+	filedefault = 'UploadFileActivity';
+	    displaydescbutton = 'Display  information to send to read local file transaction';
+displaybutton = 'Display';
+loadfromdatabase = 'Load transaction information from file';
+fetch = 'Load Info';
+submitdescr = 'Submit Read Local File Transaction';
+submitbutton = 'Submit';
+catalogtype = 'dataset:ActivityRepositoryInitialReadLocalFile';
+readinfailed = 'Activity Read Failed';
+readincanceled = 'Cancel Read';
 
+
+	@ViewChild('upload') upload: ActivityrepositoryinitialreadlocalfileComponent;
+	
+		constructor(
+		public annotations: OntologycatalogService,
+		public dialog: MatDialog
+	) {
+		this.getAnnotations();
+		}
+		
+	ngOnInit(): void {
+	}
+	
+	invalid(): boolean {
+		let ans = true;
+		if(this.upload != null) {
+			ans = this.upload.invalid();
+		}
+		return ans;
+	}
+	
+	setData(activity: any) {
+		this.upload.setData(activity);
+	}
+
+		getAnnotations() {
+		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
+			next: (responsedata: any) => {
+				const response = responsedata;
+				this.message = response[Ontologyconstants.message];
+				if (response[Ontologyconstants.successful]) {
+					const catalog = response[Ontologyconstants.catalogobject];
+					this.activitydata = catalog[Ontologyconstants.outputobject];
+					this.annoinfo = catalog[Ontologyconstants.annotations];
+				} else {
+					alert(this.getannotationsfnotsuccessful);
+				}
+			},
+			error: (info: any) => { alert(this.getannotationsfnotsuccessful + '\n' + info); }
+		});
+
+		}
+		
+		displayCatalogInfo(): void {
+
+		const activity = {};
+		this.upload.getData(activity);
+
+		const dialogConfig = new MatDialogConfig();
+
+		dialogConfig.disableClose = false;
+		dialogConfig.autoFocus = true;
+
+		dialogConfig.data = {
+			filename: this.filedefault,
+			dataimage: activity
+		};
+
+		const myDialogRef = this.dialog.open(ViewcatalogandsavetolocalfileComponent, dialogConfig);
+
+		myDialogRef.afterClosed().subscribe(result => {
+		});
+	}
+
+	submit(): void {
+			alert("submit");
+		}
+		
+		
+		
+	fetchInformation() {
+		const dialogRef = this.dialog.open(FetchcatalogobjectComponent, {
+			data: { annoinfo: this.annoinfo, maintainer: this.maintainer, fromdatabase: false, catalogtype: this.catalogtype },
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			if (result != null) {
+				const success = result['dataset:servicesuccessful'];
+				if (success == 'true') {
+					this.activitydata = result['dataset:simpcatobj'];
+					this.setData(this.activitydata);
+				} else {
+					alert(this.readinfailed);
+				}
+			} else {
+				alert(this.readincanceled);
+			}
+
+		});
+
+
+	}
+		
+
+/*
 	@ViewChild('references') references: DatasetreferenceComponent;
 	@ViewChild('objectlinks') objectlinks: SetofdataobjectlinksComponent;
 	@ViewChild('weblinks') weblinks: SetofsitereferencesComponent;
@@ -33,7 +149,7 @@ export class UploadfileinformationComponent implements OnInit {
 	public uploadfilesource = 'dataset:StringSource';
 	public maintainer = 'Administrator';
     public tranafirestoreid: any;
-    
+   
     
     
 	resultHtml = "";
@@ -103,8 +219,6 @@ export class UploadfileinformationComponent implements OnInit {
 
 	}
 
-	ngOnInit(): void {
-	}
 
 	public getForm(): FormGroup {
 		return this.uploadinfoform;
@@ -247,5 +361,5 @@ export class UploadfileinformationComponent implements OnInit {
 
 
 	}
-
+*/
 }

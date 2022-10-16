@@ -41,7 +41,6 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 			DatasetName: ['', Validators.required],
 			DatasetVersion: ['', Validators.required],
 			CatalogObjectUniqueGenericLabel: ['', Validators.required],
-			SimpleCatalogName: ['', Validators.required],
 			CatalogDataObjectStatus: ['', Validators.required]
 		});
 		manageuser.determineMaintainer().subscribe(result => {
@@ -58,6 +57,10 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 			this.subtitle = 'Specification for Collection';
 		}
 		this.items = this.menusetup.findChoices(this.annoinfo, this.statusitems);
+	}
+	
+	invalid(): boolean {
+		return this.idForm.invalid;
 	}
 
 	public getData(catalog: any): void {
@@ -86,6 +89,8 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 		this.maintainer = jsontransspec['dataset:catalogobjectmaintainer'];
 		this.transspec = jsontransspec;
 	}
-
+setStatus(status: string): void {
+	this.idForm.get('CatalogDataObjectStatus').setValue(status);
+}
 
 }

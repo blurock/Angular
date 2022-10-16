@@ -23,7 +23,9 @@ export class ServiceUtilityRoutines {
          		const headerdata = new HttpHeaders()
 			.set('content-type', 'application/json')
 			.set('Authorization', ' AccessToken xxxxxxx')
-			.set('Access-Control-Allow-Origin', '*');
+			.set('Access-Control-Allow-Origin', '*')
+			//.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+			//.set('Access-Control-Allow-Methods', 'PUT,GET,POST,DELETE')
 		return headerdata;
     }
 }

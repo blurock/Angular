@@ -7,6 +7,9 @@ import { environment } from 'src/environments/environment';
 import { CatalogInfo, CatalogAnnotation, ClassificationHiearchy } from '../const/routes.const';
 import { ServiceUtilityRoutines } from './serviceutilityroutines';
 
+import * as express from 'express';
+import { createProxyMiddleware, Filter, Options, RequestHandler } from 'http-proxy-middleware';
+
 
 @Injectable({
 	providedIn: 'root'
@@ -74,6 +77,7 @@ export class OntologycatalogService {
 
 	public getNewCatalogObject(id: string): Observable<any> {
 		//http://localhost:8080/hello
+		//const cataloginfoshttp = '/' + CatalogInfo + '?catalogname=' + id;
 		const cataloginfoshttp = environment.apiURL + '/' + CatalogInfo + '?catalogname=' + id;
 		//const cataloginfoshttp = 'http://localhost:8080/hello';
 		//const cataloginfoshttp = 'https://api.github.com/';
@@ -85,9 +89,13 @@ export class OntologycatalogService {
 	}
 
 	private standardHttpCall(httpaddr: string): Observable<any> {
-const headers= new HttpHeaders()
-  .set('content-type', 'application/json')
-  .set('Access-Control-Allow-Origin', '*');
+		
+		
+		
+		
+		alert("OntologycatalogService: " + httpaddr);
+		const headers = ServiceUtilityRoutines.setupHeader();
+		alert("OntologycatalogService" + JSON.stringify(headers));
   		return this.httpClient.get(httpaddr,{ 'headers': headers })
 			.pipe(
 				catchError(error => {

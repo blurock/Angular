@@ -12,6 +12,7 @@ public class TestCollectionIDManagement {
 
 	@Test
 	public void test() {
+	    /*
 		System.out.println("------------------------------------");
 		System.out.println("firebaseIDOfCollection");
 		System.out.println("------------------------------------");
@@ -45,7 +46,7 @@ public class TestCollectionIDManagement {
 		DatasetCollectionIDManagement.insertCollectionInfoDataset(classname, catrecordid, collectionset);
 		System.out.println(JsonObjectUtilities.toString(collectionset));
 		System.out.println("------------------------------------");
-
+*/
 	}
 
 }

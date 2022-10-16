@@ -90,7 +90,7 @@ export class SubmitfileandinformatioonComponent implements OnInit {
 	}
 	submitInformation() {
 		const catalog = {};
-		this.uploadinfo.getData(catalog);
+		//this.uploadinfo.getData(catalog);
 		const dialogRef = this.dialog.open(RuntransactiondialogComponent, {
 			data: catalog
 		});

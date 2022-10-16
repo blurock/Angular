@@ -1,3 +1,10 @@
+<mat-card class="card">
+	<mat-card-header>
+		<mat-card-title-group class="title-group">
+			<mat-card-subtitle class="title">{{title}}</mat-card-subtitle>
+		</mat-card-title-group>
+	</mat-card-header>
+	<mat-card-content>
 <ng-container *ngIf='annoinfo != null;'>
 	<mat-grid-list cols="6" rowHeight="100px">
 		<form [formGroup]="infoform">
@@ -26,5 +33,6 @@
 	</mat-grid-list>
 	<app-datasetrepositoryfile #reposfile [(annoinfo)]="annoinfo" [(maintainer)]="maintainer">
 	</app-datasetrepositoryfile>
-			<app-datasettransactionspecificationforcollection #spec [(annoinfo)]="annoinfo"></app-datasettransactionspecificationforcollection>
 </ng-container>
+	</mat-card-content>
+</mat-card>

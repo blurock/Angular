@@ -18,14 +18,12 @@ import {SubmitfileandinformatioonComponent} from '../submitfileandinformatioon/s
 })
 export class UploadstepsComponent implements OnInit {
 
-    uploadinfoform: FormGroup;
 	parseinfoform: FormGroup;
 	createform: FormGroup;
 	references: FormArray;
 	uncertaintyInformation: any;
 	unitInformation: any;
 
-	uploadInformation: string
 	parseResult: string;
 	interpretResult: string;
 	titles: string[];
@@ -40,7 +38,7 @@ export class UploadstepsComponent implements OnInit {
 	unitset = ["quantitykind:MolarEnergy", "quantitykind:MolarEntropy", "quantitykind:MolarHeatCapacity", "quantitykind:Frequency"];
 	
 	@ViewChild('uploadinfo') uploadinfo: UploadfileinformationComponent;
-	@ViewChild('stagefile') stagefile: SubmitfileandinformatioonComponent;
+	//@ViewChild('stagefile') stagefile: SubmitfileandinformatioonComponent;
 	
 	repositorystaging = new EventEmitter<any>();
 	parseFile = new EventEmitter<any>();
@@ -56,7 +54,6 @@ export class UploadstepsComponent implements OnInit {
 		});
 
 		this.references = new FormArray([]);
-		this.uploadInformation = '';
 		this.uploadService.getTitleChoices().subscribe((data) => {
 			this.titleInformation = data;
 			this.titles = Object.keys(data);
@@ -80,7 +77,7 @@ export class UploadstepsComponent implements OnInit {
 	}
 	
 	ngAfterViewInit() {
-		this.uploadinfoform = this.uploadinfo.getForm();
+		
 	}
 	
 	submitParseEvent(message: string) {
@@ -98,12 +95,7 @@ export class UploadstepsComponent implements OnInit {
 		json['dataset:activityinfo'] = jsonact;
 		const jsontransspec = {};
 		jsonact['dataset:datasettransactionspecification'] = jsontransspec;
-		//jsontransspec['dataset:datasetname'] = this.uploadinfoform.get('DatasetName').value;
-		//jsontransspec['dataset:datasetversion'] = this.uploadinfoform.get('DatasetVersion').value;
-		//jsontransspec['dataset:uniquegenericname'] = this.uploadinfoform.get('CatalogObjectUniqueGenericLabel').value;
 		//jsontransspec['dataset:catalogobjectmaintainer'] = this.maintainer;
-		//jsonact['dataset:filesourceformat'] = this.uploadinfoform.get('FileSourceFormat').value;
-		//jsonact['dcterms:title'] = this.uploadinfoform.get('FileSourceTitle').value;
 		//jsonact['dataset:filepartitionmethod'] = this.getFormatValue('dataset:partitionMethod');
 		//jsonact['dataset:blocklinecount'] = this.getFormatValue('dataset:blocklinecount');
 		//jsonact['dataset:collectionobjecttype'] = this.getFormatValue('dcat:catalog');
@@ -127,7 +119,6 @@ export class UploadstepsComponent implements OnInit {
 	}
 	displayJsonObject(): void {
 		const activity = {};
-		this.uploadinfo.getData(activity);
 		alert(JSON.stringify(activity));
 	}
 

@@ -1,12 +1,13 @@
 <mat-stepper #stepper>
-	<mat-step [stepControl]="uploadinfoform" errorMessage="All information is required in some form.">
-		<ng-template matStepLabel>File Information</ng-template>
+	<mat-step >
+		<ng-template matStepLabel>File Upload</ng-template>
 		<app-uploadfileinformation #uploadinfo></app-uploadfileinformation>
 		<div>
 			<button mat-button matStepperPrevious>Back</button>
 			<button mat-button matStepperNext>Next</button>
 		</div>
 	</mat-step>
+	<!--
 	<mat-step >
 		<ng-template matStepLabel>Stage File</ng-template>
 		<ng-container *ngIf='uploadinfo != null; else wait'>
@@ -40,6 +41,7 @@
 			<button mat-button matStepperNext>Next</button>
 		</div>
 	</mat-step>	
+	-->
 	<!--
 	<mat-step>
 	<ng-template matStepLabel>Catalog Objects</ng-template>

@@ -6,6 +6,7 @@ export const environment = {
 	production: false,
 	useEmulators: true,
 	apiURL: 'http://localhost:8080',
+	//apiURL: 'localapi',
 	firebase: {
 		apiKey: 'AIzaSyBFHXqA8MXdv-KbON_IU78BItS9KangM1Y',
 		authDomain: 'blurock-database.firebaseapp.com',
