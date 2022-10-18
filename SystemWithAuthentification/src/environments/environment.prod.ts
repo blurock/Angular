@@ -1,14 +1,30 @@
+import { initializeApp } from "firebase/app";
+
+import { getAnalytics } from "firebase/analytics";
+
+
 export const environment = {
   production: true,
-  apiURL: 'https://blurock-firebase.appspot.com',
+  useEmulators: false,
+  apiURL: 'https://blurock-database.ew.r.appspot.com',
   firebase: {
-    apiKey: 'AIzaSyBFHXqA8MXdv-KbON_IU78BItS9KangM1Y',
-    authDomain: 'blurock-database.firebaseapp.com',
-    databaseURL: 'https://blurock-database.firebaseio.com',
-    projectId: 'blurock-database',
-    storageBucket: 'blurock-database.appspot.com',
-    messagingSenderId: '814571995343',
-    appId: '1:814571995343:web:e048df62138c9d76b737ba',
-    measurementId: 'YOUR measurementId HERE'
-  },
+
+  apiKey: "AIzaSyBFHXqA8MXdv-KbON_IU78BItS9KangM1Y",
+
+  authDomain: "blurock-database.firebaseapp.com",
+
+  databaseURL: "https://blurock-database-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId: "blurock-database",
+
+  storageBucket: "blurock-database.appspot.com",
+
+  messagingSenderId: "315685320181",
+
+  appId: "1:315685320181:web:82a3d5bb39946866ca5cbc",
+
+  measurementId: "G-36487VBEFH"
+
+}
+
 };

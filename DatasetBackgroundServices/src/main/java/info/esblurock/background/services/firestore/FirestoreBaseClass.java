@@ -33,23 +33,14 @@ public class FirestoreBaseClass {
 	}
 
 	private static Firestore setupDatabase() throws IOException {
+	    
+	    Firestore db =
+	            FirestoreOptions.newBuilder().setProjectId("blurock-database").build().getService();
 
-		GoogleCredentials cred = GoogleCredentials.getApplicationDefault();
-
-		FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder().setProjectId(projectId)
-				.setCredentials(cred).build();
-		Firestore db = firestoreOptions.getService();
 		return db;
 	}
 
 	private static Firestore setUpDatabaseLocal() throws IOException {
-		/*
-		 * InputStream serviceAccount = new FileInputStream(
-		 * "/Users/edwardblurock/.config/firebase/blurock-database-firebase-adminsdk-rk0ap-cf327d31d0.json"
-		 * ); GoogleCredentials credentials =
-		 * GoogleCredentials.fromStream(serviceAccount);
-		 */
-
 		GoogleCredentials cred = GoogleCredentials.getApplicationDefault();
 		FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder().setProjectId(projectId)
 				.setCredentials(cred)

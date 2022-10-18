@@ -76,11 +76,7 @@ export class OntologycatalogService {
 	}
 
 	public getNewCatalogObject(id: string): Observable<any> {
-		//http://localhost:8080/hello
-		//const cataloginfoshttp = '/' + CatalogInfo + '?catalogname=' + id;
 		const cataloginfoshttp = environment.apiURL + '/' + CatalogInfo + '?catalogname=' + id;
-		//const cataloginfoshttp = 'http://localhost:8080/hello';
-		//const cataloginfoshttp = 'https://api.github.com/';
 		return this.standardHttpCall(cataloginfoshttp);
 	}
 	public getClassificationHierarchy(id: string): Observable<any> {
@@ -89,19 +85,14 @@ export class OntologycatalogService {
 	}
 
 	private standardHttpCall(httpaddr: string): Observable<any> {
-		
-		
-		
-		
-		alert("OntologycatalogService: " + httpaddr);
 		const headers = ServiceUtilityRoutines.setupHeader();
-		alert("OntologycatalogService" + JSON.stringify(headers));
   		return this.httpClient.get(httpaddr,{ 'headers': headers })
 			.pipe(
 				catchError(error => {
 					if (error.error instanceof ErrorEvent) {
 						this.errorMsg = `Error: ${error.error.message}`;
 					} else {
+						
 						this.errorMsg = ServiceUtilityRoutines.getServerErrorMessage(error);
 					}
 					return of(this.errorMsg);
