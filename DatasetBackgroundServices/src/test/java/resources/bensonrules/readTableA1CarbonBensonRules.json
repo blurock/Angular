@@ -9,7 +9,7 @@
 			},
 			"dataset:keyword-filestaging": [],
 			"dataset:title-staging": "Read in standard Carbon-Hydrogen atom benson rules from table A.1 from Benson Thermochemical Kinetics",
-			"dataset:abstract-staging": "Read the sstandard Carbon-Hydrogen atom benson rules. This is Table A.1 from Benson Thermochemical Kinetics.",
+			"dataset:abstract-staging": "Read the standard Carbon-Hydrogen atom benson rules. This is Table A.1 from Benson Thermochemical Kinetics.",
 			"dcterms:created": "today"
 		},
 		"dataset:uploadsrc": "dataset:LocalFileSystem",

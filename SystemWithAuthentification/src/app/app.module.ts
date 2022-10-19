@@ -160,6 +160,7 @@ import { CreatenewdatasetcollectionComponent } from './catalogobjects/datasetcol
 import { VisualizedatasetcollectionidsComponent } from './catalogobjects/datasetcollection/visualizedatasetcollectionids/visualizedatasetcollectionids.component';
 import { FetchcollectiondatasetidsComponent } from './dialog/fetchcollectiondatasetids/fetchcollectiondatasetids.component';
 import { ModifydatasetcollectionidsComponent } from './catalogobjects/datasetcollection/modifydatasetcollectionids/modifydatasetcollectionids.component';
+import { InitialreadinofrepositoryfileeventComponent } from './upload/initialreadinofrepositoryfileevent/initialreadinofrepositoryfileevent.component';
 
 
 
@@ -275,7 +276,8 @@ import { ModifydatasetcollectionidsComponent } from './catalogobjects/datasetcol
   CreatenewdatasetcollectionComponent,
   VisualizedatasetcollectionidsComponent,
   FetchcollectiondatasetidsComponent,
-  ModifydatasetcollectionidsComponent
+  ModifydatasetcollectionidsComponent,
+  InitialreadinofrepositoryfileeventComponent
 	],
 	imports: [
 		AppFirebaseModule,

@@ -66,8 +66,6 @@ export class ActivityrepositoryinitialreadlocalfileComponent implements OnInit {
 	
 	uploadFileEvt(imgFile: any): void  {
 		if (imgFile.target.files && imgFile.target.files[0]) {
-			alert('uploadFileEvt(imgFile: any) 1' + imgFile);
-
 			const file = (event.target as HTMLInputElement).files[0];
 			this.infoform.patchValue({
 				FileSourceIdentifier: file.name
@@ -90,20 +88,27 @@ export class ActivityrepositoryinitialreadlocalfileComponent implements OnInit {
 		});
 
 	}
+	
+	getDataImage(): string {
+		return this.dataimage;
+	}
 
 	getData(catalog: any): void {
 		const filesrcid = this.infoform.get('FileSourceIdentifier').value;
 		catalog[this.annoinfo['dataset:FileSourceIdentifier'][this.identifier]] = filesrcid;
+		catalog[this.annoinfo['dataset:FileSourceMediaSubType'][this.identifier]] = '';
+		catalog[this.annoinfo['dataset:FileSourceMediaType'][this.identifier]] = Ontologyconstants.textfile;
+		catalog[this.annoinfo['dataset:UploadFileSource'][this.identifier]] = Ontologyconstants.LocalFileSystem;
+		
 		this.reposfile.getData(catalog);
-		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
 	}
 	setData(catalog: any) {
-		const filesrcid = catalog[this.annoinfo['dataset:FileSourceIdentifier'][this.identifier]];
-		this.infoform.get('Identifier').setValue(filesrcid);
-		this.infoform.patchValue({
-			FileSourceIdentifier: filesrcid
-		});
-		this.cd.detectChanges();
+		const filesrcid = this.infoform.get('FileSourceIdentifier').value;
+		catalog[this.annoinfo['dataset:FileSourceIdentifier'][this.identifier]] = filesrcid;
+		//catalog[this.annoinfo['dataset:FileSourceMediaSubType'][this.identifier]];
+		//catalog[this.annoinfo['dataset:FileSourceMediaType'][this.identifier]] = Ontologyconstants.textfile;
+		//catalog[this.annoinfo['dataset:UploadFileSource'][this.identifier]] = Ontologyconstants.LocalFileSystem;
+		
 		this.reposfile.setData(catalog);
 	}
 

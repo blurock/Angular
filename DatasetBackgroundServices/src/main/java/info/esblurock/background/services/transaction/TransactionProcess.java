@@ -188,11 +188,11 @@ public enum TransactionProcess {
 			JsonObject response = UploadFileToGCS.readFromSource(transactionID, owner, info);
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+				if(arr.size() > 0) {
 				JsonObject catalog = arr.get(0).getAsJsonObject();
 
 				JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
 						.getAsJsonObject();
-				//catalog.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
 				BaseCatalogData.insertFirestoreAddress(catalog);
 				CreateLinksInStandardCatalogInformation.addPrerequisitesToDataObjectLink(catalog, prerequisites);
 				CreateLinksInStandardCatalogInformation.transfer(info, catalog);
@@ -200,6 +200,17 @@ public enum TransactionProcess {
 		        JsonObject transfirestoreID = BaseCatalogData.insertFirestoreAddress(event);
                 catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction,transfirestoreID.deepCopy());
                 WriteFirestoreCatalogObject.writeCatalogObject(catalog);
+				} else {
+	                Document errdoc = MessageConstructor.startDocument("Error:InitialReadInOfRepositoryFile" );
+	                MessageConstructor.combineBodyIntoDocument(errdoc, response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
+	                response = DatabaseServicesBase.standardErrorResponse(errdoc,
+	                        "Error: No catalog objects generated", null);				    
+				}
+			} else {
+			    Document errdoc = MessageConstructor.startDocument("Error:InitialReadInOfRepositoryFile" );
+			    MessageConstructor.combineBodyIntoDocument(errdoc, response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
+			    response = DatabaseServicesBase.standardErrorResponse(errdoc,
+			            "Error: Could not write to repository", null);
 			}
 			return response;
 		}

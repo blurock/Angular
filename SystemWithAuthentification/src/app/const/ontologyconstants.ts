@@ -23,9 +23,18 @@ export class Ontologyconstants {
 	
 	public static DatabaseIDFromRequiredTransaction = 'dataset:transreqobj';
 	
-	public static InitialReadInOfRepositoryFile = 'dataset:initreposfile';
 	public static PartiionSetWithinRepositoryFile = 'dataset:partitionfile';
 	public static TransactionInterpretTextBlock = 'dataset:interprettextblocktransaction';
+	public static TransactionEventObject = 'dataset:eventobject';
+	public static TransactionEventType = 'prov:activity';
+	public static ActivityInfo = 'dataset:activityinfo';
+	public static InitialReadInOfRepositoryFile = 'dataset:initreposfile';
+	public static InitialReadInOfRepositoryFileActivity = 'dataset:InitialReadInOfRepositoryFile';
+	public static UploadFileSource = 'dataset:uploadsrc';
+	public static LocalFileSystem = 'dataset:LocalFileSystem';
+	public static StringSource = 'dataset:StringSource';
+	public static FileSourceIdentifier = 'dataset:fileidentifier';
 	
+	public static textfile = 'dataset:FileTypeText';
 
 }

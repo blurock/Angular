@@ -7,59 +7,14 @@
 			<button mat-button matStepperNext>Next</button>
 		</div>
 	</mat-step>
-	<!--
 	<mat-step >
-		<ng-template matStepLabel>Stage File</ng-template>
-		<ng-container *ngIf='uploadinfo != null; else wait'>
-		<app-submitfileandinformatioon #stagefile  [uploadinfo]="uploadinfo"  [(catalogObject)]='repositorystaging'></app-submitfileandinformatioon>
-		</ng-container>
-		<ng-template  #wait>
-		Wait
-		</ng-template>
+		<ng-template matStepLabel>Upload Transaction</ng-template>
+		<app-initialreadinofrepositoryfileevent #repositoryresults></app-initialreadinofrepositoryfileevent>
 		<div>
 			<button mat-button matStepperPrevious>Back</button>
 			<button mat-button matStepperNext>Next</button>
 		</div>
 	</mat-step>
-	
-	<mat-step [stepControl]="parseinfoform" errorMessage="Parse setup information incomplete">
-	
-		<ng-template matStepLabel>Parse into Blocks Setup</ng-template>
-		<app-parseuploadedfile  [(repositorystagingO)]='repositorystaging' [(stagefile)]='stagefile'></app-parseuploadedfile>
-		<div>
-			<button mat-button matStepperPrevious>Back</button>
-			<button mat-button matStepperNext>Next</button>
-		</div>
-		
-	</mat-step>
-
-	<mat-step [stepControl]="parseinfoform" errorMessage="File not sent">
-		<ng-template matStepLabel>Parse into Blocks Transaction</ng-template>
-	    <app-parsefiletransaction [(catalogObject)]='parseFile'></app-parsefiletransaction>
-		<div>
-			<button mat-button matStepperPrevious>Back</button>
-			<button mat-button matStepperNext>Next</button>
-		</div>
-	</mat-step>	
-	-->
-	<!--
-	<mat-step>
-	<ng-template matStepLabel>Catalog Objects</ng-template>
-	<app-createcatalogobjectsfrompartitions
-	[(createform)]="createform"
-	[(uploadinfoform)]="uploadinfoform"
-	[(formatInformation)]="formatInformation"
-	[(unitInformation)]="unitInformation"
-	[(uncertaintyInformation)]="uncertaintyInformation"
-	(submitInterpretEvent)= "submitInterpretEvent($event)"
-	[(interpretResult)]="interpretResult">
-	</app-createcatalogobjectsfrompartitions >
-		<div>
-			<button mat-button matStepperPrevious>Back</button>
-			<button mat-button matStepperNext>Next</button>
-		</div>
-	</mat-step>
-	-->
 	<mat-step>
 		<ng-template matStepLabel>Done</ng-template>
 		<p>You are now done.</p>

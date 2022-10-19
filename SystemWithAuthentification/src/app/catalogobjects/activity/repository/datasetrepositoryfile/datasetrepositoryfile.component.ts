@@ -7,7 +7,7 @@ import { DatasetreferenceComponent } from '../../../datasetreference/datasetrefe
 import { KeywordlistprimitiveComponent } from '../../../../primitives/keywordlistprimitive/keywordlistprimitive.component';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
-import {DatasettransactionspecificationforcollectionComponent} from '../../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
+import { DatasettransactionspecificationforcollectionComponent } from '../../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
 
 
 @Component({
@@ -44,40 +44,42 @@ export class DatasetrepositoryfileComponent implements OnInit {
 		this.items = this.menusetup.findChoices(this.annoinfo, this.formatmenulabel);
 		this.infoform = this.formBuilder.group({
 			FileSourceFormat: ['', Validators.required],
-			FileSourceTitle: ['', Validators.required],
-			FileSourceAbstract: ['', Validators.required]
+			DescriptionTitleFileStaging: ['', Validators.required],
+			DescriptionAbstractFileStaging: ['', Validators.required]
 		});
 
 	}
 
-    invalid(): boolean {
+	invalid(): boolean {
 		let ans = true;
-		if(this.transspec != null) {
+		if (this.transspec != null) {
 			ans = this.transspec.invalid() || this.infoform.invalid;
 		}
 		return ans;
 	}
 
 	public getData(catalog: any): void {
-		catalog['dataset:keyword-filestaging'] = this.keywords.getKeys();
-		const jsonpurpose = {};
-		catalog['dataset:purpose-filestaging'] = jsonpurpose;
-		jsonpurpose['dataset:purposekey-filestaging'] = "dataset:PurposeFileStaging";
-		jsonpurpose['dataset:dataconcept-staging'] = 'dataset:ConceptFileStaging';
+		catalog[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.infoform.get('DescriptionTitleFileStaging').value;
+		catalog[this.annoinfo['dataset:DescriptionTitleFileStaging'][this.identifier]] = this.infoform.get('DescriptionTitleFileStaging').value;
+		catalog[this.annoinfo['dataset:DescriptionAbstractFileStaging'][this.identifier]] = this.infoform.get('DescriptionAbstractFileStaging').value;
+		catalog[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.infoform.get('FileSourceFormat').value;
 
-		catalog['dataset:title-staging'] = this.infoform.get('FileSourceTitle').value;
-		catalog['dataset:abstract-staging'] = this.infoform.get('FileSourceAbstract').value;
-		catalog['dataset:keyword-filestaging'] = this.keywords.getKeys();
+		const descr = {};
+		catalog[this.annoinfo['dataset:DataDescriptionFileStaging'][this.identifier]] = descr;
+
+		const jsonpurpose = {};
+		descr[this.annoinfo['dataset:PurposeConceptFileStaging'][this.identifier]] = jsonpurpose;
+		jsonpurpose[this.annoinfo['dataset:PurposeFileStaging'][this.identifier]] = "dataset:PurposeRepositoryDataOrigin";
+		jsonpurpose[this.annoinfo['dataset:ConceptFileStaging'][this.identifier]] = 'dataset:ChemConnectConceptChemicalStructure';
+		descr[this.annoinfo['dataset:DescriptionAbstractFileStaging'][this.identifier]] = this.infoform.get('DescriptionAbstractFileStaging').value;
+		descr[this.annoinfo['dataset:DescriptionTitleFileStaging'][this.identifier]] = this.infoform.get('DescriptionTitleFileStaging').value;
+		descr[this.annoinfo['dataset:DescriptionKeywordFileStaging'][this.identifier]] = this.keywords.getKeys();
 
 		let dateTime = new Date();
 		const DATE_TIME_FORMAT = 'YYYY-MM-DDTHH:mm';
-		catalog['dcterms:created'] = moment(dateTime, DATE_TIME_FORMAT);
-
-		const jsontransspec = {};
-		catalog['dataset:datasettransactionspecification'] = jsontransspec;
-		this.transspec.getData(jsontransspec);
-		this.addSetOfReferencesAndLinks(catalog);
+		descr[this.annoinfo['dataset:DateCreated'][this.identifier]] = moment(dateTime, DATE_TIME_FORMAT);
 		this.transspec.getData(catalog);
+		this.addSetOfReferencesAndLinks(catalog);
 	}
 	public addSetOfReferencesAndLinks(info: any): void {
 		this.references.getData(info);
@@ -85,25 +87,27 @@ export class DatasetrepositoryfileComponent implements OnInit {
 		this.objectlinks.getData(info);
 	}
 
-	public setData(json: any): void {
-		if (json != null) {
-			this.infoform.get('FileSourceFormat').setValue(json['dataset:filesourceformat']);
-			this.infoform.get('FileSourceTitle').setValue(json['dcterms:title']);
-			const jsontransspec = json['dataset:datasettransactionspecification'];
-			if (jsontransspec != null) {
-				this.transspec.setData(jsontransspec);
-			} else {
+	public setData(catalog: any): void {
+		if (catalog != null) {
+			this.infoform.get('DescriptionTitleFileStaging').setValue(catalog[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
+			this.infoform.get('DescriptionTitleFileStaging').setValue(catalog[this.annoinfo['dataset:DescriptionTitleFileStaging'][this.identifier]]);
+			this.infoform.get('DescriptionAbstractFileStaging').setValue(catalog[this.annoinfo['dataset:DescriptionAbstractFileStaging'][this.identifier]]);
+			this.infoform.get('FileSourceFormat').setValue(catalog[this.annoinfo['dataset:FileSourceFormat'][this.identifier]]);
+
+			const descr = catalog[this.annoinfo['dataset:DataDescriptionFileStaging'][this.identifier]];
+			if (descr != null) {
+				this.infoform.get('DescriptionAbstractFileStaging').setValue(descr[this.annoinfo['dataset:DescriptionAbstractFileStaging'][this.identifier]]);
+				this.infoform.get('DescriptionTitleFileStaging').setValue(descr[this.annoinfo['dataset:DescriptionTitleFileStaging'][this.identifier]]);
+				const keys = descr[this.annoinfo['dataset:DescriptionKeywordFileStaging'][this.identifier]];
+				if (keys != null) {
+					this.keywords.setKeys(keys);
+                    const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
+					this.transspec.setData(catalog[specid]);
+					this.setSetOfReferencesAndLinks(catalog);
+				}
 			}
-			const jsonstaging = json['descr-filestaging'];
-			if (jsonstaging != null) {
-				const keys = jsonstaging['dataset:keyword-filestaging'];
-				this.keywords.setKeys(keys);
-				this.infoform.get('FileSourceTitle').setValue(jsonstaging['dataset:title-staging']);
-				this.infoform.get('FileSourceAbstract').setValue(jsonstaging['dataset:abstract-staging']);
-			}
-			this.setSetOfReferencesAndLinks(json);
 		}
-	}
+		}
 
 
 	public setSetOfReferencesAndLinks(activity: any): void {
@@ -120,10 +124,10 @@ export class DatasetrepositoryfileComponent implements OnInit {
 			this.objectlinks.setData(obj);
 		}
 	}
- 
-     setFileFormat(format: string): void {
-		 this.infoform.get('FileSourceFormat').setValue(format);
-	 }
+
+	setFileFormat(format: string): void {
+		this.infoform.get('FileSourceFormat').setValue(format);
+	}
 
 
 

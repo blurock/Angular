@@ -32,7 +32,7 @@ export class DatasetrepositoryfilestagingComponent extends Savecatalogdataobject
 		public identifiers: IdentifiersService) {
 		super(dialog,annotations,identifiers,
 		);
-			this.catalogtype = 'dataset:DatasetRepositoryFileStaging';
+	this.catalogtype = 'dataset:DatasetRepositoryFileStaging';
 	this.getCatalogAnnoations();
 
 	}

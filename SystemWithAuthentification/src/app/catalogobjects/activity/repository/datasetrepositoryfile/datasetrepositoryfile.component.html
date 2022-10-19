@@ -5,7 +5,7 @@
 			<mat-grid-tile [colspan]="4">
 				<mat-form-field class="filesourcetitle">
 					<mat-label>{{annoinfo['dataset:DescriptionTitleFileStaging'][rdfslabel]}}</mat-label>
-					<input matInput formControlName="FileSourceTitle">
+					<input matInput formControlName="DescriptionTitleFileStaging">
 					<mat-hint>{{annoinfo['dataset:DescriptionTitleFileStaging'][rdfscomment]}}</mat-hint>
 				</mat-form-field>
 			</mat-grid-tile>
@@ -21,7 +21,7 @@
 			<mat-grid-tile [colspan]="6">
 				<mat-form-field class="filesourcetitle">
 					<mat-label>{{annoinfo['dataset:DescriptionAbstractFileStaging'][rdfslabel]}}</mat-label>
-					<textarea matInput formControlName="FileSourceAbstract"></textarea>
+					<textarea matInput formControlName="DescriptionAbstractFileStaging"></textarea>
 					<mat-hint>{{annoinfo['dataset:DescriptionAbstractFileStaging'][rdfscomment]}}</mat-hint>
 				</mat-form-field>
 			</mat-grid-tile>

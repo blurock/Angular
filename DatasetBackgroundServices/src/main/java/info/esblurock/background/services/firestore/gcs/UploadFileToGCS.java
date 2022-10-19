@@ -16,6 +16,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
@@ -109,7 +110,7 @@ public enum UploadFileToGCS {
             System.out.println("-------------");
 			body.addElement("pre").addText("String content: '" + content + "'");
 			JsonObject response = WriteCloudStorage.writeString(transactionID, owner, maintainer, content, info,
-					"dcat:StringSource");
+					"dataset:StringSource");
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 				JsonObject gcsstaging = arr.get(0).getAsJsonObject();
@@ -149,9 +150,10 @@ public enum UploadFileToGCS {
 
 		JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
 				.getAsJsonObject();
-		String maintainer = recordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-		if (maintainer == null) {
-			maintainer = owner;
+		JsonElement main = recordid.get(ClassLabelConstants.CatalogDataObjectMaintainer);
+		String maintainer = owner;
+		if(main != null)  {
+		    maintainer = main.getAsString();
 		}
 		String source = info.get(ClassLabelConstants.UploadFileSource).getAsString();
 		String sourcename = source.substring(8);

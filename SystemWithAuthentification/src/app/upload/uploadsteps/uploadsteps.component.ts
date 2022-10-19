@@ -4,6 +4,9 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { UploadmenuserviceService } from '../../services/uploadmenuservice.service';
 import {UploadfileinformationComponent} from '../uploadfileinformation/uploadfileinformation.component';
 import {SubmitfileandinformatioonComponent} from '../submitfileandinformatioon/submitfileandinformatioon.component';
+import {InitialreadinofrepositoryfileeventComponent} from '../initialreadinofrepositoryfileevent/initialreadinofrepositoryfileevent.component';
+import { Ontologyconstants } from '../../const/ontologyconstants';
+
 
 @Component({
 	selector: 'app-uploadsteps',
@@ -28,6 +31,8 @@ export class UploadstepsComponent implements OnInit {
 	interpretResult: string;
 	titles: string[];
 	titleInformation: any;
+	
+	repositoryEvent: EventEmitter<any>;
 
 	public filemediatype = "dataset:FileTypeText";
 	public filemediasubtype = "";
@@ -38,7 +43,7 @@ export class UploadstepsComponent implements OnInit {
 	unitset = ["quantitykind:MolarEnergy", "quantitykind:MolarEntropy", "quantitykind:MolarHeatCapacity", "quantitykind:Frequency"];
 	
 	@ViewChild('uploadinfo') uploadinfo: UploadfileinformationComponent;
-	//@ViewChild('stagefile') stagefile: SubmitfileandinformatioonComponent;
+	//@ViewChild('repositoryresults') repositoryresults: InitialreadinofrepositoryfileeventComponent;
 	
 	repositorystaging = new EventEmitter<any>();
 	parseFile = new EventEmitter<any>();
@@ -49,10 +54,8 @@ export class UploadstepsComponent implements OnInit {
 		}
 
 	ngOnInit() {
-
 		this.createform = this._formBuilder.group({
 		});
-
 		this.references = new FormArray([]);
 		this.uploadService.getTitleChoices().subscribe((data) => {
 			this.titleInformation = data;
@@ -60,9 +63,6 @@ export class UploadstepsComponent implements OnInit {
 		}, (error) => {
 			console.log("An error accessing getTitleChoices() Service");
 		})
-		
-		
-		
 
 		this.uploadService.getUnitSet(this.unitset).subscribe((data) => {
 			this.unitInformation = data;
@@ -74,11 +74,18 @@ export class UploadstepsComponent implements OnInit {
 		}, (error) => {
 			console.log("An error accessing getUnitSet Service");
 		})
+		
+		this.repositoryEvent.subscribe((data) => {
+					const catalog = data[Ontologyconstants.catalogobject];
+					//this.repositoryresults.setCatalog(catalog);
+			});
 	}
 	
 	ngAfterViewInit() {
 		
 	}
+	
+	
 	
 	submitParseEvent(message: string) {
 		this.parseResult = JSON.stringify(this.createParseJsonObject(),null,2);
