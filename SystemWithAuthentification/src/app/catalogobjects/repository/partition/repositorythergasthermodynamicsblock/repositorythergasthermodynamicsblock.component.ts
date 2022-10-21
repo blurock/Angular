@@ -81,22 +81,11 @@ export class RepositorythergasthermodynamicsblockComponent extends Savecatalogda
 	}
 
 	public setData(catalog: any) {
-		/*
-		const cntid = this.annoinfo['dataset:BlockLineCount'][this.identifier];
-		this.objectform.get('BlockLineCount').setValue(catalog[cntid]);
-		const lnsid = this.annoinfo['dataset:ParsedLine'][this.identifier];
-		const lines = catalog[lnsid];
-		let text = "\n";
-		for (let line of lines) {
-			text.concat(line).concat('\n');
-		}
-		this.objectform.get('ParsedLine').setValue(text);
-		*/
 		this.partition.setData(catalog);
 		this.thermo.setData(catalog);
 	}
 	
-		public getData(catalog: any) {
+	public getData(catalog: any) {
 		this.thermo.getData(catalog);
 		this.partition.getData(catalog);
 	}

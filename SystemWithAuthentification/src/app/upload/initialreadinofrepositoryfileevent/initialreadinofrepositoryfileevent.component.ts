@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild, Output } from '@angular/core';
 import {DatasetrepositoryfilestagingComponent} from '../../catalogobjects/repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
 import {FindspecifictransactionindatasetComponent} from '../../dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,6 +14,8 @@ import { RuntransactiondialogComponent } from '../../dialog/runtransactiondialog
   styleUrls: ['./initialreadinofrepositoryfileevent.component.scss']
 })
 export class InitialreadinofrepositoryfileeventComponent implements OnInit {
+  
+  @Output() repositoryEvent = new EventEmitter<any>();
   
   
   deletehint = 'Delete Repository File Transaction associated with the repository object';
@@ -66,8 +68,9 @@ export class InitialreadinofrepositoryfileeventComponent implements OnInit {
 			if (result != null) {
 				const success = result['dataset:servicesuccessful'];
 				if (success == 'true') {
-					this.catalogobj = result['dataset:simpcatobj'];
+					this.catalogobj = result[Ontologyconstants.catalogobject];
 					this.repository.setData(this.catalogobj);
+					this.repositoryEvent.emit(result);
 				} else {
 					alert(this.readinfailed);
 				}
@@ -111,6 +114,7 @@ export class InitialreadinofrepositoryfileeventComponent implements OnInit {
 	}
   
   setCatalog(catalog): void {
+    
     this.catalogobj = catalog;
    this.repository.setData(catalog);
   }

@@ -1,7 +1,7 @@
 <mat-stepper #stepper>
 	<mat-step >
 		<ng-template matStepLabel>File Upload</ng-template>
-		<app-uploadfileinformation #uploadinfo></app-uploadfileinformation>
+		<app-uploadfileinformation #uploadinfo (repositoryEvent)="repositoryEvent($event)"></app-uploadfileinformation>
 		<div>
 			<button mat-button matStepperPrevious>Back</button>
 			<button mat-button matStepperNext>Next</button>
@@ -9,7 +9,23 @@
 	</mat-step>
 	<mat-step >
 		<ng-template matStepLabel>Upload Transaction</ng-template>
-		<app-initialreadinofrepositoryfileevent #repositoryresults></app-initialreadinofrepositoryfileevent>
+		<app-initialreadinofrepositoryfileevent #repositoryresults (repositoryEvent)="repositoryEvent($event)"></app-initialreadinofrepositoryfileevent>
+		<div>
+			<button mat-button matStepperPrevious>Back</button>
+			<button mat-button matStepperNext>Next</button>
+		</div>
+	</mat-step>
+	<mat-step >
+		<ng-template matStepLabel>Partition File</ng-template>
+		<app-parseuploadedfile #parse (parsedEvent)="parsedEvent($event)"></app-parseuploadedfile>
+		<div>
+			<button mat-button matStepperPrevious>Back</button>
+			<button mat-button matStepperNext>Next</button>
+		</div>
+	</mat-step>
+	<mat-step >
+		<ng-template matStepLabel>Partition Transaction</ng-template>
+		<app-parsefiletransaction #parsetransaction (parsedTransactionEvent)="parsedTransactionEvent($event)"></app-parsefiletransaction>
 		<div>
 			<button mat-button matStepperPrevious>Back</button>
 			<button mat-button matStepperNext>Next</button>

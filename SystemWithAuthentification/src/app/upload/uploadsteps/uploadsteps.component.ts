@@ -6,8 +6,8 @@ import {UploadfileinformationComponent} from '../uploadfileinformation/uploadfil
 import {SubmitfileandinformatioonComponent} from '../submitfileandinformatioon/submitfileandinformatioon.component';
 import {InitialreadinofrepositoryfileeventComponent} from '../initialreadinofrepositoryfileevent/initialreadinofrepositoryfileevent.component';
 import { Ontologyconstants } from '../../const/ontologyconstants';
-
-
+import {ParseuploadedfileComponent} from '../parseuploadedfile/parseuploadedfile.component';
+import {ParsefiletransactionComponent} from '../parsefiletransaction/parsefiletransaction.component';
 @Component({
 	selector: 'app-uploadsteps',
 	templateUrl: './uploadsteps.component.html',
@@ -32,8 +32,6 @@ export class UploadstepsComponent implements OnInit {
 	titles: string[];
 	titleInformation: any;
 	
-	repositoryEvent: EventEmitter<any>;
-
 	public filemediatype = "dataset:FileTypeText";
 	public filemediasubtype = "";
 	public uploadfilesource = "dataset:LocalFileSystem";
@@ -43,7 +41,9 @@ export class UploadstepsComponent implements OnInit {
 	unitset = ["quantitykind:MolarEnergy", "quantitykind:MolarEntropy", "quantitykind:MolarHeatCapacity", "quantitykind:Frequency"];
 	
 	@ViewChild('uploadinfo') uploadinfo: UploadfileinformationComponent;
-	//@ViewChild('repositoryresults') repositoryresults: InitialreadinofrepositoryfileeventComponent;
+	@ViewChild('repositoryresults') repositoryresults: InitialreadinofrepositoryfileeventComponent;
+	@ViewChild('parse') parse: ParseuploadedfileComponent;
+	@ViewChild('parsetransaction') parsetransaction: ParsefiletransactionComponent;
 	
 	repositorystaging = new EventEmitter<any>();
 	parseFile = new EventEmitter<any>();
@@ -75,58 +75,23 @@ export class UploadstepsComponent implements OnInit {
 			console.log("An error accessing getUnitSet Service");
 		})
 		
-		this.repositoryEvent.subscribe((data) => {
-					const catalog = data[Ontologyconstants.catalogobject];
-					//this.repositoryresults.setCatalog(catalog);
-			});
 	}
 	
 	ngAfterViewInit() {
 		
 	}
 	
-	
-	
-	submitParseEvent(message: string) {
-		this.parseResult = JSON.stringify(this.createParseJsonObject(),null,2);
+	repositoryEvent($event): void {
+					const catalog = $event[Ontologyconstants.catalogobject];
+					this.repositoryresults.setCatalog(catalog);
+					this.parse.setFileStaging(catalog);		
 	}
-
-	submitInterpretEvent(message: any) {
-		this.interpretResult = JSON.stringify(message,null,2);
+	parsedEvent($event): void {
+		const transaction = $event[Ontologyconstants.TransactionEventObject];
+		this.parsetransaction.setData(transaction);
 	}
-	
-	createParseJsonObject(): any {
-		const json = {};
-		json['prov:activity'] = 'dataset:PartiionSetWithinRepositoryFile';
-		const jsonact = {};
-		json['dataset:activityinfo'] = jsonact;
-		const jsontransspec = {};
-		jsonact['dataset:datasettransactionspecification'] = jsontransspec;
-		//jsontransspec['dataset:catalogobjectmaintainer'] = this.maintainer;
-		//jsonact['dataset:filepartitionmethod'] = this.getFormatValue('dataset:partitionMethod');
-		//jsonact['dataset:blocklinecount'] = this.getFormatValue('dataset:blocklinecount');
-		//jsonact['dataset:collectionobjecttype'] = this.getFormatValue('dcat:catalog');
-		return json;
-	}
-	createAuthorSetJson(authors: FormArray): any {
-		let jsonauthors = [];
-		for (let j = 0; j < authors.length; j++) {
-			let author = authors.at(j) as FormGroup;
-			jsonauthors.push(this.createAuthorJsonObject(author));
-		}
-		return jsonauthors;
-	}
-
-	createAuthorJsonObject(author: FormGroup): any {
-		let json = {};
-		json['dataset:authorfamilyname'] = author.get("AuthorFamilyName").value;
-		json['dataset:authorgivenname'] = author.get("AuthorGivenName").value;
-		json['dataset:authortitle'] = author.get("AuthorNameTitle").value;
-		return json;
-	}
-	displayJsonObject(): void {
-		const activity = {};
-		alert(JSON.stringify(activity));
+	parsedTransactionEvent($event) {
+		this.parsetransaction.setData($event);
 	}
 
 }

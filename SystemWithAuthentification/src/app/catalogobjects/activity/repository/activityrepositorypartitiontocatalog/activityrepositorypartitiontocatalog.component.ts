@@ -14,14 +14,10 @@ import { DatasettransactionspecificationforcollectionComponent } from '../../../
 })
 export class ActivityrepositorypartitiontocatalogComponent implements OnInit {
 
-	@Input() annoinput: any;
+	@Input() annoinfo: any;
 
 	parseinfoform: FormGroup;
 	maintainer: string;
-	//message: string;
-	//catalogobj: any;
-	//annoinfo: any;
-	//topdisplay = false;
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
@@ -29,7 +25,7 @@ export class ActivityrepositorypartitiontocatalogComponent implements OnInit {
 	filesourcetypechoices: string[];
 	showblkcnt = true;
 	
-	annoinfo: any;
+	
 
 	blkcntid = '';
 	descrtitleid = '';
@@ -77,7 +73,10 @@ export class ActivityrepositorypartitiontocatalogComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-    this.annoinfo = this.annoinput;
+	}
+	
+	invalid(): boolean {
+		return this.parseinfoform.invalid || this.spec.invalid();
 	}
 
 	setIDs() {

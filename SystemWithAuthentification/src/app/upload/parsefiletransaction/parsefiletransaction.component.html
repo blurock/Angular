@@ -1,59 +1,31 @@
 <mat-card class="cardbase">
 	<mat-card-header>
 		<mat-card-title-group class="title">
-			<mat-card-subtitle>{{parsesubtitle}}</mat-card-subtitle>
+			<mat-card-subtitle>{{transactiontitle}}</mat-card-subtitle>
 		</mat-card-title-group>
 	</mat-card-header>
 
 	<mat-card-content>
 		<mat-grid-list cols="6" rowHeight="100px">
-		<mat-grid-tile [colspan]="2">
-			<button mat-mini-fab color="primary" class="display-btn" 
-			matTooltip="{{displaydescbutton}}"
-			(click)="displayTransactionInput()">{{displaybutton}}</button>
-		</mat-grid-tile>
 			<mat-grid-tile [colspan]="2">
-				<button mat-mini-fab color="primary" class="fetch-btn" 
+				<button mat-mini-fab color="primary" class="submit-btn" 
 				(click)="fetchInformation()"
 					matTooltip="{{loadfromdatabase}}">
-					{{fetchparsed}}
+					{{fetchtransaction}}
 				</button>
 			</mat-grid-tile>
 			<mat-grid-tile [colspan]="2">
 				<button mat-mini-fab color="primary" class="submit-btn" 
-				(click)="submitInformation()"
-					matTooltip="{{subtransaction}}">
-					{{submit}}
+				(click)="deleteTransaction()"
+					matTooltip="{{deltransaction}}">
+					{{delete}}
 				</button>
 			</mat-grid-tile>
 		</mat-grid-list>
+			<app-listoffirestoreids #outlst [(annoinfo)]="annoinfo" [(listtitle)]="outputtransactions">
+			</app-listoffirestoreids>
 		<mat-divider></mat-divider>
 		<div [innerHTML]="resultHtml"></div>
 		<mat-divider></mat-divider>
-		<ng-container *ngIf="ctypeid==0">
-			<app-repositoryparsedtofixedblocksize #fixedpartitionblock [(cataloginfo)]="cataloginfo"></app-repositoryparsedtofixedblocksize>
-		</ng-container>
-		<ng-container *ngIf="ctypeid==1">
-			<app-repositorythergasthermodynamicsblock #thermopartitionblock [(cataloginfo)]="cataloginfo"></app-repositorythergasthermodynamicsblock>
-		</ng-container>
 	</mat-card-content>
 </mat-card>
-<!--
-<mat-card>
-	<mat-card-header>
-		<mat-card-title-group class="title">
-			<mat-card-subtitle>{{transactionidsubtitle}}</mat-card-subtitle>
-		</mat-card-title-group>
-	</mat-card-header>
-	<mat-card-content>
-	<ng-container *ngIf='filestaging.annoinfo != null; else loading'>
-		<app-firesytorecatalogid #tranactionfirestoreid [(anno)]="filestaging.annoinfo"></app-firesytorecatalogid>
-	</ng-container>
-	<ng-template #loading>
-	<div>
-		Loading
-	</div>
-</ng-template>
-	</mat-card-content>
-</mat-card>
--->
