@@ -8,6 +8,7 @@ import { KeywordlistprimitiveComponent } from '../../../../primitives/keywordlis
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 import { DatasettransactionspecificationforcollectionComponent } from '../../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
+import { NavItem } from '../../../../primitives/nav-item';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { DatasettransactionspecificationforcollectionComponent } from '../../../
 export class DatasetrepositoryfileComponent implements OnInit {
 
 	infoform: FormGroup;
-	items: any;
+	items: NavItem[];
 
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
@@ -39,14 +40,14 @@ export class DatasetrepositoryfileComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private menusetup: MenutreeserviceService
 	) {
-	}
-	ngOnInit(): void {
-		this.items = this.menusetup.findChoices(this.annoinfo, this.formatmenulabel);
 		this.infoform = this.formBuilder.group({
 			FileSourceFormat: ['', Validators.required],
 			DescriptionTitleFileStaging: ['', Validators.required],
 			DescriptionAbstractFileStaging: ['', Validators.required]
 		});
+	}
+	ngOnInit(): void {
+		this.items = this.menusetup.findChoices(this.annoinfo, this.formatmenulabel);
 
 	}
 

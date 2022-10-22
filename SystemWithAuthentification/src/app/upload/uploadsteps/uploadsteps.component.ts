@@ -8,6 +8,8 @@ import {InitialreadinofrepositoryfileeventComponent} from '../initialreadinofrep
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import {ParseuploadedfileComponent} from '../parseuploadedfile/parseuploadedfile.component';
 import {ParsefiletransactionComponent} from '../parsefiletransaction/parsefiletransaction.component';
+import {TransactioninterprettextblockComponent} from '../transactioninterprettextblock/transactioninterprettextblock.component';
+
 @Component({
 	selector: 'app-uploadsteps',
 	templateUrl: './uploadsteps.component.html',
@@ -44,6 +46,7 @@ export class UploadstepsComponent implements OnInit {
 	@ViewChild('repositoryresults') repositoryresults: InitialreadinofrepositoryfileeventComponent;
 	@ViewChild('parse') parse: ParseuploadedfileComponent;
 	@ViewChild('parsetransaction') parsetransaction: ParsefiletransactionComponent;
+	@ViewChild('interpret') interpret: TransactioninterprettextblockComponent;
 	
 	repositorystaging = new EventEmitter<any>();
 	parseFile = new EventEmitter<any>();
@@ -92,6 +95,10 @@ export class UploadstepsComponent implements OnInit {
 	}
 	parsedTransactionEvent($event) {
 		this.parsetransaction.setData($event);
+		this.interpret.setPrerequisite($event);
+	}
+	interpretEvent($event): void {
+		
 	}
 
 }

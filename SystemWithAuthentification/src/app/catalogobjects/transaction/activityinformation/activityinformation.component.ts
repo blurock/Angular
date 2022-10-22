@@ -59,6 +59,7 @@ export class ActivityinformationComponent implements OnInit {
 	}
 
 	setActivity(select: any): void {
+		alert("setActivity: " + select);
 		this.display = false;
 		this.activityname = select;
 		this.getCatalogAnnoations();
@@ -125,6 +126,7 @@ export class ActivityinformationComponent implements OnInit {
 	
 	public getCatalogAnnoations(): void {
 		this.message = 'Waiting for Info call';
+		alert("getCatalogAnnoations(): " + this.activityname);
 		this.annotations.getNewCatalogObject(this.activityname).subscribe({
 			next: (responsedata: any) => {
 				const response = responsedata;
@@ -135,6 +137,7 @@ export class ActivityinformationComponent implements OnInit {
 					this.annoinfo = catalog[Ontologyconstants.annotations];
 					this.display = true;
 				} else {
+					alert("Failed: " + JSON.stringify(responsedata));
 					this.message = responsedata;
 				}
 			},

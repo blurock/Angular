@@ -24,7 +24,7 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 
 	maintainer: string;
 	idForm: FormGroup;
-	items: NavItem[];
+	items: NavItem[] = [];
 
 
 	waiting = 'waiting for annotations ';
@@ -34,21 +34,15 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 
 	constructor(
 		public fb: FormBuilder,
-		manageuser: ManageuserserviceService,
+		private manageuser: ManageuserserviceService,
 		private menusetup: MenutreeserviceService
 	) {
+		this.items =[];
 		this.idForm = this.fb.group({
 			DatasetName: ['', Validators.required],
 			DatasetVersion: ['', Validators.required],
 			CatalogObjectUniqueGenericLabel: ['', Validators.required],
 			CatalogDataObjectStatus: ['', Validators.required]
-		});
-		manageuser.determineMaintainer().subscribe(result => {
-			if (result != null) {
-				this.maintainer = result;
-			} else {
-				alert(manageuser.errormaintainer);
-			}
 		});
 	}
 
@@ -57,6 +51,13 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 			this.subtitle = 'Specification for Collection';
 		}
 		this.items = this.menusetup.findChoices(this.annoinfo, this.statusitems);
+		this.manageuser.determineMaintainer().subscribe(result => {
+			if (result != null) {
+				this.maintainer = result;
+			} else {
+				alert(this.manageuser.errormaintainer);
+			}
+		});
 	}
 	
 	invalid(): boolean {

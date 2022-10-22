@@ -31,6 +31,14 @@
 			<button mat-button matStepperNext>Next</button>
 		</div>
 	</mat-step>
+	<mat-step >
+		<ng-template matStepLabel>Interpret Partition</ng-template>
+		<app-transactioninterprettextblock #interpret (interpretEvent)="interpretEvent($event)"></app-transactioninterprettextblock>
+		<div>
+			<button mat-button matStepperPrevious>Back</button>
+			<button mat-button matStepperNext>Next</button>
+		</div>
+	</mat-step>
 	<mat-step>
 		<ng-template matStepLabel>Done</ng-template>
 		<p>You are now done.</p>

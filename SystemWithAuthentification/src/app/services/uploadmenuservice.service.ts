@@ -14,56 +14,64 @@ export class UploadmenuserviceService {
 			'dataset:interpretMethod': 'dataset:ParseLinesJThermodynamicsVibrationalStructure',
 			'dataset:blocklinecount': '1',
 			'dcat:catalog': 'dataset:JThermodynamicsVibrationalStructure',
-			'qudt:hasUnitSystem': ['quantitykind:Frequency']
+			'qudt:hasUnitSystem': ['quantitykind:Frequency'],
+			'prov:activity': 'dataset:ActivityInformationInterpretVibrationalMode'
 		},
 		'dataset:TherGasBensonRules': {
 			'dataset:partitionMethod': 'dataset:PartitionTherGasThermodynamics',
 			'dataset:interpretMethod': 'dataset:ParseLinesJThermodynamicsBensonRules',
 			'dataset:blocklinecount': '',
 			'dcat:catalog': 'dataset:ThermodynamicBensonRuleDefinition',
-			'qudt:hasUnitSystem': ['quantitykind:MolarEnergy', 'quantitykind:MolarEntropy', 'quantitykind:MolarHeatCapacity']
+			'qudt:hasUnitSystem': ['quantitykind:MolarEnergy', 'quantitykind:MolarEntropy', 'quantitykind:MolarHeatCapacity'],
+			'prov:activity': 'dataset:ActivityInformationInterpretBensonRuleData'
 		},
 		'dataset:ThergasSpeciesThermodynamics': {
 			'dataset:partitionMethod': 'dataset:PartitionTherGasThermodynamics',
 			'dataset:interpretMethod': 'dataset:ParseLinesJThermodynamicsMolecule',
 			'dataset:blocklinecount': '',
 			'dcat:catalog': 'dataset:JThermodynamics2DMoleculeThermodynamics',
-			'qudt:hasUnitSystem': ['quantitykind:MolarEnergy', 'quantitykind:MolarEntropy', 'quantitykind:MolarHeatCapacity']
+			'qudt:hasUnitSystem': ['quantitykind:MolarEnergy', 'quantitykind:MolarEntropy', 'quantitykind:MolarHeatCapacity'],
+			'prov:activity': 'dataset:ActivityInformationMolecularThermodynamics'
 		},
 		'dataset:TherGasSubstructureThermodynamics': {
 			'dataset:partitionMethod': 'dataset:PartitionTherGasThermodynamics',
 			'dataset:interpretMethod': 'dataset:ParseLinesJThermodynamicsSubstructures',
 			'dataset:blocklinecount': '',
 			'dcat:catalog': 'dataset:JThermodynamics2DSubstructureThermodynamics',
-			'qudt:hasUnitSystem': ['quantitykind:MolarEnergy', 'quantitykind:MolarEntropy', 'quantitykind:MolarHeatCapacity']
+			'qudt:hasUnitSystem': ['quantitykind:MolarEnergy', 'quantitykind:MolarEntropy', 'quantitykind:MolarHeatCapacity'],
+			'prov:activity': 'dataset:ActivityInformationInterpretSubstructureThermodynamics'
 		},
 		'dataset:TherGasMoleculeThermodynamics': {
 			'dataset:partitionMethod': 'dataset:PartitionTherGasThermodynamics',
 			'dataset:interpretMethod': 'dataset:ParseLinesJThermodynamicsMolecule',
 			'dataset:blocklinecount': '',
 			'dcat:catalog': 'dataset:JThermodynamics2DMoleculeThermodynamics',
-			'qudt:hasUnitSystem': ['quantitykind:MolarEnergy', 'quantitykind:MolarEntropy', 'quantitykind:MolarHeatCapacity']
+			'qudt:hasUnitSystem': ['quantitykind:MolarEnergy', 'quantitykind:MolarEntropy', 'quantitykind:MolarHeatCapacity'],
+			'prov:activity': 'dataset:ActivityInformationMolecularThermodynamics'
 		},
 		'dataset:JThermodynamicsDisassociationEnergyFormat': {
 			'dataset:partitionMethod': 'dataset:PartitionToLineSet',
 			'dataset:interpretMethod': 'dataset:ParseLinesJThermodynamicsDisassociationEnergy',
 			'dataset:blocklinecount': '2',
 			'dcat:catalog': 'dataset:JThermodynamicsDisassociationEnergyOfStructure',
-			'qudt:hasUnitSystem': ['quantitykind:MolarEnergy']
+			'qudt:hasUnitSystem': ['quantitykind:MolarEnergy'],
+			'prov:activity': 'dataset:ActivityInformationInterpretDisassociationEnergy'
 		},
 		'dataset:JThermodynamicsMetaAtomFormat': {
 			'dataset:partitionMethod': 'dataset:PartitionToLineSet',
 			'dataset:interpretMethod': 'dataset:ParseLinesJThermodynamicsMetaAtoms',
 			'dataset:blocklinecount': '1',
 			'dcat:catalog': 'dataset:JThermodynamicsMetaAtomDefinition',
-			'qudt:hasUnitSystem': []
+			'qudt:hasUnitSystem': [],
+			'prov:activity': 'dataset:ActivityInformationInterpretMetaAtom'
 		},
 		'dataset:JThermodynamicsSymmetryDefinitionFormat': {
 			'dataset:partitionMethod': 'dataset:PartitionXMLListOfCatalogObjects',
 			'dataset:interpretMethod': 'dataset:ParseLinesJThermodynamicsSymmetryDefinition',
 			'dataset:blocklinecount': '',
 			'dcat:catalog': 'dataset:JThermodynamicsSymmetryStructureDefinition',
-			'qudt:hasUnitSystem': []
+			'qudt:hasUnitSystem': [],
+			'prov:activity': 'dataset:ActivityInformationInterpretSymmetryInformation'
 		},
 	}
 

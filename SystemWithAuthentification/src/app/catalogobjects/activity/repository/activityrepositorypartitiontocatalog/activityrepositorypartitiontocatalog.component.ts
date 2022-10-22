@@ -33,7 +33,6 @@ export class ActivityrepositorypartitiontocatalogComponent implements OnInit {
 	methodid = '';
 	specid = '';
 
-	errormaintainer = 'Error in determining maintainer';
 	getannofilefnotsuccessful = 'Error in retrieving File Format information';
 
 	@ViewChild('spec') spec: DatasettransactionspecificationforcollectionComponent;
@@ -56,7 +55,7 @@ export class ActivityrepositorypartitiontocatalogComponent implements OnInit {
 			if (result != null) {
 				this.maintainer = result;
 			} else {
-				alert(this.errormaintainer);
+				alert(manageuser.determineMaintainer);
 			}
 		});
 		this.uploadService.getFormatClassification().subscribe((data) => {

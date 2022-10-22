@@ -25,7 +25,6 @@ export class SubmitfileandinformatioonComponent implements OnInit {
 	@ViewChild('filestaging') filestaging: DatasetrepositoryfilestagingComponent;
 	@ViewChild('tranactionfirestoreid') tranactionfirestoreid: FiresytorecatalogidComponent;
 
-	errormaintainer = 'Error in determining maintainer';
 	readinfailed = 'Catalog Read in failed or canceled';
 	filestagingsubtitle = 'File staging transaction submission'
 	loadfromdatabase = 'Load previously generated staging information from database (or file)'
@@ -54,7 +53,7 @@ export class SubmitfileandinformatioonComponent implements OnInit {
 			if (result != null) {
 				this.maintainer = result;
 			} else {
-				alert(this.errormaintainer);
+				alert(manageuser.determineMaintainer);
 			}
 		});
 	}

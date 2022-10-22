@@ -8472,7 +8472,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                   <http://purl.org/dc/elements/1.1/type> :FileSourceFormat ;
                   <http://purl.org/dc/terms/identifier> "dataset:filesourceformat"^^xsd:string ;
                   rdfs:comment "The repository source file format. This refers to a file format within the ontology. The format determines how the file is interpreted"^^xsd:string ;
-                  rdfs:isDefinedBy :DataTypeFileFormat ;
+                  rdfs:isDefinedBy :TherGasPropertyFormat ;
                   rdfs:label "File Source Format"^^xsd:string ;
                   <http://www.w3.org/2004/02/skos/core#altLabel> "filesourceformat"^^xsd:string .
 

@@ -30,7 +30,6 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 	title: string;
 	identifier = Ontologyconstants.dctermsidentifier;
 	formatInformation: any;
-	errormaintainer = 'Error in determining maintainer';
 	message = 'Initializing';
 	fetch = 'Fetch Defaults';
 	fetchdescr = 'Fetch default information from repository object information';
@@ -58,7 +57,7 @@ resultHtml = 'Initializing';
 			if (result != null) {
 				this.maintainer = result;
 			} else {
-				alert(this.errormaintainer);
+				alert(manageuser.errormaintainer);
 			}
 		});
 	}

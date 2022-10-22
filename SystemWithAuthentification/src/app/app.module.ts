@@ -161,6 +161,7 @@ import { VisualizedatasetcollectionidsComponent } from './catalogobjects/dataset
 import { FetchcollectiondatasetidsComponent } from './dialog/fetchcollectiondatasetids/fetchcollectiondatasetids.component';
 import { ModifydatasetcollectionidsComponent } from './catalogobjects/datasetcollection/modifydatasetcollectionids/modifydatasetcollectionids.component';
 import { InitialreadinofrepositoryfileeventComponent } from './upload/initialreadinofrepositoryfileevent/initialreadinofrepositoryfileevent.component';
+import { TransactioninterprettextblockComponent } from './upload/transactioninterprettextblock/transactioninterprettextblock.component';
 
 
 
@@ -277,7 +278,8 @@ import { InitialreadinofrepositoryfileeventComponent } from './upload/initialrea
   VisualizedatasetcollectionidsComponent,
   FetchcollectiondatasetidsComponent,
   ModifydatasetcollectionidsComponent,
-  InitialreadinofrepositoryfileeventComponent
+  InitialreadinofrepositoryfileeventComponent,
+  TransactioninterprettextblockComponent
 	],
 	imports: [
 		AppFirebaseModule,

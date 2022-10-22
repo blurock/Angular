@@ -28,7 +28,6 @@ export class ParsefiletransactionComponent implements OnInit {
 	deltransaction = 'Delete transaction from database';
 	delete = 'Delete';
 	readinfailed = 'Error in fetching Partition transaction';
-	errormaintainer = 'Error in determining maintainer';
 	failedsubmission = 'Failed to delete transaction';
 	identifier = Ontologyconstants.dctermsidentifier;
 
@@ -56,7 +55,7 @@ export class ParsefiletransactionComponent implements OnInit {
 			if (result != null) {
 				this.maintainer = result;
 			} else {
-				alert(this.errormaintainer);
+				alert(manageuser.determineMaintainer);
 			}
 		});
 		this.getCatalogAnnoations();
