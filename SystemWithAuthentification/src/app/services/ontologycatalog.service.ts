@@ -39,19 +39,19 @@ export class OntologycatalogService {
 			'qudt:QuantityKind': 'quantitykind:MolarEntropy',
 			'dataset:dynamicType': 'FixedParameter',
 			'skos:prefLabel': 'MolarEntropy',
-			'qudt:Unit': ['unit:J-PER-MOL-K', 'dataset:CAL-PER-MOL-K']
+			'qudt:Unit': ['dataset:CAL-PER-MOL-K', 'unit:J-PER-MOL-K']
 		},
 		'dataset:ParameterSpecificationHeatCapacity': {
 			'qudt:QuantityKind': 'quantitykind:MolarHeatCapacity',
 			'dataset:dynamicType': 'FixedParameter',
 			'skos:prefLabel': 'MolarHeatCapacity',
-			'qudt:Unit': ['unit:J-PER-MOL-K', 'dataset:CAL-PER-MOL-K']
+			'qudt:Unit': ['dataset:CAL-PER-MOL-K', 'unit:J-PER-MOL-K']
 		},
 		'dataset:ParameterSpecificationStructureVibrationFrequency': {
 			'qudt:QuantityKind': 'quantitykind:Frequency',
 			'dataset:dynamicType': 'FixedParameter',
 			'skos:prefLabel': 'Frequency',
-			'qudt:Unit': ['unit:PER-SEC', 'unit:HZ', 'dataset:cmMinus1']
+			'qudt:Unit': ['dataset:cmMinus1', 'unit:PER-SEC', 'unit:HZ']
 		},
 		'dataset:ParameterSpecificationTemperature': {
 			'qudt:QuantityKind': 'quantitykind:Temperature',

@@ -25,6 +25,8 @@ export class FindspecifictransactionindatasetComponent implements OnInit {
 	serviceid = 'service';
 	annoinfoid = 'annoinfo';
 	maintainerid = 'maintainer';
+	transactionchoicesid = 'transactionchoices';
+	transactionid = 'transaction';
 
 	transactions = 'dataset:TransactionEventType';
 	transactionsitems: any;
@@ -46,6 +48,14 @@ export class FindspecifictransactionindatasetComponent implements OnInit {
 
 		this.annoinfo = data[this.annoinfoid];
 		this.maintainer = data[this.maintainerid];
+		const choices = data[this.transactionchoicesid];
+		if(choices != null) {
+			this.transactions = choices;
+		}
+		const trans = data[this.transactionid];
+		if(trans != null) {
+			this.idForm.get('TransactionEventType').setValue(trans);
+		}
 
 		this.transactionsitems = this.menusetup.findChoices(this.annoinfo, this.transactions);
 	}

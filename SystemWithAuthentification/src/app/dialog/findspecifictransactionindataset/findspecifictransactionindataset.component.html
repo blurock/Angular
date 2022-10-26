@@ -41,7 +41,7 @@
 						</mat-form-field>
 					</mat-grid-tile>
 					<mat-grid-tile [colspan]="6">
-						<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchFromDatabaser()"
+						<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchFromDatabaseObject()"
 							[disabled]="idForm.invalid">
 							Fetch from Dataset
 						</button>
@@ -57,7 +57,6 @@
 	</mat-card-content>
 	<mat-card-footer>
 		<button mat-button (click)="onNoClick()">Cancel</button>
-		<button mat-button (click)="fetchFromDatabaseObject()" cdkFocusInitial>Ok</button>
 	</mat-card-footer>
 
 </mat-card>

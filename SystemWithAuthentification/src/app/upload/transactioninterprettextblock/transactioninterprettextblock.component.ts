@@ -18,10 +18,12 @@ export class TransactioninterprettextblockComponent implements OnInit {
 
 	@Output() interpretEvent = new EventEmitter();
 
+    prereqdescbutton = 'Load prerequisite information (required for submission)'
+    prereqbutton = 'Prerequisite';
 	title = 'Partitions Interpretation to Catalog Objects';
 	displaydescbutton = 'Display  information to send to read local file transaction';
 	displaybutton = 'Display';
-	loadfromdatabase = 'Load transaction information from file';
+	loadfromdatabase = 'Load activity information from file';
 	fetch = 'Load Info';
 	submitdescr = 'Submit Read Local File Transaction';
 	submitbutton = 'Submit';
@@ -41,7 +43,7 @@ export class TransactioninterprettextblockComponent implements OnInit {
 	maintainer: string;
 	resultHtml: string;
 	formatInformation: any;
-	activitytype: string
+	activitytype: string;
 	formatinfodata: any;
 	prerequisite: any;
 	activityinitialdata: any;
@@ -71,15 +73,15 @@ export class TransactioninterprettextblockComponent implements OnInit {
 
 	ngOnInit(): void {
 	}
+	
+	invalid(): boolean {
+		return false;
+	}
 
 	setFileFormat(fileformat: string) {
 		this.formatinfodata = this.formatInformation[fileformat];
-		if (this.formatinfodata  != null) {
-      
+		if (this.formatinfodata != null) {
 			this.activitytype = this.formatinfodata['prov:activity'];
-alert(this.activitytype);
-			this.activity.setActivity(this.activitytype);
-			this.getAnnotations(this.activitytype);
 		} else {
 			alert(this.fileformaterror + ': ' + fileformat)
 		}
@@ -97,67 +99,69 @@ alert(this.activitytype);
 			}
 			const fileformat = this.activityinfo['dataset:filesourceformat'];
 			this.setFileFormat(fileformat);
+			if (this.activity != null) {
+				this.activity.setPrerequisiteData(this.prerequisite);
+			}
+
 		} else {
 			alert(this.prerequisiteerror);
 		}
 	}
 
+	activitysetup(): void {
+		if (this.prerequisite != null) {
+			if (this.activity != null) {
+				this.activity.setPrerequisiteData(this.prerequisite);
+			} else {
+				alert("Activity information object null");
+			}
+
+		} else {
+			alert("prerequisite not set up");
+		}
+	}
+
 	getTransactionData(transaction: any) {
 		if (this.activity != null) {
-			transaction['prov:activity'] = this.formatinfodata['dataset:interpretMethod'];
+			transaction['prov:activity'] = 'dataset:TransactionInterpretTextBlock';
 			const jsonact = {};
 			transaction['dataset:activityinfo'] = jsonact;
 			this.activity.getData(jsonact);
-			const firestoreid = this.prerequisite['dataset:firestorecatalog'];
+			if(this.prerequisite != null) {
+				const firestoreid = this.prerequisite['dataset:firestorecatalog'];
 			const prerequisites = {};
 			prerequisites['dataset:RepositoryDataFilePartition'] = firestoreid;
 			transaction['dataset:transreqobj'] = prerequisites;
+			} else {
+				alert('Prerequisite not set');
+			}
+			
 		} else {
 			alert('Need to set up repository file');
 		}
 		return transaction;
 	}
-
-	setupInitialData() {
-		if (this.activityinitialdata != null) {
-			this.activityinitialdata['dataset:datasettransactionspecification'] = this.specificationid;
-			this.activityinitialdata['dataset:filesourceformat'] = this.formatinfodata;
-			this.activityinitialdata['dcterms:title'] = this.activityinfo['dcterms:title']
-		} else {
-			alert('Activity data not set up yet');
-		}
-		if(this.activity != null) {
-      this.activity.setData(this.activityinitialdata);
-    } else {
-      alert('Activity interface not set up')
-    }
-	}
-
-	getAnnotations(type: string) {
-    alert("getAnnotations(): " + type)
-		this.annotations.getNewCatalogObject(type).subscribe({
-			next: (responsedata: any) => {
+	
+	getAnnotations(type: string): void {
+		this.annotations.getNewCatalogObject(type).subscribe(
+			(responsedata) => {
 				const response = responsedata;
-				this.message = response[Ontologyconstants.message];
+				//this.message = response[Ontologyconstants.message];
 				if (response[Ontologyconstants.successful]) {
 					const catalog = response[Ontologyconstants.catalogobject];
-					alert(JSON.stringify(catalog));
 					this.activityinitialdata = catalog['dataobject'];
-					alert(Ontologyconstants.outputobject)
-					alert(JSON.stringify(this.activityinitialdata));
 					this.annoinfo = catalog[Ontologyconstants.annotations];
-					this.setupInitialData();
+					this.activity.setActivity(this.activitytype);
 				} else {
 					alert(this.getannotationsfnotsuccessful);
 				}
-			},
-			error: (info: any) => { alert(this.getannotationsfnotsuccessful + '\n' + info); }
-		});
+			}
+		);
 
 	}
 
 
-	displayCatalogInfo(): void {
+	displayActivity(): void {
 		const activity = {};
 		this.activity.getData(activity);
 		const dialogConfig = new MatDialogConfig();

@@ -15,8 +15,11 @@ export class ParameterspecificationComponent implements OnInit {
 	unitclassid: string;
 	unitsofvalueid; string;
 	parametertypeid: string;
+	unitsid: string;
+	uncertaintyid: string;
+	
 	items: NavItem[];
-	unitsarray: [];
+	unitsarray: [string];
 	title: string;
 
 	@Input() annoinfo: any;
@@ -27,7 +30,7 @@ export class ParameterspecificationComponent implements OnInit {
 	identifier = Ontologyconstants.dctermsidentifier;
 	uncertaintymenulabel = 'dataset:DataPointUncertainty';
 	getparameterdatanotsuccessful = 'failed to get parameter data';
-
+	defaultuncertainty = 'dataset:ImpliedDigitsUncertainty';
 
 	constructor(
 		private _formBuilder: FormBuilder,
@@ -49,6 +52,9 @@ export class ParameterspecificationComponent implements OnInit {
 		this.paramspecform.get('ParameterTypeSpecification').setValue(this.parameterinfo['dataset:dynamicType']);
 		this.items = this.menusetup.findChoices(this.annoinfo, this.uncertaintymenulabel);
 		this.unitsarray = this.parameterinfo['qudt:Unit'];
+		this.paramspecform.get('ParameterLabel').setValue(this.parameterinfo['skos:prefLabel']);
+		this.paramspecform.get('UnitsOfValue').setValue(this.unitsarray[0]);
+		this.paramspecform.get('DataPointUncertainty').setValue(this.defaultuncertainty);
 	}
 
 	setUncertainty($event: string): void {
@@ -61,22 +67,33 @@ export class ParameterspecificationComponent implements OnInit {
 		this.unitclassid = this.annoinfo['dataset:UnitClass'][this.identifier];
 		this.unitsofvalueid = this.annoinfo['dataset:UnitsOfValue'][this.identifier];
 		this.parametertypeid = this.annoinfo['dataset:ParameterTypeSpecification'][this.identifier];
+		this.unitsid = this.annoinfo['dataset:ValueUnits'][this.identifier];
+		this.uncertaintyid = this.annoinfo['dataset:DataPointUncertainty'][this.identifier];
+		
+		
 	}
 
 	getData(specification: any) {
 		this.setIDs();
 		specification[this.parameterlabeltid] = this.paramspecform.get('ParameterLabel').value;
-		specification[this.unitclassid] = this.paramspecform.get('UnitClass').value;
-		specification[this.unitsofvalueid] = this.paramspecform.get('UnitsOfValue').value;
+		const unitvalue = {};
+		specification[this.unitsid] = unitvalue;
+		unitvalue[this.unitclassid] = this.paramspecform.get('UnitClass').value;
+		unitvalue[this.unitsofvalueid] = this.paramspecform.get('UnitsOfValue').value;
 		specification[this.parametertypeid] = this.paramspecform.get('ParameterTypeSpecification').value;
+		specification[this.uncertaintyid] = this.paramspecform.get('DataPointUncertainty').value;
 	}
 
 	setData(specification: any) {
 		this.setIDs();
 		this.paramspecform.get('ParameterLabel').setValue(specification[this.parameterlabeltid]);
-		this.paramspecform.get('UnitClass').setValue(specification[this.unitclassid]);
-		this.paramspecform.get('UnitsOfValue').setValue(specification[this.unitsofvalueid]);
+		const valueunits = specification[this.unitsid]
+		this.paramspecform.get('UnitClass').setValue(valueunits[this.unitclassid]);
+		this.paramspecform.get('UnitsOfValue').setValue(valueunits[this.unitsofvalueid]);
 		this.paramspecform.get('ParameterTypeSpecification').setValue(specification[this.parametertypeid]);
+		this.paramspecform.get('DataPointUncertainty').setValue(specification[this.uncertaintyid]);
 	}
+	
+
 
 }

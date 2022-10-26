@@ -100,9 +100,8 @@ export class ParsefiletransactionComponent implements OnInit {
 	}
 
 	fetchInformation() {
-		alert(JSON.stringify(this.annoinfo['dataset:CatalogObjectUniqueGenericLabel']));
 		const dialogRef = this.dialog.open(FindspecifictransactionindatasetComponent, {
-			data: { annoinfo: this.annoinfo, maintainer: this.maintainer },
+			data: { annoinfo: this.annoinfo, maintainer: this.maintainer, transaction: 'dataset:PartiionSetWithinRepositoryFile' },
 		});
 
 		dialogRef.afterClosed().subscribe(result => {

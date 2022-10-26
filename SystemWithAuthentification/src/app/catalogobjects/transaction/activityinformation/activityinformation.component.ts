@@ -1,15 +1,15 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ActivityrepositoryinitialreadlocalfileComponent } from '../../activity/repository/activityrepositoryinitialreadlocalfile/activityrepositoryinitialreadlocalfile.component';
 import { ActivityrepositorypartitiontocatalogComponent } from '../../activity/repository/activityrepositorypartitiontocatalog/activityrepositorypartitiontocatalog.component';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { ActivityinformationinterpretdisassociationenergyComponent } from '../../activity/repository/activityinformationinterpretdisassociationenergy/activityinformationinterpretdisassociationenergy.component';
-import {ActivityinformationinterpretthermodynamicblockComponent} from '../../activity/repository/activityinformationinterpretthermodynamicblock/activityinformationinterpretthermodynamicblock.component';
-import {ActivityinformationinterpretvibrationalmodeComponent} from '../../activity/repository/activityinformationinterpretvibrationalmode/activityinformationinterpretvibrationalmode.component';
-import {ActivityinformationinterpretsymmetryinformationComponent} from '../../activity/repository/activityinformationinterpretsymmetryinformation/activityinformationinterpretsymmetryinformation.component';
-import {ActivityinformationinterpretmetaatomComponent} from '../../activity/repository/activityinformationinterpretmetaatom/activityinformationinterpretmetaatom.component';
-import {ActivityinformationdatasetcollectionsetadddatasetComponent} from '../../activity/collectionset/activityinformationdatasetcollectionsetadddataset/activityinformationdatasetcollectionsetadddataset.component';
-import {ActivityinformationdatasetcollectionsetcreationComponent} from '../../activity/collectionset/activityinformationdatasetcollectionsetcreation/activityinformationdatasetcollectionsetcreation.component';
+import { ActivityinformationinterpretthermodynamicblockComponent } from '../../activity/repository/activityinformationinterpretthermodynamicblock/activityinformationinterpretthermodynamicblock.component';
+import { ActivityinformationinterpretvibrationalmodeComponent } from '../../activity/repository/activityinformationinterpretvibrationalmode/activityinformationinterpretvibrationalmode.component';
+import { ActivityinformationinterpretsymmetryinformationComponent } from '../../activity/repository/activityinformationinterpretsymmetryinformation/activityinformationinterpretsymmetryinformation.component';
+import { ActivityinformationinterpretmetaatomComponent } from '../../activity/repository/activityinformationinterpretmetaatom/activityinformationinterpretmetaatom.component';
+import { ActivityinformationdatasetcollectionsetadddatasetComponent } from '../../activity/collectionset/activityinformationdatasetcollectionsetadddataset/activityinformationdatasetcollectionsetadddataset.component';
+import { ActivityinformationdatasetcollectionsetcreationComponent } from '../../activity/collectionset/activityinformationdatasetcollectionsetcreation/activityinformationdatasetcollectionsetcreation.component';
 @Component({
 	selector: 'app-activityinformation',
 	templateUrl: './activityinformation.component.html',
@@ -17,17 +17,17 @@ import {ActivityinformationdatasetcollectionsetcreationComponent} from '../../ac
 })
 export class ActivityinformationComponent implements OnInit {
 
-    
-	@Input() activityname: string;
 
+	@Input() activityname: string;
+	@Output() activitysetup = new EventEmitter();
+
+displaydescbutton = 'Press to fill in prerequisite information';
 	activityinfoid = 'dataset:activityinfo';
 	noactivity = false;
 	identifier = Ontologyconstants.dctermsidentifier;
 	message: string;
 	annoinfo: any;
-	catalogobj: any;
-	display = false;
-	
+
 	bensonformat = 'dataset:TherGasBensonRules';
 	structureformat = 'dataset:TherGasSubstructureThermodynamics';
 	specifiesformat = 'dataset:ThergasSpeciesThermodynamics';
@@ -36,16 +36,16 @@ export class ActivityinformationComponent implements OnInit {
 	@ViewChild('readlocal') readlocal: ActivityrepositoryinitialreadlocalfileComponent;
 	@ViewChild('partition') partition: ActivityrepositorypartitiontocatalogComponent;
 	@ViewChild('disassociation') disassociation: ActivityinformationinterpretdisassociationenergyComponent;
-    @ViewChild('benson') benson: ActivityinformationinterpretthermodynamicblockComponent;
-    @ViewChild('structure') structure: ActivityinformationinterpretthermodynamicblockComponent;
-    @ViewChild('species') species: ActivityinformationinterpretthermodynamicblockComponent;
-    @ViewChild('frequency') frequency: ActivityinformationinterpretvibrationalmodeComponent;
-    @ViewChild('symmetry') symmetry: ActivityinformationinterpretsymmetryinformationComponent;
-    @ViewChild('metaatom') metaatom: ActivityinformationinterpretmetaatomComponent;
-    @ViewChild('collectionadd') collectionadd: ActivityinformationdatasetcollectionsetadddatasetComponent;
-    @ViewChild('collectioncreate') collectioncreate: ActivityinformationdatasetcollectionsetcreationComponent;
-    
-    
+	@ViewChild('benson') benson: ActivityinformationinterpretthermodynamicblockComponent;
+	@ViewChild('structure') structure: ActivityinformationinterpretthermodynamicblockComponent;
+	@ViewChild('species') species: ActivityinformationinterpretthermodynamicblockComponent;
+	@ViewChild('frequency') frequency: ActivityinformationinterpretvibrationalmodeComponent;
+	@ViewChild('symmetry') symmetry: ActivityinformationinterpretsymmetryinformationComponent;
+	@ViewChild('metaatom') metaatom: ActivityinformationinterpretmetaatomComponent;
+	@ViewChild('collectionadd') collectionadd: ActivityinformationdatasetcollectionsetadddatasetComponent;
+	@ViewChild('collectioncreate') collectioncreate: ActivityinformationdatasetcollectionsetcreationComponent;
+
+
 	constructor(
 		public annotations: OntologycatalogService
 	) { }
@@ -54,15 +54,17 @@ export class ActivityinformationComponent implements OnInit {
 		if (this.activityname == '') {
 			this.noactivity = true;
 		} else {
-			this.getCatalogAnnoations();
+			this.setActivity(this.activityname);
 		}
 	}
 
 	setActivity(select: any): void {
-		alert("setActivity: " + select);
-		this.display = false;
 		this.activityname = select;
-		this.getCatalogAnnoations();
+		this.getCatalogAnnoationsForActivity();
+	}
+
+	setup(): void {
+		this.activitysetup.emit();
 	}
 
 	getData(activity: any): void {
@@ -75,25 +77,57 @@ export class ActivityinformationComponent implements OnInit {
 				this.disassociation.getData(activity);
 			} else if (this.activityname == 'dataset:ActivityInformationInterpretBensonRuleData') {
 				this.benson.getData(activity);
-		} else if (this.activityname == 'dataset:ActivityInformationInterpretSubstructureThermodynamics') {
+			} else if (this.activityname == 'dataset:ActivityInformationInterpretSubstructureThermodynamics') {
 				this.structure.getData(activity);
-		} else if (this.activityname == 'dataset:ActivityInformationMolecularThermodynamics') {
+			} else if (this.activityname == 'dataset:ActivityInformationMolecularThermodynamics') {
 				this.species.getData(activity);
-		} else if (this.activityname == 'dataset:ActivityInformationInterpretVibrationalMode') {
+			} else if (this.activityname == 'dataset:ActivityInformationInterpretVibrationalMode') {
 				this.frequency.getData(activity);
-		} else if (this.activityname == 'dataset:ActivityInformationInterpretSymmetryInformation') {
+			} else if (this.activityname == 'dataset:ActivityInformationInterpretSymmetryInformation') {
 				this.symmetry.getData(activity);
-		} else if (this.activityname == 'dataset:ActivityInformationInterpretMetaAtom') {
+			} else if (this.activityname == 'dataset:ActivityInformationInterpretMetaAtom') {
 				this.metaatom.getData(activity);
-		} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetAddDataset') {
+			} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetAddDataset') {
 				this.collectionadd.getData(activity);
-		} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetCreation') {
+			} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetCreation') {
 				this.collectioncreate.getData(activity);
-		} else {
+			} else {
 				alert('Not known activity information: ' + this.activityname);
 			}
 		}
 	}
+
+	setPrerequisiteData(prerequisite: any): void {
+		const activityB = this.activityname == 'dataset:ActivityRepositoryInitialReadLocalFile';
+		if (activityB) {
+			//this.readlocal.setData(activity);
+		} else if (this.activityname == 'dataset:ActivityRepositoryPartitionToCatalog') {
+			//this.partition.setData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationInterpretDisassociationEnergy') {
+			//this.disassociation.setData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationInterpretBensonRuleData') {
+			if (this.benson != null) {
+				this.benson.setPrerequisiteData(prerequisite);
+			}
+		} else if (this.activityname == 'dataset:ActivityInformationInterpretSubstructureThermodynamics') {
+			//this.structure.setData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationMolecularThermodynamics') {
+			//this.species.setData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationInterpretVibrationalMode') {
+			//this.frequency.setData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationInterpretSymmetryInformation') {
+			//this.symmetry.setData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationInterpretMetaAtom') {
+			//this.metaatom.setData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetAddDataset') {
+			//this.collectionadd.setData(activity);
+		} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetCreation') {
+			//this.collectioncreate.setData(activity);
+		} else {
+			alert('Not known activity information: ' + this.activityname);
+		}
+	}
+
 
 	setData(activity: any): void {
 		const activityB = this.activityname == 'dataset:ActivityRepositoryInitialReadLocalFile';
@@ -102,42 +136,38 @@ export class ActivityinformationComponent implements OnInit {
 		} else if (this.activityname == 'dataset:ActivityRepositoryPartitionToCatalog') {
 			this.partition.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretDisassociationEnergy') {
-				this.disassociation.setData(activity);
+			this.disassociation.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretBensonRuleData') {
-				this.benson.getData(activity);
+			this.benson.getData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretSubstructureThermodynamics') {
-				this.structure.setData(activity);
+			this.structure.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationMolecularThermodynamics') {
-				this.species.setData(activity);
+			this.species.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretVibrationalMode') {
-				this.frequency.setData(activity);
+			this.frequency.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretSymmetryInformation') {
-				this.symmetry.setData(activity);
+			this.symmetry.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretMetaAtom') {
-				this.metaatom.setData(activity);
+			this.metaatom.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetAddDataset') {
-				this.collectionadd.setData(activity);
+			this.collectionadd.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetCreation') {
-				this.collectioncreate.setData(activity);
+			this.collectioncreate.setData(activity);
 		} else {
 			alert('Not known activity information: ' + this.activityname);
 		}
 	}
-	
-	public getCatalogAnnoations(): void {
+
+	public getCatalogAnnoationsForActivity(): void {
 		this.message = 'Waiting for Info call';
-		alert("getCatalogAnnoations(): " + this.activityname);
 		this.annotations.getNewCatalogObject(this.activityname).subscribe({
 			next: (responsedata: any) => {
 				const response = responsedata;
 				this.message = response[Ontologyconstants.message];
 				if (response[Ontologyconstants.successful]) {
 					const catalog = response[Ontologyconstants.catalogobject];
-					this.catalogobj = catalog[Ontologyconstants.outputobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];
-					this.display = true;
 				} else {
-					alert("Failed: " + JSON.stringify(responsedata));
 					this.message = responsedata;
 				}
 			},

@@ -5,12 +5,14 @@
 		</mat-card-title-group>
 	</mat-card-header>
 	<mat-card-content>
-		<ng-container *ngIf='annoinfo != null; else loading'>
-
-			<mat-grid-list cols="6" rowHeight="100px">
+			<mat-grid-list cols="8" rowHeight="100px">
 				<mat-grid-tile [colspan]="2">
 					<button mat-mini-fab color="primary" class="submit-btn" matTooltip="{{displaydescbutton}}"
-						(click)="displayCatalogInfo()">{{displaybutton}}</button>
+						(click)="displayActivity()">{{displaybutton}}</button>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="2">
+					<button mat-mini-fab color="primary" class="submit-btn" matTooltip="{{prereqdescbutton}}"
+						(click)="activitysetup()">{{prereqbutton}}</button>
 				</mat-grid-tile>
 				<mat-grid-tile [colspan]="2">
 					<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchInformation()"
@@ -22,17 +24,10 @@
 					<button mat-mini-fab color="primary" class="submit-btn" matTooltip="{{submitdescr}}" (click)="submit()"
 						[disabled]="invalid()">{{submitbutton}}</button>
 				</mat-grid-tile>
-
 			</mat-grid-list>
-		</ng-container>
-		<ng-template #loading>
-			<div>
-				{{message}}
-			</div>
-		</ng-template>
 			<ng-container *ngIf='activitytype != null; else noactivity'>
 
-			<app-activityinformation #activity [(activityname)]="activitytype"></app-activityinformation>
+			<app-activityinformation #activity [(activityname)]="activitytype" (activitysetup)="activitysetup()"></app-activityinformation>
 			</ng-container>
 					<ng-template #noactivity>
 			<div>
