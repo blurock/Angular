@@ -157,12 +157,9 @@ public class InterpretThermodynamicBlock {
 			if (i < cpValues.length) {
 				JsonObject cpatT = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicCpAtTemperature");
 				cpatT.addProperty(ClassLabelConstants.ThermodynamicTemperature, temperatures[i]);
-				JsonObject cpJ = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicHeatCapacity");
-				cpatT.add(ClassLabelConstants.ThermodynamicHeatCapacity, cpJ);
-				cpJ.add(ClassLabelConstants.ParameterSpecification, heatcapacityspec);
 				String cpS = Double.toString(cpValues[i]);
-				cpJ.addProperty(ClassLabelConstants.ValueAsString, cpS);
-				cpJ.addProperty(ClassLabelConstants.ValueUncertainty, "0.0");
+				cpatT.addProperty(ClassLabelConstants.ThermodynamicHeatCapacityValue, cpS);
+				cpatT.addProperty(ClassLabelConstants.ValueUncertainty, "0.0");				
 				cpatTarray.add(cpatT);
 			}
 		}

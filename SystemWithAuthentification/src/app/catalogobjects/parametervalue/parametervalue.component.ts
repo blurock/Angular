@@ -46,9 +46,15 @@ export class ParametervalueComponent implements OnInit {
 		activity[this.annoinfo['dataset:ParameterSpecification'][this.identifier]] = paramspecvalue;
 	}
 	setData(activity: any): void {
-		this.objectform.get('ValueAsString').setValue(activity[this.annoinfo['dataset:ValueAsString']]);
-		this.objectform.get('ValueUncertainty').setValue(activity[this.annoinfo['dataset:ValueUncertainty']]);
-		this.paramspec.setData(activity);
+    alert("ParametervalueComponent 0");
+		this.objectform.get('ValueAsString').setValue(activity[this.annoinfo['dataset:ValueAsString'][this.identifier]]);
+    alert("ParametervalueComponent 1");
+    alert("ParametervalueComponent 1.1" + activity[this.annoinfo['dataset:ValueUncertainty'][this.identifier]]);
+		this.objectform.get('ValueUncertainty').setValue(activity[this.annoinfo['dataset:ValueUncertainty'][this.identifier]]);
+    alert("ParametervalueComponent 2");
+    const spec = activity[this.annoinfo['dataset:ParameterSpecification'][this.identifier]];
+		this.paramspec.setData(spec);
+    alert("ParametervalueComponent Done");
 	}
 
 

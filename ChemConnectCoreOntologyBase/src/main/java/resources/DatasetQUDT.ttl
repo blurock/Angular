@@ -18948,6 +18948,17 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                   <http://www.w3.org/2004/02/skos/core#altLabel> "transevent" .
 
 
+###  http://www.esblurock.info/dataset#TransactionEventDatasetRepositoryFileType
+:TransactionEventDatasetRepositoryFileType rdf:type owl:Class ;
+                                           rdfs:subClassOf :TransactionEventType ;
+                                           <http://purl.org/dc/elements/1.1/type> :TransactionEventDatasetRepositoryFileType ;
+                                           <http://purl.org/dc/terms/identifier> "dataset:repositorytransactiontype"^^xsd:string ;
+                                           rdfs:comment "This is the set of transactions dealing with reading in repository files."^^xsd:string ;
+                                           rdfs:isDefinedBy :DatasetRepositoryFile ;
+                                           rdfs:label "Repository Transaction"^^xsd:string ;
+                                           <http://www.w3.org/2004/02/skos/core#altLabel> "repositorytransactiontype"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#TransactionEventInputObject
 :TransactionEventInputObject rdf:type owl:Class ;
                              rdfs:subClassOf :ChemConnectTransactionEvent ,

@@ -5,6 +5,8 @@ import { DatasettransactionspecificationforcollectionComponent } from '../../../
 import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
 import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
+import { NavItem } from '../../../../primitives/nav-item';
+import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 
 @Component({
 	selector: 'app-activityinformationinterpretdisassociationenergy',
@@ -23,11 +25,14 @@ export class ActivityinformationinterpretdisassociationenergyComponent implement
 	identifier = Ontologyconstants.dctermsidentifier;
 
 	fileformatdata: any;
+	items: NavItem[];
 
 	@Input() annoinfo: any;
 
 	molarenergyparameter = ['dataset:ParameterSpecificationHDisassociationEnergy'];
 	title = 'This is the Activity Information for Interpreting Hydrogen Disassociation Energy';
+	
+	structurespecification = 'dataset:JThermodynamicsSpeciesSpecificationType';
 
 	@ViewChild('paramspec') paramspec: DatasettransactionspecificationforcollectionComponent;
 	@ViewChild('spec') spec: ParameterspecificationComponent;
@@ -35,7 +40,8 @@ export class ActivityinformationinterpretdisassociationenergyComponent implement
 	constructor(
 		private formBuilder: FormBuilder,
 		private menuserver: OntologycatalogService,
-		private fileservice: UploadmenuserviceService
+		private fileservice: UploadmenuserviceService,
+		private menusetup: MenutreeserviceService
 	) {
 		const set = [];
 		set.push(this.molarenergyparameter);
@@ -49,8 +55,8 @@ export class ActivityinformationinterpretdisassociationenergyComponent implement
 		this.objectform = this.formBuilder.group({
 			DescriptionTitle: ['', Validators.required],
 			BlockInterpretationMethod: ['', Validators.required],
-			FileSourceFormat: ['File Format', Validators.required]
-			
+			FileSourceFormat: ['File Format', Validators.required],
+			JThermodynamicsSpeciesSpecificationType: ['dataset:SpeciesSpecificationNancyLinearForm', Validators.required]
 		});
 
 	}
@@ -65,15 +71,16 @@ export class ActivityinformationinterpretdisassociationenergyComponent implement
 				this.objectform.get('BlockInterpretationMethod').setValue(block);
 			}
 		});
+		this.items = this.menusetup.findChoices(this.annoinfo, this.structurespecification);
 	}
 
 	getData(activity: any): void {
 		activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod').value;
 		activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.objectform.get('FileSourceFormat').value;
 		activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle').value;
-		const specvalue = {};
-		this.spec.getData(specvalue);
-		activity[this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier]] = specvalue;
+		activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]] = this.objectform.get('JThermodynamicsSpeciesSpecificationType').value;
+		
+		this.spec.getData(activity);
 		const paramspecvalue = {};
 		this.paramspec.getData(paramspecvalue);
 		activity[this.annoinfo['dataset:ParameterSpecificationHDisassociationEnergy'][this.identifier]] = paramspecvalue;
@@ -82,10 +89,14 @@ export class ActivityinformationinterpretdisassociationenergyComponent implement
 		this.objectform.get('BlockInterpretationMethod').setValue(activity[this.annoinfo['dataset:BlockInterpretationMethod']]);
 		this.objectform.get('FileSourceFormat').setValue(activity[this.annoinfo['dataset:FileSourceFormat']]);
 		this.objectform.get('DescriptionTitle').setValue(activity[this.annoinfo['dataset:DescriptionTitle']]);
+		this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue(activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType']]);
+
 		this.spec.setData(activity);
 		const energy = activity[this.annoinfo['dataset:ParameterSpecificationHDisassociationEnergy'][this.identifier]];
 		this.paramspec.setData(energy);
 	}
-
+setJThermodynamicsSpeciesSpecificationType($event) {
+	this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue($event);
+}
 
 }

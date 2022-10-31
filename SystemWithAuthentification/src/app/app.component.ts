@@ -36,7 +36,7 @@ export class AppComponent {
 		this.router.navigateByUrl('/uploaddatabaseitem');
 	}
 	catalog(): void {
-		
+		this.router.navigateByUrl('/catalog/catalog');
 	}
 	datasetcollection() {
 		this.router.navigateByUrl('/catalog/collection');

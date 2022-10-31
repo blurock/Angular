@@ -17,7 +17,16 @@
 						</mat-form-field>
 					</mat-grid-tile>
 
-					<mat-grid-tile [colspan]="3">
+		<mat-grid-tile [colspan]="2" background="lightgray">
+			<mat-form-field class="label">
+				<mat-label>{{annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][rdfslabel]}}</mat-label>
+											<input matInput formControlName="JThermodynamicsSpeciesSpecificationType"
+								[matMenuTriggerFor]="menu.childMenu">
+				<mat-hint>{{annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][rdfscomment]}}</mat-hint>
+          <app-menu-item #menu [items]="items" (selectionEvent)="setJThermodynamicsSpeciesSpecificationType($event)"></app-menu-item>
+			</mat-form-field>
+		</mat-grid-tile>
+					<mat-grid-tile [colspan]="2">
 						<mat-form-field class="title">
 							<mat-label>{{annoinfo['dataset:FileSourceFormat'][rdfslabel]}}</mat-label>
 							<input matInput formControlName="FileSourceFormat">
@@ -25,7 +34,7 @@
 						</mat-form-field>
 					</mat-grid-tile>
 
-					<mat-grid-tile [colspan]="3">
+					<mat-grid-tile [colspan]="2">
 						<mat-form-field class="title">
 							<mat-label>{{annoinfo['dataset:BlockInterpretationMethod'][rdfslabel]}}</mat-label>
 							<input matInput formControlName="BlockInterpretationMethod">

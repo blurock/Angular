@@ -58,11 +58,12 @@ export class FetchcatalogobjectComponent implements OnInit {
 			CatalogDataObjectStatus: ['', Validators.required]
 		});
 		this.catalog = null;
-		this.items = this.menusetup.findChoices(this.annoinfo, this.statusitems);
+
 	}
 
 	ngOnInit(): void {
 		this.dataimage = 'texxxxxt';
+		this.items = this.menusetup.findChoices(this.annoinfo, this.statusitems);
 	}
 	onNoClick(): void {
 		this.dialogRef.close();

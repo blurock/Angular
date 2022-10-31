@@ -234,7 +234,7 @@ public enum InterpretTextBlock {
 						Double energyD = Double.valueOf(energyS);
 						Double errorD = Double.valueOf(errorS);
 						Element row = table.addElement("tr");
-						JsonObject spec = info.get(ClassLabelConstants.ParameterSpecification).getAsJsonObject();
+						JsonObject spec = info.get(ClassLabelConstants.ParameterSpecificationHDisassociationEnergy).getAsJsonObject();
 						JsonObject value = CreateDocumentTemplate
 								.createTemplate("dataset:JThermodynamicDisassociationEnergy");
 						catalog.add(ClassLabelConstants.JThermodynamicDisassociationEnergy, value);

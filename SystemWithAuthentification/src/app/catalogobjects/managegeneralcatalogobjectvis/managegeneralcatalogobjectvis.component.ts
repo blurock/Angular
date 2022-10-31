@@ -50,6 +50,8 @@ export class ManagegeneralcatalogobjectvisComponent implements OnInit {
 	message: string;
 	catalogobj: any;
 	display = false;
+	
+	catalogtype: string;
 
 
 
@@ -74,8 +76,11 @@ export class ManagegeneralcatalogobjectvisComponent implements OnInit {
 	}
 
 	fetchInformation() {
-		const dialogRef = this.dialog.open(FindspecifictransactionindatasetComponent, {
-			data: { annoinfo: this.annoinfo, maintainer: this.maintainer },
+		this.annoinfo = this.catalogvis.getAnnotations();
+		alert(JSON.stringify(this.annoinfo));
+		const dialogRef = this.dialog.open(FetchcatalogobjectComponent, {
+			data: { annoinfo: this.annoinfo, maintainer: this.maintainer,
+			'fromdatabase': true, 'catalogtype': this.catalogtype },
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
@@ -133,6 +138,7 @@ export class ManagegeneralcatalogobjectvisComponent implements OnInit {
 	}
 
 	setDatabaseObject(catalog: string): void {
+		this.catalogtype = catalog;
     	this.catalogvis.setChild(catalog);
 	}
 

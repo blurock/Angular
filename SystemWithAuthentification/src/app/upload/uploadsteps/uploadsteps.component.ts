@@ -9,6 +9,7 @@ import { Ontologyconstants } from '../../const/ontologyconstants';
 import {ParseuploadedfileComponent} from '../parseuploadedfile/parseuploadedfile.component';
 import {ParsefiletransactionComponent} from '../parsefiletransaction/parsefiletransaction.component';
 import {TransactioninterprettextblockComponent} from '../transactioninterprettextblock/transactioninterprettextblock.component';
+import {InterprettextblockresultsComponent} from '../interprettextblockresults/interprettextblockresults.component';
 
 @Component({
 	selector: 'app-uploadsteps',
@@ -47,6 +48,7 @@ export class UploadstepsComponent implements OnInit {
 	@ViewChild('parse') parse: ParseuploadedfileComponent;
 	@ViewChild('parsetransaction') parsetransaction: ParsefiletransactionComponent;
 	@ViewChild('interpret') interpret: TransactioninterprettextblockComponent;
+	@ViewChild('interprettransaction') interprettransaction: InterprettextblockresultsComponent;
 	
 	repositorystaging = new EventEmitter<any>();
 	parseFile = new EventEmitter<any>();
@@ -98,7 +100,10 @@ export class UploadstepsComponent implements OnInit {
 		this.interpret.setPrerequisite($event);
 	}
 	interpretEvent($event): void {
-		
+		const transaction = $event[Ontologyconstants.TransactionEventObject];
+		this.interprettransaction.setData(transaction);		
 	}
-
+  interpretTransactionEvent($event) {
+	  
+  }
 }

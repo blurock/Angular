@@ -95,6 +95,10 @@ export class GeneralcatalogobjectvisualizationComponent implements OnInit {
 		}
 		
 	}
+	
+	getAnnotations(): any {
+		return this.componentRef.instance.annoinfo;
+	}
 	public setData(catalog: any): void {
 		if (this.isNotSetUp) {
 		const catalogtype = catalog['dataset:objectype'];
