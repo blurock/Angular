@@ -114,7 +114,6 @@ export class InitialreadinofrepositoryfileeventComponent implements OnInit {
 	}
   
   setCatalog(catalog): void {
-    
     this.catalogobj = catalog;
    this.repository.setData(catalog);
   }
