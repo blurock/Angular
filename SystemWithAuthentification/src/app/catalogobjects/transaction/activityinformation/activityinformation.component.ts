@@ -98,6 +98,7 @@ displaydescbutton = 'Press to fill in prerequisite information';
 	}
 
 	setPrerequisiteData(prerequisite: any): void {
+		alert("ActivityinformationComponent setPrerequisiteData " + this.activityname);
 		const activityB = this.activityname == 'dataset:ActivityRepositoryInitialReadLocalFile';
 		if (activityB) {
 			//this.readlocal.setData(activity);
@@ -114,7 +115,9 @@ displaydescbutton = 'Press to fill in prerequisite information';
 		} else if (this.activityname == 'dataset:ActivityInformationMolecularThermodynamics') {
 			//this.species.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretVibrationalMode') {
-			//this.frequency.setData(activity);
+			if(this.frequency != null) {
+				this.frequency.setPrerequisiteData(prerequisite);
+			}
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretSymmetryInformation') {
 			//this.symmetry.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretMetaAtom') {

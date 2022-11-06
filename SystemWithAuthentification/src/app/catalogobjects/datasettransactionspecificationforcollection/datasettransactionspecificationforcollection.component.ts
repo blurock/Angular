@@ -79,6 +79,7 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 	}
 
 	public setData(jsontransspec: any): void {
+		alert("DatasettransactionspecificationforcollectionComponent 0");
 		const status = jsontransspec[this.annoinfo['dataset:CatalogDataObjectStatus'][this.identifier]];
 		this.idForm.get('CatalogDataObjectStatus').setValue(status);
 		const datasetname = jsontransspec[this.annoinfo['dataset:DatasetName'][this.identifier]];
@@ -89,6 +90,7 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 		this.idForm.get('CatalogObjectUniqueGenericLabel').setValue(label);
 		//this.maintainer = jsontransspec['dataset:catalogobjectmaintainer'];
 		this.transspec = jsontransspec;
+		alert("DatasettransactionspecificationforcollectionComponent done");
 	}
 setStatus(status: string): void {
 	this.idForm.get('CatalogDataObjectStatus').setValue(status);

@@ -66,14 +66,28 @@ export class ActivityinformationinterpretvibrationalmodeComponent implements OnI
 			}
 		});
 	}
+	
+	setPrerequisiteData(prerequisite: any) {
+		const actinfo = prerequisite['dataset:activityinfo'];
+		const titleid = this.annoinfo['dataset:DescriptionTitle'][this.identifier];
+		this.objectform.get('DescriptionTitle').setValue(actinfo[titleid]);
+
+		alert("ActivityinformationinterpretvibrationalmodeComponent setPrerequisiteData: ");
+		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
+		alert("ActivityinformationinterpretvibrationalmodeComponent setPrerequisiteData: " + specid);
+		const specdata = actinfo[specid];
+		alert("ActivityinformationinterpretvibrationalmodeComponent setPrerequisiteData: " + JSON.stringify(specdata));
+		alert("ActivityinformationinterpretvibrationalmodeComponent setPrerequisiteData: paramspec" + this.paramspec);
+		this.paramspec.setData(specdata);
+ 		alert("ActivityinformationinterpretvibrationalmodeComponent setPrerequisiteData: done");
+       		
+	}
 
 	getData(activity: any): void {
 		activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod').value;
 		activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.objectform.get('FileSourceFormat').value;
 		activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle').value;
-		const specvalue = {};
-		this.paramspec.getData(specvalue);
-		activity[this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier]] = specvalue;
+		this.paramspec.getData(activity);
 		const freqspecvalue = {};
 		this.frequencyspec.getData(freqspecvalue);
 		activity[this.annoinfo['dataset:ParameterSpecificationStructureVibrationFrequency'][this.identifier]] = freqspecvalue;

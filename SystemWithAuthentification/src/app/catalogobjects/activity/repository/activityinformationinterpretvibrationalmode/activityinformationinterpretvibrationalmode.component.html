@@ -38,10 +38,10 @@
 
 			<ng-container *ngIf='display; else specdisplayoff'>
 
-				<app-parameterspecification #paramspec [(annoinfo)]="annoinfo" [(parameterinfo)]="frequency">
+				<app-parameterspecification #frequencyspec [(annoinfo)]="annoinfo" [(parameterinfo)]="frequency">
 				</app-parameterspecification>
 
-				<app-datasettransactionspecificationforcollection #frequencyspec [(annoinfo)]="annoinfo">
+				<app-datasettransactionspecificationforcollection #paramspec [(annoinfo)]="annoinfo">
 				</app-datasettransactionspecificationforcollection>
 			</ng-container>
 			<ng-template #specdisplayoff>
