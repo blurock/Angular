@@ -10,10 +10,10 @@ import { IdentifiersService } from '../../../const/identifiers.service';
 import { SetofdataobjectlinksComponent } from '../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
 import { SetofsitereferencesComponent } from '../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
 import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {SavecatalogdataobjectdialogComponent} from '../../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
-import {SavecatalogdataobjectComponent} from '../../../dialog/savecatalogdataobject/savecatalogdataobject.component';
-import {DatadatadescriptionComponent} from '../../datadatadescription/datadatadescription.component';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SavecatalogdataobjectdialogComponent } from '../../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
+import { SavecatalogdataobjectComponent } from '../../../dialog/savecatalogdataobject/savecatalogdataobject.component';
+import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
 
 @Component({
 	selector: 'app-datasetrepositoryfilestaging',
@@ -24,16 +24,16 @@ export class DatasetrepositoryfilestagingComponent extends Savecatalogdataobject
 
 	objectform: FormGroup;
 	catalogtype: string;
-	
+
 	constructor(
 		public dialog: MatDialog,
 		private formBuilder: FormBuilder,
 		public annotations: OntologycatalogService,
 		public identifiers: IdentifiersService) {
-		super(dialog,annotations,identifiers,
+		super(dialog, annotations, identifiers,
 		);
-	this.catalogtype = 'dataset:DatasetRepositoryFileStaging';
-	this.getCatalogAnnoations();
+		this.catalogtype = 'dataset:DatasetRepositoryFileStaging';
+		this.getCatalogAnnoations();
 
 	}
 
@@ -58,7 +58,7 @@ export class DatasetrepositoryfilestagingComponent extends Savecatalogdataobject
 
 	}
 	ngAfterViewInit(): void {
-}
+	}
 
 	public setData(catalog: any): void {
 		if (this.simpledata != null) {
@@ -73,20 +73,20 @@ export class DatasetrepositoryfilestagingComponent extends Savecatalogdataobject
 			this.objectlinks.setData(olinks);
 			const wlinks = catalog[this.identifiers.ObjectSiteReference];
 			this.objectlinks.setData(wlinks);
-		    const rtitle = catalog[this.identifiers.DescriptionTitle];
-		    const descr = catalog['descr-filestaging'];
-		    this.description.setData(descr);
-		    const title = catalog[this.identifiers.DescriptionTitle];
-		    if(title != null) {
-			this.objectform.get('DescriptionTitle').setValue(title);
+			const rtitle = catalog[this.identifiers.DescriptionTitle];
+			const descr = catalog['descr-filestaging'];
+			this.description.setData(descr);
+			const title = catalog[this.identifiers.DescriptionTitle];
+			if (title != null) {
+				this.objectform.get('DescriptionTitle').setValue(title);
 			}
 		} else {
 			alert("Display objects not set up");
 		}
 	}
-	
+
 	public openMenu() {
-		
+
 	}
 
 	public getData(catalog: any): void {

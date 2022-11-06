@@ -48,7 +48,6 @@ export class RepositoryparsedtofixedblocksizeComponent implements OnInit {
 		this.catalogtype = 'dataset:RepositoryParsedToFixedBlockSize';
 		this.getCatalogAnnoations();
 
-
 	}
 
 	ngOnInit(): void {
@@ -56,15 +55,11 @@ export class RepositoryparsedtofixedblocksizeComponent implements OnInit {
 
 	public setData(catalog: any) {
 		const cntid = this.annoinfo['dataset:BlockLineCount'][this.identifier];
-		alert("RepositoryparsedtofixedblocksizeComponent: "  + cntid);
-		alert("RepositoryparsedtofixedblocksizeComponent: "  + catalog[cntid]);
 		this.objectform.get('BlockLineCount').setValue(catalog[cntid]);
 		const lnsid = this.annoinfo['dataset:ParsedLine'][this.identifier];
 		const lines = catalog[lnsid];
 		let text = "";
 		for (let line of lines) {
-			alert(line);
-			alert(text);
 			text = text.concat(line).concat('\n');
 		}
 		this.objectform.get('ParsedLine').setValue(text);
@@ -99,7 +94,9 @@ export class RepositoryparsedtofixedblocksizeComponent implements OnInit {
 					this.annoinfo = catalog[Ontologyconstants.annotations];
 					this.display = true;
 					this.annoReady.emit(this.annoinfo);
+					if(this.cataloginfo != null) {
 					this.partition.setDataFormat(this.cataloginfo);
+					}
 					this.objectform.get('BlockLineCount').setValue(this.cataloginfo['BlockLineCount'])
 				} else {
 					this.message = responsedata;

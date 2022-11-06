@@ -15,13 +15,14 @@ import { SavecatalogdataobjectdialogComponent } from '../../../dialog/savecatalo
 import { SavecatalogdataobjectComponent } from '../../../dialog/savecatalogdataobject/savecatalogdataobject.component';
 import { NavItem } from '../../../primitives/nav-item';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
+import { InterfaceconstantsService } from '../../../const/interfaceconstants.service';
 
 @Component({
 	selector: 'app-repositorydatapartitionblock',
 	templateUrl: './repositorydatapartitionblock.component.html',
 	styleUrls: ['./repositorydatapartitionblock.component.scss']
 })
-export class RepositorydatapartitionblockComponent  implements OnInit,AfterViewInit {
+export class RepositorydatapartitionblockComponent implements OnInit, AfterViewInit {
 
 	objectform: FormGroup;
 	items: NavItem[];
@@ -29,7 +30,7 @@ export class RepositorydatapartitionblockComponent  implements OnInit,AfterViewI
 	display = false;
 	annoinfo: any
 	fixedtype = false;
-	postype =0;
+	postype = 0;
 
 	formatmenulabel = 'dataset:FileSourceFormat';
 	partitionmenulabel = 'dataset:FilePartitionMethod';
@@ -38,9 +39,9 @@ export class RepositorydatapartitionblockComponent  implements OnInit,AfterViewI
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
 
-	
+
 	@Input() annoReady: EventEmitter<any>;
-	
+
 
 	@ViewChild('simpledata') simpledata: SimpledatabaseobjectstructureComponent;
 	@ViewChild('firestoreid') firestoreid: FiresytorecatalogidComponent;
@@ -52,17 +53,18 @@ export class RepositorydatapartitionblockComponent  implements OnInit,AfterViewI
 	constructor(
 		private menusetup: MenutreeserviceService,
 		private formBuilder: FormBuilder,
+		private interfaceconstants: InterfaceconstantsService,
 		public identifiers: IdentifiersService) {
-			
-      
-      
+
+
+
 	}
 
 	ngOnInit(): void {
-		
 
-		
-		
+
+
+
 		this.objectform = this.formBuilder.group({
 			FilePartitionMethod: ['', Validators.required],
 			FileSourceFormat: ['File Format', Validators.required],
@@ -76,32 +78,52 @@ export class RepositorydatapartitionblockComponent  implements OnInit,AfterViewI
 			this.items = this.menusetup.findChoices(this.annoinfo, this.formatmenulabel);
 			this.partitionitems = this.menusetup.findChoices(this.annoinfo, this.partitionmenulabel);
 			this.display = true;
-      });
+		});
 
 	}
-	
+
 	public setDataFormat(typeInfo: any) {
+		if(typeInfo != null) {
+			this.setDataFormatNonNull(typeInfo);
+		} else {
+			
+		}
+	}
+
+    private setDataFormatNonNull(typeInfo: any) {
 		const fmt = typeInfo['format'];
-		if(fmt == 'dataset:TherGasBensonRules') {
+		if (fmt == 'dataset:TherGasBensonRules') {
 			this.objectform.get('FileSourceFormat').setValue('dataset:TherGasBensonRules');
 			this.objectform.get('FilePartitionMethod').setValue('dataset:PartitionTherGasThermodynamics');
-			this.postype =0;
-		} else if(fmt == 'dataset:JThermodynamicsDisassociationEnergyFormat') {
+			this.postype = 0;
+		} else if (fmt == 'dataset:JThermodynamicsDisassociationEnergyFormat') {
 			this.objectform.get('FileSourceFormat').setValue('dataset:JThermodynamicsDisassociationEnergyFormat');
 			this.objectform.get('FilePartitionMethod').setValue('dataset:PartitionToLineSet');
-			this.postype =1;
-		} else if(fmt == 'dataset:JThermodynamicsMetaAtomFormat') {
+			this.postype = 1;
+		} else if (fmt == 'dataset:JThermodynamicsMetaAtomFormat') {
 			this.objectform.get('FileSourceFormat').setValue('dataset:JThermodynamicsMetaAtomFormat');
 			this.objectform.get('FilePartitionMethod').setValue('dataset:PartitionToLineSet');
-			this.postype =1;
-		} else if(fmt == 'dataset:JThermodynamicsVibrationalModes') {
+			this.postype = 1;
+		} else if (fmt == 'dataset:JThermodynamicsVibrationalModes') {
 			this.objectform.get('FileSourceFormat').setValue('dataset:JThermodynamicsVibrationalModes');
 			this.objectform.get('FilePartitionMethod').setValue('dataset:PartitionToLineSet');
-			this.postype =1;
-		} 
+			this.postype = 1;
+		}
 		this.fixedtype = true;
 	}
-
+	
+	private setPosType(fmt:string): void {
+		if (fmt == 'dataset:TherGasBensonRules') {
+			this.postype = 0;
+		} else if (fmt == 'dataset:JThermodynamicsDisassociationEnergyFormat') {
+			this.postype = 1;
+		} else if (fmt == 'dataset:JThermodynamicsMetaAtomFormat') {
+			this.postype = 1;
+		} else if (fmt == 'dataset:JThermodynamicsVibrationalModes') {
+			this.postype = 1;
+		}
+		
+	}
 
 	public setData(catalog: any): void {
 		if (this.simpledata != null) {
@@ -115,16 +137,17 @@ export class RepositorydatapartitionblockComponent  implements OnInit,AfterViewI
 			this.references.setData(refs);
 			const olinks = catalog[this.identifiers.DataObjectLink];
 			this.objectlinks.setData(olinks);
-
-
 			const wlinks = catalog[this.identifiers.ObjectSiteReference];
 			this.weblinks.setData(wlinks);
+		} else {
+			alert("Display not set up yes (refresh)")
 		}
 	}
-	
+
 	setPosition(catalog: any) {
-		if(this.postype == 0) {
-		    const thermoid = this.annoinfo['dataset:RepositoryThermoPartitionBlock'][this.identifier];
+		this.setPosType(catalog[this.identifiers.FileSourceFormat]);
+		if (this.postype == 0) {
+			const thermoid = this.annoinfo['dataset:RepositoryThermoPartitionBlock'][this.identifier];
 			const thermo = catalog[thermoid];
 			this.objectform.get('Position').setValue(thermo[this.identifiers.Position]);
 		} else {
@@ -146,15 +169,23 @@ export class RepositorydatapartitionblockComponent  implements OnInit,AfterViewI
 		}
 	}
 	setFileFormat($event: string): void {
-		if(!this.fixedtype){
+		if (!this.fixedtype) {
 			this.objectform.get('FileSourceFormat').setValue($event);
+		} else {
+			this.interfaceconstants.dataFormatInformation($event).subscribe(result => {
+				if (result != null) {
+					this.setDataFormatNonNull(result);
+				} else {
+					alert(this.interfaceconstants.errorcatalogtypes);
+				}
+			});			
 		}
-		
 	}
-	setFilePartition($event: string): void {
-		if(!this.fixedtype){
-		this.objectform.get('FilePartitionMethod').setValue($event);
-		}
+
+setFilePartition($event: string): void {
+	if(!this.fixedtype){
+	this.objectform.get('FilePartitionMethod').setValue($event);
+}
 	}
 
 

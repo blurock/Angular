@@ -9,7 +9,7 @@
 	</mat-step>
 	<mat-step >
 		<ng-template matStepLabel>Upload Transaction</ng-template>
-		<app-initialreadinofrepositoryfileevent #repositoryresults (repositoryEvent)="repositoryEvent($event)"></app-initialreadinofrepositoryfileevent>
+		<app-initialreadinofrepositoryfileevent #repositoryresults (repositoryEvent)="uploadTransEvent($event)"></app-initialreadinofrepositoryfileevent>
 		<div>
 			<button mat-button matStepperPrevious>Back</button>
 			<button mat-button matStepperNext>Next</button>
