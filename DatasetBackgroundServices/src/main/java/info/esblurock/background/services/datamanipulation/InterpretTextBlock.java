@@ -92,7 +92,7 @@ public enum InterpretTextBlock {
 						JsonObject value = CreateDocumentTemplate
 								.createTemplate("dataset:StructureVibrationalFrequency");
 						catalog.add(ClassLabelConstants.StructureVibrationalFrequency, value);
-						value.add(ClassLabelConstants.ParameterSpecificationStructureVibrationFrequency, spec);
+						value.add(ClassLabelConstants.ParameterSpecification, spec);
 						value.addProperty(ClassLabelConstants.ValueUncertainty, "0.0");
 						value.addProperty(ClassLabelConstants.ValueAsString, frequency);
 

@@ -44,9 +44,19 @@ export class Jthermodynamics2dspeciesstructureComponent implements OnInit {
 		structure[this.annoinfo['dataset:JThermodynamicsAtomCountSet'][this.identifier]] = structurecounts;
 		this.counts.getData(structurecounts);
 	}
+	
 	setData(structure: any): void {
-const structurecounts = structure[this.annoinfo['dataset:JThermodynamicsAtomCountSet'][this.identifier]]
-this.counts.setData(structurecounts);
+		const cmlstring = structure[this.annoinfo['dataset:JThermodynamicsStructureAsCMLString'][this.identifier]];
+		this.objectform.get('JThermodynamicsStructureAsCMLString').setValue(cmlstring);
+		
+		const name = structure[this.annoinfo['dataset:JThermodynamicsStructureIsomerName'][this.identifier]];
+		this.objectform.get('JThermodynamicsStructureIsomerName').setValue(name);
+		
+		const structurename = structure[this.annoinfo['dataset:JThermodynamicsStructureName'][this.identifier]];
+		this.objectform.get('JThermodynamicsStructureName').setValue(structurename);
+		
+        const structurecounts = structure[this.annoinfo['dataset:JThermodynamicsAtomCountSet'][this.identifier]]
+        this.counts.setData(structurecounts);
 	}
 
 }

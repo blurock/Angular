@@ -88,7 +88,6 @@ export class TransactioninterprettextblockComponent implements OnInit {
 
 	}
 	setPrerequisite(transaction: any) {
-			alert("TransactioninterprettextblockComponent setPrerequisite");
 		this.prerequisite = transaction;
 		this.activityinfo = transaction['dataset:activityinfo'];
 		if (this.activityinfo != null) {
@@ -100,7 +99,6 @@ export class TransactioninterprettextblockComponent implements OnInit {
 			}
 			const fileformat = this.activityinfo['dataset:filesourceformat'];
 			this.setFileFormat(fileformat);
-			alert("TransactioninterprettextblockComponent setPrerequisite" + this.activity);
 			if (this.activity != null) {
 				this.activity.setPrerequisiteData(this.prerequisite);
 			}
@@ -108,13 +106,9 @@ export class TransactioninterprettextblockComponent implements OnInit {
 		} else {
 			alert(this.prerequisiteerror);
 		}
-			alert("TransactioninterprettextblockComponent setPrerequisite done");
 	}
 
 	activitysetup(): void {
-			alert("TransactioninterprettextblockComponent activitysetup()");
-			alert("TransactioninterprettextblockComponent activitysetup()" + this.prerequisite);
-			alert("TransactioninterprettextblockComponent activitysetup()" + this.activity);
 		if (this.prerequisite != null) {
 			if (this.activity != null) {
 				this.activity.setPrerequisiteData(this.prerequisite);
@@ -125,7 +119,6 @@ export class TransactioninterprettextblockComponent implements OnInit {
 		} else {
 			alert("prerequisite not set up");
 		}
-			alert("TransactioninterprettextblockComponent activitysetup() done");
 	}
 
 	getTransactionData(transaction: any) {

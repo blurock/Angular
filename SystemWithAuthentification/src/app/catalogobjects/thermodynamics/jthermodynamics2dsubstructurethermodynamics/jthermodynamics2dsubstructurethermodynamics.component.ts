@@ -82,10 +82,16 @@ export class Jthermodynamics2dsubstructurethermodynamicsComponent implements OnI
 
 	}
 	setData(catalog: any): void {
-		this.objectform.get('JThermodynamicsSubstructureType').setValue(catalog[this.annoinfo['dataset:JThermodynamicsSubstructureType'][this.identifier]]);
-		this.base.setData(catalog);
+		alert("Jthermodynamics2dsubstructurethermodynamicsComponent XXXX setData ");
+		alert("Jthermodynamics2dsubstructurethermodynamicsComponent setData type: " + JSON.stringify(catalog[this.annoinfo['dataset:JThermodynamicsSubstructureType']]));
+		const value = catalog[this.annoinfo['dataset:JThermodynamicsSubstructureType'][this.identifier]];
+		alert("Jthermodynamics2dsubstructurethermodynamicsComponent setData " + value);
+		this.objectform.get('JThermodynamicsSubstructureType').setValue(value);
 		const struct = catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
+		alert("Jthermodynamics2dsubstructurethermodynamicsComponent setData struct " + struct);
 		this.structure.setData(struct);
+		alert("Jthermodynamics2dsubstructurethermodynamicsComponent setData this.base " + this.base);
+		this.base.setData(catalog);
 	}
 
 	setType($event) {

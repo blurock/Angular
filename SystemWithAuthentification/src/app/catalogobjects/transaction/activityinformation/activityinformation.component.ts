@@ -98,7 +98,6 @@ displaydescbutton = 'Press to fill in prerequisite information';
 	}
 
 	setPrerequisiteData(prerequisite: any): void {
-		alert("ActivityinformationComponent setPrerequisiteData " + this.activityname);
 		const activityB = this.activityname == 'dataset:ActivityRepositoryInitialReadLocalFile';
 		if (activityB) {
 			//this.readlocal.setData(activity);

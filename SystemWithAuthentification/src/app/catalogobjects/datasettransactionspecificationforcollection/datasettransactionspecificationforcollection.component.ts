@@ -28,16 +28,12 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 
 
 	waiting = 'waiting for annotations ';
-	
-
-
 
 	constructor(
 		public fb: FormBuilder,
 		private manageuser: ManageuserserviceService,
 		private menusetup: MenutreeserviceService
 	) {
-		this.items =[];
 		this.idForm = this.fb.group({
 			DatasetName: ['', Validators.required],
 			DatasetVersion: ['', Validators.required],
@@ -59,7 +55,7 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 			}
 		});
 	}
-	
+
 	invalid(): boolean {
 		return this.idForm.invalid;
 	}
@@ -79,7 +75,6 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 	}
 
 	public setData(jsontransspec: any): void {
-		alert("DatasettransactionspecificationforcollectionComponent 0");
 		const status = jsontransspec[this.annoinfo['dataset:CatalogDataObjectStatus'][this.identifier]];
 		this.idForm.get('CatalogDataObjectStatus').setValue(status);
 		const datasetname = jsontransspec[this.annoinfo['dataset:DatasetName'][this.identifier]];
@@ -90,7 +85,6 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 		this.idForm.get('CatalogObjectUniqueGenericLabel').setValue(label);
 		//this.maintainer = jsontransspec['dataset:catalogobjectmaintainer'];
 		this.transspec = jsontransspec;
-		alert("DatasettransactionspecificationforcollectionComponent done");
 	}
 setStatus(status: string): void {
 	this.idForm.get('CatalogDataObjectStatus').setValue(status);

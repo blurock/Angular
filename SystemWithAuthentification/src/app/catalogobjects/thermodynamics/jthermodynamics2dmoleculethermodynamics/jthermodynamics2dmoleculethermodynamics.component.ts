@@ -5,13 +5,13 @@ import { ChemconnectthermodynamicsdatabaseComponent } from '../chemconnectthermo
 import { Jthermodynamics2dspeciesstructureComponent } from '../jthermodynamics2dspeciesstructure/jthermodynamics2dspeciesstructure.component';
 
 @Component({
-  selector: 'app-jthermodynamics2dmoleculethermodynamics',
-  templateUrl: './jthermodynamics2dmoleculethermodynamics.component.html',
-  styleUrls: ['./jthermodynamics2dmoleculethermodynamics.component.scss']
+	selector: 'app-jthermodynamics2dmoleculethermodynamics',
+	templateUrl: './jthermodynamics2dmoleculethermodynamics.component.html',
+	styleUrls: ['./jthermodynamics2dmoleculethermodynamics.component.scss']
 })
 export class Jthermodynamics2dmoleculethermodynamicsComponent implements OnInit {
-  
-  title = 'Temperature Dependent Thermodynamics of Species';
+
+	title = 'Temperature Dependent Thermodynamics of Species';
 
 	message: string;
 	annoinfo: any;
@@ -65,9 +65,14 @@ export class Jthermodynamics2dmoleculethermodynamicsComponent implements OnInit 
 
 	}
 	setData(catalog: any): void {
-		this.base.setData(catalog);
+		alert("Jthermodynamics2dmoleculethermodynamicsComponent setData start");
+		alert("Jthermodynamics2dmoleculethermodynamicsComponent setData structure  " + this.structure);
 		const struct = catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
+		alert("Jthermodynamics2dmoleculethermodynamicsComponent setData struct  " + JSON.stringify(struct));
 		this.structure.setData(struct);
+		alert("Jthermodynamics2dmoleculethermodynamicsComponent setData base   " + this.base);
+		this.base.setData(catalog);
+		alert("Jthermodynamics2dmoleculethermodynamicsComponent setData done");
 	}
 
 }

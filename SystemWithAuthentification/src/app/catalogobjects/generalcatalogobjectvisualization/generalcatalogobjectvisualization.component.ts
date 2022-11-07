@@ -33,6 +33,7 @@ export class GeneralcatalogobjectvisualizationComponent implements OnInit {
 	}
 	
 	public setChild(catalogtype: string): void {
+		this.catalogtype = catalogtype;
 		if (catalogtype === 'dataset:RepositoryFileStaging') {
 			if (this.isNotSetUp) {
 				this.componentRef = this.dynamicChild.viewContainerRef.createComponent(DatasetrepositoryfilestagingComponent);

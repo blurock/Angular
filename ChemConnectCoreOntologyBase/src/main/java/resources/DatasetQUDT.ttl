@@ -4437,7 +4437,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                    [ rdf:type owl:Restriction ;
                                                      owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                     owl:onClass :DatasetSpecificationForCollectionSet
+                                                     owl:onClass :DatasetTransactionSpecificationForCollection
                                                    ] ;
                                    <http://purl.org/dc/elements/1.1/type> :ChemConnectThermodynamicsDatabase ;
                                    <http://purl.org/dc/terms/identifier> "dataset:2dthermoentity"^^xsd:string ;

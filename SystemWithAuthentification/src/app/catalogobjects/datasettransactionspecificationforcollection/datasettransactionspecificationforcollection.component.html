@@ -15,7 +15,6 @@
 							</mat-hint>
 						</mat-form-field>
 					</mat-grid-tile>
-					
 					<mat-grid-tile [colspan]="6">
 						<mat-form-field class="datasetname">
 							<mat-label>{{annoinfo['dataset:DatasetName'][rdfslabel]}}</mat-label>
@@ -42,11 +41,14 @@
 							<mat-hint>{{annoinfo['dataset:DatasetVersion'][rdfscomment]}}</mat-hint>
 						</mat-form-field>
 					</mat-grid-tile>
+					
 				</mat-grid-list>
 			</ng-container>
 			<ng-template #waiting>
 				Spec: waiting for annotations
 			</ng-template>
+			
 		</form>
+		
 	</mat-card-content>
 </mat-card>
