@@ -82,13 +82,10 @@ export class ChemconnectthermodynamicsdatabaseComponent implements OnInit {
 		this.objectform.get('CatalogObjectAccessModify').setValue(catalog[this.annoinfo['dataset:CatalogObjectAccessModify'][this.identifier]]);
 		this.objectform.get('CatalogObjectAccessRead').setValue(catalog[this.annoinfo['dataset:CatalogObjectAccessRead'][this.identifier]]);
 
-		/*
-		alert("ChemconnectthermodynamicsdatabaseComponent setData spec");
-		alert("ChemconnectthermodynamicsdatabaseComponent setData this.spec " + this.spec);
+		
 		const specdata = catalog[this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier]];
-		alert("ChemconnectthermodynamicsdatabaseComponent setData this.spec " + JSON.stringify(specdata));
 		this.spec.setData(specdata);
-		*/
+		
 
 		const firestoreidvalues = catalog[this.annoinfo['dataset:FirestoreCatalogID'][this.identifier]];
 		this.firestoreid.setData(firestoreidvalues);

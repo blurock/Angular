@@ -293,7 +293,7 @@ public enum TransactionProcess {
 		@Override
 		String transactionKey(JsonObject catalog) {
 
-			JsonObject structure = catalog.get(ClassLabelConstants.DatasetSpecificationForCollectionSet)
+			JsonObject structure = catalog.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
 					.getAsJsonObject();
 			String maintainer = structure.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 			String dataset = structure.get(ClassLabelConstants.DatasetName).getAsString();
