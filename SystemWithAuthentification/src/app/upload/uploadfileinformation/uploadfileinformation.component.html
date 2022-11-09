@@ -27,7 +27,9 @@
 
 			<app-activityrepositoryinitialreadlocalfile #upload [(annoinfo)]="annoinfo">
 			</app-activityrepositoryinitialreadlocalfile>
-
+		<mat-divider></mat-divider>
+		<div [innerHTML]="errormessage"></div>
+		<mat-divider></mat-divider>
 			<!--
 	<form [formGroup]="uploadinfoform" class="infoform">
 

@@ -15,6 +15,7 @@ import { ManageuserserviceService } from '../../services/manageuserservice.servi
 import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
 import { ActivityrepositorypartitiontocatalogComponent } from '../../catalogobjects/activity/repository/activityrepositorypartitiontocatalog/activityrepositorypartitiontocatalog.component';
 import {RuntransactiondialogComponent} from '../../dialog/runtransactiondialog/runtransactiondialog.component';
+
 @Component({
 	selector: 'app-parseuploadedfile',
 	templateUrl: './parseuploadedfile.component.html',
@@ -28,6 +29,8 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 	annoinfo: any;
 	maintainer: string;
 	title: string;
+	fileformatdata: any;
+	
 	identifier = Ontologyconstants.dctermsidentifier;
 	formatInformation: any;
 	message = 'Initializing';
@@ -52,7 +55,9 @@ resultHtml = 'Initializing';
 		public labels: UploadinterfaceconstantsService,
 		private uploadService: UploadmenuserviceService,
 		public identifiers: IdentifiersService,
-		public dialog: MatDialog) {
+		public dialog: MatDialog,
+		private fileservice: UploadmenuserviceService
+        ) {
 		manageuser.determineMaintainer().subscribe(result => {
 			if (result != null) {
 				this.maintainer = result;
@@ -64,6 +69,11 @@ resultHtml = 'Initializing';
 
 	ngAfterViewInit(): void {
 
+		this.fileservice.getFormatClassification().subscribe({
+			next: (data: any) => {
+				this.fileformatdata = data;
+			}
+		});
 
 		const catalogtype = 'dataset:ActivityRepositoryPartitionToCatalog';
 
@@ -158,7 +168,7 @@ invalid(): boolean {
 			this.partition.getData(jsonact);
 			const firestoreid = this.repositorystaging['dataset:transactionforobject'];
 			const prerequisites = {};
-			prerequisites['dataset:datasetrepositorystaging'] = firestoreid;
+			prerequisites['dataset:initreposfile'] = firestoreid;
 			jsonobj['dataset:transreqobj'] = prerequisites;
 		} else {
 			alert('Need to set up repository file');
@@ -167,7 +177,6 @@ invalid(): boolean {
 	}
 
 	submitParse() {
-		alert("submit");
 		const transaction = this.createParseActivity();
 		const dialogRef = this.dialog.open(RuntransactiondialogComponent, {
 			data: transaction

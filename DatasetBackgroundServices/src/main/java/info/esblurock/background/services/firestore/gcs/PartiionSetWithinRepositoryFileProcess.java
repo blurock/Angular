@@ -39,6 +39,7 @@ public class PartiionSetWithinRepositoryFileProcess {
 	 * 
 	 */
 	public static JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+	    JsonObject response = null;
 		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
 		String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
 		JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
@@ -48,12 +49,21 @@ public class PartiionSetWithinRepositoryFileProcess {
 		Document document = MessageConstructor.startDocument("PartiionSetWithinRepositoryFile");
 		Element body = MessageConstructor.isolateBody(document);
 		JsonObject staging = retrieveContentCatalogObjectFromPrerequisites(prerequisites);
+		if(staging != null) {
 		String content = retrieveContentFromTransaction(staging);
+		
 		// Parse the content using the info (FilePartitionMethod)
 		String methodS = info.get(ClassLabelConstants.FilePartitionMethod).getAsString();
 		info.addProperty(ClassLabelConstants.CatalogObjectOwner, owner);
 		info.addProperty(ClassLabelConstants.TransactionID, transactionID);
-		JsonArray objects = PartitionSetOfStringObjects.partitionString(info, content);
+        System.out.println("----------------------------------------------------");
+        System.out.println("PartiionSetWithinRepositoryFileProcess\n" + content);
+        System.out.println("----------------------------------------------------");
+        JsonArray objects = PartitionSetOfStringObjects.partitionString(info, content);
+        System.out.println("----------------------------------------------------");
+        System.out.println("PartiionSetWithinRepositoryFileProcess\n" + objects.size());
+        System.out.println("----------------------------------------------------");
+                
 		String sourceformat = info.get(ClassLabelConstants.FileSourceFormat).getAsString();
 		JsonArray set = new JsonArray();
 		Element table = body.addElement("table");
@@ -78,7 +88,14 @@ public class PartiionSetWithinRepositoryFileProcess {
 			set.add(catalog);
 		}
 		String message = "Successful: " + objects.size() + "blocks";
-		JsonObject response = DatabaseServicesBase.standardServiceResponse(document, message, set);
+		response = DatabaseServicesBase.standardServiceResponse(document, message, set);
+        
+      } else {
+          String text =  "Prerequisites \"dataset:initreposfile\" not found in:\n " + JsonObjectUtilities.toString(prerequisites);
+          response = DatabaseServicesBase.standardErrorResponse(document,text, null);
+          System.out.println(text);
+      }
+
 		return response;
 	}
 

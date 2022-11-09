@@ -90,9 +90,10 @@ export class JthermodynamicssymmetrystructuredefinitionComponent implements OnIn
 			JThermodynamicsSymmetryDefinitionSubGroupLabel: ['', Validators.required]
 		});
 	}
-	addSymmElement(): void {
+	addSymmElement(): FormGroup {
 		const countform = this.newSymmElement();
 		this.symmelements.push(countform);
+		return countform;
 	}
 
 	deleteAtomCount(countIndex): void {
@@ -133,15 +134,25 @@ export class JthermodynamicssymmetrystructuredefinitionComponent implements OnIn
 	}
 
 	setData(catalog: any): void {
-		const id7 = this.annoinfo['dataset:JThermodynamicsMetaAtomInfo'][this.identifier];
+		const id7 = this.annoinfo['dataset:JThermodynamicsSymmetryDefinition'][this.identifier];
 		const symm = catalog[id7];
-		const id1 = this.annoinfo['JThermodynamicSymmetryDefinitionLabel'][this.identifier];
+		const id1 = this.annoinfo['dataset:JThermodynamicSymmetryDefinitionLabel'][this.identifier];
 		this.objectform.get('JThermodynamicSymmetryDefinitionLabel').setValue(symm[id1]);
 		const id2 = this.annoinfo['dataset:StructureSymmetryType'][this.identifier];
 		this.objectform.get('StructureSymmetryType').setValue(symm[id2]);
 		const id3 = this.annoinfo['dataset:SymmetryFactorOfStructure'][this.identifier];
 		this.objectform.get('SymmetryFactorOfStructure').setValue(symm[id3]);
-
+		
+		const symmarr = symm[this.annoinfo['dataset:JThermodynamicsSymmetryNodeGroupDefinition'][this.identifier]];
+		for(const symmelement of symmarr) {
+			const eleform = this.addSymmElement();
+			const id2 = this.annoinfo['dataset:JThermodynamicsSymmetryDefinitionNodeLabel'][this.identifier];
+			eleform.get('JThermodynamicsSymmetryDefinitionNodeLabel').setValue(symmelement[id2]);
+			const id3 = this.annoinfo['dataset:JThermodynamicsSymmetryDefinitionNodeType'][this.identifier];
+			eleform.get('JThermodynamicsSymmetryDefinitionNodeType').setValue(symmelement[id3]);
+			const id4 = this.annoinfo['dataset:JThermodynamicsSymmetryDefinitionSubGroupLabel'][this.identifier];
+			eleform.get('JThermodynamicsSymmetryDefinitionSubGroupLabel').setValue(symmelement[id4]);
+		}
 		this.base.setData(catalog);
 		const struct = catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
 		this.structure.setData(struct);
@@ -151,13 +162,9 @@ export class JthermodynamicssymmetrystructuredefinitionComponent implements OnIn
 		this.objectform.get('StructureSymmetryType').setValue($event);
 	}
 	setNodeType(countIndex, $event: string): void {
-    alert(this.symmelements.length);
-    alert(countIndex);
-    alert($event);
-    const eleform = this.symmelements.controls[countIndex];
-    //alert(eleform.get('JThermodynamicsSymmetryDefinitionNodeType'));
+		const eleform = this.symmelements.controls[countIndex];
+		//alert(eleform.get('JThermodynamicsSymmetryDefinitionNodeType'));
 		eleform.get('JThermodynamicsSymmetryDefinitionNodeType').setValue($event);
-		alert("done");
 	}
 
 }

@@ -32,6 +32,7 @@ export class UploadfileinformationComponent implements OnInit {
 	activitydata: any;
 	maintainer: string;
 	resultHtml: string;
+	errormessage = '';
 
 	getannotationsfnotsuccessful = 'Initialization not successful';
 	failedresponse = 'Storage of stagine file failed';

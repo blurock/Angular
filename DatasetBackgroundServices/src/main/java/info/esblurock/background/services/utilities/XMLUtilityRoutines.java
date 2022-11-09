@@ -36,7 +36,6 @@ public class XMLUtilityRoutines {
 		try {
 			// Create DocumentBuilder with default configuration
 			builder = factory.newDocumentBuilder();
-
 			// Parse the content to Document object
 			doc = builder.parse(new InputSource(new StringReader(xmlString)));
 		} catch (Exception e) {
@@ -115,8 +114,10 @@ public class XMLUtilityRoutines {
 	}
 	
 	public static String[] parseObjectsFromXMLString(String documentS, String identifier) {
+	    System.out.println("parseObjectsFromXMLString: " + identifier);
 		Document document = convertStringToXMLDocument(documentS);
 		NodeList nlst = document.getElementsByTagName(identifier);
+        System.out.println("parseObjectsFromXMLString: " + nlst.getLength());
 		String[] lst = new String[nlst.getLength()];
 		for(int i=0; i < nlst.getLength();i++) {
 			Node node = nlst.item(i);

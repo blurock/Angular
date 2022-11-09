@@ -10,6 +10,7 @@ export class UploadmenuserviceService {
 
 	DATATYPES = {
 		'dataset:JThermodynamicsVibrationalModes': {
+			'dataset:filesourceformat': 'dataset:JThermodynamicsVibrationalModes',
 			'dataset:partitionMethod': 'dataset:PartitionToLineSet',
 			'dataset:interpretMethod': 'dataset:ParseLinesJThermodynamicsVibrationalStructure',
 			'dataset:blocklinecount': '1',
@@ -18,6 +19,7 @@ export class UploadmenuserviceService {
 			'prov:activity': 'dataset:ActivityInformationInterpretVibrationalMode'
 		},
 		'dataset:TherGasBensonRules': {
+			'dataset:filesourceformat': 'dataset:TherGasBensonRules',
 			'dataset:partitionMethod': 'dataset:PartitionTherGasThermodynamics',
 			'dataset:interpretMethod': 'dataset:ParseLinesJThermodynamicsBensonRules',
 			'dataset:blocklinecount': '',
@@ -26,6 +28,7 @@ export class UploadmenuserviceService {
 			'prov:activity': 'dataset:ActivityInformationInterpretBensonRuleData'
 		},
 		'dataset:ThergasSpeciesThermodynamics': {
+			'dataset:filesourceformat': 'dataset:ThergasSpeciesThermodynamics',
 			'dataset:partitionMethod': 'dataset:PartitionTherGasThermodynamics',
 			'dataset:interpretMethod': 'dataset:ParseLinesJThermodynamicsMolecule',
 			'dataset:blocklinecount': '',
@@ -34,6 +37,7 @@ export class UploadmenuserviceService {
 			'prov:activity': 'dataset:ActivityInformationMolecularThermodynamics'
 		},
 		'dataset:TherGasSubstructureThermodynamics': {
+			'dataset:filesourceformat': 'dataset:TherGasSubstructureThermodynamics',
 			'dataset:partitionMethod': 'dataset:PartitionTherGasThermodynamics',
 			'dataset:interpretMethod': 'dataset:ParseLinesJThermodynamicsSubstructures',
 			'dataset:blocklinecount': '',
@@ -42,6 +46,7 @@ export class UploadmenuserviceService {
 			'prov:activity': 'dataset:ActivityInformationInterpretSubstructureThermodynamics'
 		},
 		'dataset:TherGasMoleculeThermodynamics': {
+			'dataset:filesourceformat': 'dataset:TherGasMoleculeThermodynamics',
 			'dataset:partitionMethod': 'dataset:PartitionTherGasThermodynamics',
 			'dataset:interpretMethod': 'dataset:ParseLinesJThermodynamicsMolecule',
 			'dataset:blocklinecount': '',
@@ -50,6 +55,7 @@ export class UploadmenuserviceService {
 			'prov:activity': 'dataset:ActivityInformationMolecularThermodynamics'
 		},
 		'dataset:JThermodynamicsDisassociationEnergyFormat': {
+			'dataset:filesourceformat': 'dataset:JThermodynamicsDisassociationEnergyFormat',
 			'dataset:partitionMethod': 'dataset:PartitionToLineSet',
 			'dataset:interpretMethod': 'dataset:ParseLinesJThermodynamicsDisassociationEnergy',
 			'dataset:blocklinecount': '2',
@@ -58,6 +64,7 @@ export class UploadmenuserviceService {
 			'prov:activity': 'dataset:ActivityInformationInterpretDisassociationEnergy'
 		},
 		'dataset:JThermodynamicsMetaAtomFormat': {
+			'dataset:filesourceformat': 'dataset:JThermodynamicsMetaAtomFormat',
 			'dataset:partitionMethod': 'dataset:PartitionToLineSet',
 			'dataset:interpretMethod': 'dataset:ParseLinesJThermodynamicsMetaAtoms',
 			'dataset:blocklinecount': '1',
@@ -66,6 +73,7 @@ export class UploadmenuserviceService {
 			'prov:activity': 'dataset:ActivityInformationInterpretMetaAtom'
 		},
 		'dataset:JThermodynamicsSymmetryDefinitionFormat': {
+			'dataset:filesourceformat': 'dataset:symmetrystructuredefinition',
 			'dataset:partitionMethod': 'dataset:PartitionXMLListOfCatalogObjects',
 			'dataset:interpretMethod': 'dataset:ParseLinesJThermodynamicsSymmetryDefinition',
 			'dataset:blocklinecount': '',

@@ -39,7 +39,16 @@ export class InterfaceconstantsService {
 			method: 'dataset:PartitionToLineSet',
 			type: 1,
 			BlockLineCount: 1			
+		},
+		{
+			label: 'Symmetry Definition', 
+			format: 'dataset:JThermodynamicsSymmetryDefinitionFormat',
+			catalog: 'dataset:RepositoryParsedToFixedBlockSize', id: 0,
+			method: 'dataset:PartitionXMLListOfCatalogObjects',
+			type: 1,
+			BlockLineCount: 1			
 		}
+		
 	];
 	public errorcatalogtypes = 'Error in determining catalog types';
 

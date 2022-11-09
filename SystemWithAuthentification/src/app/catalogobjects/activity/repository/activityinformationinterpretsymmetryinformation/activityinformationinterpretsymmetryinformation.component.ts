@@ -13,6 +13,7 @@ export class ActivityinformationinterpretsymmetryinformationComponent implements
 
 	display = false;
 	objectform: FormGroup;
+	formattrans: string;
 
 	fileformat = 'dataset:JThermodynamicsSymmetryDefinitionFormat';
 	rdfslabel = Ontologyconstants.rdfslabel;
@@ -58,15 +59,14 @@ export class ActivityinformationinterpretsymmetryinformationComponent implements
 		activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod').value;
 		activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.objectform.get('FileSourceFormat').value;
 		activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle').value;
-		const specvalue = {};
-		this.spec.getData(specvalue);
-		activity[this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier]] = specvalue;
+		this.spec.getData(activity);
 	}
 	setData(activity: any): void {
 		this.objectform.get('BlockInterpretationMethod').setValue(activity[this.annoinfo['dataset:BlockInterpretationMethod']]);
-		this.objectform.get('FileSourceFormat').setValue(activity[this.annoinfo['dataset:FileSourceFormat']]);
+		this.objectform.get('FileSourceFormat').setValue(activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]]);
 		this.objectform.get('DescriptionTitle').setValue(activity[this.annoinfo['dataset:DescriptionTitle']]);
-		this.spec.setData(activity);
+		const specdata = activity[this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier]];
+		this.spec.setData(specdata);
 	}
 
 }

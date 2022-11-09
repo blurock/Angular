@@ -18,8 +18,8 @@ export class TransactioninterprettextblockComponent implements OnInit {
 
 	@Output() interpretEvent = new EventEmitter();
 
-    prereqdescbutton = 'Load prerequisite information (required for submission)'
-    prereqbutton = 'Prerequisite';
+	prereqdescbutton = 'Load prerequisite information (required for submission)'
+	prereqbutton = 'Prerequisite';
 	title = 'Partitions Interpretation to Catalog Objects';
 	displaydescbutton = 'Display  information to send to read local file transaction';
 	displaybutton = 'Display';
@@ -73,19 +73,40 @@ export class TransactioninterprettextblockComponent implements OnInit {
 
 	ngOnInit(): void {
 	}
-	
+
 	invalid(): boolean {
 		return false;
 	}
 
 	setFileFormat(fileformat: string) {
 		this.formatinfodata = this.formatInformation[fileformat];
-		if (this.formatinfodata != null) {
-			this.activitytype = this.formatinfodata['prov:activity'];
+		if (this.formatinfodata == null) {
+			this.formatinfodata = this.findInFormatInformation(fileformat);
+			if (this.formatinfodata == null) {
+				alert(this.fileformaterror + ': ' + fileformat)
+			} else {
+				this.activitytype = this.formatinfodata['prov:activity'];
+			}
 		} else {
-			alert(this.fileformaterror + ': ' + fileformat)
+			this.activitytype = this.formatinfodata['prov:activity'];
 		}
+	}
 
+	findInFormatInformation(formattrans: string): string {
+		let ans = '';
+		let notfound = true;
+		const keys = Object.keys(this.formatInformation);
+		let i = 0;
+		while (notfound) {
+			const key = keys[i];
+			const data = this.formatInformation[key];
+			if (data['dataset:filesourceformat'] == formattrans) {
+				ans = key;
+				notfound = false;
+			}
+			i++;
+		}
+		return ans;
 	}
 	setPrerequisite(transaction: any) {
 		this.prerequisite = transaction;
@@ -127,21 +148,21 @@ export class TransactioninterprettextblockComponent implements OnInit {
 			const jsonact = {};
 			transaction['dataset:activityinfo'] = jsonact;
 			this.activity.getData(jsonact);
-			if(this.prerequisite != null) {
+			if (this.prerequisite != null) {
 				const firestoreid = this.prerequisite['dataset:firestorecatalog'];
-			const prerequisites = {};
-			prerequisites['dataset:RepositoryDataFilePartition'] = firestoreid;
-			transaction['dataset:transreqobj'] = prerequisites;
+				const prerequisites = {};
+				prerequisites['dataset:partitionfile'] = firestoreid;
+				transaction['dataset:transreqobj'] = prerequisites;
 			} else {
 				alert('Prerequisite not set');
 			}
-			
+
 		} else {
 			alert('Need to set up repository file');
 		}
 		return transaction;
 	}
-	
+
 	getAnnotations(type: string): void {
 		this.annotations.getNewCatalogObject(type).subscribe(
 			(responsedata) => {

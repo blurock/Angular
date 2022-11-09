@@ -74,14 +74,14 @@ public class ReadFirestoreInformation {
 						catalog);
 			} else {
 				String message = "Document not found: ";
-				response = DatabaseServicesBase.standardErrorResponse(docmessage, message, response);
+				response = DatabaseServicesBase.standardErrorResponse(docmessage, message, firestoreid);
 			}
 		} catch (IOException e) {
-			response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), response);
+			response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), firestoreid);
 		} catch (InterruptedException e) {
-			response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), response);
+			response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), firestoreid);
 		} catch (ExecutionException e) {
-			response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), response);
+			response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), firestoreid);
 		}
 		return response;
 	}
