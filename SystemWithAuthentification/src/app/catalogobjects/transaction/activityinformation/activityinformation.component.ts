@@ -118,7 +118,10 @@ displaydescbutton = 'Press to fill in prerequisite information';
 				this.frequency.setPrerequisiteData(prerequisite);
 			}
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretSymmetryInformation') {
-			//this.symmetry.setData(activity);
+			if(this.symmetry != null) {
+				this.symmetry.setPrerequisiteData(prerequisite);
+			}
+			
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretMetaAtom') {
 			//this.metaatom.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetAddDataset') {

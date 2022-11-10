@@ -54,6 +54,18 @@ export class ActivityinformationinterpretsymmetryinformationComponent implements
 			}
 		});
 	}
+	
+	setPrerequisiteData(prerequisite: any) {
+		const actinfo = prerequisite['dataset:activityinfo'];
+		const titleid = this.annoinfo['dataset:DescriptionTitle'][this.identifier];
+		const formatid = this.annoinfo['dataset:FileSourceFormat'][this.identifier];
+		this.objectform.get('DescriptionTitle').setValue(actinfo[titleid]);
+		this.objectform.get('FileSourceFormat').setValue(actinfo[formatid]);
+		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
+		const specdata = actinfo[specid];
+		this.spec.setData(specdata);
+	}
+
 
 	getData(activity: any): void {
 		activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod').value;
