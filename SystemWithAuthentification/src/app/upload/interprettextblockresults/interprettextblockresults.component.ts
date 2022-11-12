@@ -28,7 +28,6 @@ export class InterprettextblockresultsComponent implements OnInit {
 
 	annoinfo: any;
 	activity: any;
-	transactioninfo: any;
 	transfirestoreid: any;
 	maintainer: string;
 	resultHtml = 'Initializing';
@@ -79,9 +78,9 @@ export class InterprettextblockresultsComponent implements OnInit {
 
 
 	public setData(catalog: any) {
-		this.transactioninfo = catalog;
-		this.activity = this.transactioninfo['dataset:activityinfo'];
-		const outobj = this.transactioninfo['dataset:transoutobjid'];
+		this.transactionobject = catalog;
+		this.activity = this.transactionobject['dataset:activityinfo'];
+		const outobj = this.transactionobject['dataset:transoutobjid'];
 		this.outlst.setData(outobj);
 	}
 

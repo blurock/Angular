@@ -125,24 +125,18 @@ export class RepositorydatapartitionblockComponent implements OnInit, AfterViewI
 
 	public setData(catalog: any): void {
 		if (this.simpledata != null) {
-			alert("RepositorydatapartitionblockComponent setData 0");
 			this.objectform.get('FilePartitionMethod').setValue(catalog[this.identifiers.FilePartitionMethod]);
 			this.objectform.get('FileSourceFormat').setValue(catalog[this.identifiers.FileSourceFormat]);
-			alert("RepositorydatapartitionblockComponent setData 1");
 			this.setPosition(catalog);
-			alert("RepositorydatapartitionblockComponent setData 2");
 			this.simpledata.setData(catalog);
-			alert("RepositorydatapartitionblockComponent setData 3");
 			const firestoreidvalues = catalog[this.identifiers.FirestoreCatalogID];
 			this.firestoreid.setData(firestoreidvalues);
-			alert("RepositorydatapartitionblockComponent setData 4");
 			const refs = catalog[this.identifiers.DataSetReference];
 			this.references.setData(refs);
 			const olinks = catalog[this.identifiers.DataObjectLink];
 			this.objectlinks.setData(olinks);
 			const wlinks = catalog[this.identifiers.ObjectSiteReference];
 			this.weblinks.setData(wlinks);
-			alert("RepositorydatapartitionblockComponent setData Done");
 		} else {
 			alert("Display not set up yes (refresh)")
 		}

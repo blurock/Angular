@@ -99,6 +99,7 @@ export class UploadstepsComponent implements OnInit {
 	parsedEvent($event): void {
 		const transaction = $event[Ontologyconstants.TransactionEventObject];
 		this.parsetransaction.setData(transaction);
+		this.interpret.setPrerequisite(transaction);
 	}
 	parsedTransactionEvent($event) {
 		this.parsetransaction.setData($event);

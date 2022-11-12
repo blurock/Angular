@@ -91,7 +91,7 @@ export class ParsefiletransactionComponent implements OnInit {
 	}
 
 	public getData(catalog: any) {
-		//this.transaction.getData(catalog);
+
 	}
 
 	annoReady($event) {
@@ -131,29 +131,29 @@ export class ParsefiletransactionComponent implements OnInit {
 		const activityinfo = {};
 		const transtitle = 'Delection Collection: ' + ' this.maintainer' + '   ';
 		activityinfo['dcterms:title'] = transtitle;
+		if (this.transactioninfo != null) {
+			const firestore = this.transactioninfo[this.annoinfo['dataset:FirestoreCatalogID'][this.identifier]];
+			activityinfo[this.annoinfo['dataset:FirestoreCatalogID'][this.identifier]] = firestore;
+			transaction['dataset:activityinfo'] = activityinfo;
+			const dialogRef = this.dialog.open(RuntransactiondialogComponent, {
+				data: transaction
+			});
 
-		const transobj = {};
-		this.getData(transobj);
-		const firestore = transobj[this.annoinfo['dataset:FirestoreCatalogID'][this.identifier]];
-		activityinfo[this.annoinfo['dataset:FirestoreCatalogID'][this.identifier]] = transobj;
-		transaction['dataset:activityinfo'] = activityinfo;
-		const dialogRef = this.dialog.open(RuntransactiondialogComponent, {
-			data: transaction
-		});
-
-		dialogRef.afterClosed().subscribe(result => {
-			if (result != null) {
-				const success = result['dataset:servicesuccessful'];
-				this.resultHtml = result['dataset:serviceresponsemessage'];
-				if (success == 'true') {
-					//this.viewtransactionid = false;
+			dialogRef.afterClosed().subscribe(result => {
+				if (result != null) {
+					const success = result['dataset:servicesuccessful'];
+					this.resultHtml = result['dataset:serviceresponsemessage'];
+					if (success == 'true') {
+						//this.viewtransactionid = false;
+					} else {
+					}
 				} else {
+					this.resultHtml = this.failedsubmission;
 				}
-			} else {
-				this.resultHtml = this.failedsubmission;
-			}
-		});
+			});
 
-	}
-
+		} else {
+			alert('Transaction not set up yet');
+		}
 }
+	}

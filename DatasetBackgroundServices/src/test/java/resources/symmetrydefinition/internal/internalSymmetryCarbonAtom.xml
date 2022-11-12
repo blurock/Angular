@@ -1,5 +1,5 @@
 <list>
-	<dataset:symmetrystructuredefinition>
+	<dataset:JThermodynamicsSymmetryDefinitionFormat>
 		<dataset:symmetrydefinition>
 			<dataset:structuresymmetryfactor>3</dataset:structuresymmetryfactor>
 			<dataset:structuresymmetrytype>dataset:StructureInternalSymmetry</dataset:structuresymmetrytype>
@@ -40,5 +40,5 @@
 				<bond id="b4" atomRefs2="a4 a0" order="S" />
 			</bondArray>
 		</molecule>
-	</dataset:symmetrystructuredefinition>
+	</dataset:JThermodynamicsSymmetryDefinitionFormat>
 </list>

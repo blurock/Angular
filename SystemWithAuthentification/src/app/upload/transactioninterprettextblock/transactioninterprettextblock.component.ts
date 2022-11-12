@@ -130,7 +130,6 @@ export class TransactioninterprettextblockComponent implements OnInit {
 	}
 
 	activitysetup(): void {
-		alert("TransactioninterprettextblockComponent activitysetup()" + this.prerequisite + this.activity);
 		if (this.prerequisite != null) {
 			if (this.activity != null) {
 				this.activity.setPrerequisiteData(this.prerequisite);
