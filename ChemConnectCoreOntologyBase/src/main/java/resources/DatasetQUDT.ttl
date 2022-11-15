@@ -1688,6 +1688,11 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                                   owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                                   owl:onClass :ParameterSpecificationHeatCapacity
+                                                                ] ,
+                                                                [ rdf:type owl:Restriction ;
+                                                                  owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                  owl:onClass :ParameterSpecificationTemperature
                                                                 ] ;
                                                 <http://purl.org/dc/terms/identifier> "dataset:interpretthermoblock"^^xsd:string ;
                                                 rdfs:comment "Interpret thermodynamic block"^^xsd:string ;
@@ -20340,6 +20345,7 @@ sameThing(P1, P2) :- type(P1, Point), type(P2, Point), spaciallyIntersects(P1, P
 
 ###  http://www.esblurock.info/dataset#CAL-PER-MOL-K
 :CAL-PER-MOL-K rdf:type owl:NamedIndividual ;
+               <http://qudt.org/schema/qudt/hasDimensionVector> <http://qudt.org/vocab/dimensionvector/A-1E0L2I0M1H-1T-2D0> ;
                <http://qudt.org/schema/qudt/hasQuantityKind> <http://qudt.org/vocab/quantitykind/MolarEntropy> ,
                                                              <http://qudt.org/vocab/quantitykind/MolarHeatCapacity> ;
                <http://qudt.org/schema/qudt/abbreviation> "cal/mol K"^^xsd:string ;

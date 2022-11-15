@@ -19,7 +19,7 @@ public class FindDisassociationEnergyCollection {
 			String dataset) {
 		ArrayList<DisassociationEnergyWithAtomCounts> energylist = new ArrayList<DisassociationEnergyWithAtomCounts>();
 		String service = "ReadInDatasetWithDatasetCollectionLabel";
-		String classname = "dataset:JThermodynamicsDisassociationEnergyOfStructure";
+		String classname = "dataset:DatasetSpecificationDisassociationEnergyOfStructure";
 		JsonObject json = new JsonObject();
 		json.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 		json.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, dataset);
@@ -37,7 +37,7 @@ public class FindDisassociationEnergyCollection {
 			String dataset) {
 		JsonArray arr = null;
 		String service = "ReadInDatasetWithDatasetCollectionLabel";
-		String classname = "dataset:JThermodynamicsDisassociationEnergyOfStructure";
+		String classname = "dataset:DatasetSpecificationDisassociationEnergyOfStructure";
 		JsonObject json = new JsonObject();
 		JsonObject recordid = new JsonObject();
 		json.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);

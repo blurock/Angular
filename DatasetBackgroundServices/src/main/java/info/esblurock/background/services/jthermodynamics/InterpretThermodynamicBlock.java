@@ -146,9 +146,13 @@ public class InterpretThermodynamicBlock {
 		entropyobject.addProperty(ClassLabelConstants.ValueUncertainty, "0.0");
 		row.addElement("td").addText(entropyS);
 
-		// Heat Capacity
+		// Heat Capacity and temperature
 		JsonObject heatcapacityspec = info.get(ClassLabelConstants.ParameterSpecificationHeatCapacity)
 				.getAsJsonObject();
+		bensonrulethermo.add(ClassLabelConstants.ParameterSpecificationHeatCapacity,heatcapacityspec);
+		JsonObject temperaturespec = info.get(ClassLabelConstants.ParameterSpecificationTemperature).getAsJsonObject();
+        bensonrulethermo.add(ClassLabelConstants.ParameterSpecificationTemperature,temperaturespec);
+		
 		String temperatures[] = bensonTemperatureSortedArray(info);
 		JsonArray cpatTarray = new JsonArray();
 		bensonrulethermo.add(ClassLabelConstants.ThermodynamicCpAtTemperature, cpatTarray);

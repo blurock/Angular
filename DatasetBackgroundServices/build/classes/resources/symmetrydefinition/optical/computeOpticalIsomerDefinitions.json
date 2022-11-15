@@ -1,7 +1,7 @@
 {
 	"service": "ComputeThermodynamicsFromOpticalIsomers",
 	"dataset:catalogobjectmaintainer": "Administrator",
-	"dataset:datasetname": "StandardDataset",
+	"dataset:datasetname": "StandardData",
 	"dataset:structuredef": "ch3/ch2/o/o/h",
 	"dataset:structurename": "pentane",
 	"dataset:speciespectype": "dataset:SpeciesSpecificationNancyLinearForm",

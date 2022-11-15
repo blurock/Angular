@@ -141,7 +141,7 @@ public class CalculateThermodynamicsFromVibration {
 			HeatCapacityTemperaturePair pair = iter.next();
 			double temperature = pair.getTemperatureValue();
 			double cp = pair.getHeatCapacityValue();
-			JsonObject cptemppair = CreateDocumentTemplate.createTemplate("dataset:HeatCapacityTemperatureValuePair");
+			JsonObject cptemppair = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicCpAtTemperature");
 			cptemppair.addProperty(ClassLabelConstants.ThermodynamicTemperature, temperature);
 			cptemppair.addProperty(ClassLabelConstants.ThermodynamicHeatCapacityValue, cp);
 			cptemppair.addProperty(ClassLabelConstants.ValueUncertainty, "0.0");
@@ -150,7 +150,7 @@ public class CalculateThermodynamicsFromVibration {
 		
 		JsonObject cpValueSpec = info.get(ClassLabelConstants.ParameterSpecificationHeatCapacity).getAsJsonObject();
 		JsonObject contribution = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicContributions");
-		contribution.add(ClassLabelConstants.HeatCapacityTemperatureValuePair, cpTpairs);
+		contribution.add(ClassLabelConstants.ThermodynamicCpAtTemperature, cpTpairs);
 		contribution.add(ClassLabelConstants.ParameterSpecificationHeatCapacity, cpValueSpec);
 		contribution.add(ClassLabelConstants.ThermodynamicStandardEnthalpy, enthalpyP);
 		contribution.add(ClassLabelConstants.ThermodynamicStandardEntropy, entropyP);
@@ -312,7 +312,7 @@ public class CalculateThermodynamicsFromVibration {
 	public static JsonArray databaseAllVibrationalStructures(String maintainer, String dataset) {
 		JsonArray definitions = null;
 		
-		String classname = "dataset:JThermodynamicsVibrationalStructure";
+		String classname = "dataset:DatasetSpecificationVibrationalStructure";
 		String service = "ReadInDatasetWithDatasetCollectionLabel";
 				
 		JsonObject json = new JsonObject();

@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.parameters.ParameterUtilities;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import thermo.data.benson.BensonThermodynamicBase;
 import thermo.data.benson.SetOfBensonThermodynamicBase;
 import thermo.data.structure.structure.symmetry.CalculateExternalSymmetryCorrection;
@@ -56,7 +57,9 @@ public class DatabaseCalculateInternalSymmetryCorrection extends CalculateIntern
 				while(iter.hasNext()) {
 					BensonThermodynamicBase benson = iter.next();
 					double entropy = benson.getStandardEntropy298();
+					System.out.println("compute: " + benson.toString());
 					JsonObject symmetry = findCorrectionInArray(benson);
+					if(symmetry != null) {
 					JsonObject def = symmetry.get(ClassLabelConstants.JThermodynamicsSymmetryDefinition).getAsJsonObject();
 					String defname = def.get(ClassLabelConstants.JThermodynamicSymmetryDefinitionLabel).getAsString();
 					String symfactor = def.get(ClassLabelConstants.SymmetryFactorOfStructure).getAsString();
@@ -68,6 +71,7 @@ public class DatabaseCalculateInternalSymmetryCorrection extends CalculateIntern
 					JsonObject contribution = ParameterUtilities.parameterWithEntropy(entropy,defname,info);
 					contribution.add(ClassLabelConstants.ChemConnectThermodynamicsDatabase,symmetry);
 					contributions.add(contribution);
+					}
 				}
 			}
 		} catch (ThermodynamicException e) {
@@ -89,11 +93,17 @@ public class DatabaseCalculateInternalSymmetryCorrection extends CalculateIntern
 		boolean notfound = true;
 		JsonObject internal = null;
 		int index = correction.getID().indexOf(" ");
-		String corrname = correction.getID().substring(0,index);
+		String corrname = correction.getID();
+		if(index > 0) {
+		    corrname = correction.getID().substring(0,index);
+		}
+		System.out.println("findCorrectionInArray; ID='" + corrname + "'");
 		for(int i=0; i<symmetryarr.size() && notfound;i++) {
 			JsonObject symmetry = symmetryarr.get(i).getAsJsonObject();
 			JsonObject def = symmetry.get(ClassLabelConstants.JThermodynamicsSymmetryDefinition).getAsJsonObject();
 			String name = def.get(ClassLabelConstants.JThermodynamicSymmetryDefinitionLabel).getAsString();
+	        System.out.println("findCorrectionInArray; symname='" + name + "'");
+			
 			if(corrname.equals(name)) {
 				internal = symmetry;
 				notfound = false;

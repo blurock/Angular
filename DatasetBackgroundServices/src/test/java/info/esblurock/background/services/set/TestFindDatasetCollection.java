@@ -22,7 +22,7 @@ public class TestFindDatasetCollection {
 	@Test
 	public void test() {
 		String maintainer = "Administrator";
-		String dataset = "StandardDataset";
+		String dataset = "StandardData";
 		JsonObject setofprops = CreateDocumentTemplate.createTemplate("dataset:SetOfPropertyValueQueryPairs");
 		JsonArray arr = new JsonArray();
 		setofprops.add(ClassLabelConstants.PropertyValueQueryPair,arr);

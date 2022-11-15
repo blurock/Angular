@@ -80,7 +80,9 @@ export class InterprettextblockresultsComponent implements OnInit {
 	public setData(catalog: any) {
 		this.transactionobject = catalog;
 		this.activity = this.transactionobject['dataset:activityinfo'];
+		
 		const outobj = this.transactionobject['dataset:transoutobjid'];
+		alert("InterprettextblockresultsComponent SETDATA " + JSON.stringify(outobj));
 		this.outlst.setData(outobj);
 	}
 
@@ -138,7 +140,7 @@ export class InterprettextblockresultsComponent implements OnInit {
 				const success = result['dataset:servicesuccessful'];
 				this.resultHtml = result['dataset:serviceresponsemessage'];
 				if (success == 'true') {
-					//this.viewtransactionid = false;
+					alert("Transaction delete successful");
 				} else {
 				}
 			} else {

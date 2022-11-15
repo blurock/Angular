@@ -23,9 +23,7 @@ public class FindDatasetCollections {
 		empty.add(ClassLabelConstants.DatasetSpecificationForCollectionSet, recordid);
 		// In some objects, this conflicts 
 		empty.remove(ClassLabelConstants.DatasetTransactionSpecificationForCollection);
-        System.out.println("findDatasetCollectionID: \n" + JsonObjectUtilities.toString(empty));
 		JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(empty);
-        System.out.println("findDatasetCollectionID: \n" + JsonObjectUtilities.toString(firestoreid));
 		firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
 
 		return firestoreid;

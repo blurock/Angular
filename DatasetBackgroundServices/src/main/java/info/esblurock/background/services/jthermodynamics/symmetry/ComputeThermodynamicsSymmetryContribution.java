@@ -25,150 +25,162 @@ import thermo.properties.SProperties;
 
 public class ComputeThermodynamicsSymmetryContribution {
 
-	/**
-	 * @param maintainer The maintainer of the dataset (used to find the external
-	 *                   symmetry elements)
-	 * @param dataset    The dataset (used to find the external symmetry elements)
-	 * @param molecule   The molecule to analyze
-	 * @param info       information from input (used for units of entropy)
-	 * @return The response with an array of ThermodynamicContributions
-	 */
-	public static JsonObject computeExternalSymmetry(String maintainer, String dataset, IAtomContainer molecule,
-			JsonObject info) {
-		Document document = MessageConstructor.startDocument("ComputeBensonRulesForMolecule");
-		Element body = MessageConstructor.isolateBody(document);
-		body.addElement("div").addText("Maintainer    : " + maintainer);
-		body.addElement("div").addText("dataset       : " + dataset);
-		body.addElement("div").addText("Symmetry type : " + "dataset:StructureExternalSymmetry");
-		JsonObject response = null;
+    /**
+     * @param maintainer The maintainer of the dataset (used to find the external
+     *                   symmetry elements)
+     * @param dataset    The dataset (used to find the external symmetry elements)
+     * @param molecule   The molecule to analyze
+     * @param info       information from input (used for units of entropy)
+     * @return The response with an array of ThermodynamicContributions
+     */
+    public static JsonObject computeExternalSymmetry(String maintainer, String dataset, IAtomContainer molecule,
+            JsonObject info) {
+        Document document = MessageConstructor.startDocument("ComputeBensonRulesForMolecule");
+        Element body = MessageConstructor.isolateBody(document);
+        body.addElement("div").addText("Maintainer    : " + maintainer);
+        body.addElement("div").addText("dataset       : " + dataset);
+        body.addElement("div").addText("Symmetry type : " + "dataset:StructureExternalSymmetry");
+        JsonObject response = null;
 
-		DatabaseCalculateExternalSymmetryCorrection determineTotal = new DatabaseCalculateExternalSymmetryCorrection(
-				maintainer, dataset);
-		JsonArray contributions = determineTotal.compute(molecule, body, info);
-		response = DatabaseServicesBase.standardServiceResponse(document, "Found External Symmetry Element",
-				contributions);
-		return response;
-	}
+        DatabaseCalculateExternalSymmetryCorrection determineTotal = new DatabaseCalculateExternalSymmetryCorrection(
+                maintainer, dataset);
+        JsonArray contributions = determineTotal.compute(molecule, body, info);
+        response = DatabaseServicesBase.standardServiceResponse(document, "Found External Symmetry Element",
+                contributions);
+        return response;
+    }
 
-	/**
-	 * @param maintainer The maintainer of the dataset (used to find the external
-	 *                   symmetry elements)
-	 * @param dataset    The dataset (used to find the external symmetry elements)
-	 * @param molecule   The molecule to analyze
-	 * @param info       information from input (used for units of entropy)
-	 * @return response with Thermo Contribution
-	 */
-	public static JsonObject computeFromSymmetryObject(String maintainer, String dataset, IAtomContainer molecule,
-			JsonObject info) {
-		JsonObject response = null;
-		Document document = MessageConstructor.startDocument("ComputeBensonRulesForMolecule");
-		Element body = MessageConstructor.isolateBody(document);
-		body.addElement("div").addText("Maintainer      : " + maintainer);
-		body.addElement("div").addText("dataset         : " + dataset);
-		body.addElement("div").addText("Symmetry type   : " + "dataset:StructureExternalSymmetry");
-		String symmname = info.get(ClassLabelConstants.JThermodynamicSymmetryDefinitionLabel).getAsString();
-		String symmetrytype = "dataset:StructureExternalSymmetry";
-		body.addElement("div").addText("Symmetry Element : " + symmname);
-		DetermineExternalSymmetryFromSingleDefinition single = new DetermineExternalSymmetryFromSingleDefinition();
-		JsonObject symjson = ExtractSetOfSymmetryDefinitionsFromDataset.databaseSingleSymmetryDefinition(maintainer,
-				dataset, symmetrytype, symmname);
-		SymmetryDefinition symmetry = ExtractSetOfSymmetryDefinitionsFromDataset.convertToSymmetryDefinition(symjson);
-		int result;
-		try {
-			result = single.determineSymmetry(symmetry, molecule);
-			double symmD = (double) result;
-			String gasconstantS = SProperties.getProperty("thermo.data.gasconstant.clasmolsk");
-			double gasConstant = Double.valueOf(gasconstantS).doubleValue();
-			double correction = -gasConstant * Math.log(symmD);
-			body.addElement("div").addText("Symmetry      : " + symmD);
-			body.addElement("div").addText("Entropy       : " + correction);
-			JsonObject contribution = ParameterUtilities.parameterWithEntropy(correction, symmetry.getElementName(),
-					info);
-			contribution.add(ClassLabelConstants.ChemConnectThermodynamicsDatabase, symjson);
-			String message = "External Symmetry contribution of " + symmetry.getElementName() + " = " + correction;
-			response = DatabaseServicesBase.standardServiceResponse(document, message, contribution);
-		} catch (CDKException e) {
-			response = DatabaseServicesBase.standardErrorResponse(document, "Error External Symmetry", null);
-		}
-		return response;
-	}
+    /**
+     * @param maintainer The maintainer of the dataset (used to find the external
+     *                   symmetry elements)
+     * @param dataset    The dataset (used to find the external symmetry elements)
+     * @param molecule   The molecule to analyze
+     * @param info       information from input (used for units of entropy)
+     * @return response with Thermo Contribution
+     */
+    public static JsonObject computeFromSymmetryObject(String maintainer, String dataset, IAtomContainer molecule,
+            JsonObject info) {
+        JsonObject response = null;
+        Document document = MessageConstructor.startDocument("ComputeBensonRulesForMolecule");
+        Element body = MessageConstructor.isolateBody(document);
+        body.addElement("div").addText("Maintainer      : " + maintainer);
+        body.addElement("div").addText("dataset         : " + dataset);
+        body.addElement("div").addText("Symmetry type   : " + "dataset:StructureExternalSymmetry");
+        String symmname = info.get(ClassLabelConstants.JThermodynamicSymmetryDefinitionLabel).getAsString();
+        String symmetrytype = "dataset:StructureExternalSymmetry";
+        body.addElement("div").addText("Symmetry Element : " + symmname);
+        DetermineExternalSymmetryFromSingleDefinition single = new DetermineExternalSymmetryFromSingleDefinition();
+        JsonObject symjson = ExtractSetOfSymmetryDefinitionsFromDataset.databaseSingleSymmetryDefinition(maintainer,
+                dataset, symmetrytype, symmname);
+        SymmetryDefinition symmetry = ExtractSetOfSymmetryDefinitionsFromDataset.convertToSymmetryDefinition(symjson);
+        int result;
+        try {
+            result = single.determineSymmetry(symmetry, molecule);
+            double symmD = (double) result;
+            String gasconstantS = SProperties.getProperty("thermo.data.gasconstant.clasmolsk");
+            double gasConstant = Double.valueOf(gasconstantS).doubleValue();
+            double correction = -gasConstant * Math.log(symmD);
+            body.addElement("div").addText("Symmetry      : " + symmD);
+            body.addElement("div").addText("Entropy       : " + correction);
+            JsonObject contribution = ParameterUtilities.parameterWithEntropy(correction, symmetry.getElementName(),
+                    info);
+            contribution.add(ClassLabelConstants.ChemConnectThermodynamicsDatabase, symjson);
+            String message = "External Symmetry contribution of " + symmetry.getElementName() + " = " + correction;
+            response = DatabaseServicesBase.standardServiceResponse(document, message, contribution);
+        } catch (CDKException e) {
+            response = DatabaseServicesBase.standardErrorResponse(document, "Error External Symmetry", null);
+        }
+        return response;
+    }
 
-	/**
-	 * @param maintainer The maintainer of the dataset (used to find the external
-	 *                   symmetry elements)
-	 * @param dataset    The dataset (used to find the external symmetry elements)
-	 * @param molecule   The molecule to analyze
-	 * @param info       information from input (used for units of entropy)
-	 * @return The response with an array of ThermodynamicContributions
-	 */
-	public static JsonObject computeInternalSymmetry(String maintainer, String dataset, IAtomContainer molecule,
-			JsonObject info) {
-		JsonObject response = null;
-		Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromInternalSymmetry");
-		Element body = MessageConstructor.isolateBody(document);
-		body.addElement("div").addText("Maintainer      : " + maintainer);
-		body.addElement("div").addText("dataset         : " + dataset);
-		body.addElement("div").addText("Symmetry type   : " + "dataset:StructureInternalSymmetry");
-		DatabaseCalculateExternalSymmetryCorrection external = new DatabaseCalculateExternalSymmetryCorrection(
-				maintainer, dataset);
-		DatabaseCalculateInternalSymmetryCorrection internal = new DatabaseCalculateInternalSymmetryCorrection(
-				maintainer, dataset, external);
+    /**
+     * @param maintainer The maintainer of the dataset (used to find the external
+     *                   symmetry elements)
+     * @param dataset    The dataset (used to find the external symmetry elements)
+     * @param molecule   The molecule to analyze
+     * @param info       information from input (used for units of entropy)
+     * @return The response with an array of ThermodynamicContributions
+     */
+    public static JsonObject computeInternalSymmetry(String maintainer, String dataset, IAtomContainer molecule,
+            JsonObject info) {
+        JsonObject response = null;
+        Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromInternalSymmetry");
+        Element body = MessageConstructor.isolateBody(document);
+        body.addElement("div").addText("Maintainer      : " + maintainer);
+        body.addElement("div").addText("dataset         : " + dataset);
+        body.addElement("div").addText("Symmetry type   : " + "dataset:StructureInternalSymmetry");
+        DatabaseCalculateExternalSymmetryCorrection external = new DatabaseCalculateExternalSymmetryCorrection(
+                maintainer, dataset);
+        if (external.getStructureExternalSymmetry().size() > 0) {
+            DatabaseCalculateInternalSymmetryCorrection internal = new DatabaseCalculateInternalSymmetryCorrection(
+                    maintainer, dataset, external);
+            if (internal.getStructureInternalSymmetry().size() > 0) {
+                JsonArray contributions = internal.compute(molecule, body, info);
+                response = DatabaseServicesBase.standardServiceResponse(document, "Found External Internal Element",
+                        contributions);
+            } else {
+                String errormessage = "No internal symmetries defined: Check Collection dataset definition";
+                response = DatabaseServicesBase.standardErrorResponse(document, errormessage, null);
+            }
+        } else {
+            String errormessage = "No external symmetries defined: Check Collection dataset definition";
+            response = DatabaseServicesBase.standardErrorResponse(document, errormessage, null);
+        }
+        return response;
+    }
 
-		JsonArray contributions = internal.compute(molecule, body, info);
-		response = DatabaseServicesBase.standardServiceResponse(document, "Found External Internal Element",
-				contributions);
+    /**
+     * @param maintainer The maintainer of the dataset (used to find the optical
+     *                   symmetry elements)
+     * @param dataset    The dataset (used to find the optical symmetry elements)
+     * @param molecule   The molecule to analyze
+     * @param info       information from input (used for units of entropy)
+     * @return The response with an array of ThermodynamicContributions
+     */
+    public static JsonObject computeOpticalSymmetry(String maintainer, String dataset, IAtomContainer molecule,
+            JsonObject info) {
+        JsonObject response = null;
+        Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromOpticalSymmetry");
+        Element body = MessageConstructor.isolateBody(document);
+        body.addElement("div").addText("Maintainer      : " + maintainer);
+        body.addElement("div").addText("dataset         : " + dataset);
+        body.addElement("div").addText("Symmetry type   : " + "dataset:StructureOpticalSymmetry");
+        JsonArray contributions = new JsonArray();
+        DatabaseCalculateOpticalSymmetryCorrection optical = new DatabaseCalculateOpticalSymmetryCorrection(maintainer,
+                dataset);
+        contributions = optical.compute(molecule, body, info);
+        if (contributions != null) {
+            response = DatabaseServicesBase.standardServiceResponse(document, "Found Optical Isomer Element",
+                    contributions);
+        } else {
+            response = DatabaseServicesBase.standardErrorResponse(document,
+                    "No optical symmetry elements in database: check Collection dataset setup", null);
+        }
+        return response;
+    }
 
-		return response;
-	}
-
-	/**
-	 * @param maintainer The maintainer of the dataset (used to find the optical
-	 *                   symmetry elements)
-	 * @param dataset    The dataset (used to find the optical symmetry elements)
-	 * @param molecule   The molecule to analyze
-	 * @param info       information from input (used for units of entropy)
-	 * @return The response with an array of ThermodynamicContributions
-	 */
-	public static JsonObject computeOpticalSymmetry(String maintainer, String dataset, IAtomContainer molecule,
-			JsonObject info) {
-		JsonObject response = null;
-		Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromOpticalSymmetry");
-		Element body = MessageConstructor.isolateBody(document);
-		body.addElement("div").addText("Maintainer      : " + maintainer);
-		body.addElement("div").addText("dataset         : " + dataset);
-		body.addElement("div").addText("Symmetry type   : " + "dataset:StructureOpticalSymmetry");
-		JsonArray contributions = new JsonArray();
-		DatabaseCalculateOpticalSymmetryCorrection optical = new DatabaseCalculateOpticalSymmetryCorrection(maintainer,
-				dataset);
-		contributions = optical.compute(molecule, body, info);
-		response = DatabaseServicesBase.standardServiceResponse(document, "Found Optical Isomer Element",
-				contributions);
-
-		return response;
-	}
-
-	/**
-	 * Find JThermodynamicsSymmetryStructureDefinition by name
-	 * 
-	 * @param arr     The array of JThermodynamicsSymmetryStructureDefinition
-	 * @param symname The element name to look for
-	 * @return The JThermodynamicsSymmetryStructureDefinition element
-	 */
-	public static JsonObject findSymmetryObjectInSet(JsonArray arr, String symname) {
-		boolean notdone = true;
-		JsonObject symmetry = null;
-		for (int i = 0; i < arr.size() && notdone; i++) {
-			symmetry = arr.get(i).getAsJsonObject();
-			JsonObject symdef = symmetry.get(ClassLabelConstants.JThermodynamicsSymmetryDefinition).getAsJsonObject();
-			String name = symdef.get(ClassLabelConstants.JThermodynamicSymmetryDefinitionLabel).getAsString();
-			System.out.println("'" + name + "'  :  '" + symname);
-			if (name.equals(symname)) {
-				notdone = false;
-			}
-		}
-		if (notdone) {
-			symmetry = null;
-		}
-		return symmetry;
-	}
+    /**
+     * Find JThermodynamicsSymmetryStructureDefinition by name
+     * 
+     * @param arr     The array of JThermodynamicsSymmetryStructureDefinition
+     * @param symname The element name to look for
+     * @return The JThermodynamicsSymmetryStructureDefinition element
+     */
+    public static JsonObject findSymmetryObjectInSet(JsonArray arr, String symname) {
+        boolean notdone = true;
+        JsonObject symmetry = null;
+        for (int i = 0; i < arr.size() && notdone; i++) {
+            symmetry = arr.get(i).getAsJsonObject();
+            JsonObject symdef = symmetry.get(ClassLabelConstants.JThermodynamicsSymmetryDefinition).getAsJsonObject();
+            String name = symdef.get(ClassLabelConstants.JThermodynamicSymmetryDefinitionLabel).getAsString();
+            System.out.println("'" + name + "'  :  '" + symname);
+            if (name.equals(symname)) {
+                notdone = false;
+            }
+        }
+        if (notdone) {
+            symmetry = null;
+        }
+        return symmetry;
+    }
 }

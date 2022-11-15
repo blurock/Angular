@@ -119,7 +119,23 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 		const heatcapacityvalue = {};
 		this.heatcapacity.getData(heatcapacityvalue);
 		activity[this.annoinfo['dataset:ParameterSpecificationHeatCapacity'][this.identifier]] = heatcapacityvalue;
-		//const temps = this.getKeys();
+		const tempparam = {};
+		
+		//activity[this.annoinfo['dataset:ParameterSpecificationTemperature'][this.identifier]] = tempparam;
+		activity['dataset:thermotemperature'] = tempparam;
+		const parameterlabeltid = this.annoinfo['dataset:ParameterLabel'][this.identifier];
+		tempparam[parameterlabeltid] = 'Temperature';
+		const unitvalue = {};
+		const unitsid = this.annoinfo['dataset:ValueUnits'][this.identifier];
+		tempparam[unitsid] = unitvalue;
+		const unitclassid = this.annoinfo['dataset:UnitClass'][this.identifier];
+		unitvalue[unitclassid] = 'quantitykind:Temperature';
+		const unitsofvalueid = this.annoinfo['dataset:UnitsOfValue'][this.identifier];
+		unitvalue[unitsofvalueid] = 'unit:K';
+		const parametertypeid = this.annoinfo['dataset:ParameterTypeSpecification'][this.identifier];
+		tempparam[parametertypeid] = 'dataset:FixedParameter';
+		const uncertaintyid = this.annoinfo['dataset:DataPointUncertainty'][this.identifier];
+		tempparam[uncertaintyid] = 'dataset:ImpliedDigitsUncertainty';
 		activity[this.annoinfo['dataset:JThermodynamicBensonTemperatures'][this.identifier]] = this.temperaturelist;
 	}
 	setData(activity: any): void {

@@ -48,6 +48,7 @@ public class DatabaseCalculateOpticalSymmetryCorrection extends CalculateOptical
 		symmarr = ExtractSetOfSymmetryDefinitionsFromDataset.databaseSymmetryDefinitions(maintainer, dataset,
 				"dataset:StructureOpticalSymmetry");
 		setOfDefinitions = ExtractSetOfSymmetryDefinitionsFromDataset.extract(symmarr);
+		System.out.println("DatabaseCalculateOpticalSymmetryCorrection: constructor:\n" + setOfDefinitions.toString());
 		this.setStructureOpticalIsomer(setOfDefinitions);
 		this.initialize();
 	}
@@ -74,6 +75,7 @@ public class DatabaseCalculateOpticalSymmetryCorrection extends CalculateOptical
 	public JsonArray compute(IAtomContainer molecule, Element body, JsonObject info) {
 		JsonArray contributions = new JsonArray();
 		DetermineSymmetryFromSingleDefinition determineSymmetry = new DetermineSymmetryFromSingleDefinition();
+		if(setOfDefinitions.size() > 0) {
 		Iterator<SymmetryDefinition> idef = setOfDefinitions.iterator();
 		int count = 0;
 		while (idef.hasNext()) {
@@ -104,6 +106,9 @@ public class DatabaseCalculateOpticalSymmetryCorrection extends CalculateOptical
 			} catch (CDKException e) {
 				e.printStackTrace();
 			}
+		}
+		} else {
+		    contributions = null;
 		}
 		return contributions;
 	}

@@ -1,14 +1,14 @@
 {
 	"service": "ComputeThermodynamicsFromBensonRules",
 	"dataset:catalogobjectmaintainer": "Administrator",
-	"dataset:datasetname": "StandardDataset",
-	"dataset:structuredef": "ch2//ch/ch3",
+	"dataset:datasetname": "StandardData",
+	"dataset:structuredef": "ch3/ch2/ch3",
 	"dataset:structurename": "propene",
 	"dataset:speciespectype": "dataset:SpeciesSpecificationNancyLinearForm",
 	"dataset:paramspecenthalpy": {
 		"qudt:Unit": {
 			"qudt:SystemOfQuantities": "quantitykind:MolarEnergy",
-			"qudt:QuantityKind": "unit:KiloCAL-PER-MOL"
+			"qudt:QuantityKind": "unit:KiloJ-PER-MOL"
 		},
 		"dataset:dynamicType": "FixedParameter",
 		"skos:prefLabel": "Enthaply",

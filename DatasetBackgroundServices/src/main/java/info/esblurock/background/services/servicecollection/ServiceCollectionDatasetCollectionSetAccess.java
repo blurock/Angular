@@ -13,6 +13,7 @@ import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
+import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRoutines;
 
 public enum ServiceCollectionDatasetCollectionSetAccess {
 
@@ -44,6 +45,9 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 			Element body = MessageConstructor.isolateBody(document);
 			JsonObject idsset = json.get(ClassLabelConstants.ChemConnectDatasetCollectionIDsSet).getAsJsonObject();
 			String classname = json.get(ClassLabelConstants.DatasetCollectionObjectType).getAsString();
+			
+			
+			
 			String label = idsset.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
 			String maintainer = idsset.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 			body.addElement("div").addText("Dataset  : " + label);
@@ -55,7 +59,10 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 				if (idsset.get(identifier) != null) {
 					JsonObject collectioninfo = idsset.get(identifier).getAsJsonObject();
 					collectioninfo.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, label);
-					JsonObject collectionid = DatasetCollectionIDManagement.firebaseIDOfCollection(classname,
+					
+					String catalogtype = OntologyUtilityRoutines.exactlyOnePropertySingle(classname, "dcat:catalog");
+					
+					JsonObject collectionid = DatasetCollectionIDManagement.firebaseIDOfCollection(catalogtype,
 							collectioninfo);
 					JsonObject criteria = null;
 					JsonObject recordid = json.get(ClassLabelConstants.DatasetCollectionSetRecordIDInfo).getAsJsonObject();
@@ -82,11 +89,9 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 			JsonObject response = GetListOfDatasetCollectionIDsSet.process(json);
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				JsonObject collectionids = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+				
 				json.add(ClassLabelConstants.ChemConnectDatasetCollectionIDsSet, collectionids);
 				JsonObject readresponse = ReadInDatasetWithDatasetCollection.process(json);
-				//System.out.println("fReadInDatasetWithDatasetCollectionLabel");
-				//System.out.println(JsonObjectUtilities.toString(json));
-				//JsonObjectUtilities.printResponse(readresponse);
 				if (readresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 					String docS = readresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 					JsonArray objects = readresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
@@ -94,15 +99,7 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 					response = DatabaseServicesBase.standardServiceResponse(document, "Succcesful Read of objects",
 							objects);
 				} else {
-					/*
-					String docS = readresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
-					System.out.println("ReadInDatasetWithDatasetCollectionLabel");
-					System.out.println("-----------------------");
-					System.out.println(docS);
-					System.out.println("-----------------------");
-					MessageConstructor.combineBodyIntoDocument(document, docS);
-					*/
-					Element body = MessageConstructor.isolateBody(document);
+				    Element body = MessageConstructor.isolateBody(document);
 					body.addElement("div").addText("ReadInDatasetWithDatasetCollection Failed with:");
 					body.addElement("pre").addText(JsonObjectUtilities.toString(json));
 					

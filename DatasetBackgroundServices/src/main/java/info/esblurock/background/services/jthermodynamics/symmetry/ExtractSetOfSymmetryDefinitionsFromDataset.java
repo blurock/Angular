@@ -95,12 +95,16 @@ public class ExtractSetOfSymmetryDefinitionsFromDataset {
 	 */
 	public static SetOfSymmetryDefinitions extract(JsonArray definitions) {
 		SetOfSymmetryDefinitions setofsymmetries = new SetOfSymmetryDefinitions();
+		if(definitions != null) {
 		for(int i=0;i<definitions.size();i++) {
 			JsonObject symmetry = definitions.get(i).getAsJsonObject();
 			SymmetryDefinition symmetrydefinition = convertToSymmetryDefinition(symmetry);
 			if(symmetrydefinition != null) {
 				setofsymmetries.add(symmetrydefinition);
 			}
+		}
+		} else {
+		    
 		}
 		return setofsymmetries;
 	}
@@ -121,7 +125,7 @@ public class ExtractSetOfSymmetryDefinitionsFromDataset {
 	public static JsonArray databaseSymmetryDefinitions(String maintainer, String dataset, String symmetrytype) {
 		JsonArray definitions = null;
 		
-		String classname = "dataset:JThermodynamicsSymmetryStructureDefinition";
+		String classname = "dataset:DatasetSpecificationSymmetryStructureDefinition";
 		String service = "ReadInDatasetWithDatasetCollectionLabel";
 		
 		JsonObject setofprops1 = CreateDocumentTemplate.createTemplate("dataset:SetOfPropertyValueQueryPairs");
@@ -166,7 +170,7 @@ public class ExtractSetOfSymmetryDefinitionsFromDataset {
 	public static JsonObject databaseSingleSymmetryDefinition(String maintainer, String dataset, String symmetrytype, String symmname) {
 		JsonObject definition = null;
 		
-		String classname = "dataset:JThermodynamicsSymmetryStructureDefinition";
+		String classname = "dataset:DatasetSpecificationSymmetryStructureDefinition";
 		String service = "ReadInDatasetWithDatasetCollectionLabel";
 		
 		JsonObject setofprops1 = CreateDocumentTemplate.createTemplate("dataset:SetOfPropertyValueQueryPairs");
