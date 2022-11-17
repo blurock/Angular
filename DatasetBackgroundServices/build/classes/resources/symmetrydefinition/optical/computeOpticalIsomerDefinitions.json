@@ -8,7 +8,7 @@
 	"dataset:paramspecenthalpy": {
 		"qudt:Unit": {
 			"qudt:SystemOfQuantities": "quantitykind:MolarEnergy",
-			"qudt:QuantityKind": "unit:KiloCAL-PER-MOL"
+			"qudt:QuantityKind": "unit:KiloJ-PER-MOL"
 		},
 		"dataset:dynamicType": "FixedParameter",
 		"skos:prefLabel": "Enthaply",

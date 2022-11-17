@@ -19,6 +19,7 @@ import info.esblurock.background.services.dataset.parameters.ParameterUtilities;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import thermo.data.structure.disassociation.DisassociationEnergy;
 import thermo.data.structure.structure.AtomCounts;
 import thermo.data.structure.structure.StructureAsCML;
@@ -48,19 +49,25 @@ public class CalculateThermodynamicsForDisassociationEnergy {
 		JsonObject response = null;
 		GetSubstructureMatches matches = new GetSubstructureMatches();
 		JsonArray disassociationCollection = FindDisassociationEnergyCollection.getTotalDisassociationEnergyCollection(maintainer, dataset);
+		if(disassociationCollection != null) {
 		ArrayList<DisassociationEnergyWithAtomCounts> structureCollection = FindDisassociationEnergyCollection.findDisassociationEnergy(disassociationCollection);
 		Collections.sort(structureCollection);
 		DisassociationEnergyWithAtomCounts match = findStructureMatch(structureCollection, matches,radical);
+		System.out.println("CalculateThermodynamicsForDisassociationEnergy:\n" + match.toString());
 		if(match != null) {
 			Double energyD = match.getDisassociationEnergy().getDisassociationEnergy();
 			String matchname = match.getMoleculeID();
 			body.addElement("div").addText("Structure            : " + matchname);
 			body.addElement("div").addText("Disassociation Energy: " + energyD.toString());
 			JsonObject disassociationmatch = findCorrespondence(match,disassociationCollection);
+			System.out.println("disassociationmatch: " + JsonObjectUtilities.toString(disassociationmatch));
 			JsonObject contribution = convertJThermodynamicsDisassociationEnergyOfStructureToContribution(disassociationmatch, info);
 			response = DatabaseServicesBase.standardServiceResponse(document, "Disassociation Energy Found", contribution);
 		} else {
 			response = DatabaseServicesBase.standardErrorResponse(document, "Disassociation Energy Error", null);
+		}
+		} else {
+            response = DatabaseServicesBase.standardErrorResponse(document, "No disassociation energy structures in database, check Collection dataset setup", null);
 		}
 		return response;
 	}
@@ -69,8 +76,9 @@ public class CalculateThermodynamicsForDisassociationEnergy {
 			JsonObject disassociationmatch, JsonObject info) {
 		JsonObject enthalpyparameter = disassociationmatch.get(ClassLabelConstants.JThermodynamicDisassociationEnergy).getAsJsonObject();
 		String enthalpyS = enthalpyparameter.get(ClassLabelConstants.ValueAsString).getAsString();
-		JsonObject spec = disassociationmatch.get(ClassLabelConstants.ParameterSpecification).getAsJsonObject();
-		String enthalpyspec = spec.get(ClassLabelConstants.ValueUnits).getAsString();
+		JsonObject spec = enthalpyparameter.get(ClassLabelConstants.ParameterSpecification).getAsJsonObject();
+		JsonObject unitspec = spec.get(ClassLabelConstants.ValueUnits).getAsJsonObject();
+		String enthalpyspec = unitspec.get(ClassLabelConstants.UnitsOfValue).getAsString();
 		double enthalpy = Double.parseDouble(enthalpyS);
 		JsonObject contribution = 
 				ParameterUtilities.parameterWithEnthalpy(enthalpyspec,enthalpy, 
