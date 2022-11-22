@@ -139,7 +139,7 @@ public class FindMetaAtomDefinitionsInDatasetCollection {
         recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
         recordid.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, dataset);
         if (setofproperties != null) {
-            recordid.add(ClassLabelConstants.SetOfPropertyValueQueryPairs, setofproperties);
+            json.add(ClassLabelConstants.SetOfPropertyValueQueryPairs, setofproperties);
         }
         json.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
         json.addProperty(ClassLabelConstants.DatasetCollectionObjectType, classname);
@@ -148,7 +148,6 @@ public class FindMetaAtomDefinitionsInDatasetCollection {
         JsonArray arr = null;
         if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
             arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
-            System.out.println("findMetaAtomDefinitions: " + arr.size());
         } else {
             System.out.println("-------------------------------------------------------------");
             System.out.println("Reading of Meta atoms unsuccessful");

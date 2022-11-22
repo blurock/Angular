@@ -23,6 +23,8 @@ import { ManagedatasettransactioneventobjectComponent} from '../app/catalogobjec
 import { ActivityrepositoryinitialreadlocalfileComponent } from '../app/catalogobjects/activity/repository/activityrepositoryinitialreadlocalfile/activityrepositoryinitialreadlocalfile.component';
 import { ManagegeneralcatalogobjectvisComponent } from '../app/catalogobjects/managegeneralcatalogobjectvis/managegeneralcatalogobjectvis.component';
 import {ManagedatasetcollectionsComponent} from '../app/catalogobjects/datasetcollection/managedatasetcollections/managedatasetcollections.component';
+import {ComputethermodynamicsComponent} from '../app/catalogobjects/thermodynamics/calculations/computethermodynamics/computethermodynamics.component';
+
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([FEED]);
 
 const routes: Routes = [
@@ -33,6 +35,7 @@ const routes: Routes = [
 	{ path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
 	{ path: 'forgot-password', component: ForgotPasswordComponent },
 	{ path: 'verify-email-address', component: VerifyEmailComponent },
+	{ path: 'compute', component: ComputethermodynamicsComponent},
 	{ path: 'catalog/repositorystaging', component: ManagedatasetrepositoryfilestagingComponent},
 	{ path: 'catalog/partition', component: ManagerepositorydatapartitionblockcomponentComponent},
 	{ path: 'catalog/catalog', component: ManagegeneralcatalogobjectvisComponent},

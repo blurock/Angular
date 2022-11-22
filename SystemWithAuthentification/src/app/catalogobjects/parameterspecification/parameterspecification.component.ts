@@ -45,6 +45,10 @@ export class ParameterspecificationComponent implements OnInit {
 		});
 
 	}
+	
+	invalid(): boolean {
+		return this.paramspecform.invalid;
+	}
 
 	ngOnInit(): void {
 		this.title = this.parameterinfo['skos:prefLabel'];

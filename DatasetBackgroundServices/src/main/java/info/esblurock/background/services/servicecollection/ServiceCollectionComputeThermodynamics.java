@@ -29,9 +29,10 @@ public enum ServiceCollectionComputeThermodynamics {
 	ComputeThermodynamicsFromBensonRules {
 
 		@Override
-		public JsonObject process(JsonObject info) {
+		public JsonObject process(JsonObject activity) {
 			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromBensonRules");
 			JsonObject response = null;
+			JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
 			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
 			if(molecule != null) {
 				String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
@@ -47,9 +48,10 @@ public enum ServiceCollectionComputeThermodynamics {
 	}, ComputeThermodynamicsFromExternalSymmetry {
 
 		@Override
-		public JsonObject process(JsonObject info) {
+		public JsonObject process(JsonObject activity) {
 			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromExternalSymmetry");
 			JsonObject response = null;
+            JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
 			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
 			if(molecule != null) {
 				String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
@@ -65,9 +67,10 @@ public enum ServiceCollectionComputeThermodynamics {
 	}, ComputeThermodynamicsFromSymmetryElement {
 
 		@Override
-		public JsonObject process(JsonObject info) {
+		public JsonObject process(JsonObject activity) {
 			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromBensonRules");
 			JsonObject response = null;
+            JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
 			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
 			String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 			String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();				
@@ -83,9 +86,10 @@ public enum ServiceCollectionComputeThermodynamics {
 	}, ComputeThermodynamicsFromInternalSymmetry {
 
 		@Override
-		public JsonObject process(JsonObject info) {
+		public JsonObject process(JsonObject activity) {
 			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromInternalSymmetry");
 			JsonObject response = null;
+            JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
 			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
 			if(molecule != null) {
 				String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
@@ -101,9 +105,10 @@ public enum ServiceCollectionComputeThermodynamics {
 	}, ComputeThermodynamicsFromOpticalIsomers {
 
 		@Override
-		public JsonObject process(JsonObject info) {
+		public JsonObject process(JsonObject activity) {
 			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromOpticalIsomers");
 			JsonObject response = null;
+            JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
 			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
 			if(molecule != null) {
 				String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
@@ -119,10 +124,11 @@ public enum ServiceCollectionComputeThermodynamics {
 	}, ComputeThermodynamicsFromAllSymmetries {
 
 		@Override
-		public JsonObject process(JsonObject info) {
+		public JsonObject process(JsonObject activity) {
 			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromAllSymmetries");
 			Element body = MessageConstructor.isolateBody(document);
 			JsonObject response = null;
+            JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
 			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
 			if(molecule != null) {
 				String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
@@ -142,14 +148,16 @@ public enum ServiceCollectionComputeThermodynamics {
 	}, ComputeThermodynamicsFromVibrationalModes {
 
 		@Override
-		public JsonObject process(JsonObject info) {
+		public JsonObject process(JsonObject activity) {
+            JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
 			return CalculateThermodynamicsFromVibration.computeVibrationalCorrectionsForRadical(info);
 		}
 		
 	}, ComputeThermodynamicsForDisassociationEnergy {
 
 		@Override
-		public JsonObject process(JsonObject info) {
+		public JsonObject process(JsonObject activity) {
+            JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
 			return CalculateThermodynamicsForDisassociationEnergy.calculate(info);
 		}
 		

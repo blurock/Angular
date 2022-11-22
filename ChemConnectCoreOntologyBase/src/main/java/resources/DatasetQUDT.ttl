@@ -1972,6 +1972,71 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                <http://www.w3.org/2004/02/skos/core#altLabel> "activityspread" .
 
 
+###  http://www.esblurock.info/dataset#ActivityThermoCalculationSetup
+:ActivityThermoCalculationSetup rdf:type owl:Class ;
+                                rdfs:subClassOf :ActivityThermodynamicCalculation ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :CatalogDataObjectMaintainer
+                                                ] ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :DatasetName
+                                                ] ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :JThermodynamicsComputation
+                                                ] ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :JThermodynamicsSpeciesSpecificationType
+                                                ] ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :JThermodynamicsStructureName
+                                                ] ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :JThermodynamicsStructureSpecification
+                                                ] ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :ParameterSpecificationEnthaply
+                                                ] ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :ParameterSpecificationEntropy
+                                                ] ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :ParameterSpecificationHeatCapacity
+                                                ] ;
+                                <http://purl.org/dc/elements/1.1/type> :ActivityThermoCalculationSetup ;
+                                <http://purl.org/dc/terms/identifier> "dataset:thermodyanmiccalculation"^^xsd:string ;
+                                rdfs:comment "This is the information needed to set up and compute a 2D thermodynamic calculation."^^xsd:string ;
+                                rdfs:label "Thermodynamic Calculation"^^xsd:string ;
+                                <http://www.w3.org/2004/02/skos/core#altLabel> "thermocalcsetup"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#ActivityThermodynamicCalculation
+:ActivityThermodynamicCalculation rdf:type owl:Class ;
+                                  rdfs:subClassOf :ActivityInformationRecordBase ;
+                                  <http://purl.org/dc/elements/1.1/type> :ActivityThermodynamicCalculation ;
+                                  <http://purl.org/dc/terms/identifier> "dataset:thermocalcstructures"^^xsd:string ;
+                                  rdfs:comment "The (activity) structures associated with thermodynamic calculations"^^xsd:string ;
+                                  rdfs:label "Thermodynamic Calculation Structures"^^xsd:string ;
+                                  <http://www.w3.org/2004/02/skos/core#altLabel> "thermocalcstructures"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#AdministrativeConsortiumType
 :AdministrativeConsortiumType rdf:type owl:Class ;
                               rdfs:subClassOf :ConsortiumTypeChoice .
@@ -4863,7 +4928,10 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                         owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                         owl:onClass :SetOfThermodynamicContributions
-                                                      ] .
+                                                      ] ;
+                                      <http://purl.org/dc/terms/identifier> "dataset:computebensonrules"^^xsd:string ;
+                                      rdfs:comment "Compute thermodynamics from just Benson Rules"^^xsd:string ;
+                                      rdfs:label "Benson Rules"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromExternalSymmetry
@@ -4898,7 +4966,15 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                              owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                              owl:onClass :ParameterSpecificationEntropy
-                                                           ] .
+                                                           ] ,
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
+                                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                             owl:onClass :SetOfThermodynamicContributions
+                                                           ] ;
+                                           <http://purl.org/dc/terms/identifier> "dataset:computeexternalsymmetry"^^xsd:string ;
+                                           rdfs:comment "Compute the 2D graphical thermodynamic contributions from just the external symmetry."^^xsd:string ;
+                                           rdfs:label "External Symmetry"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromSymmetryElement
@@ -4928,7 +5004,14 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                             owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                             owl:onClass :ParameterSpecificationEntropy
-                                                          ] .
+                                                          ] ,
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
+                                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass :SetOfThermodynamicContributions
+                                                          ] ;
+                                          rdfs:comment "Compute the 2D graphical thermodynamic contributions from just the symmetries."^^xsd:string ;
+                                          rdfs:label "From Symmetry"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ConceptCEO
@@ -11413,6 +11496,17 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                   <http://www.w3.org/2004/02/skos/core#altLabel> "chemstructure"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#JThermodynamicsComputation
+:JThermodynamicsComputation rdf:type owl:Class ;
+                            rdfs:subClassOf :Classification ;
+                            <http://purl.org/dc/elements/1.1/type> :JThermodynamicsComputation ;
+                            <http://purl.org/dc/terms/identifier> "dataset:thermocalculationtypes"^^xsd:string ;
+                            rdfs:comment "Compute thermodynamics from 2D graphical structural information"^^xsd:string ;
+                            rdfs:isDefinedBy :ServiceCollectionComputeThermodynamics ;
+                            rdfs:label "Thermodynamic Calculation"^^xsd:string ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "thermocalculationtypes"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#JThermodynamicsDataStructure
 :JThermodynamicsDataStructure rdf:type owl:Class ;
                               rdfs:subClassOf :ChemConnectCompoundDataStructure ;
@@ -16893,7 +16987,9 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#ServiceCollectionComputeThermodynamics
 :ServiceCollectionComputeThermodynamics rdf:type owl:Class ;
-                                        rdfs:subClassOf :DatabaseServicesBase .
+                                        rdfs:subClassOf :DatabaseServicesBase ;
+                                        rdfs:comment "These are a set of 2D graphical thermodynamic calculations. The options include several methods for total thermodynamics and methods representing isolated contributions based on, for example, the different types of symmetry and just benson rules. The output of these is the set of thermodynamic contributions."^^xsd:string ;
+                                        rdfs:label "Thermodynamic Calculations"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ServiceCollectionDatabaseAccess
@@ -16924,6 +17020,11 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                                      rdfs:comment "The collection of Services dealing with object manipulation"^^xsd:string ;
                                      rdfs:label "Object Manipulation Services"^^xsd:string ;
                                      <http://www.w3.org/2004/02/skos/core#altLabel> "sercolobjmanipulation"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#ServiceCollectionThermodynamicUtilities
+:ServiceCollectionThermodynamicUtilities rdf:type owl:Class ;
+                                         rdfs:subClassOf :DatabaseServicesBase .
 
 
 ###  http://www.esblurock.info/dataset#ServiceCollectiontQueryOntology
@@ -17993,7 +18094,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#SubstituteAndCondenseLinearMolecule
 :SubstituteAndCondenseLinearMolecule rdf:type owl:Class ;
-                                     rdfs:subClassOf :ServiceCollectionComputeThermodynamics ,
+                                     rdfs:subClassOf :ServiceCollectionThermodynamicUtilities ,
                                                      [ rdf:type owl:Restriction ;
                                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -18048,7 +18149,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 
 ###  http://www.esblurock.info/dataset#SubstituteMetaAtomsInMolecule
 :SubstituteMetaAtomsInMolecule rdf:type owl:Class ;
-                               rdfs:subClassOf :ServiceCollectionComputeThermodynamics ,
+                               rdfs:subClassOf :ServiceCollectionThermodynamicUtilities ,
                                                [ rdf:type owl:Restriction ;
                                                  owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -18831,7 +18932,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                                  rdfs:subClassOf :CatalogObjectWithAnnotations ,
                                                  [ rdf:type owl:Restriction ;
                                                    owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                                   owl:someValuesFrom :HeatCapacityTemperatureValuePair
+                                                   owl:someValuesFrom :ThermodynamicCpAtTemperature
                                                  ] ,
                                                  [ rdf:type owl:Restriction ;
                                                    owl:onProperty <http://purl.org/dc/terms/hasPart> ;

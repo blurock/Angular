@@ -21,8 +21,14 @@ public class FindDisassociationEnergyCollection {
 		String service = "ReadInDatasetWithDatasetCollectionLabel";
 		String classname = "dataset:DatasetSpecificationDisassociationEnergyOfStructure";
 		JsonObject json = new JsonObject();
+        JsonObject recordid = new JsonObject();
+        json.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
+        recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
+        recordid.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, dataset);
+		/*
 		json.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 		json.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, dataset);
+		*/
 		json.addProperty(ClassLabelConstants.DatasetCollectionObjectType, classname);
 		json.addProperty(DatabaseServicesBase.service, service);
 		JsonObject response = DatabaseServicesBase.process(json);

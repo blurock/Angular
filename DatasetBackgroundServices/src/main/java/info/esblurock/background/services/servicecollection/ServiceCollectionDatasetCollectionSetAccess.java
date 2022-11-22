@@ -65,9 +65,8 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 					JsonObject collectionid = DatasetCollectionIDManagement.firebaseIDOfCollection(catalogtype,
 							collectioninfo);
 					JsonObject criteria = null;
-					JsonObject recordid = json.get(ClassLabelConstants.DatasetCollectionSetRecordIDInfo).getAsJsonObject();
-					if (recordid.get(ClassLabelConstants.SetOfPropertyValueQueryPairs) != null) {
-						criteria = recordid.get(ClassLabelConstants.SetOfPropertyValueQueryPairs).getAsJsonObject();
+					if(json.get(ClassLabelConstants.SetOfPropertyValueQueryPairs) != null) {
+					    criteria = json.get(ClassLabelConstants.SetOfPropertyValueQueryPairs).getAsJsonObject();
 					}
 					response = ReadFirestoreInformation.readFirestoreCollection(criteria, collectionid);
 				} else {
@@ -99,11 +98,7 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 					response = DatabaseServicesBase.standardServiceResponse(document, "Succcesful Read of objects",
 							objects);
 				} else {
-				    Element body = MessageConstructor.isolateBody(document);
-					body.addElement("div").addText("ReadInDatasetWithDatasetCollection Failed with:");
-					body.addElement("pre").addText(JsonObjectUtilities.toString(json));
-					
-					response = DatabaseServicesBase.standardErrorResponse(document, "Read in Collection fail", null);
+				    response = readresponse;
 				}
 			}
 			return response;

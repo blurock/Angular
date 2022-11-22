@@ -48,7 +48,7 @@ public class ComputeBensonRulesForMolecule {
             for (int i = 0; i < bensonarr.size(); i++) {
                 JsonObject bensonobj = bensonarr.get(i).getAsJsonObject();
                 String bensonname = bensonobj.get(ClassLabelConstants.BensonRuleDatabaseReference).getAsString();
-                JsonObject rule = readInBensonRuleFromLabel(bensonname, body, maintainer, dataset);
+                JsonObject rule = readInBensonRuleFromLabel(bensonname, body, maintainer, dataset, document);
                 if (rule != null) {
                     count++;
                     JsonObject thermo = rule.get(ClassLabelConstants.JThermodynamicStandardThermodynamics)
@@ -97,7 +97,6 @@ public class ComputeBensonRulesForMolecule {
      */
     private static JsonObject convertStandardThermodynamicsToContribution(JsonObject thermo, String bensonname,
             JsonObject info, Element table) {
-        
         JsonObject contribution = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicContributions");
         Element row = table.addElement("tr");
 
@@ -109,6 +108,7 @@ public class ComputeBensonRulesForMolecule {
         ParameterUtilities.changeParameterToNewSpecification(enthalpy, info,
                 ClassLabelConstants.ParameterSpecificationEnthaply);
         contribution.add(ClassLabelConstants.ThermodynamicStandardEnthalpy, enthalpy);
+        
         row.addElement("td").addText(enthalpy.get(ClassLabelConstants.ValueAsString).getAsString());
 
         JsonObject entropy = thermo.get(ClassLabelConstants.ThermodynamicStandardEntropy).getAsJsonObject();
@@ -242,14 +242,15 @@ public class ComputeBensonRulesForMolecule {
      * 
      */
     private static JsonObject readInBensonRuleFromLabel(String bensonname, Element body, String maintainer,
-            String dataset) {
+            String dataset, Document parentdoc) {
         JsonObject rule = null;
         JsonObject response = readBensonObject(bensonname, maintainer, dataset);
         if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+            String readmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
+            MessageConstructor.combineBodyIntoDocument(parentdoc, readmessage);
             JsonArray responsearr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
             if (responsearr.size() >= 1) {
                 rule = responsearr.get(0).getAsJsonObject();
-
             } else {
                 body.addElement("div").addText("Element not found in database(" + maintainer + ", " + dataset + ")");
             }
@@ -282,6 +283,7 @@ public class ComputeBensonRulesForMolecule {
 
         String classname = "dataset:DatasetSpecificationBensonRuleDefinition";
         String service = "ReadInDatasetWithDatasetCollectionLabel";
+        
         JsonObject json = new JsonObject();
         JsonObject recordid = CreateDocumentTemplate.createTemplate("dataset:DatasetCollectionSetRecordIDInfo", false);
         recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);

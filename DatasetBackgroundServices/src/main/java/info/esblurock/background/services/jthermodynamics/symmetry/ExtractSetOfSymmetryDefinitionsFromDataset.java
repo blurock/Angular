@@ -140,7 +140,7 @@ public class ExtractSetOfSymmetryDefinitionsFromDataset {
 		JsonObject recordid = CreateDocumentTemplate.createTemplate("dataset:DatasetCollectionSetRecordIDInfo", false);
 		recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 		recordid.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, dataset);
-		recordid.add(ClassLabelConstants.SetOfPropertyValueQueryPairs, setofprops1);
+		json.add(ClassLabelConstants.SetOfPropertyValueQueryPairs, setofprops1);
 
 		json.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
 		json.addProperty(ClassLabelConstants.DatasetCollectionObjectType, classname);
@@ -189,7 +189,7 @@ public class ExtractSetOfSymmetryDefinitionsFromDataset {
 		JsonObject recordid = CreateDocumentTemplate.createTemplate("dataset:DatasetCollectionSetRecordIDInfo", false);
 		recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 		recordid.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, dataset);
-		recordid.add(ClassLabelConstants.SetOfPropertyValueQueryPairs, setofprops1);
+		json.add(ClassLabelConstants.SetOfPropertyValueQueryPairs, setofprops1);
 
 		json.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
 		json.addProperty(ClassLabelConstants.DatasetCollectionObjectType, classname);

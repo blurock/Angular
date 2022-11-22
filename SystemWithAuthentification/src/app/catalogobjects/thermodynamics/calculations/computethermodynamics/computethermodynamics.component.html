@@ -1,0 +1,58 @@
+<mat-tab-group>
+<mat-tab label="Setup">
+<mat-card class="card">
+	<mat-card-header>
+		<mat-card-title-group class="title-group">
+			<mat-card-subtitle class="title">{{title}}</mat-card-subtitle>
+		</mat-card-title-group>
+	</mat-card-header>
+	<mat-card-content>
+		<ng-container *ngIf='annoinfo != null; else loading'>
+				<mat-grid-list cols="6" rowHeight="100px">
+				
+				<mat-grid-tile [colspan]="2">
+					<button mat-mini-fab color="primary" class="display-btn" matTooltip="{{displaydescbutton}}"
+						(click)="displayCatalogInfo()">{{displaybutton}}</button>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="2">
+					<button mat-mini-fab color="primary" class="fetch-btn" (click)="fetchInformation()"
+						matTooltip="{{loadfromdatabase}}">
+						{{fetch}}
+					</button>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="2">
+					<button mat-mini-fab color="primary" class="submit-btn" matTooltip="{{submitdescr}}" (click)="submit()"
+						[disabled]="invalid()">{{submitbutton}}</button>
+				</mat-grid-tile>
+				
+			</mat-grid-list>
+<app-thermocalculationsetup #calcsetup [(annoinfo)]="annoinfo"></app-thermocalculationsetup>
+		</ng-container>
+		<ng-template #loading>
+			<div>
+				Loading Activity information
+			</div>
+		</ng-template>
+	</mat-card-content>
+</mat-card>
+</mat-tab>
+  <mat-tab label="Result">
+  <app-thermodynamiccontributions></app-thermodynamiccontributions>
+  </mat-tab>
+  <mat-tab label="Json">
+		<ng-container *ngIf='calculationresult != null;'>
+				<mat-divider></mat-divider>
+		<pre>{{calculationresult | json}}</pre>
+		<mat-divider></mat-divider>
+		</ng-container>
+  </mat-tab>
+  <mat-tab label="Logs">
+  
+		<ng-container *ngIf='resultHtml != null;'>
+				<mat-divider></mat-divider>
+		<div [innerHTML]="resultHtml"></div>
+		<mat-divider></mat-divider>
+		</ng-container>
+
+  </mat-tab>
+</mat-tab-group>

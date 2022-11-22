@@ -52,7 +52,6 @@ public class ParameterUtilities {
     public static String changeParameterToNewSpecification(String origvalue, JsonObject origspec, JsonObject finalspec) {
         String value = null;
         Double valueD = Double.valueOf(origvalue);
-        
         JsonObject origunit = origspec.get(ClassLabelConstants.ValueUnits).getAsJsonObject();
         String origunits = origunit.get(OntologyObjectLabels.quantitykind).getAsString();
         JsonObject finalunit = finalspec.get(ClassLabelConstants.ValueUnits).getAsJsonObject();

@@ -86,7 +86,7 @@ public class ReadFirestoreInformation {
 		return response;
 	}
 
-	/**
+	/** readFirestoreCollection
 	 * 
 	 * @param setofprops         (SetOfPropertyValueQueryPairs) properties for query
 	 *                           conditions
@@ -109,6 +109,7 @@ public class ReadFirestoreInformation {
 	public static JsonObject readFirestoreCollection(JsonObject setofprops, JsonObject firestorecatalogid) {
 		Document docmessage = MessageConstructor.startDocument("readFirestoreCollection");
 		Element body = MessageConstructor.isolateBody(docmessage);
+		body.addElement("div", "Read Firestore Collection with properties");
 		firestorecatalogid.remove(ClassLabelConstants.SimpleCatalogName);
 		JsonArray setofobjs = new JsonArray();
 		JsonObject response = new JsonObject();
@@ -137,6 +138,8 @@ public class ReadFirestoreInformation {
 						query = query.whereEqualTo(type, value);
 					}
 				}
+			} else {
+			    Element text = body.addElement("div","No properties within the collection specified");
 			}
 			ApiFuture<QuerySnapshot> future = null;
 			if (query == null) {
@@ -155,7 +158,7 @@ public class ReadFirestoreInformation {
 				ul.addElement("li").addText(rdf.get(ClassLabelConstants.CatalogObjectKey).getAsString());
 				setofobjs.add(rdf);
 			}
-			response = DatabaseServicesBase.standardServiceResponse(docmessage, "Successful read of catalog objects",
+			response = DatabaseServicesBase.standardServiceResponse(docmessage, "Successful read of collectiion set objects",
 					setofobjs);
 			} else {
 	            response = DatabaseServicesBase.standardErrorResponse(docmessage, "No documents",null);

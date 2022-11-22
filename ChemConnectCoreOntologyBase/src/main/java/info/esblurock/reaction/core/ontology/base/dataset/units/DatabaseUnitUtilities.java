@@ -25,9 +25,11 @@ public class DatabaseUnitUtilities {
 		Double finalvalue = null;
 		String dimensionorig = findDimensionVector(valueunits);
 		String dimensionfinal = findDimensionVector(finalunits);
+		finalvalue = value;
 		
-		if(dimensionorig != null && dimensionfinal != null) {
-			if(dimensionorig.equals(dimensionfinal) ) {
+		//if(dimensionorig != null && dimensionfinal != null) {
+		//	if(dimensionorig.equals(dimensionfinal) ) {
+	
 			Double multorig = findMultiplierConversionToStandard(valueunits);
 			Double offsetorig = findOfsetConversionToStandard(valueunits);
 			Double multfinal = findMultiplierConversionToStandard(finalunits);
@@ -35,6 +37,7 @@ public class DatabaseUnitUtilities {
 			
 			Double standard = value*multorig + offsetorig;
 			finalvalue = standard/multfinal - offsetfinal;
+			/*
 		} else {
 			System.out.println("Unmatching Dimensions:");
 			System.out.println("Original: '" + dimensionorig + "'");
@@ -45,6 +48,7 @@ public class DatabaseUnitUtilities {
 			System.out.println("Original: " + dimensionorig);
 			System.out.println("Final:    " + dimensionfinal);
 		}
+		*/
 		return finalvalue;
 	}
 

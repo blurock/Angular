@@ -18,7 +18,7 @@ public class FindABensonRule {
 	public void test() {
 		String bensonname = "c/d-(c)-(h)";
 		String maintainer = "Administrator";
-		String dataset = "StandardDataset";
+		String dataset = "StandardData";
 		JsonObject setofprops1 = CreateDocumentTemplate.createTemplate("dataset:SetOfPropertyValueQueryPairs");
 		JsonArray arr1 = new JsonArray();
 		setofprops1.add(ClassLabelConstants.PropertyValueQueryPair,arr1);
@@ -27,7 +27,7 @@ public class FindABensonRule {
 		prop1.addProperty(ClassLabelConstants.ShortStringKey, bensonname);
 		arr1.add(prop1);
 
-		String classname = "dataset:ThermodynamicBensonRuleDefinition";
+		String classname = "dataset:DatasetSpecificationBensonRuleDefinition";
 		String service = "ReadInDatasetWithDatasetCollectionLabel";
 		JsonObject json = new JsonObject();
 		JsonObject recordid = CreateDocumentTemplate.createTemplate("dataset:DatasetCollectionSetRecordIDInfo", false);

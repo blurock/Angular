@@ -41,4 +41,7 @@ export class AppComponent {
 	datasetcollection() {
 		this.router.navigateByUrl('/catalog/collection');
 	}
+	computeThermodynamics() {
+		this.router.navigateByUrl('/compute');
+	}
 }

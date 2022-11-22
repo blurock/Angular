@@ -109,7 +109,7 @@ public class DatabaseServicesBase {
 	 */
 	public static JsonObject standardServiceResponse(Document document, String message, JsonElement result) {
 		Element body = MessageConstructor.isolateBody(document);
-		body.addElement("h3").addText(message);
+		body.addElement("div").addText(message);
 		JsonObject response = new JsonObject();
 		response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, "true");
 		response.addProperty(ClassLabelConstants.ServiceResponseMessage, MessageConstructor.DocumentToString(document));

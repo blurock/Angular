@@ -163,6 +163,10 @@ import { ModifydatasetcollectionidsComponent } from './catalogobjects/datasetcol
 import { InitialreadinofrepositoryfileeventComponent } from './upload/initialreadinofrepositoryfileevent/initialreadinofrepositoryfileevent.component';
 import { TransactioninterprettextblockComponent } from './upload/transactioninterprettextblock/transactioninterprettextblock.component';
 import { InterprettextblockresultsComponent } from './upload/interprettextblockresults/interprettextblockresults.component';
+import { ThermodynamiccontributionsComponent } from './catalogobjects/thermodynamics/calculations/thermodynamiccontributions/thermodynamiccontributions.component';
+import { ComputethermodynamicsComponent } from './catalogobjects/thermodynamics/calculations/computethermodynamics/computethermodynamics.component';
+import { ThermocalculationsetupComponent } from './catalogobjects/thermodynamics/calculations/thermocalculationsetup/thermocalculationsetup.component';
+import { RundatabaseserviceComponent } from './dialog/rundatabaseservice/rundatabaseservice.component';
 
 
 
@@ -281,7 +285,11 @@ import { InterprettextblockresultsComponent } from './upload/interprettextblockr
   ModifydatasetcollectionidsComponent,
   InitialreadinofrepositoryfileeventComponent,
   TransactioninterprettextblockComponent,
-  InterprettextblockresultsComponent
+  InterprettextblockresultsComponent,
+  ThermodynamiccontributionsComponent,
+  ComputethermodynamicsComponent,
+  ThermocalculationsetupComponent,
+  RundatabaseserviceComponent
 	],
 	imports: [
 		AppFirebaseModule,

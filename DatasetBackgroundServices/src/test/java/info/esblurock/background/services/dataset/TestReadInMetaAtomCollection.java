@@ -49,7 +49,7 @@ public class TestReadInMetaAtomCollection {
         recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
         recordid.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, dataset);
         if (setofproperties != null) {
-            recordid.add(ClassLabelConstants.SetOfPropertyValueQueryPairs, setofproperties);
+            json.add(ClassLabelConstants.SetOfPropertyValueQueryPairs, setofproperties);
         }
         json.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
         json.addProperty(ClassLabelConstants.DatasetCollectionObjectType, classname);
