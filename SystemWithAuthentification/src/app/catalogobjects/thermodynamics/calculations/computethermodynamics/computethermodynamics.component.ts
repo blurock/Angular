@@ -6,6 +6,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { FetchcatalogobjectComponent } from '../../../../dialog/fetchcatalogobject/fetchcatalogobject.component';
 import { RundatabaseserviceComponent } from '../../../../dialog/rundatabaseservice/rundatabaseservice.component';
+import {ThermodynamiccontributionsComponent} from '../thermodynamiccontributions/thermodynamiccontributions.component';
 
 @Component({
 	selector: 'app-computethermodynamics',
@@ -22,7 +23,7 @@ export class ComputethermodynamicsComponent implements OnInit {
 	submitbutton = 'Calculate';
 	submitdescr = 'Submit Calculation with information given';
 	message = 'Initialize';
-	getannotationsfnotsuccessful = 'Annotations found';
+	getannotationsfnotsuccessful = 'Annotations not found';
 	rdfslabel = Ontologyconstants.rdfslabel;
 	identifier = Ontologyconstants.dctermsidentifier;
 	filedefault = 'CalculateThermodynamicsActivity';
@@ -38,6 +39,7 @@ export class ComputethermodynamicsComponent implements OnInit {
 	catalogtype = 'dataset:ActivityThermoCalculationSetup';
 
 	@ViewChild('calcsetup') calcsetup: ThermocalculationsetupComponent;
+	@ViewChild('thermocontributions') thermocontributions: ThermodynamiccontributionsComponent;
 
 	constructor(
 		public annotations: OntologycatalogService,
@@ -59,7 +61,8 @@ export class ComputethermodynamicsComponent implements OnInit {
 	}
 
 	showResult(result: any) {
-		this.calculationresult = result;
+		this.calculationresult = result[Ontologyconstants.catalogobject];
+		this.thermocontributions.setData(this.calculationresult);
 	}
 
 	getAnnotations() {

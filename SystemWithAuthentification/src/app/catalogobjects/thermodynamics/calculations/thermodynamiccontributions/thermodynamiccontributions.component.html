@@ -1,1 +1,114 @@
-<p>thermodynamiccontributions works!</p>
+<ng-container *ngIf='annoinfo != null; else noannoinfo'>
+	<ng-container *ngIf='dataSource != null; else loading'>
+
+		<mat-card class="cardbase">
+			<mat-card-header>
+				<mat-card-title-group class="title">
+					<mat-card-subtitle>{{subtitle}}</mat-card-subtitle>
+				</mat-card-title-group>
+			</mat-card-header>
+
+			<mat-card-content>
+
+				<mat-grid-list cols="6" rowHeight="75px">
+					<mat-grid-tile [colspan]="3">
+						<button mat-mini-fab color="primary" class="display-btn" matTooltip="{{displaydescbutton}}"
+							(click)="displayCatalogInfo()">{{displaybutton}}</button>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="3">
+						<button mat-mini-fab color="primary" class="fetch-btn" (click)="fetchInformation()"
+							matTooltip="{{loadfromfile}}">
+							{{fetchobjectbutton}}
+						</button>
+					</mat-grid-tile>
+
+				</mat-grid-list>
+
+				<ng-container *ngIf='thermocontribution != null; else nodataobject'>
+					<mat-grid-list cols="6" rowHeight="75px">
+						<mat-grid-tile [colspan]="3">
+							<button mat-raised-button class="fetch-btn" (click)="toggleCatalogVisible()"
+								matTooltip="{{toggleviscatalogdescr}}">
+								{{toggleviscatalog}}
+							</button>
+						</mat-grid-tile>
+						<mat-grid-tile [colspan]="3">
+							<button mat-raised-button class="fetch-btn" (click)="toggleUnitVisible()"
+								matTooltip="{{togglevisdescr}}">
+								{{togglevis}}
+							</button>
+						</mat-grid-tile>
+					</mat-grid-list>
+				</ng-container>
+				<ng-container *ngIf='unitsvisible'>
+					<app-parameterspecification #enthalpy [annoinfo]="annoinfo" [parameterinfo]="molarenthalpy">
+					</app-parameterspecification>
+					<app-parameterspecification #enthalpy [annoinfo]="annoinfo" [parameterinfo]="molarentropy">
+					</app-parameterspecification>
+					<app-parameterspecification #enthalpy [annoinfo]="annoinfo" [parameterinfo]="molarheatcapacity">
+					</app-parameterspecification>
+
+				</ng-container>
+				<ng-container *ngIf='catalogvisible'>
+					<app-generalcatalogobjectvisualization #catalogobj></app-generalcatalogobjectvisualization>
+				</ng-container>
+				<ng-template #nodataobject>
+					<div>
+						No Computation Data
+					</div>
+				</ng-template>
+				<table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+
+					<ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+						<th mat-header-cell *matHeaderCellDef> {{column}} </th>
+						<td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+					</ng-container>
+					<ng-container matColumnDef="expand">
+						<th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+						<td mat-cell *matCellDef="let element">
+							<button mat-icon-button aria-label="expand row"
+								(click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+								<mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+								<mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+							</button>
+						</td>
+					</ng-container>
+
+					<!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+					<ng-container matColumnDef="expandedDetail">
+						<td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+							<div class="example-element-detail"
+								[@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+								<mat-grid-list cols="6" rowHeight="75px">
+									<mat-grid-tile [colspan]="6">
+										<button mat-button class="fetch-btn" (click)="catalogVisible(element)"
+											matTooltip="{{viscatalogdescr}}">
+											{{viscatalog}}
+										</button>
+									</mat-grid-tile>
+								</mat-grid-list>
+							</div>
+						</td>
+					</ng-container>
+
+					<tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+					<tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
+						class="example-element-row" [class.example-expanded-row]="expandedElement === element"
+						(click)="expandedElement = expandedElement === element ? null : element">
+					</tr>
+					<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+				</table>
+			</mat-card-content>
+		</mat-card>
+	</ng-container>
+	<ng-template #loading>
+		<div>
+			{{nodata}}
+		</div>
+	</ng-template>
+</ng-container>
+<ng-template #noannoinfo>
+	<div>
+		{{noannotations}}
+	</div>
+</ng-template>

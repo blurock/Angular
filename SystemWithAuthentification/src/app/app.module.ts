@@ -43,7 +43,7 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
-
+import {MatTableModule} from '@angular/material/table'; 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
@@ -337,7 +337,8 @@ import { RundatabaseserviceComponent } from './dialog/rundatabaseservice/rundata
 		NgbModule,
 		LayoutModule,
 		MatStepperModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatTableModule
 	],
 	exports: [AngularFireModule, AngularFireAuthModule,
 		MatButtonModule,

@@ -105,7 +105,10 @@ export class GeneralcatalogobjectvisualizationComponent implements OnInit {
 		const catalogtype = catalog['dataset:objectype'];
 		this.setChild(catalogtype);
 		}
+		alert("GeneralcatalogobjectvisualizationComponent: \n" + JSON.stringify(catalog));
 		this.componentRef.instance.setData(catalog);
+		alert("GeneralcatalogobjectvisualizationComponent: done");
+		
 }
 
 	public getData(catalog: any): void {

@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { ChemconnectthermodynamicsdatabaseComponent } from '../chemconnectthermodynamicsdatabase/chemconnectthermodynamicsdatabase.component';
-import { Jthermodynamics2dspeciesstructureComponent } from '../jthermodynamics2dspeciesstructure/jthermodynamics2dspeciesstructure.component';
 import { JthermodynamicsbensonrulestructureComponent } from '../jthermodynamicsbensonrulestructure/jthermodynamicsbensonrulestructure.component';
 import { JthermodynamicstandardthermodynamicsComponent } from '../jthermodynamicstandardthermodynamics/jthermodynamicstandardthermodynamics.component';
 @Component({
@@ -42,53 +41,48 @@ export class ThermodynamicbensonruledefinitionComponent implements OnInit {
 
 
 	public getCatalogAnnoations(): void {
-	this.message = 'Waiting for Info call';
-	this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
-		next: (responsedata: any) => {
-			const response = responsedata;
-			this.message = response[Ontologyconstants.message];
-			if (response[Ontologyconstants.successful]) {
-				const catalog = response[Ontologyconstants.catalogobject];
-				this.catalogobj = catalog[Ontologyconstants.outputobject];
-				this.annoinfo = catalog[Ontologyconstants.annotations];
-				this.display = true;
-				this.annoReady.emit(this.annoinfo);
+		this.message = 'Waiting for Info call';
+		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
+			next: (responsedata: any) => {
+				const response = responsedata;
+				this.message = response[Ontologyconstants.message];
+				if (response[Ontologyconstants.successful]) {
+					const catalog = response[Ontologyconstants.catalogobject];
+					this.catalogobj = catalog[Ontologyconstants.outputobject];
+					this.annoinfo = catalog[Ontologyconstants.annotations];
+					this.display = true;
+					this.annoReady.emit(this.annoinfo);
+				} else {
+					this.message = responsedata;
+				}
+			},
+			error: (info: any) => { alert('Get Annotations failed:' + this.message); }
+		});
+	}
+	getData(catalog: any): void {
+		this.base.getData(catalog);
+		const benson = {};
+		this.bensonstructure.getData(benson);
+		catalog[this.annoinfo['dataset:JThermodynamicsBensonRuleStructure'][this.identifier]] = benson;
+	}
+	setData(catalog: any): void {
+		if (this.annoinfo != null) {
+			if (this.thermo != null) {
+
+
+
+				const thermodata = catalog[this.annoinfo['dataset:JThermodynamicStandardThermodynamics'][this.identifier]];
+
+				this.thermo.setData(thermodata);
+				const benson = catalog[this.annoinfo['dataset:JThermodynamicsBensonRuleStructure'][this.identifier]];
+				this.bensonstructure.setData(benson);
 			} else {
-				this.message = responsedata;
+				alert('Refresh data if not shown');
 			}
-		},
-		error: (info: any) => { alert('Get Annotations failed:' + this.message); }
-	});
-}
-getData(catalog: any): void {
-	this.base.getData(catalog);
-	const benson = {};
-	this.bensonstructure.getData(benson);
-	catalog[this.annoinfo['dataset:JThermodynamicsBensonRuleStructure'][this.identifier]] = benson;
-}
-setData(catalog: any): void {
-	if(this.annoinfo != null) {
-    if(this.thermo != null) {
-      
-   
+		} else {
+			this.catalogsetdata = catalog;
 
-	const thermodata = catalog[this.annoinfo['dataset:JThermodynamicStandardThermodynamics'][this.identifier]];
-
-	this.thermo.setData(thermodata);
-	alert("ThermodynamicbensonruledefinitionComponent setData 3")
-	//this.base.setData(catalog);
-	alert("ThermodynamicbensonruledefinitionComponent setData 4")
-	const benson = catalog[this.annoinfo['dataset:JThermodynamicsBensonRuleStructure'][this.identifier]];
-	alert("ThermodynamicbensonruledefinitionComponent setData 5")
-	this.bensonstructure.setData(benson);
-	alert("ThermodynamicbensonruledefinitionComponent setData 6")
- } else {
-   alert('Refresh data if not shown');
- }
-} else {
-	this.catalogsetdata = catalog;
-
-}
+		}
 	}
 
 }

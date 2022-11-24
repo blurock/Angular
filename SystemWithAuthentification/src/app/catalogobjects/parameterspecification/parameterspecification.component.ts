@@ -51,15 +51,14 @@ export class ParameterspecificationComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.title = this.parameterinfo['skos:prefLabel'];
+	this.title = this.parameterinfo['skos:prefLabel'];
 		this.paramspecform.get('UnitClass').setValue(this.parameterinfo['qudt:QuantityKind']);
 		this.paramspecform.get('ParameterTypeSpecification').setValue(this.parameterinfo['dataset:dynamicType']);
 		this.items = this.menusetup.findChoices(this.annoinfo, this.uncertaintymenulabel);
 		this.unitsarray = this.parameterinfo['qudt:Unit'];
 		this.paramspecform.get('ParameterLabel').setValue(this.parameterinfo['skos:prefLabel']);
 		this.paramspecform.get('UnitsOfValue').setValue(this.unitsarray[0]);
-		this.paramspecform.get('DataPointUncertainty').setValue(this.defaultuncertainty);
-	}
+		this.paramspecform.get('DataPointUncertainty').setValue(this.defaultuncertainty)	}
 
 	setUncertainty($event: string): void {
 		this.paramspecform.get('DataPointUncertainty').setValue($event);
