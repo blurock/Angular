@@ -1978,16 +1978,6 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                 [ rdf:type owl:Restriction ;
                                                   owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                  owl:onClass :CatalogDataObjectMaintainer
-                                                ] ,
-                                                [ rdf:type owl:Restriction ;
-                                                  owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                  owl:onClass :DatasetName
-                                                ] ,
-                                                [ rdf:type owl:Restriction ;
-                                                  owl:onProperty <http://purl.org/dc/terms/hasPart> ;
-                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                   owl:onClass :JThermodynamicsComputation
                                                 ] ,
                                                 [ rdf:type owl:Restriction ;
@@ -2004,6 +1994,11 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                   owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                   owl:onClass :JThermodynamicsStructureSpecification
+                                                ] ,
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                  owl:onClass :JThermodynamicBensonTemperatures
                                                 ] ,
                                                 [ rdf:type owl:Restriction ;
                                                   owl:onProperty <http://www.w3.org/ns/dcat#record> ;
@@ -2029,7 +2024,12 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 
 ###  http://www.esblurock.info/dataset#ActivityThermodynamicCalculation
 :ActivityThermodynamicCalculation rdf:type owl:Class ;
-                                  rdfs:subClassOf :ActivityInformationRecordBase ;
+                                  rdfs:subClassOf :ActivityInformationRecordBase ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://www.w3.org/ns/dcat#record> ;
+                                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                    owl:onClass :DatabaseCollectionRecordID
+                                                  ] ;
                                   <http://purl.org/dc/elements/1.1/type> :ActivityThermodynamicCalculation ;
                                   <http://purl.org/dc/terms/identifier> "dataset:thermocalcstructures"^^xsd:string ;
                                   rdfs:comment "The (activity) structures associated with thermodynamic calculations"^^xsd:string ;
@@ -4881,6 +4881,13 @@ Under the general type of is the actual data object referenced by the ChemConnec
                           rdfs:subClassOf :DataTypeInterpretationProtocol .
 
 
+###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromAllSymmetries
+:ComputeThermodynamicsFromAllSymmetries rdf:type owl:Class ;
+                                        rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
+                                        rdfs:comment "Calculation of all symmetries from a 2D graphical species structure"^^xsd:string ;
+                                        rdfs:label "All Symmetries"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromBensonRules
 :ComputeThermodynamicsFromBensonRules rdf:type owl:Class ;
                                       rdfs:subClassOf :ServiceCollectionComputeThermodynamics ,
@@ -4977,6 +4984,20 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                            rdfs:label "External Symmetry"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromInternalSymmetry
+:ComputeThermodynamicsFromInternalSymmetry rdf:type owl:Class ;
+                                           rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
+                                           rdfs:comment "Calculate the internal symmetry given the 2D graphical species."^^xsd:string ;
+                                           rdfs:label "Internal Symmetry"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromOpticalIsomers
+:ComputeThermodynamicsFromOpticalIsomers rdf:type owl:Class ;
+                                         rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
+                                         rdfs:comment "Calculate the optical symmetry from the 2D graphical species structure"^^xsd:string ;
+                                         rdfs:label "Optical Symmetry"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromSymmetryElement
 :ComputeThermodynamicsFromSymmetryElement rdf:type owl:Class ;
                                           rdfs:subClassOf :ServiceCollectionComputeThermodynamics ,
@@ -5012,6 +5033,13 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                           ] ;
                                           rdfs:comment "Compute the 2D graphical thermodynamic contributions from just the symmetries."^^xsd:string ;
                                           rdfs:label "From Symmetry"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromVibrationalModes
+:ComputeThermodynamicsFromVibrationalModes rdf:type owl:Class ;
+                                           rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
+                                           rdfs:comment "Calculation the vibrational mode contribution to the thermodynamic of a 2D-graphical species structure"^^xsd:string ;
+                                           rdfs:label "Vibrational Modes"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ConceptCEO

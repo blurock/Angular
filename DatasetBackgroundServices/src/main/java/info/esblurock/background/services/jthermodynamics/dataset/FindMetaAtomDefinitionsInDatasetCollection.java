@@ -30,73 +30,88 @@ import thermo.data.structure.structure.matching.SubstituteLinearStructures;
 public class FindMetaAtomDefinitionsInDatasetCollection {
 
     public static JsonObject substituteAndCondenseLinearMolecule(JsonObject info) {
+        JsonObject response = null;
         Document document = MessageConstructor.startDocument("Substitute And Condense Linear Molecule");
         Element body = MessageConstructor.isolateBody(document);
         IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
-        String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-        String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();
-        String metaatomtype = "LinearStructure";
-        body.addElement("div").addText("Maintainer      : " + maintainer);
-        body.addElement("div").addText("dataset         : " + dataset);
-        body.addElement("div").addText("Meta Atom type  : " + metaatomtype);
-        JsonObject response = null;
-        StructureAsCML cmlstruct = null;
-        try {
-            cmlstruct = new StructureAsCML(molecule);
-            body.addElement("div").addText("Original Molecule");
-            body.addElement("pre").addText(cmlstruct.getCmlStructureString());
-            SetOfMetaAtomsForSubstitution substitution = setUpSubstituteMetaAtoms(maintainer, dataset, metaatomtype);
-            SubstituteLinearStructures linear = new SubstituteLinearStructures(substitution);
-            IAtomContainer newmolecule = linear.substitute(cmlstruct);
-            cmlstruct = new StructureAsCML(newmolecule);
-            body.addElement("div").addText("Substituted Molecule");
-            body.addElement("pre").addText(cmlstruct.getCmlStructureString());
-            JsonObject molstructure = GenerateJThermodynamics2DSpeciesStructure.generate(newmolecule);
-            response = DatabaseServicesBase.standardServiceResponse(document,
-                    "Substitute of LinearStructure successful", molstructure);
-        } catch (CDKException | IOException e) {
-            e.printStackTrace();
-            response = DatabaseServicesBase.standardErrorResponse(document,
-                    "Error in substituting molecule: " + e.getMessage(), info);
+        if (info.get(ClassLabelConstants.DatabaseCollectionRecordID) != null) {
+            JsonObject colrecordid = info.get(ClassLabelConstants.DatabaseCollectionRecordID).getAsJsonObject();
+            String maintainer = colrecordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+            String dataset = colrecordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+            String metaatomtype = "LinearStructure";
+            body.addElement("div").addText("Maintainer      : " + maintainer);
+            body.addElement("div").addText("dataset         : " + dataset);
+            body.addElement("div").addText("Meta Atom type  : " + metaatomtype);
+
+            StructureAsCML cmlstruct = null;
+            try {
+                cmlstruct = new StructureAsCML(molecule);
+                body.addElement("div").addText("Original Molecule");
+                body.addElement("pre").addText(cmlstruct.getCmlStructureString());
+                SetOfMetaAtomsForSubstitution substitution = setUpSubstituteMetaAtoms(maintainer, dataset,
+                        metaatomtype);
+                SubstituteLinearStructures linear = new SubstituteLinearStructures(substitution);
+                IAtomContainer newmolecule = linear.substitute(cmlstruct);
+                cmlstruct = new StructureAsCML(newmolecule);
+                body.addElement("div").addText("Substituted Molecule");
+                body.addElement("pre").addText(cmlstruct.getCmlStructureString());
+                JsonObject molstructure = GenerateJThermodynamics2DSpeciesStructure.generate(newmolecule);
+                response = DatabaseServicesBase.standardServiceResponse(document,
+                        "Substitute of LinearStructure successful", molstructure);
+            } catch (CDKException | IOException e) {
+                e.printStackTrace();
+                response = DatabaseServicesBase.standardErrorResponse(document,
+                        "Error in substituting molecule: " + e.getMessage(), info);
+            }
+        } else {
+            String errorS = "No Collection Set Record found";
+            response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
         }
 
         return response;
     }
 
     public static JsonObject substituteMolecule(JsonObject info) {
+        JsonObject response = null;
         Document document = MessageConstructor.startDocument("Substitute Molecule");
         Element body = MessageConstructor.isolateBody(document);
         IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
-        String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-        String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();
-        String metaatomtype = info.get(ClassLabelConstants.JThermodynamicsMetaAtomType).getAsString();
-        body.addElement("div").addText("Maintainer      : " + maintainer);
-        body.addElement("div").addText("dataset         : " + dataset);
-        body.addElement("div").addText("Meta Atom type  : " + metaatomtype);
-        JsonObject response = null;
-        StructureAsCML cmlstruct = null;
-        try {
-            cmlstruct = new StructureAsCML(molecule);
-            body.addElement("div").addText("Original Molecule");
-            body.addElement("pre").addText(cmlstruct.getCmlStructureString());
-            SetOfMetaAtomsForSubstitution substitution = setUpSubstituteMetaAtoms(maintainer, dataset, metaatomtype);
-            IAtomContainer newmolecule = null;
-            if (metaatomtype.equals("LinearStructure")) {
-                SubstituteLinearStructures linear = new SubstituteLinearStructures(substitution);
-                newmolecule = linear.substitute(cmlstruct);
-            } else {
-                newmolecule = substitution.substitute(cmlstruct);
+        if (info.get(ClassLabelConstants.DatabaseCollectionRecordID) != null) {
+            JsonObject colrecordid = info.get(ClassLabelConstants.DatabaseCollectionRecordID).getAsJsonObject();
+            String maintainer = colrecordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+            String dataset = colrecordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+            String metaatomtype = info.get(ClassLabelConstants.JThermodynamicsMetaAtomType).getAsString();
+            body.addElement("div").addText("Maintainer      : " + maintainer);
+            body.addElement("div").addText("dataset         : " + dataset);
+            body.addElement("div").addText("Meta Atom type  : " + metaatomtype);
+            StructureAsCML cmlstruct = null;
+            try {
+                cmlstruct = new StructureAsCML(molecule);
+                body.addElement("div").addText("Original Molecule");
+                body.addElement("pre").addText(cmlstruct.getCmlStructureString());
+                SetOfMetaAtomsForSubstitution substitution = setUpSubstituteMetaAtoms(maintainer, dataset,
+                        metaatomtype);
+                IAtomContainer newmolecule = null;
+                if (metaatomtype.equals("LinearStructure")) {
+                    SubstituteLinearStructures linear = new SubstituteLinearStructures(substitution);
+                    newmolecule = linear.substitute(cmlstruct);
+                } else {
+                    newmolecule = substitution.substitute(cmlstruct);
+                }
+                cmlstruct = new StructureAsCML(newmolecule);
+                body.addElement("div").addText("Substituted Molecule");
+                body.addElement("pre").addText(cmlstruct.getCmlStructureString());
+                JsonObject molstructure = GenerateJThermodynamics2DSpeciesStructure.generate(newmolecule);
+                response = DatabaseServicesBase.standardServiceResponse(document,
+                        "Substitute of " + metaatomtype + " successful", molstructure);
+            } catch (ClassNotFoundException | CDKException | IOException e) {
+                e.printStackTrace();
+                response = DatabaseServicesBase.standardErrorResponse(document,
+                        "Error in substituting molecule: " + e.getMessage(), info);
             }
-            cmlstruct = new StructureAsCML(newmolecule);
-            body.addElement("div").addText("Substituted Molecule");
-            body.addElement("pre").addText(cmlstruct.getCmlStructureString());
-            JsonObject molstructure = GenerateJThermodynamics2DSpeciesStructure.generate(newmolecule);
-            response = DatabaseServicesBase.standardServiceResponse(document,
-                    "Substitute of " + metaatomtype + " successful", molstructure);
-        } catch (ClassNotFoundException | CDKException | IOException e) {
-            e.printStackTrace();
-            response = DatabaseServicesBase.standardErrorResponse(document,
-                    "Error in substituting molecule: " + e.getMessage(), info);
+        } else {
+            String errorS = "No Collection Set Record found";
+            response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
         }
 
         return response;
@@ -115,7 +130,7 @@ public class FindMetaAtomDefinitionsInDatasetCollection {
             }
         } else {
             System.out.println("No meta atoms for '" + metaatomtype + "' Substitions found");
-            substitute = null;
+            //substitute = null;
         }
         return substitute;
     }

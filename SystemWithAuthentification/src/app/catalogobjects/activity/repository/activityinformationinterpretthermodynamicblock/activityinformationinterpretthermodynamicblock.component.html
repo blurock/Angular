@@ -42,7 +42,8 @@
 								</mat-chip>
 								<input placeholder="Temperatures" [matChipInputFor]="chipList"
 									[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-									[matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+									[matChipInputAddOnBlur]="addOnBlur"
+									(matChipInputTokenEnd)="add($event)">
 							</mat-chip-list>
 						</mat-form-field>
 					</mat-grid-tile>

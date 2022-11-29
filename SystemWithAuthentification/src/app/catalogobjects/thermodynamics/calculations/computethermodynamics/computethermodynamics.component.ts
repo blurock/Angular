@@ -131,7 +131,6 @@ export class ComputethermodynamicsComponent implements OnInit {
 
 		myDialogRef.afterClosed().subscribe(result => {
 			if (result != null) {
-				//this.resultHtml = result['dataset:serviceresponsemessage'];
 			}
 		});
 	}

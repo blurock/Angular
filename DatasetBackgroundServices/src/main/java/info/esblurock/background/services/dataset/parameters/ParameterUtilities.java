@@ -13,6 +13,16 @@ public class ParameterUtilities {
     private static String defaultenthalpyUnits = "unit:KiloCAL-PER-MOL";
     private static String defaultentropyUnits = "unit:CAL-PER-MOL-K";
     private static String defaultCpUnits = "unit:CAL-PER-MOL-K";
+    
+    private static int defaulttemps[]  = {
+                               300,
+                               400,
+                               500,
+                               600,
+                               800,
+                               1000,
+                               1500
+    };
 
     /**
      * Modify parameter value and uncertainty to new units
@@ -206,7 +216,22 @@ public class ParameterUtilities {
                 
         JsonArray arr = new JsonArray();
         contribution.add(ClassLabelConstants.ThermodynamicCpAtTemperature, arr);
-
+        JsonArray temps = new JsonArray();
+        if(info.get(ClassLabelConstants.JThermodynamicBensonTemperatures) != null) {
+            JsonObject templist = info.get(ClassLabelConstants.JThermodynamicBensonTemperatures).getAsJsonObject();
+            temps = templist.get(ClassLabelConstants.ThermodynamicTemperature).getAsJsonArray();
+        } else {
+            for(int temp : defaulttemps) {
+                temps.add(temp);
+            }
+        }
+        for(int i=0; i< temps.size(); i++) {
+            double temp = temps.get(i).getAsDouble();
+            JsonObject cptemp = new JsonObject();
+            cptemp.addProperty(ClassLabelConstants.ThermodynamicTemperature, temp);
+            cptemp.addProperty(ClassLabelConstants.ThermodynamicHeatCapacityValue, 0.0);
+            arr.add(cptemp);
+        }
         return contribution;        
     }
 

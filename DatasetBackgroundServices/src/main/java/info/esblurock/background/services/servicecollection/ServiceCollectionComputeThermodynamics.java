@@ -26,158 +26,208 @@ import thermo.exception.ThermodynamicComputeException;
 
 public enum ServiceCollectionComputeThermodynamics {
 
-	ComputeThermodynamicsFromBensonRules {
+    ComputeThermodynamicsFromBensonRules {
 
-		@Override
-		public JsonObject process(JsonObject activity) {
-			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromBensonRules");
-			JsonObject response = null;
-			JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
-			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
-			if(molecule != null) {
-				String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-				String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();				
-				response = ComputeBensonRulesForMolecule.compute(maintainer, dataset, molecule, info);
-			} else {
-				String errorS = "Error in interpreting molecule";
-				response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
-			}
-			return response;
-		}
-		
-	}, ComputeThermodynamicsFromExternalSymmetry {
-
-		@Override
-		public JsonObject process(JsonObject activity) {
-			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromExternalSymmetry");
-			JsonObject response = null;
+        @Override
+        public JsonObject process(JsonObject activity) {
+            Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromBensonRules");
+            JsonObject response = null;
             JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
-			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
-			if(molecule != null) {
-				String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-				String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();				
-				response = ComputeThermodynamicsSymmetryContribution.computeExternalSymmetry(maintainer, dataset, molecule, info);
-			} else {
-				String errorS = "Error in interpreting molecule ";
-				response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
-			}
-			return response;
-		}
-		
-	}, ComputeThermodynamicsFromSymmetryElement {
+            IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
+            if (molecule != null) {
+                if (info.get(ClassLabelConstants.DatabaseCollectionRecordID) != null) {
+                    JsonObject colrecordid = info.get(ClassLabelConstants.DatabaseCollectionRecordID).getAsJsonObject();
+                    String maintainer = colrecordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+                    String dataset = colrecordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+                    response = ComputeBensonRulesForMolecule.compute(maintainer, dataset, molecule, info);
+                } else {
+                    String errorS = "No Collection Set Record found";
+                    response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                }
+            } else {
+                String errorS = "Error in interpreting molecule";
+                response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+            }
+            return response;
+        }
 
-		@Override
-		public JsonObject process(JsonObject activity) {
-			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromBensonRules");
-			JsonObject response = null;
+    },
+    ComputeThermodynamicsFromExternalSymmetry {
+
+        @Override
+        public JsonObject process(JsonObject activity) {
+            Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromExternalSymmetry");
+            JsonObject response = null;
             JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
-			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
-			String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-			String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();				
-			if(molecule != null) {
-				response = ComputeThermodynamicsSymmetryContribution.computeFromSymmetryObject(maintainer, dataset, molecule, info);
-			} else {
-				String errorS = "Error in interpreting molecule ";
-				response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
-			}
-			return response;
-		}
-		
-	}, ComputeThermodynamicsFromInternalSymmetry {
+            IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
+            if (molecule != null) {
+                if (info.get(ClassLabelConstants.DatabaseCollectionRecordID) != null) {
+                    JsonObject colrecordid = info.get(ClassLabelConstants.DatabaseCollectionRecordID).getAsJsonObject();
+                    String maintainer = colrecordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+                    String dataset = colrecordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+                    response = ComputeThermodynamicsSymmetryContribution.computeExternalSymmetry(maintainer, dataset,
+                            molecule, info);
+                } else {
+                    String errorS = "No Collection Set Record found";
+                    response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                }
+            } else {
+                String errorS = "Error in interpreting molecule ";
+                response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+            }
+            return response;
+        }
 
-		@Override
-		public JsonObject process(JsonObject activity) {
-			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromInternalSymmetry");
-			JsonObject response = null;
+    },
+    ComputeThermodynamicsFromSymmetryElement {
+
+        @Override
+        public JsonObject process(JsonObject activity) {
+            Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromBensonRules");
+            JsonObject response = null;
             JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
-			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
-			if(molecule != null) {
-				String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-				String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();				
-				response = ComputeThermodynamicsSymmetryContribution.computeInternalSymmetry(maintainer, dataset, molecule, info);
-			} else {
-				String errorS = "Error in interpreting molecule ";
-				response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
-			}
-			return response;
-		}
-		
-	}, ComputeThermodynamicsFromOpticalIsomers {
+            IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
+            if (molecule != null) {
+                if (info.get(ClassLabelConstants.DatabaseCollectionRecordID) != null) {
+                    JsonObject colrecordid = info.get(ClassLabelConstants.DatabaseCollectionRecordID).getAsJsonObject();
+                    String maintainer = colrecordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+                    String dataset = colrecordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+                    response = ComputeThermodynamicsSymmetryContribution.computeFromSymmetryObject(maintainer, dataset,
+                            molecule, info);
+                } else {
+                    String errorS = "No Collection Set Record found";
+                    response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                }
+            } else {
+                String errorS = "Error in interpreting molecule ";
+                response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+            }
+            return response;
+        }
 
-		@Override
-		public JsonObject process(JsonObject activity) {
-			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromOpticalIsomers");
-			JsonObject response = null;
+    },
+    ComputeThermodynamicsFromInternalSymmetry {
+
+        @Override
+        public JsonObject process(JsonObject activity) {
+            Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromInternalSymmetry");
+            JsonObject response = null;
             JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
-			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
-			if(molecule != null) {
-				String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-				String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();				
-				response = ComputeThermodynamicsSymmetryContribution.computeOpticalSymmetry(maintainer, dataset, molecule, info);
-			} else {
-				String errorS = "Error in interpreting molecule ";
-				response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
-			}
-			return response;
-		}
-		
-	}, ComputeThermodynamicsFromAllSymmetries {
+            IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
+            if (molecule != null) {
+                if (info.get(ClassLabelConstants.DatabaseCollectionRecordID) != null) {
+                    JsonObject colrecordid = info.get(ClassLabelConstants.DatabaseCollectionRecordID).getAsJsonObject();
+                    String maintainer = colrecordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+                    String dataset = colrecordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+                    response = ComputeThermodynamicsSymmetryContribution.computeInternalSymmetry(maintainer, dataset,
+                            molecule, info);
+                } else {
+                    String errorS = "No Collection Set Record found";
+                    response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                }
+            } else {
+                String errorS = "Error in interpreting molecule ";
+                response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+            }
+            return response;
+        }
 
-		@Override
-		public JsonObject process(JsonObject activity) {
-			Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromAllSymmetries");
-			Element body = MessageConstructor.isolateBody(document);
-			JsonObject response = null;
+    },
+    ComputeThermodynamicsFromOpticalIsomers {
+
+        @Override
+        public JsonObject process(JsonObject activity) {
+            Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromOpticalIsomers");
+            JsonObject response = null;
             JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
-			IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
-			if(molecule != null) {
-				String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-				String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();
-				body.addElement("div").addText("Maintainer      : " + maintainer);
-				body.addElement("div").addText("dataset         : " + dataset);
-				DatabaseCalculateSymmetryCorrection symmcorrection = new DatabaseCalculateSymmetryCorrection(maintainer,dataset);
-				JsonArray total = symmcorrection.compute(molecule, body, info);
-				response = DatabaseServicesBase.standardServiceResponse(document, "ComputeThermodynamicsFromAllSymmetries computed: " + total.size(), total);
-			} else {
-				String errorS = "Error in interpreting molecule";
-				response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
-			}
-			return response;
-		}
-		
-	}, ComputeThermodynamicsFromVibrationalModes {
+            IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
+            if (molecule != null) {
+                if (info.get(ClassLabelConstants.DatabaseCollectionRecordID) != null) {
+                    JsonObject colrecordid = info.get(ClassLabelConstants.DatabaseCollectionRecordID).getAsJsonObject();
+                    String maintainer = colrecordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+                    String dataset = colrecordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+                    response = ComputeThermodynamicsSymmetryContribution.computeOpticalSymmetry(maintainer, dataset,
+                            molecule, info);
+                } else {
+                    String errorS = "No Collection Set Record found";
+                    response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                }
+            } else {
+                String errorS = "Error in interpreting molecule ";
+                response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+            }
+            return response;
+        }
 
-		@Override
-		public JsonObject process(JsonObject activity) {
+    },
+    ComputeThermodynamicsFromAllSymmetries {
+
+        @Override
+        public JsonObject process(JsonObject activity) {
+            Document document = MessageConstructor.startDocument("ComputeThermodynamicsFromAllSymmetries");
+            Element body = MessageConstructor.isolateBody(document);
+            JsonObject response = null;
             JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
-			return CalculateThermodynamicsFromVibration.computeVibrationalCorrectionsForRadical(info);
-		}
-		
-	}, ComputeThermodynamicsForDisassociationEnergy {
+            IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
+            if (molecule != null) {
+                if (info.get(ClassLabelConstants.DatabaseCollectionRecordID) != null) {
+                    JsonObject colrecordid = info.get(ClassLabelConstants.DatabaseCollectionRecordID).getAsJsonObject();
+                    String maintainer = colrecordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+                    String dataset = colrecordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+                    body.addElement("div").addText("Maintainer      : " + maintainer);
+                    body.addElement("div").addText("dataset         : " + dataset);
+                    DatabaseCalculateSymmetryCorrection symmcorrection = new DatabaseCalculateSymmetryCorrection(
+                            maintainer, dataset);
+                    JsonArray total = symmcorrection.compute(molecule, body, info);
+                    response = DatabaseServicesBase.standardServiceResponse(document,
+                            "ComputeThermodynamicsFromAllSymmetries computed: " + total.size(), total);
+                } else {
+                    String errorS = "No Collection Set Record found";
+                    response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                }
+            } else {
+                String errorS = "Error in interpreting molecule";
+                response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+            }
+            return response;
+        }
 
-		@Override
-		public JsonObject process(JsonObject activity) {
+    },
+    ComputeThermodynamicsFromVibrationalModes {
+
+        @Override
+        public JsonObject process(JsonObject activity) {
             JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
-			return CalculateThermodynamicsForDisassociationEnergy.calculate(info);
-		}
-		
-	}, SubstituteMetaAtomsInMolecule {
+            return CalculateThermodynamicsFromVibration.computeVibrationalCorrectionsForRadical(info);
+        }
 
-		@Override
-		public JsonObject process(JsonObject info) {
-			return FindMetaAtomDefinitionsInDatasetCollection.substituteMolecule(info);
-		}
-		
-	}, SubstituteAndCondenseLinearMolecule {
+    },
+    ComputeThermodynamicsForDisassociationEnergy {
 
-		@Override
-		public JsonObject process(JsonObject info) {
-			return FindMetaAtomDefinitionsInDatasetCollection.substituteAndCondenseLinearMolecule(info);
-		}
-		
-	};
-	
-	public abstract JsonObject process(JsonObject json);
-	
-	
+        @Override
+        public JsonObject process(JsonObject activity) {
+            JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
+            return CalculateThermodynamicsForDisassociationEnergy.calculate(info);
+        }
+
+    },
+    SubstituteMetaAtomsInMolecule {
+
+        @Override
+        public JsonObject process(JsonObject info) {
+            return FindMetaAtomDefinitionsInDatasetCollection.substituteMolecule(info);
+        }
+
+    },
+    SubstituteAndCondenseLinearMolecule {
+
+        @Override
+        public JsonObject process(JsonObject info) {
+            return FindMetaAtomDefinitionsInDatasetCollection.substituteAndCondenseLinearMolecule(info);
+        }
+
+    };
+
+    public abstract JsonObject process(JsonObject json);
+
 }
