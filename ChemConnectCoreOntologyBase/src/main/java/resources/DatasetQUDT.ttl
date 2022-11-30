@@ -4881,6 +4881,13 @@ Under the general type of is the actual data object referenced by the ChemConnec
                           rdfs:subClassOf :DataTypeInterpretationProtocol .
 
 
+###  http://www.esblurock.info/dataset#ComputeThermodynamicsForDisassociationEnergy
+:ComputeThermodynamicsForDisassociationEnergy rdf:type owl:Class ;
+                                              rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
+                                              rdfs:comment "Compute contribution of disassociation energy determined from 2D-graphical species representation."^^xsd:string ;
+                                              rdfs:label "Disassociation Energy"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromAllSymmetries
 :ComputeThermodynamicsFromAllSymmetries rdf:type owl:Class ;
                                         rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
