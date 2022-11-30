@@ -123,9 +123,18 @@ export class ThermodynamiccontributionsComponent implements OnInit {
 		for (let contribution of contributions) {
 			const data = {};
 			data['name'] = contribution['dcterms:title'];
-			data['Enthalpy'] = contribution['dataset:stdenthalpy']['dataset:ValueAsString'];
-			data['Entropy'] = contribution['dataset:stdentropy']['dataset:ValueAsString'];
+			const enth = Number(contribution['dataset:stdenthalpy']['dataset:ValueAsString']).toFixed(3);
+			data['Enthalpy'] = String(enth);
+			const entr = Number(contribution['dataset:stdentropy']['dataset:ValueAsString']).toFixed(3);
+			data['Entropy'] = String(entr);
 			data['source'] = contribution['dataset:2dthermoentity'];
+			const bensoncps = contribution[this.annoinfo['dataset:ThermodynamicCpAtTemperature'][this.identifier]];
+			for(let cpt of bensoncps){
+				const temp = Number(cpt['dataset:thermotemperature']).toFixed(2);
+				const tempS = String(temp);
+				const cp = Number(cpt['dataset:heatcapacityvalue']).toFixed(3);
+				data[temp] = cp;
+			};
 			dataset.push(data);
 			if (first) {
 				const enthalpy = contribution['dataset:stdenthalpy'];
@@ -134,10 +143,18 @@ export class ThermodynamiccontributionsComponent implements OnInit {
 				this.entropyspec = entropy['qb:ComponentSpecification']
 				this.heatcapacityspec = contribution['dataset:paramspecheatcapacity'];
 				first = false;
+		this.columnsToDisplay = ['name', 'Enthalpy', 'Entropy'];
+			for(let cpt of bensoncps){
+				const temp = Number(cpt['dataset:thermotemperature']).toFixed(2);
+				const tempS = String(temp);
+				this.columnsToDisplay.push(tempS);
+			};
+				
 			}
 		}
 		this.dataSource = dataset;
 		this.thermocontribution = contributions;
+		this.columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
 	}
 	valueInParameter(value: any): string {
 		return value['dataset:ValueAsString'];

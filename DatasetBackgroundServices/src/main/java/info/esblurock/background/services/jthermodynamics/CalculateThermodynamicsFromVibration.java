@@ -60,13 +60,15 @@ public class CalculateThermodynamicsFromVibration {
                     body.addElement("div").addText("dataset         : " + dataset);
                     JsonArray structures = databaseAllVibrationalStructures(maintainer, dataset);
                     JsonArray countsR = computeVibrationalMatchCounts(structures, molecule);
-                    System.out.println("countsR: " + countsR.size());
+                    body.addElement("div").addText("Vibrational Match counts for R: " + countsR.size());
                     JsonArray countsRH = computeVibrationalMatchCounts(structures, RH);
-                    System.out.println("countsRH: " + countsRH.size());
+                    body.addElement("div").addText("Vibrational Match counts for RH: " + countsRH.size());
                     JsonArray difference = subtractCounts(countsRH, countsR);
+                    body.addElement("div").addText("Differences in Vibrational matches: " + difference.size());
+                    if(difference.size() > 0) {
                     JsonArray contributions = new JsonArray();
                     Element table = body.addElement("table");
-                    Element header = table.addText("tr");
+                    Element header = table.addElement("tr");
                     header.addElement("th").addText("Mode");
                     header.addElement("th").addText("Frequency");
                     header.addElement("th").addText("Symmetry");
@@ -83,16 +85,19 @@ public class CalculateThermodynamicsFromVibration {
                         contributions.add(contribution);
                     }
                     response = DatabaseServicesBase.standardServiceResponse(document, dataset, contributions);
+                    } else {
+                        body.addElement("div").addText("No contributions due to vibrational contributions: probably a lack of structures in database ");
+                    }
                 } else {
                     String errorS = "No Collection Set Record found";
                     response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
                 }
             } catch (NotARadicalException e) {
-                String errorS = "Error in computing vibrational calculation ";
+                String errorS = "Error in computing vibrational calculation (species not a radical)";
                 response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
             } catch (CDKException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                String errorS = "Error in computing vibrational calculation: computation error";
+                response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
             }
         } else {
             String errorS = "Error in interpreting molecule ";

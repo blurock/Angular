@@ -68,45 +68,45 @@ COH-s-CarbonEtherRadicallBend                   c//c/ch(c)(.)/o/c 	 s-CarbonEthe
 CH-s-CarbonEtherRadicallBend                    c//c/ch(c)(.)/o/c 	 s-CarbonEtherRadicalResonant  1187.0 -1
 CC-s-CarbonEtherRadicallBend                    c//c/ch(c)(.)/o/c 	 s-CarbonEtherRadicalResonant  1187.0 -1
 CC-s-CarbonEtherRadicallResonantBend            c//c/ch(c)(.)/o/c 	 s-CarbonEtherRadicalResonant  1187.0 -1
-CCHPrimary(tw)-Bend                    GeneralPrimaryCH3C             1150.0  -3
-CCHPrimary(tw)-BendRadical.CCH         GeneralPrimaryCH3C.            1150.0  -3
-CCHSecondary(tw)-Bend                  GeneralSecondaryCH2C2          1150.0   2
-CCHSecondary(tw)-BendRadical.CCH       GeneralSecondaryCH2CC.         1150.0   1
-CCHSecondary-Bend                      GeneralSecondaryCH2C2          1150.0  -4
-CCHSecondary-BendRadical.CCH           GeneralSecondaryCH2CC.         1150.0  -2
-CCHTertiary-Bend                       GeneralTertiaryCHC3            1150.0   3
-CCHTertiary-BendRadical.CCH            GeneralTertiaryCHC2C.          1150.0   1
-CCHSecondary(op)-Bend                  GeneralSecondaryCH2C2          700.0   -4
-CCHSecondary(op)-BendRadical.CCH       GeneralSecondaryCH2CC.         700.0   -2
-CCHPrimary(rk)-Bend                    GeneralPrimaryCH3C             1150.0   3
-CCHPrimary(rk)-BendRadical.CCH         GeneralPrimaryCH3C.            1150.0   3
-CCHSecondary(rk)-Bend                  GeneralSecondaryCH2C2          700.0    4
-CCHSecondary(rk)-BendRadical.CCH       GeneralSecondaryCH2CC.         700.0    2
-CHH-Bend                               CHHStructure                   1450.0   2
-CHH-Bend-RadicalCompC.HH               C.HHStructure                  1450.0   2    
-CH-Stretch                             CH-Bond                        3100.0   1
-CH-Stretch-RadicalCompC.H              C.H-Bond             	      3100.0   1
-CC-ResonantStretch                     PrimaryResonantCarbonRadial    1000.0  -2
-C.C-ResonantStretch                    PrimaryResonantCarbonRadial    1300.0   2
-CHC=C-Bend(op)                         GeneralCC.=CGroup               700.0  -1
-H2C=C-Bend(tw)                         GeneralHC.=CGroup              1150.0  -0.5
-H2C=C-Bend                             GeneralHC.=CGroup              1150.0   1
-OHCCHRadicalPrimary(tw)-Bend           RadicalPrimaryAlcohol          1150.0  -0.5
-OHCCHRadicalPrimary(op)-Bend           RadicalPrimaryAlcohol           700.0   1
-OHCCHRadicalPrimary(rk)-Bend           RadicalPrimaryAlcohol           700.0  -1
-COH-Bend                               AlcoholOnCarbon                1200.0   1
-COH-Bend-RadicalComp                   AlcoholOnCarbonRadical         1200.0   1
-OH-StretchOnCarbon-RadicalComp         AlcoholOnCarbonRadical         3100.0   1
-OH-StretchOnCarbon                     AlcoholOnCarbon                3100.0   1
-H-C=OCarbonylBend(op)                  CarbonylRadical                 700     1
-CCH-Carbonyl                           CarbonylRadicalOnCarbon        1150.0  -1
-CCH-CHEtherRadicalBend-op              PrimaryCarbonEtherRadical       700.0   1
-CCH-CHEtherRadicalBend-tw              PrimaryCarbonEtherRadical      1150.0  -0.5
-CCH-CHEtherRadicalBend-rk              PrimaryCarbonEtherRadical       700.0  -1
-COH-CHEtherRadicalBend                 PrimaryCarbonEtherRadical      1187.0   1
-CCH-CCEtherRadicalBend                 SecondaryCarbonEtherRadical    1150.0  -2
-COH-CCEtherRadicalBend                 SecondaryCarbonEtherRadical    1187.0  -2
-CC-ResonantSecondaryStretch 	       SecondaryResonantCarbonRadial  1000.0  -1
-C.C-ResonantSecondaryStretch 	       SecondaryResonantCarbonRadial  1300.0   1
-CCC-ResonantSecondaryBend      	       SecondaryResonantCarbonRadial  420      1
-CCC-ResonantSecondaryResonantBend      SecondaryResonantCarbonRadial  420     -1
+CCHPrimary(tw)-Bend                             c/ch3                GeneralPrimaryCH3C            1150.0  -3
+CCHPrimary(tw)-BendRadical.CCH                  c(.)/ch3             GeneralPrimaryCH3C.           1150.0  -3
+CCHSecondary(tw)-Bend                           c/ch2/c              GeneralSecondaryCH2C2         1150.0   2
+CCHSecondary(tw)-BendRadical.CCH                c/ch2/c(.)           GeneralSecondaryCH2CC.        1150.0   1
+CCHSecondary-Bend                               c/ch2/c              GeneralSecondaryCH2CC.        1150.0  -4
+CCHSecondary-BendRadical.CCH                    c/ch2/c(.)           GeneralSecondaryCH2CC.        1150.0  -2
+CCHTertiary-Bend                                c/chc/c              GeneralTertiaryCHC3           1150.0   3
+CCHTertiary-BendRadical.CCH                     c/chc/c(.)           GeneralTertiaryCHC2C.         1150.0   1
+CCHSecondary(op)-Bend                           c/ch2/c              GeneralTertiaryCHC2C.         700.0   -4
+CCHSecondary(op)-BendRadical.CCH                c/ch2/c(.)           GeneralSecondaryCH2CC.        700.0   -2
+CCHPrimary(rk)-Bend                             c/ch3                GeneralPrimaryCH3C            1150.0   3
+CCHPrimary(rk)-BendRadical.CCH                  c(.)/ch3             GeneralPrimaryCH3C.           1150.0   3
+CCHSecondary(rk)-Bend                           c/ch2/c              GeneralPrimaryCH3C.           700.0    4
+CCHSecondary(rk)-BendRadical.CCH                c/ch2/c(.)           GeneralSecondaryCH2CC.        700.0    2
+CHH-Bend                                        ch2                  CHHStructure                  1450.0   2
+CHH-Bend-RadicalCompC.HH                        c(.)h2               C.HHStructure                 1450.0   2    
+CH-Stretch                                      c/h                  CH-Bond                       3100.0   1
+CH-Stretch-RadicalCompC.H                       c(.)/h             	 C.H-Bond                      3100.0   1
+CC-ResonantStretch                              ch2(.)/c//c          PrimaryResonantCarbonRadial   1000.0  -2
+C.C-ResonantStretch                             ch2(.)/c//c          PrimaryResonantCarbonRadial   1300.0   2
+CHC=C-Bend(op)                                  c/c(.)//c            GeneralCC.=CGroup             700.0  -1
+H2C=C-Bend(tw)                                  c(.)h//c             GeneralHC.=CGroup             1150.0  -0.5
+H2C=C-Bend                                      c(.)h//c             GeneralHC.=CGroup             1150.0   1
+OHCCHRadicalPrimary(tw)-Bend                    c(oh)h(.)/c          RadicalPrimaryAlcohol         1150.0  -0.5
+OHCCHRadicalPrimary(op)-Bend                    c(oh)h(.)/c          RadicalPrimaryAlcohol         700.0   1
+OHCCHRadicalPrimary(rk)-Bend                    c(oh)h(.)/c          RadicalPrimaryAlcohol         700.0  -1
+COH-Bend                                        oh/c                 AlcoholOnCarbon               1200.0   1
+COH-Bend-RadicalComp                            oh/c(.)              AlcoholOnCarbonRadical        1200.0   1
+OH-StretchOnCarbon-RadicalComp                  oh/c(.)              AlcoholOnCarbonRadical        3100.0   1
+OH-StretchOnCarbon                              oh/c                 AlcoholOnCarbon               3100.0   1
+H-C=OCarbonylBend(op)                           c(.)//o              CarbonylRadical               700     1
+CCH-Carbonyl                                    c/c(.)//o            CarbonylRadicalOnCarbon       1150.0  -1
+CCH-CHEtherRadicalBend-op                       c/c(.)h/o/c          PrimaryCarbonEtherRadical     700.0   1
+CCH-CHEtherRadicalBend-tw                       c/c(.)h/o/c          PrimaryCarbonEtherRadical     1150.0  -0.5
+CCH-CHEtherRadicalBend-rk                       c/c(.)h/o/c          PrimaryCarbonEtherRadical     700.0  -1
+COH-CHEtherRadicalBend                          c/c(.)h/o/c          PrimaryCarbonEtherRadical     1187.0   1
+CCH-CCEtherRadicalBend                          c/c(.)c/o/c          SecondaryCarbonEtherRadical   1150.0  -2
+COH-CCEtherRadicalBend                          c/c(.)c/o/c          SecondaryCarbonEtherRadical   1187.0  -2
+CC-ResonantSecondaryStretch 	                chc(.)/c//c          SecondaryResonantCarbonRadial 1000.0  -1
+C.C-ResonantSecondaryStretch 	                chc(.)/c//c          SecondaryResonantCarbonRadial 1300.0   1
+CCC-ResonantSecondaryBend      	                chc(.)/c//c          SecondaryResonantCarbonRadial 420      1
+CCC-ResonantSecondaryResonantBend               chc(.)/c//c          SecondaryResonantCarbonRadial 420     -1
