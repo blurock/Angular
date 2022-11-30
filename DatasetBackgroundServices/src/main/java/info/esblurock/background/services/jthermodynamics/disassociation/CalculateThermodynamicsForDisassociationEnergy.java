@@ -62,20 +62,26 @@ public class CalculateThermodynamicsForDisassociationEnergy {
                     .findDisassociationEnergy(disassociationCollection);
             Collections.sort(structureCollection);
             DisassociationEnergyWithAtomCounts match = findStructureMatch(structureCollection, matches, radical);
-            System.out.println("CalculateThermodynamicsForDisassociationEnergy:\n" + match.toString());
             if (match != null) {
                 Double energyD = match.getDisassociationEnergy().getDisassociationEnergy();
                 String matchname = match.getMoleculeID();
                 body.addElement("div").addText("Structure            : " + matchname);
                 body.addElement("div").addText("Disassociation Energy: " + energyD.toString());
                 JsonObject disassociationmatch = findCorrespondence(match, disassociationCollection);
-                System.out.println("disassociationmatch: " + JsonObjectUtilities.toString(disassociationmatch));
+                if(disassociationmatch != null) {
                 JsonObject contribution = convertJThermodynamicsDisassociationEnergyOfStructureToContribution(
                         disassociationmatch, info);
+                String name = "Disassociation Energy (derived from base: " + matchname + ")";
+                        contribution.addProperty(ClassLabelConstants.DescriptionTitle, name);
+                JsonArray arr = new JsonArray();
+                arr.add(contribution);
                 response = DatabaseServicesBase.standardServiceResponse(document, "Disassociation Energy Found",
-                        contribution);
+                        arr);
+                } else {
+                    response = DatabaseServicesBase.standardErrorResponse(document, "Disassociation Energy Error: No Corresponding structure found for radical", null);
+                }
             } else {
-                response = DatabaseServicesBase.standardErrorResponse(document, "Disassociation Energy Error", null);
+                response = DatabaseServicesBase.standardErrorResponse(document, "Disassociation Energy Error: No Corresponding structure found for radical", null);
             }
         } else {
             response = DatabaseServicesBase.standardErrorResponse(document,
