@@ -54,7 +54,7 @@ public class FindRDFInClass {
 			System.out.println("----------------");
 		}
 		BaseCatalogData.copyOwnerAndPriviledges(obj,json);
-		BaseCatalogData.insertCatalogObjectKey(json);
+		BaseCatalogData.insertCatalogObjectKey(json,classname);
 		BaseCatalogData.copyTransactionID(obj, json);
 		json.addProperty(ClassLabelConstants.DatabaseObjectType, info.getRdftriple());
 		JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(json);

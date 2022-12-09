@@ -440,6 +440,10 @@
 :descriptionID rdf:type owl:AnnotationProperty .
 
 
+###  http://www.esblurock.info/dataset#documentNameSource
+:documentNameSource rdf:type owl:AnnotationProperty .
+
+
 ###  http://www.esblurock.info/dataset#fileextension
 :fileextension rdf:type owl:AnnotationProperty .
 
@@ -2552,6 +2556,13 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
 ###  http://www.esblurock.info/dataset#CSV
 :CSV rdf:type owl:Class ;
      rdfs:subClassOf :SpreadSheetDelimitorTypes .
+
+
+###  http://www.esblurock.info/dataset#CalculateTherGasThermodynamics
+:CalculateTherGasThermodynamics rdf:type owl:Class ;
+                                rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
+                                rdfs:comment "Compute the total TherGas thermodynamic contributions using the 2D-graphical species structure"^^xsd:string ;
+                                rdfs:label "TherGas Thermodynamics"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CalculatedAbsoluteUncertainty
@@ -11299,6 +11310,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                          ] ;
                                          <http://purl.org/dc/elements/1.1/type> :JThermodynamics2DMoleculeThermodynamics ;
                                          <http://purl.org/dc/terms/identifier> "dataset:2dmoleculethermo"^^xsd:string ;
+                                         :documentNameSource :JThermodynamicsStructureName ;
                                          rdfs:comment "The thermodynamics of a  2D molecule structure"^^xsd:string ;
                                          rdfs:label "2D Molecular Thermodynamic Information"^^xsd:string ;
                                          <http://www.w3.org/2004/02/skos/core#altLabel> "2dmoleculethermo"^^xsd:string .
@@ -11359,6 +11371,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                              ] ;
                                              <http://purl.org/dc/elements/1.1/type> :JThermodynamics2DSubstructureThermodynamics ;
                                              <http://purl.org/dc/terms/identifier> "dataset:2dsubstructurethermo"^^xsd:string ;
+                                             :documentNameSource :JThermodynamicsStructureName ;
                                              rdfs:comment "The temperature dependent thermodynamics of a substructure of a given type"^^xsd:string ;
                                              rdfs:label "2D Substructure Thermodynamics"^^xsd:string ;
                                              <http://www.w3.org/2004/02/skos/core#altLabel> "2dsubstructurethermo"^^xsd:string .
@@ -11602,6 +11615,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                                 ] ;
                                                 <http://purl.org/dc/elements/1.1/type> "ShortStringLabel"^^xsd:string ;
                                                 <http://purl.org/dc/terms/identifier> "dataset:disassociation"^^xsd:string ;
+                                                :documentNameSource :JThermodynamicsStructureName ;
                                                 rdfs:comment "This is the disassociation energy of a hydrogen from a substructure. The substructure is a radical. From the set of disassociation energies, the 'best',usually defined as the largest (number of atoms), structure matched to the radical in question and the associated disassociation energy is assigned."^^xsd:string ;
                                                 rdfs:label "Disassociation Energy"^^xsd:string ;
                                                 <http://www.w3.org/2004/02/skos/core#altLabel> "disassociation"^^xsd:string .
@@ -11661,6 +11675,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                      owl:onClass :JThermodynamicsMetaAtomInfo
                                                    ] ;
                                    <http://purl.org/dc/terms/identifier> "dataset:metaatomdefinition"^^xsd:string ;
+                                   :documentNameSource :JThermodynamicsStructureName ;
                                    rdfs:comment "The MetaAtom definition with the type and structure in CML form"^^xsd:string ;
                                    rdfs:label "Meta Atom Definition"^^xsd:string ;
                                    <http://www.w3.org/2004/02/skos/core#altLabel> "metaatomdefinition"^^xsd:string .
@@ -12029,6 +12044,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                             ] ;
                                             <http://purl.org/dc/elements/1.1/type> "ChemConnectCompoundStructure"^^xsd:string ;
                                             <http://purl.org/dc/terms/identifier> "dataset:symmetrystructuredefinition"^^xsd:string ;
+                                            :documentNameSource :JThermodynamicSymmetryDefinitionLabel ;
                                             rdfs:comment "This defines the complete symmetry description relative to a structure"^^xsd:string ;
                                             rdfs:label "Symmetry Structure Definition"^^xsd:string ;
                                             <http://www.w3.org/2004/02/skos/core#altLabel> "symmetrystructuredefinition"^^xsd:string .
@@ -12164,6 +12180,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                                      ] ;
                                      <http://purl.org/dc/elements/1.1/type> "ChemConnectCompoundStructure"^^xsd:string ;
                                      <http://purl.org/dc/terms/identifier> "dataset:vibrationalstructure"^^xsd:string ;
+                                     :documentNameSource :JThermodynamicsVibrationalModeLabel ;
                                      rdfs:comment "The definition of the vibrational frequency of a structure. The vibrational frequency associated with the total oscillation modes of the atoms within the structure. These assigned frequencies are normal and partial bond bending and stretching motions (see Table A.13 in Benson's Thermochemical Kinetics book). This is the symmetry factor associated with the structure. The absolute value reflects how many modes the structure has. The sign of the factor reflects whether the harmonic oscillator values derived from the frequency should be added or subtracted. The final contribution reflects the loss of harmonic oscillators with respect to the loss of hydrogen producing a radical."^^xsd:string ;
                                      rdfs:label "Vibrational Structure"^^xsd:string ;
                                      <http://www.w3.org/2004/02/skos/core#altLabel> "vibrationstructure"^^xsd:string .
@@ -18699,6 +18716,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                                                    ] ;
                                    <http://purl.org/dc/elements/1.1/type> :ChemConnectCompoundStructure ;
                                    <http://purl.org/dc/terms/identifier> "dataset:bensonrule"^^xsd:string ;
+                                   :documentNameSource :BensonRuleDatabaseReference ;
                                    rdfs:comment "The Benson rule definition" ;
                                    rdfs:label "Benson Rule"^^xsd:string ;
                                    <http://www.w3.org/2004/02/skos/core#altLabel> "bensonrule"^^xsd:string .

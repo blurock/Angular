@@ -86,6 +86,9 @@ export class FindspecifictransactionindatasetComponent implements OnInit {
 		jsontransspec[this.annoinfo['dataset:DatasetName'][this.identifier]] = this.idForm.get('DatasetName').value;
 		jsontransspec[this.annoinfo['dataset:CatalogObjectUniqueGenericLabel'][this.identifier]] = this.idForm.get('CatalogObjectUniqueGenericLabel').value;
 		jsontransspec['dataset:catalogobjectmaintainer'] = this.maintainer;
+		alert("FindspecifictransactionindatasetComponent\n" + JSON.stringify(this.annoinfo));
+		alert("FindspecifictransactionindatasetComponent\n" + JSON.stringify(this.annoinfo['dataset:TransactionEventType']));
+		alert("FindspecifictransactionindatasetComponent\n" + JSON.stringify(json));
 		this.runservice.run(json).subscribe({
 			next: (responsedata: any) => {
 				const success = responsedata['dataset:servicesuccessful'];

@@ -12,6 +12,7 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.molecule.DatasetMoleculeUtilities;
 import info.esblurock.background.services.jthermodynamics.CalculateThermodynamicsFromVibration;
+import info.esblurock.background.services.jthermodynamics.ComputeTotalThermodynamics;
 import info.esblurock.background.services.jthermodynamics.bensonrules.ComputeBensonRulesForMolecule;
 import info.esblurock.background.services.jthermodynamics.dataset.FindMetaAtomDefinitionsInDatasetCollection;
 import info.esblurock.background.services.jthermodynamics.disassociation.CalculateThermodynamicsForDisassociationEnergy;
@@ -210,6 +211,26 @@ public enum ServiceCollectionComputeThermodynamics {
             return CalculateThermodynamicsForDisassociationEnergy.calculate(info);
         }
 
+    },
+    CalculateTherGasThermodynamics {
+
+        @Override
+        public JsonObject process(JsonObject activity) {
+            System.out.println("CalculateTherGasThermodynamics");
+            JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
+            return ComputeTotalThermodynamics.calculateTherGasThermodynamics(info);
+        }
+        
+    },
+    CalculateThermThermodynamics {
+
+        @Override
+        public JsonObject process(JsonObject activity) {
+            JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
+            ComputeTotalThermodynamics.calculateTherGasThermodynamics(info);
+            return null;
+        }
+        
     },
     SubstituteMetaAtomsInMolecule {
 

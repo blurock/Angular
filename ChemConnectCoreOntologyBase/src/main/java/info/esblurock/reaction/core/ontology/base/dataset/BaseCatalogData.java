@@ -21,8 +21,18 @@ public class BaseCatalogData {
 		obj.addProperty(ClassLabelConstants.CatalogObjectAccessModify, accessmodify );
 	}
 
-	public static void insertCatalogObjectKey(JsonObject json) {
+	public static void insertCatalogObjectKey(JsonObject json, String type) {
+	    String namesrc = DatasetOntologyParseBase.getAnnotationObject(type, AnnotationObjectsLabels.documentNameSource);
 		String id = UUID.randomUUID().toString();
+		if(namesrc != null) {
+		    if(namesrc.length() > 0) {
+		    String identifier = DatasetOntologyParseBase.getAnnotationObject(namesrc, AnnotationObjectsLabels.identifier);
+		    String name = JsonObjectUtilities.getValueUsingIdentifier(json,identifier);
+		    if(name != null) {
+		        id = name.replace('/','x');
+		    }
+		    }
+		}
 		json.addProperty(ClassLabelConstants.CatalogObjectKey,id);
 	}
 	public static void copyTransactionID(JsonObject original, JsonObject obj) {
@@ -51,8 +61,8 @@ public class BaseCatalogData {
 			obj.addProperty(ClassLabelConstants.CatalogObjectAccessRead, owner);
 		}
 		obj.addProperty(ClassLabelConstants.TransactionID, transactionID);
-		insertCatalogObjectKey(obj);
-		String type = GenericSimpleQueries.classFromIdentifier(obj.get(AnnotationObjectsLabels.identifier).getAsString());
+        String type = GenericSimpleQueries.classFromIdentifier(obj.get(AnnotationObjectsLabels.identifier).getAsString());
+		insertCatalogObjectKey(obj,type);
 		obj.addProperty(ClassLabelConstants.DatabaseObjectType, type);
 		if(computeaddress) {
 		    System.out.println("Compute Address obj:\n" + JsonObjectUtilities.toString(obj));

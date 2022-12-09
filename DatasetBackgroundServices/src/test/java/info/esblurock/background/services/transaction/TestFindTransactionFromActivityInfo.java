@@ -16,7 +16,7 @@ public class TestFindTransactionFromActivityInfo {
                 + " \"prov:activity\": \"dataset:InitialReadInOfRepositoryFile\",\n"
                 + " \"dataset:datasettransactionspecification\": {\n"
                 + "     \"dataset:catalogobjectmaintainer\": \"Administrator\",\n"
-                + "     \"dataset:datasetname\": \"Standard\",\n"
+                + "     \"dataset:datasetname\": \"StandardData\",\n"
                 + "     \"dataset:datasetversion\": \"1.0\",\n"
                 + "     \"dataset:uniquegenericname\": \"tableA1CarbonBensonRules\"\n"
                 + " }\n"

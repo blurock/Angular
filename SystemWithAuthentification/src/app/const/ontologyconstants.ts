@@ -1,7 +1,7 @@
 export class Ontologyconstants {
 	public static rdfslabel = 'rdfs:label';
 	public static rdfscomment = 'rdfs:comment';
-	public static dctermsidentifier = 'dcterms:identifier';
+	public static dctermsidentifier = '<http://purl.org/dc/elements/1.1/identifier>';
 	public static dctype = 'dc:type';
 	public static datacitePrimaryResourceIdentifier = 'datacite:PrimaryResourceIdentifier';
 	public static dctermsdescription = 'dcterms:description';

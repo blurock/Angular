@@ -46,12 +46,9 @@ public class DatabaseCalculateSymmetryCorrection {
 			newmolecule = linear.substitute(cmlstruct);
 			//substituteBack.substitute(newmolecule);
 			JsonArray contributionsE = externalD.compute(newmolecule, body, info);
-			System.out.println("contributionsE\n" + JsonObjectUtilities.toString(contributionsE));
 			JsonArray contributionsI = internalD.compute(newmolecule, body, info);
-			System.out.println("contributionsI\n" + JsonObjectUtilities.toString(contributionsE));
 			JsonArray combined1 = JsonObjectUtilities.combineJsonArray(contributionsE, contributionsI);
 			JsonArray contributionsO = opticalD.compute(newmolecule, body, info);
-			System.out.println("contributionsO\n" + JsonObjectUtilities.toString(contributionsE));
 			combined2 = JsonObjectUtilities.combineJsonArray(combined1, contributionsO);
 			
 			

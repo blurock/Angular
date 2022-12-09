@@ -21,7 +21,7 @@ public class TestCreateJsonRDFs {
 		String owner = "Administration";
 		String transID = BaseCatalogData.generateUniqueUUID();
 		JsonObject obj = BaseCatalogData.createStandardDatabaseObject(classname, owner, transID, "true");
-		BaseCatalogData.insertCatalogObjectKey(obj);
+		BaseCatalogData.insertCatalogObjectKey(obj,classname);
 		SubstituteJsonValues.substituteJsonValueString(obj, ClassLabelConstants.DOI, "DOI value");
 		SubstituteJsonValues.substituteJsonValueString(obj, ClassLabelConstants.PersonFullName, "Edward Blurock");
 		SubstituteJsonValues.substituteJsonValueString(obj, ClassLabelConstants.givenName, "Edward");
