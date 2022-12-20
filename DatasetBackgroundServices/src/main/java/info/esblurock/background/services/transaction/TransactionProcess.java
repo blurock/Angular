@@ -372,7 +372,9 @@ public enum TransactionProcess {
             return "dataset:DatasetTransactionEventObject";
         }
 
-    };
+    } 
+    
+    ;
 
     public static void addLinkToCatalog(JsonArray catalogobjs, JsonObject linkobj, String type, String concept) {
         for (int i = 0; i < catalogobjs.size(); i++) {

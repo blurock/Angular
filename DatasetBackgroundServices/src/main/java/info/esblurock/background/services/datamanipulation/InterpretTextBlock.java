@@ -402,7 +402,7 @@ public enum InterpretTextBlock {
 					CreateLinksInStandardCatalogInformation.transfer(parsed, catalog);
 					CreateLinksInStandardCatalogInformation.linkCatalogObjects(parsed,
 							"dataset:ConceptLinkRepositoryPartitionToInterpretation", catalog);
-					CreateLinksInStandardCatalogInformation.transfer(info, catalog);
+					//CreateLinksInStandardCatalogInformation.transfer(info, catalog);
 					WriteFirestoreCatalogObject.writeCatalogObject(catalog);
 					catalogset.add(catalog);
 				} else {
@@ -424,7 +424,7 @@ public enum InterpretTextBlock {
 
 		return response;
 	}
-
+	
 	private static InterpretTextBlock getMethod(JsonObject info) {
 		String methodS = info.get(ClassLabelConstants.BlockInterpretationMethod).getAsString();
 		if (methodS.startsWith("dataset:")) {

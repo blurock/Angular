@@ -56,7 +56,7 @@ public class DeleteTransaction extends DeleteCatalogDataObject {
 	    String idS = transaction.get(ClassLabelConstants.CatalogObjectKey).getAsString();
 		Document document = MessageConstructor.startDocument("Transaction: " + idS);
 		Element body = MessageConstructor.isolateBody(document);
-		getFirestoreID();
+		DeleteCatalogDataObject.getFirestoreID();
 		int deleted = 0;
 		JsonArray arr = transaction.get(ClassLabelConstants.DatabaseObjectIDOutputTransaction).getAsJsonArray();
 		for (int i = 0; i < arr.size(); i++) {
