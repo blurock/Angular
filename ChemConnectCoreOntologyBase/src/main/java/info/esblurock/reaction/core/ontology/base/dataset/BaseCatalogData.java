@@ -29,7 +29,7 @@ public class BaseCatalogData {
 		    String identifier = DatasetOntologyParseBase.getAnnotationObject(namesrc, AnnotationObjectsLabels.identifier);
 		    String name = JsonObjectUtilities.getValueUsingIdentifier(json,identifier);
 		    if(name != null) {
-		        id = name.replace('/','x');
+		        id = name.replace('/','x').replace('(','y').replace(')','z');
 		    }
 		    }
 		}
@@ -65,9 +65,7 @@ public class BaseCatalogData {
 		insertCatalogObjectKey(obj,type);
 		obj.addProperty(ClassLabelConstants.DatabaseObjectType, type);
 		if(computeaddress) {
-		    System.out.println("Compute Address obj:\n" + JsonObjectUtilities.toString(obj));
 			insertFirestoreAddress(obj);
-            System.out.println("Compute Address with:\n" + JsonObjectUtilities.toString(obj));
 		}
 	}
 	

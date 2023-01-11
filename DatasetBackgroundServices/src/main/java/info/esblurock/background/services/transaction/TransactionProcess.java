@@ -13,6 +13,7 @@ import com.google.gson.JsonObject;
 import info.esblurock.background.services.SystemObjectInformation;
 import info.esblurock.background.services.datamanipulation.InterpretTextBlock;
 import info.esblurock.background.services.dataset.DatasetCollectionManagement;
+import info.esblurock.background.services.firestore.ManageDatasetCatalogObjects;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
 import info.esblurock.background.services.firestore.gcs.PartiionSetWithinRepositoryFileProcess;
@@ -308,7 +309,7 @@ public enum TransactionProcess {
 
         @Override
         String transactionObjectName() {
-            return "dataset:DatasetTransactionEventObject";
+            return "dataset:DatasetCollectionObjectSetWriteTransaction";
         }
 
     },
@@ -352,6 +353,78 @@ public enum TransactionProcess {
             return "dataset:DatasetCollectionManagementTransaction";
         }
 
+    },
+    DatasetCollectionSetObjectManagementDelete {
+
+        @Override
+        JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+            return ManageDatasetCatalogObjects.processDatasetCollectionSetObjectManagementDelete(event, info);
+        }
+
+        @Override
+        String transactionKey(JsonObject catalog) {
+
+            JsonObject structure = catalog.get(ClassLabelConstants.DatasetSpecificationforDestinationCollectionSet)
+                    .getAsJsonObject();
+            String maintainer = structure.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+            String dataset = structure.get(ClassLabelConstants.DatasetName).getAsString();
+            String version = structure.get(ClassLabelConstants.DatasetVersion).getAsString();
+            return "Delete." + maintainer + "." + dataset + ":" + version;
+        }
+
+        @Override
+        String transactionObjectName() {
+            return "dataset:DatasetCollectionObjectSetManipulationTransaction";
+        }
+        
+    },
+    DatasetCollectionSetObjectManagementCopy {
+
+        @Override
+        JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+            return ManageDatasetCatalogObjects.processDatasetCollectionSetObjectManagementCopy(event, info);
+        }
+
+        @Override
+        String transactionKey(JsonObject catalog) {
+
+            JsonObject structure = catalog.get(ClassLabelConstants.DatasetSpecificationforDestinationCollectionSet)
+                    .getAsJsonObject();
+            String maintainer = structure.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+            String dataset = structure.get(ClassLabelConstants.DatasetName).getAsString();
+            String version = structure.get(ClassLabelConstants.DatasetVersion).getAsString();
+            return "Copy." + maintainer + "." + dataset + ":" + version;
+        }
+
+        @Override
+        String transactionObjectName() {
+            return "dataset:DatasetCollectionObjectSetManipulationTransaction";
+        }
+        
+    },
+    DatasetCollectionSetObjectManagementMove {
+
+        @Override
+        JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+            return ManageDatasetCatalogObjects.processDatasetCollectionSetObjectManagementMove(event, info);
+        }
+
+        @Override
+        String transactionKey(JsonObject catalog) {
+
+            JsonObject structure = catalog.get(ClassLabelConstants.DatasetSpecificationforDestinationCollectionSet)
+                    .getAsJsonObject();
+            String maintainer = structure.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+            String dataset = structure.get(ClassLabelConstants.DatasetName).getAsString();
+            String version = structure.get(ClassLabelConstants.DatasetVersion).getAsString();
+            return "Move." + maintainer + "." + dataset + ":" + version;
+        }
+
+        @Override
+        String transactionObjectName() {
+            return "dataset:DatasetCollectionObjectSetManipulationTransaction";
+        }
+        
     },
     DatabaseDeleteTransaction {
 

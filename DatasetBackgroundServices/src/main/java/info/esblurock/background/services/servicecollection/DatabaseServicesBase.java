@@ -117,7 +117,7 @@ public class DatabaseServicesBase {
 		return response;
 	}
 
-	public static JsonObject standardErrorResponse(Document document, JsonObject errresponse, JsonObject result) {
+	public static JsonObject standardErrorResponse(Document document, JsonObject errresponse, JsonElement result) {
 		JsonObject response = new JsonObject();
 		response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, "false");
 		String rdfmessage = errresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
@@ -128,7 +128,7 @@ public class DatabaseServicesBase {
 		return response;
 	}
 
-	public static JsonObject standardErrorResponse(Document document, String errresponse, JsonObject result) {
+	public static JsonObject standardErrorResponse(Document document, String errresponse, JsonElement result) {
 		JsonObject response = new JsonObject();
 		response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, "false");
 		Element body = MessageConstructor.isolateBody(document);

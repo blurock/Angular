@@ -38,11 +38,8 @@ public class ReadFirestoreInformation {
      * @return response with the read catalog object
      */
     public static JsonObject readFromDatasetSpecificationForCollectionSet(String classname, JsonObject datasetid, String id) {
-        System.out.println("readFromDatasetSpecificationForCollectionSet: " + classname);
         JsonObject firestoreid = FindDatasetCollections.findDatasetCollectionID(classname, datasetid);
-        System.out.println("readFromDatasetSpecificationForCollectionSet\n" + JsonObjectUtilities.toString(firestoreid));
         firestoreid.addProperty(ClassLabelConstants.SimpleCatalogName, id);
-        System.out.println("readFromDatasetSpecificationForCollectionSet\n" + JsonObjectUtilities.toString(firestoreid));
         JsonObject response = readFirestoreCatalogObject(firestoreid);
         
         return response;

@@ -24,7 +24,17 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public enum GenerateStringLabel {
 	
-	LabelDerivedFromTransactionEventType {
+    LabelDerivedFromDatasetCollectionObjectType {
+
+        @Override
+        String deriveName(String hierclass, String classname, JsonObject object) {
+            String label = ClassLabelConstants.DatasetCollectionObjectType;
+            String id = object.get(ClassLabelConstants.DatabaseObjectType).getAsString();
+            return getValueFromObject(object,label,id);
+        }
+        
+    },
+    LabelDerivedFromTransactionEventType {
 
 		@Override
 		String deriveName(String hierclass, String classname, JsonObject object) {

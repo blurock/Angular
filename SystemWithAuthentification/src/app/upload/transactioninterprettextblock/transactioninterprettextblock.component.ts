@@ -72,6 +72,7 @@ export class TransactioninterprettextblockComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.resultHtml = "<div>No Submission</div>";
 	}
 
 	invalid(): boolean {
@@ -218,7 +219,7 @@ export class TransactioninterprettextblockComponent implements OnInit {
 					alert(this.failedresponse);
 				}
 			} else {
-				this.resultHtml = this.failedsubmission;
+				//this.resultHtml = this.failedsubmission;
 			}
 		});
 	}

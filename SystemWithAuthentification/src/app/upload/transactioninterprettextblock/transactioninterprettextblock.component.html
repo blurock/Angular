@@ -29,11 +29,11 @@
 
 			<app-activityinformation #activity [(activityname)]="activitytype" (activitysetup)="activitysetup()"></app-activityinformation>
 			</ng-container>
-					<ng-template #noactivity>
+			<ng-template #noactivity>
 			<div>
 				{{noactivitymessage}}
 			</div>
 		</ng-template>
-
+        <div [innerHTML]="resultHtml"></div>
 	</mat-card-content>
 </mat-card>

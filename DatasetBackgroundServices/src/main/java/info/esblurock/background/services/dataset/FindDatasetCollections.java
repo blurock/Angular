@@ -44,6 +44,14 @@ public class FindDatasetCollections {
 		return firestoreid;
 	}
 
+    /**
+     * Read in entire collection
+     * 
+     * @param classname The class name (type) of the object
+     * @param recordid  The DatasetSpecificationForCollectionSet with Catalog
+     *                  location specification
+     * @return The response of reading in the entire collection
+     */
 	public static JsonObject readInDatasetCollection(String classname, JsonObject recordid) {
 		JsonObject firestoreid = findDatasetCollectionID(classname, recordid);
 		JsonObject response = ReadFirestoreInformation.readFirestoreCollection(null, firestoreid);

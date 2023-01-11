@@ -1,4 +1,5 @@
 package info.esblurock.reaction.core.ontology.base.constants;
+
 public class OntologyObjectLabels {
 	public static String elementType = "elementType";
 	public static String elementInformation ="elementinfo";
@@ -33,6 +34,8 @@ public class OntologyObjectLabels {
 	public static String classification = "classification";
 	public static String subclassifications = "subclassifications";
 	
+	
+	
 	public static String rdfmappingclass = "dataset:rdfmappingdefinition";
 	
 	public static String mappingRelation = "<http://www.w3.org/2004/02/skos/core#mappingRelation>";
@@ -47,5 +50,7 @@ public class OntologyObjectLabels {
 	
     public static String sourcesimple = "dcterms:source";
     public static String source = "<http://purl.org/dc/terms/source>";
+    
+    public static String deletecollection = "DeleteCollection";
 	
 }
