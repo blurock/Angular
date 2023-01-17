@@ -1543,6 +1543,11 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                                               owl:someValuesFrom :SimpleCatalogName
                                                                             ] ,
                                                                             [ rdf:type owl:Restriction ;
+                                                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                              owl:onClass :DatasetCollectionObjectType
+                                                                            ] ,
+                                                                            [ rdf:type owl:Restriction ;
                                                                               owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                                               owl:onClass :DatasetSpecificationforSourceCollectionSet
@@ -1625,7 +1630,7 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                                      [ rdf:type owl:Restriction ;
                                                                        owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                       owl:onClass :DatasetCollectionObjectType
+                                                                       owl:onClass :DatasetCollectionType
                                                                      ] ,
                                                                      [ rdf:type owl:Restriction ;
                                                                        owl:onProperty <http://www.w3.org/ns/dcat#record> ;
@@ -7305,7 +7310,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#DatasetCollectionType
 :DatasetCollectionType rdf:type owl:Class ;
-                       rdfs:subClassOf :StringNameLabel ;
+                       rdfs:subClassOf :Classification ;
                        <http://purl.org/dc/elements/1.1/type> :DatasetCollectionType ;
                        <http://purl.org/dc/terms/identifier> "dcat:dataset"^^xsd:string ;
                        rdfs:comment "This is the type of dataset collection. The type specifies which datasets make up the collection."^^xsd:string ;
@@ -7601,6 +7606,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
 ###  http://www.esblurock.info/dataset#DatasetTransactionEventObject
 :DatasetTransactionEventObject rdf:type owl:Class ;
                                rdfs:subClassOf :TransactionEventObject ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onClass :DatasetCollectionObjectType
+                                               ] ,
                                                [ rdf:type owl:Restriction ;
                                                  owl:onProperty <http://www.w3.org/ns/dcat#record> ;
                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
