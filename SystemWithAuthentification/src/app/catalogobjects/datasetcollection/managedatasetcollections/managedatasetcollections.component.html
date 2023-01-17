@@ -1,9 +1,9 @@
 <mat-tab-group>
   <mat-tab label="Visualize">
-  <app-visualizedatasetcollectionids #visualcollection (newCollectionV)="newCollectionV($event)" [(annoReady)]="annoReady" [(maintainer)]="maintainer" [(annoinfo)]="cataloganno"> </app-visualizedatasetcollectionids>
+  <app-visualizedatasetcollectionids #visualcollection (newCollectionV)="newCollectionV($event)" [(annoinfo)]="cataloganno" [(maintainer)]="maintainer" [(annoinfo)]="cataloganno"> </app-visualizedatasetcollectionids>
   </mat-tab>
   <mat-tab label="Create">
-  <app-createnewdatasetcollection #createcollection [(maintainer)]="maintainer" (newCollectionC)="newCollectionC($event)" [(cataloganno)]="cataloganno"></app-createnewdatasetcollection>
+  <app-createnewdatasetcollection #createcollection [(maintainer)]="maintainer" (newCollectionC)="newCollectionC($event)" [(annoinfo)]="cataloganno"></app-createnewdatasetcollection>
   </mat-tab>
   <mat-tab label="Modify">
   <app-modifydatasetcollectionids #modifycollection [(maintainer)]="maintainer" [(annoinfo)]="cataloganno" (newCollectionM)="newCollectionM($event)" ></app-modifydatasetcollectionids>

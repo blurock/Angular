@@ -3,6 +3,8 @@ import { ThermodynamicsdatasetcollectionidssetComponent } from '../../datasetcol
 import { FetchcollectiondatasetidsComponent } from '../../../dialog/fetchcollectiondatasetids/fetchcollectiondatasetids.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 
 
 @Component({
@@ -13,10 +15,10 @@ import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcata
 export class VisualizedatasetcollectionidsComponent implements OnInit {
 
 	@Output() newCollectionV = new EventEmitter<any>();
-	@Input() annoReady: EventEmitter<any>;
 	@Input() maintainer: string;
 	@Input() annoinfo: any;
 
+waitmessage = 'Waiting for Initialization';
 	title = 'Collection Set ID';
 	readinfailed = 'Could not read in Collection Set';
 	readincanceled = 'Fetch canceled';
@@ -24,7 +26,7 @@ export class VisualizedatasetcollectionidsComponent implements OnInit {
 	fetch = 'fetch';
 	displaybutton = 'Display';
 	displaydescbutton = 'Display Collection Dataset IDs';
-
+	
 	resultHtml: string;
 	catalog: any;
 
@@ -32,15 +34,12 @@ export class VisualizedatasetcollectionidsComponent implements OnInit {
 
 
 	constructor(
+		public annotations: OntologycatalogService,
 		public dialog: MatDialog
-	) { }
+	) { 
+	}
 
 	ngOnInit(): void {
-/*
-		this.newCollection.subscribe(result => {
-			this.thermocollectionset.setData(result);
-		});
-		*/
 	}
 	
 	setData(catalog) {
@@ -58,7 +57,6 @@ export class VisualizedatasetcollectionidsComponent implements OnInit {
 				this.resultHtml = result['dataset:serviceresponsemessage'];
 				if (success == 'true') {
 					this.catalog = result['dataset:simpcatobj'];
-					this.setData(this.catalog);
 					this.newCollectionV.emit(this.catalog);
 				} else {
 					alert(this.readinfailed);

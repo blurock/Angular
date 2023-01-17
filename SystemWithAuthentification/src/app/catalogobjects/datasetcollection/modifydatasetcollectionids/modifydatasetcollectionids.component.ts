@@ -20,7 +20,6 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 	@Input() maintainer: string;
 	@Input() annoinfo: any;
 
-	actannoinfo: any;
 	resultHtml: string;
 	transfirestoreid: any;
 	catalog: any;
@@ -48,6 +47,9 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
 	activitytype = 'dataset:ActivityInformationDatasetCollectionSetAddDataset';
+	actannoinfo: any;
+	catalogtype = 'dataset:ThermodynamicsDatasetCollectionIDsSet';
+	catannoinfo: any;
 
 	@ViewChild('activity') activity: ActivityinformationdatasetcollectionsetadddatasetComponent;
 	@ViewChild('tranactionfirestoreid') tranactionfirestoreid: FiresytorecatalogidComponent;
@@ -61,7 +63,8 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 		this.objectform = this.formBuilder.group({
 			DatasetCollectionsSetLabel: ['', Validators.required]
 		});
-		this.getCatalogAnnoations();
+		this.getCatalogAnnoations(this.activitytype);
+		this.getCatalogAnnoations(this.catalogtype);
 	}
 
 	ngOnInit(): void {
@@ -77,20 +80,26 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 
 	setPrerequisite(catalog) {
 		this.original = true;
-		this.prerequisite = catalog[this.annoinfo['dataset:FirestoreCatalogIDForTransaction'][this.identifier]];
-		const originalcollectionname = catalog[this.annoinfo['dataset:DatasetCollectionsSetLabel'][this.identifier]]
+		this.prerequisite = catalog[this.catannoinfo['dataset:FirestoreCatalogIDForTransaction'][this.identifier]];
+		const originalcollectionname = catalog[this.catannoinfo['dataset:DatasetCollectionsSetLabel'][this.identifier]]
 		this.objectform.get('DatasetCollectionsSetLabel').setValue(originalcollectionname);
 	}
 
-	public getCatalogAnnoations(): void {
+	public getCatalogAnnoations(type: string): void {
+		let anno = null;
 		this.waitmessage = 'Waiting for Info call';
-		this.annotations.getNewCatalogObject(this.activitytype).subscribe({
+		this.annotations.getNewCatalogObject(type).subscribe({
 			next: (responsedata: any) => {
 				const response = responsedata;
 				this.waitmessage = response[Ontologyconstants.message];
 				if (response[Ontologyconstants.successful]) {
 					const catalog = response[Ontologyconstants.catalogobject];
-					this.actannoinfo = catalog[Ontologyconstants.annotations];
+					if(type == this.activitytype) {
+						this.actannoinfo = catalog[Ontologyconstants.annotations];
+					} else if(type == this.catalogtype) {
+						this.catannoinfo = catalog[Ontologyconstants.annotations];
+					}
+					
 				} else {
 					this.waitmessage = responsedata;
 				}

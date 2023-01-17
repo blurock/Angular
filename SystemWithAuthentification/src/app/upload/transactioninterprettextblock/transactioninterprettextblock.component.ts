@@ -111,7 +111,7 @@ export class TransactioninterprettextblockComponent implements OnInit {
 	}
 	setPrerequisite(transaction: any) {
 		this.prerequisite = transaction;
-		this.activityinfo = transaction['dataset:activityinfo'];
+		this.activityinfo = this.prerequisite['dataset:activityinfo'];
 		if (this.activityinfo != null) {
 			this.specificationid = this.activityinfo['dataset:datasettransactionspecification'];
 			if (this.specificationid != null) {
@@ -132,12 +132,7 @@ export class TransactioninterprettextblockComponent implements OnInit {
 
 	activitysetup(): void {
 		if (this.prerequisite != null) {
-			if (this.activity != null) {
 				this.activity.setPrerequisiteData(this.prerequisite);
-			} else {
-				alert("Activity information object null");
-			}
-
 		} else {
 			alert("prerequisite not set up");
 		}

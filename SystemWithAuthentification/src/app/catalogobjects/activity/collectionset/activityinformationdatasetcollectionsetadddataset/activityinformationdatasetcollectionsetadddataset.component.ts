@@ -27,7 +27,7 @@ export class ActivityinformationdatasetcollectionsetadddatasetComponent implemen
 	objectform: FormGroup;
 	items: NavItem[];
 	title = 'Activity Information for adding dataset to collection';
-	speciesspec = 'dataset:DatabaseObjectType';
+	speciesspec = 'dataset:DatasetCollectionType';
 	display = true;
 	subtitle = 'Dataset ID to Insert';
 
@@ -42,7 +42,7 @@ export class ActivityinformationdatasetcollectionsetadddatasetComponent implemen
   ) {
     		this.objectform = this.formBuilder.group({
 			DescriptionTitle: ['', Validators.required],
-			DatabaseObjectType: ['', Validators.required],
+			DatasetCollectionType: ['', Validators.required],
 		});
    		manageuser.determineMaintainer().subscribe(result => {
 			if (result != null) {
@@ -67,7 +67,7 @@ export class ActivityinformationdatasetcollectionsetadddatasetComponent implemen
   }
   
   	getData(activity: any): void {
-		activity[this.annoinfo['dataset:DatabaseObjectType'][this.identifier]] = this.objectform.get('DatabaseObjectType').value;
+		activity[this.annoinfo['dataset:DatasetCollectionType'][this.identifier]] = this.objectform.get('DatabaseObjectType').value;
 		activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle').value;
 		const recorddata = {};
 		this.record.getData(recorddata);
@@ -77,7 +77,7 @@ export class ActivityinformationdatasetcollectionsetadddatasetComponent implemen
 		activity[this.annoinfo['dataset:DatasetSpecificationForCollectionSet'][this.identifier]] = specvalue;
 	}
 	setData(activity: any): void {
-		this.objectform.get('DatabaseObjectType').setValue(activity[this.annoinfo['dataset:DatabaseObjectType']]);
+		this.objectform.get('DatabaseObjectType').setValue(activity[this.annoinfo['dataset:DatasetCollectionType']]);
 		this.objectform.get('DescriptionTitle').setValue(activity[this.annoinfo['dataset:DescriptionTitle']]);
 		const recorddata = activity[this.annoinfo['dataset:DatasetCollectionSetRecordIDInfo'][this.identifier]];
 		this.record.setData(recorddata);
@@ -87,7 +87,7 @@ export class ActivityinformationdatasetcollectionsetadddatasetComponent implemen
 
   
   setObjectType($event: string): void {
-    this.objectform.get('DatabaseObjectType').setValue($event);
+    this.objectform.get('DatasetCollectionType').setValue($event);
   }
 
 }

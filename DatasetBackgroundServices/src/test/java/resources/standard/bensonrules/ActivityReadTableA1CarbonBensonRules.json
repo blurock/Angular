@@ -15,6 +15,7 @@
     "dcterms:title": "Carbon-Hydrogen Benson Rules set",
     "dataset:filesourcesubtype": "",
     "dataset:datasettransactionspecification": {
+      "dataset:dataobjstatus": "dataset:CatalogObjectStatusCurrent",
       "dataset:catalogobjectmaintainer": "Administrator",
       "dataset:datasetname": "StandardData",
       "dataset:datasetversion": "1.0",

@@ -7,13 +7,11 @@
 			<mat-grid-tile [colspan]="3">
 				<button mat-mini-fab color="primary" class="display-btn" matTooltip="{{displaydescbutton}}"
 					(click)="displayTransactionInput()">{{displaybutton}}
-					</button>
+				</button>
 			</mat-grid-tile>
 			<mat-grid-tile [colspan]="3">
 				<button mat-mini-fab color="primary" class="submit-btn" (click)="submitInformation()"
-					matTooltip="{{subtransaction}}"
-					[disabled]="invalid()"
-					>
+					matTooltip="{{subtransaction}}" [disabled]="invalid()">
 					{{submit}}
 				</button>
 			</mat-grid-tile>
@@ -36,22 +34,20 @@
 			<ng-template #nooriginal>
 				Choose Dataset Collection to be modified (in previous menus)
 			</ng-template>
-
-
-			<app-activityinformationdatasetcollectionsetadddataset #activity [(annoinfo)]="actannoinfo">
-			</app-activityinformationdatasetcollectionsetadddataset>
-			<ng-container *ngIf='annoinfo != null && viewtransactionid; else noviewtransactionid'>
+			<ng-container *ngIf='actannoinfo != null'>
+				<app-activityinformationdatasetcollectionsetadddataset #activity [(annoinfo)]="actannoinfo">
+				</app-activityinformationdatasetcollectionsetadddataset>
+			</ng-container>
+			<ng-container *ngIf='catannoinfo != null && viewtransactionid; else noviewtransactionid'>
 				<mat-grid-list cols="6" rowHeight="100px">
 					<mat-grid-tile [colspan]="4">
 						{{transfirestoretitle}}
 					</mat-grid-tile>
 					<mat-grid-tile [colspan]="2">
 						<button mat-mini-fab color="primary" class="display-btn" matTooltip="{{deltransdescbutton}}"
-							(click)="deleteTransaction()"
-							[disabled]="transfirestoreid==null"
-							>{{deltransbutton}}
-							
-							</button>
+							(click)="deleteTransaction()" [disabled]="transfirestoreid==null">{{deltransbutton}}
+
+						</button>
 					</mat-grid-tile>
 				</mat-grid-list>
 				<app-firesytorecatalogid #tranactionfirestoreid [(anno)]="annoinfo" [(catalogID)]="transfirestoreid">

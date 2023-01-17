@@ -17,7 +17,7 @@ export class CatalogconceptpurposeComponent implements OnInit {
 	@Input() descriptionsuffix: string;
 	@Input() annoinfo: any;
 
-	rdfsidentifier = 'dcterms:identifier';
+	rdfsidentifier = Ontologyconstants.dctermsidentifier;
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	

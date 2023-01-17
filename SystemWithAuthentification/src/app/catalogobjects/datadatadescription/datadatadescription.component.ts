@@ -19,7 +19,7 @@ export class DatadatadescriptionComponent implements OnInit {
 
 	objectform: FormGroup;
 	message: string;
-	rdfsidentifier = 'dcterms:identifier';
+	rdfsidentifier = Ontologyconstants.dctermsidentifier;
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	

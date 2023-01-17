@@ -20,8 +20,6 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 	@ViewChild('symmetry') symmetry: DatasetspecificationforcollectionsetComponent;
 	@ViewChild('vibrational') vibrational: DatasetspecificationforcollectionsetComponent;
 
-	@Input() annoReady: EventEmitter<any>;
-
 	transspec: any;
 
 	catalogtype = 'dataset:ThermodynamicsDatasetCollectionIDsSet';
@@ -80,12 +78,6 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
  					const catalog = response[Ontologyconstants.catalogobject];
 					this.catalogobj = catalog[Ontologyconstants.outputobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];
-					if(this.annoReady != null) {
-            			this.annoReady.emit(this.annoinfo);
-          			} else {
-                  alert("annoReady is null");
-                }
-					
 				} else {
 					this.message = responsedata;
 				}

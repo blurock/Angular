@@ -23,6 +23,8 @@ export class ActivityinformationinterpretdisassociationenergyComponent implement
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
+	speciesspecification = 'dataset:SpeciesSpecificationNancyLinearForm';
+
 
 	fileformatdata: any;
 	items: NavItem[];
@@ -58,6 +60,7 @@ export class ActivityinformationinterpretdisassociationenergyComponent implement
 			FileSourceFormat: ['File Format', Validators.required],
 			JThermodynamicsSpeciesSpecificationType: ['dataset:SpeciesSpecificationNancyLinearForm', Validators.required]
 		});
+		this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue(this.speciesspecification);
 
 	}
 
@@ -73,6 +76,16 @@ export class ActivityinformationinterpretdisassociationenergyComponent implement
 		});
 		this.items = this.menusetup.findChoices(this.annoinfo, this.structurespecification);
 	}
+	
+	setPrerequisiteData(prerequisite: any) {
+		const activity = prerequisite['dataset:activityinfo'];
+		const formatdata = this.fileformatdata[this.fileformat];
+		const block = formatdata['dataset:interpretMethod'];
+		this.objectform.get('BlockInterpretationMethod').setValue(block);
+		this.objectform.get('DescriptionTitle').setValue(activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
+		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
+		this.spec.setData(activity[specid]);
+	}
 
 	getData(activity: any): void {
 		activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod').value;
@@ -86,12 +99,13 @@ export class ActivityinformationinterpretdisassociationenergyComponent implement
 		activity[this.annoinfo['dataset:ParameterSpecificationHDisassociationEnergy'][this.identifier]] = paramspecvalue;
 	}
 	setData(activity: any): void {
-		this.objectform.get('BlockInterpretationMethod').setValue(activity[this.annoinfo['dataset:BlockInterpretationMethod']]);
-		this.objectform.get('FileSourceFormat').setValue(activity[this.annoinfo['dataset:FileSourceFormat']]);
-		this.objectform.get('DescriptionTitle').setValue(activity[this.annoinfo['dataset:DescriptionTitle']]);
-		this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue(activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType']]);
+		this.objectform.get('BlockInterpretationMethod').setValue(activity[this.annoinfo['dataset:BlockInterpretationMethod']][this.identifier]);
+		this.objectform.get('FileSourceFormat').setValue(activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]]);
+		this.objectform.get('DescriptionTitle').setValue(activity[this.annoinfo['dataset:DescriptionTitle']][this.identifier]);
+		this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue(activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]]);
 
-		this.spec.setData(activity);
+		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
+		this.spec.setData(activity[specid]);
 		const energy = activity[this.annoinfo['dataset:ParameterSpecificationHDisassociationEnergy'][this.identifier]];
 		this.paramspec.setData(energy);
 	}

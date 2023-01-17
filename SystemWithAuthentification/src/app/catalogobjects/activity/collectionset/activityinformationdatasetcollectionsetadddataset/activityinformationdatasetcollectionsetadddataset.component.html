@@ -21,10 +21,10 @@
 
 					<mat-grid-tile [colspan]="2" background="lightgray">
 						<mat-form-field class="label">
-							<mat-label>{{annoinfo['dataset:DatabaseObjectType'][rdfslabel]}}
+							<mat-label>{{annoinfo['dataset:DatasetCollectionType'][rdfslabel]}}
 							</mat-label>
-							<input matInput formControlName="DatabaseObjectType" [matMenuTriggerFor]="menu.childMenu">
-							<mat-hint>{{annoinfo['dataset:DatabaseObjectType'][rdfscomment]}}
+							<input matInput formControlName="DatasetCollectionType" [matMenuTriggerFor]="menu.childMenu">
+							<mat-hint>{{annoinfo['dataset:DatasetCollectionType'][rdfscomment]}}
 							</mat-hint>
 							<app-menu-item #menu [items]="items" (selectionEvent)="setObjectType($event)">
 							</app-menu-item>

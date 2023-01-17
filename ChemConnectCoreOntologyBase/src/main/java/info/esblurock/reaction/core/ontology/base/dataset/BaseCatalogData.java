@@ -29,7 +29,7 @@ public class BaseCatalogData {
 		    String identifier = DatasetOntologyParseBase.getAnnotationObject(namesrc, AnnotationObjectsLabels.identifier);
 		    String name = JsonObjectUtilities.getValueUsingIdentifier(json,identifier);
 		    if(name != null) {
-		        id = name.replace('/','x').replace('(','y').replace(')','z');
+		        id = name.replace('/','x').replace('(','y').replace(')','z').replace('=', 'e');
 		    }
 		    }
 		}

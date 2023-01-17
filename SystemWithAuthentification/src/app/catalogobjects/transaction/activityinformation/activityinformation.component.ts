@@ -104,7 +104,9 @@ displaydescbutton = 'Press to fill in prerequisite information';
 		} else if (this.activityname == 'dataset:ActivityRepositoryPartitionToCatalog') {
 			//this.partition.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretDisassociationEnergy') {
-			//this.disassociation.setData(activity);
+			if(this.disassociation) {
+			this.disassociation.setPrerequisiteData(prerequisite);
+			}
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretBensonRuleData') {
 			if (this.benson != null) {
 				this.benson.setPrerequisiteData(prerequisite);
@@ -123,7 +125,9 @@ displaydescbutton = 'Press to fill in prerequisite information';
 			}
 			
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretMetaAtom') {
-			//this.metaatom.setData(activity);
+			if(this.metaatom != null) {
+				this.metaatom.setPrerequisiteData(prerequisite);
+			}
 		} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetAddDataset') {
 			//this.collectionadd.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetCreation') {

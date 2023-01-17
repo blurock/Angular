@@ -14,7 +14,7 @@ import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalog
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
 import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
 import { ActivityrepositorypartitiontocatalogComponent } from '../../catalogobjects/activity/repository/activityrepositorypartitiontocatalog/activityrepositorypartitiontocatalog.component';
-import {RuntransactiondialogComponent} from '../../dialog/runtransactiondialog/runtransactiondialog.component';
+import { RuntransactiondialogComponent } from '../../dialog/runtransactiondialog/runtransactiondialog.component';
 
 @Component({
 	selector: 'app-parseuploadedfile',
@@ -22,7 +22,7 @@ import {RuntransactiondialogComponent} from '../../dialog/runtransactiondialog/r
 	styleUrls: ['./parseuploadedfile.component.scss']
 })
 export class ParseuploadedfileComponent implements AfterViewInit {
-	
+
 	@Output() parsedEvent = new EventEmitter<any>();
 
 	repositorystaging: any;
@@ -30,20 +30,20 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 	maintainer: string;
 	title: string;
 	fileformatdata: any;
-	
+
 	identifier = Ontologyconstants.dctermsidentifier;
 	formatInformation: any;
 	message = 'Initializing';
 	fetch = 'Fetch Defaults';
 	fetchdescr = 'Fetch default information from repository object information';
-    displaybutton = 'Display';
-    displaydescbutton = 'Display activity information and save to file';
-    submitbutton = 'Submit Transaction';
-    submitdescr = 'Submit transaction to parse repository file';
+	displaybutton = 'Display';
+	displaydescbutton = 'Display activity information and save to file';
+	submitbutton = 'Submit Transaction';
+	submitdescr = 'Submit transaction to parse repository file';
 	transfirestoreid: any;
-    failedsubmission = 'Partition of file failed';
-    failedresponse = 'Partitioning gave error';
-resultHtml = 'Initializing';
+	failedsubmission = 'Partition of file failed';
+	failedresponse = 'Partitioning gave error';
+	resultHtml = 'Initializing';
 
 	@ViewChild('partition') partition: ActivityrepositorypartitiontocatalogComponent;
 
@@ -57,7 +57,7 @@ resultHtml = 'Initializing';
 		public identifiers: IdentifiersService,
 		public dialog: MatDialog,
 		private fileservice: UploadmenuserviceService
-        ) {
+	) {
 		manageuser.determineMaintainer().subscribe(result => {
 			if (result != null) {
 				this.maintainer = result;
@@ -102,9 +102,9 @@ resultHtml = 'Initializing';
 		});
 	}
 
-invalid(): boolean {
-	return this.repositorystaging == null || this.partition.invalid();
-}
+	invalid(): boolean {
+		return this.repositorystaging == null || this.partition.invalid();
+	}
 	public setFileStaging(staging: any): void {
 		if (staging != null) {
 			this.repositorystaging = staging;
@@ -113,7 +113,7 @@ invalid(): boolean {
 			alert('staging is not defined');
 		}
 	}
-	
+
 	setFormatDefaults() {
 		if (this.annoinfo != null) {
 			if (this.repositorystaging != null) {

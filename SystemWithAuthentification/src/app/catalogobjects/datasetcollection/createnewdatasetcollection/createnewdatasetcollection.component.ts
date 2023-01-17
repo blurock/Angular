@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild, EventEmitter, Input,Output } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Input, Output } from '@angular/core';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { ActivityinformationdatasetcollectionsetcreationComponent } from '../../activity/collectionset/activityinformationdatasetcollectionsetcreation/activityinformationdatasetcollectionsetcreation.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
-import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 
 @Component({
 	selector: 'app-createnewdatasetcollection',
@@ -16,9 +15,9 @@ export class CreatenewdatasetcollectionComponent implements OnInit {
 
 	@Output() newCollectionC = new EventEmitter<any>();
 	@Input() maintainer: string;
-	@Input() cataloganno; any;
+    @Input() annoinfo: any;
 
-	annoinfo: any;
+
 	transfirestoretitle = 'Transaction for Collection Creation';
 	deltransdescbutton = 'Delete the Collection Creation Transaction';
 	deltransbutton = 'Delete';
@@ -26,7 +25,7 @@ export class CreatenewdatasetcollectionComponent implements OnInit {
 	waitmessage = 'Waiting for Initialization';
 	failedsubmission = 'Creation of Dataset Collection not successful';
 	subtransaction = 'Run Transaction to create a new Collection Set';
-	submit = 'Transaction';
+	submit = 'Create';
 	displaybutton = 'Activity Info'
 	displaydescbutton = 'Display Activity Information';
 
@@ -37,54 +36,37 @@ export class CreatenewdatasetcollectionComponent implements OnInit {
 	transfirestoreid: any;
 	viewcollectionset = false;
 	viewtransactionid = true;
-	catalogtype = "dataset:ActivityInformationDatasetCollectionSetCreation";
 
 
 	@ViewChild('activity') activity: ActivityinformationdatasetcollectionsetcreationComponent;
 	@ViewChild('tranactionfirestoreid') tranactionfirestoreid: FiresytorecatalogidComponent;
 
 	constructor(
-		public annotations: OntologycatalogService,
 		public dialog: MatDialog
 	) {
-		this.getCatalogAnnoations();
+		
 	}
 
 	ngOnInit(): void {
 	}
-	
+
 	invalid(): boolean {
 		let ans = false;
-		if(this.activity != null) {
+		if (this.activity != null) {
 			ans = this.activity.invalid();
 		}
 		return ans;
 	}
-	
+
 	public setTransaction(catalog) {
-				this.catalog = catalog;
-				this.transfirestoreid = this.catalog['dataset:transactionforobject'];
-				if (this.transfirestoreid != null) {
-					this.viewtransactionid = true;
-					this.tranactionfirestoreid.setData(this.transfirestoreid);
-				}		
+		this.catalog = catalog;
+		this.transfirestoreid = this.catalog['dataset:transactionforobject'];
+		if (this.transfirestoreid != null) {
+			this.viewtransactionid = true;
+			this.tranactionfirestoreid.setData(this.transfirestoreid);
+		}
 	}
-	public getCatalogAnnoations(): void {
-		this.waitmessage = 'Waiting for Info call';
-		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
-			next: (responsedata: any) => {
-				const response = responsedata;
-				this.waitmessage = response[Ontologyconstants.message];
-				if (response[Ontologyconstants.successful]) {
-					const catalog = response[Ontologyconstants.catalogobject];
-					this.annoinfo = catalog[Ontologyconstants.annotations];
-				} else {
-					this.waitmessage = responsedata;
-				}
-			},
-			error: (info: any) => { alert('Get Annotations failed:' + this.waitmessage); }
-		});
-	}
+
 
 
 
@@ -100,6 +82,8 @@ export class CreatenewdatasetcollectionComponent implements OnInit {
 	submitInformation(): void {
 		const catalog = {};
 		this.getData(catalog);
+		catalog['prov:activity'] = 'dataset:DatasetCollectionSetCreationEvent';
+
 		const dialogRef = this.dialog.open(RuntransactiondialogComponent, {
 			data: catalog
 		});
@@ -151,12 +135,12 @@ export class CreatenewdatasetcollectionComponent implements OnInit {
 		const transaction = {};
 		transaction['prov:activity'] = 'dataset:DatabaseDeleteTransaction';
 		transaction['dcterms:creator'] = this.maintainer;
-		transaction[this.cataloganno['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.maintainer;
+		transaction[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.maintainer;
 		const activityinfo = {};
 		const transtitle = 'Delection Collection: ' + ' this.maintainer' + '   ';
 		activityinfo['dcterms:title'] = transtitle;
 
-		activityinfo[this.cataloganno['dataset:FirestoreCatalogID'][this.identifier]] = this.transfirestoreid;
+		activityinfo[this.annoinfo['dataset:FirestoreCatalogID'][this.identifier]] = this.transfirestoreid;
 		transaction['dataset:activityinfo'] = activityinfo;
 		const dialogRef = this.dialog.open(RuntransactiondialogComponent, {
 			data: transaction

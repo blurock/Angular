@@ -21,7 +21,7 @@ export class ActivityinformationinterpretmetaatomComponent implements OnInit {
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
 	speciesspec = 'dataset:JThermodynamicsSpeciesSpecificationType';
-	defaultformat = 'dataset:SpeciesSpecificationNancyLinearForm';
+	speciesspecification = 'dataset:SpeciesSpecificationNancyLinearForm';
 
 	fileformatdata: any;
 	items: NavItem[];
@@ -42,24 +42,25 @@ export class ActivityinformationinterpretmetaatomComponent implements OnInit {
 			DescriptionTitle: ['', Validators.required],
 			BlockInterpretationMethod: ['', Validators.required],
 			FileSourceFormat: ['File Format', Validators.required],
-			JThermodynamicsSpeciesSpecificationType: [this.defaultformat, Validators.required]
+			JThermodynamicsSpeciesSpecificationType: [this.speciesspecification, Validators.required]
 		});
-		this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue(this.defaultformat);
+		this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue(this.speciesspecification);
 	}
 
 	ngOnInit(): void {
 		this.fileservice.getFormatClassification().subscribe({
 			next: (data: any) => {
 				this.fileformatdata = data;
-				const freqformat = data[this.fileformat];
-				this.objectform.get('FileSourceFormat').setValue(this.fileformat);
-				const block = freqformat['dataset:interpretMethod'];
-				this.objectform.get('BlockInterpretationMethod').setValue(block);
 				this.display = true;
 			}
-});
+		});
 		this.items = this.menusetup.findChoices(this.annoinfo, this.speciesspec);
 	}
+	
+	setPrerequisiteData(prerequisite: any): void {
+		const activityinfo = prerequisite['dataset:activityinfo'];
+		this.setData(activityinfo);
+		}
 
 	getData(activity: any): void {
 		activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod').value;
@@ -69,15 +70,23 @@ export class ActivityinformationinterpretmetaatomComponent implements OnInit {
 		this.spec.getData(activity);
 	}
 	setData(activity: any): void {
-		this.objectform.get('BlockInterpretationMethod').setValue(activity[this.annoinfo['dataset:BlockInterpretationMethod']]);
-		this.objectform.get('FileSourceFormat').setValue(activity[this.annoinfo['dataset:FileSourceFormat']]);
-		this.objectform.get('DescriptionTitle').setValue(activity[this.annoinfo['dataset:DescriptionTitle']]);
-		this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue(activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType']]);
-		this.spec.setData(activity);
+		this.objectform.get('FileSourceFormat').setValue(this.fileformat);
+		const formatdata = this.fileformatdata[this.fileformat];
+		const block = formatdata['dataset:interpretMethod'];
+		this.objectform.get('BlockInterpretationMethod').setValue(block);
+
+		this.objectform.get('DescriptionTitle').setValue(activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
+		if (activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]] != null) {
+			this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue(activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]]);
+		} else {
+			this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue(this.speciesspecification);
 		}
+		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
+		this.spec.setData(activity[specid]);
+	}
 
 	setSpeciesSpec($event: string): void {
-        this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue($event);
-}
+		this.speciesspecification = $event;
+	}
 
 }
