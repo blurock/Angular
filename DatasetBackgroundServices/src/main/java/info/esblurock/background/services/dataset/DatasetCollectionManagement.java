@@ -129,7 +129,8 @@ public class DatasetCollectionManagement {
 		JsonObject recordid = info.get(ClassLabelConstants.DatasetCollectionSetRecordIDInfo).getAsJsonObject();
 		JsonObject collectionid = info.get(ClassLabelConstants.DatasetSpecificationForCollectionSet).getAsJsonObject();
 		String maintainer = recordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-		String collectionname = recordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+        String collectionname = recordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+        String title = recordid.get(ClassLabelConstants.DescriptionTitle).getAsString();
 		String collectiontype = info.get("dcat:dataset").getAsString();
 		event.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
 		event.add(ClassLabelConstants.DatasetCollectionsSetLabel, collectionid);
@@ -144,6 +145,7 @@ public class DatasetCollectionManagement {
         body.addElement("div").addText("Default Version      : " + collectionid.get(ClassLabelConstants.DatasetVersion));
 		JsonObject idcollection = DatasetCollectionIDManagement
 				.createEmptyChemConnectCurrentDatasetIDSet(collectionname, owner, transactionID, maintainer, descr);
+		idcollection.addProperty(ClassLabelConstants.DescriptionTitle, title);
 		fillInDatasetCollectionWithDefaults(collectiontype,collectionid,idcollection);
         JsonObject transfirestoreID = BaseCatalogData.insertFirestoreAddress(event);
         idcollection.add(ClassLabelConstants.FirestoreCatalogIDForTransaction,transfirestoreID.deepCopy());

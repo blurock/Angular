@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.DatasetCollectionIDManagement;
 import info.esblurock.background.services.dataset.DatasetCollectionManagement;
+import info.esblurock.background.services.dataset.FindDatasetCollections;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
@@ -80,8 +81,7 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 			return response;
 		}
 
-	},
-	ReadInDatasetWithDatasetCollectionLabel {
+	}, ReadInDatasetWithDatasetCollectionLabel {
 		@Override
 		public JsonObject process(JsonObject json) {
 			Document document = MessageConstructor.startDocument("ReadInDatasetWithDatasetCollectionLabel");
@@ -103,6 +103,13 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 			}
 			return response;
 		}
+	}, FindAllDatasetCollectionSets {
+
+        @Override
+        public JsonObject process(JsonObject json) {
+            return FindDatasetCollections.findAllDatasetCollectionSets(json);
+        }
+	    
 	};
 
 	public abstract JsonObject process(JsonObject json);

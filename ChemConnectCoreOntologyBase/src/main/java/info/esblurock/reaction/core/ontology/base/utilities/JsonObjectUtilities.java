@@ -136,6 +136,7 @@ public class JsonObjectUtilities {
 			if(element.isJsonPrimitive()) {
 				build.append(element.getAsString());
 			} else {
+			    build.append("\n\n");
 				JsonObject obj = element.getAsJsonObject();
 				build.append(toString(obj));
 			}
