@@ -130,11 +130,11 @@ public class DatasetCollectionManagement {
 		JsonObject collectionid = info.get(ClassLabelConstants.DatasetSpecificationForCollectionSet).getAsJsonObject();
 		String maintainer = recordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
         String collectionname = recordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
-        String title = recordid.get(ClassLabelConstants.DescriptionTitle).getAsString();
+        String title = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
 		String collectiontype = info.get("dcat:dataset").getAsString();
 		event.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
 		event.add(ClassLabelConstants.DatasetCollectionsSetLabel, collectionid);
-		Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent");
+		Document document = MessageConstructor.startDocument("Dataset Collection Set Creation Event");
 		Element body = MessageConstructor.isolateBody(document);
 		String descr = info.get(ClassLabelConstants.DescriptionAbstract).getAsString();
         body.addElement("div").addText("Owner                : " + owner);
@@ -154,7 +154,7 @@ public class DatasetCollectionManagement {
 		JsonArray arr = new JsonArray();
 		arr.add(idcollection);
 		JsonObject response = DatabaseServicesBase.standardServiceResponse(document,
-				"Succes: Create Dataset Collection IDs set", arr);
+				"Success: Create Dataset Collection IDs set with standard values", arr);
 		return response;
 	}
 	

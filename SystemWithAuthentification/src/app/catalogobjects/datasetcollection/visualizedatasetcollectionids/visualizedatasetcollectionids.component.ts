@@ -6,7 +6,6 @@ import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcata
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 
-
 @Component({
 	selector: 'app-visualizedatasetcollectionids',
 	templateUrl: './visualizedatasetcollectionids.component.html',
@@ -18,7 +17,7 @@ export class VisualizedatasetcollectionidsComponent implements OnInit {
 	@Input() maintainer: string;
 	@Input() annoinfo: any;
 
-waitmessage = 'Waiting for Initialization';
+		waitmessage = 'Waiting for Initialization';
 	title = 'Collection Set ID';
 	readinfailed = 'Could not read in Collection Set';
 	readincanceled = 'Fetch canceled';
@@ -26,23 +25,28 @@ waitmessage = 'Waiting for Initialization';
 	fetch = 'fetch';
 	displaybutton = 'Display';
 	displaydescbutton = 'Display Collection Dataset IDs';
+
+	
+	rdfslabel = Ontologyconstants.rdfslabel;
 	
 	resultHtml: string;
 	catalog: any;
+	
 
 	@ViewChild('thermocollectionset') thermocollectionset: ThermodynamicsdatasetcollectionidssetComponent;
 
 
 	constructor(
 		public annotations: OntologycatalogService,
-		public dialog: MatDialog
-	) { 
+		public dialog: MatDialog)
+ { 
 	}
 
 	ngOnInit(): void {
+		
 	}
 	
-	setData(catalog) {
+	setData(catalog:any) {
 		this.thermocollectionset.setData(catalog);		
 	}
 
@@ -56,7 +60,7 @@ waitmessage = 'Waiting for Initialization';
 				const success = result['dataset:servicesuccessful'];
 				this.resultHtml = result['dataset:serviceresponsemessage'];
 				if (success == 'true') {
-					this.catalog = result['dataset:simpcatobj'];
+					this.catalog = result[Ontologyconstants.catalogobject];
 					this.newCollectionV.emit(this.catalog);
 				} else {
 					alert(this.readinfailed);
@@ -90,4 +94,5 @@ waitmessage = 'Waiting for Initialization';
 		});
 	}
 
+	
 }

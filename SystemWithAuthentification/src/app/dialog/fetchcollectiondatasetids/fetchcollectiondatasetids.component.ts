@@ -31,6 +31,8 @@ export class FetchcollectiondatasetidsComponent implements OnInit {
 	catalogtype: string
 	fromdatabase: boolean
 
+	collectionset: any;
+
 	constructor(
 		public dialogRef: MatDialogRef<FetchcollectiondatasetidsComponent>,
 		private runservice: RunserviceprocessService,
@@ -58,32 +60,48 @@ export class FetchcollectiondatasetidsComponent implements OnInit {
 		this.dataimage = 'texxxxxt';
 		this.idForm.get('CatalogDataObjectMaintainer').setValue(this.maintainer);
 	}
-		public setMaintainer(maintainer: string): void {
+	public setMaintainer(maintainer: string): void {
 		this.idForm.get('CatalogDataObjectMaintainer').setValue(maintainer);
+	}
+
+	chosen($event): void {
+		this.collectionset = $event;
+		const label = $event[this.annoinfo['dataset:DatasetCollectionsSetLabel'][this.identifier]];
+		this.idForm.get('DatasetCollectionsSetLabel').setValue(label);
 	}
 
 	onNoClick(): void {
 		this.dialogRef.close();
 	}
 	fetchFromDatabase() {
-		let json = {};
-		json['service'] = 'GetListOfDatasetCollectionIDsSet';
-		json['dcterms:creator'] = this.maintainer;
-		const recordid = {};
-		json['dataset:collectionsetrecordidinfo'] = recordid;
-		recordid[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.idForm.get('CatalogDataObjectMaintainer').value;
-		recordid[this.annoinfo['dataset:DatasetCollectionsSetLabel'][this.identifier]] = this.idForm.get('DatasetCollectionsSetLabel').value;
-		this.runservice.run(json).subscribe({
-			next: (responsedata: any) => {
-				const success = responsedata['dataset:servicesuccessful'];
-				if (success == 'true') {
-					this.dialogRef.close(responsedata);
-				} else {
-					this.message = responsedata['dataset:serviceresponsemessage'];
-					this.dialogRef.close(responsedata);
+		if (this.collectionset == null) {
+			let json = {};
+			json['service'] = 'GetListOfDatasetCollectionIDsSet';
+			json['dcterms:creator'] = this.maintainer;
+			const recordid = {};
+			json['dataset:collectionsetrecordidinfo'] = recordid;
+			recordid[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.idForm.get('CatalogDataObjectMaintainer').value;
+			recordid[this.annoinfo['dataset:DatasetCollectionsSetLabel'][this.identifier]] = this.idForm.get('DatasetCollectionsSetLabel').value;
+			this.runservice.run(json).subscribe({
+				next: (responsedata: any) => {
+					const success = responsedata['dataset:servicesuccessful'];
+					if (success == 'true') {
+
+						this.dialogRef.close(responsedata);
+					} else {
+						this.message = responsedata['dataset:serviceresponsemessage'];
+						this.dialogRef.close(responsedata);
+					}
 				}
-			}
-		})
+			})
+
+		} else {
+			const responsedata = {};
+				responsedata['dataset:servicesuccessful'] = 'true';
+            responsedata['dataset:serviceresponsemessage'] = 'Retrieved from database selection';
+			responsedata[Ontologyconstants.catalogobject] = this.collectionset;
+			this.dialogRef.close(responsedata);
+		}
 	}
 
 	setDataFromFile(): void {

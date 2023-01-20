@@ -19,6 +19,7 @@ export class DatasetcollectionsetrecordidinfoComponent implements OnInit {
 	objectform: FormGroup;
 	title = 'Collection Record ID';
 	maintainernotchange = true;
+	collectionidfixed = false;
 
 	constructor(
 		manageuser: ManageuserserviceService,
@@ -60,6 +61,11 @@ export class DatasetcollectionsetrecordidinfoComponent implements OnInit {
 	setData(activity: any): void {
 		this.objectform.get('DatasetCollectionsSetLabel').setValue(activity[this.annoinfo['dataset:DatasetCollectionsSetLabel']]);
 		this.objectform.get('CatalogDataObjectMaintainer').setValue(activity[this.annoinfo['dataset:CatalogDataObjectMaintainer']]);
+	}
+	
+	setDatasetCollectionsSetLabel(collectionid: string) {
+		this.objectform.get('DatasetCollectionsSetLabel').setValue(collectionid);
+		this.collectionidfixed = true;
 	}
 
 }

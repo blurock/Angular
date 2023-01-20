@@ -47,7 +47,9 @@ export class ManagedatasetcollectionsComponent implements OnInit {
  	
  	setData(collectionids: any) {
 		 //this.createcollection.setTransaction(collectionids);
+		 alert("ManagedatasetcollectionsComponent 0");
 		 this.modifycollection.setPrerequisite(collectionids);
+		 alert("ManagedatasetcollectionsComponent after modifycollection");
 		 this.visualcollection.setData(collectionids);
 	 }
  	

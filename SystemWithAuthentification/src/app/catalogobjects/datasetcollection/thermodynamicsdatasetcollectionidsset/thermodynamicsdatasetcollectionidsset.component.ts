@@ -75,6 +75,7 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 				const response = responsedata;
 				this.message = response[Ontologyconstants.message];
 				if (response[Ontologyconstants.successful]) {
+          
  					const catalog = response[Ontologyconstants.catalogobject];
 					this.catalogobj = catalog[Ontologyconstants.outputobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];

@@ -82,7 +82,11 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 		this.original = true;
 		this.prerequisite = catalog[this.catannoinfo['dataset:FirestoreCatalogIDForTransaction'][this.identifier]];
 		const originalcollectionname = catalog[this.catannoinfo['dataset:DatasetCollectionsSetLabel'][this.identifier]]
-		this.objectform.get('DatasetCollectionsSetLabel').setValue(originalcollectionname);
+		//this.objectform.get('DatasetCollectionsSetLabel').setValue(originalcollectionname);
+		alert("ModifydatasetcollectionidsComponent  " + originalcollectionname);
+		alert("ModifydatasetcollectionidsComponent  " + this.activity);
+		this.activity.setDatasetCollectionsSetLabel(originalcollectionname);
+		alert("ModifydatasetcollectionidsComponent 3");
 	}
 
 	public getCatalogAnnoations(type: string): void {
@@ -116,15 +120,13 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 		transaction['dcterms:creator'] = this.maintainer;
 		transaction[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.maintainer;
 
-
-
 		const activityinfo = {};
 		this.activity.getData(activityinfo);
 		transaction['dataset:activityinfo'] = activityinfo;
 	}
 	displayTransactionInput(): void {
-		const catalog = {};
-		this.getData(catalog);
+		const transaction = {};
+		this.getData(transaction);
 
 		const dialogConfig = new MatDialogConfig();
 
@@ -133,7 +135,7 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 
 		dialogConfig.data = {
 			filename: this.title,
-			dataimage: catalog
+			dataimage: transaction
 		};
 
 		const myDialogRef = this.dialog.open(ViewcatalogandsavetolocalfileComponent, dialogConfig);

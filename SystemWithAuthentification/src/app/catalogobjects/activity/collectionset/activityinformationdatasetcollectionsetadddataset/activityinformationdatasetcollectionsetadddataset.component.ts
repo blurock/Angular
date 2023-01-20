@@ -85,6 +85,9 @@ export class ActivityinformationdatasetcollectionsetadddatasetComponent implemen
 		this.spec.setData(specdata);
 		}
 
+    setDatasetCollectionsSetLabel(collectionid: string) {
+		this.record.setDatasetCollectionsSetLabel(collectionid);
+	}
   
   setObjectType($event: string): void {
     this.objectform.get('DatasetCollectionType').setValue($event);

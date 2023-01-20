@@ -12,7 +12,7 @@
 					<mat-grid-tile [colspan]="3">
 						<mat-form-field class="label">
 							<mat-label>{{annoinfo['dataset:DatasetCollectionsSetLabel'][rdfslabel]}}</mat-label>
-							<input matInput formControlName="DatasetCollectionsSetLabel">
+							<input matInput formControlName="DatasetCollectionsSetLabel" [readonly]="collectionidfixed">
 							<mat-hint>{{annoinfo['dataset:DatasetCollectionsSetLabel'][rdfscomment]}}</mat-hint>
 						</mat-form-field>
 					</mat-grid-tile>
