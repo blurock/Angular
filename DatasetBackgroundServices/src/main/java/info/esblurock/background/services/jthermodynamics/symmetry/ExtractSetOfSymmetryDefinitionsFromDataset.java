@@ -22,6 +22,8 @@ import thermo.data.structure.structure.symmetry.SymmetryDefinition;
 import thermo.data.structure.structure.symmetry.SymmetryPair;
 
 public class ExtractSetOfSymmetryDefinitionsFromDataset {
+    
+    static JsonObject response;
 
 	/** Retrieve translated to SetOfSymmetryDefinitions from dataset
 	 * 
@@ -125,7 +127,7 @@ public class ExtractSetOfSymmetryDefinitionsFromDataset {
 	 */
 	public static JsonArray databaseSymmetryDefinitions(String maintainer, String dataset, String symmetrytype) {
 		JsonArray definitions = null;
-		
+		response = null;
         String classname = "dataset:JThermodynamicsSymmetryStructureDefinition";
 		String service = "ReadInDatasetWithDatasetCollectionLabel";
 		
@@ -146,14 +148,18 @@ public class ExtractSetOfSymmetryDefinitionsFromDataset {
 		json.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
 		json.addProperty(ClassLabelConstants.DatasetCollectionObjectType, classname);
 		json.addProperty(DatabaseServicesBase.service, service);
-		JsonObject response = DatabaseServicesBase.process(json);
+		response = DatabaseServicesBase.process(json);
 		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			definitions = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 		} else {
-		    JsonObjectUtilities.printResponse(response);
+		    
 		}
 		
 		return definitions;
+	}
+	
+	public static JsonObject getReadSymmetryResponse() {
+	    return response;
 	}
 	
 	/**
@@ -172,6 +178,7 @@ public class ExtractSetOfSymmetryDefinitionsFromDataset {
 	 */
 	public static JsonObject databaseSingleSymmetryDefinition(String maintainer, String dataset, String symmetrytype, String symmname) {
 		JsonObject definition = null;
+		response = null;
 		
 		String classname = "dataset:JThermodynamicsSymmetryStructureDefinition";
 		String service = "ReadInDatasetWithDatasetCollectionLabel";
@@ -197,7 +204,7 @@ public class ExtractSetOfSymmetryDefinitionsFromDataset {
 		json.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
 		json.addProperty(ClassLabelConstants.DatasetCollectionObjectType, classname);
 		json.addProperty(DatabaseServicesBase.service, service);
-		JsonObject response = DatabaseServicesBase.process(json);
+		response = DatabaseServicesBase.process(json);
 		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			JsonArray defarr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 			if(defarr.size() > 0) {

@@ -2,6 +2,7 @@ package info.esblurock.background.services.jthermodynamics.symmetry;
 
 import java.io.IOException;
 
+import org.dom4j.Document;
 import org.dom4j.Element;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtomContainer;
@@ -10,6 +11,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.jthermodynamics.dataset.FindMetaAtomDefinitionsInDatasetCollection;
+import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import thermo.data.structure.structure.SetOfMetaAtomsForSubstitution;
@@ -41,6 +43,10 @@ public class DatabaseCalculateSymmetryCorrection {
 		StructureAsCML cmlstruct;
 		IAtomContainer newmolecule = null;
 		JsonArray combined2 = null;
+		JsonObject response = null;
+		Document document = MessageConstructor.startDocument("Calculate Symmetry Conribution");
+		Document externalmessage = externalD.getReadResponseMessages();
+		MessageConstructor.combineBodyIntoDocument(document, externalmessage);
 		try {
 			cmlstruct = new StructureAsCML(molecule);
 			newmolecule = linear.substitute(cmlstruct);

@@ -44,8 +44,11 @@ public class ComputeThermodynamicsSymmetryContribution {
 
         DatabaseCalculateExternalSymmetryCorrection determineTotal = new DatabaseCalculateExternalSymmetryCorrection(
                 maintainer, dataset);
+        Document readdocument =  determineTotal.getReadResponseMessages();
+        MessageConstructor.combineBodyIntoDocument(document,readdocument);
         JsonArray contributions = determineTotal.compute(molecule, body, info);
-        response = DatabaseServicesBase.standardServiceResponse(document, "Found External Symmetry Element",
+        String message = contributions.size() + " Contributions found to external symmetry";
+        response = DatabaseServicesBase.standardServiceResponse(document, message,
                 contributions);
         return response;
     }

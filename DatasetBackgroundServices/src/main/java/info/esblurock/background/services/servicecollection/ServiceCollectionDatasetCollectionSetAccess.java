@@ -56,9 +56,6 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 			if (identifier != null) {
 				if (idsset.get(identifier) != null) {
 					JsonObject collectioninfo = idsset.get(identifier).getAsJsonObject();
-					System.out.println("ReadInDatasetWithDatasetCollection: " + classname + "(" + identifier + ")");
-					System.out.println("ReadInDatasetWithDatasetCollection\n" + JsonObjectUtilities.toString(collectioninfo));
-					
 					collectioninfo.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, label);
 					
 					//String catalogtype = OntologyUtilityRoutines.exactlyOnePropertySingle(classname, "dcat:catalog");
@@ -66,7 +63,6 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 					JsonObject collectionid = DatasetCollectionIDManagement.firebaseIDOfCollection(classname,
 							collectioninfo);
 					JsonObject criteria = null;
-					System.out.println("ReadInDatasetWithDatasetCollection: \n" + JsonObjectUtilities.toString(collectionid));
 					if(json.get(ClassLabelConstants.SetOfPropertyValueQueryPairs) != null) {
 					    criteria = json.get(ClassLabelConstants.SetOfPropertyValueQueryPairs).getAsJsonObject();
 					}
@@ -77,7 +73,7 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 					            "Success in reading dataset collection", response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray());
 					} else {
 					    response = DatabaseServicesBase.standardErrorResponse(document,
-	                            "Error is reading firestore collection", null);
+	                            "Error in reading firestore collection", null);
 					}
 				} else {
 					response = DatabaseServicesBase.standardErrorResponse(document,
@@ -98,8 +94,6 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				JsonObject collectionids = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 				
-				System.out.println("ReadInDatasetWithDatasetCollectionLabel: \n" + JsonObjectUtilities.toString(collectionids));
-				
 				json.add(ClassLabelConstants.ChemConnectDatasetCollectionIDsSet, collectionids);
 				JsonObject readresponse = ReadInDatasetWithDatasetCollection.process(json);
 				if (readresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
@@ -109,6 +103,7 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 					response = DatabaseServicesBase.standardServiceResponse(document, "Succcesful Read of objects",
 							objects);
 				} else {
+				    
 				    response = readresponse;
 				}
 			}

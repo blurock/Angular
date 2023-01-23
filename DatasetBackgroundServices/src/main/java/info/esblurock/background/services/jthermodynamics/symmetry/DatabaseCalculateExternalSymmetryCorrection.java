@@ -1,5 +1,6 @@
 package info.esblurock.background.services.jthermodynamics.symmetry;
 
+import org.dom4j.Document;
 import org.dom4j.Element;
 import org.openscience.cdk.interfaces.IAtomContainer;
 
@@ -7,6 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.parameters.ParameterUtilities;
+import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import thermo.data.benson.BensonThermodynamicBase;
 import thermo.data.benson.SetOfBensonThermodynamicBase;
@@ -31,6 +33,9 @@ public class DatabaseCalculateExternalSymmetryCorrection extends CalculateExtern
 	JsonArray symmarr;
 	JsonArray symmarr2nd;
 	
+	JsonObject responseExternalSymmetryRead;
+	JsonObject responseSecondarySymmetryRead;
+	
 	/**
 	 * @param maintainer The maintainer of the dataset
 	 * @param dataset The dataset name
@@ -41,8 +46,10 @@ public class DatabaseCalculateExternalSymmetryCorrection extends CalculateExtern
 	public DatabaseCalculateExternalSymmetryCorrection(String maintainer, String dataset) {
 		symmarr = ExtractSetOfSymmetryDefinitionsFromDataset.databaseSymmetryDefinitions(maintainer, dataset, 
 				"dataset:StructureExternalSymmetry");
+		responseExternalSymmetryRead = ExtractSetOfSymmetryDefinitionsFromDataset.getReadSymmetryResponse();
 		symmarr2nd = ExtractSetOfSymmetryDefinitionsFromDataset.databaseSymmetryDefinitions(maintainer, dataset, 
 				"dataset:StructureSecondarySymmetry");
+		responseSecondarySymmetryRead = ExtractSetOfSymmetryDefinitionsFromDataset.getReadSymmetryResponse();
 		SetOfSymmetryDefinitions setOfDefinitions = ExtractSetOfSymmetryDefinitionsFromDataset.extract(symmarr);
 		SetOfSymmetryDefinitions secondaryDefinitions = ExtractSetOfSymmetryDefinitionsFromDataset.extract(symmarr2nd);
 		this.setSetOfDefinitions(setOfDefinitions);
@@ -50,11 +57,23 @@ public class DatabaseCalculateExternalSymmetryCorrection extends CalculateExtern
 		this.initialize();
 	}
 	
+	public Document getReadResponseMessages() {
+	    Document document = MessageConstructor.startDocument("Read in External Symmetry Elements");
+	    MessageConstructor.isolateBody(document).addElement("hr");
+        String externalmessage = responseExternalSymmetryRead.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
+        MessageConstructor.combineBodyIntoDocument(document, externalmessage );
+        MessageConstructor.isolateBody(document).addElement("hr");
+        String secondarymessage = responseSecondarySymmetryRead.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
+        MessageConstructor.combineBodyIntoDocument(document,secondarymessage);
+        MessageConstructor.isolateBody(document).addElement("hr");
+        return document;
+	}
+	
 	/**
 	 * @param molecule The molecule to add
 	 * @param body The body of the total response document
 	 * @param info Input info - used to get the units of the entropy term created.
-	 * @return The entropy contribution as a ThermodynamicContributions object
+	 * @return response with the entropy contribution as a ThermodynamicContributions object
 	 * 
 	 * This essentially does a call to CalculateExternalSymmetryCorrection.calculate(molecule,corrections).
 	 * The contribution is created with ComputeThermodynamicsSymmetryContribution.parameterWithEntropy
@@ -87,9 +106,13 @@ public class DatabaseCalculateExternalSymmetryCorrection extends CalculateExtern
 				JsonObject contribution = ParameterUtilities.parameterWithEntropy(entropy,thermo.getName(),info);
 				contribution.add(ClassLabelConstants.ChemConnectThermodynamicsDatabase,symdefjson);
 				contributions.add(contribution);
+				
+			} else {
+			    body.addElement("div").addText("No external energy contribution found");
 			}
 		} catch (ThermodynamicException e) {
-			e.printStackTrace();
+		    body.addElement("div").addText("Error in calculating external symmetry");
+		    body.addElement("div").addElement(e.getMessage());
 		}
 		return contributions;
 	}

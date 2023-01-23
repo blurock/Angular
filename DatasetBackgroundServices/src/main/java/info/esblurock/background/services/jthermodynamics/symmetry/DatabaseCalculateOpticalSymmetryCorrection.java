@@ -48,7 +48,6 @@ public class DatabaseCalculateOpticalSymmetryCorrection extends CalculateOptical
 		symmarr = ExtractSetOfSymmetryDefinitionsFromDataset.databaseSymmetryDefinitions(maintainer, dataset,
 				"dataset:StructureOpticalSymmetry");
 		setOfDefinitions = ExtractSetOfSymmetryDefinitionsFromDataset.extract(symmarr);
-		System.out.println("DatabaseCalculateOpticalSymmetryCorrection: constructor:\n" + setOfDefinitions.toString());
 		this.setStructureOpticalIsomer(setOfDefinitions);
 		this.initialize();
 	}
