@@ -82,7 +82,6 @@ export class InterprettextblockresultsComponent implements OnInit {
 		this.activity = this.transactionobject['dataset:activityinfo'];
 		
 		const outobj = this.transactionobject['dataset:transoutobjid'];
-		alert("InterprettextblockresultsComponent SETDATA " + JSON.stringify(outobj));
 		this.outlst.setData(outobj);
 	}
 

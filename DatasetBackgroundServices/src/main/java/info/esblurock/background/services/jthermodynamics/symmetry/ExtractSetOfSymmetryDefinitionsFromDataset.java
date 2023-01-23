@@ -13,6 +13,7 @@ import info.esblurock.background.services.servicecollection.DatabaseServicesBase
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import thermo.data.structure.structure.MetaAtomDefinition;
 import thermo.data.structure.structure.MetaAtomInfo;
 import thermo.data.structure.structure.StructureAsCML;
@@ -125,7 +126,7 @@ public class ExtractSetOfSymmetryDefinitionsFromDataset {
 	public static JsonArray databaseSymmetryDefinitions(String maintainer, String dataset, String symmetrytype) {
 		JsonArray definitions = null;
 		
-		String classname = "dataset:DatasetSpecificationSymmetryStructureDefinition";
+        String classname = "dataset:JThermodynamicsSymmetryStructureDefinition";
 		String service = "ReadInDatasetWithDatasetCollectionLabel";
 		
 		JsonObject setofprops1 = CreateDocumentTemplate.createTemplate("dataset:SetOfPropertyValueQueryPairs");
@@ -148,6 +149,8 @@ public class ExtractSetOfSymmetryDefinitionsFromDataset {
 		JsonObject response = DatabaseServicesBase.process(json);
 		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			definitions = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+		} else {
+		    JsonObjectUtilities.printResponse(response);
 		}
 		
 		return definitions;
@@ -170,7 +173,7 @@ public class ExtractSetOfSymmetryDefinitionsFromDataset {
 	public static JsonObject databaseSingleSymmetryDefinition(String maintainer, String dataset, String symmetrytype, String symmname) {
 		JsonObject definition = null;
 		
-		String classname = "dataset:DatasetSpecificationSymmetryStructureDefinition";
+		String classname = "dataset:JThermodynamicsSymmetryStructureDefinition";
 		String service = "ReadInDatasetWithDatasetCollectionLabel";
 		
 		JsonObject setofprops1 = CreateDocumentTemplate.createTemplate("dataset:SetOfPropertyValueQueryPairs");

@@ -36,7 +36,7 @@ export class ActivityinformationdatasetcollectionsetcreationComponent implements
 			DescriptionTitle: ['', Validators.required],
 			DescriptionAbstract: ['', Validators.required],
 		});
-		this.objectform.get('DatasetCollectionType').setValue('dataset:ThermodynamicDatasetCollection');
+		this.objectform.get('DatasetCollectionType').setValue('dataset:ChemConnectThermodynamicsDatabase');
    		manageuser.determineMaintainer().subscribe(result => {
 			if (result != null) {
 				this.maintainer = result;

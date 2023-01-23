@@ -47,6 +47,7 @@ public class DatasetCollectionManagement {
 			setOfDatasetCollectionSets = new JsonObject();
 		}
 		boolean notfound = true;
+		/*
 		if (setOfDatasetCollectionSets.get(maintainer) != null) {
 			JsonObject maintainerset = setOfDatasetCollectionSets.get(maintainer).getAsJsonObject();
 			if (maintainerset.get(dataset) != null) {
@@ -57,9 +58,10 @@ public class DatasetCollectionManagement {
 			JsonObject datasetelements = new JsonObject();
 			setOfDatasetCollectionSets.add(maintainer, datasetelements);
 		}
-
+*/
 		if (notfound) {
 			JsonObject firestorecoll = getDatabaseSetID(collectionsetidinfo);
+			
 			JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(firestorecoll);
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				datasetcollectionset = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
@@ -149,7 +151,10 @@ public class DatasetCollectionManagement {
 		fillInDatasetCollectionWithDefaults(collectiontype,collectionid,idcollection);
         JsonObject transfirestoreID = BaseCatalogData.insertFirestoreAddress(event);
         idcollection.add(ClassLabelConstants.FirestoreCatalogIDForTransaction,transfirestoreID.deepCopy());
-		WriteFirestoreCatalogObject.writeCatalogObject(idcollection);
+        System.out.println("DatasetCollectionManagement: setupNewDatabaseCollectionSet");
+        System.out.println(JsonObjectUtilities.toString(idcollection));
+		String message = WriteFirestoreCatalogObject.writeCatalogObject(idcollection);
+		System.out.println(message);
 		putInLocalVersion(idcollection);
 		JsonArray arr = new JsonArray();
 		arr.add(idcollection);

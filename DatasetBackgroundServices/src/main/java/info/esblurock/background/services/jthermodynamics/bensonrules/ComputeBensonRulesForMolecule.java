@@ -37,6 +37,7 @@ public class ComputeBensonRulesForMolecule {
         if (molecule != null) {
             BensonGroupStructuresFromMolecule benson = new BensonGroupStructuresFromMolecule();
             SetOfBensonGroupStructures structures = benson.deriveBensonGroupStructures(molecule);
+            body.addElement("div").addText("Found " + structures.size() + " Benson structures in molecule");
             JsonArray bensonarr = convertSetOfBensonGroupStructures(structures);
             Element table = body.addElement("table");
             Element hrow = table.addElement("tr");
@@ -48,6 +49,7 @@ public class ComputeBensonRulesForMolecule {
             for (int i = 0; i < bensonarr.size(); i++) {
                 JsonObject bensonobj = bensonarr.get(i).getAsJsonObject();
                 String bensonname = bensonobj.get(ClassLabelConstants.BensonRuleDatabaseReference).getAsString();
+                System.out.println("ComputeBensonRulesForMolecule " + bensonname);
                 JsonObject rule = readInBensonRuleFromLabel(bensonname, body, maintainer, dataset, document);
                 if (rule != null) {
                     count++;
@@ -58,7 +60,10 @@ public class ComputeBensonRulesForMolecule {
                     contribution.add(ClassLabelConstants.ChemConnectThermodynamicsDatabase, rule);
                     contributions.add(contribution);
                 } else {
-
+                    Element errorrow = table.addElement("tr");
+                    errorrow.addElement("td").addElement("'" + bensonname + "'");
+                    errorrow.addElement("td").addElement("not found");
+                    errorrow.addElement("td").addElement("not found");
                 }
             }
             String message = "Success: ";
@@ -244,6 +249,7 @@ public class ComputeBensonRulesForMolecule {
     private static JsonObject readInBensonRuleFromLabel(String bensonname, Element body, String maintainer,
             String dataset, Document parentdoc) {
         JsonObject rule = null;
+        System.out.println("readInBensonRuleFromLabel: " + bensonname);
         JsonObject response = readBensonObject(bensonname, maintainer, dataset);
         if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
             String readmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
@@ -252,11 +258,11 @@ public class ComputeBensonRulesForMolecule {
             if (responsearr.size() >= 1) {
                 rule = responsearr.get(0).getAsJsonObject();
             } else {
-                body.addElement("div").addText("Element not found in database(" + maintainer + ", " + dataset + ")");
+                body.addElement("div").addText(bensonname + " not found in database(" + maintainer + ", " + dataset + ")");
             }
 
         } else {
-            body.addElement("div").addText("Element not found in database(" + maintainer + ", " + dataset + ")");
+            body.addElement("div").addText(bensonname + " not found in database(" + maintainer + ", " + dataset + ") read unsuccessful");
         }
         return rule;
     }
@@ -281,7 +287,7 @@ public class ComputeBensonRulesForMolecule {
         prop1.addProperty(ClassLabelConstants.ShortStringKey, bensonname);
         arr1.add(prop1);
 
-        String classname = "dataset:DatasetSpecificationBensonRuleDefinition";
+        String classname = "dataset:ThermodynamicBensonRuleDefinition";
         String service = "ReadInDatasetWithDatasetCollectionLabel";
         
         JsonObject json = new JsonObject();
@@ -292,7 +298,12 @@ public class ComputeBensonRulesForMolecule {
         json.addProperty(ClassLabelConstants.DatasetCollectionObjectType, classname);
         json.addProperty(DatabaseServicesBase.service, service);
         json.add(ClassLabelConstants.SetOfPropertyValueQueryPairs, setofprops1);
+        System.out.println("readBensonObject: " + bensonname);
+
         JsonObject response = DatabaseServicesBase.process(json);
+        System.out.println("readBensonObject: after  " + bensonname);
+        
+        JsonObjectUtilities.printResponse(response);
         return response;
     }
 }

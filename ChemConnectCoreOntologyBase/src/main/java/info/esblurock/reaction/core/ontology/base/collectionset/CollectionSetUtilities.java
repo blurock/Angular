@@ -46,15 +46,26 @@ public class CollectionSetUtilities {
      */
     public static JsonArray collectionDatasetInfo(String collection) {
         JsonArray datasets = new JsonArray();
-        List<String> names = GenericSimpleQueries.listOfSubClasses(collection, true);
-        for(String name : names) {
-            BaseAnnotationObjects annotations = DatasetOntologyParseBase.getAnnotationStructureFromIDObject(name);
-            JsonObject json = annotations.toJsonObject();
-            String catalog = OntologyUtilityRoutines.exactlyOnePropertySingle(name, OntologyObjectLabels.catalog);
-            json.addProperty(OntologyObjectLabels.catalog, catalog);
-            datasets.add(json);
-        }
+        collectionDatasetInfo(collection,datasets);
         return datasets;
+    }
+        
+    private static void collectionDatasetInfo(String collection, JsonArray datasets) {
+        List<String> names = GenericSimpleQueries.listOfSubClasses(collection, false);
+        for(String name : names) {
+            JsonObject json = createcCollectionDatasetInfoElement(name);
+            datasets.add(json);
+            //collectionDatasetInfo(name,datasets);
+        }
+    }
+    
+    private static JsonObject createcCollectionDatasetInfoElement(String name) {
+        System.out.println("CollectionSetUtilities: " + name);
+        BaseAnnotationObjects annotations = DatasetOntologyParseBase.getAnnotationStructureFromIDObject(name);
+        JsonObject json = annotations.toJsonObject();
+        String catalog = OntologyUtilityRoutines.exactlyOnePropertySingle(name, OntologyObjectLabels.catalog);
+        json.addProperty(OntologyObjectLabels.catalog, catalog);
+        return json;
     }
     
     /** Identifier of dataset id for a given catalog object

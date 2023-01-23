@@ -33,7 +33,7 @@ public class TestReadInMetaAtomCollection {
 	       String metaatomtype = "BensonAtom";
 	        String dataset = "StandardData";
 	        String maintainer = "Administrator";
-	        String classname = "dataset:DatasetSpecificationMetaAtomDefinition";
+	        String classname = "dataset:JThermodynamicsMetaAtomDefinition";
 	        String service = "ReadInDatasetWithDatasetCollectionLabel";
 	 
 	        JsonObject setofproperties = CreateDocumentTemplate.createTemplate("dataset:SetOfPropertyValueQueryPairs");

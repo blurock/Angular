@@ -18,7 +18,6 @@ export class RuntransactiondialogComponent implements OnInit {
 		private runtranaction: RuntransactionService,
 		@Inject(MAT_DIALOG_DATA) public data: any
 	) { 
-		alert(JSON.stringify(this.data));
 	}
 	
 

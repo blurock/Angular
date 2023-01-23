@@ -83,10 +83,7 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 		this.prerequisite = catalog[this.catannoinfo['dataset:FirestoreCatalogIDForTransaction'][this.identifier]];
 		const originalcollectionname = catalog[this.catannoinfo['dataset:DatasetCollectionsSetLabel'][this.identifier]]
 		//this.objectform.get('DatasetCollectionsSetLabel').setValue(originalcollectionname);
-		alert("ModifydatasetcollectionidsComponent  " + originalcollectionname);
-		alert("ModifydatasetcollectionidsComponent  " + this.activity);
 		this.activity.setDatasetCollectionsSetLabel(originalcollectionname);
-		alert("ModifydatasetcollectionidsComponent 3");
 	}
 
 	public getCatalogAnnoations(type: string): void {

@@ -345,7 +345,7 @@ public class CalculateThermodynamicsFromVibration {
     public static JsonArray databaseAllVibrationalStructures(String maintainer, String dataset) {
         JsonArray definitions = null;
 
-        String classname = "dataset:DatasetSpecificationVibrationalStructure";
+        String classname = "dataset:JThermodynamicsVibrationalStructure";
         String service = "ReadInDatasetWithDatasetCollectionLabel";
 
         JsonObject json = new JsonObject();

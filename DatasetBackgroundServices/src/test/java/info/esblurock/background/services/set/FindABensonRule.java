@@ -27,7 +27,7 @@ public class FindABensonRule {
 		prop1.addProperty(ClassLabelConstants.ShortStringKey, bensonname);
 		arr1.add(prop1);
 
-		String classname = "dataset:DatasetSpecificationBensonRuleDefinition";
+		String classname = "dataset:ThermodynamicBensonRuleDefinition";
 		String service = "ReadInDatasetWithDatasetCollectionLabel";
 		JsonObject json = new JsonObject();
 		JsonObject recordid = CreateDocumentTemplate.createTemplate("dataset:DatasetCollectionSetRecordIDInfo", false);

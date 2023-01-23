@@ -46,9 +46,6 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 			Element body = MessageConstructor.isolateBody(document);
 			JsonObject idsset = json.get(ClassLabelConstants.ChemConnectDatasetCollectionIDsSet).getAsJsonObject();
 			String classname = json.get(ClassLabelConstants.DatasetCollectionObjectType).getAsString();
-			
-			
-			
 			String label = idsset.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
 			String maintainer = idsset.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 			body.addElement("div").addText("Dataset  : " + label);
@@ -59,17 +56,29 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 			if (identifier != null) {
 				if (idsset.get(identifier) != null) {
 					JsonObject collectioninfo = idsset.get(identifier).getAsJsonObject();
+					System.out.println("ReadInDatasetWithDatasetCollection: " + classname + "(" + identifier + ")");
+					System.out.println("ReadInDatasetWithDatasetCollection\n" + JsonObjectUtilities.toString(collectioninfo));
+					
 					collectioninfo.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, label);
 					
-					String catalogtype = OntologyUtilityRoutines.exactlyOnePropertySingle(classname, "dcat:catalog");
+					//String catalogtype = OntologyUtilityRoutines.exactlyOnePropertySingle(classname, "dcat:catalog");
 					
-					JsonObject collectionid = DatasetCollectionIDManagement.firebaseIDOfCollection(catalogtype,
+					JsonObject collectionid = DatasetCollectionIDManagement.firebaseIDOfCollection(classname,
 							collectioninfo);
 					JsonObject criteria = null;
+					System.out.println("ReadInDatasetWithDatasetCollection: \n" + JsonObjectUtilities.toString(collectionid));
 					if(json.get(ClassLabelConstants.SetOfPropertyValueQueryPairs) != null) {
 					    criteria = json.get(ClassLabelConstants.SetOfPropertyValueQueryPairs).getAsJsonObject();
 					}
 					response = ReadFirestoreInformation.readFirestoreCollection(criteria, collectionid);
+					MessageConstructor.combineBodyIntoDocument(document, response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
+					if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+					    response = DatabaseServicesBase.standardServiceResponse(document,
+					            "Success in reading dataset collection", response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray());
+					} else {
+					    response = DatabaseServicesBase.standardErrorResponse(document,
+	                            "Error is reading firestore collection", null);
+					}
 				} else {
 					response = DatabaseServicesBase.standardErrorResponse(document,
 							classname + "(" + identifier + ")  not is dataset collection: " + label, null);
@@ -88,6 +97,8 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 			JsonObject response = GetListOfDatasetCollectionIDsSet.process(json);
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				JsonObject collectionids = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+				
+				System.out.println("ReadInDatasetWithDatasetCollectionLabel: \n" + JsonObjectUtilities.toString(collectionids));
 				
 				json.add(ClassLabelConstants.ChemConnectDatasetCollectionIDsSet, collectionids);
 				JsonObject readresponse = ReadInDatasetWithDatasetCollection.process(json);

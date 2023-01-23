@@ -34,8 +34,7 @@ public class FindDatasetCollections {
         empty.remove(ClassLabelConstants.DatasetTransactionSpecificationForCollection);
         JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(empty);
         firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
-
-        return firestoreid;
+         return firestoreid;
     }
 
     public static JsonObject findDatasetCollectionID(String classname, String maintainer, String dataset,

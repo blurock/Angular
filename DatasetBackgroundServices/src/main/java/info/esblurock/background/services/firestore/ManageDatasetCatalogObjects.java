@@ -337,7 +337,11 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
             union.removeAll(common);
             union.addAll(catalogIDs);
             JsonObject deleteresponse = null;
-            body.addElement("div","Number of common elements (to be deleted): " + common.size());
+            Element div1 = body.addElement("div");
+            div1.addText("Number of common elements (to be deleted): " + common.size());
+            Element div2 = body.addElement("div");
+            div2.addText("Number of elements in collection after write: " + union.size());
+            
             if(common.size() > 0) {
                 deleteresponse = deleteDatasetCatalogObjects(listOfStringsToJsonArray(common),classname,collectionset,event);
                 if(deleteresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
@@ -351,6 +355,7 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
                             
                             event.add(ClassLabelConstants.DataCatalogOutputObjectReplaced, deleted);
                             JsonArray firestoreids = writeDatasetElements(body,set);
+                            ManageDatasetDocumentLists.writeCollectionIDs(union,classname,collectionset);
                             event.add(ClassLabelConstants.DatabaseObjectIDOutputTransaction, firestoreids);                                           
                             String message = "";
                             response = DatabaseServicesBase.standardServiceResponse(document, message, set);
@@ -364,7 +369,9 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
                      response = errorInDeletingResponse(deleteresponse,document, "Write failed while deleting common elements");
                  }
              } else {
-                 writeWithNoCommonCatalogObjects(event,body,set,classname,collectionset);                 
+                 writeWithNoCommonCatalogObjects(event,body,set,classname,collectionset);
+                 datasetIDs.addAll(catalogIDs);
+                 ManageDatasetDocumentLists.writeCollectionIDs(datasetIDs,classname,collectionset);
                  String message = "Writing to a collection with a set of unique catalog objects (no duplicates)";
                  response = DatabaseServicesBase.standardServiceResponse(document, message, set);
              }
@@ -379,8 +386,17 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
         return response;
     }
     
+    /** This is used to write a new collection (no overlaps) to a collection directory
+     * 
+     * @param event The transaction DatasetCollectionObjectSetManipulationTransaction
+     * @param body The body of the document to register the writing of the elements.
+     * @param set The set of objects to write
+     * @param classname The classname of the objects to write
+     * @param collectionset The DatasetSpecificationforSourceCollectionSet specification 
+     */
     private static void writeWithNoCommonCatalogObjects(JsonObject event, Element body, JsonArray set, String classname, JsonObject collectionset) {
-        body.addElement("div","Writing with no common elements in the collection set");
+        Element div1 = body.addElement("div");
+        div1.addText("Writing with no common elements in the collection set");
         JsonArray firestoreids = writeDatasetElements(body,set);
         body.addElement("div","Update Collection List");
         List<String> datasetIDs = getCatalogIDs(set);
@@ -388,12 +404,14 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
         JsonArray replaced = new JsonArray();
         event.add(ClassLabelConstants.DataCatalogOutputObjectReplaced, replaced);
         event.add(ClassLabelConstants.DatabaseObjectIDOutputTransaction, firestoreids);
-        
     }
     
     /** Extract list of CatalogObjectKey from JsonArray of catalog objects
+     * 
      * @param set The JsonArray of catalog objects
      * @return The list of CatalogObjectKey ids
+     * 
+     * This extracts the ids from all the catalog objects and puts them in a list.
      */
     private static List<String> getCatalogIDs(JsonArray set) {
         List<String> ids = new ArrayList<String>(set.size());
@@ -404,6 +422,14 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
         return ids;
     }
     
+    /** Write catalog objects of the same collection.
+     * 
+     * @param body The body of the document to register the writing of the elements.
+     * @param set The set of catalog objects to write 
+     * @return
+     * 
+     * This assumes that each of the catalog objects is of the same collection
+     */
     private static JsonArray writeDatasetElements(Element body, JsonArray set) {
         getFirestoreID();
         JsonArray firestoreids = new JsonArray();
@@ -427,6 +453,14 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
          return firestoreids;
     }
 
+    /** Delete a set of catalog ids (moves to the delete directory)
+     * 
+     * @param ids The list of catalog ids to delete
+     * @param classname The classname of the objects to write
+     * @param sourcecollection The DatasetSpecificationforSourceCollectionSet specification 
+     * @param event The transaction DatasetCollectionObjectSetManipulationTransaction
+     * @return The response of deleting
+     */
     private static JsonObject deleteDatasetCatalogObjects(JsonArray ids, String classname, JsonObject sourcecollection, JsonObject event) {
         JsonObject info = new JsonObject();
         info.addProperty(ClassLabelConstants.DatasetCollectionObjectType, classname);
@@ -434,9 +468,15 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
         info.add(ClassLabelConstants.DatasetSpecificationforSourceCollectionSet, sourcecollection);        
         
         JsonObject deleteresponse = processDatasetCollectionSetObjectManagementDelete(event, info);
+        
         return deleteresponse;
     }
 
+    /** Create a JsonArray of the catalog ids (to be used in writing to a catalog object)
+     * 
+     * @param ids This is a list of strings (catalog ids)
+     * @return The list as a JsonArray
+     */
     public static JsonArray listOfStringsToJsonArray(List<String> ids) {
         JsonArray arr = new JsonArray();
         for(String id : ids) {
