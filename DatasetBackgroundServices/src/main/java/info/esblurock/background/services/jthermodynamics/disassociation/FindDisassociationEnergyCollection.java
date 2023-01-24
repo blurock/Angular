@@ -2,18 +2,22 @@ package info.esblurock.background.services.jthermodynamics.disassociation;
 
 import java.util.ArrayList;
 
+import org.dom4j.Document;
+
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtomContainer;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import thermo.data.structure.structure.StructureAsCML;
 
 public class FindDisassociationEnergyCollection {
+    
 
 	public static ArrayList<DisassociationEnergyWithAtomCounts> findDisassociationEnergy(String maintainer,
 			String dataset) {
@@ -39,7 +43,7 @@ public class FindDisassociationEnergyCollection {
 		return energylist;
 	}
 	
-	public static JsonArray getTotalDisassociationEnergyCollection(String maintainer,
+	public static JsonArray getTotalDisassociationEnergyCollection(Document document, String maintainer,
 			String dataset) {
 		JsonArray arr = null;
 		String service = "ReadInDatasetWithDatasetCollectionLabel";
@@ -52,10 +56,11 @@ public class FindDisassociationEnergyCollection {
 		json.addProperty(ClassLabelConstants.DatasetCollectionObjectType, classname);
 		json.addProperty(DatabaseServicesBase.service, service);
 		JsonObject response = DatabaseServicesBase.process(json);
+		MessageConstructor.combineBodyIntoDocument(document, response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
 		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 		} else {
-			
+		    MessageConstructor.isolateBody(document).addElement("div").addText("Error in reading dissassociation database, thus no elements in set");
 		}
 		return arr;
 	}

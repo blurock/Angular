@@ -56,7 +56,7 @@ public class CalculateThermodynamicsForDisassociationEnergy {
         JsonObject response = null;
         GetSubstructureMatches matches = new GetSubstructureMatches();
         JsonArray disassociationCollection = FindDisassociationEnergyCollection
-                .getTotalDisassociationEnergyCollection(maintainer, dataset);
+                .getTotalDisassociationEnergyCollection(document,maintainer, dataset);
         if (disassociationCollection != null) {
             ArrayList<DisassociationEnergyWithAtomCounts> structureCollection = FindDisassociationEnergyCollection
                     .findDisassociationEnergy(disassociationCollection);
