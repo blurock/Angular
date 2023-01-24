@@ -146,14 +146,25 @@ public class ReadFirestoreInformation {
 			}
 			List<QueryDocumentSnapshot> documents = future.get().getDocuments();
 			Element ul = body.addElement("ul");
+			Element noncatalogul = body.addElement("ul");
 			if(documents.size() > 0 ) {
 			for (DocumentSnapshot document : documents) {
 				Map<String, Object> mapObj = (Map<String, Object>) document.getData();
 				String jsonString = new Gson().toJson(mapObj);
 				JsonObject rdf = JsonObjectUtilities.jsonObjectFromString(jsonString);
-
-				ul.addElement("li").addText(rdf.get(ClassLabelConstants.CatalogObjectKey).getAsString());
-				setofobjs.add(rdf);
+				if(rdf.get(ClassLabelConstants.CatalogObjectKey) != null) {
+				    setofobjs.add(rdf);
+				    ul.addElement("li").addText(rdf.get(ClassLabelConstants.CatalogObjectKey).getAsString());
+				} else {
+	                JsonObject firestoreid = rdf.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+	                if(firestoreid != null) {
+	                    String catalogid = firestoreid.get(ClassLabelConstants.SimpleCatalogName).getAsString();
+	                    noncatalogul.addElement("li").addText(catalogid);
+	                } else {
+	                    noncatalogul.addElement("li").addText("no firestore ID in object");
+	                }
+				}
+				
 			}
 			response = DatabaseServicesBase.standardServiceResponse(docmessage, "Successful read of collectiion set objects",
 					setofobjs);

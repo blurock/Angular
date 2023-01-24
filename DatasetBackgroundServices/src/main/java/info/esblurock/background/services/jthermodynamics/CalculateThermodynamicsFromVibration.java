@@ -31,6 +31,8 @@ import thermo.data.structure.structure.vibrational.FrequencyCorrection;
 import thermo.exception.NotARadicalException;
 
 public class CalculateThermodynamicsFromVibration {
+    static boolean vibdebug = false;
+    
     static String defaultentropyUnits = "unit:J-PER-MOL-K";
     static String defaultenthalpyUnits = "unit:KiloCAL-PER-MOL";
 
@@ -50,15 +52,13 @@ public class CalculateThermodynamicsFromVibration {
             try {
                 IAtomContainer RH = formRH.convert(molecule);
                 StructureAsCML cmlstruct = new StructureAsCML(RH);
-                System.out.println("RH Molecule:\n");
-                System.out.println(cmlstruct.getCmlStructureString());
                 if (info.get(ClassLabelConstants.DatabaseCollectionRecordID) != null) {
                     JsonObject colrecordid = info.get(ClassLabelConstants.DatabaseCollectionRecordID).getAsJsonObject();
                     String maintainer = colrecordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
                     String dataset = colrecordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
                     body.addElement("div").addText("Maintainer      : " + maintainer);
                     body.addElement("div").addText("dataset         : " + dataset);
-                    JsonArray structures = databaseAllVibrationalStructures(maintainer, dataset);
+                    JsonArray structures = databaseAllVibrationalStructures(document, maintainer, dataset);
                     JsonArray countsR = computeVibrationalMatchCounts(structures, molecule);
                     body.addElement("div").addText("Vibrational Match counts for R: " + countsR.size());
                     JsonArray countsRH = computeVibrationalMatchCounts(structures, RH);
@@ -75,14 +75,18 @@ public class CalculateThermodynamicsFromVibration {
                     header.addElement("th").addText("Multiplicity");
                     for (int i = 0; i < difference.size(); i++) {
                         JsonObject countdiff = difference.get(i).getAsJsonObject();
-                        System.out.println("Count Diff =============================================");
-                        System.out.println(JsonObjectUtilities.toString(countdiff));
-                        System.out.println("Count Diff =============================================");
+                        if(vibdebug) {
+                            System.out.println("Count Diff =============================================");
+                            System.out.println(JsonObjectUtilities.toString(countdiff));
+                            System.out.println("Count Diff =============================================");                            
+                        }
                         JsonObject contribution = convertToThermodynamicContribution(countdiff, info, table);
-                        System.out.println("Contribution =============================================");
-                        System.out.println(JsonObjectUtilities.toString(contribution));
-                        System.out.println("Contribution =============================================");
-                        contributions.add(contribution);
+                        if(vibdebug) {
+                            System.out.println("Contribution =============================================");
+                            System.out.println(JsonObjectUtilities.toString(contribution));
+                            System.out.println("Contribution =============================================");                           
+                        }
+                       contributions.add(contribution);
                     }
                     response = DatabaseServicesBase.standardServiceResponse(document, dataset, contributions);
                     } else {
@@ -190,10 +194,14 @@ public class CalculateThermodynamicsFromVibration {
         JsonArray vibcounts = new JsonArray();
         for (int i = 0; i < structures.size(); i++) {
             JsonObject vibstructure = structures.get(i).getAsJsonObject();
-            System.out
-                    .println("computeVibrationalMatchCounts   ------------------------------------------------------");
+            if(vibdebug) {
+                System.out
+                .println("computeVibrationalMatchCounts   ------------------------------------------------------");                
+            }
             String vibmode = vibstructure.get(ClassLabelConstants.JThermodynamicsVibrationalModeLabel).getAsString();
+            if(vibdebug) {
             System.out.println("Mode: " + vibmode);
+            }
             JsonObject structureinfo = vibstructure.get(ClassLabelConstants.JThermodynamics2DSpeciesStructure)
                     .getAsJsonObject();
             String cmlstruct = structureinfo.get(ClassLabelConstants.JThermodynamicsStructureAsCMLString).getAsString();
@@ -201,14 +209,12 @@ public class CalculateThermodynamicsFromVibration {
             vibcml.setCmlStructureString(cmlstruct);
             try {
                 IAtomContainer vibmolecule = vibcml.getMolecule();
+                if(vibdebug) {
                 System.out.println("Vibrational Mode: atomcount=" + vibmolecule.getAtomCount());
+                }
                 String vibsymmetry = vibstructure.get(ClassLabelConstants.StructureVibrationalFrequencySymmetry)
                         .getAsString();
-                if (vibmode.equalsIgnoreCase("COH-Bend")) {
-                    System.out.println("Set debug");
-                    matches.debug = true;
-                }
-                int nI = calculateContribution(molecule, vibmolecule, matches, vibsymmetry);
+                 int nI = calculateContribution(molecule, vibmolecule, matches, vibsymmetry);
                 matches.debug = false;
                 if (nI != 0) {
                     JsonObject vibwithcount = vibstructure.deepCopy();
@@ -322,12 +328,16 @@ public class CalculateThermodynamicsFromVibration {
         try {
             bondMatches = matches.getBondMatches(molecule, vibmolecule);
             int n = bondMatches.size();
+            if(vibdebug) {
             System.out.println("calculateContribution  Bond Matches: " + n);
+            }
             if (n > 0) {
                 double nD = (double) n;
                 double cD = nD / Double.parseDouble(vibsymmetry);
                 nI = (int) -cD;
+                if(vibdebug) {
                 System.out.println("Calculate contribution: " + nI);
+                }
             }
         } catch (CDKException e) {
             e.printStackTrace();
@@ -342,7 +352,7 @@ public class CalculateThermodynamicsFromVibration {
      * @param dataset    The dataset
      * @return Set of JThermodynamicsVibrationalStructureWithCount in the dataset
      */
-    public static JsonArray databaseAllVibrationalStructures(String maintainer, String dataset) {
+    public static JsonArray databaseAllVibrationalStructures(Document document, String maintainer, String dataset) {
         JsonArray definitions = null;
 
         String classname = "dataset:JThermodynamicsVibrationalStructure";
@@ -357,8 +367,11 @@ public class CalculateThermodynamicsFromVibration {
         json.addProperty(ClassLabelConstants.DatasetCollectionObjectType, classname);
         json.addProperty(DatabaseServicesBase.service, service);
         JsonObject response = DatabaseServicesBase.process(json);
+        MessageConstructor.combineBodyIntoDocument(document, response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
         if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
             definitions = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+        } else {
+            MessageConstructor.isolateBody(document).addElement("div").addText("Error in reading vibrational structures, so empty set");
         }
 
         return definitions;

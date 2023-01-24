@@ -21,15 +21,22 @@ import thermo.exception.ThermodynamicException;
 public class DatabaseCalculateInternalSymmetryCorrection extends CalculateInternalSymmetryCorrection {
 	JsonArray symmetryarr;
 	
+	JsonObject responseStructureInternalSymmetryRead;
+	
 	public DatabaseCalculateInternalSymmetryCorrection(String maintainer, String dataset,
 			CalculateExternalSymmetryCorrection external) {
 		super();
 		symmetryarr = ExtractSetOfSymmetryDefinitionsFromDataset.databaseSymmetryDefinitions(maintainer, dataset, 
 				"dataset:StructureInternalSymmetry");
+		responseStructureInternalSymmetryRead = ExtractSetOfSymmetryDefinitionsFromDataset.getReadSymmetryResponse();
 		SetOfSymmetryDefinitions setOfDefinitions = ExtractSetOfSymmetryDefinitionsFromDataset.extract(symmetryarr);
 		this.setStructureInternalSymmetry(setOfDefinitions);
 		this.setCalculateExternalSymmetryCorrection(external);
 		this.initialize();
+	}
+	
+	public String getResponseStructureInternalSymmetryRead() {
+	    return responseStructureInternalSymmetryRead.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 	}
 	
 	/**
@@ -48,6 +55,12 @@ public class DatabaseCalculateInternalSymmetryCorrection extends CalculateIntern
 		try {
 			symmetryfactor = calculate(molecule, corrections);
 			if(symmetryfactor) {
+			    String tablestyle = 
+			            "  .tb { border-collapse: collapse; }\n"
+			            + "  .tb th, .tb td { padding: 5px; border: solid 1px #777; }\n"
+			            + "  .tb th { background-color: lightblue; }\n"
+			            ;
+			    body.addElement("style").addText(tablestyle);
 				Element table = body.addElement("table");
 				Element hrow =  table.addElement("tr");
 				hrow.addElement("th").addText("Internal Symmetry Element");
@@ -57,7 +70,6 @@ public class DatabaseCalculateInternalSymmetryCorrection extends CalculateIntern
 				while(iter.hasNext()) {
 					BensonThermodynamicBase benson = iter.next();
 					double entropy = benson.getStandardEntropy298();
-					System.out.println("compute: " + benson.toString());
 					JsonObject symmetry = findCorrectionInArray(benson);
 					if(symmetry != null) {
 					JsonObject def = symmetry.get(ClassLabelConstants.JThermodynamicsSymmetryDefinition).getAsJsonObject();
@@ -97,12 +109,10 @@ public class DatabaseCalculateInternalSymmetryCorrection extends CalculateIntern
 		if(index > 0) {
 		    corrname = correction.getID().substring(0,index);
 		}
-		System.out.println("findCorrectionInArray; ID='" + corrname + "'");
 		for(int i=0; i<symmetryarr.size() && notfound;i++) {
 			JsonObject symmetry = symmetryarr.get(i).getAsJsonObject();
 			JsonObject def = symmetry.get(ClassLabelConstants.JThermodynamicsSymmetryDefinition).getAsJsonObject();
 			String name = def.get(ClassLabelConstants.JThermodynamicSymmetryDefinitionLabel).getAsString();
-	        System.out.println("findCorrectionInArray; symname='" + name + "'");
 			
 			if(corrname.equals(name)) {
 				internal = symmetry;

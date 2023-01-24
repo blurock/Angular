@@ -114,10 +114,14 @@ public class ComputeThermodynamicsSymmetryContribution {
         body.addElement("div").addText("Symmetry type   : " + "dataset:StructureInternalSymmetry");
         DatabaseCalculateExternalSymmetryCorrection external = new DatabaseCalculateExternalSymmetryCorrection(
                 maintainer, dataset);
+        Document externaldocument = external.getReadResponseMessages();
+        MessageConstructor.combineBodyIntoDocument(document, externaldocument);
         if (external.getStructureExternalSymmetry().size() > 0) {
             DatabaseCalculateInternalSymmetryCorrection internal = new DatabaseCalculateInternalSymmetryCorrection(
                     maintainer, dataset, external);
             if (internal.getStructureInternalSymmetry().size() > 0) {
+                String internalmessage = internal.getResponseStructureInternalSymmetryRead();
+                MessageConstructor.combineBodyIntoDocument(document,internalmessage);
                 JsonArray contributions = internal.compute(molecule, body, info);
                 response = DatabaseServicesBase.standardServiceResponse(document, "Found External Internal Element",
                         contributions);

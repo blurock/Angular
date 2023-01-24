@@ -114,17 +114,13 @@ public class ParameterUtilities {
         JsonObject finalunit = entropyspec.get(ClassLabelConstants.ValueUnits).getAsJsonObject();
         String finalunits = finalunit.get(OntologyObjectLabels.quantitykind).getAsString();
         
-        System.out.println("parameterWithEntropy: " + entropy + "  " + origunits + finalunits);
-        
         String value = Double.toString(entropy);
         Double newvalue = DatabaseUnitUtilities.conversion(entropy, origunits, finalunits);
-        System.out.println("parameterWithEntropy: " + newvalue);
         if (newvalue != null) {
             value = newvalue.toString();
         }
         
         entropyP.addProperty(ClassLabelConstants.ValueAsString, value);
-        System.out.println("parameterWithEntropy: " + JsonObjectUtilities.toString(entropyP));
         return contribution;
 
         /*
@@ -269,7 +265,6 @@ public class ParameterUtilities {
     public static JsonObject parameterWithEnthalpy(String origunits, double enthalpy, String name, JsonObject info) {
         
         JsonObject contribution = emptyThermodynamicContributions(name,info);
-        System.out.println("parameterWithEnthalpy:\n" + JsonObjectUtilities.toString(contribution));
         
         JsonObject enthalpyP = contribution.get(ClassLabelConstants.ThermodynamicStandardEnthalpy).getAsJsonObject();
         JsonObject enthalpyspec = enthalpyP.get(ClassLabelConstants.ParameterSpecification).getAsJsonObject();
