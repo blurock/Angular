@@ -1,46 +1,59 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { Ontologyconstants } from 'src/app/const/ontologyconstants';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { MenutreeserviceService } from '../../../services/menutreeservice.service';
+import { NavItem } from '../../../primitives/nav-item';
 
 @Component({
-  selector: 'app-nameofperson',
-  templateUrl: './nameofperson.component.html',
-  styleUrls: ['./nameofperson.component.scss']
+	selector: 'app-nameofperson',
+	templateUrl: './nameofperson.component.html',
+	styleUrls: ['./nameofperson.component.scss']
 })
-export class NameofpersonComponent implements OnInit, OnChanges {
+export class NameofpersonComponent implements OnInit {
 
-    @Input() namedata: any;
-  @Input() annoinfo: any;
-  @Output() namedatachange = new EventEmitter<any>();
+	@Input() annoinfo: any;
+	@Output() namedatachange = new EventEmitter<any>();
 
-  conceptlabel = 'dataset:objectconcept';
+	nameGroup: FormGroup;
 
-  nametitletitle: string;
-  nametitlecomment: string;
-  namegiventitle: string;
-  namegivencomment: string;
-  namefamilytitle: string;
-  namefamilycomment: string;
+	rdfslabel = Ontologyconstants.rdfslabel;
+	rdfscomment = Ontologyconstants.rdfscomment;
+	identifier = Ontologyconstants.dctermsidentifier;
+	usertitle = 'dataset:UserTitle';
+	usertitleitems: NavItem[] = [];
 
 
-  constructor() { }
-  ngOnChanges(changes: SimpleChanges): void {
-    this.setData(this.namedata, this.annoinfo);
-  }
+	constructor(
+    private formBuilder: FormBuilder,
+		private menusetup: MenutreeserviceService
+	) {
+		this.nameGroup = this.formBuilder.group({
+			familyName: ['', Validators.required],
+			givenName: ['', Validators.required],
+			UserTitle: ['', Validators.required],
+		});
 
-  ngOnInit(): void {
-  }
-setData(info: any, anno: any): void {
-  const titleanno = anno.usertitle;
-  this.nametitletitle = titleanno[Ontologyconstants.rdfslabel];
-  this.nametitlecomment = titleanno[Ontologyconstants.rdfscomment];
+	}
 
-  const givenanno = anno.given;
-  this.namegiventitle = givenanno[Ontologyconstants.rdfslabel];
-  this.namegivencomment = givenanno[Ontologyconstants.rdfscomment];
 
-  const familyanno = anno.fname;
-  this.namefamilytitle = familyanno[Ontologyconstants.rdfslabel];
-  this.namefamilycomment = familyanno[Ontologyconstants.rdfscomment];
+	ngOnInit(): void {
+		this.usertitleitems = this.menusetup.findChoices(this.annoinfo, this.usertitle);
+	}
+	
+	setUserTitle($event: string): void {
+		this.nameGroup.get('UserTitle').setValue($event);
+	}
+
+
+	setData(nameofperson: any): void {
+		this.nameGroup.get('familyName').setValue(nameofperson[this.annoinfo['dataset:familyName'][this.identifier]]);
+		this.nameGroup.get('givenName').setValue(nameofperson[this.annoinfo['dataset:givenName'][this.identifier]]);
+		this.nameGroup.get('UserTitle').setValue(nameofperson[this.annoinfo['dataset:UserTitle'][this.identifier]]);
+	}
+
+	getData(nameofperson: any): void { 
+		nameofperson[this.annoinfo['dataset:familyName'][this.identifier]] = this.nameGroup.get('familyName').value;
+		nameofperson[this.annoinfo['dataset:givenName'][this.identifier]] = this.nameGroup.get('givenName').value;
+		nameofperson[this.annoinfo['dataset:UserTitle'][this.identifier]] = this.nameGroup.get('UserTitle').value;
 }
-
 }

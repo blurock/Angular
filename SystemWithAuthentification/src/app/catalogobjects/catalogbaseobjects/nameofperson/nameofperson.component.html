@@ -1,28 +1,39 @@
-<table>
-  <tr>
-    <th class="title">
-<app-simplechoiceprimitive
-			[(selectedValue)]="namedata['foaf:title']"
-			[annoref] = "'usertitle'"
-			[choiceLabel]="'dataset:objectconcept'"
-			[annoinfo]="annoinfo"
-      ></app-simplechoiceprimitive>
-      </th>
-    <th>
-      <mat-form-field appearance="legacy" class="title">
-        <mat-label>{{namegiventitle}}</mat-label>
-        <input matInput matTooltip="{{namegivencomment}}" [ngModel]="namedata['foaf:givenName']"
-          (ngModelChange)="namedata['foaf:givenName']=$event">
-      </mat-form-field>
-    </th>
-    <th>
-            <mat-form-field appearance="legacy" class="title">
-        <mat-label>{{namefamilytitle}}</mat-label>
-        <input matInput matTooltip="{{namefamilycomment}}" [ngModel]="namedata['foaf:familyName']"
-          (ngModelChange)="namedata['foaf:familyName']=$event">
-      </mat-form-field>
- 
-    </th>
-  </tr>
+<mat-card>
+<mat-card-header>
+</mat-card-header>
+<mat-card-content>
+			<form [formGroup]="nameGroup" class="signinform">
+				<mat-grid-list cols="8" rowHeight="100px">
 
-</table>
+
+					<mat-grid-tile [colspan]="3">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:familyName'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="familyName">
+							<mat-hint>{{annoinfo['dataset:familyName'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+
+					<mat-grid-tile [colspan]="3">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:givenName'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="givenName">
+							<mat-hint>{{annoinfo['dataset:givenName'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+
+					<mat-grid-tile [colspan]="2" background="label">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:UserTitle'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="UserTitle" [matMenuTriggerFor]="usertitlemenu.childMenu"
+								>
+							<mat-hint>{{annoinfo['dataset:UserTitle'][rdfscomment]}}</mat-hint>
+							<app-menu-item #usertitlemenu [items]="usertitleitems"
+								(selectionEvent)="setUserTitle($event)">
+							</app-menu-item>
+						</mat-form-field>
+					</mat-grid-tile>
+				</mat-grid-list>
+			</form>
+</mat-card-content>
+</mat-card>

@@ -82,8 +82,6 @@ userAccountGroup: any;
 					const catalog = response[Ontologyconstants.catalogobject];
 					this.catalogobj = catalog[Ontologyconstants.outputobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];
-					alert(JSON.stringify(this.annoinfo));
-					alert(JSON.stringify(this.annoinfo['dataset:UID']));
 				} else {
 					this.message = responsedata;
 				}

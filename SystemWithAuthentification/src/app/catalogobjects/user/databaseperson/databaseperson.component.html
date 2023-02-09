@@ -1,0 +1,41 @@
+<mat-card>
+<mat-card-header>
+</mat-card-header>
+<mat-card-content>
+<ng-container *ngIf='annoinfo; else loading'>
+<app-nameofperson #nameofperson [(annoinfo)]="annoinfo"></app-nameofperson>
+			<form [formGroup]="personGroup" class="signinform">
+				<mat-grid-list cols="8" rowHeight="100px">
+
+					<mat-grid-tile [colspan]="8" background="lightgray">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:UserClassification'][rdfslabel]}}
+							</mat-label>
+							<input matInput formControlName="UserClassification"
+								[matMenuTriggerFor]="userclassificationmenu.childMenu">
+							<mat-hint>{{annoinfo['dataset:UserClassification'][rdfscomment]}}
+							</mat-hint>
+							<app-menu-item #userclassificationmenu [items]="userclassificationitems"
+								(selectionEvent)="setUserClassification($event)">
+							</app-menu-item>
+						</mat-form-field>
+					</mat-grid-tile>
+				</mat-grid-list>
+			</form>
+			<app-datadatadescription #description [(annoinfo)]="annoinfo" [(descriptionsuffix)]="descriptionsuffix"></app-datadatadescription>
+			<app-firesytorecatalogid #firestoreid [(anno)]="annoinfo"></app-firesytorecatalogid>
+			<app-simpledatabaseobjectstructure #simpledata [(anno)]="annoinfo"></app-simpledatabaseobjectstructure>
+			<app-setofsitereferences #weblinks [(anno)]="annoinfo"></app-setofsitereferences>
+			<app-setofdataobjectlinks #objectlinks [(anno)]="annoinfo"></app-setofdataobjectlinks>
+			<app-datasetreference #references [(anno)]="annoinfo"></app-datasetreference>
+		</ng-container>
+		<ng-template #loading>
+			<div>
+				{{message}}
+			</div>
+		</ng-template>
+
+</mat-card-content>
+</mat-card>
+
+

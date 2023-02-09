@@ -57,7 +57,6 @@ export class DatadatadescriptionComponent implements OnInit {
 	this.abstrhint =  this.annoinfo[this.abst][this.rdfscomment];
 	this.titlelabel =  this.annoinfo[this.title][this.rdfslabel];
 	this.titlehint =  this.annoinfo[this.title][this.rdfscomment];
-		
 	}
 	
 

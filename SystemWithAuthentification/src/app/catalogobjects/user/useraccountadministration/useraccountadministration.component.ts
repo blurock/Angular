@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { RunserviceprocessService } from '../../../services/runserviceprocess.service'
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import {UseraccountComponent} from '../useraccount/useraccount.component';
+import {DatabasepersonComponent} from '../databaseperson/databaseperson.component';
 
 @Component({
 	selector: 'app-useraccountadministration',
@@ -17,10 +18,11 @@ export class UseraccountadministrationComponent implements OnInit {
 
 	items: any;
 	resultHtml: string;
-	person: any;
+	persondata: any;
 	account: any;
 	
 	@ViewChild('useraccount') useraccount: UseraccountComponent;
+	@ViewChild('person') person: DatabasepersonComponent;
 
 	constructor(public runservice: RunserviceprocessService) { }
 
@@ -54,10 +56,13 @@ export class UseraccountadministrationComponent implements OnInit {
 				this.resultHtml = responsedata[Ontologyconstants.message]
 				if (success === 'true') {
 					const obj = responsedata[Ontologyconstants.catalogobject][0];
-					this.person = obj['vcard:Individual'];
+					this.persondata = obj['vcard:Individual'];
 					this.account = obj['prov:SoftwareAgent'];
-					alert(JSON.stringify(this.account));
+					alert(JSON.stringify(this.persondata));
 					this.useraccount.setData(this.account);
+					alert("account");
+					this.person.setData(this.persondata);
+					alert("person");
 				} else {
 					alert('Retrieval of usr information not successful: see logs');
 				}

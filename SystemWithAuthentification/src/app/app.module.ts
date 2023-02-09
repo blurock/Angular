@@ -171,6 +171,7 @@ import { FinddatasetcollectionidsetsComponent } from './primitives/finddatasetco
 import { UseraccountComponent } from './catalogobjects/user/useraccount/useraccount.component';
 import { SetupuserinformationComponent } from './catalogobjects/user/setupuserinformation/setupuserinformation.component';
 import { UseraccountadministrationComponent } from './catalogobjects/user/useraccountadministration/useraccountadministration.component';
+import { DatabasepersonComponent } from './catalogobjects/user/databaseperson/databaseperson.component';
 
 
 
@@ -297,7 +298,8 @@ import { UseraccountadministrationComponent } from './catalogobjects/user/userac
   FinddatasetcollectionidsetsComponent,
   UseraccountComponent,
   SetupuserinformationComponent,
-  UseraccountadministrationComponent
+  UseraccountadministrationComponent,
+  DatabasepersonComponent
 	],
 	imports: [
 		AppFirebaseModule,
