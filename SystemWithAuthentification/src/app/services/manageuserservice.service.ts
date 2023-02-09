@@ -14,6 +14,7 @@ export class ManageuserserviceService {
 
 
    determineMaintainer(): Observable<string> {
+     const user = sessionStorage.getItem('user');
      return of('Administrator');
    }
   

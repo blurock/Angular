@@ -1,6 +1,7 @@
 package info.esblurock.background.services.servicecollection;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -19,6 +20,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.dataset.ManageDatasetDocumentLists;
+import info.esblurock.background.services.dataset.user.GetUserAccountAndDatabasePersonProcess;
 import info.esblurock.background.services.firestore.FirestoreBaseClass;
 import info.esblurock.background.services.firestore.PropertyValueQueryPair;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
@@ -36,6 +39,36 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import info.esblurock.reaction.core.ontology.base.utilities.SubstituteJsonValues;
 
 public enum ServiceCollectionFirestoreCatalogAccess {
+    ListOfUserAccountNames {
+
+        @Override
+        public JsonObject process(JsonObject json) {
+            Document document = MessageConstructor.startDocument("ListOfUserAccountNames");
+            ArrayList<String> ids = ManageDatasetDocumentLists.getCollectionIDsForClass("dataset:UserAccount");
+            JsonArray jsonids = new JsonArray();
+            
+            for(String id : ids) {
+                jsonids.add(id);
+            }
+            JsonObject obj = new JsonObject();
+            JsonArray arr = new JsonArray();
+            arr.add(obj);
+            obj.add(ClassLabelConstants.username, jsonids);
+            JsonObject response = DatabaseServicesBase.standardServiceResponse(document,
+                    "Success: SubstituteAndWriteDatabasePerson", arr);
+            return response;
+        }
+        
+    },
+    
+    GetUserAccountAndDatabasePerson {
+
+        @Override
+        public JsonObject process(JsonObject json) {
+            return GetUserAccountAndDatabasePersonProcess.get(json);
+        }
+    },
+    
 	SubstituteAndWriteDatabasePerson {
 		/*
 		 * SubstituteAndWriteDatabasePerson
@@ -187,6 +220,7 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 
 	},
 	FindSpecificTransactionInDataset {
+	    @Override
 	    public JsonObject process(JsonObject json) {
 	        JsonObject response = null;
 	    JsonObject info = json.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
@@ -205,6 +239,7 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 	    return response;
 	}
 	}, ReadCatalogObjectWithFirestoreAddress {
+	    @Override
 	    public JsonObject process(JsonObject json) {
 	        JsonObject firestoreid = json.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
 	        JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(firestoreid);

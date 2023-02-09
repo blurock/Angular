@@ -1,10 +1,7 @@
 package info.esblurock.background.services.servicecollection;
 
-import java.util.HashSet;
-
 import org.dom4j.Document;
 import org.dom4j.Element;
-import org.openscience.cdk.AtomContainer;
 import org.openscience.cdk.interfaces.IAtomContainer;
 
 import com.google.gson.JsonArray;
@@ -20,10 +17,6 @@ import info.esblurock.background.services.jthermodynamics.symmetry.ComputeThermo
 import info.esblurock.background.services.jthermodynamics.symmetry.DatabaseCalculateSymmetryCorrection;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
-import thermo.compute.utilities.StringToAtomContainer;
-import thermo.data.structure.structure.MetaAtomInfo;
-import thermo.data.structure.utilities.MoleculeUtilities;
-import thermo.exception.ThermodynamicComputeException;
 
 public enum ServiceCollectionComputeThermodynamics {
 
@@ -179,7 +172,7 @@ public enum ServiceCollectionComputeThermodynamics {
                     body.addElement("div").addText("dataset         : " + dataset);
                     DatabaseCalculateSymmetryCorrection symmcorrection = new DatabaseCalculateSymmetryCorrection(
                             maintainer, dataset);
-                    JsonArray total = symmcorrection.compute(molecule, body, info);
+                    JsonArray total = symmcorrection.compute(document, molecule, body, info);
                     response = DatabaseServicesBase.standardServiceResponse(document,
                             "ComputeThermodynamicsFromAllSymmetries computed: " + total.size(), total);
                 } else {
@@ -216,7 +209,6 @@ public enum ServiceCollectionComputeThermodynamics {
 
         @Override
         public JsonObject process(JsonObject activity) {
-            System.out.println("CalculateTherGasThermodynamics");
             JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
             return ComputeTotalThermodynamics.calculateTherGasThermodynamics(info);
         }

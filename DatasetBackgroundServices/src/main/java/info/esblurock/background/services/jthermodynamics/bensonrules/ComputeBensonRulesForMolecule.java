@@ -49,8 +49,7 @@ public class ComputeBensonRulesForMolecule {
             for (int i = 0; i < bensonarr.size(); i++) {
                 JsonObject bensonobj = bensonarr.get(i).getAsJsonObject();
                 String bensonname = bensonobj.get(ClassLabelConstants.BensonRuleDatabaseReference).getAsString();
-                System.out.println("ComputeBensonRulesForMolecule " + bensonname);
-                JsonObject rule = readInBensonRuleFromLabel(bensonname, body, maintainer, dataset, document);
+               JsonObject rule = readInBensonRuleFromLabel(bensonname, body, maintainer, dataset, document);
                 if (rule != null) {
                     count++;
                     JsonObject thermo = rule.get(ClassLabelConstants.JThermodynamicStandardThermodynamics)
@@ -249,7 +248,6 @@ public class ComputeBensonRulesForMolecule {
     private static JsonObject readInBensonRuleFromLabel(String bensonname, Element body, String maintainer,
             String dataset, Document parentdoc) {
         JsonObject rule = null;
-        System.out.println("readInBensonRuleFromLabel: " + bensonname);
         JsonObject response = readBensonObject(bensonname, maintainer, dataset);
         if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
             String readmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
@@ -298,11 +296,7 @@ public class ComputeBensonRulesForMolecule {
         json.addProperty(ClassLabelConstants.DatasetCollectionObjectType, classname);
         json.addProperty(DatabaseServicesBase.service, service);
         json.add(ClassLabelConstants.SetOfPropertyValueQueryPairs, setofprops1);
-        System.out.println("readBensonObject: " + bensonname);
-
         JsonObject response = DatabaseServicesBase.process(json);
-        System.out.println("readBensonObject: after  " + bensonname);
-        
         JsonObjectUtilities.printResponse(response);
         return response;
     }

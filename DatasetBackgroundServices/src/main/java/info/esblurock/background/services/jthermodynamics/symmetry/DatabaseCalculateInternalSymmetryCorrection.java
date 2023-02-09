@@ -35,8 +35,8 @@ public class DatabaseCalculateInternalSymmetryCorrection extends CalculateIntern
 		this.initialize();
 	}
 	
-	public String getResponseStructureInternalSymmetryRead() {
-	    return responseStructureInternalSymmetryRead.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
+	public JsonObject getResponseStructureInternalSymmetryRead() {
+	    return responseStructureInternalSymmetryRead;
 	}
 	
 	/**

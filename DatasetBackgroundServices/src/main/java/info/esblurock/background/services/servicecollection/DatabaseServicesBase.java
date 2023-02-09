@@ -67,7 +67,7 @@ public class DatabaseServicesBase {
 						} catch (IllegalArgumentException ex5) {
 							response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);
 							response.addProperty(ClassLabelConstants.ServiceResponseMessage,
-									"Service not available: '" + service + "'\n" + ex4.toString());
+									"Service not available: '" + service + "'\n" + ex5.toString());
 							response.add(ClassLabelConstants.SimpleCatalogObject, null);
 						}
 					}

@@ -168,6 +168,9 @@ import { ComputethermodynamicsComponent } from './catalogobjects/thermodynamics/
 import { ThermocalculationsetupComponent } from './catalogobjects/thermodynamics/calculations/thermocalculationsetup/thermocalculationsetup.component';
 import { RundatabaseserviceComponent } from './dialog/rundatabaseservice/rundatabaseservice.component';
 import { FinddatasetcollectionidsetsComponent } from './primitives/finddatasetcollectionidsets/finddatasetcollectionidsets.component';
+import { UseraccountComponent } from './catalogobjects/user/useraccount/useraccount.component';
+import { SetupuserinformationComponent } from './catalogobjects/user/setupuserinformation/setupuserinformation.component';
+import { UseraccountadministrationComponent } from './catalogobjects/user/useraccountadministration/useraccountadministration.component';
 
 
 
@@ -291,7 +294,10 @@ import { FinddatasetcollectionidsetsComponent } from './primitives/finddatasetco
   ComputethermodynamicsComponent,
   ThermocalculationsetupComponent,
   RundatabaseserviceComponent,
-  FinddatasetcollectionidsetsComponent
+  FinddatasetcollectionidsetsComponent,
+  UseraccountComponent,
+  SetupuserinformationComponent,
+  UseraccountadministrationComponent
 	],
 	imports: [
 		AppFirebaseModule,

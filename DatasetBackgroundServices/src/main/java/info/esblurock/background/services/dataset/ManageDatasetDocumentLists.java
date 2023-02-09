@@ -10,6 +10,8 @@ import info.esblurock.background.services.firestore.ManageDatasetCatalogObjects;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
+import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
 
 public class ManageDatasetDocumentLists {
     static String indexID = "CatalogIDs";
@@ -27,6 +29,29 @@ public class ManageDatasetDocumentLists {
     public static ArrayList<String> getCollectionIDs(String classname, JsonObject recordid) {
         
         JsonObject firestoreid = FindDatasetCollections.findDatasetCollectionID(classname, recordid);
+        return getCollectionIDsFromFirestoreID(firestoreid);
+    }
+    
+    public static ArrayList<String> getCollectionIDsForClass(String classname) {
+        JsonObject empty = CreateDocumentTemplate.createTemplate(classname);
+        JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(empty);
+        firestoreid.remove(ClassLabelConstants.SimpleCatalogName);   
+         return getCollectionIDsFromFirestoreID(firestoreid);
+         }
+    
+    /**
+     * @param datasetIDs The list of object ids to write
+     * @param classname The classname of the catalog object to be referenced
+     * @param recordid The DatasetSpecificationForCollectionSet address of the objects
+     * @return The response of the write.
+     * 
+     */
+    public static String writeCollectionIDs(List<String> datasetIDs, String classname, JsonObject recordid) {
+        JsonObject firestoreid = FindDatasetCollections.findDatasetCollectionID(classname, recordid);
+        return writeCollectionIDs(datasetIDs,firestoreid);
+    }
+    
+    public static ArrayList<String> getCollectionIDsFromFirestoreID(JsonObject firestoreid) {
         firestoreid.addProperty(ClassLabelConstants.SimpleCatalogName, indexID);
         JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(firestoreid);
         JsonArray IDarray = new JsonArray();
@@ -44,17 +69,6 @@ public class ManageDatasetDocumentLists {
         return IDs;
     }
     
-    /**
-     * @param datasetIDs The list of object ids to write
-     * @param classname The classname of the catalog object to be referenced
-     * @param recordid The DatasetSpecificationForCollectionSet address of the objects
-     * @return The response of the write.
-     * 
-     */
-    public static String writeCollectionIDs(List<String> datasetIDs, String classname, JsonObject recordid) {
-        JsonObject firestoreid = FindDatasetCollections.findDatasetCollectionID(classname, recordid);
-        return writeCollectionIDs(datasetIDs,firestoreid);
-    }
     /**
      * @param datasetIDs The list of object ids to write
      * @param firestoreid The firestore id of the collection

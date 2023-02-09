@@ -24,11 +24,15 @@ import { ActivityrepositoryinitialreadlocalfileComponent } from '../app/catalogo
 import { ManagegeneralcatalogobjectvisComponent } from '../app/catalogobjects/managegeneralcatalogobjectvis/managegeneralcatalogobjectvis.component';
 import {ManagedatasetcollectionsComponent} from '../app/catalogobjects/datasetcollection/managedatasetcollections/managedatasetcollections.component';
 import {ComputethermodynamicsComponent} from '../app/catalogobjects/thermodynamics/calculations/computethermodynamics/computethermodynamics.component';
-
+import {HomepageComponent} from './layout/homepage/homepage.component'
+import {SetupuserinformationComponent} from '../app/catalogobjects/user/setupuserinformation/setupuserinformation.component';
+import {UseraccountadministrationComponent} from '../app/catalogobjects/user/useraccountadministration/useraccountadministration.component';
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([FEED]);
 
 const routes: Routes = [
-	{ path: '', component: ToppageComponent },
+	{ path: '', component: HomepageComponent },
+	{ path: 'toppage', component: ToppageComponent },
+	{ path: 'usersetup', component: SetupuserinformationComponent },
 	{ path: 'sign-in', component: SignInComponent },
 	{ path: 'register-user', component: SignUpComponent },
 	{ path: 'uploaddatabaseitem', component: UploadstepsComponent, canActivate: [AuthGuard] },
@@ -38,8 +42,9 @@ const routes: Routes = [
 	{ path: 'compute', component: ComputethermodynamicsComponent},
 	{ path: 'catalog/repositorystaging', component: ManagedatasetrepositoryfilestagingComponent},
 	{ path: 'catalog/partition', component: ManagerepositorydatapartitionblockcomponentComponent},
-	{ path: 'catalog/catalog', component: ManagegeneralcatalogobjectvisComponent},
+	{ path: 'catalog/catalogobj', component: ManagegeneralcatalogobjectvisComponent},
 	{ path: 'catalog/collection', component: ManagedatasetcollectionsComponent},
+	{ path: 'useradmin' , component: UseraccountadministrationComponent},
 	{ path: 'catalog/transaction', component: ManagedatasettransactioneventobjectComponent,
 	children: [
       

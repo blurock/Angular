@@ -1,0 +1,72 @@
+<mat-card>
+	<mat-card-header>
+		<mat-card-title-group class="title-group">
+		<mat-card-title class="title">{{title}}</mat-card-title>
+		<mat-card-subtitle class="title">{{maintainer}}</mat-card-subtitle>
+		</mat-card-title-group>
+	</mat-card-header>
+	<mat-card-content>
+		<ng-container *ngIf='annoinfo; else loading'>
+			<form [formGroup]="userAccountGroup" class="signinform">
+				<mat-grid-list cols="8" rowHeight="100px">
+
+
+					<mat-grid-tile [colspan]="3">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:username'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="username">
+							<mat-hint>{{annoinfo['dataset:username'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+				
+					<mat-grid-tile [colspan]="5">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:Email'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="Email" [readonly]=adminrole>
+							<mat-hint>{{annoinfo['dataset:Email'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+	
+					<mat-grid-tile [colspan]="2">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:AuthorizationType'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="AuthorizationType" [readonly]=adminrole>
+							<mat-hint>{{annoinfo['dataset:AuthorizationType'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+
+					<mat-grid-tile [colspan]="2" background="lightgray">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:UserAccountRole'][rdfslabel]}}
+							</mat-label>
+							<input matInput formControlName="UserAccountRole"
+								[matMenuTriggerFor]="useraccountmenu.childMenu" (readonly)=adminrole>
+							<mat-hint>{{annoinfo['dataset:UserAccountRole'][rdfscomment]}}
+							</mat-hint>
+							<app-menu-item #useraccountmenu [items]="useraccountitems"
+								(selectionEvent)="setUserAccountRole($event)">
+							</app-menu-item>
+						</mat-form-field>
+					</mat-grid-tile>
+					
+					<mat-grid-tile [colspan]="4">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:UID'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="UID" [readonly]=adminrole>
+							<mat-hint>{{annoinfo['dataset:UID'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+
+				</mat-grid-list>
+			</form>
+			<app-datadatadescription #description [(annoinfo)]="annoinfo" [(descriptionsuffix)]="descriptionsuffix"></app-datadatadescription>
+			<app-firesytorecatalogid #firestoreid [(anno)]="annoinfo"></app-firesytorecatalogid>
+			<app-simpledatabaseobjectstructure #simpledata [(anno)]="annoinfo"></app-simpledatabaseobjectstructure>
+		</ng-container>
+		<ng-template #loading>
+			<div>
+				{{message}}
+			</div>
+		</ng-template>
+	</mat-card-content>
+</mat-card>

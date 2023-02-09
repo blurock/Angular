@@ -42,5 +42,15 @@
 				Log in with Google
 			</button>
 		</div>
+		<div class="google-section">
+			<button mat-raised-button class="full-width" color="primary" (click)="authService.GithubAuth()">
+				Log in with Github
+			</button>
+		</div>
+		<div class="google-section">
+			<button mat-raised-button class="full-width" color="primary" (click)="authService.FacebookAuth()">
+				Log in with Facebook
+			</button>
+		</div>
 	</mat-card-content>
 </mat-card>

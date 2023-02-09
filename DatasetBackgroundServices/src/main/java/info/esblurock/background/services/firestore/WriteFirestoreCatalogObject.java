@@ -20,45 +20,56 @@ import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class WriteFirestoreCatalogObject {
+    
+    public static String writeCatalogObjectWithException(JsonObject catalog) throws Exception {
+        Firestore db;
+        db = FirestoreBaseClass.getFirebaseDatabase();
+        JsonObject firestorecatalogid = catalog.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+        String message = writeWithException(db, catalog, firestorecatalogid);
+        
+        return message;
+    }
+    
+    
 	public static String writeCatalogObject(JsonObject catalog) {
 		Firestore db;
 		String message = "";
 		try {
-			db = FirestoreBaseClass.getFirebaseDatabase();
-			JsonObject firestorecatalogid = catalog.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
-			message = write(db, catalog, firestorecatalogid);
-		} catch (IOException e) {
+		    message = writeCatalogObjectWithException(catalog);
+		} catch (Exception e) {
 			message = "Could not set up Firestore: " + e.getMessage() + "\n";
 		}
 		return message;
 	}
 
 	public static String write(Firestore db, JsonObject catalog, JsonObject firestorecatalogid) {
-		DocumentReference docRef = SetUpDocumentReference.setup(db, firestorecatalogid);
-		String message = "Successful Write:\n";
-		Type type = new TypeToken<HashMap<String, Object>>() {
-		}.getType();
-		Map<String, Object> mapObj = new Gson().fromJson(catalog, type);
-		ApiFuture<WriteResult> result =  null;
-		Timestamp time = null;
-		try {
-		      result = docRef.set(mapObj);
-		        try {
-		            time = result.get().getUpdateTime();
-		            String catid = firestorecatalogid.get(ClassLabelConstants.DataCatalog).getAsString();
-		            String id = firestorecatalogid.get(ClassLabelConstants.SimpleCatalogName).getAsString();
-
-		            message += catid + ": " + id + "(" + time.toString() + ")\n";
-		        } catch (InterruptedException | ExecutionException e) {
-		            message = "Catalog write to database failed: \n" + e.getMessage() + "\n";
-		        }
-
-		} catch(Exception ex) {
-		    message = "Failed write: " + ex.getMessage() + "\n";
-		}
-		
-		
-		
+		String message = "";
+        try {		
+		message = writeWithException(db,catalog,firestorecatalogid);
+        } catch (InterruptedException | ExecutionException e) {
+            message = "Catalog write to database failed: \n" + e.getMessage() + "\n";
+        } catch(Exception ex) {
+            message = "Failed write: " + ex.getMessage() + "\n";
+        }		
 		return message;
 	}
+	
+	   public static String writeWithException(Firestore db, JsonObject catalog, JsonObject firestorecatalogid) throws Exception {
+	        DocumentReference docRef = SetUpDocumentReference.setup(db, firestorecatalogid);
+	        String message = "Successful Write:\n";
+	        Type type = new TypeToken<HashMap<String, Object>>() {
+	        }.getType();
+	        Map<String, Object> mapObj = new Gson().fromJson(catalog, type);
+	        ApiFuture<WriteResult> result =  null;
+	        Timestamp time = null;
+	              result = docRef.set(mapObj);
+	                    time = result.get().getUpdateTime();
+	                    String catid = firestorecatalogid.get(ClassLabelConstants.DataCatalog).getAsString();
+	                    String id = firestorecatalogid.get(ClassLabelConstants.SimpleCatalogName).getAsString();
+
+	                    message += catid + ": " + id + "(" + time.toString() + ")\n";
+
+	        return message;
+	    }
+
 }

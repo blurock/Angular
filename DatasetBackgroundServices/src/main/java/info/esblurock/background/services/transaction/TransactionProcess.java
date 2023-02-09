@@ -13,6 +13,9 @@ import com.google.gson.JsonObject;
 import info.esblurock.background.services.SystemObjectInformation;
 import info.esblurock.background.services.datamanipulation.InterpretTextBlock;
 import info.esblurock.background.services.dataset.DatasetCollectionManagement;
+import info.esblurock.background.services.dataset.user.CreateDatabasePersonTransaction;
+import info.esblurock.background.services.dataset.user.CreateUserAccountTransaction;
+import info.esblurock.background.services.dataset.user.InitializerUserAccountTransaction;
 import info.esblurock.background.services.firestore.ManageDatasetCatalogObjects;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
@@ -33,38 +36,32 @@ import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRouti
 import info.esblurock.reaction.core.ontology.base.utilities.SubstituteJsonValues;
 
 public enum TransactionProcess {
+    
+    InitializerUserAccount {
+
+        @Override
+        JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+            return InitializerUserAccountTransaction.create(event, info);
+        }
+
+        @Override
+        String transactionKey(JsonObject catalog) {
+            String username = catalog.get(ClassLabelConstants.username).getAsString();
+            return username;
+        }
+
+        @Override
+        String transactionObjectName() {
+            return "dataset:UserManagementTransactionObject";
+        }
+        
+    },
 
     CreateDatabasePersonEvent {
 
         @Override
         public JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
-            String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
-            String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
-            JsonObject obj = new JsonObject();
-            Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent");
-            Element body = MessageConstructor.isolateBody(document);
-            obj.add(ClassLabelConstants.ActivityCatalogDatabasePersonCreation, info);
-            obj.addProperty(ClassLabelConstants.CatalogObjectOwner, owner);
-            obj.addProperty(ClassLabelConstants.TransactionID, transactionID);
-            obj.addProperty(DatabaseServicesBase.service, "SubstituteAndWriteDatabasePerson");
-            JsonObject response = DatabaseServicesBase.process(obj);
-            if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-                JsonObject catalog = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
-                String catalogmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
-                MessageConstructor.combineBodyIntoDocument(document, catalogmessage);
-                body.addElement("h3", "GenerateAndWriteRDFForObject");
-                response = GenerateAndWriteRDFForObject.generate(catalog);
-                if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-                    String rdfmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
-                    MessageConstructor.combineBodyIntoDocument(document, rdfmessage);
-                    String message = MessageConstructor.DocumentToString(document);
-                    response.addProperty(ClassLabelConstants.ServiceResponseMessage, message);
-                    JsonArray catalogarr = new JsonArray();
-                    catalogarr.add(catalog);
-                    response.add(ClassLabelConstants.SimpleCatalogObject, catalogarr);
-                }
-            }
-            return response;
+            return CreateDatabasePersonTransaction.create(event,info,true);
         }
 
         @Override
@@ -84,31 +81,7 @@ public enum TransactionProcess {
 
         @Override
         JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
-            String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
-            String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
-            String username = info.get(ClassLabelConstants.username).getAsString();
-            Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent: " + username);
-            // Get prerequisite transaction CreateDatabasePersonEvent
-            JsonObject persontransaction = prerequisites.get("dataset:eventcreateperson").getAsJsonObject();
-            // Get DatabasePerson ID
-            JsonArray personids = persontransaction.get(ClassLabelConstants.DatabaseObjectIDOutputTransaction)
-                    .getAsJsonArray();
-            JsonObject personid = personids.get(0).getAsJsonObject();
-            // Substitute Info
-            JsonObject catalog = BaseCatalogData.createStandardDatabaseObject("dataset:UserAccount", owner,
-                    transactionID, "false");
-            String identifier = catalog.get(AnnotationObjectsLabels.identifier).getAsString();
-            SubstituteJsonValues.substituteJsonObject(catalog, info);
-            catalog.addProperty(AnnotationObjectsLabels.identifier, identifier);
-            // Write to database
-            WriteFirestoreCatalogObject.writeCatalogObject(catalog);
-            JsonArray catalogarr = new JsonArray();
-            catalogarr.add(catalog);
-            // Make link to DatabasePerson
-            addLinkToCatalog(catalogarr, personid, "dataset:DatabasePerson", "dataset:ConceptLinkDatabasePerson");
-            JsonObject response = DatabaseServicesBase.standardServiceResponse(document,
-                    "Sucesss: CreateUserAccountEvent", catalogarr);
-            return response;
+            return CreateUserAccountTransaction.create(event,prerequisites,info,true);
         }
 
         @Override

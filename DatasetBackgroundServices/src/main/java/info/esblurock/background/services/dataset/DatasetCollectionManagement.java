@@ -151,10 +151,7 @@ public class DatasetCollectionManagement {
 		fillInDatasetCollectionWithDefaults(collectiontype,collectionid,idcollection);
         JsonObject transfirestoreID = BaseCatalogData.insertFirestoreAddress(event);
         idcollection.add(ClassLabelConstants.FirestoreCatalogIDForTransaction,transfirestoreID.deepCopy());
-        System.out.println("DatasetCollectionManagement: setupNewDatabaseCollectionSet");
-        System.out.println(JsonObjectUtilities.toString(idcollection));
 		String message = WriteFirestoreCatalogObject.writeCatalogObject(idcollection);
-		System.out.println(message);
 		putInLocalVersion(idcollection);
 		JsonArray arr = new JsonArray();
 		arr.add(idcollection);

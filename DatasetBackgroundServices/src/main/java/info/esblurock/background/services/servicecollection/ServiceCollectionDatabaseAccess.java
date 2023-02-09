@@ -29,7 +29,6 @@ public enum ServiceCollectionDatabaseAccess {
 			JsonArray arr = ExtractSetOfSymmetryDefinitionsFromDataset.databaseSymmetryDefinitions(maintainer, 
 					dataset, symmetrytype);
 			if(arr != null) {
-				System.out.println("Answer: findMetaAtomDefinitions: " + arr.size());
 				body.addElement("div").addText("Read in " + arr.size() + " Symmetry elements");
 				
 				Element table = body.addElement("table");
@@ -58,7 +57,6 @@ public enum ServiceCollectionDatabaseAccess {
 				
 				response = DatabaseServicesBase.standardServiceResponse(document, "FindSetOfSymmetryElements", arr);
 			} else {
-				System.out.println("Answer: findMetaAtomDefinitions: empty ");
 				body.addElement("div").addText("Error in reading symmetry elements");
 				response = DatabaseServicesBase.standardErrorResponse(document, "Error in reading External Symmetry", null);
 			}

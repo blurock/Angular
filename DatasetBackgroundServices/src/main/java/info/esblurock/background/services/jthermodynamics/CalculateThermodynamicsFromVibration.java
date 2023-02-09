@@ -49,66 +49,74 @@ public class CalculateThermodynamicsFromVibration {
 
         if (molecule != null) {
             AddHydrogenToSingleRadical formRH = new AddHydrogenToSingleRadical();
+            
+            IAtomContainer RH;
             try {
-                IAtomContainer RH = formRH.convert(molecule);
-                StructureAsCML cmlstruct = new StructureAsCML(RH);
-                if (info.get(ClassLabelConstants.DatabaseCollectionRecordID) != null) {
-                    JsonObject colrecordid = info.get(ClassLabelConstants.DatabaseCollectionRecordID).getAsJsonObject();
-                    String maintainer = colrecordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-                    String dataset = colrecordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
-                    body.addElement("div").addText("Maintainer      : " + maintainer);
-                    body.addElement("div").addText("dataset         : " + dataset);
-                    JsonArray structures = databaseAllVibrationalStructures(document, maintainer, dataset);
-                    JsonArray countsR = computeVibrationalMatchCounts(structures, molecule);
-                    body.addElement("div").addText("Vibrational Match counts for R: " + countsR.size());
-                    JsonArray countsRH = computeVibrationalMatchCounts(structures, RH);
-                    body.addElement("div").addText("Vibrational Match counts for RH: " + countsRH.size());
-                    JsonArray difference = subtractCounts(countsRH, countsR);
-                    body.addElement("div").addText("Differences in Vibrational matches: " + difference.size());
-                    if(difference.size() > 0) {
-                    JsonArray contributions = new JsonArray();
-                    Element table = body.addElement("table");
-                    Element header = table.addElement("tr");
-                    header.addElement("th").addText("Mode");
-                    header.addElement("th").addText("Frequency");
-                    header.addElement("th").addText("Symmetry");
-                    header.addElement("th").addText("Multiplicity");
-                    for (int i = 0; i < difference.size(); i++) {
-                        JsonObject countdiff = difference.get(i).getAsJsonObject();
-                        if(vibdebug) {
-                            System.out.println("Count Diff =============================================");
-                            System.out.println(JsonObjectUtilities.toString(countdiff));
-                            System.out.println("Count Diff =============================================");                            
-                        }
-                        JsonObject contribution = convertToThermodynamicContribution(countdiff, info, table);
-                        if(vibdebug) {
-                            System.out.println("Contribution =============================================");
-                            System.out.println(JsonObjectUtilities.toString(contribution));
-                            System.out.println("Contribution =============================================");                           
-                        }
-                       contributions.add(contribution);
-                    }
-                    response = DatabaseServicesBase.standardServiceResponse(document, dataset, contributions);
-                    } else {
-                        body.addElement("div").addText("No contributions due to vibrational contributions: probably a lack of structures in database ");
-                    }
-                } else {
-                    String errorS = "No Collection Set Record found";
-                    response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
-                }
-            } catch (NotARadicalException e) {
+                RH = formRH.convert(molecule);
+            response = vibrational(molecule, RH, info, document);
+           } catch (NotARadicalException e) {
                 String errorS = "Error in computing vibrational calculation (species not a radical)";
                 response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
-            } catch (CDKException e) {
-                String errorS = "Error in computing vibrational calculation: computation error";
-                response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
             }
+            
         } else {
             String errorS = "Error in interpreting molecule ";
             response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
         }
         return response;
     }
+    
+    public static JsonObject vibrational(IAtomContainer molecule, IAtomContainer RH, JsonObject info, Document document) {
+        JsonObject response = null;
+        Element body = MessageConstructor.isolateBody(document);
+        
+        if (info.get(ClassLabelConstants.DatabaseCollectionRecordID) != null) {
+            JsonObject colrecordid = info.get(ClassLabelConstants.DatabaseCollectionRecordID).getAsJsonObject();
+            String maintainer = colrecordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+            String dataset = colrecordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+            body.addElement("div").addText("Maintainer      : " + maintainer);
+            body.addElement("div").addText("dataset         : " + dataset);
+            JsonArray structures = databaseAllVibrationalStructures(document, maintainer, dataset);
+            JsonArray countsR = computeVibrationalMatchCounts(structures, molecule);
+            body.addElement("div").addText("Vibrational Match counts for R: " + countsR.size());
+            JsonArray countsRH = computeVibrationalMatchCounts(structures, RH);
+            body.addElement("div").addText("Vibrational Match counts for RH: " + countsRH.size());
+            JsonArray difference = subtractCounts(countsRH, countsR);
+            body.addElement("div").addText("Differences in Vibrational matches: " + difference.size());
+            if(difference.size() > 0) {
+            JsonArray contributions = new JsonArray();
+            Element table = body.addElement("table");
+            Element header = table.addElement("tr");
+            header.addElement("th").addText("Mode");
+            header.addElement("th").addText("Frequency");
+            header.addElement("th").addText("Symmetry");
+            header.addElement("th").addText("Multiplicity");
+            for (int i = 0; i < difference.size(); i++) {
+                JsonObject countdiff = difference.get(i).getAsJsonObject();
+                if(vibdebug) {
+                    System.out.println("Count Diff =============================================");
+                    System.out.println(JsonObjectUtilities.toString(countdiff));
+                    System.out.println("Count Diff =============================================");                            
+                }
+                JsonObject contribution = convertToThermodynamicContribution(countdiff, info, table);
+                if(vibdebug) {
+                    System.out.println("Contribution =============================================");
+                    System.out.println(JsonObjectUtilities.toString(contribution));
+                    System.out.println("Contribution =============================================");                           
+                }
+               contributions.add(contribution);
+            }
+            response = DatabaseServicesBase.standardServiceResponse(document, dataset, contributions);
+            } else {
+                body.addElement("div").addText("No contributions due to vibrational contributions: probably a lack of structures in database ");
+            }
+        } else {
+            String errorS = "No Collection Set Record found";
+            response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+        }
+        return response;
+    }
+    
 
     /**
      * The ThermodynamicContributions from the

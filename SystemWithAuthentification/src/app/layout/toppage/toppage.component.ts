@@ -3,6 +3,7 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
 	selector: 'app-toppage',
@@ -48,6 +49,7 @@ export class ToppageComponent {
 		);
 	}
 	constructor(
+		public authService: AuthService,
 		private breakpointObserver: BreakpointObserver,
 		public sanitizer: DomSanitizer,
 		public httpClient: HttpClient) {

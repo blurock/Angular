@@ -35,6 +35,8 @@ import thermo.exception.ThermodynamicException;
 public class DatabaseCalculateOpticalSymmetryCorrection extends CalculateOpticalSymmetryCorrection {
 	JsonArray symmarr;
 	SetOfSymmetryDefinitions setOfDefinitions;
+	
+	JsonObject responseStructureOpticalSymmetryRead;
 
 	/**
 	 * @param maintainer The maintainer of the dataset
@@ -47,10 +49,16 @@ public class DatabaseCalculateOpticalSymmetryCorrection extends CalculateOptical
 	public DatabaseCalculateOpticalSymmetryCorrection(String maintainer, String dataset) {
 		symmarr = ExtractSetOfSymmetryDefinitionsFromDataset.databaseSymmetryDefinitions(maintainer, dataset,
 				"dataset:StructureOpticalSymmetry");
+		responseStructureOpticalSymmetryRead = ExtractSetOfSymmetryDefinitionsFromDataset.getReadSymmetryResponse();
 		setOfDefinitions = ExtractSetOfSymmetryDefinitionsFromDataset.extract(symmarr);
 		this.setStructureOpticalIsomer(setOfDefinitions);
 		this.initialize();
 	}
+	
+	   public String getResponseStructureOpticalSymmetryRead() {
+	        return responseStructureOpticalSymmetryRead.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
+	    }
+
 
 	/**
 	 * @param molecule The molecule to add

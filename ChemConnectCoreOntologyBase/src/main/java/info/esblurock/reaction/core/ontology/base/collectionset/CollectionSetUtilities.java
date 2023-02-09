@@ -60,7 +60,6 @@ public class CollectionSetUtilities {
     }
     
     private static JsonObject createcCollectionDatasetInfoElement(String name) {
-        System.out.println("CollectionSetUtilities: " + name);
         BaseAnnotationObjects annotations = DatasetOntologyParseBase.getAnnotationStructureFromIDObject(name);
         JsonObject json = annotations.toJsonObject();
         String catalog = OntologyUtilityRoutines.exactlyOnePropertySingle(name, OntologyObjectLabels.catalog);

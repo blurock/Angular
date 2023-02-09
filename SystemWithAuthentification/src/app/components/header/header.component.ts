@@ -24,44 +24,15 @@ export class HeaderComponent {
 
 	login() {
 		this.router.navigateByUrl('/sign-in');
-		/*
-		this.auth
-			.loginViaGoogle()
-			.pipe(
-				take(1),
-				catchError((error) => {
-					this.snackBar.open(`${error.message} 😢`, 'Close', {
-						duration: 4000,
-					});
-					return EMPTY;
-				}),
-			)
-			.subscribe(
-				(response) => {
-					if (response != null) {
-						alert(JSON.stringify(response.user.providerData));
-						alert(JSON.stringify(response.user.refreshToken));
-					    alert(JSON.stringify(response.user.tenantId));
-						alert(JSON.stringify(response.user.uid));
-						this.snackBar.open(
-							`You are successfully logged in`,
-							'Close',
-							{
-								duration: 4000,
-							},
-						);
-					}
-				}
-			);
-			*/
 	}
 
 	logout() {
+
 		this.auth
 			.logout()
 			.pipe(take(1))
 			.subscribe((response) => {
-				this.router.navigate([`/${FEED}`]);
+				this.router.navigate([``]);
 				this.snackBar.open('Come back soon with treats! 😿', 'Close', {
 					duration: 4000,
 				});

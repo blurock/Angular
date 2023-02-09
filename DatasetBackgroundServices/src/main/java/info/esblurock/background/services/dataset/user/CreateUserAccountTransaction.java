@@ -1,0 +1,126 @@
+package info.esblurock.background.services.dataset.user;
+
+import java.util.ArrayList;
+
+import org.dom4j.Document;
+import org.dom4j.Element;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import info.esblurock.background.services.dataset.ManageDatasetDocumentLists;
+import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
+import info.esblurock.background.services.service.MessageConstructor;
+import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.background.services.transaction.TransactionProcess;
+import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
+import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
+import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
+import info.esblurock.reaction.core.ontology.base.utilities.SubstituteJsonValues;
+
+public class CreateUserAccountTransaction {
+
+    public static JsonObject create(JsonObject event, JsonObject prerequisites, JsonObject info, boolean writecatalog) {
+        // Get prerequisite transaction CreateDatabasePersonEvent
+        JsonObject persontransaction = prerequisites.get("dataset:eventcreateperson").getAsJsonObject();
+        // Get DatabasePerson ID
+        JsonArray personids = persontransaction.get(ClassLabelConstants.DatabaseObjectIDOutputTransaction)
+                .getAsJsonArray();
+        JsonObject personid = personids.get(0).getAsJsonObject();
+        return createUserAccount(event, personid, info, writecatalog);
+    }
+
+    public static JsonObject createUserAccount(JsonObject event, JsonObject personid, JsonObject info,
+            boolean writecatalog) {
+        JsonObject response = null;
+        String username = info.get(ClassLabelConstants.username).getAsString();
+        Document document = MessageConstructor.startDocument("CreateUserAccountTransaction: " + username);
+        Element body = MessageConstructor.isolateBody(document);
+        ArrayList<String> accountids = getUserAccountNameIDs(username);
+        if (accountids != null) {
+            accountids.add(username);
+            String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+            String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
+
+            JsonObject catalog = CreateDocumentTemplate.createTemplate("dataset:UserAccount");
+            JsonObject useraccountdescription = catalog.get(ClassLabelConstants.DataDescriptionUserAccount)
+                    .getAsJsonObject();
+            JsonObject infodescription = info.get(ClassLabelConstants.DataDescriptionPerson).getAsJsonObject();
+            String infoabstract = infodescription.get(ClassLabelConstants.DescriptionAbstractPerson).getAsString();
+            String infotitle = infodescription.get(ClassLabelConstants.DescriptionTitlePerson).getAsString();
+            String keys = infodescription.get(ClassLabelConstants.DescriptionKeywordPerson).getAsString();
+
+            useraccountdescription.addProperty(ClassLabelConstants.DescriptionAbstractUserAccount, infoabstract);
+            useraccountdescription.addProperty(ClassLabelConstants.DescriptionTitleUserAccount, infotitle);
+            useraccountdescription.addProperty(ClassLabelConstants.DescriptionKeywordUserAccount, keys);
+            JsonObject infopurpcon = infodescription.get(ClassLabelConstants.PurposeConceptPerson).getAsJsonObject();
+            String infopurpose = infopurpcon.get(ClassLabelConstants.PurposePerson).getAsString();
+            String infoconcept = infopurpcon.get(ClassLabelConstants.ConceptPerson).getAsString();
+            JsonObject useraccountpurpcon = useraccountdescription.get(ClassLabelConstants.PurposeConceptUserAccount)
+                    .getAsJsonObject();
+            useraccountpurpcon.addProperty(ClassLabelConstants.PurposeUserAccount, infopurpose);
+            useraccountpurpcon.addProperty(ClassLabelConstants.ConceptUserAccount, infoconcept);
+
+            String infoauthtype = info.get(ClassLabelConstants.AuthorizationType).getAsString();
+            String infouid = info.get(ClassLabelConstants.UID).getAsString();
+            String infoemail = info.get(ClassLabelConstants.Email).getAsString();
+            String inforole = info.get(ClassLabelConstants.UserAccountRole).getAsString();
+            catalog.addProperty(ClassLabelConstants.AuthorizationType, infoauthtype);
+            catalog.addProperty(ClassLabelConstants.UID, infouid);
+            catalog.addProperty(ClassLabelConstants.Email, infoemail);
+            catalog.addProperty(ClassLabelConstants.UserAccountRole, inforole);
+
+            catalog.addProperty(ClassLabelConstants.username, username);
+
+            JsonObject transfirestoreID = event.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+            catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction, transfirestoreID.deepCopy());
+            BaseCatalogData.insertStandardBaseInformation(catalog, owner, transactionID, "false", false);
+            JsonObject firestoreID = BaseCatalogData.insertFirestoreAddress(catalog);
+            body.addElement("pre").addText("Writing UserAccount to:\n" + JsonObjectUtilities.toString(firestoreID));
+
+            // Write to database
+            if (writecatalog) {
+                try {
+                    writeUserAccount(catalog, body);
+                } catch (Exception e) {
+                    response = DatabaseServicesBase.standardErrorResponse(document,
+                            "Error in writing UserAccount: '" + username + "'", null);
+                }
+            }
+            JsonArray catalogarr = new JsonArray();
+            catalogarr.add(catalog);
+            response = DatabaseServicesBase.standardServiceResponse(document, "Sucesss: CreateUserAccountEvent",
+                    catalogarr);
+
+        } else {
+            response = DatabaseServicesBase.standardErrorResponse(document,
+                    "UserAccount already exists: '" + username + "'", null);
+        }
+        return response;
+    }
+
+    public static void writeUserAccount(JsonObject useraccount, Element body) throws Exception {
+        String message = WriteFirestoreCatalogObject.writeCatalogObjectWithException(useraccount);
+        body.addElement("pre").addText(message);
+        ArrayList<String> accountids = ManageDatasetDocumentLists.getCollectionIDsForClass("dataset:UserAccount");
+        String username = useraccount.get(ClassLabelConstants.username).getAsString();
+        accountids.add(username);
+        JsonObject firestoreID = useraccount.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+        ManageDatasetDocumentLists.writeCollectionIDs(accountids, firestoreID);
+    }
+
+    public static ArrayList<String> getUserAccountNameIDs(String username) {
+        boolean ans = true;
+        String classname = "dataset:UserAccount";
+        ArrayList<String> accountids = ManageDatasetDocumentLists.getCollectionIDsForClass(classname);
+        if (accountids.contains(username)) {
+            accountids = null;
+        } else {
+
+        }
+        return accountids;
+    }
+
+}

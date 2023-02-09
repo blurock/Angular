@@ -1,16 +1,12 @@
 
 <mat-toolbar color="primary">
   <mat-toolbar-row >
-    <!-- button 
-      mat-button 
-      routerLink="/feed"
-      matTooltip="🐱Gram Home"
-      >Gram</button -->
+ 
     <span class="spacer"></span>
     <ng-container *ngIf="user$ | async as user; else loginIcon">
       <button 
         mat-icon-button
-        routerLink="/create"
+        routerLink="/toppage"
         matTooltip="Post a cute 🐱"
         >
         <mat-icon

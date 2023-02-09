@@ -120,7 +120,8 @@ public class ComputeThermodynamicsSymmetryContribution {
             DatabaseCalculateInternalSymmetryCorrection internal = new DatabaseCalculateInternalSymmetryCorrection(
                     maintainer, dataset, external);
             if (internal.getStructureInternalSymmetry().size() > 0) {
-                String internalmessage = internal.getResponseStructureInternalSymmetryRead();
+                JsonObject internalresponse = internal.getResponseStructureInternalSymmetryRead();
+                String internalmessage = internalresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
                 MessageConstructor.combineBodyIntoDocument(document,internalmessage);
                 JsonArray contributions = internal.compute(molecule, body, info);
                 response = DatabaseServicesBase.standardServiceResponse(document, "Found External Internal Element",
@@ -180,7 +181,6 @@ public class ComputeThermodynamicsSymmetryContribution {
             symmetry = arr.get(i).getAsJsonObject();
             JsonObject symdef = symmetry.get(ClassLabelConstants.JThermodynamicsSymmetryDefinition).getAsJsonObject();
             String name = symdef.get(ClassLabelConstants.JThermodynamicSymmetryDefinitionLabel).getAsString();
-            System.out.println("'" + name + "'  :  '" + symname);
             if (name.equals(symname)) {
                 notdone = false;
             }

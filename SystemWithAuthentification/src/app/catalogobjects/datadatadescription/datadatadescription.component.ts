@@ -17,7 +17,7 @@ export class DatadatadescriptionComponent implements OnInit {
 	@ViewChild('concept') concept: CatalogconceptpurposeComponent;
 	@ViewChild('keywords') keywords: KeywordlistprimitiveComponent;
 
-	objectform: FormGroup;
+	public objectform: FormGroup;
 	message: string;
 	rdfsidentifier = Ontologyconstants.dctermsidentifier;
 	rdfslabel = Ontologyconstants.rdfslabel;
@@ -75,6 +75,7 @@ export class DatadatadescriptionComponent implements OnInit {
 			this.title = 'dataset:DescriptionTitle' + suffix;
 			this.purconloc = 'dataset:PurposeConcept' + suffix;
 			this.keywordloc = 'dataset:DescriptionKeyword' + suffix;
+			
 		}
 	}
 

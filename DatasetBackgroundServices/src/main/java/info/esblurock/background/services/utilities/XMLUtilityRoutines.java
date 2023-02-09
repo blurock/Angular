@@ -3,23 +3,21 @@ package info.esblurock.background.services.utilities;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-//import org.dom4j.Document;
-import org.json.JSONObject;
-import org.json.XML;
-
-import org.w3c.dom.Document;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import org.xml.sax.InputSource;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.TransformerException;
+
+import org.json.JSONObject;
+import org.json.XML;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 import com.google.gson.JsonObject;
 

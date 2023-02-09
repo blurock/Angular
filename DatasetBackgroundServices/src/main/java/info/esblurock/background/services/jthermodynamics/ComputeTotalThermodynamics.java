@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.molecule.DatasetMoleculeUtilities;
 import info.esblurock.background.services.jthermodynamics.bensonrules.ComputeBensonRulesForMolecule;
+import info.esblurock.background.services.jthermodynamics.radicals.ComputeThermodynamicsHRadicalCorrections;
 import info.esblurock.background.services.jthermodynamics.symmetry.DatabaseCalculateSymmetryCorrection;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
@@ -36,7 +37,6 @@ public class ComputeTotalThermodynamics {
     }
     
     public static JsonObject calculateTherGasThermodynamics(String maintainer, String dataset, IAtomContainer moleculetocompute, JsonObject info, Document document) {
-        System.out.println("ComputeTotalThermodynamics calculateTherGasThermodynamics");
         Element body = MessageConstructor.isolateBody(document);
         body.addElement("div").addText("Maintainer      : " + maintainer);
         body.addElement("div").addText("dataset         : " + dataset);
@@ -45,8 +45,10 @@ public class ComputeTotalThermodynamics {
         JsonObject response = null;
         AddHydrogenToSingleRadical formRH = new AddHydrogenToSingleRadical();
         if (formRH.isARadical(moleculetocompute)) {
+            body.addElement("h2").addText("Compute Thermodynamics For Non-Radical");
             response = computeThermodynamicsForRadicalContributions(maintainer, dataset, moleculetocompute,info);
         } else {
+            body.addElement("h2").addText("Compute Thermodynamics For Radical");
             response = computeThermodynamicsForMolecule(maintainer, dataset, moleculetocompute,info, document);
         }
 
@@ -54,15 +56,15 @@ public class ComputeTotalThermodynamics {
     }
 
     private static JsonObject computeThermodynamicsForMolecule(String maintainer, String dataset, IAtomContainer moleculetocompute, JsonObject info, Document document) {
+        Element body = MessageConstructor.isolateBody(document);
+        
         JsonObject response = ComputeBensonRulesForMolecule.compute(maintainer, dataset, moleculetocompute, info);
+        MessageConstructor.combineBodyIntoDocument(document, response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
         if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-            String message = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
-            Element body = MessageConstructor.isolateBody(document);
-            MessageConstructor.combineBodyIntoDocument(document, message);
             JsonArray bensoncontributions = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
             DatabaseCalculateSymmetryCorrection symmcorrection = new DatabaseCalculateSymmetryCorrection(
                     maintainer, dataset);
-            JsonArray symmetries = symmcorrection.compute(moleculetocompute, body, info);
+            JsonArray symmetries = symmcorrection.compute(document,moleculetocompute, body, info);
             bensoncontributions.addAll(symmetries);
             String title = "Total Contribution";
             response = DatabaseServicesBase.standardServiceResponse(document, title, bensoncontributions);
@@ -72,8 +74,9 @@ public class ComputeTotalThermodynamics {
     }
 
     private static JsonObject computeThermodynamicsForRadicalContributions(String maintainer, String dataset, IAtomContainer moleculetocompute, JsonObject info) {
-        
-        return null;
+        Document document = MessageConstructor.startDocument("Compute Total Thermodynamic Contributions for 2D-graphical Radical");
+
+        return ComputeThermodynamicsHRadicalCorrections.computeHRadicalCorrections(moleculetocompute, info);
     }
 
 }

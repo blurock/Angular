@@ -2,6 +2,8 @@ import { Injectable, NgZone } from '@angular/core';
 import { User } from '../services/user';
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { getAuth, signInWithPopup, GithubAuthProvider } from "firebase/auth";
+
 import {
 	AngularFirestore,
 	AngularFirestoreDocument,
@@ -21,14 +23,16 @@ export class AuthService {
 	) {
 		/* Saving user data in localstorage when
 			  logged in and setting up null when logged out */
-		this.afAuth.authState.subscribe((user) => {
+this.afAuth.authState.subscribe((user) => {
 			if (user) {
+				this.SetUserData(user);
 				this.userData = user;
-				localStorage.setItem('user', JSON.stringify(this.userData));
-				JSON.parse(localStorage.getItem('user'));
+				sessionStorage.setItem('user', JSON.stringify(this.userData));
+				this.ngZone.run(() => {
+					//this.router.navigate(['usersetup']);
+				});
 			} else {
-				localStorage.setItem('user', 'null');
-				JSON.parse(localStorage.getItem('user')!);
+				sessionStorage.setItem('user', 'null');
 			}
 		});
 	}
@@ -38,7 +42,7 @@ export class AuthService {
 			.signInWithEmailAndPassword(email, password)
 			.then((result) => {
 				this.ngZone.run(() => {
-					this.router.navigate(['dashboard']);
+					this.router.navigate(['']);
 				});
 				this.SetUserData(result.user);
 			})
@@ -81,29 +85,82 @@ export class AuthService {
 	}
 	// Returns true when user is looged in and email is verified
 	get isLoggedIn(): boolean {
-		const user = JSON.parse(localStorage.getItem('user')!);
+		const user = JSON.parse(sessionStorage.getItem('user')!);
+		alert(JSON.stringify(user));
 		return user !== null && user.emailVerified !== false ? true : false;
 	}
 	// Sign in with Google
 	GoogleAuth() {
-		return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-			alert(res);
-			alert(JSON.parse(localStorage.getItem('user')!));
+		const ans = this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
 			this.ngZone.run(() => {
-				this.router.navigate(['dashboard']);
+				this.router.navigate(['toppage']);
+			});
+		});
+		return ans;
+		
+	}
+	GithubAuth() {
+		const provider = new GithubAuthProvider();
+		const auth = getAuth();
+		signInWithPopup(auth, provider)
+			.then((result) => {
+				// This gives you a GitHub Access Token. You can use it to access the GitHub API.
+				const credential = GithubAuthProvider.credentialFromResult(result);
+
+				const token = credential.accessToken;
+				alert("Github token: " + credential.accessToken);
+				// The signed-in user info.
+				alert(JSON.stringify(result));
+				const user = result.user;
+				alert("Github user: " + JSON.stringify(user));
+				sessionStorage.setItem('user', JSON.stringify(user));
+				// ...
+			}).catch((error) => {
+				// Handle Errors here.
+				const errorCode = error.code;
+				const errorMessage = error.message;
+				// The email of the user's account used.
+				const email = error.customData.email;
+				// The AuthCredential type that was used.
+				const credential = GithubAuthProvider.credentialFromError(error);
+				// ...
+			});
+
+
+		/*
+		return this.AuthLogin(new auth.GithubAuthProvider()).then((res: any) => {
+			this.ngZone.run(() => {
+				this.router.navigate(['toppage']);
+			});
+		});
+		*/
+	}
+	FacebookAuth() {
+		return this.AuthLogin(new auth.FacebookAuthProvider()).then((result: any) => {
+			// This gives you a GitHub Access Token. You can use it to access the GitHub API.
+			const credential = GithubAuthProvider.credentialFromResult(result);
+
+			const token = credential.accessToken;
+			alert("Github token: " + credential.accessToken);
+			// The signed-in user info.
+			alert(JSON.stringify(result));
+			const user = result.user;
+			alert("Github user: " + JSON.stringify(user));
+			sessionStorage.setItem('user', JSON.stringify(user));
+			this.ngZone.run(() => {
+				this.router.navigate(['toppage']);
 			});
 		});
 	}
-	// Auth logic to run auth providers
+	
 	AuthLogin(provider: any) {
+		
 		return this.afAuth
 			.signInWithPopup(provider)
 			.then((result) => {
 				this.SetUserData(result.user);
-				alert("Set user data");
-				alert(result.user);
 				this.ngZone.run(() => {
-					this.router.navigate(['dashboard']);
+					this.router.navigate(['usersetup']);
 				});
 			})
 			.catch((error) => {
@@ -114,10 +171,11 @@ export class AuthService {
 	sign up with username/password and sign in with social auth  
 	provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
 	SetUserData(user: any) {
+		alert("SetUserData: " + JSON.stringify(user));
 		const userRef: AngularFirestoreDocument<any> = this.afs.doc(
 			`users/${user.uid}`
 		);
-		localStorage.setItem('user', JSON.stringify(user));
+		sessionStorage.setItem('user', JSON.stringify(user));
 		const userData: User = {
 			uid: user.uid,
 			email: user.email,
@@ -125,14 +183,17 @@ export class AuthService {
 			photoURL: user.photoURL,
 			emailVerified: user.emailVerified,
 		};
-		return userRef.set(userData, {
+		const ans = userRef.set(userData, {
 			merge: true,
 		});
+		alert("SetUserData DONE");
+		return ans
+		
 	}
 	// Sign out
 	SignOut() {
 		return this.afAuth.signOut().then(() => {
-			localStorage.removeItem('user');
+			sessionStorage.removeItem('user');
 			this.router.navigate(['sign-in']);
 		});
 	}

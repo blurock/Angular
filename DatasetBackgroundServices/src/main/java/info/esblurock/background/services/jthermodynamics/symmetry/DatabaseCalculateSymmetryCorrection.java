@@ -32,21 +32,26 @@ public class DatabaseCalculateSymmetryCorrection {
 	public DatabaseCalculateSymmetryCorrection(String maintainer, String dataset)  {
 		super();
 		externalD = new DatabaseCalculateExternalSymmetryCorrection(maintainer,dataset);
+		Document externaldoc = externalD.getReadResponseMessages();
 		internalD = new DatabaseCalculateInternalSymmetryCorrection(maintainer,dataset,externalD);
+		JsonObject internalresponse = internalD.getResponseStructureInternalSymmetryRead();
 		opticalD = new DatabaseCalculateOpticalSymmetryCorrection(maintainer,dataset);
 		substitute = 
 				FindMetaAtomDefinitionsInDatasetCollection.setUpSubstituteMetaAtoms(maintainer, dataset, metaatomtype);
 		linear = new SubstituteLinearStructures(substitute);
 	}
 	
-	public JsonArray compute(IAtomContainer molecule, Element body, JsonObject info) {
+	public JsonArray compute(Document document, IAtomContainer molecule, Element body, JsonObject info) {
 		StructureAsCML cmlstruct;
 		IAtomContainer newmolecule = null;
 		JsonArray combined2 = null;
 		JsonObject response = null;
-		Document document = MessageConstructor.startDocument("Calculate Symmetry Conribution");
-		Document externalmessage = externalD.getReadResponseMessages();
-		MessageConstructor.combineBodyIntoDocument(document, externalmessage);
+        Document externalmessage = externalD.getReadResponseMessages();
+        MessageConstructor.combineBodyIntoDocument(document, externalmessage);
+        Document internalmessage = externalD.getReadResponseMessages();
+        MessageConstructor.combineBodyIntoDocument(document, internalmessage);
+        String opticalmessage = opticalD.getResponseStructureOpticalSymmetryRead();
+        MessageConstructor.combineBodyIntoDocument(document, opticalmessage);
 		try {
 			cmlstruct = new StructureAsCML(molecule);
 			newmolecule = linear.substitute(cmlstruct);
