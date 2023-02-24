@@ -1,6 +1,9 @@
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 export class ServiceUtilityRoutines {
+     
+     
+     
      public static getServerErrorMessage(error: HttpErrorResponse): string {
         switch (error.status) {
             case 404: {
@@ -18,14 +21,23 @@ export class ServiceUtilityRoutines {
 
         }
     }
-    
-    public static setupHeader(): HttpHeaders {
-         		const headerdata = new HttpHeaders()
+    public static setupHeader(token: string): HttpHeaders {
+         const headerdata = new HttpHeaders()
 			.set('content-type', 'application/json')
-			.set('Authorization', ' AccessToken xxxxxxx')
 			.set('Access-Control-Allow-Origin', '*')
-			//.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-			//.set('Access-Control-Allow-Methods', 'PUT,GET,POST,DELETE')
+			.set('Authorization', ' AccessToken ' + token);
 		return headerdata;
     }
+    /*
+    public static setupHeader(): HttpHeaders {
+         const userS = sessionStorage.getItem('user');
+         const user = JSON.parse(userS);
+         const token = user['token'];
+         const headerdata = new HttpHeaders()
+			.set('content-type', 'application/json')
+			.set('Access-Control-Allow-Origin', '*')
+			.set('Authorization', ' AccessToken ' + token);
+		return headerdata;
+    }
+    */
 }

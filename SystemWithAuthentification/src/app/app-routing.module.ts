@@ -27,24 +27,27 @@ import {ComputethermodynamicsComponent} from '../app/catalogobjects/thermodynami
 import {HomepageComponent} from './layout/homepage/homepage.component'
 import {SetupuserinformationComponent} from '../app/catalogobjects/user/setupuserinformation/setupuserinformation.component';
 import {UseraccountadministrationComponent} from '../app/catalogobjects/user/useraccountadministration/useraccountadministration.component';
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([FEED]);
+import {DatasertcollectionadministrationComponent} from '../app/catalogobjects/datasetcollection/datasertcollectionadministration/datasertcollectionadministration.component';
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
 
 const routes: Routes = [
 	{ path: '', component: HomepageComponent },
-	{ path: 'toppage', component: ToppageComponent },
-	{ path: 'usersetup', component: SetupuserinformationComponent },
+	{ path: 'toppage', component: ToppageComponent, canActivate: [AuthGuard]  },
+	{ path: 'usersetup', component: SetupuserinformationComponent},
 	{ path: 'sign-in', component: SignInComponent },
 	{ path: 'register-user', component: SignUpComponent },
 	{ path: 'uploaddatabaseitem', component: UploadstepsComponent, canActivate: [AuthGuard] },
 	{ path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
 	{ path: 'forgot-password', component: ForgotPasswordComponent },
 	{ path: 'verify-email-address', component: VerifyEmailComponent },
-	{ path: 'compute', component: ComputethermodynamicsComponent},
+	{ path: 'compute', component: ComputethermodynamicsComponent, canActivate: [AuthGuard] },
 	{ path: 'catalog/repositorystaging', component: ManagedatasetrepositoryfilestagingComponent},
 	{ path: 'catalog/partition', component: ManagerepositorydatapartitionblockcomponentComponent},
 	{ path: 'catalog/catalogobj', component: ManagegeneralcatalogobjectvisComponent},
 	{ path: 'catalog/collection', component: ManagedatasetcollectionsComponent},
-	{ path: 'useradmin' , component: UseraccountadministrationComponent},
+	{ path: 'useradmin' , component: UseraccountadministrationComponent, canActivate: [AuthGuard] },
+	{ path: 'datasetadmin' , component: DatasertcollectionadministrationComponent},
 	{ path: 'catalog/transaction', component: ManagedatasettransactioneventobjectComponent,
 	children: [
       

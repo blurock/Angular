@@ -35,6 +35,14 @@ export class Ontologyconstants {
 	public static StringSource = 'dataset:StringSource';
 	public static FileSourceIdentifier = 'dataset:fileidentifier';
 	
+	public static email = 'http://www.w3.org/2006/vcard/ns#:email';
+	public static username = 'foaf:account';
+	public static UID ='dataset:authorizationuid';
+	public static AuthorizationType = 'dataset:AuthorizationType';
+	public static UserAccount = 'prov:SoftwareAgent';
+	public static DatabasePerson = 'vcard:Individual';
+	public static UserAccountRole = 'dataset:UserAccountRole';
+	
 	public static textfile = 'dataset:FileTypeText';
 
 }

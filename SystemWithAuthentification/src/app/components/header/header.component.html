@@ -4,19 +4,6 @@
  
     <span class="spacer"></span>
     <ng-container *ngIf="user$ | async as user; else loginIcon">
-      <button 
-        mat-icon-button
-        routerLink="/toppage"
-        matTooltip="Post a cute 🐱"
-        >
-        <mat-icon
-          aria-hidden="false"
-          aria-label="Post a cute 🐱"
-          >
-          cloud_upload
-        </mat-icon>
-      </button>
-
       <app-profile-card 
         [user]="user"
         (logoutClick)="logout()">
@@ -37,7 +24,7 @@
         </mat-icon>
       </button>
     </ng-template>
-
+<button mat-button (click)="toppage()">Top</button>
 
   </mat-toolbar-row>
 </mat-toolbar>

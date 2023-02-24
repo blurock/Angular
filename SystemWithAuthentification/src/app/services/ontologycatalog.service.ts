@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
 import { CatalogInfo, CatalogAnnotation, ClassificationHiearchy } from '../const/routes.const';
 import { ServiceUtilityRoutines } from './serviceutilityroutines';
-
+import {SessiondatamanagementService} from '../services/sessiondatamanagement.service';
 import * as express from 'express';
 import { createProxyMiddleware, Filter, Options, RequestHandler } from 'http-proxy-middleware';
 
@@ -19,6 +19,7 @@ export class OntologycatalogService {
 	headers: HttpHeaders;
 
 	constructor(private readonly snackBar: MatSnackBar,
+	public session: SessiondatamanagementService,
 		private httpClient: HttpClient) {
 	}
 	
@@ -85,7 +86,8 @@ export class OntologycatalogService {
 	}
 
 	private standardHttpCall(httpaddr: string): Observable<any> {
-		const headers = ServiceUtilityRoutines.setupHeader();
+		const token = this.session.getToken();
+		const headers = ServiceUtilityRoutines.setupHeader(token);
   		return this.httpClient.get(httpaddr,{ 'headers': headers })
 			.pipe(
 				catchError(error => {

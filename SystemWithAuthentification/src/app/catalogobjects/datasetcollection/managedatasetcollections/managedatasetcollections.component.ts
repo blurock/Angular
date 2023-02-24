@@ -79,5 +79,4 @@ public getCatalogAnnoations(): void {
 			error: (info: any) => { alert('Get Annotations failed:' + this.waitmessage); }
 		});
 	}
-
 }

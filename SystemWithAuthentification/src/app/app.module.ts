@@ -172,6 +172,8 @@ import { UseraccountComponent } from './catalogobjects/user/useraccount/useracco
 import { SetupuserinformationComponent } from './catalogobjects/user/setupuserinformation/setupuserinformation.component';
 import { UseraccountadministrationComponent } from './catalogobjects/user/useraccountadministration/useraccountadministration.component';
 import { DatabasepersonComponent } from './catalogobjects/user/databaseperson/databaseperson.component';
+import { DatasertcollectionadministrationComponent } from './catalogobjects/datasetcollection/datasertcollectionadministration/datasertcollectionadministration.component';
+import { ApplicationcardsComponent } from './layout/applicationcards/applicationcards.component';
 
 
 
@@ -299,7 +301,9 @@ import { DatabasepersonComponent } from './catalogobjects/user/databaseperson/da
   UseraccountComponent,
   SetupuserinformationComponent,
   UseraccountadministrationComponent,
-  DatabasepersonComponent
+  DatabasepersonComponent,
+  DatasertcollectionadministrationComponent,
+  ApplicationcardsComponent
 	],
 	imports: [
 		AppFirebaseModule,

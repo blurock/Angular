@@ -46,7 +46,7 @@ public enum TransactionProcess {
 
         @Override
         String transactionKey(JsonObject catalog) {
-            String username = catalog.get(ClassLabelConstants.username).getAsString();
+            String username = catalog.get(ClassLabelConstants.UID).getAsString();
             return username;
         }
 
@@ -542,12 +542,11 @@ public enum TransactionProcess {
     abstract String transactionObjectName();
 
     public static JsonObject processFromTransaction(String transaction, JsonObject prerequisites,
-            JsonArray prerequisitelist, JsonObject info) {
+            JsonArray prerequisitelist, JsonObject info, String owner) {
         Document document = MessageConstructor.startDocument("Transaction: " + transaction);
         String transname = transaction.substring(8);
         TransactionProcess process = TransactionProcess.valueOf(transname);
         String transactionID = SystemObjectInformation.determineTransactionID();
-        String owner = SystemObjectInformation.determineOwner();
         String transactionobjectname = process.transactionObjectName();
         JsonObject event = BaseCatalogData.createStandardDatabaseObject(transactionobjectname, owner, transactionID,
                 owner);
@@ -615,14 +614,14 @@ public enum TransactionProcess {
      *         Prerequisites that are subclasses of DatabaseTransactionEvent can be
      *         filled in from the activity info.
      */
-    public static JsonObject processFromTransaction(JsonObject json) {
+    public static JsonObject processFromTransaction(JsonObject json, String owner) {
         String transaction = json.get(ClassLabelConstants.TransactionEventType).getAsString();
         // Dataset transaction events (subclass of DatabaseTransactionEvent), then can
         // be filled in automatically
         JsonArray prerequisitelist = fillInDatasetPrerequisites(transaction, json);
         JsonObject prerequisites = getPrerequisiteObjects(json);
         JsonObject info = json.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
-        return processFromTransaction(transaction, prerequisites, prerequisitelist, info);
+        return processFromTransaction(transaction, prerequisites, prerequisitelist, info, owner);
     }
 
     /**

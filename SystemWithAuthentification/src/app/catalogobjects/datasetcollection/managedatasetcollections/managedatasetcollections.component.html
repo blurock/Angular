@@ -1,4 +1,27 @@
 <mat-tab-group>
+<mat-tab label="Info">
+  <mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-subtitle>Dataset Collection</mat-card-subtitle>
+    <mat-card-title>Manage the Collections of Datasets</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+  
+  <div>
+    <p>The dataset collection specifies which set of fundamental data should be used for the thermodyanmic calculations. A single dataset collection
+    specifies which combination of fundamental data should be used for the calculations</p>
+    <p>With the dataset collection management interface, a collection set is defined, referenced by a unique name, 
+    by giving which sets of fundamental data should be used. The fundamental datasets are uploaded and referenced by a unique name and a version indicator.
+    These are the parameters that are specified for the collection set.</p>
+  </div>
+  
+    <mat-divider></mat-divider>
+  
+  </mat-card-content>
+</mat-card>
+
+
+</mat-tab>
   <mat-tab label="Visualize">
   <app-visualizedatasetcollectionids #visualcollection (newCollectionV)="newCollectionV($event)" [(annoinfo)]="cataloganno" [(maintainer)]="maintainer" [(annoinfo)]="cataloganno"> </app-visualizedatasetcollectionids>
   </mat-tab>

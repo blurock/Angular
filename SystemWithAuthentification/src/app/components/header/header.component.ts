@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import { AuthService } from '../../auth.service';
 import { FEED } from '../../const/routes.const';
-
+import {SessiondatamanagementService} from '../../services/sessiondatamanagement.service'
 @Component({
 	selector: 'app-header',
 	templateUrl: './header.component.html',
@@ -16,9 +16,10 @@ export class HeaderComponent {
 	user$: Observable<firebase.User> = this.auth.user$;
 
 	constructor(
-		private readonly auth: AuthService,
-		private readonly snackBar: MatSnackBar,
-		private readonly router: Router,
+		private auth: AuthService,
+		private snackBar: MatSnackBar,
+		private router: Router,
+		private session: SessiondatamanagementService
 	) {
 	}
 
@@ -27,16 +28,21 @@ export class HeaderComponent {
 	}
 
 	logout() {
-
+alert("logout from header");
 		this.auth
 			.logout()
 			.pipe(take(1))
 			.subscribe((response) => {
+				alert("logout from subscribe");
+				this.session.clearSession();
 				this.router.navigate([``]);
 				this.snackBar.open('Come back soon with treats! 😿', 'Close', {
 					duration: 4000,
 				});
 			});
+			
 	}
-
+toppage(): void {
+	this.router.navigateByUrl('/toppage');
+}
 }

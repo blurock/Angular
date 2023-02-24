@@ -67,7 +67,6 @@ export class DatasetspecificationforcollectionsetComponent implements OnInit {
 		const version = jsontransspec[this.annoinfo['dataset:DatasetVersion'][this.identifier]];
 		this.idForm.get('DatasetVersion').setValue(version);
 		this.transspec = jsontransspec;
-	}
-
+}
 
 }

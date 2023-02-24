@@ -5,15 +5,17 @@ import { of, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ServiceUtilityRoutines } from './serviceutilityroutines';
 import {Transaction} from '../const/routes.const';
-
+import {SessiondatamanagementService} from '../services/sessiondatamanagement.service'
 @Injectable({
   providedIn: 'root'
 })
 export class RuntransactionService {
+ 
 	errorMsg: string;
 	headers: HttpHeaders;
 
   constructor(
+    private session: SessiondatamanagementService,
     private httpClient: HttpClient
   ) { }
   
@@ -24,7 +26,14 @@ export class RuntransactionService {
   }
   
   	private standardHttpCall(httpaddr: string, data: any): Observable<any> {
-		const headerdata = ServiceUtilityRoutines.setupHeader();
+      alert("Run Transaction");
+      const uid = this.session.getUID();
+      data['uid'] = uid;
+      alert("UID: " + uid);
+		const token = this.session.getToken();
+		alert("Token: " + token);
+		const headerdata = ServiceUtilityRoutines.setupHeader(token);
+		alert("Header data: " + headerdata);
   		return this.httpClient.post(httpaddr,data, { 'headers': headerdata })
 			.pipe(
 				catchError(error => {

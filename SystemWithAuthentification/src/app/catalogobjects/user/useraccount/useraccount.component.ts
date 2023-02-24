@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter  } from '@angular/core';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -8,6 +8,7 @@ import { DatadatadescriptionComponent } from '../../datadatadescription/datadata
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
 import { NavItem } from '../../../primitives/nav-item';
 import {SimpledatabaseobjectstructureComponent} from '../../simpledatabaseobjectstructure/simpledatabaseobjectstructure.component';
+import { __assign } from 'tslib';
 
 @Component({
 	selector: 'app-useraccount',
@@ -15,12 +16,15 @@ import {SimpledatabaseobjectstructureComponent} from '../../simpledatabaseobject
 	styleUrls: ['./useraccount.component.scss']
 })
 export class UseraccountComponent implements OnInit {
+	
+	@Output() annoReady = new EventEmitter<any>();
 
 	title = "User Account Information";
 	message = "Waiting";
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
+	adminrole = false;
 	
 descriptionsuffix = 'UserAccount';
 	catalogtype = "dataset:UserAccount";
@@ -31,7 +35,7 @@ descriptionsuffix = 'UserAccount';
 	catalogobj: any;
 	objectform: FormGroup;
 	maintainer: string;
-userAccountGroup: any;
+	userAccountGroup: any;
 
 	@ViewChild('description') description: DatadatadescriptionComponent;
 	@ViewChild('firestoreid') firestoreid: FiresytorecatalogidComponent;
@@ -61,7 +65,6 @@ userAccountGroup: any;
 		manageuser.determineMaintainer().subscribe(result => {
 			if (result != null) {
 				this.maintainer = result;
-				this.objectform.get('username').setValue(result);
 			} else {
 				alert(manageuser.errormaintainer);
 			}
@@ -82,6 +85,7 @@ userAccountGroup: any;
 					const catalog = response[Ontologyconstants.catalogobject];
 					this.catalogobj = catalog[Ontologyconstants.outputobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];
+					this.annoReady.emit();
 				} else {
 					this.message = responsedata;
 				}
@@ -105,8 +109,8 @@ userAccountGroup: any;
 		this.userAccountGroup.get('UserAccountRole').setValue(catalog[this.annoinfo['dataset:UserAccountRole'][this.identifier]]);
 		const desc = catalog[this.annoinfo['dataset:DataDescriptionUserAccount'][this.identifier]];
 		this.description.setData(desc);
-			const firestoreidvalues = catalog[this.annoinfo['dataset:FirestoreCatalogID'][this.identifier]];
-			this.firestoreid.setData(firestoreidvalues);
+		const firestoreidvalues = catalog[this.annoinfo['dataset:FirestoreCatalogID'][this.identifier]];
+		this.firestoreid.setData(firestoreidvalues);
 		this.simpledata.setData(catalog);
 	}
 }

@@ -1506,6 +1506,11 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                             [ rdf:type owl:Restriction ;
                                               owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :UID
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                               owl:onClass :username
                                             ] ;
                             <http://purl.org/dc/elements/1.1/type> :ActivityCatalogUserAccount ;
@@ -2840,6 +2845,22 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                     <http://www.w3.org/2004/02/skos/core#altLabel> "catalogtype" .
 
 
+###  http://www.esblurock.info/dataset#CatalogHierarchyAccountLoginInformation
+:CatalogHierarchyAccountLoginInformation rdf:type owl:Class ;
+                                         rdfs:subClassOf :CatalogHierarchyLoginInformation ,
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty <http://www.w3.org/2004/02/skos/core#member> ;
+                                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                           owl:onClass :LoginAccountInformation
+                                                         ] ;
+                                         <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchySimpleName ;
+                                         <http://purl.org/dc/terms/identifier> "dataset:hieraccountlogininfo"^^xsd:string ;
+                                         rdfs:comment "The set of information about the account login from the authentification"^^xsd:string ;
+                                         rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
+                                         rdfs:label "Account Login Information"^^xsd:string ;
+                                         <http://www.w3.org/2004/02/skos/core#altLabel> "hieraccountlogininfo"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#CatalogHierarchyCatalogObjectType
 :CatalogHierarchyCatalogObjectType rdf:type owl:Class ;
                                    rdfs:subClassOf :JThermodynamicsSymmetryDefinitionNodeType .
@@ -3129,6 +3150,17 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
                                                      rdfs:isDefinedBy :LabelDerivedFromCatalogObjectKey ;
                                                      rdfs:label "Vibrational Corrections for Radicals"^^xsd:string ;
                                                      <http://www.w3.org/2004/02/skos/core#altLabel> "hiervibrationalcorrection"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CatalogHierarchyLoginInformation
+:CatalogHierarchyLoginInformation rdf:type owl:Class ;
+                                  rdfs:subClassOf :CatalogHierarchyPersonManagement ;
+                                  <http://purl.org/dc/elements/1.1/type> :DatasetCatalogHierarchyDataCatalog ;
+                                  <http://purl.org/dc/terms/identifier> "dataset:hierlogininfomation"^^xsd:string ;
+                                  rdfs:comment "This is the information collected at the account login"^^xsd:string ;
+                                  rdfs:isDefinedBy :DerivedFromCurrentClassAnnotationAltLabel ;
+                                  rdfs:label "Login Information"^^xsd:string ;
+                                  <http://www.w3.org/2004/02/skos/core#altLabel> "hierlogininformation"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CatalogHierarchyMetaAtomDefinition
@@ -9387,6 +9419,47 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                     <http://www.w3.org/2004/02/skos/core#altLabel> "serwritefirestorecatalog"^^xsd:string .
 
 
+###  http://www.esblurock.info/dataset#FirstLoginService
+:FirstLoginService rdf:type owl:Class ;
+                   rdfs:subClassOf :LoginService ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://www.w3.org/ns/ssn/hasInput> ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :Email
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://www.w3.org/ns/ssn/hasInput> ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :IDToken
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://www.w3.org/ns/ssn/hasInput> ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :UID
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://www.w3.org/ns/ssn/hasInput> ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :displayName
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :DatabasePerson
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :LoginAccountInformation
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://www.w3.org/ns/ssn/hasOutput> ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :UserAccount
+                                   ] ;
+                   rdfs:comment "This is the first call after a login authentification. The purpose is to set up the basic accounting information from the authenticator. If the account already exists, then the associated UserAccount and DatabasePerson is fetched. if this is the first login, then a signal is sent to set up a new account."^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#FirstStageExpansionWithSkimmer
 :FirstStageExpansionWithSkimmer rdf:type owl:Class ;
                                 rdfs:subClassOf :SamplingProbe ,
@@ -10924,6 +10997,16 @@ Under the general type of is the actual data object referenced by the ChemConnec
                    rdfs:comment "The number of hydrogen atoms in the molecule. This used as a quick reference for searching."^^xsd:string ;
                    rdfs:label "Hydrogen Count"^^xsd:string ;
                    <http://www.w3.org/2004/02/skos/core#altLabel> "hydrogencount"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#IDToken
+:IDToken rdf:type owl:Class ;
+         rdfs:subClassOf :StringNameLabel ;
+         <http://purl.org/dc/elements/1.1/type> :IDToken ;
+         <http://purl.org/dc/terms/identifier> "dataset:idtoken"^^xsd:string ;
+         rdfs:comment "This is the token derived from the UID from the authorization process."^^xsd:string ;
+         rdfs:label "ID Token"^^xsd:string ;
+         <http://www.w3.org/2004/02/skos/core#altLabel> "idtoken"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#IRSpectrometer
@@ -12878,6 +12961,84 @@ Under the general type of is the actual data object referenced by the ChemConnec
                   rdfs:subClassOf :ShortStringKey .
 
 
+###  http://www.esblurock.info/dataset#LoginAccountInformation
+:LoginAccountInformation rdf:type owl:Class ;
+                         rdfs:subClassOf :SimpleDatabaseObjectStructure ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                           owl:onClass :AuthorizationType
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                           owl:onClass :Email
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                           owl:onClass :IDToken
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                           owl:onClass :UID
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                           owl:onClass :UserAccountRole
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                           owl:onClass :username
+                                         ] ;
+                         <http://purl.org/dc/elements/1.1/type> :LoginAccountInformation ;
+                         <http://purl.org/dc/terms/identifier> "dataset:loginaccountinfo"^^xsd:string ;
+                         :documentNameSource :UID ;
+                         rdfs:comment "This is the basic login infomation from the authentication process."^^xsd:string ;
+                         rdfs:label "Login Account Info"^^xsd:string ;
+                         <http://www.w3.org/2004/02/skos/core#altLabel> "loginaccountinfo"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#LoginAuthenticated
+:LoginAuthenticated rdf:type owl:Class ;
+                    rdfs:subClassOf :LoginStageChoices ;
+                    owl:disjointWith :LoginRegistration ;
+                    rdfs:comment "At this point the login has been authenticated, but the user account has not been set up."^^xsd:string ;
+                    rdfs:label "Login Authenticated"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#LoginRegistration
+:LoginRegistration rdf:type owl:Class ;
+                   rdfs:subClassOf :LoginStageChoices ;
+                   rdfs:comment "The authentification and the user account registration has been completed."^^xsd:string ;
+                   rdfs:label "Login Registration"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#LoginService
+:LoginService rdf:type owl:Class ;
+              rdfs:subClassOf <http://www.w3.org/ns/prov#SoftwareAgent> ;
+              rdfs:comment "These are the services associated with logging in and accounting."^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#LoginStage
+:LoginStage rdf:type owl:Class ;
+            rdfs:subClassOf :Classification ;
+            <http://purl.org/dc/elements/1.1/type> :LoginStage ;
+            <http://purl.org/dc/terms/identifier> "dataset:loginstage"^^xsd:string ;
+            rdfs:comment "This is the stage of the login. The login has several stages from Authentification to full registration of user accounts."^^xsd:string ;
+            rdfs:label "Login Stage"^^xsd:string ;
+            <http://www.w3.org/2004/02/skos/core#altLabel> "loginstage"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#LoginStageChoices
+:LoginStageChoices rdf:type owl:Class ;
+                   rdfs:subClassOf :ChemConnectClassifications ;
+                   rdfs:label "Login Stage Choices"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#Lord
 :Lord rdf:type owl:Class ;
       rdfs:subClassOf :UserTitleChoices ;
@@ -13971,6 +14132,11 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass :UID
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                   owl:onClass :username
                                 ] ,
                                 [ rdf:type owl:Restriction ;
@@ -13985,7 +14151,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                 ] ;
                 <http://purl.org/dc/elements/1.1/type> :NewUserAccount ;
                 <http://purl.org/dc/terms/identifier> "dataset:newuseraccount"^^xsd:string ;
-                :documentNameSource :username ;
+                :documentNameSource :UID ;
                 rdfs:comment "This is the catalog object associated with the creation of a new user account with a new associated DatabasePerson"^^xsd:string ;
                 rdfs:label "New User Account"^^xsd:string ;
                 <http://www.w3.org/2004/02/skos/core#altLabel> "newuseraccount"^^xsd:string .
@@ -20108,7 +20274,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                              ] ;
              <http://purl.org/dc/elements/1.1/type> "UserAccount"^^xsd:string ;
              <http://purl.org/dc/terms/identifier> "prov:SoftwareAgent"^^xsd:string ;
-             :documentNameSource :username ;
+             :documentNameSource :UID ;
              rdfs:comment "The user account information" ;
              rdfs:label "User Account" ;
              <http://www.w3.org/2004/02/skos/core#altLabel> "usraccnt"^^xsd:string .
@@ -20169,7 +20335,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 :UserAccountRole rdf:type owl:Class ;
                  rdfs:subClassOf :Classification ;
                  <http://purl.org/dc/elements/1.1/type> "Classification" ;
-                 <http://purl.org/dc/terms/identifier> "foaf:UserAccountRole"^^xsd:string ;
+                 <http://purl.org/dc/terms/identifier> "dataset:UserAccountRole"^^xsd:string ;
                  rdfs:comment "The role of a user account" ;
                  rdfs:isDefinedBy :UserRoleChoices ;
                  rdfs:label "User Account Role" ;
@@ -20186,6 +20352,13 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
                   rdfs:subClassOf :CatagoryTypeChoices ;
                   rdfs:comment "Catagory holding user data" ;
                   rdfs:label "User Data" .
+
+
+###  http://www.esblurock.info/dataset#UserLoggedOut
+:UserLoggedOut rdf:type owl:Class ;
+               rdfs:subClassOf :LoginStageChoices ;
+               rdfs:comment "The user is logged out and no session data"^^xsd:string ;
+               rdfs:label "Logged Out"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#UserManagementTransactionObject
@@ -20404,6 +20577,16 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 ###  http://www.esblurock.info/dataset#XSL
 :XSL rdf:type owl:Class ;
      rdfs:subClassOf :SpreadSheetDelimitorTypes .
+
+
+###  http://www.esblurock.info/dataset#displayName
+:displayName rdf:type owl:Class ;
+             rdfs:subClassOf :StringNameLabel ;
+             <http://purl.org/dc/elements/1.1/type> :displayName ;
+             <http://purl.org/dc/terms/identifier> "dataset:displayname"^^xsd:string ;
+             rdf:comment "For an account, this is the name that is used to characterize the user. This name comes from the authentification, and is the first guess at the 'username' which is required to be unique."^^xsd:string ;
+             rdfs:label "Display Name"^^xsd:string ;
+             <http://www.w3.org/2004/02/skos/core#altLabel> "displayname"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#familyName

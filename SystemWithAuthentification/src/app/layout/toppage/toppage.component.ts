@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { DomSanitizer } from '@angular/platform-browser';
-import { HttpClient } from '@angular/common/http';
+import { Component, ViewChild } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import {UseraccountComponent} from '../../catalogobjects/user/useraccount/useraccount.component';
+import {DatabasepersonComponent} from '../../catalogobjects/user/databaseperson/databaseperson.component';
+import {SessiondatamanagementService} from '../../services/sessiondatamanagement.service';
+
 
 @Component({
 	selector: 'app-toppage',
@@ -12,47 +12,24 @@ import { AuthService } from '../../services/auth.service';
 })
 export class ToppageComponent {
 
-	/** Based on the screen size, switch from standard to one column per row */
+	@ViewChild('useraccount') useraccount: UseraccountComponent;
+	@ViewChild('databaseperson') person: DatabasepersonComponent;
 
-	card1content: any;
-	cards: any;
-
-	readCard1() {
-		let path = '../../assets/Card1Content.html';
-		this.httpClient.get(path, { responseType: "text" }).subscribe((data) => {
-			this.card1content = this.sanitizer.bypassSecurityTrustHtml(data);
-			//this.card1content = data;
-			alert(data);
-			this.setup();
-		})
-	}
-	setup() {
-		this.cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-
-			map(({ matches }) => {
-				if (matches) {
-					return [
-						{ title: 'JThermodynamics', cols: 1, rows: 1 },
-						{ title: 'Card 2', cols: 1, rows: 1 },
-						{ title: 'Card 3', cols: 1, rows: 1 },
-						{ title: 'Card 4', cols: 1, rows: 1 }
-					];
-				}
-
-				return [
-					{ title: 'JThermodynamics' , cols: 2, rows: 1, content: 'JThermodynamics', color: 'pink' },
-					{ title: 'ChemConnect'     , cols: 1, rows: 1, content: 'ChemConnect', color: 'lightred' },
-					{ title: 'Goals'           , cols: 1, rows: 1, content: 'Goals', color: 'lightblue' },
-					{ title: 'Edward S.Blurock', cols: 2, rows: 1, content: 'Blurock', color: 'lightgreen' }
-				];
-			})
-		);
-	}
 	constructor(
-		public authService: AuthService,
-		private breakpointObserver: BreakpointObserver,
-		public sanitizer: DomSanitizer,
-		public httpClient: HttpClient) {
-		this.setup();
+		public session: SessiondatamanagementService,
+		public authService: AuthService
+) {
+		
+	}
+	
+	setUser(): void {
+		const useraccountdata = this.session.getUserAccount();
+		this.useraccount.setData(useraccountdata);
+		
+	}
+	setPerson(): void {
+		const persondata = this.session.getDatabasePerson();
+		this.person.setData(persondata);
+		
 	}
 }

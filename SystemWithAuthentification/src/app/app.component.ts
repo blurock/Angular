@@ -50,4 +50,7 @@ export class AppComponent {
 	userAdministration() {
 		this.router.navigateByUrl('/useradmin');
 	}
+	datasetAdministration() {
+		this.router.navigateByUrl('/datasetadmin');
+	}
 }

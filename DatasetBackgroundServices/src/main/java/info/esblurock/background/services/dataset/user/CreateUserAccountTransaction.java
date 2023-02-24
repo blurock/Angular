@@ -35,12 +35,12 @@ public class CreateUserAccountTransaction {
     public static JsonObject createUserAccount(JsonObject event, JsonObject personid, JsonObject info,
             boolean writecatalog) {
         JsonObject response = null;
-        String username = info.get(ClassLabelConstants.username).getAsString();
-        Document document = MessageConstructor.startDocument("CreateUserAccountTransaction: " + username);
+        String uid = info.get(ClassLabelConstants.UID).getAsString();
+        Document document = MessageConstructor.startDocument("CreateUserAccountTransaction: " + uid);
         Element body = MessageConstructor.isolateBody(document);
-        ArrayList<String> accountids = getUserAccountNameIDs(username);
+        ArrayList<String> accountids = getUserAccountNameIDs(uid);
         if (accountids != null) {
-            accountids.add(username);
+            accountids.add(uid);
             String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
             String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
 
@@ -64,14 +64,13 @@ public class CreateUserAccountTransaction {
             useraccountpurpcon.addProperty(ClassLabelConstants.ConceptUserAccount, infoconcept);
 
             String infoauthtype = info.get(ClassLabelConstants.AuthorizationType).getAsString();
-            String infouid = info.get(ClassLabelConstants.UID).getAsString();
             String infoemail = info.get(ClassLabelConstants.Email).getAsString();
             String inforole = info.get(ClassLabelConstants.UserAccountRole).getAsString();
+            String username = info.get(ClassLabelConstants.username).getAsString();
             catalog.addProperty(ClassLabelConstants.AuthorizationType, infoauthtype);
-            catalog.addProperty(ClassLabelConstants.UID, infouid);
+            catalog.addProperty(ClassLabelConstants.UID, uid);
             catalog.addProperty(ClassLabelConstants.Email, infoemail);
             catalog.addProperty(ClassLabelConstants.UserAccountRole, inforole);
-
             catalog.addProperty(ClassLabelConstants.username, username);
 
             JsonObject transfirestoreID = event.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
@@ -96,7 +95,7 @@ public class CreateUserAccountTransaction {
 
         } else {
             response = DatabaseServicesBase.standardErrorResponse(document,
-                    "UserAccount already exists: '" + username + "'", null);
+                    "UserAccount already exists: '" + uid + "'", null);
         }
         return response;
     }
@@ -105,8 +104,8 @@ public class CreateUserAccountTransaction {
         String message = WriteFirestoreCatalogObject.writeCatalogObjectWithException(useraccount);
         body.addElement("pre").addText(message);
         ArrayList<String> accountids = ManageDatasetDocumentLists.getCollectionIDsForClass("dataset:UserAccount");
-        String username = useraccount.get(ClassLabelConstants.username).getAsString();
-        accountids.add(username);
+        String uid = useraccount.get(ClassLabelConstants.UID).getAsString();
+        accountids.add(uid);
         JsonObject firestoreID = useraccount.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
         ManageDatasetDocumentLists.writeCollectionIDs(accountids, firestoreID);
     }

@@ -1,22 +1,17 @@
 <div class="grid-container">
 <mat-tab-group>
   <mat-tab label="Home">
-   <app-dashboard></app-dashboard>
+   <app-applicationcards></app-applicationcards>
    </mat-tab>
   <mat-tab label="User Account">
-  <app-useraccount></app-useraccount>
+  <button mat-button class="refresh" (click)="setUser()">Refresh</button>
+  <app-useraccount #useraccount (annoReady)="setUser()"></app-useraccount>
    </mat-tab>
   <mat-tab label="User Profile">
-  
+  <button mat-button class="refresh" (click)="setPerson()">Refresh</button>
+  <app-databaseperson #databaseperson (annoReady)="setPerson()"></app-databaseperson>
    </mat-tab>
-  <mat-tab label="Info"> 
-  <mat-grid-list cols="2" rowHeight="400px">
-    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-    <app-textcard [title]="card.title" [contentfile]="card.content" [bcolor]="card.color"></app-textcard>
-    </mat-grid-tile>
-  </mat-grid-list>
-  </mat-tab>
-  <mat-tab label="Logoin Information"> 
+   <mat-tab label="Logoin Information"> 
         <div class="inner-adjust">
         <div class="pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">User Profile</h1>

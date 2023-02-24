@@ -5,6 +5,7 @@ import { of, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ServiceUtilityRoutines } from './serviceutilityroutines';
 import { Service } from '../const/routes.const';
+import {SessiondatamanagementService} from '../services/sessiondatamanagement.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -14,6 +15,7 @@ export class RunserviceprocessService {
 	headers: HttpHeaders;
 
 	constructor(
+		private session: SessiondatamanagementService,
 		private httpClient: HttpClient
 	) { }
 
@@ -24,7 +26,8 @@ export class RunserviceprocessService {
 	}
 
 	private standardHttpCall(httpaddr: string, data: any): Observable<any> {
-		const headerdata = ServiceUtilityRoutines.setupHeader();
+		const token = this.session.getToken();
+		const headerdata = ServiceUtilityRoutines.setupHeader(token);
 		return this.httpClient.post(httpaddr, data, { headers: headerdata })
 			.pipe(
 				catchError(error => {

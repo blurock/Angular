@@ -25,9 +25,10 @@ public class RunMultipleTransactions {
 			String srcpath = tok.nextToken();
 			String content;
 			try {
+			    String owner = "Administrator";
 				content = Files.readString(Paths.get(srcpath));
 				JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
-				response = TransactionProcess.processFromTransaction(json);
+				response = TransactionProcess.processFromTransaction(json, owner);
 				if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 					System.out.println(" ------------ Transaction " + srcpath + " ------------ ");
 					if(printresults) {

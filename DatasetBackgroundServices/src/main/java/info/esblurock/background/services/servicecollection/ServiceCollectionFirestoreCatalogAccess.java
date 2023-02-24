@@ -22,6 +22,7 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.ManageDatasetDocumentLists;
 import info.esblurock.background.services.dataset.user.GetUserAccountAndDatabasePersonProcess;
+import info.esblurock.background.services.dataset.user.UserAccountLists;
 import info.esblurock.background.services.firestore.FirestoreBaseClass;
 import info.esblurock.background.services.firestore.PropertyValueQueryPair;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
@@ -43,21 +44,8 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 
         @Override
         public JsonObject process(JsonObject json) {
-            Document document = MessageConstructor.startDocument("ListOfUserAccountNames");
-            ArrayList<String> ids = ManageDatasetDocumentLists.getCollectionIDsForClass("dataset:UserAccount");
-            JsonArray jsonids = new JsonArray();
-            
-            for(String id : ids) {
-                jsonids.add(id);
-            }
-            JsonObject obj = new JsonObject();
-            JsonArray arr = new JsonArray();
-            arr.add(obj);
-            obj.add(ClassLabelConstants.username, jsonids);
-            JsonObject response = DatabaseServicesBase.standardServiceResponse(document,
-                    "Success: SubstituteAndWriteDatabasePerson", arr);
-            return response;
-        }
+            return UserAccountLists.getListOfUserAccountNames();
+       }
         
     },
     

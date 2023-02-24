@@ -7,6 +7,7 @@ import { MenutreeserviceService } from '../../../services/menutreeservice.servic
 import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
 import { MatDialog } from '@angular/material/dialog';
 import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
+import {SessiondatamanagementService} from '../../../services/sessiondatamanagement.service';
 
 @Component({
 	selector: 'app-setupuserinformation',
@@ -37,10 +38,11 @@ export class SetupuserinformationComponent implements OnInit {
 	usertitleitems: NavItem[] = [];
 	resultHtml: string;
 
-	adminrole = false;
+	notadminrole = true;
 	suffix = 'Person';
 
 	constructor(
+		public session: SessiondatamanagementService,
 		public dialog: MatDialog,
 		private formBuilder: FormBuilder,
 		public annotations: OntologycatalogService,
@@ -49,8 +51,8 @@ export class SetupuserinformationComponent implements OnInit {
 		this.getCatalogAnnoations();
 
 		this.userAccountGroup = this.formBuilder.group({
+			AuthorizationType: ['',Validators.required],
 			UID: ['', Validators.required],
-			AuthorizationType: ['', Validators.required],
 			username: ['', Validators.required],
 			Email: ['', Validators.email],
 			UserAccountRole: ['', Validators.required],
@@ -66,40 +68,52 @@ export class SetupuserinformationComponent implements OnInit {
 		this.userAccountGroup.get('UserAccountRole').setValue('dataset:StandardUser');
 		this.signinFormGroup.get('UserClassification').setValue('dataset:ConceptResearcher');
 
+
+	}
+	ngOnInit(): void {
+		this.setupUserParameters();
+	}
+    setupUserParameters() {
+		
+	const loginaccount = this.session.getLoginAccountInfo();
+	alert("set up parameters " + loginaccount);
 		let displayName = 'user';
 		let providerid = '';
 		let email = 'user@gmail.com';
 		let uid = 'xxxxx';
-
-		const user = JSON.parse(sessionStorage.getItem('user'));
-		if (user != null) {
-
-			const providerinformationarray = user.providerData;
-			if (providerinformationarray != null) {
-				if (providerinformationarray.length > 0) {
-					const info = providerinformationarray[0];
-					providerid = info.providerId;
-				}
-			}
-			if (user.email != null) {
-				email = user.email;
+		let role = 'dataset:StandardUser';
+		if (loginaccount != null) {
+   		if (loginaccount[Ontologyconstants.AuthorizationType] != null) {
+				providerid = loginaccount[Ontologyconstants.AuthorizationType];
+}
+			if (loginaccount[Ontologyconstants.email] != null) {
+				email = loginaccount[Ontologyconstants.email];
+				
 				const index = email.indexOf('@');
 				displayName = email.substring(0, index);
 			}
-			if (user.displayName != null) {
-				displayName = user.displayName;
+			if (loginaccount[Ontologyconstants.username] != null) {
+				
+				displayName = loginaccount[Ontologyconstants.username];
 			}
-			if (user.uid != null) {
-				uid = user.uid;
+			if (loginaccount[Ontologyconstants.UID] != null) {
+				uid = loginaccount[Ontologyconstants.UID];
+			} else {
+				alert("not authorized");
 			}
-
+            if(loginaccount[Ontologyconstants.UserAccountRole] != null) {
+				role = loginaccount[Ontologyconstants.UserAccountRole];
+			}
+		} else {
+			location.reload();
 		}
 		this.userAccountGroup.get('UID').setValue(uid);
 		this.userAccountGroup.get('username').setValue(displayName);
 		this.userAccountGroup.get('Email').setValue(email);
 		this.userAccountGroup.get('AuthorizationType').setValue(providerid);
-	}
+		this.userAccountGroup.get('UserAccountRole').setValue(role);
 
+	}
 	public getCatalogAnnoations(): void {
 		this.message = 'Waiting for Info call';
 		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
@@ -112,6 +126,7 @@ export class SetupuserinformationComponent implements OnInit {
 					this.useraccountitems = this.menusetup.findChoices(this.annoinfo, this.useraccountrole);
 					this.userclassificationitems = this.menusetup.findChoices(this.annoinfo, this.userclassification);
 					this.usertitleitems = this.menusetup.findChoices(this.annoinfo, this.usertitle);
+					//this.setupUserParameters();
 				} else {
 					this.message = responsedata;
 				}
@@ -121,8 +136,6 @@ export class SetupuserinformationComponent implements OnInit {
 	}
 
 
-	ngOnInit(): void {
-	}
 
 	setUserClassification($event: string): void {
 		this.signinFormGroup.get('UserClassification').setValue($event);
@@ -136,8 +149,8 @@ export class SetupuserinformationComponent implements OnInit {
 	}
 
 	getData(activity: any): void {
-		activity[this.annoinfo['dataset:UID'][this.identifier]] = this.userAccountGroup.get('UID').value;
 		activity[this.annoinfo['dataset:AuthorizationType'][this.identifier]] = this.userAccountGroup.get('AuthorizationType').value;
+		activity[this.annoinfo['dataset:UID'][this.identifier]] = this.userAccountGroup.get('UID').value;
 		activity[this.annoinfo['dataset:username'][this.identifier]] = this.userAccountGroup.get('username').value;
 		activity[this.annoinfo['dataset:Email'][this.identifier]] = this.userAccountGroup.get('Email').value;
 		activity[this.annoinfo['dataset:UserAccountRole'][this.identifier]] = this.userAccountGroup.get('UserAccountRole').value;

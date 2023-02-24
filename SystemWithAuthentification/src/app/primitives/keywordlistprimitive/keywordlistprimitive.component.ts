@@ -22,25 +22,21 @@ export class KeywordlistprimitiveComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
-	setKeys(keywords: string): void {
-		if (keywords != null) {
-			if (keywords.length > 0) {
-				let num = 0;
-				const keys = keywords.split(',');
-				for (num = 0; num < keys.length; num++) {
-					alert(keys[num]);
-					this.keywords.push(keys[num].trim());
+	setKeys(keys: []): void {
+		if (keys != null) {
+			this.keywords = [];
+			if (keys.length > 0) {
+				for (let num = 0; num < keys.length; num++) {
+					this.keywords.push(keys[num]);
 				}
 			}
 		}
 	}
-	getKeys(): string {
-		let keys = '';
+	
+	getKeys(): any {
+		var keys = [];
 		for (let key of this.keywords) {
-			if (keys.length > 0) {
-				keys = keys + ', ';
-			}
-			keys = keys + key;
+				keys.push(key);
 		}
 		return keys;
 	}

@@ -21,8 +21,9 @@ public class InitializerUserAccountTransaction {
     public static JsonObject create(JsonObject event, JsonObject info) {
         JsonObject response = null;
         String username = info.get(ClassLabelConstants.username).getAsString();
-        Document document = MessageConstructor.startDocument("CreateUserAccountTransaction: " + username);
-        ArrayList<String> accountids = CreateUserAccountTransaction.getUserAccountNameIDs(username);
+        String uid = info.get(ClassLabelConstants.UID).getAsString();
+        Document document = MessageConstructor.startDocument("CreateUserAccountTransaction: " + uid);
+        ArrayList<String> accountids = CreateUserAccountTransaction.getUserAccountNameIDs(uid);
         JsonObject transfirestoreID = BaseCatalogData.insertFirestoreAddress(event);
 
         if (accountids != null) {
@@ -46,14 +47,15 @@ public class InitializerUserAccountTransaction {
                     JsonObject accounttransactionid = useraccount.get(ClassLabelConstants.FirestoreCatalogID)
                             .getAsJsonObject();
                     JsonObject initializedaccount = BaseCatalogData
-                            .createStandardDatabaseObject("dataset:NewUserAccount", username, transactionID, "false");
+                            .createStandardDatabaseObject("dataset:NewUserAccount", uid, transactionID, "false");
                     initializedaccount.add(ClassLabelConstants.DatabasePersonObjectID, databasepersonid);
                     initializedaccount.add(ClassLabelConstants.UserAccountObjectID, accounttransactionid);
                     initializedaccount.addProperty(ClassLabelConstants.username, username);
+                    initializedaccount.addProperty(ClassLabelConstants.UID, uid);
                     initializedaccount.add(ClassLabelConstants.FirestoreCatalogIDForTransaction,
                             transfirestoreID.deepCopy());
-
-                    BaseCatalogData.insertStandardBaseInformation(initializedaccount, username, transactionID, "false",
+                    initializedaccount.addProperty(ClassLabelConstants.LoginStage, "dataset:LoginRegistration");
+                    BaseCatalogData.insertStandardBaseInformation(initializedaccount, uid, transactionID, "false",
                             false);
                     JsonObject firestoreID = BaseCatalogData.insertFirestoreAddress(initializedaccount);
                     body.addElement("pre").addText("Writing UserAccount initialization object to:\n"
@@ -67,8 +69,12 @@ public class InitializerUserAccountTransaction {
                                 .writeCatalogObjectWithException(initializedaccount);
                         body.addElement("div").addText(message);
                         JsonArray catalogarr = new JsonArray();
-                        catalogarr.add(initializedaccount);
-                        String success = "Success in creating a new UserAccount: " + username;
+                        JsonObject responseoutput = new JsonObject();
+                        responseoutput.add(ClassLabelConstants.NewUserAccount, initializedaccount);
+                        responseoutput.add(ClassLabelConstants.DatabasePerson, databaseperson);
+                        responseoutput.add(ClassLabelConstants.UserAccount, useraccount);
+                        catalogarr.add(responseoutput);
+                        String success = "Success in creating a new UserAccount: " + uid;
                         response = DatabaseServicesBase.standardServiceResponse(document, success, catalogarr);
                     } catch (Exception e) {
                         MessageConstructor.combineBodyIntoDocument(document,
@@ -89,7 +95,7 @@ public class InitializerUserAccountTransaction {
 
         } else {
             response = DatabaseServicesBase.standardErrorResponse(document,
-                    "UserAccount already exists: '" + username + "'", null);
+                    "UserAccount already exists: '" + uid + "'", null);
         }
 
         return response;

@@ -1,14 +1,23 @@
 import { Injectable, NgZone } from '@angular/core';
-import { User } from '../services/user';
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { getAuth, signInWithPopup, GithubAuthProvider } from "firebase/auth";
-
+import { ServiceUtilityRoutines } from './serviceutilityroutines';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { Login } from '../const/routes.const';
+import {SessiondatamanagementService} from '../services/sessiondatamanagement.service';
+import firebase from 'firebase//compat/app';
 import {
 	AngularFirestore,
 	AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+import { Ontologyconstants } from '../const/ontologyconstants';
+import { __assign } from 'tslib';
+
 
 @Injectable({
 	providedIn: 'root'
@@ -16,23 +25,24 @@ import { Router } from '@angular/router';
 export class AuthService {
 	userData: any; // Save logged in user data
 	constructor(
+		public session: SessiondatamanagementService,
 		public afs: AngularFirestore, // Inject Firestore service
 		public afAuth: AngularFireAuth, // Inject Firebase auth service
 		public router: Router,
-		public ngZone: NgZone // NgZone service to remove outside scope warning
+		public ngZone: NgZone, // NgZone service to remove outside scope warning
+		private httpClient: HttpClient
 	) {
 		/* Saving user data in localstorage when
 			  logged in and setting up null when logged out */
-this.afAuth.authState.subscribe((user) => {
+		this.afAuth.authState.subscribe((user) => {
+			alert("this.afAuth.authState.subscribe((user)");
 			if (user) {
 				this.SetUserData(user);
-				this.userData = user;
-				sessionStorage.setItem('user', JSON.stringify(this.userData));
 				this.ngZone.run(() => {
 					//this.router.navigate(['usersetup']);
 				});
 			} else {
-				sessionStorage.setItem('user', 'null');
+				alert("no user");
 			}
 		});
 	}
@@ -44,6 +54,7 @@ this.afAuth.authState.subscribe((user) => {
 				this.ngZone.run(() => {
 					this.router.navigate(['']);
 				});
+				alert("Signin");
 				this.SetUserData(result.user);
 			})
 			.catch((error) => {
@@ -58,6 +69,7 @@ this.afAuth.authState.subscribe((user) => {
 				/* Call the SendVerificaitonMail() function when new user sign
 				up and returns promise */
 				this.SendVerificationMail();
+				alert("signup");
 				this.SetUserData(result.user);
 			})
 			.catch((error) => {
@@ -85,19 +97,18 @@ this.afAuth.authState.subscribe((user) => {
 	}
 	// Returns true when user is looged in and email is verified
 	get isLoggedIn(): boolean {
-		const user = JSON.parse(sessionStorage.getItem('user')!);
-		alert(JSON.stringify(user));
-		return user !== null && user.emailVerified !== false ? true : false;
+		const ans = this.session.isLoggedIn();
+		alert("Is logged in: " + ans);
+		return ans;
 	}
 	// Sign in with Google
 	GoogleAuth() {
+		alert("Google login start");
+		this.session.clearSession();
+		alert("Session cleared");
 		const ans = this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-			this.ngZone.run(() => {
-				this.router.navigate(['toppage']);
-			});
+			alert("Google " + JSON.stringify(res));
 		});
-		return ans;
-		
 	}
 	GithubAuth() {
 		const provider = new GithubAuthProvider();
@@ -113,7 +124,7 @@ this.afAuth.authState.subscribe((user) => {
 				alert(JSON.stringify(result));
 				const user = result.user;
 				alert("Github user: " + JSON.stringify(user));
-				sessionStorage.setItem('user', JSON.stringify(user));
+				this.SetUserData(user);
 				// ...
 			}).catch((error) => {
 				// Handle Errors here.
@@ -137,63 +148,111 @@ this.afAuth.authState.subscribe((user) => {
 	}
 	FacebookAuth() {
 		return this.AuthLogin(new auth.FacebookAuthProvider()).then((result: any) => {
+			alert("Facebook after AuthLogin");
 			// This gives you a GitHub Access Token. You can use it to access the GitHub API.
 			const credential = GithubAuthProvider.credentialFromResult(result);
 
 			const token = credential.accessToken;
-			alert("Github token: " + credential.accessToken);
 			// The signed-in user info.
-			alert(JSON.stringify(result));
 			const user = result.user;
-			alert("Github user: " + JSON.stringify(user));
-			sessionStorage.setItem('user', JSON.stringify(user));
-			this.ngZone.run(() => {
-				this.router.navigate(['toppage']);
-			});
+			this.SetUserData(user);
 		});
 	}
-	
+
 	AuthLogin(provider: any) {
-		
+		this.session.clearSession();
 		return this.afAuth
 			.signInWithPopup(provider)
 			.then((result) => {
 				this.SetUserData(result.user);
 				this.ngZone.run(() => {
-					this.router.navigate(['usersetup']);
+					//this.router.navigate(['usersetup']);
 				});
 			})
 			.catch((error) => {
-				window.alert(error);
+				window.alert("Authorization error: " + error);
 			});
 	}
 	/* Setting up user data when sign in with username/password, 
 	sign up with username/password and sign in with social auth  
 	provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-	SetUserData(user: any) {
-		alert("SetUserData: " + JSON.stringify(user));
-		const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-			`users/${user.uid}`
-		);
-		sessionStorage.setItem('user', JSON.stringify(user));
-		const userData: User = {
-			uid: user.uid,
-			email: user.email,
-			displayName: user.displayName,
-			photoURL: user.photoURL,
-			emailVerified: user.emailVerified,
-		};
-		const ans = userRef.set(userData, {
-			merge: true,
+	SetUserData(user: any): void {
+		getAuth().currentUser.getIdToken(true).then((token) => {
+			if (this.session.getAuthorizationData() == null || this.session.getUserAccount() == null) {
+				const uid = user.uid;
+				const email = user.email;
+				const displayname = user.displayName;
+				let providerId = '';
+				const provideridarray = user.providerData;
+				if(provideridarray[0] != null) {
+					const providerdata = provideridarray[0];
+					providerId = providerdata.providerId;
+				}
+				const logintransaction = {};
+				const userdata = {};
+				logintransaction['service'] = 'dataset:FirstLoginService';
+				userdata['email'] = email;
+				userdata['uid'] = uid;
+				userdata['token'] = token;
+				userdata['displayname'] = displayname;
+				userdata['providerId'] = providerId;
+				logintransaction['user'] = userdata;
+				this.session.setAuthorizationData(userdata);
+				this.session.setToken(token);
+				this.getUserInformationFromServer(logintransaction,token);
+			} else {
+				
+			}
 		});
-		alert("SetUserData DONE");
-		return ans
-		
+	}
+	
+	getUserInformationFromServer(logintransaction: any, token: string) {
+				const headerdata = ServiceUtilityRoutines.setupHeader(token);
+				const httpaddr = environment.apiURL + '/' + Login;
+		this.httpClient.post(httpaddr, logintransaction, { headers: headerdata })
+					.subscribe({
+						next: (response: any) => {
+							if (response[Ontologyconstants.successful]=="true") {
+								const loginresult = response[Ontologyconstants.catalogobject];
+								if (loginresult != null) {
+									const result = loginresult[0];
+									const status = result['dataset:loginstage'];
+									
+									this.session.setLoginStatus(status);
+									const loginaccount = result['dataset:loginaccountinfo'];
+									alert("SetUserData status= " + status)
+									if(status == "dataset:LoginAccountInformation") {
+										this.session.storeLoginAccount(loginaccount);
+										this.session.setLoginStatus(status);
+										this.router.navigateByUrl('/usersetup');
+									} else if(status == "dataset:LoginRegistration") {
+										this.session.storeLoginAccount(loginaccount);
+								        const person = result[Ontologyconstants.DatabasePerson];
+										this.session.setDatabasePerson(person);
+										const useraccount = result[Ontologyconstants.UserAccount];
+										this.session.setUserAccount(useraccount);
+										alert("Call toppage");
+										this.router.navigateByUrl('/toppage');
+									} else {
+										alert("status unknown");
+									}
+									
+								} else {
+									alert("No object in response");
+								}
+							} else {
+								alert("Error in setting up login: " + response[Ontologyconstants.message]);
+							}
+
+						}
+					});
+
 	}
 	// Sign out
-	SignOut() {
+	public logout() {
+		this.session.clearSession();
 		return this.afAuth.signOut().then(() => {
-			sessionStorage.removeItem('user');
+			this.session.clearSession();
 			this.router.navigate(['sign-in']);
 		});
 	}

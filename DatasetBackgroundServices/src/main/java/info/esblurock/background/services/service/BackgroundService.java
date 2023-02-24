@@ -51,7 +51,7 @@ public class BackgroundService extends HttpServlet {
 	    
 		String authHeader = request.getHeader("authorization");
 		String encodedValue = authHeader.split(" ")[1];
-		System.out.println("Base64-encoded Authorization Value: <em>" + encodedValue);
+		System.out.println("Base64-encoded Authorization Value: '" + encodedValue + "'");
 		byte[] decodedValue = Base64.getDecoder().decode(encodedValue);
 		System.out.println("</em><br/>Base64-decoded Authorization Value: <em>" + decodedValue);
 		System.out.println("</em>");
