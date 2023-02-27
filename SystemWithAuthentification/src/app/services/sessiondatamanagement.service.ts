@@ -32,11 +32,12 @@ export class SessiondatamanagementService {
   }
   
   public setUserAccount(useracount: any): void {
-    sessionStorage.setItem('prov:SoftwareAgent', JSON.stringify(useracount));
+    localStorage.setItem('prov:SoftwareAgent', JSON.stringify(useracount));
   }
   
   public getUserAccount(): any {
-    return JSON.parse(sessionStorage.getItem('prov:SoftwareAgent'));
+    alert("getUserAccount(): " + localStorage.getItem('prov:SoftwareAgent'));
+    return JSON.parse(localStorage.getItem('prov:SoftwareAgent'));
   }
   
   public setDatabasePerson(useracount: any): void {
@@ -83,7 +84,7 @@ export class SessiondatamanagementService {
     sessionStorage.removeItem('dataset:loginaccountinfo');
     sessionStorage.removeItem('dataset:UserAccountRole');
     sessionStorage.removeItem('dataset:loginstage');
-    sessionStorage.removeItem('prov:SoftwareAgent');
+    localStorage.removeItem('prov:SoftwareAgent');
     sessionStorage.removeItem('vcard:Individual');
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('token');

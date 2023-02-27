@@ -30,25 +30,19 @@ public class GetUserAccountAndDatabasePersonProcess {
         JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(empty);
         firestoreid.addProperty(ClassLabelConstants.SimpleCatalogName, uid);
         System.out.println("GetUserAccountAndDatabasePersonProcess: " + JsonObjectUtilities.toString(firestoreid));
-        JsonObject pairresponse = ReadFirestoreInformation.readFirestoreCollection(null, firestoreid);
+        JsonObject pairresponse = ReadFirestoreInformation.readFirestoreCatalogObject(firestoreid);
         if(pairresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-            System.out.println("NewUserAccount found");
-            JsonArray pairarr = pairresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
-            JsonObject pair = pairarr.get(0).getAsJsonObject();
+            JsonObject pair = pairresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
             JsonObject useraccountid = pair.get(ClassLabelConstants.UserAccountObjectID).getAsJsonObject();
             JsonObject personid = pair.get(ClassLabelConstants.DatabasePersonObjectID).getAsJsonObject();
-            JsonObject useraccountresponse = ReadFirestoreInformation.readFirestoreCollection(null, useraccountid);
+            JsonObject useraccountresponse = ReadFirestoreInformation.readFirestoreCatalogObject(useraccountid);
             if(useraccountresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-                System.out.println("DatabasePerson found");
-                JsonArray useraccountarr = useraccountresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
-                JsonObject useraccount = useraccountarr.get(0).getAsJsonObject();
+                JsonObject useraccount = useraccountresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
                 MessageConstructor.combineBodyIntoDocument(document, useraccountresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
                 
-                JsonObject personresponse = ReadFirestoreInformation.readFirestoreCollection(null, personid);
+                JsonObject personresponse = ReadFirestoreInformation.readFirestoreCatalogObject(personid);
                 if(personresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-                    System.out.println("User Account found");
-                    JsonArray personarr = personresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
-                    JsonObject person = personarr.get(0).getAsJsonObject();
+                    JsonObject person = personresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
                     MessageConstructor.combineBodyIntoDocument(document, personresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
                     
                     JsonObject catalog = CreateDocumentTemplate.createTemplate("dataset:UserAccountDatabasePersonPair");

@@ -73,6 +73,9 @@ public class InitializerUserAccountTransaction {
                         responseoutput.add(ClassLabelConstants.NewUserAccount, initializedaccount);
                         responseoutput.add(ClassLabelConstants.DatabasePerson, databaseperson);
                         responseoutput.add(ClassLabelConstants.UserAccount, useraccount);
+                        responseoutput.addProperty(ClassLabelConstants.UID, uid);
+                        JsonObject firebaseid = initializedaccount.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+                        responseoutput.add(ClassLabelConstants.FirestoreCatalogID,firebaseid);
                         catalogarr.add(responseoutput);
                         String success = "Success in creating a new UserAccount: " + uid;
                         response = DatabaseServicesBase.standardServiceResponse(document, success, catalogarr);

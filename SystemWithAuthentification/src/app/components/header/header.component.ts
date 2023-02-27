@@ -28,12 +28,11 @@ export class HeaderComponent {
 	}
 
 	logout() {
-alert("logout from header");
+
 		this.auth
 			.logout()
 			.pipe(take(1))
 			.subscribe((response) => {
-				alert("logout from subscribe");
 				this.session.clearSession();
 				this.router.navigate([``]);
 				this.snackBar.open('Come back soon with treats! 😿', 'Close', {

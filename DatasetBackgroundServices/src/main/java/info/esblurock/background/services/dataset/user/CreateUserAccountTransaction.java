@@ -101,13 +101,14 @@ public class CreateUserAccountTransaction {
     }
 
     public static void writeUserAccount(JsonObject useraccount, Element body) throws Exception {
-        String message = WriteFirestoreCatalogObject.writeCatalogObjectWithException(useraccount);
-        body.addElement("pre").addText(message);
         ArrayList<String> accountids = ManageDatasetDocumentLists.getCollectionIDsForClass("dataset:UserAccount");
         String uid = useraccount.get(ClassLabelConstants.UID).getAsString();
         accountids.add(uid);
         JsonObject firestoreID = useraccount.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
-        ManageDatasetDocumentLists.writeCollectionIDs(accountids, firestoreID);
+        JsonObject cpy = firestoreID.deepCopy();
+        ManageDatasetDocumentLists.writeCollectionIDs(accountids, cpy);
+        String message = WriteFirestoreCatalogObject.writeCatalogObjectWithException(useraccount);
+        body.addElement("pre").addText(message);
     }
 
     public static ArrayList<String> getUserAccountNameIDs(String username) {

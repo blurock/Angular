@@ -35,14 +35,13 @@ export class AuthService {
 		/* Saving user data in localstorage when
 			  logged in and setting up null when logged out */
 		this.afAuth.authState.subscribe((user) => {
-			alert("this.afAuth.authState.subscribe((user)");
 			if (user) {
 				this.SetUserData(user);
 				this.ngZone.run(() => {
 					//this.router.navigate(['usersetup']);
 				});
 			} else {
-				alert("no user");
+				
 			}
 		});
 	}
@@ -54,11 +53,10 @@ export class AuthService {
 				this.ngZone.run(() => {
 					this.router.navigate(['']);
 				});
-				alert("Signin");
 				this.SetUserData(result.user);
 			})
 			.catch((error) => {
-				window.alert(error.message);
+				alert(error.message);
 			});
 	}
 	// Sign up with email/password
@@ -68,18 +66,22 @@ export class AuthService {
 			.then((result) => {
 				/* Call the SendVerificaitonMail() function when new user sign
 				up and returns promise */
+				const user = result.user;
+				alert("createUserWithEmailAndPassword: " + JSON.stringify(user));
 				this.SendVerificationMail();
-				alert("signup");
+				alert("after send verification");
 				this.SetUserData(result.user);
 			})
 			.catch((error) => {
-				window.alert(error.message);
+				alert("SignUp: " + error.message);
 			});
 	}
 	// Send email verfificaiton when new user sign up
 	SendVerificationMail(): any {
 		return this.afAuth.currentUser
-			.then((u: any) => u.sendEmailVerification())
+			.then((u: any) => 
+				u.sendEmailVerification()
+				)
 			.then(() => {
 				this.router.navigate(['verify-email-address']);
 			});
@@ -98,65 +100,17 @@ export class AuthService {
 	// Returns true when user is looged in and email is verified
 	get isLoggedIn(): boolean {
 		const ans = this.session.isLoggedIn();
-		alert("Is logged in: " + ans);
 		return ans;
 	}
 	// Sign in with Google
 	GoogleAuth() {
-		alert("Google login start");
-		this.session.clearSession();
-		alert("Session cleared");
-		const ans = this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-			alert("Google " + JSON.stringify(res));
-		});
+		const ans = this.AuthLogin(new auth.GoogleAuthProvider());
 	}
 	GithubAuth() {
-		const provider = new GithubAuthProvider();
-		const auth = getAuth();
-		signInWithPopup(auth, provider)
-			.then((result) => {
-				// This gives you a GitHub Access Token. You can use it to access the GitHub API.
-				const credential = GithubAuthProvider.credentialFromResult(result);
-
-				const token = credential.accessToken;
-				alert("Github token: " + credential.accessToken);
-				// The signed-in user info.
-				alert(JSON.stringify(result));
-				const user = result.user;
-				alert("Github user: " + JSON.stringify(user));
-				this.SetUserData(user);
-				// ...
-			}).catch((error) => {
-				// Handle Errors here.
-				const errorCode = error.code;
-				const errorMessage = error.message;
-				// The email of the user's account used.
-				const email = error.customData.email;
-				// The AuthCredential type that was used.
-				const credential = GithubAuthProvider.credentialFromError(error);
-				// ...
-			});
-
-
-		/*
-		return this.AuthLogin(new auth.GithubAuthProvider()).then((res: any) => {
-			this.ngZone.run(() => {
-				this.router.navigate(['toppage']);
-			});
-		});
-		*/
+		const ans = this.AuthLogin(new GithubAuthProvider());
 	}
 	FacebookAuth() {
-		return this.AuthLogin(new auth.FacebookAuthProvider()).then((result: any) => {
-			alert("Facebook after AuthLogin");
-			// This gives you a GitHub Access Token. You can use it to access the GitHub API.
-			const credential = GithubAuthProvider.credentialFromResult(result);
-
-			const token = credential.accessToken;
-			// The signed-in user info.
-			const user = result.user;
-			this.SetUserData(user);
-		});
+		return this.AuthLogin(new auth.FacebookAuthProvider())
 	}
 
 	AuthLogin(provider: any) {
@@ -165,9 +119,6 @@ export class AuthService {
 			.signInWithPopup(provider)
 			.then((result) => {
 				this.SetUserData(result.user);
-				this.ngZone.run(() => {
-					//this.router.navigate(['usersetup']);
-				});
 			})
 			.catch((error) => {
 				window.alert("Authorization error: " + error);
@@ -199,14 +150,14 @@ export class AuthService {
 				logintransaction['user'] = userdata;
 				this.session.setAuthorizationData(userdata);
 				this.session.setToken(token);
-				this.getUserInformationFromServer(logintransaction,token);
+				this.getUserInformationFromServer(logintransaction,token, user);
 			} else {
 				
 			}
 		});
 	}
 	
-	getUserInformationFromServer(logintransaction: any, token: string) {
+	getUserInformationFromServer(logintransaction: any, token: string, user: any) {
 				const headerdata = ServiceUtilityRoutines.setupHeader(token);
 				const httpaddr = environment.apiURL + '/' + Login;
 		this.httpClient.post(httpaddr, logintransaction, { headers: headerdata })
@@ -220,19 +171,30 @@ export class AuthService {
 									
 									this.session.setLoginStatus(status);
 									const loginaccount = result['dataset:loginaccountinfo'];
-									alert("SetUserData status= " + status)
 									if(status == "dataset:LoginAccountInformation") {
 										this.session.storeLoginAccount(loginaccount);
 										this.session.setLoginStatus(status);
-										this.router.navigateByUrl('/usersetup');
+										if(user.emailVerified) {
+											this.router.navigateByUrl('/usersetup');
+										} else {
+											this.router.navigate(['verify-email-address']);
+										}
+										
+										
 									} else if(status == "dataset:LoginRegistration") {
 										this.session.storeLoginAccount(loginaccount);
 								        const person = result[Ontologyconstants.DatabasePerson];
 										this.session.setDatabasePerson(person);
 										const useraccount = result[Ontologyconstants.UserAccount];
 										this.session.setUserAccount(useraccount);
-										alert("Call toppage");
-										this.router.navigateByUrl('/toppage');
+										alert("getUserData: " + JSON.stringify(useraccount));
+										alert("getUserData: " + Object.keys(user));
+										if(user.emailVerified) {
+											this.router.navigateByUrl('/toppage');
+										} else {
+											this.router.navigate(['verify-email-address']);
+										}
+										
 									} else {
 										alert("status unknown");
 									}

@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.user.GetUserAccountAndDatabasePersonProcess;
@@ -71,7 +72,12 @@ public class LoginService extends HttpServlet {
             JsonObject userdata = databody.get("user").getAsJsonObject();
             String uidFromClient = userdata.get("uid").getAsString();
             String email = userdata.get("email").getAsString();
-            String username = userdata.get("displayname").getAsString();
+            String username = email;
+            JsonElement name = userdata.get("displayname");
+            if(name != null && name.isJsonObject()) {
+                username = userdata.get("displayname").getAsString();
+            }
+            
             String authtype = userdata.get("providerId").getAsString();
             body.addElement("div").addText("UID from client: " + uidFromClient);
             body.addElement("div").addText("email from client: " + email);

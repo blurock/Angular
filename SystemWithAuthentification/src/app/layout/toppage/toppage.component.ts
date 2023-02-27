@@ -24,6 +24,7 @@ export class ToppageComponent {
 	
 	setUser(): void {
 		const useraccountdata = this.session.getUserAccount();
+		alert("ToppageComponent: " + JSON.stringify(useraccountdata));
 		this.useraccount.setData(useraccountdata);
 		
 	}
