@@ -204,20 +204,13 @@ export class SetupuserinformationComponent implements OnInit {
 				const success = result['dataset:servicesuccessful'];
 				this.resultHtml = result['dataset:serviceresponsemessage'];
 				if (success === 'true') {
-					alert("success");
-					alert(Object.keys(result));
 				    const arr = result[Ontologyconstants.catalogobject];
-				    alert(JSON.stringify(arr));
 				    const setofobjects = arr[0];
-				    alert("createUserAccount(): " + Object.keys(setofobjects));
 					this.session.setLoginStatus('dataset:LoginRegistration');
 					const person = setofobjects[Ontologyconstants.DatabasePerson];
 					this.session.setDatabasePerson(person);
 					const useraccount = setofobjects[Ontologyconstants.UserAccount];
 					this.session.setUserAccount(useraccount);
-					alert("createUserAccount()" + JSON.stringify(useraccount));
-					alert('User account successfully completed');
-					alert("getUserData: " + JSON.stringify(this.session.getUserAccount()));
 				} else {
 					alert(this.failedresponse);
 				}

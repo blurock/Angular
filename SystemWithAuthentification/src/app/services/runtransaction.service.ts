@@ -26,14 +26,10 @@ export class RuntransactionService {
   }
   
   	private standardHttpCall(httpaddr: string, data: any): Observable<any> {
-      alert("Run Transaction");
-      const uid = this.session.getUID();
+       const uid = this.session.getUID();
       data['uid'] = uid;
-      alert("UID: " + uid);
 		const token = this.session.getToken();
-		alert("Token: " + token);
 		const headerdata = ServiceUtilityRoutines.setupHeader(token);
-		alert("Header data: " + headerdata);
   		return this.httpClient.post(httpaddr,data, { 'headers': headerdata })
 			.pipe(
 				catchError(error => {

@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Login } from '../const/routes.const';
-import {SessiondatamanagementService} from '../services/sessiondatamanagement.service';
+import { SessiondatamanagementService } from '../services/sessiondatamanagement.service';
 import firebase from 'firebase//compat/app';
 import {
 	AngularFirestore,
@@ -41,7 +41,7 @@ export class AuthService {
 					//this.router.navigate(['usersetup']);
 				});
 			} else {
-				
+
 			}
 		});
 	}
@@ -79,9 +79,9 @@ export class AuthService {
 	// Send email verfificaiton when new user sign up
 	SendVerificationMail(): any {
 		return this.afAuth.currentUser
-			.then((u: any) => 
+			.then((u: any) =>
 				u.sendEmailVerification()
-				)
+			)
 			.then(() => {
 				this.router.navigate(['verify-email-address']);
 			});
@@ -100,6 +100,28 @@ export class AuthService {
 	// Returns true when user is looged in and email is verified
 	get isLoggedIn(): boolean {
 		const ans = this.session.isLoggedIn();
+		return ans;
+	}
+	get isRegistered(): boolean {
+		return this.session.getUID() != null;
+	}
+	get isValidated(): boolean {
+		var ans = false;
+		if(environment.production) {
+		const auth = getAuth();
+		const user = auth.currentUser;
+		if (user !== null) {
+			alert(JSON.stringify(user));
+			// The user object has basic properties such as display name, email, etc.
+			const emailVerified = user.emailVerified;
+			alert("emailVerified: " + emailVerified);
+			ans = emailVerified;
+		}
+			
+		} else {
+			ans = true;
+		}
+		
 		return ans;
 	}
 	// Sign in with Google
@@ -135,7 +157,7 @@ export class AuthService {
 				const displayname = user.displayName;
 				let providerId = '';
 				const provideridarray = user.providerData;
-				if(provideridarray[0] != null) {
+				if (provideridarray[0] != null) {
 					const providerdata = provideridarray[0];
 					providerId = providerdata.providerId;
 				}
@@ -147,67 +169,68 @@ export class AuthService {
 				userdata['token'] = token;
 				userdata['displayname'] = displayname;
 				userdata['providerId'] = providerId;
+				userdata['isValidated'] = user.emailVerified;
 				logintransaction['user'] = userdata;
 				this.session.setAuthorizationData(userdata);
 				this.session.setToken(token);
-				this.getUserInformationFromServer(logintransaction,token, user);
+				this.getUserInformationFromServer(logintransaction, token, user);
 			} else {
-				
+
 			}
 		});
 	}
-	
+
 	getUserInformationFromServer(logintransaction: any, token: string, user: any) {
-				const headerdata = ServiceUtilityRoutines.setupHeader(token);
-				const httpaddr = environment.apiURL + '/' + Login;
+		const headerdata = ServiceUtilityRoutines.setupHeader(token);
+		const httpaddr = environment.apiURL + '/' + Login;
 		this.httpClient.post(httpaddr, logintransaction, { headers: headerdata })
-					.subscribe({
-						next: (response: any) => {
-							if (response[Ontologyconstants.successful]=="true") {
-								const loginresult = response[Ontologyconstants.catalogobject];
-								if (loginresult != null) {
-									const result = loginresult[0];
-									const status = result['dataset:loginstage'];
-									
-									this.session.setLoginStatus(status);
-									const loginaccount = result['dataset:loginaccountinfo'];
-									if(status == "dataset:LoginAccountInformation") {
-										this.session.storeLoginAccount(loginaccount);
-										this.session.setLoginStatus(status);
-										if(user.emailVerified) {
-											this.router.navigateByUrl('/usersetup');
-										} else {
-											this.router.navigate(['verify-email-address']);
-										}
-										
-										
-									} else if(status == "dataset:LoginRegistration") {
-										this.session.storeLoginAccount(loginaccount);
-								        const person = result[Ontologyconstants.DatabasePerson];
-										this.session.setDatabasePerson(person);
-										const useraccount = result[Ontologyconstants.UserAccount];
-										this.session.setUserAccount(useraccount);
-										alert("getUserData: " + JSON.stringify(useraccount));
-										alert("getUserData: " + Object.keys(user));
-										if(user.emailVerified) {
-											this.router.navigateByUrl('/toppage');
-										} else {
-											this.router.navigate(['verify-email-address']);
-										}
-										
-									} else {
-										alert("status unknown");
-									}
-									
+			.subscribe({
+				next: (response: any) => {
+					if (response[Ontologyconstants.successful] == "true") {
+						const loginresult = response[Ontologyconstants.catalogobject];
+						if (loginresult != null) {
+							const result = loginresult[0];
+							const status = result['dataset:loginstage'];
+
+							this.session.setLoginStatus(status);
+							const loginaccount = result['dataset:loginaccountinfo'];
+							if (status == "dataset:LoginAccountInformation") {
+								this.session.storeLoginAccount(loginaccount);
+								this.session.setLoginStatus(status);
+								if (user.emailVerified) {
+									this.router.navigateByUrl('/usersetup');
 								} else {
-									alert("No object in response");
+									this.router.navigate(['verify-email-address']);
 								}
+
+
+							} else if (status == "dataset:LoginRegistration") {
+								this.session.storeLoginAccount(loginaccount);
+								const person = result[Ontologyconstants.DatabasePerson];
+								this.session.setDatabasePerson(person);
+								const useraccount = result[Ontologyconstants.UserAccount];
+								this.session.setUserAccount(useraccount);
+								alert("getUserData: " + JSON.stringify(useraccount));
+								alert("getUserData: " + Object.keys(user));
+								if (user.emailVerified) {
+									this.router.navigateByUrl('/toppage');
+								} else {
+									this.router.navigate(['verify-email-address']);
+								}
+
 							} else {
-								alert("Error in setting up login: " + response[Ontologyconstants.message]);
+								alert("status unknown");
 							}
 
+						} else {
+							alert("No object in response");
 						}
-					});
+					} else {
+						alert("Error in setting up login: " + response[Ontologyconstants.message]);
+					}
+
+				}
+			});
 
 	}
 	// Sign out
