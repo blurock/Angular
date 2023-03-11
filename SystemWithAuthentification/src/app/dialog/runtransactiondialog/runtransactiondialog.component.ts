@@ -8,7 +8,8 @@ import { RuntransactionService } from '../../services/runtransaction.service';
 })
 export class RuntransactiondialogComponent implements OnInit {
 
-
+     
+    running: boolean;
 	response = {
 		data: 'help',
 		result: 'more data'
@@ -18,20 +19,21 @@ export class RuntransactiondialogComponent implements OnInit {
 		private runtranaction: RuntransactionService,
 		@Inject(MAT_DIALOG_DATA) public data: any
 	) { 
+		this.running = false;
 	}
 	
 
 	ngOnInit(): void {
-		
-		
 	}
 
 	onNoClick(): void {
 		this.dialogRef.close();
 	}
 	runTransaction() {
+		this.running = true;
 		this.runtranaction.run(this.data).subscribe({
 			next: (result: any) => {
+				this.running = false;
 				this.response = result;
 				this.dialogRef.close(result);
 			}

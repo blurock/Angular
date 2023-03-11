@@ -21,11 +21,9 @@ export class UploadfileinformationComponent implements OnInit {
 	activitydata: any;
 	maintainer: string;
 	resultHtml: string;
-	errormessage = '';
 
 	getannotationsfnotsuccessful = 'Initialization not successful';
 	failedresponse = 'Storage of stagine file failed';
-	message = 'Initializing';
 	title = 'Upload File to Respository';
 	filedefault = 'UploadFileActivity';
 	displaydescbutton = 'Display  information to send to read local file transaction';
@@ -76,7 +74,7 @@ export class UploadfileinformationComponent implements OnInit {
 		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
 			next: (responsedata: any) => {
 				const response = responsedata;
-				this.message = response[Ontologyconstants.message];
+				this.resultHtml = response[Ontologyconstants.message];
 				if (response[Ontologyconstants.successful]) {
 					const catalog = response[Ontologyconstants.catalogobject];
 					this.activitydata = catalog[Ontologyconstants.outputobject];

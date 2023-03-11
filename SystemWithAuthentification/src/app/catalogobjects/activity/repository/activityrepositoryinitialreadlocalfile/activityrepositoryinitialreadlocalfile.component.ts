@@ -51,7 +51,7 @@ export class ActivityrepositoryinitialreadlocalfileComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.infoform = this._formBuilder.group({
-			FileSourceIdentifier: ['No file selected'],
+			FileSourceIdentifier: ['', Validators.required],
 			Identifier: ['No file', Validators.required]
 		});
 	}

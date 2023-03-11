@@ -36,7 +36,6 @@ export class SessiondatamanagementService {
   }
   
   public getUserAccount(): any {
-    alert("getUserAccount(): " + localStorage.getItem('prov:SoftwareAgent'));
     return JSON.parse(localStorage.getItem('prov:SoftwareAgent'));
   }
   

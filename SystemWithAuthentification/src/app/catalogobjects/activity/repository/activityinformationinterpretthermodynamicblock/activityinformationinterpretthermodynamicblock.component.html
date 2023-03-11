@@ -25,6 +25,28 @@
 						</mat-form-field>
 					</mat-grid-tile>
 
+					<mat-grid-tile [colspan]="3" background="lightgray">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:JThermodynamicsSubstructureType'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="JThermodynamicsSubstructureType"
+								[matMenuTriggerFor]="menu.childMenu">
+							<mat-hint>{{annoinfo['dataset:JThermodynamicsSubstructureType'][rdfscomment]}}</mat-hint>
+							<app-menu-item #menu [items]="structitems"
+								(selectionEvent)="setJThermodynamicsSubstructureType($event)"></app-menu-item>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="3" background="lightgray">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][rdfslabel]}}
+							</mat-label>
+							<input matInput formControlName="JThermodynamicsSpeciesSpecificationType"
+								[matMenuTriggerFor]="menu.childMenu">
+							<mat-hint>{{annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][rdfscomment]}}
+							</mat-hint>
+							<app-menu-item #menu [items]="items"
+								(selectionEvent)="setJThermodynamicsSpeciesSpecificationType($event)"></app-menu-item>
+						</mat-form-field>
+					</mat-grid-tile>
 					<mat-grid-tile [colspan]="3">
 						<mat-form-field class="label">
 							<mat-label>{{annoinfo['dataset:BlockInterpretationMethod'][rdfslabel]}}</mat-label>
@@ -42,8 +64,7 @@
 								</mat-chip>
 								<input placeholder="Temperatures" [matChipInputFor]="chipList"
 									[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-									[matChipInputAddOnBlur]="addOnBlur"
-									(matChipInputTokenEnd)="add($event)">
+									[matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
 							</mat-chip-list>
 						</mat-form-field>
 					</mat-grid-tile>

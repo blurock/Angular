@@ -20,6 +20,7 @@ export class Ontologyconstants {
 	public static catalogobject = 'dataset:simpcatobj';
 	public static outputobject = 'dataobj';
 	public static annotations = 'annotations';
+	public static service = 'service';
 	
 	public static DatabaseIDFromRequiredTransaction = 'dataset:transreqobj';
 	

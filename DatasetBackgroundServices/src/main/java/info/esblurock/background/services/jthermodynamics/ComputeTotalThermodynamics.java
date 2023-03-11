@@ -79,4 +79,20 @@ public class ComputeTotalThermodynamics {
         return ComputeThermodynamicsHRadicalCorrections.computeHRadicalCorrections(moleculetocompute, info);
     }
 
+    public static JsonObject calculateTHERMThermodynamics(JsonObject info) {
+        Document document = MessageConstructor.startDocument("Compute Total Thermodynamic Contributions for 2D-graphical Molecule");
+        JsonObject response = null;
+        JsonObject colrecordid = info.get(ClassLabelConstants.DatabaseCollectionRecordID).getAsJsonObject();
+        String maintainer = colrecordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+        String dataset = colrecordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+        IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
+        if (molecule != null) {
+           //response = calculateTHERMThermodynamics(maintainer,dataset,molecule,info,document);
+        } else {
+            String errorS = "Error in interpreting molecule";
+            response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);            
+        }
+        return response;
+    }
+
 }

@@ -37,7 +37,7 @@ public class CalculateThermodynamicsForDisassociationEnergy {
             IAtomContainer molecule = DatasetMoleculeUtilities.convertLinearFormToMolecule(info);
 
             if (molecule != null) {
-                response = calculate(maintainer, dataset, molecule, info);
+                response = calculate(maintainer, dataset, molecule, info, document);
             } else {
                 response = DatabaseServicesBase.standardServiceResponse(document, "Problem converting molecules", null);
             }
@@ -48,13 +48,13 @@ public class CalculateThermodynamicsForDisassociationEnergy {
         return response;
     }
 
-    public static JsonObject calculate(String maintainer, String dataset, IAtomContainer radical, JsonObject info) {
-        Document document = MessageConstructor.startDocument("CalculateThermodynamicsForDisassociationEnergy");
+    public static JsonObject calculate(String maintainer, String dataset, IAtomContainer radical, JsonObject info, Document document) {
         Element body = MessageConstructor.isolateBody(document);
         body.addElement("div").addText("Maintainer      : " + maintainer);
         body.addElement("div").addText("dataset         : " + dataset);
         JsonObject response = null;
         GetSubstructureMatches matches = new GetSubstructureMatches();
+        
         JsonArray disassociationCollection = FindDisassociationEnergyCollection
                 .getTotalDisassociationEnergyCollection(document,maintainer, dataset);
         if (disassociationCollection != null) {

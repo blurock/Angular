@@ -13,6 +13,7 @@ import info.esblurock.background.services.jthermodynamics.ComputeTotalThermodyna
 import info.esblurock.background.services.jthermodynamics.bensonrules.ComputeBensonRulesForMolecule;
 import info.esblurock.background.services.jthermodynamics.dataset.FindMetaAtomDefinitionsInDatasetCollection;
 import info.esblurock.background.services.jthermodynamics.disassociation.CalculateThermodynamicsForDisassociationEnergy;
+import info.esblurock.background.services.jthermodynamics.structcorrections.CalculateStructureCorrection;
 import info.esblurock.background.services.jthermodynamics.symmetry.ComputeThermodynamicsSymmetryContribution;
 import info.esblurock.background.services.jthermodynamics.symmetry.DatabaseCalculateSymmetryCorrection;
 import info.esblurock.background.services.service.MessageConstructor;
@@ -219,15 +220,46 @@ public enum ServiceCollectionComputeThermodynamics {
         @Override
         public JsonObject process(JsonObject activity) {
             JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
-            ComputeTotalThermodynamics.calculateTherGasThermodynamics(info);
+            ComputeTotalThermodynamics.calculateTHERMThermodynamics(info);
             return null;
+        }
+        
+    },
+    ComputeThermodynamicsFromHBIStructures {
+
+        @Override
+        public JsonObject process(JsonObject activity) {
+            JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
+            info.addProperty(ClassLabelConstants.JThermodynamicsSubstructureType, "dataset:HBISubstructure");
+            return CalculateStructureCorrection.calculate(info);
+        }
+        
+    },
+    ComputeThermodynamicsFromRingStrain {
+
+        @Override
+        public JsonObject process(JsonObject activity) {
+            JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
+            info.addProperty(ClassLabelConstants.JThermodynamicsSubstructureType, "dataset:RingStrainCorrectionSubstructure");
+            return CalculateStructureCorrection.calculate(info);
+        }
+        
+    },
+    ComputeThermodynamicsFromStericStructures {
+
+        @Override
+        public JsonObject process(JsonObject activity) {
+            JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
+            info.addProperty(ClassLabelConstants.JThermodynamicsSubstructureType, "dataset:StericCorrectionSubstructure");
+            return CalculateStructureCorrection.calculate(info);
         }
         
     },
     SubstituteMetaAtomsInMolecule {
 
         @Override
-        public JsonObject process(JsonObject info) {
+        public JsonObject process(JsonObject activity) {
+            JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
             return FindMetaAtomDefinitionsInDatasetCollection.substituteMolecule(info);
         }
 
@@ -235,7 +267,8 @@ public enum ServiceCollectionComputeThermodynamics {
     SubstituteAndCondenseLinearMolecule {
 
         @Override
-        public JsonObject process(JsonObject info) {
+        public JsonObject process(JsonObject activity) {
+            JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
             return FindMetaAtomDefinitionsInDatasetCollection.substituteAndCondenseLinearMolecule(info);
         }
 

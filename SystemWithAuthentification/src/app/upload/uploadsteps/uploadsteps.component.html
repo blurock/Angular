@@ -23,6 +23,28 @@
 </mat-step>
 	<mat-step >
 		<ng-template matStepLabel>File Upload</ng-template>
+		<p>
+		This menu is used to upload a data file into the repository. The file is stored as read in (no modifications).
+		Once the information is completed, the <b>Submit</b> button will start the upload transaction. If successful, the 
+		results will appear in the next tab.
+		</p>
+		<p>
+		The file is uploaded from the computer by pressing the upload button (looks like a paper clip). It can be visualized with the eye button.
+		</p>
+		<p>
+		The information is filled in. The description and the title is for the researcher's reference. 
+		The <i>File Source Format</i> specifies the type of file and will determine how the file is to be parsed and interpreted.
+		The <i>Specification for Collection</i> information is used to place all information in the repository. 
+		The <i>Unique Generic Name</i> is used identify all intermediate data (upload and parsing information) associated with this file.
+		The <i>Dataset Name</i> should be the name of an existing collection dataset. 
+		The <i>Object Status</i> (start with Current) and <i>Version</i> further identify the final repository information.
+		The <i>Version</i> should correspond to that in the dataset collection. If, for example, the initial information should be replaced,
+		another version identifier would be used and this would be specified in the dataset collection under the data type.
+		</p>
+		<p>
+		If this file originates from a paper, this can be specified in the <i>Set of References</i>. If, for example, the file has 
+		its origins from something online, the link can be established with <i>Set of Web Links</i>
+		</p>
 		<app-uploadfileinformation #uploadinfo (repositoryEvent)="repositoryEvent($event)"></app-uploadfileinformation>
 		<div>
 			<button mat-button matStepperPrevious>Back</button>
@@ -31,6 +53,11 @@
 	</mat-step>
 	<mat-step >
 		<ng-template matStepLabel>Upload Transaction</ng-template>
+		<p>
+		This tab is the result of uploading the file to the repository. This is the information assocated with the file. 
+		If the information is what is expected, then you can move to the next tab. If there is an error, you can delete the 
+		transaction and try uploading again.
+		</p>
 		<app-initialreadinofrepositoryfileevent #repositoryresults (repositoryEvent)="uploadTransEvent($event)"></app-initialreadinofrepositoryfileevent>
 		<div>
 			<button mat-button matStepperPrevious>Back</button>
@@ -39,6 +66,17 @@
 	</mat-step>
 	<mat-step >
 		<ng-template matStepLabel>Partition File</ng-template>
+		<p>
+		In this step, the file will be partitioned into the individual data objects. For example, if the file had benson rules, this
+		transaction would separate out each block of information representing a benson rule. The information for this step
+		(including specifying the prerequisite of reading in the file) is already filled in. 
+		If OK, press the <b>Submit</b> button. The next tab will show the result of the partitioning.
+		</p>
+		<p>
+		The information has been already fill in. This includes the <i>File Source Format</i> which was given in the last menu. Using this, the 
+		<i>Partition Method</i> and <i>Line Count</i> (if needed). Note that the <i>>Specification for Collection</i> is also carried over 
+		from the last menu.
+		</p>
 		<app-parseuploadedfile #parse (parsedEvent)="parsedEvent($event)"></app-parseuploadedfile>
 		<div>
 			<button mat-button matStepperPrevious>Back</button>
@@ -47,6 +85,13 @@
 	</mat-step>
 	<mat-step >
 		<ng-template matStepLabel>Partition Transaction</ng-template>
+		<p>
+		This tab shows the set of partitions that were made. Each block shows the position of each partition. The number of blocks
+		should correspond to the number of partitions. You can look at the parsed data for each block by pressing the eye above the block
+		(sometimes you have to press it twice, if all the information is not shown). 
+		The next tab will interpret each of these partitions.
+		
+		</p>
 		<app-parsefiletransaction #parsetransaction (parsedTransactionEvent)="parsedTransactionEvent($event)"></app-parsefiletransaction>
 		<div>
 			<button mat-button matStepperPrevious>Back</button>
@@ -55,6 +100,19 @@
 	</mat-step>
 	<mat-step >
 		<ng-template matStepLabel>Interpret Partition</ng-template>
+		<p>
+		This sets up the information for the interpretation of each parsed block. To get the information
+		from the prerequisite parsing transaction, press the <b>Prerequisite</b> button
+		</p>
+		<p>
+		Most of the information is filled in by the prerequisite. However, sometimes some additional information is needed.
+		For example, if the file type is <i>TherGasSubstructureThermodynamics</i>, then the type of substructure has to be 
+		specified, for example <i>HBISubstructure</i> or <i>Ring Strain Structure</i>
+		</p>
+		<p>
+		In this menu you can specify which units the file uses. The default is <i>calories</i> units. But if, for example, the units 
+		are based on <i>Joules</i>, this can be specified. If there is an uncertainty, the type of uncertainty can also be specified.
+		</p>
 		<app-transactioninterprettextblock #interpret (interpretEvent)="interpretEvent($event)"></app-transactioninterprettextblock>
 		<div>
 			<button mat-button matStepperPrevious>Back</button>

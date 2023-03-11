@@ -6,6 +6,8 @@ import { UploadmenuserviceService } from '../../../../services/uploadmenuservice
 import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { NavItem } from '../../../../primitives/nav-item';
+import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 
 @Component({
 	selector: 'app-activityinformationinterpretthermodynamicblock',
@@ -34,6 +36,10 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 
 	objectform: FormGroup;
 
+	structurespecification = 'dataset:JThermodynamicsSpeciesSpecificationType';
+	structuretype = 'dataset:JThermodynamicsSubstructureType'; 
+	items: NavItem[];
+	structitems: NavItem[];
 
 	@Input() annoinfo: any;
 	@Input() fileformat: string;
@@ -50,7 +56,8 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 	constructor(
 		private formBuilder: FormBuilder,
 		private menuserver: OntologycatalogService,
-		private fileservice: UploadmenuserviceService
+		private fileservice: UploadmenuserviceService,
+		private menusetup: MenutreeserviceService
 
 	) {
 		const set = [];
@@ -68,7 +75,9 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 		this.objectform = this.formBuilder.group({
 			DescriptionTitle: ['', Validators.required],
 			BlockInterpretationMethod: ['', Validators.required],
-			FileSourceFormat: ['File Format', Validators.required]
+			FileSourceFormat: ['File Format', Validators.required],
+			JThermodynamicsSpeciesSpecificationType: ['dataset:SpeciesSpecificationNancyLinearForm', Validators.required],
+			JThermodynamicsSubstructureType: ['', Validators.required]
 
 		});
 	}
@@ -84,6 +93,8 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 		} else {
 			alert("File format not defined in ActivityinformationinterpretthermodynamicblockComponent");
 		}
+		this.items = this.menusetup.findChoices(this.annoinfo, this.structurespecification);
+		this.structitems = this.menusetup.findChoices(this.annoinfo, this.structuretype);
 
 	}
 	ngAfterViewInit(): void {
@@ -107,6 +118,9 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 		activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod').value;
 		activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.objectform.get('FileSourceFormat').value;
 		activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle').value;
+		activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]] = this.objectform.get('JThermodynamicsSpeciesSpecificationType').value;
+		activity[this.annoinfo['dataset:JThermodynamicsSubstructureType'][this.identifier]] = this.objectform.get('JThermodynamicsSubstructureType').value;
+
 		this.spec.getData(activity);
 		const enthalpyvalue = {};
 		this.enthalpy.getData(enthalpyvalue);
@@ -118,8 +132,7 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 		this.heatcapacity.getData(heatcapacityvalue);
 		activity[this.annoinfo['dataset:ParameterSpecificationHeatCapacity'][this.identifier]] = heatcapacityvalue;
 		const tempparam = {};
-		
-		//activity[this.annoinfo['dataset:ParameterSpecificationTemperature'][this.identifier]] = tempparam;
+
 		activity['dataset:thermotemperature'] = tempparam;
 		const parameterlabeltid = this.annoinfo['dataset:ParameterLabel'][this.identifier];
 		tempparam[parameterlabeltid] = 'Temperature';
@@ -137,35 +150,27 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 		activity[this.annoinfo['dataset:JThermodynamicBensonTemperatures'][this.identifier]] = this.temperaturelist;
 	}
 	setData(activity: any): void {
-		alert("setData 0 " + Object.keys(activity));
-		alert("setData 0");
 		//this.objectform.get('BlockInterpretationMethod').setValue(activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]]);
 		this.objectform.get('FileSourceFormat').setValue(activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]]);
 		this.objectform.get('DescriptionTitle').setValue(activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
-		alert("setData 1 ");
+		const spectype = activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]];
+		this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue(spectype);
+		const structtype = activity[this.annoinfo['dataset:JThermodynamicsSubstructureType'][this.identifier]];
+		this.objectform.get('JThermodynamicsSubstructureType').setValue(structtype);
 
 		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
-		
-		this.spec.setData(activity[specid]);
-		alert("setData 2 " + Object.keys(this.annoinfo));
 
-		alert("setData 2.1 " + this.annoinfo['dataset:ParameterSpecificationEntropy']);
+		this.spec.setData(activity[specid]);
+
 		const entropyvalue = activity[this.annoinfo['dataset:ParameterSpecificationEntropy'][this.identifier]];
-		alert("setData 2.1 " + JSON.stringify(this.annoinfo['dataset:ParameterSpecificationEntropy'][this.identifier]));
-		alert("setData 2.1 " + Object.keys(activity));
-		alert("setData 2.1 " + JSON.stringify(entropyvalue));
 		this.entropy.setData(entropyvalue);
-		alert("setData 2.2");
 		const heatcapacityvalue = activity[this.annoinfo['dataset:ParameterSpecificationHeatCapacity'][this.identifier]];
 		this.heatcapacity.setData(heatcapacityvalue);
 		this.temperaturelist = activity[this.annoinfo['dataset:JThermodynamicBensonTemperatures'][this.identifier]];
-		alert("setData 3");
-		alert("setData 2 " + this.annoinfo['dataset:ParameterSpecificationEnthalpy']);
 
 		const enthalpyvalue = activity[this.annoinfo['dataset:ParameterSpecificationEnthalpy'][this.identifier]];
-		alert("setData 2.1 " + enthalpyvalue);
 		this.enthalpy.setData(enthalpyvalue);
-		
+
 	}
 
 	add(event: MatChipInputEvent): void {
@@ -179,4 +184,11 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 			this.temperaturelist.splice(index, 1);
 		}
 	}
+	setJThermodynamicsSpeciesSpecificationType($event) {
+		this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue($event);
+	}
+	setJThermodynamicsSubstructureType($event) {
+		this.objectform.get('JThermodynamicsSubstructureType').setValue($event);
+	}
+
 }

@@ -33,7 +33,6 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 
 	identifier = Ontologyconstants.dctermsidentifier;
 	formatInformation: any;
-	message = 'Initializing';
 	fetch = 'Fetch Defaults';
 	fetchdescr = 'Fetch default information from repository object information';
 	displaybutton = 'Display';
@@ -79,19 +78,16 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 
 		this.annotations.getNewCatalogObject(catalogtype).subscribe({
 			next: (responsedata: any) => {
-				this.message = 'got response';
-				this.message = responsedata;
 				const response = responsedata;
-				this.message = 'response JSON';
-				this.message = response[Ontologyconstants.message];
+				this.resultHtml = response[Ontologyconstants.message];
 				if (response[Ontologyconstants.successful]) {
 					const catalog = response[Ontologyconstants.catalogobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];
 				} else {
-					this.message = responsedata;
+					this.resultHtml = responsedata;
 				}
 			},
-			error: (info: any) => { alert('Get Annotations failed:' + this.message); }
+			error: (info: any) => { alert('Get Annotations failed:' ); }
 		});
 
 

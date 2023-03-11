@@ -5,7 +5,7 @@
 		</mat-card-title-group>
 	</mat-card-header>
 	<mat-card-content>
-<ng-container *ngIf='annoinfo != null; else loadingtop'>
+<ng-container *ngIf='annoinfo != null;'>
 
 			<mat-grid-list cols="6" rowHeight="100px">
 				<mat-grid-tile [colspan]="2">
@@ -27,10 +27,10 @@
 
 <app-activityrepositorypartitiontocatalog #partition [(annoinfo)]="annoinfo"></app-activityrepositorypartitiontocatalog>
 </ng-container>
-<ng-template #loadingtop>
-	<div>
-		Loading: {{message}}
-	</div>
-</ng-template>
+		<mat-divider></mat-divider>
+		<ng-container *ngIf="resultHtml != null;">
+		<div [innerHTML]="resultHtml"></div>
+		</ng-container>
+		<mat-divider></mat-divider>
 	</mat-card-content>
 </mat-card>

@@ -30,9 +30,8 @@ export class InterprettextblockresultsComponent implements OnInit {
 	activity: any;
 	transfirestoreid: any;
 	maintainer: string;
-	resultHtml = 'Initializing';
 	catalogtype = 'dataset:DatasetTransactionEventObject';
-	message: string;
+	resultHtml: string;
 	transactionobject: any;
 
 
@@ -59,20 +58,18 @@ export class InterprettextblockresultsComponent implements OnInit {
 	}
 
 	public getCatalogAnnoations(): void {
-		this.message = 'Waiting for Info call';
 		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
 			next: (responsedata: any) => {
 				const response = responsedata;
-				this.message = response[Ontologyconstants.message];
+				this.resultHtml = response[Ontologyconstants.message];
 				if (response[Ontologyconstants.successful]) {
 					const catalog = response[Ontologyconstants.catalogobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];
-					this.resultHtml = 'Annotations';
 				} else {
-					this.message = responsedata;
+					
 				}
 			},
-			error: (info: any) => { alert('Get Annotations failed:' + this.message); }
+			error: (info: any) => { alert('Get Annotations failed:'); }
 		});
 	}
 

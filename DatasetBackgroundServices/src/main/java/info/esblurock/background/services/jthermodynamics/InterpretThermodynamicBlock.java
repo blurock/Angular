@@ -44,9 +44,9 @@ public class InterpretThermodynamicBlock {
 		JsonObject lines = parsed.get(ClassLabelConstants.RepositoryThermoPartitionBlock).getAsJsonObject();
 		String line1 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1).getAsString();
 		String line1a = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1a).getAsString();
-		boolean line1aB = true;
+		boolean line1aB = false;
 		if (line1a.length() > 0) {
-			line1aB = false;
+			line1aB = true;
 		}
 		String line2 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine2).getAsString();
 		String line3 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine3).getAsString();
@@ -63,8 +63,12 @@ public class InterpretThermodynamicBlock {
 					.getAsJsonObject();
 			interpretStandardThermodynamics(point, molthermodynamics, info, row);
 		} catch (JThergasReadException e) {
-			row.addElement("td").addText("Error in parse");
+			row.addElement("td").addText("Error in parse: " + e.getMessage());
 			e.printStackTrace();
+		} catch (Exception e) {
+            row.addElement("td").addText("Error in parse: " + e.getMessage());
+            e.printStackTrace();
+		    
 		}
 
 		return molthermo;
@@ -100,14 +104,23 @@ public class InterpretThermodynamicBlock {
 		String line1a = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1a).getAsString();
 		String line2 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine2).getAsString();
 		String line3 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine3).getAsString();
+		
+		
+		
 		double positionD = lines.get(ClassLabelConstants.Position).getAsDouble();
 		int group = (int) positionD;
 		// JsonObject recordid =
 		// info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection).getAsJsonObject();
 		JThergasThermoStructureGroupPoint point = new JThergasThermoStructureGroupPoint();
 		Element row = table.addElement("tr");
+
+        boolean line1aB = false;
+        if (line1a.length() > 0) {
+            line1aB = true;
+        }
+		
 		try {
-			point.parse(line1, line1a, line2, line3, true, group, group);
+			point.parse(line1, line1a, line2, line3, line1aB, group, group);
 			JsonObject bensonrulestructure = bensonrule.get(ClassLabelConstants.JThermodynamicsBensonRuleStructure)
 					.getAsJsonObject();
 			interpretBensonRuleStructure(point, bensonrulestructure, row);

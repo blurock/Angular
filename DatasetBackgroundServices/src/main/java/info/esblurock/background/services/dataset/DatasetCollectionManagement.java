@@ -61,7 +61,6 @@ public class DatasetCollectionManagement {
 */
 		if (notfound) {
 			JsonObject firestorecoll = getDatabaseSetID(collectionsetidinfo);
-			
 			JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(firestorecoll);
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				datasetcollectionset = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();

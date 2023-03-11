@@ -1,27 +1,70 @@
 <mat-tab-group>
-<mat-tab label="Choose Dataset Collection">
-
+	<mat-tab label="Choose Dataset Collection">
 		<mat-card class="card">
 			<mat-card-header>
 				<mat-card-title-group class="title-group">
-					<mat-card-subtitle class="title">{{setuptitle}}</mat-card-subtitle>
+					<mat-card-title>{{setuptitle}}</mat-card-title>
+					<mat-card-subtitle>Chosen Collection: {{selected}}</mat-card-subtitle>
 				</mat-card-title-group>
 			</mat-card-header>
 			<mat-card-content>
-				<button mat-menu-item color="primary" [matMenuTriggerFor]="menu">
-					<span>Dataset Collections</span>
-				</button>
-				<mat-menu #menu="matMenu">
-					<span *ngFor="let child of items">
-						<button mat-menu-item (click)="datasetChosen(child.collection)">{{child.label}}</button>
-					</span>
-				</mat-menu>
+				<p>
+					With this menu a new collection in the default system is created.
+				</p>
+					<ng-container *ngIf='activityanno != null;'>
+				<form [formGroup]="objectform" class="infoform">
+						<mat-grid-list cols="3" rowHeight="100px">
+							<mat-grid-tile [colspan]="3">
+								<mat-form-field class="label">
+									<mat-label>{{activityanno['dataset:DescriptionTitle'][rdfslabel]}}
+									</mat-label>
+									<input matInput formControlName="DescriptionTitle">
+									<mat-hint>{{activityanno['dataset:DescriptionTitle'][rdfscomment]}}
+									</mat-hint>
+								</mat-form-field>
+							</mat-grid-tile>
+							<mat-grid-tile [colspan]="1" class="tile">
+								<button mat-stroked-button  [matMenuTriggerFor]="menu" class="collection">
+									<span>{{sourcedataset}}</span>
+								</button>
+								<mat-menu #menu="matMenu">
+									<span *ngFor="let child of items">
+										<button mat-menu-item
+											(click)="datasetChosen(child.collection)">{{child.label}}</button>
+									</span>
+								</mat-menu>
+							</mat-grid-tile>
+							<mat-grid-tile [colspan]="1">
+								<mat-form-field class="label">
+									<mat-label>{{activityanno['dataset:SystemDatasetCollectionsSetLabel'][rdfslabel]}}
+									</mat-label>
+									<input matInput formControlName="SystemDatasetCollectionsSetLabel">
+									<mat-hint>{{activityanno['dataset:SystemDatasetCollectionsSetLabel'][rdfscomment]}}
+									</mat-hint>
+								</mat-form-field>
+							</mat-grid-tile>
+							<mat-grid-tile [colspan]="1">
+								<mat-form-field class="label">
+									<mat-label>{{activityanno['dataset:DatasetVersion'][rdfslabel]}}
+									</mat-label>
+									<input matInput formControlName="DatasetVersion">
+									<mat-hint>{{activityanno['dataset:DatasetVersion'][rdfscomment]}}
+									</mat-hint>
+								</mat-form-field>
+							</mat-grid-tile>
+							<mat-grid-tile [colspan]="3">
+							<button mat-raised-button color="primary" class="submit" (click)="submitSystem()"
+							[disabled]="objectform.invalid">{{submit}}</button>
+							</mat-grid-tile>
+						</mat-grid-list>
+				</form>
+					</ng-container>
 			</mat-card-content>
 		</mat-card>
-</mat-tab>
-<mat-tab label="Dataset">
-			<app-thermodynamicsdatasetcollectionidsset #thermocollectionset></app-thermodynamicsdatasetcollectionidsset>
-</mat-tab>
+	</mat-tab>
+	<mat-tab label="Dataset">
+		<app-thermodynamicsdatasetcollectionidsset #thermocollectionset></app-thermodynamicsdatasetcollectionidsset>
+	</mat-tab>
 	<mat-tab label="Logs">
 		<ng-container *ngIf='resultHtml != null;'>
 			<mat-divider></mat-divider>

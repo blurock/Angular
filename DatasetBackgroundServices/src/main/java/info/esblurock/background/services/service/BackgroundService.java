@@ -14,12 +14,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
+import org.dom4j.Document;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseToken;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.InitiallizeSystem;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.background.services.servicecollection.ServiceCollectionQueryOntology;
+import info.esblurock.background.services.transaction.TransactionProcess;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 @WebServlet(name = "BackgroundService", urlPatterns = { "/service" })
@@ -48,7 +54,45 @@ public class BackgroundService extends HttpServlet {
 			e.printStackTrace();
 		}		
 		*/
+        InitiallizeSystem.initialize();
+        String bodyS = IOUtils.toString(request.getInputStream(), "UTF-8");
+
+        String authHeader = request.getHeader("authorization");
+        //System.out.println("Authorization: '" + authHeader + "'");
+        String idToken = authHeader.split(" ")[1];
+        FirebaseToken decodedToken;
+
+        JsonObject answer = null;
+        try {
+            decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
+            String uid = decodedToken.getUid();
+
+            JsonObject body = JsonObjectUtilities.jsonObjectFromString(bodyS);
+            String uidfrombody = body.get("uid").getAsString();
+            System.out.println("? " + uidfrombody + " == " + uid);
+            if (uidfrombody.equals(uid)) {
+                answer = DatabaseServicesBase.process(body);
+            } else {
+                Document document = MessageConstructor.startDocument("Service fatal error UID mismatch");
+                answer = DatabaseServicesBase.standardErrorResponse(null, "UIDs illegal token, user not signed in",
+                        null);
+            }
+        } catch (FirebaseAuthException e) {
+            Document document = MessageConstructor.startDocument("Service fatal error");
+            answer = DatabaseServicesBase.standardErrorResponse(document, "Firebase error: " + e.getMessage(), null);
+            e.printStackTrace();
+        }
+
+        PrintWriter out = response.getWriter();
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        out.print(JsonObjectUtilities.toString(answer));
+        out.flush();
 	    
+	    
+	    
+	    
+	    /*
 		String authHeader = request.getHeader("authorization");
 		String encodedValue = authHeader.split(" ")[1];
 		System.out.println("Base64-encoded Authorization Value: '" + encodedValue + "'");
@@ -65,7 +109,7 @@ public class BackgroundService extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		out.print(JsonObjectUtilities.toString(answer));
 		out.flush();
-	}
+*/	}
 
 	/**
 	 * Read in the JSON data from the body of the post

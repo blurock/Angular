@@ -12,6 +12,7 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.SystemObjectInformation;
 import info.esblurock.background.services.datamanipulation.InterpretTextBlock;
+import info.esblurock.background.services.dataset.DatasetCollectionCreateSystemCollection;
 import info.esblurock.background.services.dataset.DatasetCollectionManagement;
 import info.esblurock.background.services.dataset.user.CreateDatabasePersonTransaction;
 import info.esblurock.background.services.dataset.user.CreateUserAccountTransaction;
@@ -396,6 +397,25 @@ public enum TransactionProcess {
         @Override
         String transactionObjectName() {
             return "dataset:DatasetCollectionObjectSetManipulationTransaction";
+        }
+        
+    },
+    DatasetCollectionSetCreateSystemCollection {
+
+        @Override
+        JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+            return DatasetCollectionCreateSystemCollection.process(event, info);
+        }
+
+        @Override
+        String transactionKey(JsonObject catalog) {
+            String name = catalog.get(ClassLabelConstants.SystemDatasetCollectionsSetLabel).getAsString();
+            return name;
+        }
+
+        @Override
+        String transactionObjectName() {
+            return "dataset:DatasetSystemCollectionManagementTransaction";
         }
         
     },

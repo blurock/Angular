@@ -210,8 +210,6 @@ export class AuthService {
 								this.session.setDatabasePerson(person);
 								const useraccount = result[Ontologyconstants.UserAccount];
 								this.session.setUserAccount(useraccount);
-								alert("getUserData: " + JSON.stringify(useraccount));
-								alert("getUserData: " + Object.keys(user));
 								if (user.emailVerified) {
 									this.router.navigateByUrl('/toppage');
 								} else {

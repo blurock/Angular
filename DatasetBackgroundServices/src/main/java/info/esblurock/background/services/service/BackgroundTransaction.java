@@ -39,7 +39,7 @@ public class BackgroundTransaction extends HttpServlet {
         String bodyS = IOUtils.toString(request.getInputStream(), "UTF-8");
 
         String authHeader = request.getHeader("authorization");
-        System.out.println("Authorization: '" + authHeader + "'");
+        //System.out.println("Authorization: '" + authHeader + "'");
         String idToken = authHeader.split(" ")[1];
         FirebaseToken decodedToken;
 
@@ -50,7 +50,6 @@ public class BackgroundTransaction extends HttpServlet {
 
             JsonObject body = JsonObjectUtilities.jsonObjectFromString(bodyS);
             String uidfrombody = body.get("uid").getAsString();
-            System.out.println("? " + uidfrombody + " == " + uid);
             if (uidfrombody.equals(uid)) {
                 answer = TransactionProcess.processFromTransaction(body, uid);
             } else {
@@ -60,7 +59,7 @@ public class BackgroundTransaction extends HttpServlet {
             }
         } catch (FirebaseAuthException e) {
             Document document = MessageConstructor.startDocument("Transaction fatal error");
-            answer = DatabaseServicesBase.standardErrorResponse(null, "Firebase error: " + e.getMessage(), null);
+            answer = DatabaseServicesBase.standardErrorResponse(document, "Firebase error: " + e.getMessage(), null);
             e.printStackTrace();
         }
 

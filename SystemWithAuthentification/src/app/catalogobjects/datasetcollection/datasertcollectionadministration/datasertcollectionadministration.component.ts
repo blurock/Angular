@@ -4,55 +4,85 @@ import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { ThermodynamicsdatasetcollectionidssetComponent } from '../../datasetcollection/thermodynamicsdatasetcollectionidsset/thermodynamicsdatasetcollectionidsset.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-datasertcollectionadministration',
-  templateUrl: './datasertcollectionadministration.component.html',
-  styleUrls: ['./datasertcollectionadministration.component.scss']
+	selector: 'app-datasertcollectionadministration',
+	templateUrl: './datasertcollectionadministration.component.html',
+	styleUrls: ['./datasertcollectionadministration.component.scss']
 })
 export class DatasertcollectionadministrationComponent implements OnInit {
 
-	setuptitle = 'Choose Dataset Collection Account';
-	serviceid = 'service';
+	setuptitle = 'Add Collection Dataset to Master Dataset';
+	selected: string;
 	items: any;
 	resultHtml: string;
-	
+	userid: string;
+	useritems: any;
+	objectform: FormGroup;
+	sourcedataset = 'Choose Source';
+	submit = 'Create System Dataset';
+	failedsubmission = 'Failed Transaction: no result given';
+
 	datasetcollections: any;
 	collection: any;
-	cataloganno: any;
+
+	rdfslabel = Ontologyconstants.rdfslabel;
+	rdfscomment = Ontologyconstants.rdfscomment;
+	identifier = Ontologyconstants.dctermsidentifier;
+
+
 	maintainer: string;
 	catalogtype = 'dataset:ThermodynamicsDatasetCollectionIDsSet';
+	cataloganno: any;
+	activitytype = 'dataset:ActivityInformationCreateSystemCollection';
+	activityanno: any;
+
 	@ViewChild('thermocollectionset') thermocollectionset: ThermodynamicsdatasetcollectionidssetComponent;
 
-  constructor(
-    public annotations: OntologycatalogService,
-    public runservice: RunserviceprocessService,
-    manageuser: ManageuserserviceService
-  ) { 
-    		manageuser.determineMaintainer().subscribe(result => {
+	constructor(
+		private formBuilder: FormBuilder,
+		private annotations: OntologycatalogService,
+		private runservice: RunserviceprocessService,
+		private manageuser: ManageuserserviceService,
+		public dialog: MatDialog
+	) {
+		this.objectform = this.formBuilder.group({
+			DatasetCollectionsSetLabel: ['', Validators.required],
+			CatalogDataObjectMaintainer: ['', Validators.required],
+			SystemDatasetCollectionsSetLabel: ['', Validators.required],
+			DescriptionTitle: ['', Validators.required],
+			DatasetVersion: ['', Validators.required]
+		});
+		this.getCatalogAnnoations(this.activitytype);
+		this.getCatalogAnnoations(this.catalogtype);
+
+		this.manageuser.determineMaintainer().subscribe(result => {
 			if (result != null) {
 				this.maintainer = result;
-
+				this.objectform.get('CatalogDataObjectMaintainer').setValue(this.maintainer);
 			} else {
-				alert(manageuser.errormaintainer);
+				alert(this.manageuser.errormaintainer);
 			}
 		});
 
-  }
+	}
 
-  ngOnInit(): void {
-    this.getAllDatasetCollections();
-  }
-  
-  	getAllDatasetCollections(): any {
+	ngOnInit(): void {
+		this.getAllDatasetCollections();
+	}
+
+	getAllDatasetCollections(): any {
 		const inputdata = {};
-		inputdata[this.serviceid] = 'FindAllDatasetCollectionSets';
+		inputdata[Ontologyconstants.service] = 'FindAllDatasetCollectionSets';
 		inputdata['dataset:catalogobjectmaintainer'] = this.maintainer;
 		this.runservice.run(inputdata).subscribe({
 			next: (responsedata: any) => {
-        this.resultHtml = responsedata[Ontologyconstants.message];
+				this.resultHtml = responsedata[Ontologyconstants.message];
 				const success = responsedata[Ontologyconstants.successful];
-				if (success == 'true') {
+				if (success === 'true') {
 					this.datasetcollections = responsedata[Ontologyconstants.catalogobject];
 					this.makeDatasetMenu();
 				} else {
@@ -61,41 +91,98 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 			}
 		});
 	}
-	
-	makeDatasetMenu(): void {
-    let num = 0;
-    this.items = [];
-    for(let collection of this.datasetcollections) {
-      const label = collection['dataset:datasetcollectionslabel'];
-      const item = {};
-      item['label'] = label;
-      item['collection'] = collection;
-      this.items.push(item);
-    }
-  }
 
-  
-  datasetChosen(child): void {
-    this.collection = child;
-    this.thermocollectionset.setData(this.collection);
-    this.setuptitle = 'Dataset: ' + this.collection['dataset:datasetcollectionslabel']
-  }
-public getCatalogAnnoations(): void {
-		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
+	makeDatasetMenu(): void {
+		this.items = [];
+		for (const collection of this.datasetcollections) {
+			const label = collection['dataset:datasetcollectionslabel'];
+			const item = {};
+			item['label'] = label;
+			item['collection'] = collection;
+			this.items.push(item);
+		}
+	}
+
+
+	datasetChosen(child: any): void {
+		this.collection = child;
+		this.thermocollectionset.setData(this.collection);
+		const chosendataset = this.collection['dataset:datasetcollectionslabel'];
+		this.selected = chosendataset;
+		this.objectform.get('DatasetCollectionsSetLabel').setValue(chosendataset);
+		this.sourcedataset = chosendataset;
+	}
+
+	userChosen(user: string): void {
+		this.userid = user;
+	}
+	public getCatalogAnnoations(type: string): void {
+		this.annotations.getNewCatalogObject(type).subscribe({
 			next: (responsedata: any) => {
 				const response = responsedata;
 				this.resultHtml = response[Ontologyconstants.message];
 				if (response[Ontologyconstants.successful]) {
 					const catalog = response[Ontologyconstants.catalogobject];
-					this.cataloganno = catalog[Ontologyconstants.annotations];
-				} else {
-					
+					const anno = catalog[Ontologyconstants.annotations];
+					if (type === this.catalogtype) {
+						this.cataloganno = anno;
+					} else {
+						this.activityanno = anno;
+					}
+
+
 				}
 			},
 			error: (info: any) => { alert('Get Annotations failed: see logs'); }
 		});
 	}
-newCollectionV($event) {
+
+	getListOfUsers(): void {
+		const inputdata = {};
+		inputdata[Ontologyconstants.service] = 'ListOfUserAccountNames';
+		this.runservice.run(inputdata).subscribe({
+			next: (responsedata: any) => {
+				const success = responsedata[Ontologyconstants.successful];
+				if (success === 'true') {
+					const objarr = responsedata[Ontologyconstants.catalogobject];
+					const obj = objarr[0];
+					this.useritems = obj[Ontologyconstants.username];
+				}
+			}
+		});
+	}
 	
-}
+	getActivity(activity: any): void {
+		activity[this.activityanno['dataset:DatasetCollectionsSetLabel'][this.identifier]] = this.objectform.get('DatasetCollectionsSetLabel').value;
+		activity[this.activityanno['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.objectform.get('CatalogDataObjectMaintainer').value;
+		activity[this.activityanno['dataset:SystemDatasetCollectionsSetLabel'][this.identifier]] = this.objectform.get('SystemDatasetCollectionsSetLabel').value;
+		activity[this.activityanno['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle').value;
+		activity[this.activityanno['dataset:DatasetVersion'][this.identifier]] = this.objectform.get('DatasetVersion').value;
+
+	}
+	submitSystem(): void {
+		const transaction = {};
+		transaction[Ontologyconstants.TransactionEventType] = 'dataset:DatasetCollectionSetCreateSystemCollection';
+		const activity = {};
+		this.getActivity(activity);
+		transaction[Ontologyconstants.ActivityInfo] = activity;
+		const dialogRef = this.dialog.open(RuntransactiondialogComponent, {
+			data: transaction
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			if (result != null) {
+				const success = result['dataset:servicesuccessful'];
+				this.resultHtml = result['dataset:serviceresponsemessage'];
+				if (success === 'true') {
+					alert('Transaction successful');
+				} else {
+				}
+			} else {
+				this.resultHtml = this.failedsubmission;
+			}
+		});
+
+	}
+
 }

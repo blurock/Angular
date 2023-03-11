@@ -44,4 +44,7 @@ export class HeaderComponent {
 toppage(): void {
 	this.router.navigateByUrl('/toppage');
 }
+home(): void {
+	this.router.navigateByUrl('');
+}
 }

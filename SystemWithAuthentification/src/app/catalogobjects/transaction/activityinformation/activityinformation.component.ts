@@ -112,7 +112,7 @@ displaydescbutton = 'Press to fill in prerequisite information';
 				this.benson.setPrerequisiteData(prerequisite);
 			}
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretSubstructureThermodynamics') {
-			//this.structure.setData(activity);
+			this.structure.setPrerequisiteData(prerequisite);
 		} else if (this.activityname == 'dataset:ActivityInformationMolecularThermodynamics') {
 			//this.species.setData(activity);
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretVibrationalMode') {
@@ -139,6 +139,8 @@ displaydescbutton = 'Press to fill in prerequisite information';
 
 
 	setData(activity: any): void {
+		alert("setData");
+		alert("setData: " + this.activityname);
 		const activityB = this.activityname == 'dataset:ActivityRepositoryInitialReadLocalFile';
 		if (activityB) {
 			this.readlocal.setData(activity);
