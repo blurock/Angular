@@ -59,7 +59,9 @@ export class ActivityinformationinterpretvibrationalmodeComponent implements OnI
 		});
 
 	}
-
+    invalid(): boolean {
+		return this.objectform.invalid;
+	}
 	ngOnInit(): void {
 		this.fileservice.getFormatClassification().subscribe({
 			next: (data: any) => {

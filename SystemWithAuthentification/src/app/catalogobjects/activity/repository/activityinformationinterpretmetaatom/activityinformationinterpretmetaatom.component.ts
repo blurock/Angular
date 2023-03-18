@@ -57,6 +57,10 @@ export class ActivityinformationinterpretmetaatomComponent implements OnInit {
 		this.items = this.menusetup.findChoices(this.annoinfo, this.speciesspec);
 	}
 	
+	invalid(): boolean {
+		return this.objectform.invalid;
+	}
+	
 	setPrerequisiteData(prerequisite: any): void {
 		const activityinfo = prerequisite['dataset:activityinfo'];
 		this.setData(activityinfo);

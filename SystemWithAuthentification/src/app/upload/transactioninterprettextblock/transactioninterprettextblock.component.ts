@@ -48,6 +48,8 @@ export class TransactioninterprettextblockComponent implements OnInit {
 	prerequisite: any;
 	activityinitialdata: any;
 	specificationid: any;
+	
+	prerequisitebutton: boolean;
 
 	@ViewChild('activity') activity: ActivityinformationComponent;
 
@@ -76,10 +78,17 @@ export class TransactioninterprettextblockComponent implements OnInit {
 	}
 
 	invalid(): boolean {
-		return false;
+		var ans = !this.prerequisitebutton;
+		if(this.activity != null) {
+		    ans = ans || this.activity.invalid();
+		} else {
+			ans = true;
+		}
+		return ans;
 	}
 
 	setFileFormat(fileformat: string) {
+		alert("setFormat");
 		this.formatinfodata = this.formatInformation[fileformat];
 		if (this.formatinfodata == null) {
 			this.formatinfodata = this.findInFormatInformation(fileformat);
@@ -91,6 +100,7 @@ export class TransactioninterprettextblockComponent implements OnInit {
 		} else {
 			this.activitytype = this.formatinfodata['prov:activity'];
 		}
+		alert("setFormat: " + this.activitytype);
 	}
 
 	findInFormatInformation(formattrans: string): string {
@@ -113,6 +123,7 @@ export class TransactioninterprettextblockComponent implements OnInit {
 		this.prerequisite = transaction;
 		this.activityinfo = this.prerequisite['dataset:activityinfo'];
 		if (this.activityinfo != null) {
+			this.prerequisitebutton = true;
 			this.specificationid = this.activityinfo['dataset:datasettransactionspecification'];
 			if (this.specificationid != null) {
 				this.filedefault = this.specificationid['dataset:uniquegenericname'];
@@ -121,6 +132,7 @@ export class TransactioninterprettextblockComponent implements OnInit {
 			}
 			const fileformat = this.activityinfo['dataset:filesourceformat'];
 			this.setFileFormat(fileformat);
+			alert("Interpret: setPrerequisite: this.activity=" + this.activity);
 			if (this.activity != null) {
 				this.activity.setPrerequisiteData(this.prerequisite);
 			}
@@ -128,14 +140,17 @@ export class TransactioninterprettextblockComponent implements OnInit {
 		} else {
 			alert(this.prerequisiteerror);
 		}
+		alert("Interpret: setPrerequisite:  end activityinfo " + JSON.stringify(this.activityinfo));
 	}
 
 	activitysetup(): void {
+		alert("activitysetup() begin");
 		if (this.prerequisite != null) {
 				this.activity.setPrerequisiteData(this.prerequisite);
 		} else {
 			alert("prerequisite not set up");
 		}
+		alert("activitysetup() end");
 	}
 
 	getTransactionData(transaction: any) {

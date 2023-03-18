@@ -55,6 +55,10 @@ export class ActivityinformationinterpretsymmetryinformationComponent implements
 		});
 	}
 	
+	invalid(): boolean {
+    	return this.objectform.invalid;
+  }
+	
 	setPrerequisiteData(prerequisite: any) {
 		const actinfo = prerequisite['dataset:activityinfo'];
 		const titleid = this.annoinfo['dataset:DescriptionTitle'][this.identifier];

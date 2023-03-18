@@ -45,5 +45,8 @@ export class Ontologyconstants {
 	public static UserAccountRole = 'dataset:UserAccountRole';
 	
 	public static textfile = 'dataset:FileTypeText';
+	
+	public static ThermodynamicsSystemCollectionIDsSet = 'dataset:systemdatasetcollection';
+	public static ThermodynamicsDatasetCollectionIDsSet = 'dataset:datasetcollectionids';
 
 }

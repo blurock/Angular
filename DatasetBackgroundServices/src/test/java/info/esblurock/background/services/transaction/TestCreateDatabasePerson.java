@@ -21,8 +21,9 @@ public class TestCreateDatabasePerson {
 				+ "	\"dataset:publicread\": \"true\",\n" + "	\"dataset:personfullname\":\"Edward Blurock\",\n"
 				+ "	\"dcterms:identifier\":\"dataset:personcreate\",\n"
 				+ "	\"dcterms:title\": \"Edward Blurock, Sweden\"\n" + "    }\n" + "}\n" + "";
+		String maintainer = "Administrator";
 		JsonObject json = JsonObjectUtilities.jsonObjectFromString(jsonS);
-		JsonObject response = TransactionProcess.processFromTransaction(json);
+		JsonObject response = TransactionProcess.processFromTransaction(json,maintainer);
 		System.out.println(JsonObjectUtilities.toString(response));
 
 	}

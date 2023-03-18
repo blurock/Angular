@@ -94,11 +94,16 @@ export class UploadstepsComponent implements OnInit {
 	uploadTransEvent($event): void {
 					const catalog = $event[Ontologyconstants.catalogobject];
 					this.repositoryresults.setCatalog(catalog);
-					this.parse.setFileStaging(catalog);		
+					this.parse.setFileStaging(catalog);	
+					const format = this.parse.formatValue();
+					this.interpret.setFileFormat(format);	
 	}
 	parsedEvent($event): void {
 		const transaction = $event[Ontologyconstants.TransactionEventObject];
 		this.parsetransaction.setData(transaction);
+		const activity = transaction['dataset:activityinfo'];
+		const format = activity['dataset:filesourceformat'];
+		this.interpret.setFileFormat(format);
 		this.interpret.setPrerequisite(transaction);
 	}
 	parsedTransactionEvent($event) {

@@ -32,7 +32,8 @@ public class TestCreateUserAccount {
 		System.out.println("Required: " + ClassLabelConstants.DatabaseIDFromRequiredTransaction);
 		System.out.println("Call:");
 		// System.out.println(JsonObjectUtilities.toString(TransactionProcess.getPrerequisiteObjects(json)));
-		JsonObject response = TransactionProcess.processFromTransaction(json);
+		String maintainer = "Administrator";
+		JsonObject response = TransactionProcess.processFromTransaction(json,maintainer);
 		System.out.println(JsonObjectUtilities.toString(response));
 	}
 
@@ -47,7 +48,8 @@ public class TestCreateUserAccount {
 				+ "	\"dcterms:identifier\":\"dataset:personcreate\",\n"
 				+ "	\"dcterms:title\": \"Edward Blurock, Sweden\"\n" + "    }\n" + "}\n" + "";
 		JsonObject json = JsonObjectUtilities.jsonObjectFromString(jsonS);
-		JsonObject response = TransactionProcess.processFromTransaction(json);
+		String maintainer = "Administrator";
+		JsonObject response = TransactionProcess.processFromTransaction(json,maintainer);
 		JsonObject output = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 		JsonObject id = output.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
 		return id;

@@ -7,6 +7,7 @@ import { ThermodynamicsdatasetcollectionidssetComponent } from '../../datasetcol
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import {NavItem} from '../../../primitives/nav-item';
 
 @Component({
 	selector: 'app-datasertcollectionadministration',
@@ -17,7 +18,7 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 
 	setuptitle = 'Add Collection Dataset to Master Dataset';
 	selected: string;
-	items: any;
+	items: NavItem[];
 	resultHtml: string;
 	userid: string;
 	useritems: any;
@@ -26,12 +27,16 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 	submit = 'Create System Dataset';
 	failedsubmission = 'Failed Transaction: no result given';
 
+systemcollections: any;
 	datasetcollections: any;
 	collection: any;
 
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
+	
+	
+	
 
 
 	maintainer: string;
@@ -72,6 +77,11 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getAllDatasetCollections();
+		if(this.items.length == 1) {
+			const choice = this.items[0];
+			this.objectform.get('CatalogDataObjectMaintainer').setValue(choice);
+			
+		}
 	}
 
 	getAllDatasetCollections(): any {
@@ -83,8 +93,45 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 				this.resultHtml = responsedata[Ontologyconstants.message];
 				const success = responsedata[Ontologyconstants.successful];
 				if (success === 'true') {
-					this.datasetcollections = responsedata[Ontologyconstants.catalogobject];
-					this.makeDatasetMenu();
+					const arr = responsedata[Ontologyconstants.catalogobject];
+					alert(JSON.stringify(arr));
+					const set = arr[0];
+					alert(JSON.stringify(set));
+					this.systemcollections = set[Ontologyconstants.ThermodynamicsSystemCollectionIDsSet];
+					alert("this.systemcollections" + JSON.stringify(this.systemcollections));
+					this.datasetcollections = set[Ontologyconstants.ThermodynamicsDatasetCollectionIDsSet];
+					alert("this.datasetcollections" + JSON.stringify(this.datasetcollections));
+					this.items = [];
+					if (this.systemcollections != null) {
+						const systemitems = this.makeDatasetMenu(this.systemcollections);
+						if (this.datasetcollections != null) {
+							const datasetitems = this.makeDatasetMenu(this.datasetcollections);
+
+							const sysitems = {
+								displayName: 'From System',
+								disabled: false,
+								value: 'From System',
+								children: systemitems
+							}
+							const datitems = {
+								displayName: 'From User',
+								disabled: false,
+								value: 'From User',
+								children: datasetitems
+							}
+							this.items.push(sysitems);
+							this.items.push(datitems);
+						} else {
+							this.items = systemitems;
+						}
+					} else {
+						if (this.datasetcollections != null) {
+							const datasetitems = this.makeDatasetMenu(this.datasetcollections);
+							this.items = datasetitems;
+						} else {
+
+						}
+					}
 				} else {
 					alert('List of Datasets not available');
 				}
@@ -92,26 +139,53 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 		});
 	}
 
-	makeDatasetMenu(): void {
-		this.items = [];
+	makeDatasetMenu(system: any): NavItem[] {
+		var items = [];
 		for (const collection of this.datasetcollections) {
 			const label = collection['dataset:datasetcollectionslabel'];
-			const item = {};
-			item['label'] = label;
-			item['collection'] = collection;
-			this.items.push(item);
+			const celement: NavItem = {
+				displayName: label,
+				disabled: false,
+				value: label,
+				children: []
+			};
+			items.push(celement);
 		}
+		return items;
 	}
 
 
-	datasetChosen(child: any): void {
-		this.collection = child;
+	datasetChosen(child:string ): void {
+		this.collection = this.getCollection(child);
 		this.thermocollectionset.setData(this.collection);
 		const chosendataset = this.collection['dataset:datasetcollectionslabel'];
 		this.selected = chosendataset;
 		this.objectform.get('DatasetCollectionsSetLabel').setValue(chosendataset);
 		this.sourcedataset = chosendataset;
 	}
+	
+	getCollection(name: string) {
+		var chosen = null;
+		if(this.systemcollections != null) {
+			for(var i=0; i<this.systemcollections.size() && chosen == null; i++) {
+				const coll = this.systemcollections[i];
+				if(name === coll['dataset:datasetcollectionslabel']) {
+					chosen = coll;
+				}
+			}
+		}
+		if(this.datasetcollections != null) {
+			for(var i=0; i<this.datasetcollections.size() && chosen == null; i++) {
+				const coll = this.datasetcollections[i];
+				if(name === coll['dataset:datasetcollectionslabel']) {
+					chosen = coll;
+				}
+			}
+		}
+		return chosen;
+	}
+	
+	
 
 	userChosen(user: string): void {
 		this.userid = user;
@@ -151,7 +225,7 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 			}
 		});
 	}
-	
+
 	getActivity(activity: any): void {
 		activity[this.activityanno['dataset:DatasetCollectionsSetLabel'][this.identifier]] = this.objectform.get('DatasetCollectionsSetLabel').value;
 		activity[this.activityanno['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.objectform.get('CatalogDataObjectMaintainer').value;

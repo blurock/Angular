@@ -70,36 +70,41 @@ public class FindDatasetCollections {
         JsonObject response = null;
         if (json.get(ClassLabelConstants.CatalogDataObjectMaintainer) != null) {
             String maintainer = json.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-
             Document docmessage = MessageConstructor
-                    .startDocument("Find All Dataset Collection Sets for " + maintainer);
-
-            JsonObject collectionfirestore = CreateDocumentTemplate.createTemplate(firestoreclassname);
-            collectionfirestore.addProperty(ClassLabelConstants.DataCatalog, "hieridcollectionset");
-            collectionfirestore.remove(ClassLabelConstants.SimpleCatalogName);
-            JsonObject pairset = collectionfirestore.get(ClassLabelConstants.CollectionDocumentIDPairAddress)
-                    .getAsJsonObject();
-            JsonArray pairs = new JsonArray();
-            pairset.add(ClassLabelConstants.CollectionDocumentIDPair, pairs);
-            JsonObject pair = CreateDocumentTemplate.createTemplate(collectiondocumentid);
-            pair.addProperty(ClassLabelConstants.DatasetDocumentID, maintainer);
-            pair.addProperty(ClassLabelConstants.DatasetCollectionID, "hierthermodynamicdataset");
-            pair.addProperty(ClassLabelConstants.DatasetIDLevel, "0");
-            pairs.add(pair);
-
-            response = ReadFirestoreInformation.readFirestoreCollection(null, collectionfirestore);
-            if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-                JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
-                String message = "Successful read of Dataset Collection " + arr.size() + " sets";
-                MessageConstructor.combineBodyIntoDocument(docmessage,
-                        response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
-                response = DatabaseServicesBase.standardServiceResponse(docmessage, message, arr);
+                    .startDocument("Find All Dataset Collection Sets for " + maintainer + " and system");
+            Element body = MessageConstructor.isolateBody(docmessage);
+            JsonObject sets = new JsonObject();
+            JsonObject maintainerresponse = readCollectionSetForMaintainer(maintainer);
+            MessageConstructor.combineBodyIntoDocument(docmessage, maintainerresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
+            if(maintainerresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+                JsonArray arr = maintainerresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+                if(arr.size() > 0) {
+                    sets.add(ClassLabelConstants.ThermodynamicsDatasetCollectionIDsSet, arr);
+                    body.addElement("div").addText(arr.size() + " collection sets for " + maintainer);
+                } else {
+                    body.addElement("div").addText("No collection sets for " + maintainer);
+                }
             } else {
-                String message = "Unsuccessful read of Dataset Collection";
-                MessageConstructor.combineBodyIntoDocument(docmessage,
-                        response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
-                response = DatabaseServicesBase.standardErrorResponse(docmessage, message, null);
+                body.addElement("div").addText("Error in reading collection sets. No collection sets for " + maintainer);
             }
+            
+            JsonObject systemresponse = readCollectionSetForMaintainer(DatasetCollectionCreateSystemCollection.systemhierarchy);
+            MessageConstructor.combineBodyIntoDocument(docmessage, systemresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
+            if(systemresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+                JsonArray arr = systemresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+                if(arr.size() > 0) {
+                    sets.add(ClassLabelConstants.ThermodynamicsSystemCollectionIDsSet, arr);
+                    body.addElement("div").addText(arr.size() + " collection sets for " + DatasetCollectionCreateSystemCollection.systemhierarchy);
+                } else {
+                    body.addElement("div").addText("No collection sets for " + DatasetCollectionCreateSystemCollection.systemhierarchy);
+                }
+            } else {
+                body.addElement("div").addText("Error in reading collection sets. No collection sets for " + DatasetCollectionCreateSystemCollection.systemhierarchy);
+            }
+            JsonArray ansarr = new JsonArray();
+            ansarr.add(sets);
+            response = DatabaseServicesBase.standardServiceResponse(docmessage, "Collection Sets read", ansarr);
+
         } else {
             String message = "Unsuccessful read of Dataset Collection: no maintainer specified";
             Document docmessage = MessageConstructor.startDocument("Find All Dataset Collection Sets");
@@ -107,5 +112,42 @@ public class FindDatasetCollections {
         }
         return response;
 
+    }
+    
+    private static JsonObject readCollectionSetForMaintainer(String maintainer) {
+        Document docmessage = MessageConstructor
+                .startDocument("Find All Dataset Collection Sets for " + maintainer);
+        JsonObject response = null;
+        JsonObject collectionfirestore = createFirestoreForCollectionSet(maintainer);
+        response = ReadFirestoreInformation.readFirestoreCollection(null, collectionfirestore);
+        if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+            JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+            String message = "Successful read of Dataset Collection " + arr.size() + " sets";
+            MessageConstructor.combineBodyIntoDocument(docmessage,
+                    response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
+            response = DatabaseServicesBase.standardServiceResponse(docmessage, message, arr);
+        } else {
+            String message = "Unsuccessful read of Dataset Collection";
+            MessageConstructor.combineBodyIntoDocument(docmessage,
+                    response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
+            response = DatabaseServicesBase.standardErrorResponse(docmessage, message, null);
+        }
+        return response;
+    }
+    
+    private static JsonObject createFirestoreForCollectionSet(String maintainer) {
+        JsonObject collectionfirestore = CreateDocumentTemplate.createTemplate(firestoreclassname);
+        collectionfirestore.addProperty(ClassLabelConstants.DataCatalog, "hieridcollectionset");
+        collectionfirestore.remove(ClassLabelConstants.SimpleCatalogName);
+        JsonObject pairset = collectionfirestore.get(ClassLabelConstants.CollectionDocumentIDPairAddress)
+                .getAsJsonObject();
+        JsonArray pairs = new JsonArray();
+        pairset.add(ClassLabelConstants.CollectionDocumentIDPair, pairs);
+        JsonObject pair = CreateDocumentTemplate.createTemplate(collectiondocumentid);
+        pair.addProperty(ClassLabelConstants.DatasetDocumentID, maintainer);
+        pair.addProperty(ClassLabelConstants.DatasetCollectionID, "hierthermodynamicdataset");
+        pair.addProperty(ClassLabelConstants.DatasetIDLevel, "0");
+        pairs.add(pair);
+        return  collectionfirestore;       
     }
 }

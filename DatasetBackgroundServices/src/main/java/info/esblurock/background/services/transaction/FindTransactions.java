@@ -1,12 +1,25 @@
 package info.esblurock.background.services.transaction;
 
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+
 import org.dom4j.Document;
 import org.dom4j.Element;
 
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.Firestore;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.firestore.FirestoreBaseClass;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
+import info.esblurock.background.services.firestore.SetUpDocumentReference;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
@@ -14,6 +27,10 @@ import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate
 import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
+/**
+ * @author edwardblurock
+ *
+ */
 public class FindTransactions {
 
     public static JsonObject findRDFShortTransactionDescriptionByType(String type) {
@@ -211,13 +228,16 @@ public class FindTransactions {
         return transaction;
     }
 
-    /** Find a specific transaction for a dataset
+    /**
+     * Find a specific transaction for a dataset
      * 
-     * The point of this is to use the DatasetTransactionSpecificationForCollection specification
-     * to find the collection of transactions. The ID finds the specific ID
+     * The point of this is to use the DatasetTransactionSpecificationForCollection
+     * specification to find the collection of transactions. The ID finds the
+     * specific ID
      * 
-     * @param info: The ActivityInformationRecord
-     * @param type The transaction event type (subclass of TransactionEvent)
+     * @param info:         The ActivityInformationRecord
+     * @param type          The transaction event type (subclass of
+     *                      TransactionEvent)
      * @param transactionID The transaction ID (not the database ID)
      * @return
      */
@@ -241,25 +261,25 @@ public class FindTransactions {
             JsonArray props = setofprops.get(ClassLabelConstants.PropertyValueQueryPair).getAsJsonArray();
             props.add(idprop);
 
-            
             response = ReadFirestoreInformation.readFirestoreCollection(setofprops, firestoreid);
 
-            //JsonObjectUtilities.printResponse(response);
+            // JsonObjectUtilities.printResponse(response);
             if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
                 String rdfmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
                 MessageConstructor.combineBodyIntoDocument(document, rdfmessage);
                 JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
                 if (arr != null) {
-                    if(arr.size() > 0) {
+                    if (arr.size() > 0) {
                         transaction = arr.get(0).getAsJsonObject();
                         response = DatabaseServicesBase.standardServiceResponse(document,
-                                "Sucesss: Transaction found: ", transaction);                        
+                                "Sucesss: Transaction found: ", transaction);
                     } else {
                         response = DatabaseServicesBase.standardErrorResponse(document, "No transactions found", null);
                     }
                 } else {
-                    response = DatabaseServicesBase.standardErrorResponse(document, "No transactions found: error in reading database", null);
-                    
+                    response = DatabaseServicesBase.standardErrorResponse(document,
+                            "No transactions found: error in reading database", null);
+
                 }
             } else {
                 String idS = JsonObjectUtilities.toString(firestoreid);
@@ -275,4 +295,225 @@ public class FindTransactions {
         }
         return response;
     }
+
+    public static JsonObject findDatasetNameForMaintainer(JsonObject info) {
+        Document document = MessageConstructor.startDocument("findDatasetNameForMaintainer");
+        Element body = MessageConstructor.isolateBody(document);
+        JsonObject response = null;
+        String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+        String eventtype = null;
+        if(info.get(ClassLabelConstants.TransactionEventType) != null) {
+            eventtype = info.get(ClassLabelConstants.TransactionEventType).getAsString();
+        }
+        String catalogtype = null;
+        if(info.get(ClassLabelConstants.CatalogObjectType) != null) {
+            catalogtype = info.get(ClassLabelConstants.CatalogObjectType).getAsString();
+        }
+        JsonObject firestoreid = CreateDocumentTemplate.createTemplate("dataset:FirestoreCatalogID");
+        JsonArray pairs = new JsonArray();
+        firestoreid.add(ClassLabelConstants.CollectionDocumentIDPairAddress, pairs);
+        firestoreid.addProperty(ClassLabelConstants.DataCatalog, "hierthermodynamicdataset");
+        firestoreid.addProperty(ClassLabelConstants.SimpleCatalogName, maintainer);
+        
+        
+        
+        return response;
+    }
+
+   
+    
+    public static JsonObject readCatalogTransactionObjectHierarchy(JsonObject info) {
+        String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+        Document docmessage = MessageConstructor.startDocument("readFirestoreCollection");
+        Element body = MessageConstructor.isolateBody(docmessage);
+        JsonObject response = new JsonObject();
+        Firestore db;
+        try {
+            db = FirestoreBaseClass.getFirebaseDatabase();
+            // CatalogHierarchyThermodynamicDatasets
+            CollectionReference col = db.collection("hierthermodynamicdataset");
+            // CatalogObjectDatasetMaintainer
+            DocumentReference datasetnamesref = col.document(maintainer);
+            JsonArray listofdatasetnames = getDatasetName(datasetnamesref,info,body);
+            
+            if(listofdatasetnames.size() > 0) {
+                JsonObject node =  new JsonObject();
+                node.addProperty(ClassLabelConstants.CatalogHierarchyCatalogObjectType, "dataset:CatalogObjectDatasetMaintainer");
+                node.addProperty(ClassLabelConstants.CatalogObjectKey, maintainer);
+                node.add(ClassLabelConstants.CatalogHiearchyNode, listofdatasetnames);
+                node.remove(ClassLabelConstants.SimpleDatabaseObjectStructure);
+                JsonArray arr = new JsonArray();
+                arr.add(node);
+                response = DatabaseServicesBase.standardServiceResponse(docmessage,
+                        "Successful read of collectiion set objects", arr);
+                
+            } else {
+                response = DatabaseServicesBase.standardErrorResponse(docmessage,"No Transaction objects found", null);
+            }
+
+ 
+        } catch (IOException e) {
+            response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), null);
+        }
+        return response;
+    }
+   
+    private static JsonArray getDatasetName(DocumentReference datasetnamesref, JsonObject info, Element body) {
+        JsonArray listofdatasetnames = new JsonArray();
+        Iterable<CollectionReference> collections = datasetnamesref.listCollections();
+        Iterator<CollectionReference> iter = collections.iterator();
+        while (iter.hasNext()) {
+            // CatalogHierarchyDatasetName (and others)
+            CollectionReference collection = iter.next();
+            String datasetname = collection.getId();
+            if (!(datasetname.equals("hieridcollectionset")
+                    || datasetname.equals("hieraddcollectionsettransactions"))) {
+                // CatalogHierarchyDatasetTransactionSeries (CatalogObjectUniqueGenericLabel)
+                JsonArray uniquenames = getUniqueGenericLabel(collection, info,body);
+                if (uniquenames.size() > 0) {
+                    JsonObject node =  new JsonObject();
+                    node.addProperty(ClassLabelConstants.CatalogHierarchyCatalogObjectType, "dataset:CatalogHierarchyDatasetTransactionSeries");
+                    node.addProperty(ClassLabelConstants.CatalogObjectKey, datasetname);
+                    node.add(ClassLabelConstants.CatalogHiearchyNode, uniquenames);
+                    node.remove(ClassLabelConstants.SimpleDatabaseObjectStructure);
+                    listofdatasetnames.add(node);
+                }
+
+            }
+        }
+        return listofdatasetnames;
+    }
+    
+    /** Loop over all uniquelabels, each one representing a data submission, to ultimately retrieve objects
+     * 
+     * @param info    The activity information from the process input 
+     * @param uniquelabels Collection of objects in Firestore.
+     * @param body The body of the document
+     * @return JsonArray of the objects
+     * 
+     * This loops over the the uniquelabels. In this level of the hierarchy, there is also the element of 'hierdatasetcollection'
+     * and this is hopped over.
+     * For each unique label, the sub hierarchy is retrieved. If there are elements retrieved in the subhierarchy, then
+     * they are associated with the unique label.
+
+     */
+    private static JsonArray getUniqueGenericLabel(CollectionReference uniquelabels, JsonObject info, Element body) {
+        JsonArray uniquenames = new JsonArray();
+        Iterable<DocumentReference> documents = uniquelabels.listDocuments();
+        Iterator<DocumentReference> dociter = documents.iterator();
+        while (dociter.hasNext()) {
+            // CatalogHierarchyDatasetCollection
+            DocumentReference document = dociter.next();
+            String genericname = document.getId();
+            if (!genericname.equals("hierdatasetcollection")) {
+                // CatagoryHierarchyDatasetTransactionType
+                JsonArray transactiontypes = getDatasetTransactionType(document, info, body);
+                if (transactiontypes.size() > 0) {
+                    JsonObject node =  new JsonObject();
+                    node.addProperty(ClassLabelConstants.CatalogHierarchyCatalogObjectType, "dataset:CatalogHierarchyDatasetTransactionSeries");
+                    node.addProperty(ClassLabelConstants.CatalogObjectKey, genericname);
+                    node.add(ClassLabelConstants.CatalogHiearchyNode, transactiontypes);
+                    uniquenames.add(node);
+                }
+
+            }
+
+        }
+       return uniquenames;
+    }
+    
+    /** Loop over all types to retreive objects
+     * 
+     * @param info    The activity information from the process input 
+     * @param objecttypelabel Collection of objects in Firestore.
+     * @param body The body of the document
+     * @return JsonArray of the objects
+     * 
+     * This loops over the the data types. If the type matches
+     * the criteria (checkIfType), then the subobjects are retrieved and returned.
+
+     */
+    private static JsonArray getDatasetTransactionType(DocumentReference document, JsonObject info, Element body) {
+        JsonArray transactiontypes = new JsonArray();
+        Iterable<CollectionReference> objecttypecollections = document.listCollections();
+        Iterator<CollectionReference> objecttypeiter = objecttypecollections.iterator();
+        while (objecttypeiter.hasNext()) {
+            CollectionReference objecttypelabel = objecttypeiter.next();
+            // CatagoryHierarchyDatasetTransactionType
+            String typelabel = objecttypelabel.getId();
+            if (checkIfType(typelabel, info,body)) {
+                JsonArray objects = getObjects(objecttypelabel,body);
+                if (objects.size() > 0) {
+                    JsonObject node = new JsonObject();
+                    node.addProperty(ClassLabelConstants.CatalogHierarchyCatalogObjectType, "dataset:CatagoryHierarchyDatasetTransactionType");
+                    node.addProperty(ClassLabelConstants.CatalogObjectKey, typelabel);
+                    node.add(ClassLabelConstants.CatalogHiearchyNode, objects);
+                    node.remove(ClassLabelConstants.SimpleDatabaseObjectStructure);
+                    transactiontypes.add(node);
+                }
+            }
+        }
+       return transactiontypes;
+    }
+    /*
+     * @param typelabel The label of the hierarchy representing the type of object 
+     * @param info: The source of the type that should be included
+     * @param body Used to insert into the body 
+     * @return true if the link in the hierarchy should be included... false otherwise.
+     * 
+     */
+    private static boolean checkIfType(String typelabel, JsonObject info, Element body) {
+        String type = info.get(ClassLabelConstants.TransactionEventType).getAsString();
+     // take away the 'dataset:' from type
+        String tocompare = type.substring(8);
+        boolean ans = tocompare.equals(typelabel);
+        if(ans) {
+            body.addElement("div").addText("Type: " + type);
+        }
+        return ans;
+    }
+    
+    /** Isolate the collection of objects from a CollectionReference
+     * 
+     * @param objecttypelabel Collection of objects in Firestore.
+     * @param body The body of the document
+     * @return JsonArray of the objects
+     * 
+     * This is meant to be a help routine of readCatalogTransactionObjectHierarchy to 
+     * read the collection of objects (transactions) at the bottom of the hierarchy.
+     * But in principle it could be used in general
+     */
+    private static JsonArray getObjects(CollectionReference objectlabel, Element body) {
+        JsonArray objects = new JsonArray();
+        Iterable<DocumentReference> objref = objectlabel.listDocuments();
+        Iterator<DocumentReference> objiter = objref.iterator();
+        Element table = body.addElement("table");
+        Element hrow = table.addElement("tr");
+        hrow.addElement("th").addText("Object key");
+        while (objiter.hasNext()) {
+            DocumentReference object = objiter.next();
+            // CatagoryHierarchyDatasetTransactionEvent
+            String objectname = object.getId();
+            Element row = table.addElement("tr");
+            row.addElement("td").addText(objectname);
+            ApiFuture<DocumentSnapshot> objectfuture = object.get();
+            DocumentSnapshot objsnap;
+            try {
+                objsnap = objectfuture.get();
+                Map<String, Object> mapObj = objsnap.getData();
+                String jsonString = new Gson().toJson(mapObj);
+                JsonObject transaction = JsonObjectUtilities.jsonObjectFromString(jsonString);
+                JsonObject node = new JsonObject();
+                node.addProperty(ClassLabelConstants.CatalogHierarchyCatalogObjectType, "dataset:CatagoryHierarchyDatasetTransactionEvent");
+                node.addProperty(ClassLabelConstants.CatalogObjectKey, objectname);
+                node.add(ClassLabelConstants.SimpleDatabaseObjectStructure, transaction);
+                objects.add(node);
+           } catch (InterruptedException | ExecutionException e) {
+               body.addElement("div").addText("Error in reading transaction: " + objectname);
+               body.addElement("div").addText(e.getMessage());
+            }
+        }
+        return objects;
+    }
+
 }

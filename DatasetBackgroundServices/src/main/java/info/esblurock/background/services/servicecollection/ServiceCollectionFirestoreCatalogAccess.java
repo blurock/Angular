@@ -206,8 +206,7 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 			return response;
 		}
 
-	},
-	FindSpecificTransactionInDataset {
+	}, FindSpecificTransactionInDataset {
 	    @Override
 	    public JsonObject process(JsonObject json) {
 	        JsonObject response = null;
@@ -226,7 +225,14 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 	    }
 	    return response;
 	}
-	}, ReadCatalogObjectWithFirestoreAddress {
+	}, ReadCatalogTransactionObjectHierarchy {
+
+        @Override
+        public JsonObject process(JsonObject json) {
+            return FindTransactions.readCatalogTransactionObjectHierarchy(json);
+        }
+        
+    }, ReadCatalogObjectWithFirestoreAddress {
 	    @Override
 	    public JsonObject process(JsonObject json) {
 	        JsonObject firestoreid = json.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();

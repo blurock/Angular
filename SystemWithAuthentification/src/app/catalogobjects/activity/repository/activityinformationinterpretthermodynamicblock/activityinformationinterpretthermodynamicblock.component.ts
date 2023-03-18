@@ -100,8 +100,14 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 	ngAfterViewInit(): void {
 		this.activitysetup.emit();
 	}
+	
+	invalid(): boolean {
+		var ans = this.objectform.invalid;
+		return ans; 
+	}
 
 	setPrerequisiteData(prerequisite: any): void {
+		alert("setPrerequisiteData: begin");
 		const activityinfo = prerequisite['dataset:activityinfo'];
 		const Hdisformat = this.fileformatdata[this.fileformat];
 		this.objectform.get('FileSourceFormat').setValue(this.fileformat);
@@ -112,6 +118,7 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
 		const specdata = activityinfo[specid];
 		this.spec.setData(specdata);
+		alert("setPrerequisiteData: begin");
 	}
 
 	getData(activity: any): void {

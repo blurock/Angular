@@ -23,7 +23,7 @@ export class ActivityinformationComponent implements OnInit {
 
 displaydescbutton = 'Press to fill in prerequisite information';
 	activityinfoid = 'dataset:activityinfo';
-	noactivity = false;
+	noactivity = true;
 	identifier = Ontologyconstants.dctermsidentifier;
 	message: string;
 	annoinfo: any;
@@ -54,6 +54,7 @@ displaydescbutton = 'Press to fill in prerequisite information';
 		if (this.activityname == '') {
 			this.noactivity = true;
 		} else {
+			this.noactivity = false;
 			this.setActivity(this.activityname);
 		}
 	}
@@ -65,6 +66,42 @@ displaydescbutton = 'Press to fill in prerequisite information';
 
 	setup(): void {
 		this.activitysetup.emit();
+	}
+	
+	invalid(): boolean {
+		var ans = false;
+		
+		if (!this.noactivity) {
+			if (this.activityname == 'dataset:ActivityRepositoryInitialReadLocalFile') {
+				ans = this.readlocal.invalid();
+			} else if (this.activityname == 'dataset:ActivityRepositoryPartitionToCatalog') {
+				ans = this.partition.invalid();
+			} else if (this.activityname == 'dataset:ActivityInformationInterpretDisassociationEnergy') {
+				ans = this.disassociation.invalid();
+			} else if (this.activityname == 'dataset:ActivityInformationInterpretBensonRuleData') {
+				if(this.benson) {
+					//this.benson.invalid();
+				}
+			} else if (this.activityname == 'dataset:ActivityInformationInterpretSubstructureThermodynamics') {
+				ans = this.structure.invalid();
+			} else if (this.activityname == 'dataset:ActivityInformationMolecularThermodynamics') {
+				this.species.invalid();
+			} else if (this.activityname == 'dataset:ActivityInformationInterpretVibrationalMode') {
+				this.frequency.invalid();
+			} else if (this.activityname == 'dataset:ActivityInformationInterpretSymmetryInformation') {
+				ans = this.symmetry.invalid();
+			} else if (this.activityname == 'dataset:ActivityInformationInterpretMetaAtom') {
+				ans = this.metaatom.invalid();
+			} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetAddDataset') {
+				this.collectionadd.invalid();
+			} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetCreation') {
+				this.collectioncreate.invalid();
+			} else {
+				
+			}
+		}
+		
+		return ans;
 	}
 
 	getData(activity: any): void {
@@ -110,6 +147,8 @@ displaydescbutton = 'Press to fill in prerequisite information';
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretBensonRuleData') {
 			if (this.benson != null) {
 				this.benson.setPrerequisiteData(prerequisite);
+			} else {
+				alert("Benson activity null");
 			}
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretSubstructureThermodynamics') {
 			this.structure.setPrerequisiteData(prerequisite);
@@ -139,8 +178,6 @@ displaydescbutton = 'Press to fill in prerequisite information';
 
 
 	setData(activity: any): void {
-		alert("setData");
-		alert("setData: " + this.activityname);
 		const activityB = this.activityname == 'dataset:ActivityRepositoryInitialReadLocalFile';
 		if (activityB) {
 			this.readlocal.setData(activity);

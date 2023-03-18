@@ -8,6 +8,7 @@ import { FetchcatalogobjectComponent } from '../../../../dialog/fetchcatalogobje
 import { RundatabaseserviceComponent } from '../../../../dialog/rundatabaseservice/rundatabaseservice.component';
 import {ThermodynamiccontributionsComponent} from '../thermodynamiccontributions/thermodynamiccontributions.component';
 
+
 @Component({
 	selector: 'app-computethermodynamics',
 	templateUrl: './computethermodynamics.component.html',

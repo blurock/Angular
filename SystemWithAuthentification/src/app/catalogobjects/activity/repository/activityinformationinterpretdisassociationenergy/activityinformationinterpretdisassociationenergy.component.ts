@@ -63,6 +63,10 @@ export class ActivityinformationinterpretdisassociationenergyComponent implement
 		this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue(this.speciesspecification);
 
 	}
+	invalid(): boolean {
+		var ans = this.objectform.invalid;
+		return ans;
+	}
 
 	ngOnInit(): void {
 		this.fileservice.getFormatClassification().subscribe({

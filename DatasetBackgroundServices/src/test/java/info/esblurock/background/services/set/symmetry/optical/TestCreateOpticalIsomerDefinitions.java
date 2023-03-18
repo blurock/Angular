@@ -20,10 +20,11 @@ public class TestCreateOpticalIsomerDefinitions {
 	public void test() {
 		InitiallizeSystem .initialize();
 		String srcpath = "src/test/java/resources/symmetrydefinition/optical/createOpticalIsomerDefinitions.json";
+		String maintainer = "Administrator";
 		try {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
-			JsonObject response = TransactionProcess.processFromTransaction(json);
+			JsonObject response = TransactionProcess.processFromTransaction(json,maintainer);
 			JsonObjectUtilities.printResponse(response);
 		} catch (IOException e) {
 			e.printStackTrace();

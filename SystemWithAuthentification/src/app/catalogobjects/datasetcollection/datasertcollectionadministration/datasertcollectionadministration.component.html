@@ -23,6 +23,18 @@
 									</mat-hint>
 								</mat-form-field>
 							</mat-grid-tile>
+												<mat-grid-tile [colspan]="2" background="lightgray">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:SystemDatasetCollectionsSetLabel'][rdfslabel]}}
+							</mat-label>
+							<input matInput formControlName="SystemDatasetCollectionsSetLabel" [matMenuTriggerFor]="menu.childMenu">
+							<mat-hint>{{annoinfo['dataset:SystemDatasetCollectionsSetLabel'][rdfscomment]}}
+							</mat-hint>
+							<app-menu-item #menu [items]="items" (selectionEvent)="datasetChosen($event)">
+							</app-menu-item>
+						</mat-form-field>
+					</mat-grid-tile>
+<!--
 							<mat-grid-tile [colspan]="1" class="tile">
 								<button mat-stroked-button  [matMenuTriggerFor]="menu" class="collection">
 									<span>{{sourcedataset}}</span>
@@ -34,6 +46,7 @@
 									</span>
 								</mat-menu>
 							</mat-grid-tile>
+							-->
 							<mat-grid-tile [colspan]="1">
 								<mat-form-field class="label">
 									<mat-label>{{activityanno['dataset:SystemDatasetCollectionsSetLabel'][rdfslabel]}}

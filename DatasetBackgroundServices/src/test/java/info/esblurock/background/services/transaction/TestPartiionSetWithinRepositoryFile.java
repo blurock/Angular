@@ -20,7 +20,8 @@ public class TestPartiionSetWithinRepositoryFile {
 		try {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
-			JsonObject response = TransactionProcess.processFromTransaction(json);
+			String maintainer = "Administrator";
+			JsonObject response = TransactionProcess.processFromTransaction(json,maintainer);
 			System.out.println(JsonObjectUtilities.toString(response));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

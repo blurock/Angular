@@ -1,6 +1,11 @@
 <h1 mat-dialog-title>{{data['prov:activity']}}</h1>
 <div mat-dialog-content>
-<pre>{{data | json}}</pre>
+				<ng-container *ngIf='running; else setup'>
+					<mat-spinner></mat-spinner>
+				</ng-container>
+				<ng-template #setup>
+					<pre>{{data | json}}</pre>
+				</ng-template>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="runService()">Run</button>

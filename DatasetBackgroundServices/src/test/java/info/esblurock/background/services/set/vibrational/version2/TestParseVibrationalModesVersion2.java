@@ -21,10 +21,11 @@ public class TestParseVibrationalModesVersion2 {
 		InitiallizeSystem .initialize();
 
 		String srcpath = "src/test/java/resources/vibrational/version2/parseVibrationalModes.json";
+		String maintainer = "Administrator";
 		try {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
-			JsonObject response = TransactionProcess.processFromTransaction(json);
+			JsonObject response = TransactionProcess.processFromTransaction(json,maintainer);
 			JsonObjectUtilities.printResponse(response);
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -21,7 +21,8 @@ public class TestReadLinearMetaAtomFile {
 		try {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
-			JsonObject response = TransactionProcess.processFromTransaction(json);
+			String maintainer = "Administrator";
+			JsonObject response = TransactionProcess.processFromTransaction(json,maintainer);
 			JsonObjectUtilities.printResponse(response);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

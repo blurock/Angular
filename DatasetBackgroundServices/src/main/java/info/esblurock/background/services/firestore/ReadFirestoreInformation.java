@@ -45,43 +45,49 @@ public class ReadFirestoreInformation {
         return response;
     }
 
-	/**
-	 * Read in the Catalog Object
-	 * 
-	 * @param firestoreid The complete FirestoreCatalogID
-	 * @return The object read in from the database
-	 * 
-	 */
-	public static JsonObject readFirestoreCatalogObject(JsonObject firestoreid) {
-		Document docmessage = MessageConstructor.startDocument("readFirestoreCollection");
-		Element body = MessageConstructor.isolateBody(docmessage);
-		body.addElement("pre").addText(JsonObjectUtilities.toString(firestoreid));
-		JsonObject response = new JsonObject();
-		Firestore db;
-		try {
-			db = FirestoreBaseClass.getFirebaseDatabase();
-			DocumentReference docref = SetUpDocumentReference.setup(db, firestoreid);
-			ApiFuture<DocumentSnapshot> future = docref.get();
-			DocumentSnapshot document = future.get();
-			if (document.exists()) {
-				Map<String, Object> mapObj = document.getData();
-				String jsonString = new Gson().toJson(mapObj);
-				JsonObject catalog = JsonObjectUtilities.jsonObjectFromString(jsonString);
-				response = DatabaseServicesBase.standardServiceResponse(docmessage, "Success: ReadFirestoreInformation",
-						catalog);
-			} else {
-				String message = "Document not found: ";
-				response = DatabaseServicesBase.standardErrorResponse(docmessage, message, firestoreid);
-			}
-		} catch (IOException e) {
-			response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), firestoreid);
-		} catch (InterruptedException e) {
-			response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), firestoreid);
-		} catch (ExecutionException e) {
-			response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), firestoreid);
-		}
-		return response;
-	}
+    
+    
+    
+    
+    /**
+     * Read in the Catalog Object
+     * 
+     * @param firestoreid The complete FirestoreCatalogID
+     * @return The object read in from the database
+     * 
+     */
+    public static JsonObject readFirestoreCatalogObject(JsonObject firestoreid) {
+        Document docmessage = MessageConstructor.startDocument("readFirestoreCollection");
+        Element body = MessageConstructor.isolateBody(docmessage);
+        body.addElement("pre").addText(JsonObjectUtilities.toString(firestoreid));
+        JsonObject response = new JsonObject();
+        Firestore db;
+        try {
+            db = FirestoreBaseClass.getFirebaseDatabase();
+            DocumentReference docref = SetUpDocumentReference.setup(db, firestoreid);
+            ApiFuture<DocumentSnapshot> future = docref.get();
+            DocumentSnapshot document = future.get();
+            if (document.exists()) {
+                Map<String, Object> mapObj = document.getData();
+                String jsonString = new Gson().toJson(mapObj);
+                JsonObject catalog = JsonObjectUtilities.jsonObjectFromString(jsonString);
+                response = DatabaseServicesBase.standardServiceResponse(docmessage, "Success: ReadFirestoreInformation",
+                        catalog);
+            } else {
+                String message = "Document not found: ";
+                response = DatabaseServicesBase.standardErrorResponse(docmessage, message, firestoreid);
+            }
+        } catch (IOException e) {
+            response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), firestoreid);
+        } catch (InterruptedException e) {
+            response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), firestoreid);
+        } catch (ExecutionException e) {
+            response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), firestoreid);
+        }
+        return response;
+    }
+    
+    
 
 	/** readFirestoreCollection
 	 * 

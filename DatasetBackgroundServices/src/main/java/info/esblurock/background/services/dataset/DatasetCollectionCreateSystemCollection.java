@@ -20,7 +20,7 @@ import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRouti
 
 public class DatasetCollectionCreateSystemCollection {
     
-    private static String systemhierarchy = "systemthermodynamics";
+    public static String systemhierarchy = "systemthermodynamics";
     
     public static JsonObject process(JsonObject event, JsonObject info) {
         JsonObject response = null;
