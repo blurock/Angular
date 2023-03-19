@@ -102,6 +102,10 @@ public class CreateHierarchyElement {
 	 */
 	private static boolean search(ClassificationHierarchy hierarchy, JsonObject json, JsonArray pairs, JsonObject pair,
 			String catalogC) {
+	    System.out.println("---------------------------------------------------------------------------");
+	    System.out.println("Create: search: " +hierarchy.toString());
+        System.out.println("---------------------------------------------------------------------------");
+        System.out.println(JsonObjectUtilities.toString(json));
 		boolean foundB = false;
 		String member = OntologyUtilityRoutines.exactlyOnePropertySingle(hierarchy.getClassification(),
 				OntologyObjectLabels.member);
@@ -115,7 +119,9 @@ public class CreateHierarchyElement {
 		}
 		if (foundB) {
 			String genname = generateHierarchyName(hierarchy.getClassification(), catalogC, json);
+			System.out.println("found\n" + genname + "   " + hierarchy.getClassification() + "\nPairs: " + JsonObjectUtilities.toString(pairs)+ "\n:Pair: " + JsonObjectUtilities.toString(pair));
 			UpdateHierarchyList(hierarchy.getClassification(), genname, pair, pairs);
+            System.out.println("after update\n" + genname + "\nPairs: " + JsonObjectUtilities.toString(pairs)+ "\n:Pair: " + JsonObjectUtilities.toString(pair));
 		} else if (hierarchy.getSubclassificatons() != null) {
 			Iterator<ClassificationHierarchy> iter = hierarchy.getSubclassificatons().iterator();
 			while (iter.hasNext() && !foundB) {
@@ -125,7 +131,9 @@ public class CreateHierarchyElement {
 			if (foundB) {
 				if (!hierarchy.getClassification().equals(topOfHierarchy)) {
 					String genname = generateHierarchyName(hierarchy.getClassification(), catalogC, json);
+		            System.out.println("found in subs\ngenname=" + genname + "   catalogC=" + catalogC + "    class=" + hierarchy.getClassification() + "\nPairs: " + JsonObjectUtilities.toString(pairs)+ "\n:Pair: " + JsonObjectUtilities.toString(pair));
 					UpdateHierarchyList(hierarchy.getClassification(), genname, pair, pairs);
+		            System.out.println("found in subs\n" + genname + "   " + hierarchy.getClassification() + "\nPairs: " + JsonObjectUtilities.toString(pairs)+ "\n:Pair: " + JsonObjectUtilities.toString(pair));
 				}
 			}
 		}
@@ -138,7 +146,7 @@ public class CreateHierarchyElement {
 	/**
 	 * @param hierclass the current hierarchy class name
 	 * @param genname The generated name (as given by the hierarchy class)
-	 * @param json The current CollectionDocumentIDPair being filled in
+	 * @param pair The current CollectionDocumentIDPair being filled in
 	 * @param pairs The current array of CollectionDocumentIDPair (FirestoreCatalogID)
 	 * @return The new CollectionDocumentIDPair 
 	 * 
@@ -147,16 +155,16 @@ public class CreateHierarchyElement {
 	 * addInCollectionDocumentIDPair determines how the pair is to be updated.
 	 * 
 	 */
-	public static void UpdateHierarchyList(String hierclass, String genname, JsonObject json, JsonArray pairs) {
+	public static void UpdateHierarchyList(String hierclass, String genname, JsonObject pair, JsonArray pairs) {
 		String type = DatasetOntologyParseBase.getValueFromAnnotation(hierclass, OntologyObjectLabels.dctype);
 		if (type.equals(simpleName)) {
-			addInCollectionDocumentIDPair(ClassLabelConstants.DatasetDocumentID, genname, json, pairs);
+			addInCollectionDocumentIDPair(ClassLabelConstants.DatasetDocumentID, genname, pair, pairs);
 		} else if (type.equals(datacatalog)) {
-			addInCollectionDocumentIDPair(ClassLabelConstants.DatasetCollectionID, genname, json, pairs);
+			addInCollectionDocumentIDPair(ClassLabelConstants.DatasetCollectionID, genname, pair, pairs);
 		} else if (type.equals(collection)) {
-			addInCollectionDocumentIDPair(ClassLabelConstants.DatasetCollectionID, genname, json, pairs);
+			addInCollectionDocumentIDPair(ClassLabelConstants.DatasetCollectionID, genname, pair, pairs);
 		} else if (type.equals(document)) {
-			addInCollectionDocumentIDPair(ClassLabelConstants.DatasetDocumentID, genname, json, pairs);
+			addInCollectionDocumentIDPair(ClassLabelConstants.DatasetDocumentID, genname, pair, pairs);
 		}
 	}
 
@@ -174,19 +182,20 @@ public class CreateHierarchyElement {
 	 * if this is true, then a new (empty) CollectionDocumentIDPair is generated and filled in.
 	 * 
 	 */
-	private static void addInCollectionDocumentIDPair(String identifier, String genname, JsonObject json,
+	private static void addInCollectionDocumentIDPair(String identifier, String genname, JsonObject pair,
 			JsonArray pairs) {
-		if (json.get(identifier) == null) {
-			json.addProperty(identifier, genname);
+	    System.out.println("addInCollectionDocumentIDPair: " + identifier + " ----" + JsonObjectUtilities.toString(pair));
+		if (pair.get(identifier) == null) {
+			pair.addProperty(identifier, genname);
 		} else {
 			JsonObject newjson = initialCollectionDocumentIDPair();
-			String docid = json.get(ClassLabelConstants.DatasetDocumentID).getAsString();
+			String docid = pair.get(ClassLabelConstants.DatasetDocumentID).getAsString();
 			newjson.addProperty(ClassLabelConstants.DatasetDocumentID, docid);
-			String colid = json.get(ClassLabelConstants.DatasetCollectionID).getAsString();
+			String colid = pair.get(ClassLabelConstants.DatasetCollectionID).getAsString();
 			newjson.addProperty(ClassLabelConstants.DatasetCollectionID, colid);
-			json.remove(ClassLabelConstants.DatasetDocumentID);
-			json.remove(ClassLabelConstants.DatasetCollectionID);
-			json.addProperty(identifier, genname);
+			pair.remove(ClassLabelConstants.DatasetDocumentID);
+			pair.remove(ClassLabelConstants.DatasetCollectionID);
+			pair.addProperty(identifier, genname);
 			addPairToArray(newjson, pairs);
 		}
 	}
