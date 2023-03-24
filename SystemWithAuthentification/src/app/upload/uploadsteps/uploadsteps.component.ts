@@ -107,7 +107,11 @@ export class UploadstepsComponent implements OnInit {
 		this.interpret.setPrerequisite(transaction);
 	}
 	parsedTransactionEvent($event) {
+		const transaction = $event;
 		this.parsetransaction.setData($event);
+		const activity = transaction[Ontologyconstants.ActivityInfo];
+		const format = activity['dataset:filesourceformat'];
+		this.interpret.setFileFormat(format);
 		this.interpret.setPrerequisite($event);
 	}
 	interpretEvent($event): void {

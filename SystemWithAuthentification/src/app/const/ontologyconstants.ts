@@ -21,6 +21,7 @@ export class Ontologyconstants {
 	public static outputobject = 'dataobj';
 	public static annotations = 'annotations';
 	public static service = 'service';
+	public static annoinfo = "annoinfo";
 	
 	public static DatabaseIDFromRequiredTransaction = 'dataset:transreqobj';
 	

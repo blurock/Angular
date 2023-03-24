@@ -56,12 +56,14 @@ displaydescbutton = 'Press to fill in prerequisite information';
 		} else {
 			this.noactivity = false;
 			this.setActivity(this.activityname);
+			
 		}
 	}
 
 	setActivity(select: any): void {
 		this.activityname = select;
 		this.getCatalogAnnoationsForActivity();
+		
 	}
 
 	setup(): void {
@@ -70,37 +72,57 @@ displaydescbutton = 'Press to fill in prerequisite information';
 	
 	invalid(): boolean {
 		var ans = false;
-		
+
 		if (!this.noactivity) {
 			if (this.activityname == 'dataset:ActivityRepositoryInitialReadLocalFile') {
-				ans = this.readlocal.invalid();
+				if(this.readlocal != null) {
+					ans = this.readlocal.invalid();
+				}
 			} else if (this.activityname == 'dataset:ActivityRepositoryPartitionToCatalog') {
-				ans = this.partition.invalid();
+				if(this.partition != null) {
+					ans = this.partition.invalid();
+				}
+				
 			} else if (this.activityname == 'dataset:ActivityInformationInterpretDisassociationEnergy') {
-				ans = this.disassociation.invalid();
+				if(this.disassociation != null) {
+					ans = this.disassociation.invalid();
+				}
 			} else if (this.activityname == 'dataset:ActivityInformationInterpretBensonRuleData') {
 				if(this.benson) {
-					//this.benson.invalid();
+					this.benson.invalid();
 				}
 			} else if (this.activityname == 'dataset:ActivityInformationInterpretSubstructureThermodynamics') {
-				ans = this.structure.invalid();
+				if(this.structure != null) {
+					ans = this.structure.invalid();
+				}
 			} else if (this.activityname == 'dataset:ActivityInformationMolecularThermodynamics') {
-				this.species.invalid();
+				if(this.species != null) {
+					this.species.invalid();
+				}
 			} else if (this.activityname == 'dataset:ActivityInformationInterpretVibrationalMode') {
-				this.frequency.invalid();
+				if(this.frequency != null) {
+					this.frequency.invalid();
+				}
 			} else if (this.activityname == 'dataset:ActivityInformationInterpretSymmetryInformation') {
-				ans = this.symmetry.invalid();
+				if(this.symmetry != null) {
+					ans = this.symmetry.invalid();
+				}
 			} else if (this.activityname == 'dataset:ActivityInformationInterpretMetaAtom') {
-				ans = this.metaatom.invalid();
+				if(this.metaatom != null) {
+					ans = this.metaatom.invalid();
+				}
 			} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetAddDataset') {
-				this.collectionadd.invalid();
+				if(this.collectionadd != null) {
+					this.collectionadd.invalid();
+				}
 			} else if (this.activityname == 'dataset:ActivityInformationDatasetCollectionSetCreation') {
-				this.collectioncreate.invalid();
+				if(this.collectioncreate != null) {
+					this.collectioncreate.invalid();
+				}
 			} else {
 				
 			}
 		}
-		
 		return ans;
 	}
 
@@ -215,6 +237,7 @@ displaydescbutton = 'Press to fill in prerequisite information';
 				if (response[Ontologyconstants.successful]) {
 					const catalog = response[Ontologyconstants.catalogobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];
+					this.activitysetup.emit();
 				} else {
 					this.message = responsedata;
 				}

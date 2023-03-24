@@ -10,7 +10,8 @@ import { ManageuserserviceService } from '../../services/manageuserservice.servi
 import { RuntransactiondialogComponent } from '../../dialog/runtransactiondialog/runtransactiondialog.component';
 import { ListoffirestoreidsComponent } from '../../catalogobjects/listoffirestoreids/listoffirestoreids.component';
 import { OntologycatalogService } from '../../services/ontologycatalog.service';
-
+import {FindintermediatettransactionComponent} from '../../dialog/findintermediatettransaction/findintermediatettransaction.component';
+import {IdentifiersService} from '../../const/identifiers.service';
 @Component({
 	selector: 'app-parsefiletransaction',
 	templateUrl: './parsefiletransaction.component.html',
@@ -46,6 +47,7 @@ export class ParsefiletransactionComponent implements OnInit {
 	@ViewChild('outlst') outlst: ListoffirestoreidsComponent;
 
 	constructor(
+		private identifiers: IdentifiersService,
 		public annotations: OntologycatalogService,
 		manageuser: ManageuserserviceService,
 		private uploadService: UploadmenuserviceService,
@@ -100,8 +102,13 @@ export class ParsefiletransactionComponent implements OnInit {
 	}
 
 	fetchInformation() {
-		const dialogRef = this.dialog.open(FindspecifictransactionindatasetComponent, {
-			data: { annoinfo: this.annoinfo, maintainer: this.maintainer, transaction: 'dataset:PartiionSetWithinRepositoryFile' },
+					const data = {};
+			data[this.identifiers.CatalogDataObjectMaintainer] = this.maintainer;
+			data[this.identifiers.TransactionEventType] = 'dataset:PartiionSetWithinRepositoryFile';
+			data[Ontologyconstants.annoinfo] = this.annoinfo;
+
+		const dialogRef = this.dialog.open(FindintermediatettransactionComponent, {
+			data: data,
 		});
 
 		dialogRef.afterClosed().subscribe(result => {

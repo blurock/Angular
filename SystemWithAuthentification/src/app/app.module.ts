@@ -174,6 +174,7 @@ import { UseraccountadministrationComponent } from './catalogobjects/user/userac
 import { DatabasepersonComponent } from './catalogobjects/user/databaseperson/databaseperson.component';
 import { DatasertcollectionadministrationComponent } from './catalogobjects/datasetcollection/datasertcollectionadministration/datasertcollectionadministration.component';
 import { ApplicationcardsComponent } from './layout/applicationcards/applicationcards.component';
+import { FindintermediatettransactionComponent } from './dialog/findintermediatettransaction/findintermediatettransaction.component';
 
 
 
@@ -303,7 +304,8 @@ import { ApplicationcardsComponent } from './layout/applicationcards/application
   UseraccountadministrationComponent,
   DatabasepersonComponent,
   DatasertcollectionadministrationComponent,
-  ApplicationcardsComponent
+  ApplicationcardsComponent,
+  FindintermediatettransactionComponent
 	],
 	imports: [
 		AppFirebaseModule,

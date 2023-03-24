@@ -11,6 +11,7 @@ export class IdentifiersService {
 	public CatalogObjectKey = 'dataset:catalogkey';
 	public CatalogObjectAccessModify = 'dataset:accessmodify';
 	public TransactionID = 'transaction';
+	public CatalogHiearchyNode = 'dataset:cataloghiearchynode';
 	
 	public FirestoreCatalogID = 'dataset:firestorecatalog';
 	public DataCatalog = 'skos:inScheme';
@@ -53,6 +54,7 @@ export class IdentifiersService {
 	public DatasetVersion = 'dataset:datasetversion';
 	public CatalogDataObjectMaintainer = 'dataset:catalogobjectmaintainer';
 	public CatalogDataObjectStatus = 'dataset:dataobjstatus';
+	public TransactionEventType = 'prov:activity';
 	
 	public ActivityRepositoryInitialReadInfo = 'dataset:repinitialreadinfo';
 	public ActivityRepositoryInitialReadLocalFile = 'dataset:initialrepositorylocal';

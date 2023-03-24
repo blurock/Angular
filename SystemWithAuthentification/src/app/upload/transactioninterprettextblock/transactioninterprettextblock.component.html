@@ -26,7 +26,6 @@
 			</mat-grid-tile>
 		</mat-grid-list>
 		<ng-container *ngIf='activitytype != null; else noactivity'>
-
 			<app-activityinformation #activity [(activityname)]="activitytype" (activitysetup)="activitysetup()">
 			</app-activityinformation>
 		</ng-container>
@@ -35,6 +34,9 @@
 				{{noactivitymessage}}
 			</div>
 		</ng-template>
+		<mat-divider></mat-divider>
+		<p>Results</p>
 		<div [innerHTML]="resultHtml"></div>
+		<mat-divider></mat-divider>
 	</mat-card-content>
 </mat-card>

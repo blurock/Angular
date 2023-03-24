@@ -4,7 +4,6 @@ import { MenutreeserviceService } from '../../services/menutreeservice.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { RunserviceprocessService } from '../../services/runserviceprocess.service';
-import { __assign } from 'tslib';
 
 @Component({
 	selector: 'app-findspecifictransactionindataset',

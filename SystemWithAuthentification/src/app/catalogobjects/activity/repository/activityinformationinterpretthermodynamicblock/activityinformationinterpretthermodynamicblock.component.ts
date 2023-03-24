@@ -102,8 +102,7 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 	}
 	
 	invalid(): boolean {
-		var ans = this.objectform.invalid;
-		return ans; 
+		return this.objectform.invalid;
 	}
 
 	setPrerequisiteData(prerequisite: any): void {

@@ -17,6 +17,7 @@ import { UploadmenuserviceService } from '../../services/uploadmenuservice.servi
 export class TransactioninterprettextblockComponent implements OnInit {
 
 	@Output() interpretEvent = new EventEmitter();
+	//@Output() interpretEvent = new EventEmitter();
 
 	prereqdescbutton = 'Load prerequisite information (required for submission)'
 	prereqbutton = 'Prerequisite';
@@ -88,7 +89,6 @@ export class TransactioninterprettextblockComponent implements OnInit {
 	}
 
 	setFileFormat(fileformat: string) {
-		alert("setFormat");
 		this.formatinfodata = this.formatInformation[fileformat];
 		if (this.formatinfodata == null) {
 			this.formatinfodata = this.findInFormatInformation(fileformat);
@@ -100,7 +100,6 @@ export class TransactioninterprettextblockComponent implements OnInit {
 		} else {
 			this.activitytype = this.formatinfodata['prov:activity'];
 		}
-		alert("setFormat: " + this.activitytype);
 	}
 
 	findInFormatInformation(formattrans: string): string {
@@ -119,6 +118,7 @@ export class TransactioninterprettextblockComponent implements OnInit {
 		}
 		return ans;
 	}
+	
 	setPrerequisite(transaction: any) {
 		this.prerequisite = transaction;
 		this.activityinfo = this.prerequisite['dataset:activityinfo'];
@@ -130,9 +130,6 @@ export class TransactioninterprettextblockComponent implements OnInit {
 			} else {
 				alert(this.prerequisiteerror);
 			}
-			const fileformat = this.activityinfo['dataset:filesourceformat'];
-			this.setFileFormat(fileformat);
-			alert("Interpret: setPrerequisite: this.activity=" + this.activity);
 			if (this.activity != null) {
 				this.activity.setPrerequisiteData(this.prerequisite);
 			}
@@ -140,17 +137,14 @@ export class TransactioninterprettextblockComponent implements OnInit {
 		} else {
 			alert(this.prerequisiteerror);
 		}
-		alert("Interpret: setPrerequisite:  end activityinfo " + JSON.stringify(this.activityinfo));
 	}
 
 	activitysetup(): void {
-		alert("activitysetup() begin");
 		if (this.prerequisite != null) {
 				this.activity.setPrerequisiteData(this.prerequisite);
 		} else {
 			alert("prerequisite not set up");
 		}
-		alert("activitysetup() end");
 	}
 
 	getTransactionData(transaction: any) {

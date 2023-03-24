@@ -50,15 +50,16 @@ public class CreateHierarchyElement {
 	 * @return FirestoreCatalogID with generated CollectionDocumentIDPair
 	 */
 	public static JsonObject searchForCatalogObjectInHierarchyTemplate(JsonObject json) {
+	    JsonObject firestoreaddress = null;
 		JsonArray pairs = new JsonArray();
 		JsonObject pair = initialCollectionDocumentIDPair();
 		String identifier = json.get(AnnotationObjectsLabels.identifier).getAsString();
 		String catalogC  = GenericSimpleQueries.classFromIdentifier(identifier);
 		if(catalogC == null) {
-			System.out.println("System Error: Identifier as class not found: " + identifier);
-		}
+			System.err.println("System Error: Identifier as class not found: " + identifier);
+		} else {
 		ClassificationHierarchy hierarchy = DatabaseOntologyClassification.getClassificationHierarchy(topOfHierarchy);
-		JsonObject firestoreaddress = null;
+		
 		if(search(hierarchy, json, pairs, pair, catalogC)) {
 		int basenum = pairs.size()-1;
 		firestoreaddress = CreateDocumentTemplate.createTemplate(firestoreid);
@@ -73,10 +74,10 @@ public class CreateHierarchyElement {
 				firestoreaddress.addProperty(ClassLabelConstants.SimpleCatalogName, 
 						p.get(ClassLabelConstants.DatasetDocumentID).getAsString());
 				} catch(NullPointerException ex) {
-					System.out.println("Null Pointer Exception: catalogC \n" + catalogC);
-					System.out.println("Null Pointer Exception: p \n" + JsonObjectUtilities.toString(p));
-					System.out.println("Null Pointer Exception: pairs \n" + JsonObjectUtilities.toString(pairs));
-					System.out.println("Null Pointer Exception: json \n" + JsonObjectUtilities.toString(json));
+					System.err.println("Null Pointer Exception: catalogC \n" + catalogC);
+					System.err.println("Null Pointer Exception: p \n" + JsonObjectUtilities.toString(p));
+					System.err.println("Null Pointer Exception: pairs \n" + JsonObjectUtilities.toString(pairs));
+					System.err.println("Null Pointer Exception: json \n" + JsonObjectUtilities.toString(json));
 					throw ex;
 				}
 			} else {
@@ -86,7 +87,8 @@ public class CreateHierarchyElement {
 		JsonObject pairset = firestoreaddress.get(ClassLabelConstants.CollectionDocumentIDPairAddress).getAsJsonObject();
 		pairset.add(ClassLabelConstants.CollectionDocumentIDPair,subpairs);
 		} else {
-			System.out.println("Catalog object not found in hierarchy: " + catalogC);
+			System.err.println("Catalog object not found in hierarchy: " + catalogC);
+		}
 		}
 		return firestoreaddress;
 	}
@@ -102,10 +104,6 @@ public class CreateHierarchyElement {
 	 */
 	private static boolean search(ClassificationHierarchy hierarchy, JsonObject json, JsonArray pairs, JsonObject pair,
 			String catalogC) {
-	    System.out.println("---------------------------------------------------------------------------");
-	    System.out.println("Create: search: " +hierarchy.toString());
-        System.out.println("---------------------------------------------------------------------------");
-        System.out.println(JsonObjectUtilities.toString(json));
 		boolean foundB = false;
 		String member = OntologyUtilityRoutines.exactlyOnePropertySingle(hierarchy.getClassification(),
 				OntologyObjectLabels.member);
@@ -119,9 +117,7 @@ public class CreateHierarchyElement {
 		}
 		if (foundB) {
 			String genname = generateHierarchyName(hierarchy.getClassification(), catalogC, json);
-			System.out.println("found\n" + genname + "   " + hierarchy.getClassification() + "\nPairs: " + JsonObjectUtilities.toString(pairs)+ "\n:Pair: " + JsonObjectUtilities.toString(pair));
 			UpdateHierarchyList(hierarchy.getClassification(), genname, pair, pairs);
-            System.out.println("after update\n" + genname + "\nPairs: " + JsonObjectUtilities.toString(pairs)+ "\n:Pair: " + JsonObjectUtilities.toString(pair));
 		} else if (hierarchy.getSubclassificatons() != null) {
 			Iterator<ClassificationHierarchy> iter = hierarchy.getSubclassificatons().iterator();
 			while (iter.hasNext() && !foundB) {
@@ -131,9 +127,7 @@ public class CreateHierarchyElement {
 			if (foundB) {
 				if (!hierarchy.getClassification().equals(topOfHierarchy)) {
 					String genname = generateHierarchyName(hierarchy.getClassification(), catalogC, json);
-		            System.out.println("found in subs\ngenname=" + genname + "   catalogC=" + catalogC + "    class=" + hierarchy.getClassification() + "\nPairs: " + JsonObjectUtilities.toString(pairs)+ "\n:Pair: " + JsonObjectUtilities.toString(pair));
 					UpdateHierarchyList(hierarchy.getClassification(), genname, pair, pairs);
-		            System.out.println("found in subs\n" + genname + "   " + hierarchy.getClassification() + "\nPairs: " + JsonObjectUtilities.toString(pairs)+ "\n:Pair: " + JsonObjectUtilities.toString(pair));
 				}
 			}
 		}
@@ -184,7 +178,6 @@ public class CreateHierarchyElement {
 	 */
 	private static void addInCollectionDocumentIDPair(String identifier, String genname, JsonObject pair,
 			JsonArray pairs) {
-	    System.out.println("addInCollectionDocumentIDPair: " + identifier + " ----" + JsonObjectUtilities.toString(pair));
 		if (pair.get(identifier) == null) {
 			pair.addProperty(identifier, genname);
 		} else {
@@ -240,7 +233,7 @@ public class CreateHierarchyElement {
 			String isdefinedbyShort = isdefinedby.substring(8);
 			name = GenerateStringLabel.valueOf(isdefinedbyShort).deriveName(hierclass, classname, json);
 		} catch(Exception ex) {
-			System.out.println("generateHierarchyName(" + hierclass + ", " + classname + ")");
+			System.err.println("generateHierarchyName(" + hierclass + ", " + classname + ")");
 			System.err.println(ex.toString());
 		}
 		return name;
