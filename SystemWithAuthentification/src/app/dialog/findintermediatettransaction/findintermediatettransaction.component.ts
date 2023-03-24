@@ -118,10 +118,14 @@ export class FindintermediatettransactionComponent implements OnInit {
 	}
 
 	setUniqueName(choice: any): void {
+		alert("setUniqueName");
 		const uniquename = choice[this.identifiers.CatalogObjectKey];
+		alert(uniquename);
 		const arrtransactiontype = choice[this.identifiers.CatalogHiearchyNode];
+		alert(JSON.stringify(arrtransactiontype));
 		this.processTransactiontypeMenu(arrtransactiontype);
 		this.idForm.get('CatalogObjectUniqueGenericLabel').setValue(uniquename);
+		alert(this.idForm.get('CatalogObjectUniqueGenericLabel').value);
 	}
 	processTransactiontypeMenu(arrtransactiontype: any): void {
 		if (arrtransactiontype.length > 1) {
