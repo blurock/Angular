@@ -29,7 +29,6 @@ public class GetUserAccountAndDatabasePersonProcess {
         JsonObject empty = CreateDocumentTemplate.createTemplate(classname);
         JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(empty);
         firestoreid.addProperty(ClassLabelConstants.SimpleCatalogName, uid);
-        System.out.println("GetUserAccountAndDatabasePersonProcess: " + JsonObjectUtilities.toString(firestoreid));
         JsonObject pairresponse = ReadFirestoreInformation.readFirestoreCatalogObject(firestoreid);
         if(pairresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
             JsonObject pair = pairresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
@@ -55,7 +54,6 @@ public class GetUserAccountAndDatabasePersonProcess {
                     JsonArray arr = new JsonArray();
                     arr.add(catalog);
                     String title = "Success in reading account: " + uid;
-                    System.out.println("Success in User Account");
                     response = DatabaseServicesBase.standardServiceResponse(document, title, arr);
                 } else {
                     System.out.println("User Account not found");
@@ -76,7 +74,6 @@ public class GetUserAccountAndDatabasePersonProcess {
             MessageConstructor.combineBodyIntoDocument(document, pairresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
             response = DatabaseServicesBase.standardErrorResponse(document, errorresponse,null);
         }
-        System.out.println("Get: " + response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean());
         return response;
     }
 }

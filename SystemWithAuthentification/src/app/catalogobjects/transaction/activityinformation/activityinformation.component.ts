@@ -36,9 +36,9 @@ displaydescbutton = 'Press to fill in prerequisite information';
 	@ViewChild('readlocal') readlocal: ActivityrepositoryinitialreadlocalfileComponent;
 	@ViewChild('partition') partition: ActivityrepositorypartitiontocatalogComponent;
 	@ViewChild('disassociation') disassociation: ActivityinformationinterpretdisassociationenergyComponent;
-	@ViewChild('benson') benson: ActivityinformationinterpretthermodynamicblockComponent;
+	@ViewChild('benson') benson:       ActivityinformationinterpretthermodynamicblockComponent;
 	@ViewChild('structure') structure: ActivityinformationinterpretthermodynamicblockComponent;
-	@ViewChild('species') species: ActivityinformationinterpretthermodynamicblockComponent;
+	@ViewChild('species') species:     ActivityinformationinterpretthermodynamicblockComponent;
 	@ViewChild('frequency') frequency: ActivityinformationinterpretvibrationalmodeComponent;
 	@ViewChild('symmetry') symmetry: ActivityinformationinterpretsymmetryinformationComponent;
 	@ViewChild('metaatom') metaatom: ActivityinformationinterpretmetaatomComponent;
@@ -169,13 +169,11 @@ displaydescbutton = 'Press to fill in prerequisite information';
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretBensonRuleData') {
 			if (this.benson != null) {
 				this.benson.setPrerequisiteData(prerequisite);
-			} else {
-				alert("Benson activity null");
 			}
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretSubstructureThermodynamics') {
 			this.structure.setPrerequisiteData(prerequisite);
 		} else if (this.activityname == 'dataset:ActivityInformationMolecularThermodynamics') {
-			//this.species.setData(activity);
+			this.species.setData(prerequisite);
 		} else if (this.activityname == 'dataset:ActivityInformationInterpretVibrationalMode') {
 			if(this.frequency != null) {
 				this.frequency.setPrerequisiteData(prerequisite);

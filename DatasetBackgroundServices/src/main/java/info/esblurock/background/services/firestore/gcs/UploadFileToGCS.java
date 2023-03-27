@@ -105,9 +105,6 @@ public enum UploadFileToGCS {
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-            System.out.println("-------------");
-            System.out.println(content);
-            System.out.println("-------------");
 			body.addElement("pre").addText("String content: '" + content + "'");
 			JsonObject response = WriteCloudStorage.writeString(transactionID, owner, maintainer, content, info,
 					"dataset:StringSource");

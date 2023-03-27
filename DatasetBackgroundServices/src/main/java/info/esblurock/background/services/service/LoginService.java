@@ -55,14 +55,6 @@ public class LoginService extends HttpServlet {
         try {
             decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
             String uid = decodedToken.getUid();
-/*
-            System.out.println(decodedToken.getEmail());
-            System.out.println(decodedToken.getIssuer());
-            System.out.println(decodedToken.getName());
-            System.out.println(decodedToken.getPicture());
-            System.out.println(decodedToken.getTenantId());
-            System.out.println(decodedToken.getClaims());
-*/
             Document document = MessageConstructor.startDocument("First Login: " + uid);
             Element body = MessageConstructor.isolateBody(document);
             body.addElement("div").addText("Token: " + idToken);

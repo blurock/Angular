@@ -41,7 +41,6 @@ public class InitiallizeSystem {
 				e.printStackTrace();
 			}
 		} else {
-		    System.out.println("Already initialized");
 		}
 	}
 }

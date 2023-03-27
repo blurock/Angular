@@ -205,7 +205,6 @@ public class FindTransactions {
             firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
             JsonObject setofprops = FindTransactionFromActivityInfo.determineSetOfProps(type, info);
             JsonObject response = ReadFirestoreInformation.readFirestoreCollection(setofprops, firestoreid);
-            JsonObjectUtilities.printResponse(response);
             if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
                 JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
                 if (arr != null) {
@@ -263,7 +262,6 @@ public class FindTransactions {
 
             response = ReadFirestoreInformation.readFirestoreCollection(setofprops, firestoreid);
 
-            // JsonObjectUtilities.printResponse(response);
             if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
                 String rdfmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
                 MessageConstructor.combineBodyIntoDocument(document, rdfmessage);
@@ -283,7 +281,6 @@ public class FindTransactions {
                 }
             } else {
                 String idS = JsonObjectUtilities.toString(firestoreid);
-                System.out.println(idS);
                 Element pre = body.addElement("pre");
                 pre.addText(idS);
                 String rdfmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();

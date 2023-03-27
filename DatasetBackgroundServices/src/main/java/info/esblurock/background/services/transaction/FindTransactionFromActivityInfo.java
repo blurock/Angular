@@ -61,10 +61,8 @@ public enum FindTransactionFromActivityInfo {
 	    String name = "";
 	    
 		TransactionProcess process = TransactionProcess.valueOf(transactiontype.substring(8));
-        System.out.println("findTransaction   '" + transactiontype + "'  " + transactiontype.substring(8));
 		transactionobjectname = process.transactionObjectName();
 		name = transactionobjectname.substring(8);
-        System.out.println("findTransaction   '" + transactionobjectname + "'  '" + name + "'");
 		FindTransactionFromActivityInfo fill = FindTransactionFromActivityInfo.valueOf(name);
 		
 		if (fill != null) {

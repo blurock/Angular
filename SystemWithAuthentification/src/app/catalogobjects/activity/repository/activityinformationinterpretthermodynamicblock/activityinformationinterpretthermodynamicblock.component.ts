@@ -37,9 +37,10 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 	objectform: FormGroup;
 
 	structurespecification = 'dataset:JThermodynamicsSpeciesSpecificationType';
-	structuretype = 'dataset:JThermodynamicsSubstructureType'; 
+	structuretype = 'dataset:JThermodynamicsSubstructureType';
 	items: NavItem[];
 	structitems: NavItem[];
+	notbenson = false;
 
 	@Input() annoinfo: any;
 	@Input() fileformat: string;
@@ -100,13 +101,12 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 	ngAfterViewInit(): void {
 		this.activitysetup.emit();
 	}
-	
+
 	invalid(): boolean {
 		return this.objectform.invalid;
 	}
 
 	setPrerequisiteData(prerequisite: any): void {
-		alert("setPrerequisiteData: begin");
 		const activityinfo = prerequisite['dataset:activityinfo'];
 		const Hdisformat = this.fileformatdata[this.fileformat];
 		this.objectform.get('FileSourceFormat').setValue(this.fileformat);
@@ -117,16 +117,16 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
 		const specdata = activityinfo[specid];
 		this.spec.setData(specdata);
-		alert("setPrerequisiteData: begin");
 	}
 
 	getData(activity: any): void {
 		activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod').value;
 		activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.objectform.get('FileSourceFormat').value;
 		activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle').value;
-		activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]] = this.objectform.get('JThermodynamicsSpeciesSpecificationType').value;
-		activity[this.annoinfo['dataset:JThermodynamicsSubstructureType'][this.identifier]] = this.objectform.get('JThermodynamicsSubstructureType').value;
-
+		if (this.notbenson) {
+			activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]] = this.objectform.get('JThermodynamicsSpeciesSpecificationType').value;
+			activity[this.annoinfo['dataset:JThermodynamicsSubstructureType'][this.identifier]] = this.objectform.get('JThermodynamicsSubstructureType').value;
+		}
 		this.spec.getData(activity);
 		const enthalpyvalue = {};
 		this.enthalpy.getData(enthalpyvalue);
@@ -159,11 +159,14 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 		//this.objectform.get('BlockInterpretationMethod').setValue(activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]]);
 		this.objectform.get('FileSourceFormat').setValue(activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]]);
 		this.objectform.get('DescriptionTitle').setValue(activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
-		const spectype = activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]];
-		this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue(spectype);
-		const structtype = activity[this.annoinfo['dataset:JThermodynamicsSubstructureType'][this.identifier]];
-		this.objectform.get('JThermodynamicsSubstructureType').setValue(structtype);
+		if (this.notbenson) {
+			const spectype = activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]];
+			this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue(spectype);
+			const structtype = activity[this.annoinfo['dataset:JThermodynamicsSubstructureType'][this.identifier]];
+			this.objectform.get('JThermodynamicsSubstructureType').setValue(structtype);
+		} else {
 
+		}
 		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
 
 		this.spec.setData(activity[specid]);

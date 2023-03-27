@@ -39,7 +39,6 @@ public class BackgroundTransaction extends HttpServlet {
         String bodyS = IOUtils.toString(request.getInputStream(), "UTF-8");
 
         String authHeader = request.getHeader("authorization");
-        //System.out.println("Authorization: '" + authHeader + "'");
         String idToken = authHeader.split(" ")[1];
         FirebaseToken decodedToken;
 

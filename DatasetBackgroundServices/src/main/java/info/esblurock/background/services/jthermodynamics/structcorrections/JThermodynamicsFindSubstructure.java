@@ -78,19 +78,14 @@ public class JThermodynamicsFindSubstructure {
         while (iter.hasNext() && notfound) {
             denergycounts = iter.next();
             IAtomContainer substructure = denergycounts.getSubstructure();
-            System.out.println("Molecule " + denergycounts.getMoleculeID() + "   " +  denergycounts.moleculename);
-            System.out.println("substructure.getAtomCount():   " + substructure.getAtomCount());
             //if (speciessubstructure.strictlyLessThanOrEqual(denergycounts)) {
             if (true) {
                 try {
                     List<List<RMap>> atommaps = matches.getAtomMatches(radical, substructure);
-                    System.out.println("atommaps size: " + atommaps.size());
                     Iterator<List<RMap>> mapiter = atommaps.iterator();
                     while (mapiter.hasNext() && notfound) {
                         List<RMap> atommap = mapiter.next();
-                        System.out.println("atommap.size(): " +  atommap.size());
                         if (atommap.size() == substructure.getAtomCount()) {
-                            System.out.println("found");
                             notfound = false;
                         }
                     }

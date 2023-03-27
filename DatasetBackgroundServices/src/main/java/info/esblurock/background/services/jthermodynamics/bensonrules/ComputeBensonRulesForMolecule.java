@@ -77,8 +77,8 @@ public class ComputeBensonRulesForMolecule {
             hrow.addElement("th").addText("Maintainer");
             hrow.addElement("th").addText("Dataset");
             Element drow = table.addElement("tr");
-            hrow.addElement("td").addText(maintainer);
-            hrow.addElement("td").addText(dataset);
+            drow.addElement("td").addText(maintainer);
+            drow.addElement("td").addText(dataset);
 
             response = DatabaseServicesBase.standardErrorResponse(document,
                     "Meta atoms for BensonAtoms not defined: check to see if collection defined properly", null);
@@ -297,7 +297,6 @@ public class ComputeBensonRulesForMolecule {
         json.addProperty(DatabaseServicesBase.service, service);
         json.add(ClassLabelConstants.SetOfPropertyValueQueryPairs, setofprops1);
         JsonObject response = DatabaseServicesBase.process(json);
-        JsonObjectUtilities.printResponse(response);
         return response;
     }
 }

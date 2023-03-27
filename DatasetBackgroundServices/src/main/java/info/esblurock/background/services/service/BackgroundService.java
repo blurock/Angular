@@ -58,7 +58,6 @@ public class BackgroundService extends HttpServlet {
         String bodyS = IOUtils.toString(request.getInputStream(), "UTF-8");
 
         String authHeader = request.getHeader("authorization");
-        //System.out.println("Authorization: '" + authHeader + "'");
         String idToken = authHeader.split(" ")[1];
         FirebaseToken decodedToken;
 
@@ -69,7 +68,6 @@ public class BackgroundService extends HttpServlet {
 
             JsonObject body = JsonObjectUtilities.jsonObjectFromString(bodyS);
             String uidfrombody = body.get("uid").getAsString();
-            System.out.println("? " + uidfrombody + " == " + uid);
             if (uidfrombody.equals(uid)) {
                 answer = DatabaseServicesBase.process(body);
             } else {
@@ -88,28 +86,7 @@ public class BackgroundService extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         out.print(JsonObjectUtilities.toString(answer));
         out.flush();
-	    
-	    
-	    
-	    
-	    /*
-		String authHeader = request.getHeader("authorization");
-		String encodedValue = authHeader.split(" ")[1];
-		System.out.println("Base64-encoded Authorization Value: '" + encodedValue + "'");
-		byte[] decodedValue = Base64.getDecoder().decode(encodedValue);
-		System.out.println("</em><br/>Base64-decoded Authorization Value: <em>" + decodedValue);
-		System.out.println("</em>");
-		
-		InitiallizeSystem.initialize();
-		String bodyS = getBody(request);
-		JsonObject body = JsonObjectUtilities.jsonObjectFromString(bodyS);
-		JsonObject answer = DatabaseServicesBase.process(body);
-		PrintWriter out = response.getWriter();
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		out.print(JsonObjectUtilities.toString(answer));
-		out.flush();
-*/	}
+        }
 
 	/**
 	 * Read in the JSON data from the body of the post
