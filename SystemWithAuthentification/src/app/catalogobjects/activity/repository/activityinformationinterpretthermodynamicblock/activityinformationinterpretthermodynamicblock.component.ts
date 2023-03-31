@@ -110,6 +110,11 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 		const activityinfo = prerequisite['dataset:activityinfo'];
 		const Hdisformat = this.fileformatdata[this.fileformat];
 		this.objectform.get('FileSourceFormat').setValue(this.fileformat);
+		if(this.fileformat === "dataset:TherGasBensonRules") {
+			this.notbenson = false;
+		} else {
+			this.notbenson = true;
+		}
 		const block = Hdisformat['dataset:interpretMethod'];
 		this.objectform.get('BlockInterpretationMethod').setValue(block);
 		this.objectform.get('DescriptionTitle').setValue(activityinfo[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
