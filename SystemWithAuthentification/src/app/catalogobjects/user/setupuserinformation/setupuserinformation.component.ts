@@ -67,8 +67,6 @@ export class SetupuserinformationComponent implements OnInit {
 		});
 		this.userAccountGroup.get('UserAccountRole').setValue('dataset:StandardUser');
 		this.signinFormGroup.get('UserClassification').setValue('dataset:ConceptResearcher');
-
-
 	}
 	ngOnInit(): void {
 		this.setupUserParameters();

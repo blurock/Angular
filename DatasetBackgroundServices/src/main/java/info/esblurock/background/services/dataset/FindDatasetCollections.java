@@ -110,6 +110,10 @@ public class FindDatasetCollections {
             Document docmessage = MessageConstructor.startDocument("Find All Dataset Collection Sets");
             response = DatabaseServicesBase.standardErrorResponse(docmessage, message, null);
         }
+        System.out.println("____________________________________________________________________");
+        JsonObjectUtilities.printResponse(response);
+        System.out.println("____________________________________________________________________");
+        
         return response;
 
     }
@@ -119,6 +123,7 @@ public class FindDatasetCollections {
                 .startDocument("Find All Dataset Collection Sets for " + maintainer);
         JsonObject response = null;
         JsonObject collectionfirestore = createFirestoreForCollectionSet(maintainer);
+        System.out.println(JsonObjectUtilities.toString(collectionfirestore));
         response = ReadFirestoreInformation.readFirestoreCollection(null, collectionfirestore);
         if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
             JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
@@ -137,7 +142,12 @@ public class FindDatasetCollections {
     
     private static JsonObject createFirestoreForCollectionSet(String maintainer) {
         JsonObject collectionfirestore = CreateDocumentTemplate.createTemplate(firestoreclassname);
-        collectionfirestore.addProperty(ClassLabelConstants.DataCatalog, "hieridcollectionset");
+        if(maintainer.equals(DatasetCollectionCreateSystemCollection.systemhierarchy)) {
+            collectionfirestore.addProperty(ClassLabelConstants.DataCatalog, "systemdatasetcollections");
+        } else {
+            collectionfirestore.addProperty(ClassLabelConstants.DataCatalog, "hieridcollectionset");
+        }
+        
         collectionfirestore.remove(ClassLabelConstants.SimpleCatalogName);
         JsonObject pairset = collectionfirestore.get(ClassLabelConstants.CollectionDocumentIDPairAddress)
                 .getAsJsonObject();

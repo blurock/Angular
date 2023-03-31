@@ -129,9 +129,11 @@ public class InterpretThermodynamicBlock {
 			interpretStandardThermodynamics(point, bensonrulethermo, info, row);
 
 		} catch (JThergasReadException e) {
+		    bensonrule = null;
 			row.addElement("td").addText("Error in parse: " + positionD + " first line: " + line1);
 			e.printStackTrace();
 		} catch (NumberFormatException e) {
+		    bensonrule = null;
 		    row.addElement("td").addText("Error in parse: position (number exception): " + positionD + " first line: " + line1);
             e.printStackTrace();
 		}

@@ -12,6 +12,7 @@ export class IdentifiersService {
 	public CatalogObjectAccessModify = 'dataset:accessmodify';
 	public TransactionID = 'transaction';
 	public CatalogHiearchyNode = 'dataset:cataloghiearchynode';
+	public DatasetCollectionsLabel = 'dataset:datasetcollectionslabel'
 	
 	public FirestoreCatalogID = 'dataset:firestorecatalog';
 	public DataCatalog = 'skos:inScheme';

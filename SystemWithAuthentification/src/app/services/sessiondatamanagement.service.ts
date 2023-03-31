@@ -19,6 +19,9 @@ export class SessiondatamanagementService {
   public getUID(): string {
     return sessionStorage.getItem('dataset:authorizationuid');
   }
+public setUID(uid: string): void {
+    sessionStorage.setItem('dataset:authorizationuid',uid);
+  }
   
   public getUserRole(): string {
     return sessionStorage.getItem('dataset:UserAccountRole');

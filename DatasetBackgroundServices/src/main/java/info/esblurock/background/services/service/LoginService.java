@@ -47,15 +47,16 @@ public class LoginService extends HttpServlet {
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         InitiallizeSystem.initialize();
+        Document document = MessageConstructor.startDocument("First Login");
         String bodyS = IOUtils.toString(request.getInputStream(), "UTF-8");
-
+        
         String authHeader = request.getHeader("authorization");
         String idToken = authHeader.split(" ")[1];
         FirebaseToken decodedToken;
         try {
             decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
             String uid = decodedToken.getUid();
-            Document document = MessageConstructor.startDocument("First Login: " + uid);
+           
             Element body = MessageConstructor.isolateBody(document);
             body.addElement("div").addText("Token: " + idToken);
             body.addElement("div").addText("UID from token: " + uid);
@@ -93,7 +94,15 @@ public class LoginService extends HttpServlet {
             out.print(JsonObjectUtilities.toString(answer));
             out.flush();
         } catch (FirebaseAuthException e) {
-            // TODO Auto-generated catch block
+            JsonObject answer = DatabaseServicesBase.standardErrorResponse(document,
+                    "Error in Authorization: Login session expired", null);
+            
+            PrintWriter out = response.getWriter();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            out.print(JsonObjectUtilities.toString(answer));
+            out.flush();
+           // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

@@ -67,9 +67,7 @@ export class AuthService {
 				/* Call the SendVerificaitonMail() function when new user sign
 				up and returns promise */
 				const user = result.user;
-				alert("createUserWithEmailAndPassword: " + JSON.stringify(user));
 				this.SendVerificationMail();
-				alert("after send verification");
 				this.SetUserData(result.user);
 			})
 			.catch((error) => {
@@ -111,10 +109,7 @@ export class AuthService {
 		const auth = getAuth();
 		const user = auth.currentUser;
 		if (user !== null) {
-			alert(JSON.stringify(user));
-			// The user object has basic properties such as display name, email, etc.
 			const emailVerified = user.emailVerified;
-			alert("emailVerified: " + emailVerified);
 			ans = emailVerified;
 		}
 			
@@ -194,9 +189,12 @@ export class AuthService {
 
 							this.session.setLoginStatus(status);
 							const loginaccount = result['dataset:loginaccountinfo'];
-							if (status == "dataset:LoginAccountInformation") {
+							//alert("getUserInformationFromServer status=" + status);
+							if (status == "dataset:LoginAuthenticated") {
+							//if (status == "dataset:LoginAccountInformation") {
 								this.session.storeLoginAccount(loginaccount);
 								this.session.setLoginStatus(status);
+								//alert("getUserInformationFromServer emailverified=" + user.emailVerified);
 								if (user.emailVerified) {
 									this.router.navigateByUrl('/usersetup');
 								} else {

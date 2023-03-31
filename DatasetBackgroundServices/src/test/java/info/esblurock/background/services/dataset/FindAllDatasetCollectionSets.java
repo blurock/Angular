@@ -14,7 +14,7 @@ public class FindAllDatasetCollectionSets {
     @Test
     public void testFindAllDatasetCollectionSets() {
         JsonObject json = new JsonObject();
-        String owner = "Administrator";
+        String owner = "kFuG0gJor6otzMSWramHUnxCaxEQ";
         
         json.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, owner);
         json.addProperty(DatabaseServicesBase.service, "FindAllDatasetCollectionSets");

@@ -31,10 +31,12 @@ export class UseraccountadministrationComponent implements OnInit {
 	}
 
 	getAccountIDs(): any {
+		alert("getAccountIDs");
 		const inputdata = {};
 		inputdata[this.serviceid] = 'ListOfUserAccountNames';
 		this.runservice.run(inputdata).subscribe({
 			next: (responsedata: any) => {
+				alert("getAccountIDs" + JSON.stringify(responsedata));
 				const success = responsedata[Ontologyconstants.successful];
 				if (success == 'true') {
 					const obj = responsedata[Ontologyconstants.catalogobject][0];

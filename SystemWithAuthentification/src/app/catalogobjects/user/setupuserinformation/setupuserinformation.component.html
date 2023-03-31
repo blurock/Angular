@@ -1,6 +1,5 @@
 <mat-stepper #stepper>
 	<mat-step [stepControl]="userAccountGroup" label="Account Setup">
-
 		<ng-container *ngIf='annoinfo != null;'>
 			<div>
 			<h3>Welcome New User</h3>
@@ -73,7 +72,6 @@ b				In this menu, the user should set up a unique name and choose the type of u
 		</ng-container>
 	</mat-step>
 	<mat-step [stepControl]="signinFormGroup" label="User Information">
-
 		<ng-container *ngIf='annoinfo != null;'>
 			<div>
 				<h3>Please take the time to fill in the information about you as a user</h3>

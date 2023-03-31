@@ -7,6 +7,7 @@ import { NavItem } from '../../../../primitives/nav-item';
 import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
 import { MatChipInputEvent } from '@angular/material/chips';
+import {IdentifiersService} from '../../../../const/identifiers.service';
 
 
 @Component({
@@ -50,7 +51,8 @@ export class ThermocalculationsetupComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private menuserver: OntologycatalogService,
 		private menusetup: MenutreeserviceService,
-		manageuser: ManageuserserviceService
+		manageuser: ManageuserserviceService,
+		private identifiers: IdentifiersService
 	) {
 		const set = [];
 		set.push(this.molarenthalpyparameter);
@@ -103,6 +105,20 @@ export class ThermocalculationsetupComponent implements OnInit {
 			heatcapacityans = this.heatcapacity.invalid();
 		}
 		return ansenthalpy || entropyans || heatcapacityans || this.objectform.invalid;
+	}
+	
+	setCollection($event) {
+		
+		const type = $event['dcat:dataset'];
+		var collectionname = $event[this.identifiers.DatasetCollectionsLabel];
+		if(type == 'dataset:ThermodynamicsSystemCollectionIDsSet') {
+			collectionname = $event[this.identifiers.CatalogObjectKey];
+			this.objectform.get('CatalogDataObjectMaintainer').setValue('systemthermodynamics');
+		} else {
+			this.objectform.get('CatalogDataObjectMaintainer').setValue(this.maintainer);
+		}
+		this.objectform.get('DatasetCollectionsSetLabel').setValue(collectionname);
+		alert(JSON.stringify(collectionname));
 	}
 
 	setMethod($event: string): void {

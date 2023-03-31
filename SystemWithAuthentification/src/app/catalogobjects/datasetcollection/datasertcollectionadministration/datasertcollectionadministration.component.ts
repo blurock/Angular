@@ -7,7 +7,7 @@ import { ThermodynamicsdatasetcollectionidssetComponent } from '../../datasetcol
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import {NavItem} from '../../../primitives/nav-item';
+import { NavItem } from '../../../primitives/nav-item';
 
 @Component({
 	selector: 'app-datasertcollectionadministration',
@@ -27,16 +27,16 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 	submit = 'Create System Dataset';
 	failedsubmission = 'Failed Transaction: no result given';
 
-systemcollections: any;
+	systemcollections: any;
 	datasetcollections: any;
 	collection: any;
 
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
-	
-	
-	
+
+
+
 
 
 	maintainer: string;
@@ -77,11 +77,6 @@ systemcollections: any;
 
 	ngOnInit(): void {
 		this.getAllDatasetCollections();
-		if(this.items.length == 1) {
-			const choice = this.items[0];
-			this.objectform.get('CatalogDataObjectMaintainer').setValue(choice);
-			
-		}
 	}
 
 	getAllDatasetCollections(): any {
@@ -94,55 +89,48 @@ systemcollections: any;
 				const success = responsedata[Ontologyconstants.successful];
 				if (success === 'true') {
 					const arr = responsedata[Ontologyconstants.catalogobject];
-					alert(JSON.stringify(arr));
 					const set = arr[0];
-					alert(JSON.stringify(set));
-					this.systemcollections = set[Ontologyconstants.ThermodynamicsSystemCollectionIDsSet];
-					alert("this.systemcollections" + JSON.stringify(this.systemcollections));
+					this.systemcollections = set['dataset:systemdatasetcollection'];
 					this.datasetcollections = set[Ontologyconstants.ThermodynamicsDatasetCollectionIDsSet];
-					alert("this.datasetcollections" + JSON.stringify(this.datasetcollections));
 					this.items = [];
 					if (this.systemcollections != null) {
-						const systemitems = this.makeDatasetMenu(this.systemcollections);
-						if (this.datasetcollections != null) {
-							const datasetitems = this.makeDatasetMenu(this.datasetcollections);
-
+						const systemitems = this.makeDatasetMenu(this.systemcollections,'dataset:catalogkey');
+						if (systemitems.length > 0) {
 							const sysitems = {
 								displayName: 'From System',
 								disabled: false,
 								value: 'From System',
 								children: systemitems
 							}
+							this.items.push(sysitems);
+						}
+					}
+
+					if (this.datasetcollections != null) {
+						const datasetitems = this.makeDatasetMenu(this.datasetcollections, 'dataset:datasetcollectionslabel');
+						if (datasetitems.length > 0) {
 							const datitems = {
 								displayName: 'From User',
 								disabled: false,
 								value: 'From User',
 								children: datasetitems
 							}
-							this.items.push(sysitems);
 							this.items.push(datitems);
-						} else {
-							this.items = systemitems;
-						}
-					} else {
-						if (this.datasetcollections != null) {
-							const datasetitems = this.makeDatasetMenu(this.datasetcollections);
-							this.items = datasetitems;
-						} else {
-
 						}
 					}
+					
 				} else {
 					alert('List of Datasets not available');
 				}
-			}
+
+ 			}
 		});
 	}
 
-	makeDatasetMenu(system: any): NavItem[] {
+	makeDatasetMenu(system: any, id:string): NavItem[] {
 		var items = [];
-		for (const collection of this.datasetcollections) {
-			const label = collection['dataset:datasetcollectionslabel'];
+		for (const collection of system) {
+			const label = collection[id];
 			const celement: NavItem = {
 				displayName: label,
 				disabled: false,
@@ -155,37 +143,43 @@ systemcollections: any;
 	}
 
 
-	datasetChosen(child:string ): void {
+	datasetChosen(child: string): void {
 		this.collection = this.getCollection(child);
 		this.thermocollectionset.setData(this.collection);
-		const chosendataset = this.collection['dataset:datasetcollectionslabel'];
-		this.selected = chosendataset;
-		this.objectform.get('DatasetCollectionsSetLabel').setValue(chosendataset);
-		this.sourcedataset = chosendataset;
+		this.selected = child;
+		this.objectform.get('DatasetCollectionsSetLabel').setValue(child);
+		alert("datasetChosen 3: "+this.objectform.get('DatasetCollectionsSetLabel').value);
+		this.sourcedataset = child;
+		alert("datasetChosen 4");
 	}
-	
+
 	getCollection(name: string) {
+		alert("name= " + name);
 		var chosen = null;
-		if(this.systemcollections != null) {
-			for(var i=0; i<this.systemcollections.size() && chosen == null; i++) {
+		if (this.systemcollections != null) {
+			alert("this.systemcollections != null");
+			for (var i = 0; i < this.systemcollections.length && chosen == null; i++) {
 				const coll = this.systemcollections[i];
-				if(name === coll['dataset:datasetcollectionslabel']) {
+				if (name === coll['dataset:catalogkey']) {
 					chosen = coll;
 				}
 			}
 		}
-		if(this.datasetcollections != null) {
-			for(var i=0; i<this.datasetcollections.size() && chosen == null; i++) {
+		if (this.datasetcollections != null) {
+			alert("this.datasetcollections != null");
+			alert(this.datasetcollections.length);
+			for (var i = 0; i < this.datasetcollections.length && chosen == null; i++) {
 				const coll = this.datasetcollections[i];
-				if(name === coll['dataset:datasetcollectionslabel']) {
+				if (name === coll['dataset:datasetcollectionslabel']) {
 					chosen = coll;
 				}
 			}
 		}
+		alert("getCollection\n" + JSON.stringify(chosen));
 		return chosen;
 	}
-	
-	
+
+
 
 	userChosen(user: string): void {
 		this.userid = user;
