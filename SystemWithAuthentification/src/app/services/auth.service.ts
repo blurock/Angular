@@ -23,6 +23,8 @@ import { __assign } from 'tslib';
 	providedIn: 'root'
 })
 export class AuthService {
+	
+	
 	userData: any; // Save logged in user data
 	constructor(
 		public session: SessiondatamanagementService,
@@ -34,6 +36,7 @@ export class AuthService {
 	) {
 		/* Saving user data in localstorage when
 			  logged in and setting up null when logged out */
+			  
 		this.afAuth.authState.subscribe((user) => {
 			if (user) {
 				this.SetUserData(user);
@@ -41,7 +44,7 @@ export class AuthService {
 					//this.router.navigate(['usersetup']);
 				});
 			} else {
-
+               alert("GUEST")
 			}
 		});
 	}
@@ -141,12 +144,17 @@ export class AuthService {
 				window.alert("Authorization error: " + error);
 			});
 	}
+	
 	/* Setting up user data when sign in with username/password, 
 	sign up with username/password and sign in with social auth  
 	provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
 	SetUserData(user: any): void {
 		getAuth().currentUser.getIdToken(true).then((token) => {
+			alert("SetUserData: " + JSON.stringify(user));
+			alert("SetUserData: this.session.getAuthorizationData()" + JSON.stringify(this.session.getAuthorizationData()));
+			alert("SetUserData: this.session.getUserAccount()" + JSON.stringify(this.session.getUserAccount()));
 			if (this.session.getAuthorizationData() == null || this.session.getUserAccount() == null) {
+				alert("Token: " + token);
 				const uid = user.uid;
 				const email = user.email;
 				const displayname = user.displayName;
@@ -178,6 +186,8 @@ export class AuthService {
 	getUserInformationFromServer(logintransaction: any, token: string, user: any) {
 		const headerdata = ServiceUtilityRoutines.setupHeader(token);
 		const httpaddr = environment.apiURL + '/' + Login;
+		alert("getUserInformationFromServer: " + JSON.stringify(logintransaction));
+		alert("getUserInformationFromServer: " + JSON.stringify(headerdata));
 		this.httpClient.post(httpaddr, logintransaction, { headers: headerdata })
 			.subscribe({
 				next: (response: any) => {

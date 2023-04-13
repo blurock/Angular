@@ -5,6 +5,7 @@ import { SessiondatamanagementService } from '../services/sessiondatamanagement.
 import { RunserviceprocessService } from '../services/runserviceprocess.service';
 import { Router } from '@angular/router';
 import { Ontologyconstants } from '../const/ontologyconstants';
+import {AuthService} from '../services/auth.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -16,16 +17,20 @@ export class ManageuserserviceService {
 	constructor(private httpClient: HttpClient,
 		private runservice: RunserviceprocessService,
 		private session: SessiondatamanagementService,
-		private router: Router
-	) { }
+		private router: Router,
+		private authservice: AuthService
+	) { 
+		alert("start ManageuserserviceService");
+	}
 
 
 
 	determineMaintainer(): Observable<string> {
-		const uid = this.session.getUID();
+		var uid = this.session.getUID();
 		if (uid == null) {
-			alert("User not logged in");
-			this.router.navigateByUrl(``);
+			alert("Guest Login");
+			uid = this.session.getGuestLabel();
+			//this.router.navigateByUrl(``);
 		}
 		return of(uid);
 	}

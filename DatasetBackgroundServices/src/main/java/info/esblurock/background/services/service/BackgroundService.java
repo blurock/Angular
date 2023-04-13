@@ -31,50 +31,62 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 @WebServlet(name = "BackgroundService", urlPatterns = { "/service" })
 public class BackgroundService extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * POST The input is one JSON argument (read in using InputStream). The argument
-	 * 'service' determines which service is to be performed
-	 * {@link DatabaseServicesBase} processes the data with the service.
-	 * 
-	 * The response is application/json
-	 *
-	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		// Not sure about 'name of header' 
-		// From const headers = new Headers({'Authorization': 'Bearer ' + authToken });
-		// In 
-	    /*
-		try {
-			boolean sucess = request.authenticate(response);
-		} catch (IOException | ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-		*/
+    /**
+     * POST The input is one JSON argument (read in using InputStream). The argument
+     * 'service' determines which service is to be performed
+     * {@link DatabaseServicesBase} processes the data with the service.
+     * 
+     * The response is application/json
+     *
+     */
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        // Not sure about 'name of header'
+        // From const headers = new Headers({'Authorization': 'Bearer ' + authToken });
+        // In
+        /*
+         * try { boolean sucess = request.authenticate(response); } catch (IOException |
+         * ServletException e) { // TODO Auto-generated catch block e.printStackTrace();
+         * }
+         */
         InitiallizeSystem.initialize();
         String bodyS = IOUtils.toString(request.getInputStream(), "UTF-8");
+        JsonObject body = JsonObjectUtilities.jsonObjectFromString(bodyS);
+        System.out.println("body: " + JsonObjectUtilities.toString(body));
+        String uidfrombody = body.get("uid").getAsString();
+        System.out.println(uidfrombody);
 
         String authHeader = request.getHeader("authorization");
+        System.out.println("authHeader: " + authHeader);
         String idToken = authHeader.split(" ")[1];
+        System.out.println("idToken: " + idToken);
+
         FirebaseToken decodedToken;
 
         JsonObject answer = null;
         try {
-            decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
-            String uid = decodedToken.getUid();
-
-            JsonObject body = JsonObjectUtilities.jsonObjectFromString(bodyS);
-            String uidfrombody = body.get("uid").getAsString();
-            if (uidfrombody.equals(uid)) {
-                answer = DatabaseServicesBase.process(body);
+            String uid = null;
+            if (!idToken.equals("null")) {
+                decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
+                uid = decodedToken.getUid();
+                if (uidfrombody.equals(uid)) {
+                    answer = DatabaseServicesBase.process(body);
+                } else {
+                    Document document = MessageConstructor.startDocument("Service fatal error UID mismatch");
+                    answer = DatabaseServicesBase.standardErrorResponse(document, "UIDs illegal token, user not signed in",
+                            null);
+                }
             } else {
-                Document document = MessageConstructor.startDocument("Service fatal error UID mismatch");
-                answer = DatabaseServicesBase.standardErrorResponse(null, "UIDs illegal token, user not signed in",
-                        null);
+                if (uidfrombody.equals("Guest")) {
+                    answer = DatabaseServicesBase.process(body);
+                } else {
+                    Document document = MessageConstructor.startDocument("Service fatal error Guest login");
+                    answer = DatabaseServicesBase.standardErrorResponse(document, "Illegal Guest process", null);
+                }
             }
+
         } catch (FirebaseAuthException e) {
             Document document = MessageConstructor.startDocument("Service fatal error");
             answer = DatabaseServicesBase.standardErrorResponse(document, "Firebase error: " + e.getMessage(), null);
@@ -86,46 +98,46 @@ public class BackgroundService extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         out.print(JsonObjectUtilities.toString(answer));
         out.flush();
+    }
+
+    /**
+     * Read in the JSON data from the body of the post
+     * 
+     * @param request The request from the POST
+     * @return The JsonObject data as a string
+     * @throws IOException
+     */
+    public static String getBody(HttpServletRequest request) throws IOException {
+
+        String body = null;
+        StringBuilder stringBuilder = new StringBuilder();
+        BufferedReader bufferedReader = null;
+
+        try {
+            InputStream inputStream = request.getInputStream();
+            if (inputStream != null) {
+                bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                char[] charBuffer = new char[128];
+                int bytesRead = -1;
+                while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
+                    stringBuilder.append(charBuffer, 0, bytesRead);
+                }
+            } else {
+                stringBuilder.append("");
+            }
+        } catch (IOException ex) {
+            throw ex;
+        }
+        if (bufferedReader != null) {
+            try {
+                bufferedReader.close();
+            } catch (IOException ex) {
+                throw ex;
+            }
         }
 
-	/**
-	 * Read in the JSON data from the body of the post
-	 * 
-	 * @param request The request from the POST
-	 * @return The JsonObject data as a string
-	 * @throws IOException
-	 */
-	public static String getBody(HttpServletRequest request) throws IOException {
-
-		String body = null;
-		StringBuilder stringBuilder = new StringBuilder();
-		BufferedReader bufferedReader = null;
-
-		try {
-			InputStream inputStream = request.getInputStream();
-			if (inputStream != null) {
-				bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-				char[] charBuffer = new char[128];
-				int bytesRead = -1;
-				while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
-					stringBuilder.append(charBuffer, 0, bytesRead);
-				}
-			} else {
-				stringBuilder.append("");
-			}
-		} catch (IOException ex) {
-			throw ex;
-		}
-		if (bufferedReader != null) {
-			try {
-				bufferedReader.close();
-			} catch (IOException ex) {
-				throw ex;
-			}
-		}
-
-		body = stringBuilder.toString();
-		return body;
-	}
+        body = stringBuilder.toString();
+        return body;
+    }
 
 }

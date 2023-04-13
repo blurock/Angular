@@ -14,6 +14,7 @@ import info.esblurock.background.services.jthermodynamics.structure.GenerateJThe
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class CalculateStructureCorrection {
     
@@ -34,7 +35,6 @@ public class CalculateStructureCorrection {
             if (molecule != null) {
                 JsonObject collectionresponse = 
                         FindJThermodynamics2DSubstructureThermodynamics.findJThermodynamics2DSubstructureThermodynamics(maintainer, dataset, structuretype);
-                
                 if (collectionresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
                     JsonArray structureCollection = collectionresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
                

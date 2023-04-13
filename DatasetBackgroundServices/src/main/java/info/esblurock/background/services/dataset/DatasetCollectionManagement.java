@@ -79,8 +79,13 @@ public class DatasetCollectionManagement {
 	public static JsonObject getDatabaseSetID(JsonObject collectionsetidinfo) {
 		String maintainer = collectionsetidinfo.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 		String dataset = collectionsetidinfo.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
-		JsonObject idcollection = CreateDocumentTemplate.createTemplate("dataset:ChemConnectDatasetCollectionIDsSet");
-
+		JsonObject idcollection = null;
+		if(maintainer.equals("systemthermodynamics")) {
+		    idcollection = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicsSystemCollectionIDsSet");
+	        idcollection.addProperty(ClassLabelConstants.CatalogObjectKey, dataset);
+		} else {
+		     idcollection = CreateDocumentTemplate.createTemplate("dataset:ChemConnectDatasetCollectionIDsSet");
+		}
 		idcollection.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 		idcollection.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, dataset);
 		BaseCatalogData.insertFirestoreAddress(idcollection);

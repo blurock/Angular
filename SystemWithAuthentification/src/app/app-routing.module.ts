@@ -41,7 +41,7 @@ const routes: Routes = [
 	{ path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
 	{ path: 'forgot-password', component: ForgotPasswordComponent },
 	{ path: 'verify-email-address', component: VerifyEmailComponent },
-	{ path: 'compute', component: ComputethermodynamicsComponent, canActivate: [AuthGuard] },
+	{ path: 'compute', component: ComputethermodynamicsComponent },
 	{ path: 'catalog/repositorystaging', component: ManagedatasetrepositoryfilestagingComponent},
 	{ path: 'catalog/partition', component: ManagerepositorydatapartitionblockcomponentComponent},
 	{ path: 'catalog/catalogobj', component: ManagegeneralcatalogobjectvisComponent},

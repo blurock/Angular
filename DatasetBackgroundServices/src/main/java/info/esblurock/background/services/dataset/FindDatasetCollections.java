@@ -110,10 +110,6 @@ public class FindDatasetCollections {
             Document docmessage = MessageConstructor.startDocument("Find All Dataset Collection Sets");
             response = DatabaseServicesBase.standardErrorResponse(docmessage, message, null);
         }
-        System.out.println("____________________________________________________________________");
-        JsonObjectUtilities.printResponse(response);
-        System.out.println("____________________________________________________________________");
-        
         return response;
 
     }

@@ -90,6 +90,7 @@ export class DatasetcollectionchoicemenuComponent implements OnInit {
 					
 				} else {
 					alert('List of Datasets not available');
+					alert(this.resultHtml);
 				}
 
  			}
@@ -100,6 +101,8 @@ export class DatasetcollectionchoicemenuComponent implements OnInit {
 		var items = [];
 		for (const collection of system) {
 			const label = collection[id];
+			const type = collection['dataset:objectype'];
+			if(type === 'dataset:ThermodynamicsSystemCollectionIDsSet' || type === 'dataset:ChemConnectDatasetCollectionIDsSet') {
 			const celement: NavItem = {
 				displayName: label,
 				disabled: false,
@@ -107,6 +110,8 @@ export class DatasetcollectionchoicemenuComponent implements OnInit {
 				children: []
 			};
 			items.push(celement);
+        
+      }
 		}
 		return items;
 	}
@@ -115,22 +120,12 @@ export class DatasetcollectionchoicemenuComponent implements OnInit {
 		const chosen = this.getCollection(child);
 		this.objectform.get('DatasetCollectionsSetLabel').setValue(child);
 		this.collection.emit(chosen);
-		/*
-		this.thermocollectionset.setData(this.collection);
-		this.selected = child;
-		this.objectform.get('DatasetCollectionsSetLabel').setValue(child);
-		alert("datasetChosen 3: "+this.objectform.get('DatasetCollectionsSetLabel').value);
-		this.sourcedataset = child;
-		alert("datasetChosen 4");
-		*/
 	}
 
 	
 	getCollection(name: string) {
-		alert("name= " + name);
 		var chosen = null;
 		if (this.systemcollections != null) {
-			alert("this.systemcollections != null");
 			for (var i = 0; i < this.systemcollections.length && chosen == null; i++) {
 				const coll = this.systemcollections[i];
 				if (name === coll['dataset:catalogkey']) {
@@ -139,8 +134,6 @@ export class DatasetcollectionchoicemenuComponent implements OnInit {
 			}
 		}
 		if (this.datasetcollections != null) {
-			alert("this.datasetcollections != null");
-			alert(this.datasetcollections.length);
 			for (var i = 0; i < this.datasetcollections.length && chosen == null; i++) {
 				const coll = this.datasetcollections[i];
 				if (name === coll['dataset:datasetcollectionslabel']) {
@@ -148,7 +141,6 @@ export class DatasetcollectionchoicemenuComponent implements OnInit {
 				}
 			}
 		}
-		alert("getCollection\n" + JSON.stringify(chosen));
 		return chosen;
 	}
 

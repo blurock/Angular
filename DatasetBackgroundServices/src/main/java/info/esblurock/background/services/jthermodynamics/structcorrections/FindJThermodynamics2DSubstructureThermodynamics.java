@@ -57,6 +57,8 @@ public class FindJThermodynamics2DSubstructureThermodynamics {
         json.addProperty(ClassLabelConstants.DatasetCollectionObjectType, classname);
         json.addProperty(DatabaseServicesBase.service, service);
         JsonObject response = DatabaseServicesBase.process(json);
+        
+        
         return response;
 
     }

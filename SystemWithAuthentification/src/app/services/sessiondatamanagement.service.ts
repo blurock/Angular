@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +8,21 @@ import { of, Observable } from 'rxjs';
 export class SessiondatamanagementService {
   
   loginaccountdata: any;
+  
+  	guestlabel = 'Guest';
+	guestuidlabel = 'Guest';
 
-  constructor() { }
+
+  constructor(
+  ) { }
+  
+  	getGuestuidlabel(): string {
+		return this.guestuidlabel;
+	}
+	getGuestLabel(): string {
+		return this.guestlabel;
+	}
+
   
   public isLoggedIn(): boolean {
     const ans = this.getUID() != null;
@@ -17,7 +31,11 @@ export class SessiondatamanagementService {
   }
   
   public getUID(): string {
-    return sessionStorage.getItem('dataset:authorizationuid');
+    var uid = sessionStorage.getItem('dataset:authorizationuid');
+    if(uid == null) {
+      uid = this.getGuestuidlabel();
+    }
+    return uid;
   }
 public setUID(uid: string): void {
     sessionStorage.setItem('dataset:authorizationuid',uid);

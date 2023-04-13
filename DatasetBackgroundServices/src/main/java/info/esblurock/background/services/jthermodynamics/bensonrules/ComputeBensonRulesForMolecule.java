@@ -297,7 +297,6 @@ public class ComputeBensonRulesForMolecule {
         json.addProperty(DatabaseServicesBase.service, service);
         json.add(ClassLabelConstants.SetOfPropertyValueQueryPairs, setofprops1);
         JsonObject response = DatabaseServicesBase.process(json);
-        JsonObjectUtilities.printResponse(response);
         return response;
     }
 }
