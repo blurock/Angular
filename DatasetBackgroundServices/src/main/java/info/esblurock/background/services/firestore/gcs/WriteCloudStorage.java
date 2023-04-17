@@ -51,7 +51,6 @@ public class WriteCloudStorage {
 		Bucket bucket = StorageClient.getInstance().bucket();
 
 		storage = StorageOptions.getDefaultInstance().getService();
-	   
 		// Create blob
 		String formatallabel = formattype.substring(8);
 		String dirpath = "upload/" + maintainer + "/" + formatallabel;

@@ -54,14 +54,10 @@ public class BackgroundService extends HttpServlet {
         InitiallizeSystem.initialize();
         String bodyS = IOUtils.toString(request.getInputStream(), "UTF-8");
         JsonObject body = JsonObjectUtilities.jsonObjectFromString(bodyS);
-        System.out.println("body: " + JsonObjectUtilities.toString(body));
         String uidfrombody = body.get("uid").getAsString();
-        System.out.println(uidfrombody);
 
         String authHeader = request.getHeader("authorization");
-        System.out.println("authHeader: " + authHeader);
         String idToken = authHeader.split(" ")[1];
-        System.out.println("idToken: " + idToken);
 
         FirebaseToken decodedToken;
 

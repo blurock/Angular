@@ -28,13 +28,13 @@ import {HomepageComponent} from './layout/homepage/homepage.component'
 import {SetupuserinformationComponent} from '../app/catalogobjects/user/setupuserinformation/setupuserinformation.component';
 import {UseraccountadministrationComponent} from '../app/catalogobjects/user/useraccountadministration/useraccountadministration.component';
 import {DatasertcollectionadministrationComponent} from '../app/catalogobjects/datasetcollection/datasertcollectionadministration/datasertcollectionadministration.component';
-
+import {UsercreateGuard} from './usercreate.guard';
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
 
 const routes: Routes = [
 	{ path: '', component: HomepageComponent },
 	{ path: 'toppage', component: ToppageComponent, canActivate: [AuthGuard]  },
-	{ path: 'usersetup', component: SetupuserinformationComponent},
+	{ path: 'usersetup', component: SetupuserinformationComponent, canActivate: [UsercreateGuard] },
 	{ path: 'sign-in', component: SignInComponent },
 	{ path: 'register-user', component: SignUpComponent },
 	{ path: 'uploaddatabaseitem', component: UploadstepsComponent, canActivate: [AuthGuard] },

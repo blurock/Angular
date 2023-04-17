@@ -142,7 +142,13 @@ b				In this menu, the user should set up a unique name and choose the type of u
 			<br>
 			The next steps will set up the default database to be used by the user for calculations and database modifications.
 			</div>	
+			<ng-container *ngIf='tocreate; else gototop'>
 			<button mat-raised-button color="primary" (click)="createUserAccount()" class="label">{{submitbutton}}</button>
+			</ng-container>
+		    <ng-template #gototop>
+			 <button mat-raised-button color="primary" (click)="gotoTopWindow()" class="label">{{gototopbutton}}</button>
+		    </ng-template>
+
 			<div [innerHTML]="resultHtml"></div>
 	</mat-step>
 </mat-stepper>

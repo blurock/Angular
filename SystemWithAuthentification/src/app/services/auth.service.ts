@@ -23,8 +23,8 @@ import { __assign } from 'tslib';
 	providedIn: 'root'
 })
 export class AuthService {
-	
-	
+
+
 	userData: any; // Save logged in user data
 	constructor(
 		public session: SessiondatamanagementService,
@@ -36,15 +36,13 @@ export class AuthService {
 	) {
 		/* Saving user data in localstorage when
 			  logged in and setting up null when logged out */
-			  
+
 		this.afAuth.authState.subscribe((user) => {
 			if (user) {
 				this.SetUserData(user);
 				this.ngZone.run(() => {
-					//this.router.navigate(['usersetup']);
 				});
 			} else {
-               alert("GUEST")
 			}
 		});
 	}
@@ -104,22 +102,22 @@ export class AuthService {
 		return ans;
 	}
 	get isRegistered(): boolean {
-		return this.session.getUID() != null;
+		const uid = this.session.getUID()
+		return uid != null && uid != this.session.getGuestuidlabel();
 	}
 	get isValidated(): boolean {
 		var ans = false;
-		if(environment.production) {
-		const auth = getAuth();
-		const user = auth.currentUser;
-		if (user !== null) {
-			const emailVerified = user.emailVerified;
-			ans = emailVerified;
-		}
-			
+		if (environment.production) {
+			const auth = getAuth();
+			const user = auth.currentUser;
+			if (user !== null) {
+				const emailVerified = user.emailVerified;
+				ans = emailVerified;
+			}
+
 		} else {
-			ans = true;
+			ans = this.session.getLoginStatus() != null;
 		}
-		
 		return ans;
 	}
 	// Sign in with Google
@@ -144,17 +142,13 @@ export class AuthService {
 				window.alert("Authorization error: " + error);
 			});
 	}
-	
+
 	/* Setting up user data when sign in with username/password, 
 	sign up with username/password and sign in with social auth  
 	provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
 	SetUserData(user: any): void {
 		getAuth().currentUser.getIdToken(true).then((token) => {
-			alert("SetUserData: " + JSON.stringify(user));
-			alert("SetUserData: this.session.getAuthorizationData()" + JSON.stringify(this.session.getAuthorizationData()));
-			alert("SetUserData: this.session.getUserAccount()" + JSON.stringify(this.session.getUserAccount()));
 			if (this.session.getAuthorizationData() == null || this.session.getUserAccount() == null) {
-				alert("Token: " + token);
 				const uid = user.uid;
 				const email = user.email;
 				const displayname = user.displayName;
@@ -178,7 +172,7 @@ export class AuthService {
 				this.session.setToken(token);
 				this.getUserInformationFromServer(logintransaction, token, user);
 			} else {
-
+				this.router.navigateByUrl('/toppage');
 			}
 		});
 	}
@@ -186,8 +180,6 @@ export class AuthService {
 	getUserInformationFromServer(logintransaction: any, token: string, user: any) {
 		const headerdata = ServiceUtilityRoutines.setupHeader(token);
 		const httpaddr = environment.apiURL + '/' + Login;
-		alert("getUserInformationFromServer: " + JSON.stringify(logintransaction));
-		alert("getUserInformationFromServer: " + JSON.stringify(headerdata));
 		this.httpClient.post(httpaddr, logintransaction, { headers: headerdata })
 			.subscribe({
 				next: (response: any) => {
@@ -197,21 +189,16 @@ export class AuthService {
 							const result = loginresult[0];
 							const status = result['dataset:loginstage'];
 
+
 							this.session.setLoginStatus(status);
 							const loginaccount = result['dataset:loginaccountinfo'];
-							//alert("getUserInformationFromServer status=" + status);
-							if (status == "dataset:LoginAuthenticated") {
-							//if (status == "dataset:LoginAccountInformation") {
+							if (status == "dataset:LoginAuthenticated" || status == 'dataset:LoginAccountInformation') {
 								this.session.storeLoginAccount(loginaccount);
-								this.session.setLoginStatus(status);
-								//alert("getUserInformationFromServer emailverified=" + user.emailVerified);
 								if (user.emailVerified) {
 									this.router.navigateByUrl('/usersetup');
 								} else {
-									this.router.navigate(['verify-email-address']);
+									this.router.navigate(['/verify-email-address']);
 								}
-
-
 							} else if (status == "dataset:LoginRegistration") {
 								this.session.storeLoginAccount(loginaccount);
 								const person = result[Ontologyconstants.DatabasePerson];
@@ -221,20 +208,24 @@ export class AuthService {
 								if (user.emailVerified) {
 									this.router.navigateByUrl('/toppage');
 								} else {
-									this.router.navigate(['verify-email-address']);
+									this.router.navigate(['/verify-email-address']);
 								}
 
 							} else {
-								alert("status unknown");
+								alert('status unknown: ' + status);
+								this.router.navigateByUrl('');
 							}
 
 						} else {
-							alert("No object in response");
+							alert('No object in response');
+							this.router.navigateByUrl('');
 						}
-					} else {
-						alert("Error in setting up login: " + response[Ontologyconstants.message]);
-					}
 
+					} else {
+						const message = response[Ontologyconstants.message];
+						alert('Login Failed and session will be cleared:\n' + JSON.stringify(message));
+						this.session.clearSession();
+					}
 				}
 			});
 

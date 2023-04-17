@@ -24,6 +24,7 @@ import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public enum UploadFileToGCS {
 
@@ -105,7 +106,7 @@ public enum UploadFileToGCS {
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-			body.addElement("pre").addText("String content: '" + content + "'");
+ 			body.addElement("pre").addText("String content: '" + content + "'");
 			JsonObject response = WriteCloudStorage.writeString(transactionID, owner, maintainer, content, info,
 					"dataset:StringSource");
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
@@ -144,7 +145,8 @@ public enum UploadFileToGCS {
 	 * 
 	 */
 	public static JsonObject readFromSource(String transactionID, String owner, JsonObject info) {
-
+	    JsonObject response = null;
+	    try {
 		JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
 				.getAsJsonObject();
 		JsonElement main = recordid.get(ClassLabelConstants.CatalogDataObjectMaintainer);
@@ -155,7 +157,7 @@ public enum UploadFileToGCS {
 		String source = info.get(ClassLabelConstants.UploadFileSource).getAsString();
 		String sourcename = source.substring(8);
 		UploadFileToGCS upload = UploadFileToGCS.valueOf(sourcename);
-		JsonObject response = upload.process(transactionID, owner, maintainer, info);
+		response = upload.process(transactionID, owner, maintainer, info);
 		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 			JsonObject gcsstaging = arr.get(0).getAsJsonObject();
@@ -166,6 +168,12 @@ public enum UploadFileToGCS {
 			String description = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
 			stagingblob.addProperty(ClassLabelConstants.DescriptionAbstract, description);
 		}
+	    } catch(Exception ex) {
+	        ex.printStackTrace();
+	        Document document = MessageConstructor.startDocument("UploadFileToGCS");
+	        response = DatabaseServicesBase.standardErrorResponse(document,
+                    "Error in UploadFileToGCS: \n" + ex.getMessage(), response);
+	    }
 		return response;
 	}
 

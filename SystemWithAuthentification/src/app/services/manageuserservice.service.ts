@@ -20,7 +20,6 @@ export class ManageuserserviceService {
 		private router: Router,
 		private authservice: AuthService
 	) { 
-		alert("start ManageuserserviceService");
 	}
 
 
@@ -28,7 +27,6 @@ export class ManageuserserviceService {
 	determineMaintainer(): Observable<string> {
 		var uid = this.session.getUID();
 		if (uid == null) {
-			alert("Guest Login");
 			uid = this.session.getGuestLabel();
 			//this.router.navigateByUrl(``);
 		}

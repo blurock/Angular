@@ -35,13 +35,12 @@ public class BackgroundTransaction extends HttpServlet {
      *
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        InitiallizeSystem.initialize();
-        String bodyS = IOUtils.toString(request.getInputStream(), "UTF-8");
+       InitiallizeSystem.initialize();
+       String bodyS = IOUtils.toString(request.getInputStream(), "UTF-8");
 
         String authHeader = request.getHeader("authorization");
         String idToken = authHeader.split(" ")[1];
         FirebaseToken decodedToken;
-
         JsonObject answer = null;
         try {
             decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
@@ -59,6 +58,10 @@ public class BackgroundTransaction extends HttpServlet {
         } catch (FirebaseAuthException e) {
             Document document = MessageConstructor.startDocument("Transaction fatal error");
             answer = DatabaseServicesBase.standardErrorResponse(document, "Firebase error: " + e.getMessage(), null);
+            e.printStackTrace();
+        } catch (Exception e) {
+            Document document = MessageConstructor.startDocument("General fatal error");
+            answer = DatabaseServicesBase.standardErrorResponse(document, "Error: " + e.getMessage(), null);
             e.printStackTrace();
         }
 

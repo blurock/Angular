@@ -8,6 +8,7 @@ import { DatadatadescriptionComponent } from '../../datadatadescription/datadata
 import { MatDialog } from '@angular/material/dialog';
 import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
 import {SessiondatamanagementService} from '../../../services/sessiondatamanagement.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-setupuserinformation',
@@ -17,6 +18,7 @@ import {SessiondatamanagementService} from '../../../services/sessiondatamanagem
 export class SetupuserinformationComponent implements OnInit {
 
 	islinear = true;
+	tocreate = true;
 	signinFormGroup: FormGroup;
 	userAccountGroup: FormGroup;
 
@@ -25,6 +27,7 @@ export class SetupuserinformationComponent implements OnInit {
 	identifier = Ontologyconstants.dctermsidentifier;
 
 	failedresponse = 'Failed to generate the user account, look at logs for error';
+	gototopbutton = 'Creation successful!!!    Press to start using JThermodynamics';
 	failedsubmission = 'Failure in transaction';
 	submitbutton = 'Create User Account';
 	catalogtype = 'dataset:ActivityInitializeNewAccount';
@@ -46,7 +49,8 @@ export class SetupuserinformationComponent implements OnInit {
 		public dialog: MatDialog,
 		private formBuilder: FormBuilder,
 		public annotations: OntologycatalogService,
-		private menusetup: MenutreeserviceService
+		private menusetup: MenutreeserviceService,
+		public router: Router
 	) {
 		this.getCatalogAnnoations();
 
@@ -180,14 +184,18 @@ export class SetupuserinformationComponent implements OnInit {
 	setData(activity: any): void {
 
 	}
+	
+	
 
 	createTransaction(transaction: any): void {
-
-
 		const activity = {};
 		transaction['prov:activity'] = 'dataset:InitializerUserAccount';
 		transaction['dataset:activityinfo'] = activity;
 		this.getData(activity);
+	}
+	
+	gotoTopWindow(): void {
+		this.router.parseUrl('/toppage');
 	}
 
 	createUserAccount() {
@@ -209,6 +217,7 @@ export class SetupuserinformationComponent implements OnInit {
 					this.session.setDatabasePerson(person);
 					const useraccount = setofobjects[Ontologyconstants.UserAccount];
 					this.session.setUserAccount(useraccount);
+					this.tocreate = false;
 				} else {
 					alert(this.failedresponse);
 				}

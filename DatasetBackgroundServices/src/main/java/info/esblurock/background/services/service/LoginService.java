@@ -32,6 +32,12 @@ import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate
 import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
+/**
+ * @author edwardblurock
+ *
+ */
+
+
 @WebServlet(name = "LoginService", urlPatterns = { "/login" })
 public class LoginService extends HttpServlet {
 
@@ -54,7 +60,6 @@ public class LoginService extends HttpServlet {
         String idToken = authHeader.split(" ")[1];
         FirebaseToken decodedToken;
         try {
-            System.out.println("idToken: " + idToken);
             decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
             String uid = decodedToken.getUid();
            
@@ -108,6 +113,31 @@ public class LoginService extends HttpServlet {
         }
     }
 
+    
+    /**
+     * @param document The current documnet open for the respose
+     * @param uid The UID of the maintainer (from authentification)
+     * @param idToken The token given within the call (from which the uid) came.
+     * @param email The email of the current user (from authentification)
+     * @param username The username of the current user (from authentification)
+     * @param authtype The method of authorization
+     * @return The response
+     * 
+     * If dataset:LoginAccountInformation for the given UID does not exist then 
+     * Create dataset:LoginAccountInformation using the information given.
+     * The login stage (LoginStage) is set to "dataset:LoginAuthenticated"
+     * 
+     * If dataset:LoginAccountInformation exists for the given UID, then get response from GetUserAccountAndDatabasePersonProcess using
+     * this catalog object.
+     * The GetUserAccountAndDatabasePersonProcess call tries to read the NewUserAccount catalog object (the result of the dataset:InitializeUserAccount transaction)
+     * 
+     * If unsuccessful, the dataset:UserAccount and dataset:DatabasePerson do not exist, but dataset:LoginAccountInformation does.
+     * The login stage (LoginStage) is set to dataset:LoginAccountInformation.
+     * 
+     * If successful, then the dataset:UserAccount and dataset:DatabasePerson are returned in the response. 
+     * The login stage (LoginStage) is set to dataset:LoginAccountInformation.
+     * 
+     */
     private JsonObject firstLogin(Document document, String uid, String idToken, String email, String username, String authtype) {
 
         JsonObject response = null;
@@ -138,7 +168,7 @@ public class LoginService extends HttpServlet {
                 response = DatabaseServicesBase.standardServiceResponse(document,
                         "Successful creation of LoginAccountInformation", arr);
             } else {
-                 firstloginresponse.addProperty(ClassLabelConstants.LoginStage, "dataset:LoginAccountInformation");
+                firstloginresponse.addProperty(ClassLabelConstants.LoginStage, "dataset:LoginAccountInformation");
                 JsonArray arr = new JsonArray();
                 arr.add(firstloginresponse);
                 response = DatabaseServicesBase.standardServiceResponse(document,

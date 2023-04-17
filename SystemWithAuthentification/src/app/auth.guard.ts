@@ -23,6 +23,7 @@ export class AuthGuard implements CanActivate {
 					return this.router.parseUrl('/verify-email-address');
 				}
 			} else {
+				this.router.parseUrl('');
 				ans = false;
 			}
 		} else {

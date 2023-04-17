@@ -161,9 +161,11 @@ public enum TransactionProcess {
     InitialReadInOfRepositoryFile {
         @Override
         JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+            JsonObject response = null;
+            try {
             String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
             String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
-            JsonObject response = UploadFileToGCS.readFromSource(transactionID, owner, info);
+            response = UploadFileToGCS.readFromSource(transactionID, owner, info);
             if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
                 JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
                 if (arr.size() > 0) {
@@ -191,6 +193,12 @@ public enum TransactionProcess {
                         response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
                 response = DatabaseServicesBase.standardErrorResponse(errdoc, "Error: Could not write to repository",
                         null);
+            }
+            } catch(Exception ex) {
+                ex.printStackTrace();
+                Document document = MessageConstructor.startDocument("InitialReadInOfRepositoryFile");
+                response = DatabaseServicesBase.standardErrorResponse(document,
+                        "Error in InitialReadInOfRepositoryFile: \n" + ex.getMessage(), response);
             }
             return response;
         }
