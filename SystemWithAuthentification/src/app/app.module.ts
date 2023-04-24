@@ -176,6 +176,7 @@ import { DatasertcollectionadministrationComponent } from './catalogobjects/data
 import { ApplicationcardsComponent } from './layout/applicationcards/applicationcards.component';
 import { FindintermediatettransactionComponent } from './dialog/findintermediatettransaction/findintermediatettransaction.component';
 import { DatasetcollectionchoicemenuComponent } from './primitives/datasetcollectionchoicemenu/datasetcollectionchoicemenu.component';
+import { CopysystemdatasetcollectionsComponent } from './catalogobjects/datasetcollection/copysystemdatasetcollections/copysystemdatasetcollections.component';
 
 
 
@@ -307,7 +308,8 @@ import { DatasetcollectionchoicemenuComponent } from './primitives/datasetcollec
   DatasertcollectionadministrationComponent,
   ApplicationcardsComponent,
   FindintermediatettransactionComponent,
-  DatasetcollectionchoicemenuComponent
+  DatasetcollectionchoicemenuComponent,
+  CopysystemdatasetcollectionsComponent
 	],
 	imports: [
 		AppFirebaseModule,

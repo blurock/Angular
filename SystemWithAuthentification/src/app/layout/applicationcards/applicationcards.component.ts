@@ -44,5 +44,7 @@ export class ApplicationcardsComponent implements OnInit {
     this.router.navigateByUrl(`/datasetadmin`);
   }
   
-  
+  copycollection() {
+    this.router.navigateByUrl(`/copycollection`);
+  }
 }

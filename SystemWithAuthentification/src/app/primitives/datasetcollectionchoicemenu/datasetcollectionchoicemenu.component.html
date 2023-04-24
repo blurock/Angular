@@ -1,12 +1,17 @@
 <form [formGroup]="objectform" class="infoform">
-	<mat-form-field class="label">
-		<mat-label>{{activityanno['dataset:DatasetCollectionsSetLabel'][rdfslabel]}}
-		</mat-label>
-		<input matInput formControlName="DatasetCollectionsSetLabel" [matMenuTriggerFor]="menu.childMenu">
 
-		<mat-hint>{{activityanno['dataset:DatasetCollectionsSetLabel'][rdfscomment]}}
-		</mat-hint>
+	<mat-form-field class="label">
+	
+		<mat-label>{{srclabel}}
+		</mat-label>
+
+		<input matInput formControlName="DatasetCollectionsSetLabel" [matMenuTriggerFor]="menu.childMenu">
 		<app-menu-item #menu [items]="items" (selectionEvent)="datasetChosen($event)">
 		</app-menu-item>
+		<mat-hint>{{srchint}}
+		</mat-hint>
+		
+		
 	</mat-form-field>
+
 </form>

@@ -1,52 +1,60 @@
-import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
-import { RunserviceprocessService } from '../../services/runserviceprocess.service'
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { RunserviceprocessService } from '../../services/runserviceprocess.service';
 import { Ontologyconstants } from '../../const/ontologyconstants';
-import { OntologycatalogService } from '../../services/ontologycatalog.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { NavItem } from '../../primitives/nav-item';
 
 
 @Component({
-  selector: 'app-datasetcollectionchoicemenu',
-  templateUrl: './datasetcollectionchoicemenu.component.html',
-  styleUrls: ['./datasetcollectionchoicemenu.component.scss']
+	selector: 'app-datasetcollectionchoicemenu',
+	templateUrl: './datasetcollectionchoicemenu.component.html',
+	styleUrls: ['./datasetcollectionchoicemenu.component.scss']
 })
 export class DatasetcollectionchoicemenuComponent implements OnInit {
-  
-  @Input() activityanno: any;
-  @Input() maintainer: string;
-  @Output() collection = new EventEmitter<any>();
-  
-  	rdfslabel = Ontologyconstants.rdfslabel;
+
+	@Input() activityanno: any;
+	@Input() maintainer: string;
+	@Output() collection = new EventEmitter<any>();
+
+	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
 	
-	resultHtml: string;
-	
-	systemcollections: any;
-    datasetcollections: any;
-    objectform: any;
-    items: NavItem[];
+	srclabel: string;
+	srchint: string;
 
-  constructor(
-    		private formBuilder: FormBuilder,
-		private annotations: OntologycatalogService,
+	resultHtml: string;
+
+	systemcollections: any;
+	datasetcollections: any;
+	objectform: any;
+	items: NavItem[];
+
+	constructor(
+		private formBuilder: FormBuilder,
 		private runservice: RunserviceprocessService,
-  ) { 
-    
-    		this.objectform = this.formBuilder.group({
+	) {
+
+		this.objectform = this.formBuilder.group({
 			DatasetCollectionsSetLabel: ['', Validators.required],
 		});
 
-  }
-  
-  isValid(): boolean {
-    return this.objectform.invalid;
-  }
+	}
 
-  ngOnInit(): void {
-    this.getAllDatasetCollections();
-  }
+	isValid(): boolean {
+		return this.objectform.invalid;
+	}
+
+	ngOnInit(): void {
+		if(this.activityanno['dataset:DatasetCollectionsSetLabel'] != null) {
+		this.srclabel = this.activityanno['dataset:DatasetCollectionsSetLabel'][this.rdfslabel];
+		this.srchint = this.activityanno['dataset:DatasetCollectionsSetLabel'][this.rdfscomment];
+		} else {
+		this.srclabel = this.activityanno['dataset:DatasetCollectionSetSourceLabel'][this.rdfslabel];
+		this.srchint = this.activityanno['dataset:DatasetCollectionSetSourceLabel'][this.rdfscomment];			
+		}
+		this.getAllDatasetCollections();
+	}
 
 	getAllDatasetCollections(): any {
 		const inputdata = {};
@@ -63,7 +71,7 @@ export class DatasetcollectionchoicemenuComponent implements OnInit {
 					this.datasetcollections = set[Ontologyconstants.ThermodynamicsDatasetCollectionIDsSet];
 					this.items = [];
 					if (this.systemcollections != null) {
-						const systemitems = this.makeDatasetMenu(this.systemcollections,'dataset:catalogkey');
+						const systemitems = this.makeDatasetMenu(this.systemcollections, 'dataset:catalogkey');
 						if (systemitems.length > 0) {
 							const sysitems = {
 								displayName: 'From System',
@@ -87,43 +95,43 @@ export class DatasetcollectionchoicemenuComponent implements OnInit {
 							this.items.push(datitems);
 						}
 					}
-					
+
 				} else {
 					alert('List of Datasets not available');
-					alert(this.resultHtml);
 				}
-
- 			}
+			}
 		});
 	}
 
-	makeDatasetMenu(system: any, id:string): NavItem[] {
+	makeDatasetMenu(system: any, id: string): NavItem[] {
 		var items = [];
 		for (const collection of system) {
 			const label = collection[id];
 			const type = collection['dataset:objectype'];
-			if(type === 'dataset:ThermodynamicsSystemCollectionIDsSet' || type === 'dataset:ChemConnectDatasetCollectionIDsSet') {
-			const celement: NavItem = {
-				displayName: label,
-				disabled: false,
-				value: label,
-				children: []
-			};
-			items.push(celement);
-        
-      }
+			if (type === 'dataset:ThermodynamicsSystemCollectionIDsSet'
+				|| type === 'dataset:ChemConnectDatasetCollectionIDsSet'
+				|| type === 'dataset:ThermodynamicsDatasetCollectionIDsSet') {
+				const celement: NavItem = {
+					displayName: label,
+					disabled: false,
+					value: label,
+					children: []
+				};
+				items.push(celement);
+
+			}
 		}
 		return items;
 	}
-	
-		datasetChosen(child: string): void {
+
+	datasetChosen(child: string): void {
 		const chosen = this.getCollection(child);
 		this.objectform.get('DatasetCollectionsSetLabel').setValue(child);
 		this.collection.emit(chosen);
 	}
 
-	
-	getCollection(name: string) {
+
+	getCollection(name: string): void {
 		var chosen = null;
 		if (this.systemcollections != null) {
 			for (var i = 0; i < this.systemcollections.length && chosen == null; i++) {

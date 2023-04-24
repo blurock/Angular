@@ -22,7 +22,44 @@ public class DatasetCollectionCreateSystemCollection {
     
     public static String systemhierarchy = "systemthermodynamics";
     
-    public static JsonObject process(JsonObject event, JsonObject info) {
+    public static JsonObject processCreateSystemCollection(JsonObject event, JsonObject info) {
+        JsonObject response = null;
+        String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+        info.addProperty(ClassLabelConstants.SourceCollectionMaintainer,maintainer);
+        info.addProperty(ClassLabelConstants.DestinationCollectionMaintainer,systemhierarchy);
+        String systemcollectionlabel = info.get(ClassLabelConstants.SystemDatasetCollectionsSetLabel).getAsString();
+        info.addProperty(ClassLabelConstants.DatasetCollectionSetSourceLabel, systemcollectionlabel);
+        String collectionlabel = info.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+        info.addProperty(ClassLabelConstants.DatasetCollectionSetDestinationLabel, collectionlabel);
+        response = copyCollectionSet(event,info);
+        
+        return response;
+    }
+    
+    
+    /** This copies a collection set from a source to a destination, both specified by a collection set ID label
+     * 
+     * @param event The event of the transaction
+     * @param info The information to make the copy
+     * @return response
+     * 
+     * The SourceCollectionMaintainer combined with the DatasetCollectionSetSourceLabel specifies the 
+     * collection set to be used as the source
+     * The DestinationCollectionMaintainer combined with the DatasetCollectionSetDestinationLabel specifies the 
+     * collection set to be used as the destination.
+     * 
+     * Each set of catalog objects is specified with the DatasetVersion and the DatasetVersion given in the input
+     * (meaning they are all the same).
+     * 
+     * A DescriptionTitle is used to give a description of the destination collection.
+     * 
+     * TransactionID is the transaction id used to create the new collection
+     * 
+     * Each set of the catalog objects in the source collection is copied into the location specified by the destination collection.
+     * 
+     * 
+     */
+    public static JsonObject copyCollectionSet(JsonObject event, JsonObject info) {
         JsonObject response = null;
         Document document = MessageConstructor.startDocument("Dataset Collection Set Creation Event");
         Element body = MessageConstructor.isolateBody(document);
@@ -31,42 +68,64 @@ public class DatasetCollectionCreateSystemCollection {
         String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
      
         String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-        String dataset = info.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
-        String title = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
-        String systemdataset = info.get(ClassLabelConstants.SystemDatasetCollectionsSetLabel).getAsString();
-        String version = info.get(ClassLabelConstants.DatasetVersion).getAsString();
+        String srcmaintainer = info.get(ClassLabelConstants.SourceCollectionMaintainer).getAsString();
+        String destmaintainer = info.get(ClassLabelConstants.DestinationCollectionMaintainer).getAsString();
         
-        body.addElement("div").addText("Maintainer           : " + maintainer);
-        body.addElement("div").addText("Collection Name      : " + dataset);
+        String title = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
+        String srccollectionlabel = info.get(ClassLabelConstants.DatasetCollectionSetSourceLabel).getAsString();
+        String destcollectionlabel = info.get(ClassLabelConstants.DatasetCollectionSetDestinationLabel).getAsString();
+        String version = info.get(ClassLabelConstants.DatasetVersion).getAsString();
+        String datasetname = info.get(ClassLabelConstants.DatasetName).getAsString();
+        
+        body.addElement("div").addText("Collection Maintainer                : " + maintainer);
+        body.addElement("div").addText("Source Maintainer                    : " + srcmaintainer);
+        body.addElement("div").addText("Source Collection Name               : " + srccollectionlabel);
+        body.addElement("div").addText("Destination Maintainer               : " + destmaintainer);
+        body.addElement("div").addText("Destination Collection Name          : " + destcollectionlabel);
+        
+        body.addElement("div").addText("Default Dataset Name                 : " + datasetname);
+        body.addElement("div").addText("Default Version                      : " + version);
         
         JsonObject collectionsetidinfo = new JsonObject();
-        collectionsetidinfo.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
-        collectionsetidinfo.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, dataset);
+        collectionsetidinfo.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, srcmaintainer);
+        collectionsetidinfo.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, srccollectionlabel);
         boolean success = true;
         JsonObject datasetcollectionset = DatasetCollectionManagement.getDatasetCollectionSets(collectionsetidinfo);
         body.addElement("pre").addText(JsonObjectUtilities.toString(datasetcollectionset));
         JsonObject transactionfirestore = BaseCatalogData.insertFirestoreAddress(event);
+        
+        
         if(datasetcollectionset != null) {
-            JsonObject systemcollectionset = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicsSystemCollectionIDsSet");
-            systemcollectionset.addProperty(ClassLabelConstants.CatalogSystemDatasetMaintainer, systemhierarchy);
-            systemcollectionset.addProperty(ClassLabelConstants.SystemDatasetCollectionsSetLabel, systemdataset);
+            JsonObject systemcollectionset = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicsDatasetCollectionIDsSet");
             systemcollectionset.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
-            systemcollectionset.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, dataset);
-            systemcollectionset.addProperty(ClassLabelConstants.CatalogObjectKey, dataset);
+            systemcollectionset.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, destcollectionlabel);
+            systemcollectionset.addProperty(ClassLabelConstants.CatalogObjectKey, destcollectionlabel);
             systemcollectionset.addProperty(ClassLabelConstants.DescriptionAbstract, title);
-            systemcollectionset.addProperty(ClassLabelConstants.DatasetCollectionType, "dataset:ThermodynamicsSystemCollectionIDsSet");
+            systemcollectionset.addProperty(ClassLabelConstants.DatasetCollectionType, "dataset:ThermodynamicsDatasetCollectionIDsSet");
             systemcollectionset.add(ClassLabelConstants.FirestoreCatalogIDForTransaction,transactionfirestore);
-            BaseCatalogData.insertStandardBaseInformation(systemcollectionset, systemhierarchy, transactionID, title);
+            BaseCatalogData.insertStandardBaseInformation(systemcollectionset, maintainer, transactionID, title);
             BaseCatalogData.insertFirestoreAddress(systemcollectionset);
             
-            success = copyDatasetElements(systemcollectionset, transactionID,transactionfirestore,version, datasetcollectionset, systemdataset, ClassLabelConstants.JThermodynamics2DSubstructureThermodynamics,document);
-            success = copyDatasetElements(systemcollectionset, transactionID,transactionfirestore,version,datasetcollectionset, systemdataset, ClassLabelConstants.ThermodynamicBensonRuleDefinition,document);
-            success = copyDatasetElements(systemcollectionset, transactionID,transactionfirestore,version,datasetcollectionset, systemdataset, ClassLabelConstants.JThermodynamicsDisassociationEnergyOfStructure,document);
-            success = copyDatasetElements(systemcollectionset, transactionID,transactionfirestore,version,datasetcollectionset, systemdataset, ClassLabelConstants.JThermodynamicsMetaAtomDefinition,document);
-            success = copyDatasetElements(systemcollectionset, transactionID,transactionfirestore,version,datasetcollectionset, systemdataset, ClassLabelConstants.JThermodynamicsSymmetryStructureDefinition,document);
-            success = copyDatasetElements(systemcollectionset, transactionID,transactionfirestore,version,datasetcollectionset, systemdataset, ClassLabelConstants.JThermodynamicsVibrationalStructure,document);
+            boolean success1 = copyDatasetElements(systemcollectionset, transactionID,
+                    destmaintainer, transactionfirestore,version, datasetname,datasetcollectionset, 
+                    ClassLabelConstants.JThermodynamics2DSubstructureThermodynamics,document);
+            boolean success2 = copyDatasetElements(systemcollectionset, transactionID,
+                    destmaintainer, transactionfirestore,version, datasetname,datasetcollectionset, 
+                    ClassLabelConstants.ThermodynamicBensonRuleDefinition,document);
+            boolean success3 = copyDatasetElements(systemcollectionset, transactionID,
+                    destmaintainer, transactionfirestore,version, datasetname,datasetcollectionset, 
+                    ClassLabelConstants.JThermodynamicsDisassociationEnergyOfStructure,document);
+            boolean success4 = copyDatasetElements(systemcollectionset, transactionID,
+                    destmaintainer, transactionfirestore,version, datasetname,datasetcollectionset, 
+                    ClassLabelConstants.JThermodynamicsMetaAtomDefinition,document);
+            boolean success5 = copyDatasetElements(systemcollectionset, transactionID,
+                    destmaintainer, transactionfirestore,version, datasetname,datasetcollectionset, 
+                    ClassLabelConstants.JThermodynamicsSymmetryStructureDefinition,document);
+            boolean success6 = copyDatasetElements(systemcollectionset, transactionID,
+                    destmaintainer, transactionfirestore,version, datasetname,datasetcollectionset, 
+                    ClassLabelConstants.JThermodynamicsVibrationalStructure,document);
             
-            
+            success = success1 && success2 && success3 && success4 && success5 && success6;
             JsonArray arr = new JsonArray();
             arr.add(systemcollectionset);
             try {
@@ -91,8 +150,13 @@ public class DatasetCollectionCreateSystemCollection {
         }
         return response;
     }
+    
+    
 
-    private static boolean copyDatasetElements(JsonObject systemcollectionset, String transactionid, JsonObject transactionfirestore, String version, JsonObject datasetcollectionset, String systemdataset,
+    private static boolean copyDatasetElements(JsonObject systemcollectionset, String transactionid,
+            String destmaintainer,
+            JsonObject transactionfirestore, String version, String datasetname,
+            JsonObject datasetcollectionset,
             String setlabel, Document document) {
        boolean success = true;
        
@@ -106,7 +170,7 @@ public class DatasetCollectionCreateSystemCollection {
            if(colresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
                JsonArray array = colresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
                body.addElement("div").addText("Set of Objects " + array.size() + " found ");
-               JsonObject newspecification = generateNewSpecification(version,systemdataset,systemhierarchy);
+               JsonObject newspecification = generateNewSpecification(version,datasetname,destmaintainer);
                systemcollectionset.add(setlabel, newspecification);
                body.addElement("pre").addText(JsonObjectUtilities.toString(newspecification));
                
@@ -114,13 +178,16 @@ public class DatasetCollectionCreateSystemCollection {
                for(JsonElement element : array ) {
                    JsonObject catalog = element.getAsJsonObject();
                    
-                   
+                   String access = destmaintainer;
+                   if(destmaintainer.equals(systemhierarchy)) {
+                       access = "Public";
+                   }
                    catalog.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, newspecification);
-                   catalog.addProperty(ClassLabelConstants.CatalogObjectOwner, systemhierarchy);
+                   catalog.addProperty(ClassLabelConstants.CatalogObjectOwner, destmaintainer);
                    catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction, transactionfirestore);
                    catalog.addProperty(ClassLabelConstants.TransactionID, transactionid);
-                   catalog.addProperty(ClassLabelConstants.CatalogObjectAccessRead, "Public");
-                   catalog.addProperty(ClassLabelConstants.CatalogObjectAccessModify, systemhierarchy);
+                   catalog.addProperty(ClassLabelConstants.CatalogObjectAccessRead, access);
+                   catalog.addProperty(ClassLabelConstants.CatalogObjectAccessModify, destmaintainer);
                    BaseCatalogData.insertFirestoreAddress(catalog);
                    try {
                     WriteFirestoreCatalogObject.writeCatalogObjectWithException(catalog);
@@ -145,17 +212,15 @@ public class DatasetCollectionCreateSystemCollection {
            body.addElement("div").addText("Dataset not transferred");
            success = false;
        }
-       
-       
        return success; 
     }
     
-    private static JsonObject generateNewSpecification(String version, String systemdataset, String systemhierarchy) {
+    private static JsonObject generateNewSpecification(String version, String datasetname, String destmaintainer) {
         JsonObject newspec = new JsonObject();
         newspec.addProperty(ClassLabelConstants.CatalogDataObjectStatus, "dataset:CatalogObjectStatusCurrent");
-        newspec.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, systemhierarchy);
+        newspec.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, destmaintainer);
         newspec.addProperty(ClassLabelConstants.DatasetVersion, version);
-        newspec.addProperty(ClassLabelConstants.DatasetName, systemdataset);
+        newspec.addProperty(ClassLabelConstants.DatasetName, datasetname);
         return newspec;
     }
     

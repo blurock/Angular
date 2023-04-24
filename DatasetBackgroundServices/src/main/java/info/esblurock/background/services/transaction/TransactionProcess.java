@@ -412,12 +412,12 @@ public enum TransactionProcess {
 
         @Override
         JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
-            return DatasetCollectionCreateSystemCollection.process(event, info);
+            return DatasetCollectionCreateSystemCollection.processCreateSystemCollection(event, info);
         }
 
         @Override
         String transactionKey(JsonObject catalog) {
-            String name = catalog.get(ClassLabelConstants.SystemDatasetCollectionsSetLabel).getAsString();
+            String name = catalog.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
             return name;
         }
 
@@ -425,6 +425,24 @@ public enum TransactionProcess {
         String transactionObjectName() {
             return "dataset:DatasetSystemCollectionManagementTransaction";
         }
+        
+    }, DatasetCollectionSetCopyCollection {
+
+        @Override
+        JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+            return DatasetCollectionCreateSystemCollection.copyCollectionSet(event, info);
+        }
+
+        @Override
+        String transactionKey(JsonObject catalog) {
+            String name = catalog.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+            return name;
+        }
+
+        @Override
+        String transactionObjectName() {
+            return "dataset:DatasetSystemCollectionManagementTransaction";
+       }
         
     },
     DatabaseDeleteTransaction {

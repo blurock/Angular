@@ -79,7 +79,6 @@ export class ThermocalculationsetupComponent implements OnInit {
 			if (result != null) {
 				this.maintainer = result;
 				this.objectform.get('CatalogDataObjectMaintainer').setValue(this.maintainer);
-				alert("constructor manage user: " + this.maintainer);
 			} else {
 				alert(manageuser.determineMaintainer);
 			}
@@ -88,11 +87,8 @@ export class ThermocalculationsetupComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		alert("ngOninit 0");
 		this.methoditems = this.menusetup.findChoices(this.annoinfo, this.methoditemstype);
-		alert("ngOninit 1");
 		this.structitems = this.menusetup.findChoices(this.annoinfo, this.structitemstype);
-		alert("ngOninit 2");
 	}
 
 	invalid(): boolean {

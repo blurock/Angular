@@ -28,6 +28,7 @@ import {HomepageComponent} from './layout/homepage/homepage.component'
 import {SetupuserinformationComponent} from '../app/catalogobjects/user/setupuserinformation/setupuserinformation.component';
 import {UseraccountadministrationComponent} from '../app/catalogobjects/user/useraccountadministration/useraccountadministration.component';
 import {DatasertcollectionadministrationComponent} from '../app/catalogobjects/datasetcollection/datasertcollectionadministration/datasertcollectionadministration.component';
+import {CopysystemdatasetcollectionsComponent} from '../app/catalogobjects/datasetcollection/copysystemdatasetcollections/copysystemdatasetcollections.component';
 import {UsercreateGuard} from './usercreate.guard';
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
 
@@ -48,6 +49,7 @@ const routes: Routes = [
 	{ path: 'catalog/collection', component: ManagedatasetcollectionsComponent},
 	{ path: 'useradmin' , component: UseraccountadministrationComponent, canActivate: [AuthGuard] },
 	{ path: 'datasetadmin' , component: DatasertcollectionadministrationComponent},
+	{ path: 'copycollection' , component: CopysystemdatasetcollectionsComponent},
 	{ path: 'catalog/transaction', component: ManagedatasettransactioneventobjectComponent,
 	children: [
       

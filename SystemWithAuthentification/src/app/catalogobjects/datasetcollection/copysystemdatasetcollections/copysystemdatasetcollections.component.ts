@@ -10,44 +10,38 @@ import { MatDialog } from '@angular/material/dialog';
 import { NavItem } from '../../../primitives/nav-item';
 import {IdentifiersService} from '../../../const/identifiers.service';
 
-
 @Component({
-	selector: 'app-datasertcollectionadministration',
-	templateUrl: './datasertcollectionadministration.component.html',
-	styleUrls: ['./datasertcollectionadministration.component.scss']
+	selector: 'app-copysystemdatasetcollections',
+	templateUrl: './copysystemdatasetcollections.component.html',
+	styleUrls: ['./copysystemdatasetcollections.component.scss']
 })
-export class DatasertcollectionadministrationComponent implements OnInit {
+export class CopysystemdatasetcollectionsComponent implements OnInit {
 
-	setuptitle = 'Add Collection Dataset to Master Dataset';
-	selected: string;
-	items: NavItem[];
-	resultHtml: string;
-	userid: string;
-	useritems: any;
-	objectform: FormGroup;
-	sourcedataset = 'Choose Source';
-	submit = 'Create System Dataset';
-	failedsubmission = 'Failed Transaction: no result given';
+	setuptitle = 'Copy Collection from System Collection';
+	failedsubmission = 'FAIled submission';
 
 	systemcollections: any;
 	datasetcollections: any;
 	collection: any;
+	items: NavItem[];
+	objectform: FormGroup;
+	selected: string;
+	sourcedataset: string;
+
+	resultHtml: string;
 
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
 
-
-
-
-
-	maintainer: string;
+	maintainer ="Guest";
 	catalogtype = 'dataset:ThermodynamicsDatasetCollectionIDsSet';
 	cataloganno: any;
-	activitytype = 'dataset:ActivityInformationCreateSystemCollection';
+	activitytype = 'dataset:ActivityInformationCopyCollection';
 	activityanno: any;
 
 	@ViewChild('thermocollectionset') thermocollectionset: ThermodynamicsdatasetcollectionidssetComponent;
+
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -56,14 +50,19 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 		private manageuser: ManageuserserviceService,
 		public dialog: MatDialog,
 		private identifiers: IdentifiersService
+
 	) {
 		this.objectform = this.formBuilder.group({
-			DatasetCollectionsSetLabel: ['', Validators.required],
 			CatalogDataObjectMaintainer: ['', Validators.required],
-			SystemDatasetCollectionsSetLabel: ['', Validators.required],
+			DestinationCollectionMaintainer: ['', Validators.required],
+			SourceCollectionMaintainer: ['', Validators.required],
+			DatasetCollectionSetDestinationLabel: ['', Validators.required],
+			DatasetCollectionSetSourceLabel: ['', Validators.required],
 			DescriptionTitle: ['', Validators.required],
-			DatasetVersion: ['', Validators.required]
+			DatasetVersion: ['', Validators.required],
+			DatasetName: ['', Validators.required]
 		});
+
 		this.getCatalogAnnoations(this.activitytype);
 		this.getCatalogAnnoations(this.catalogtype);
 
@@ -79,29 +78,22 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		
+		this.objectform.get('CatalogDataObjectMaintainer').setValue(this.maintainer);
+		this.objectform.get('DestinationCollectionMaintainer').setValue(this.maintainer);
 	}
 	
-
-	setCollection($event) {
-		this.collection = $event;
+	setCollection($event): void {
 		const type = $event['dcat:dataset'];
-		this.selected = $event[this.identifiers.DatasetCollectionsLabel];
-		
+		var collectionname = $event[this.identifiers.DatasetCollectionsLabel];
 		if(type == 'dataset:ThermodynamicsSystemCollectionIDsSet') {
-			this.selected = $event[this.identifiers.CatalogObjectKey];
+			collectionname = $event[this.identifiers.CatalogObjectKey];
 			this.objectform.get('CatalogDataObjectMaintainer').setValue('systemthermodynamics');
 		} else {
 			this.objectform.get('CatalogDataObjectMaintainer').setValue(this.maintainer);
 		}
-		this.objectform.get('DatasetCollectionsSetLabel').setValue(this.selected);
-		this.thermocollectionset.setData(this.collection);
+		this.objectform.get('DatasetCollectionSetSourceLabel').setValue(collectionname);
 	}
 
-	userChosen(user: string): void {
-		this.userid = user;
-	}
-	
 	public getCatalogAnnoations(type: string): void {
 		this.annotations.getNewCatalogObject(type).subscribe({
 			next: (responsedata: any) => {
@@ -115,40 +107,31 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 					} else {
 						this.activityanno = anno;
 					}
-
-
 				}
 			},
 			error: (info: any) => { alert('Get Annotations failed: see logs'); }
 		});
 	}
-
-	getListOfUsers(): void {
-		const inputdata = {};
-		inputdata[Ontologyconstants.service] = 'ListOfUserAccountNames';
-		this.runservice.run(inputdata).subscribe({
-			next: (responsedata: any) => {
-				const success = responsedata[Ontologyconstants.successful];
-				if (success === 'true') {
-					const objarr = responsedata[Ontologyconstants.catalogobject];
-					const obj = objarr[0];
-					this.useritems = obj[Ontologyconstants.username];
-				}
-			}
-		});
-	}
-
+	
 	getActivity(activity: any): void {
-		activity[this.activityanno['dataset:DatasetCollectionsSetLabel'][this.identifier]] = this.objectform.get('DatasetCollectionsSetLabel').value;
-		activity[this.activityanno['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.objectform.get('CatalogDataObjectMaintainer').value;
-		activity[this.activityanno['dataset:SystemDatasetCollectionsSetLabel'][this.identifier]] = this.objectform.get('SystemDatasetCollectionsSetLabel').value;
+		activity[this.activityanno['dataset:CatalogDataObjectMaintainer'][this.identifier]] =
+			this.maintainer;
+		activity[this.activityanno['dataset:DatasetCollectionSetSourceLabel'][this.identifier]] =
+			this.objectform.get('DatasetCollectionSetSourceLabel').value;
+		activity[this.activityanno['dataset:SourceCollectionMaintainer'][this.identifier]] =
+			this.objectform.get('SourceCollectionMaintainer').value;
+		activity[this.activityanno['dataset:DatasetCollectionSetDestinationLabel'][this.identifier]] =
+			this.objectform.get('DatasetCollectionSetDestinationLabel').value;
+		activity[this.activityanno['dataset:DestinationCollectionMaintainer'][this.identifier]] =
+			this.maintainer;
 		activity[this.activityanno['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle').value;
 		activity[this.activityanno['dataset:DatasetVersion'][this.identifier]] = this.objectform.get('DatasetVersion').value;
-
+		activity[this.activityanno['dataset:DatasetName'][this.identifier]] = this.objectform.get('DatasetName').value;
 	}
+
 	submitSystem(): void {
 		const transaction = {};
-		transaction[Ontologyconstants.TransactionEventType] = 'dataset:DatasetCollectionSetCreateSystemCollection';
+		transaction[Ontologyconstants.TransactionEventType] = 'dataset:DatasetCollectionSetCopyCollection';
 		const activity = {};
 		this.getActivity(activity);
 		transaction[Ontologyconstants.ActivityInfo] = activity;
@@ -168,7 +151,6 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 				this.resultHtml = this.failedsubmission;
 			}
 		});
-
 	}
 
 }
