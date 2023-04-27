@@ -1,0 +1,40 @@
+ <!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+Each contribution to the temperature dependent thermodyanmic calculation is represented 
+by an object in the fundamental data. 
+The data structures making up the fundamental data is what makes JThermodynamics unique.
+The data is represented in such a way that new fundamental data contributions 
+can be added to the thermodynamic calculation by additions of objects to the database.
+<p>
+The fundamental data, for the most part, consists of 
+a 2D-graphical substructure and its contribution to the thermodynamics. To identify a contribution,
+the substructure is matched within the radical or species being analysed. If there is a match
+then the corresponding contribution is added to the total thermodynamics of the species.
+<p> 
+The flexibility and adaptability of the calculation to include new structural groups is 
+owing to the fact that the structures are represented as 2D-graphical structures which can be 
+stored in the database along with how they contribute to the thermodynamics.
+<p>
+Within Jthermodynamics, there are 6 collections of fundamental data. The type of data determines 
+how the correspondig information contributes to the total thermodynamics:
+    <ul>
+    <li> <b>ThermodynamicBensonRuleDefinition</b> The structure is the classic <i>Benson Rule</i> with a 
+    center atom and its connection with its immediate neighboring atoms. These neighboring atoms 
+    can be single atoms or functional groups.
+    <li> <b>JThermodynamics2DSubstructureThermodynamics</b>
+    <li> <b>JThermodynamicsSymmetryStructureDefinition</b> These are the structures and contributions describing 
+    the <i>internal</i>, <i>external</i> and <i>optical</i>.
+    <li> <b>JThermodynamicsVibrationalStructure</b>
+    <li> <b>JThermodynamicsDisassociationEnergyOfStructure</b>
+    <li> <b>JThermodynamicsMetaAtomDefinition</b> These are definitions of functional groups which are treated as a single entity or atom. Meta 
+    atoms can be benson rule structures, function groups, such as <i>co</i> and <i>co2</i>, used in definition 
+    </ul>
+
+</body>
+</html>

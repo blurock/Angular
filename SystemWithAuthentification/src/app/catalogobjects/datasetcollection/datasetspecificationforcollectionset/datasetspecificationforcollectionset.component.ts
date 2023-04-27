@@ -34,7 +34,7 @@ export class DatasetspecificationforcollectionsetComponent implements OnInit {
 		this.idForm = this.fb.group({
 			CatalogDataObjectStatus: ['Standard', Validators.required],
 			CatalogDataObjectMaintainer: ['Standard', Validators.required],
-			DatasetName: ['Standard', Validators.required],
+			DatasetName: ['StandardData', Validators.required],
 			DatasetVersion: ['1.0', Validators.required],
 		});
 	}

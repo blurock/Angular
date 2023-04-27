@@ -65,7 +65,7 @@ public class GenericSimpleQueries {
 		}
 		return OntologyBase.datasetASK(query);
 	}
-	
+
 	/** Are two concepts the same
 	 * 
 	 * @param concept1 Concept to compare

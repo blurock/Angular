@@ -6,16 +6,25 @@
   margin-bottom: 0px;
 }
 .top {
-		background-color: lightblue;
+		background-color: #F0F0F0;
 	padding: 0px;
 	 margin: 0;
 }
 .introtext {
-	background-color: lightcyan;
+	background-color: #F0F0F0;
 	padding: 0px;
 	 margin: 0;
 }
 .startbutton {
 	width: 100%;
 	color: primary;
+	font-size:150%;
+}
+.calculatebutton {
+	width: 100%;
+	color: primary;
+	font-size:150%;
+}
+.explanation {
+	padding: 20px;
 }

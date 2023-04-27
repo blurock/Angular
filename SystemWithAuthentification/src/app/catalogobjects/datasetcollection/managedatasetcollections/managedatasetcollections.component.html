@@ -8,15 +8,37 @@
   <mat-card-content>
   
   <div>
-    <p>The dataset collection specifies which set of fundamental data should be used for the thermodyanmic calculations. A single dataset collection
-    specifies which combination of fundamental data should be used for the calculations</p>
-    <p>With the dataset collection management interface, a collection set is defined, referenced by a unique name, 
+    <p>
+    The dataset collection specifies which set of fundamental data should be used for the thermodyanmic calculations. 
+    With a single label, the specific set of fundamental data is referenced. This allows for keeping track
+    of which fundamental data is being used.
+    A single dataset collection
+    specifies which combination of fundamental data should be used for the calculations. For each type of fundamental data, 
+    the datset name and version is given.
+    <p>
+    With the dataset collection management interface, a collection set is defined, referenced by a unique name, 
     by giving which sets of fundamental data should be used. The fundamental datasets are uploaded and referenced by a unique name and a version indicator.
-    These are the parameters that are specified for the collection set.</p>
+    These are the parameters that are specified for the collection set.
   </div>
-  
-    <mat-divider></mat-divider>
-  
+
+  <div>
+    In creating or modifying a dataset corrections, the <i>DatasetName</i> and the <i>Dataset Version</i> is given for each of the 
+    types of fundamental data:
+  <ul>
+    <li> <b>Benson Rules</b>: These are the atom corrections due to the method of Benson.
+    <li> <b>2D Substructure Thermodynamics</b> These are thermodynamic corrections due to 2D-graphical structures. These include 
+    <i>HBI structures</i> for radical correction in the THERM computations, the <i>steric corrections</i> (nearest neighbor) and <i>ring strain 
+    energies</i>.
+    <li> <b>Symmetry Structures</b> These are the structures and contributions describing 
+    the <i>internal</i>, <i>external</i> and <i>optical</i> symmetries
+    <li> <b>Vibrational Energy Structures</b>: In the JTHERGAS computations, these are the corrections used for losses of vibrational
+    modes due to the radical.
+    <li> <b>Disassociation Energy</b>: In the JTHERGAS computations, these are the estimations of the hydrogen bond disassociation
+    due to the radical. 
+    <li> <b>Meta Atom Definition</b> These are definitions of functional groups which are treated as a single entity or atom. Meta 
+    atoms can be benson rule structures, function groups, such as <i>co</i> and <i>co2</i>, used in definition 
+    </ul>
+  </div>
   </mat-card-content>
 </mat-card>
 

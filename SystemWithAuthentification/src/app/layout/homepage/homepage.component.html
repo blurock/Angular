@@ -3,21 +3,68 @@
 	<div class="top">
 		<div class="topbanner">
 			<h1 class="mat-display-3" style="margin: 0">Calculating Molecular Thermodynamics</h1>
-			<h3 class="mat-subheading-2" style="margin: 0">Temperature dependent thermodynamics from 2D-graphical Molecular Representations (Lewis Structures)</h3>
+			<h3 class="mat-subheading-2" style="margin: 0">Temperature dependent thermodynamics from 2D-graphical
+				Molecular Representations (Lewis Structures)</h3>
 			<hr>
-			<div>
-			<button mat-raised-button class="startbutton" color="primary" (click)="startclick()">Get Started</button>
-			</div>
+		</div>
+		<div   class="explanation">
+		JThermodynamics (originally a JAVA implementation of THERGAS, formally called JTHERGAS) estimates
+		temperature dependent thermodynamic information from two dimensional graphical representations of molecules and
+		radicals based on the Benson additivity method. The main use of this method is within automatic combustion
+		mechanism generation systems
+		where fast estimation of a large number and variety of chemical species is needed.
+		<p>
+		As a basis JThermodynamics calculates the thermodynamic information for species and radicals using benson rule 
+		contributions for each heavy (non-hydrogen) atom in the structure. The contribution of each atom is dependent on the 
+		surrounding bonding and valence of the (directly) connected atoms and functional groups. There are two methods for calculating 
+		the contribution of radicals. One is the original THERGAS method where the radical atom contribution is calculated relative to 
+		base species and taking into accound the hydrogen disassociation energy, difference in vibrational modes and symmetry. The other
+		to calculate radicals is through the Hydrogen atom bond increments (HBI) method. In this method the individual radical corrections 
+		calculated by the THERGAS method are condensed into one contribution defined by the bonding around the radical
+		<p>
+		Additional corrections to the base Benson or HBI method are also included by JThermodynamics. These corrections include
+		ring strain energies and other steric corrections. Corrections due to internal, external and optical symmetries are 
+		also included.
+		</div>
+		<div>
+			<button mat-raised-button class="calculatebutton" color="#C0C0C0" (click)="calculate()">Try out a thermodynamic calculation with the standard database (no login required)</button>
+		</div>
+		<mat-divider></mat-divider>
+		<div class="explanation">
+		To perform these thermodynamics calculations a large database of individual pieces of fundamental data has to be managed. The database is designed to
+		promote FAIR practices by managing these fundamental data objects in a way that their origins and history are traceable and the 
+		dataset as a whole is easily adaptable and updatable.
+		<p>
+		The thermodynamic property calculations of JThermodynamics is based on a database of structure based tables, where each correction is based 
+		on 2D-graphical structures,
+		whether it be benson rules, HBI structures, symmetry structures or steric structures. Basically the structure is identified (through graphical
+		isomorphism) and the corresponding correction is made.
+		This methodology is thus dependent on an extensive database of several types of corrections and their corresponding corrections. For example, each 
+		benson rule has its center atom structure and its corresponding temperature dependent thermodynamic contribution. Each symmetry element contribution
+		 is represented by a structure and its corresponding thermodynamic contribution. 
+		<p>
+		A key feature of the database management is that every piece of fundamental data is traceable to its origins, including bibliograpic and internet references.
+		Changes to the database are done through transactions. Each transaction keeps track of how the database was modified. In addition, each transaction 
+		has a link to its prerequisite transactions needed, meaning the data objects needed to form the current database modification
+		If a fundamental data object is updated, the data object to be replaced is not is not deleted but linked to the new data object. This is noted within 
+		the transaction
+		<p>
+		Another key feature is that, through the dataset collection structure, updates to the database are managed efficiently. 
+		The collection set manages which combination of fundamental data objects are used for a thermodynamic calculation. 
+		If a fundamental data set is updated, the collection set can be modified to use this new set. Two different dataset collections
+		can represent two different sets of fundamental data 
+		</div>
+		<div>
+			<button mat-raised-button class="startbutton" color="#C0C0C0" (click)="startclick()">Try building and modfying your own database for calculation (login required)</button>
 		</div>
 		
-				JThermodynamics  (originally a JAVA implementation of THERGAS, formally called JTHERGAS) estimates temperature dependent thermodynamic information from two dimensional graphical representations of molecules and radicals based on the Benson additivity method. The main use of this method is within automatic combustion mechanism generation systems where fast estimation of a large number and variety of chemical species is needed.  
-
-		</div>
-<mat-divider></mat-divider>
-  <mat-grid-list cols="2" >
-    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-    <app-textcard [title]="card.title" [contentfile]="card.content" [bcolor]="card.color"></app-textcard>
-    </mat-grid-tile>
-  </mat-grid-list>
-  <mat-divider></mat-divider>
+	</div>
+	<mat-divider></mat-divider>
+	<mat-grid-list cols="10" rowHeight="50px">
+		<mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+			<app-textcard [title]="card.title" [contentfile]="card.content" [bcolor]="card.color">
+			</app-textcard>
+		</mat-grid-tile>
+	</mat-grid-list>
+	<mat-divider></mat-divider>
 </div>

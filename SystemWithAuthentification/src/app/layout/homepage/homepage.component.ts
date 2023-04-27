@@ -41,22 +41,35 @@ export class HomepageComponent implements OnInit {
 				}
 
 				return [
-					{ title: 'JThermodynamics', cols: 2, rows: 1, content: 'JThermodynamics', color: 'pink' },
-					{ title: 'ChemConnect', cols: 1, rows: 1, content: 'ChemConnect', color: 'lightred' },
-					{ title: 'Goals', cols: 1, rows: 1, content: 'Goals', color: 'lightblue' },
-					{ title: 'Edward S.Blurock', cols: 2, rows: 1, content: 'Blurock', color: 'lightgreen' }
+					{ title: 'JThermodynamics', cols: 7, rows: 7, content: 'JThermodynamics', color: '#E0E0E0' },
+					{ title: 'ChemConnect', cols: 3, rows: 7, content: 'ChemConnect', color: '#C0C0C0' },
+					
+					
+					{ title: 'Fundamental Data', cols: 10, rows: 7, content: 'FundamentalData', color: '#F0F0F0' },
+					
+					{ title: 'Datasets and their versions', cols: 5, rows: 10, content: 'DatasetVersions', color: '#E0E0E0' },
+					{ title: 'Dataset Collection Sets', cols: 5, rows: 10, content: 'DatasetCollectionSets', color: '#F0F0F0' },
+					
+					{ title: 'Goals', cols: 3, rows: 12, content: 'Goals', color: '#D3D3D3' },
+					{ title: 'Transparency and Openness (TOP)', cols: 3, rows: 12, content: 'TopConcepts', color: '#D3D3D3' },
+					{ title: 'FAIR data', cols: 4, rows: 12, content: 'FairData', color: '#D3D3D3' },
+
+					{ title: 'Edward S.Blurock', cols: 10, rows: 7, content: 'Blurock', color: '#F0F0F0' }
 				];
 			})
 		);
 	}
 
 
-	startclick() {
+	calculate() {
+			this.router.navigateByUrl('/compute');
+	}
+startclick() {
 		if (this.auth.isLoggedIn) {
 			this.router.navigateByUrl('/toppage');
 		} else {
 			this.router.navigateByUrl('/sign-in');
 		}
-	}
-
+	
+}
 }

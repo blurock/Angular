@@ -19,6 +19,7 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 	@ViewChild('metaatom') metaatom: DatasetspecificationforcollectionsetComponent;
 	@ViewChild('symmetry') symmetry: DatasetspecificationforcollectionsetComponent;
 	@ViewChild('vibrational') vibrational: DatasetspecificationforcollectionsetComponent;
+	@ViewChild('substructure') substructure: DatasetspecificationforcollectionsetComponent;
 
 	transspec: any;
 
@@ -37,7 +38,7 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 	metaatomtitle = 'Meta Atom Definition';
 	symmetrytitle = 'Symmetry Structures';
 	vibrationaltitle = 'Vibrational Energy Structures';
-
+    substructuretitle = '2D Substructure Thermodynamics';
 	maintainer = "Public";
 	waiting = 'waiting for annotations ';
 
@@ -61,11 +62,12 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 	}
 	
 	invalid(): boolean {
-    return this.benson.invalid() ||
+    return this.benson.invalid()  ||
     this.disassociation.invalid() ||
-    this.metaatom.invalid() ||
-    this.symmetry.invalid() ||
-    this.vibrational.invalid();
+    this.metaatom.invalid()       ||
+    this.symmetry.invalid()       ||
+    this.vibrational.invalid()    ||
+    this.substructure.invalid();
   }
 
 	public getCatalogAnnoations(): void {
@@ -109,6 +111,10 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 		const vibrationalcolid = {};
 		this.vibrational.getData(vibrationalcolid);
 		catalog['dataset:vibrationalstructurecolspec'] = vibrationalcolid;
+		
+		const substructureid = {};
+		this.substructure.getData(substructureid);
+		catalog['dataset:2dsubstructurethermo'] = substructureid;
 
 	}
 
@@ -128,6 +134,9 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 
 		const vibrationalcolid = catalog['dataset:vibrationalstructure'];
 		this.vibrational.setData(vibrationalcolid);
+		
+		const substructurecolid = catalog['dataset:2dsubstructurethermo'];
+		this.substructure.setData(substructurecolid);
 	}
 
 

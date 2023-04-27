@@ -119,7 +119,6 @@ public class FindDatasetCollections {
                 .startDocument("Find All Dataset Collection Sets for " + maintainer);
         JsonObject response = null;
         JsonObject collectionfirestore = createFirestoreForCollectionSet(maintainer);
-        System.out.println(JsonObjectUtilities.toString(collectionfirestore));
         response = ReadFirestoreInformation.readFirestoreCollection(null, collectionfirestore);
         if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
             JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
