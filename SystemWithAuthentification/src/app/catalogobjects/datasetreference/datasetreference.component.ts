@@ -157,12 +157,12 @@ export class DatasetreferenceComponent implements OnInit {
 					};
 					this.filled = true;
 				} else {
-					alert("no classification tree");
+					alert('no classification tree');
 					alert(JSON.stringify(classification));
 				}
 
 			} else {
-				alert("No classifications");
+				alert('No classifications');
 			}
 		} else {
 			alert('filled false');

@@ -5,7 +5,7 @@ import { OntologycatalogService } from '../../../services/ontologycatalog.servic
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
 import { DatasettransactionspecificationforcollectionComponent } from '../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ActivityinformationComponent } from '../activityinformation/activityinformation.component';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
 import { NavItem } from '../../../primitives/nav-item';

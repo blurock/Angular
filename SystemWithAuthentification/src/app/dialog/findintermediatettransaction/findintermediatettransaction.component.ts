@@ -51,6 +51,7 @@ export class FindintermediatettransactionComponent implements OnInit {
 		json[this.identifiers.TransactionEventType] = data[this.identifiers.TransactionEventType];
 		this.runservice.run(json).subscribe({
 			next: (responsedata: any) => {
+				
 				const success = responsedata[Ontologyconstants.successful];
 				if (success === 'true') {
 					const arrmaintaince = responsedata[Ontologyconstants.catalogobject];
@@ -60,6 +61,7 @@ export class FindintermediatettransactionComponent implements OnInit {
 					const arrdataset = menu[identifiers.CatalogHiearchyNode];
 					this.processDatasetMenu(arrdataset);
 				} else {
+					this.runservice.checkReturn(responsedata);
 					this.dialogRef.close(responsedata);
 				}
 			}

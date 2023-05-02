@@ -65,14 +65,9 @@ export class Jthermodynamics2dmoleculethermodynamicsComponent implements OnInit 
 
 	}
 	setData(catalog: any): void {
-		alert("Jthermodynamics2dmoleculethermodynamicsComponent setData start");
-		alert("Jthermodynamics2dmoleculethermodynamicsComponent setData structure  " + this.structure);
 		const struct = catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
-		alert("Jthermodynamics2dmoleculethermodynamicsComponent setData struct  " + JSON.stringify(struct));
 		this.structure.setData(struct);
-		alert("Jthermodynamics2dmoleculethermodynamicsComponent setData base   " + this.base);
 		this.base.setData(catalog);
-		alert("Jthermodynamics2dmoleculethermodynamicsComponent setData done");
 	}
 
 }

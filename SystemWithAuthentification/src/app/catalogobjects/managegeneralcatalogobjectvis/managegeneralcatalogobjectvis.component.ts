@@ -93,7 +93,7 @@ export class ManagegeneralcatalogobjectvisComponent implements OnInit {
 						this.catalogvis.setData(catalog);
 					}
 				} else {
-					alert("Error in reading: " + JSON.stringify(result));
+					alert('Error in reading: ' + JSON.stringify(result));
 				}
 			} else {
 				this.resultHtml = this.readinfailed;

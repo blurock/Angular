@@ -31,12 +31,10 @@ export class UseraccountadministrationComponent implements OnInit {
 	}
 
 	getAccountIDs(): any {
-		alert("getAccountIDs");
 		const inputdata = {};
 		inputdata[this.serviceid] = 'ListOfUserAccountNames';
 		this.runservice.run(inputdata).subscribe({
 			next: (responsedata: any) => {
-				alert("getAccountIDs" + JSON.stringify(responsedata));
 				const success = responsedata[Ontologyconstants.successful];
 				if (success == 'true') {
 					const obj = responsedata[Ontologyconstants.catalogobject][0];
@@ -60,13 +58,11 @@ export class UseraccountadministrationComponent implements OnInit {
 					const obj = responsedata[Ontologyconstants.catalogobject][0];
 					this.persondata = obj['vcard:Individual'];
 					this.account = obj['prov:SoftwareAgent'];
-					alert(JSON.stringify(this.persondata));
 					this.useraccount.setData(this.account);
-					alert("account");
-					this.person.setData(this.persondata);
-					alert("person");
+					this.person.setData(this.persondata);					
 				} else {
 					alert('Retrieval of usr information not successful: see logs');
+					this.runservice.checkReturn(responsedata);
 				}
 			}
 		});

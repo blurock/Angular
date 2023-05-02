@@ -72,7 +72,7 @@ export class AuthService {
 				this.SetUserData(result.user);
 			})
 			.catch((error) => {
-				alert("SignUp: " + error.message);
+				alert('SignUp Eroor: ' + error.message);
 			});
 	}
 	// Send email verfificaiton when new user sign up

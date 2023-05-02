@@ -27,10 +27,10 @@ public catalogS = 'not initialized';
   
   onNoClick(): void {
     this.dialogRef.close('Cancel');
-     alert("Cancel");
+     alert('Cancel');
   }
   saveDataClick() {
     this.dialogRef.close('save data file simulation');
-     alert("save data file simulation");
+     alert('save data file simulation');
   }
 }

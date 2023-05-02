@@ -35,7 +35,6 @@ export class SimplechoiceprimitiveComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit(): void {
-    alert("Init");
     this.findChoices();
     
   }
@@ -46,7 +45,6 @@ export class SimplechoiceprimitiveComponent implements OnInit, OnChanges {
 
   findChoices(): void {
     if (!this.filled) {
-      alert("FindChoices");
       const anno = this.annoinfo[this.annoref];
       const choiceanno = anno[this.choiceLabel];
       const classification = choiceanno['classification'];
@@ -56,7 +54,6 @@ export class SimplechoiceprimitiveComponent implements OnInit, OnChanges {
         if(subclasses != null) {
       this.choicesList = [];
       this.choice = null;
-      alert("FindChoices: subclasses: " + subclasses.length);
       for (let i = 0; i < subclasses.length; i++) {
         const classelement = subclasses[i];
         const type = classelement['dataset:catalogtype'];
@@ -71,7 +68,7 @@ export class SimplechoiceprimitiveComponent implements OnInit, OnChanges {
         }
 
         } else {
-          alert("Type not found: " + type);
+          alert('Type not found: ' + type);
         }
       };
       if (this.choice == null) {
@@ -79,7 +76,7 @@ export class SimplechoiceprimitiveComponent implements OnInit, OnChanges {
       }
       this.filled = true;
       } else {
-        alert("no classification tree");
+        alert('no classification tree');
       }
       } else {
         alert('No classifications');

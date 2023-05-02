@@ -38,7 +38,7 @@ export class RuntransactionService {
 					} else {
 						this.errorMsg = ServiceUtilityRoutines.getServerErrorMessage(error);
 					}
-					return of(this.errorMsg);
+					return of({'dataset:servicesuccessful': 'false', 'dataset:serviceresponsemessage': this.errorMsg, 'dataset:simpcatobj': null});
 				}));
 
 	}

@@ -131,10 +131,10 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 						alert('Unknown file format type');
 					}
 				} else {
-					alert("Could not set up format defaults based on file format")
+					alert('Could not set up format defaults based on file format')
 				}
 			} else {
-				alert("Need to set up repository file prerequisite");
+				alert('Need to set up repository file prerequisite');
 			}
 		} else {
 			alert('Partition interface not set up: reload repository when set up');

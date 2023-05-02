@@ -116,7 +116,6 @@ export class UploadfileinformationComponent implements OnInit {
 
 		dialogRef.afterClosed().subscribe(result => {
 			if (result != null) {
-				alert("Upload:\n" + JSON.stringify(result));
 				const success = result['dataset:servicesuccessful'];
 				this.resultHtml = result['dataset:serviceresponsemessage'];
 				if (success == 'true') {

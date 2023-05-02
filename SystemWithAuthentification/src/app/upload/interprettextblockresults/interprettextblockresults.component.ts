@@ -7,6 +7,8 @@ import { ManageuserserviceService } from '../../services/manageuserservice.servi
 import { RuntransactiondialogComponent } from '../../dialog/runtransactiondialog/runtransactiondialog.component';
 import { ListoffirestoreidsComponent } from '../../catalogobjects/listoffirestoreids/listoffirestoreids.component';
 import { OntologycatalogService } from '../../services/ontologycatalog.service';
+import {FindintermediatettransactionComponent} from '../../dialog/findintermediatettransaction/findintermediatettransaction.component';
+import {IdentifiersService} from '../../const/identifiers.service';
 
 @Component({
   selector: 'app-interprettextblockresults',
@@ -40,6 +42,7 @@ export class InterprettextblockresultsComponent implements OnInit {
 	@ViewChild('outlst') outlst: ListoffirestoreidsComponent;
 
 	constructor(
+        private identifiers: IdentifiersService,
 		public annotations: OntologycatalogService,
 		manageuser: ManageuserserviceService,
 		public dialog: MatDialog) {
@@ -90,10 +93,14 @@ export class InterprettextblockresultsComponent implements OnInit {
 		//const activitytype = 'dataset:ActivityRepositoryPartitionToCatalog';
 		//this.transaction.setTransaction(activitytype);
 	}
+		fetchInformation() {
+					const data = {};
+			data[this.identifiers.CatalogDataObjectMaintainer] = this.maintainer;
+			data[this.identifiers.TransactionEventType] = 'dataset:TransactionInterpretTextBlock';
+			data[Ontologyconstants.annoinfo] = this.annoinfo;
 
-	fetchInformation() {
-		const dialogRef = this.dialog.open(FindspecifictransactionindatasetComponent, {
-			data: { annoinfo: this.annoinfo, maintainer: this.maintainer, transaction: 'dataset:TransactionInterpretTextBlock' },
+		const dialogRef = this.dialog.open(FindintermediatettransactionComponent, {
+			data: data,
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
@@ -101,13 +108,14 @@ export class InterprettextblockresultsComponent implements OnInit {
 				const success = result[Ontologyconstants.successful];
 				this.resultHtml = result[Ontologyconstants.message];
 				if (success == 'true') {
-					this.transactionobject = result[Ontologyconstants.catalogobject];
+          
+          			this.transactionobject = result[Ontologyconstants.catalogobject];
 					if (this.transactionobject != null) {
 						this.setData(this.transactionobject);
 						this.interpretTransactionEvent.emit(this.transactionobject);
 					}
 				} else {
-					alert("Error in reading: " + JSON.stringify(result));
+					alert('Error in reading: ' + JSON.stringify(result));
 				}
 			} else {
 				this.resultHtml = this.readinfailed;
@@ -115,6 +123,11 @@ export class InterprettextblockresultsComponent implements OnInit {
 
 		});
 	}
+
+	
+	
+	
+	
 	deleteTransaction(): void {
 		const transaction = {};
 		transaction['prov:activity'] = 'dataset:DatabaseDeleteTransaction';

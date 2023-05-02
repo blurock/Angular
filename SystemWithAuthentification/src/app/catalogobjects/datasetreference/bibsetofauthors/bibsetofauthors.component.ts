@@ -89,6 +89,5 @@ export class BibsetofauthorsComponent implements OnInit {
 
  settitle($event): void {
 	 alert("Choice selected: " + JSON.stringify($event));
-	 //authorform.get('AuthorNameTitle').setValue('');
  }
 }

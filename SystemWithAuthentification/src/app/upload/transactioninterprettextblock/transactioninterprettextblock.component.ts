@@ -143,7 +143,7 @@ export class TransactioninterprettextblockComponent implements OnInit {
 		if (this.prerequisite != null) {
 				this.activity.setPrerequisiteData(this.prerequisite);
 		} else {
-			alert("prerequisite not set up");
+			alert('prerequisite not set up');
 		}
 	}
 

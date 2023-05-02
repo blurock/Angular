@@ -8,7 +8,7 @@
 	
 			<mat-grid-list cols="6" rowHeight="100px">
 			<mat-grid-tile [colspan]="3">
-				<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchInformationCatalog()"
+				<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchInformation()"
 				matTooltip="{{loadcatalogfromdatabase}}">
 					{{fetchcatalog}}
 				</button>
@@ -17,7 +17,7 @@
 			<mat-grid-tile [colspan]="3">
 				<button mat-mini-fab color="primary" class="submit-btn" (click)="deleteTransaction()"
 				matTooltip="{{deletehint}}"
-				[disabled]="catalogobj == null">
+				[disabled]="catalogread">
 					{{deletetransaction}}
 				</button>
 			</mat-grid-tile>

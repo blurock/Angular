@@ -72,9 +72,7 @@ export class InterfaceconstantsService {
         return of(typeInfo);
     }   
     public setDataFormat(typeInfo: any, objectform: FormGroup): number {
-		alert("RepositorydatapartitionblockComponent setDataFormat " + JSON.stringify(typeInfo));
 		const fmt = typeInfo['format'];
-		alert("RepositorydatapartitionblockComponent setDataFormat " + fmt);
 		objectform.get('FileSourceFormat').setValue(fmt);
 		const method = typeInfo['method']
 		objectform.get('FilePartitionMethod').setValue(method);

@@ -81,7 +81,7 @@ export class DatasetrepositoryfilestagingComponent extends Savecatalogdataobject
 				this.objectform.get('DescriptionTitle').setValue(title);
 			}
 		} else {
-			alert("Display objects not set up");
+			alert('Display objects not set up');
 		}
 	}
 

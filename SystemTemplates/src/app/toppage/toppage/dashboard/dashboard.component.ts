@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';  
-import { SocialLoginModule, SocialAuthServiceConfig, SocialAuthService } from 'angularx-social-login';
+import { SocialAuthService } from 'angularx-social-login';
 import { SocialUsers } from '../../socialusers'  
-import { SocialloginService } from '../../../services/sociallogin.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',

@@ -92,7 +92,7 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 				}
 			});
 		} else {
-			alert("File format not defined in ActivityinformationinterpretthermodynamicblockComponent");
+			alert('File format not defined in ActivityinformationinterpretthermodynamicblockComponent');
 		}
 		this.items = this.menusetup.findChoices(this.annoinfo, this.structurespecification);
 		this.structitems = this.menusetup.findChoices(this.annoinfo, this.structuretype);

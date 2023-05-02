@@ -16,9 +16,8 @@ export class UsercreateGuard implements CanActivate {
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 		var ans = true;
-		alert("islogged in" + this.authService.isLoggedIn);
+		alert('islogged in' + this.authService.isLoggedIn);
 		if (this.authService.isLoggedIn !== true) {
-            alert("this.authService.isRegistered " + this.authService.isRegistered);
 			if (this.authService.isRegistered) {
 				if (this.authService.isValidated) {
 					ans = true;

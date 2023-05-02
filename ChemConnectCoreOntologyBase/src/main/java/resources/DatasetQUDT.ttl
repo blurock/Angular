@@ -2756,11 +2756,32 @@ The catalog object being modified is the at the FirestoreCatalogID listed in the
      rdfs:subClassOf :SpreadSheetDelimitorTypes .
 
 
+###  http://www.esblurock.info/dataset#CalculateFullThermodynamicsForSpecies
+:CalculateFullThermodynamicsForSpecies rdf:type owl:Class ;
+                                       rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
+                                       rdfs:comment "Calculate the full temperature dependent thermodynamics for a species or radical with all contributions of fundamental data."^^xsd:string ;
+                                       rdfs:label "Full Calculation"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CalculateIndividualFundamentalData
+:CalculateIndividualFundamentalData rdf:type owl:Class ;
+                                    rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
+                                    rdfs:comment "Calculate individual contributions from fundamental data"^^xsd:string ;
+                                    rdfs:label "Fundamental Data"^^xsd:string .
+
+
 ###  http://www.esblurock.info/dataset#CalculateTherGasThermodynamics
 :CalculateTherGasThermodynamics rdf:type owl:Class ;
-                                rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
+                                rdfs:subClassOf :CalculateFullThermodynamicsForSpecies ;
                                 rdfs:comment "Compute the total TherGas thermodynamic contributions using the 2D-graphical species structure"^^xsd:string ;
                                 rdfs:label "TherGas Thermodynamics"^^xsd:string .
+
+
+###  http://www.esblurock.info/dataset#CalculateThermThermodynamics
+:CalculateThermThermodynamics rdf:type owl:Class ;
+                              rdfs:subClassOf :CalculateFullThermodynamicsForSpecies ;
+                              rdfs:comment "THERM Calculation with the HBI contributions"^^xsd:string ;
+                              rdfs:label "THERM Calculation"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#CalculatedAbsoluteUncertainty
@@ -5322,21 +5343,21 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ComputeThermodynamicsForDisassociationEnergy
 :ComputeThermodynamicsForDisassociationEnergy rdf:type owl:Class ;
-                                              rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
+                                              rdfs:subClassOf :CalculateIndividualFundamentalData ;
                                               rdfs:comment "Compute contribution of disassociation energy determined from 2D-graphical species representation."^^xsd:string ;
                                               rdfs:label "Disassociation Energy"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromAllSymmetries
 :ComputeThermodynamicsFromAllSymmetries rdf:type owl:Class ;
-                                        rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
+                                        rdfs:subClassOf :CalculateIndividualFundamentalData ;
                                         rdfs:comment "Calculation of all symmetries from a 2D graphical species structure"^^xsd:string ;
                                         rdfs:label "All Symmetries"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromBensonRules
 :ComputeThermodynamicsFromBensonRules rdf:type owl:Class ;
-                                      rdfs:subClassOf :ServiceCollectionComputeThermodynamics ,
+                                      rdfs:subClassOf :CalculateIndividualFundamentalData ,
                                                       [ rdf:type owl:Restriction ;
                                                         owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -5389,7 +5410,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromExternalSymmetry
 :ComputeThermodynamicsFromExternalSymmetry rdf:type owl:Class ;
-                                           rdfs:subClassOf :ServiceCollectionComputeThermodynamics ,
+                                           rdfs:subClassOf :CalculateIndividualFundamentalData ,
                                                            [ rdf:type owl:Restriction ;
                                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -5432,42 +5453,42 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromHBIStructures
 :ComputeThermodynamicsFromHBIStructures rdf:type owl:Class ;
-                                        rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
+                                        rdfs:subClassOf :CalculateIndividualFundamentalData ;
                                         rdfs:comment "The core of the THERM method, the recognition of the radical correction"^^xsd:string ;
                                         rdfs:label "HBI Structure"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromInternalSymmetry
 :ComputeThermodynamicsFromInternalSymmetry rdf:type owl:Class ;
-                                           rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
+                                           rdfs:subClassOf :CalculateIndividualFundamentalData ;
                                            rdfs:comment "Calculate the internal symmetry given the 2D graphical species."^^xsd:string ;
                                            rdfs:label "Internal Symmetry"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromOpticalIsomers
 :ComputeThermodynamicsFromOpticalIsomers rdf:type owl:Class ;
-                                         rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
+                                         rdfs:subClassOf :CalculateIndividualFundamentalData ;
                                          rdfs:comment "Calculate the optical symmetry from the 2D graphical species structure"^^xsd:string ;
                                          rdfs:label "Optical Symmetry"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromRingStrain
 :ComputeThermodynamicsFromRingStrain rdf:type owl:Class ;
-                                     rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
+                                     rdfs:subClassOf :CalculateIndividualFundamentalData ;
                                      rdfs:comment "Calculate the thermodynamic contributions due to ring strain"^^xsd:string ;
                                      rdfs:label "Ring Strain"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromStericStructures
 :ComputeThermodynamicsFromStericStructures rdf:type owl:Class ;
-                                           rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
+                                           rdfs:subClassOf :CalculateIndividualFundamentalData ;
                                            rdfs:comment "Compute the contribution to recognition of steric interferences"^^xsd:string ;
                                            rdfs:label "Steric Structures"^^xsd:string .
 
 
 ###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromSymmetryElement
 :ComputeThermodynamicsFromSymmetryElement rdf:type owl:Class ;
-                                          rdfs:subClassOf :ServiceCollectionComputeThermodynamics ,
+                                          rdfs:subClassOf :CalculateIndividualFundamentalData ,
                                                           [ rdf:type owl:Restriction ;
                                                             owl:onProperty <http://purl.org/dc/terms/hasPart> ;
                                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
@@ -5504,7 +5525,7 @@ Under the general type of is the actual data object referenced by the ChemConnec
 
 ###  http://www.esblurock.info/dataset#ComputeThermodynamicsFromVibrationalModes
 :ComputeThermodynamicsFromVibrationalModes rdf:type owl:Class ;
-                                           rdfs:subClassOf :ServiceCollectionComputeThermodynamics ;
+                                           rdfs:subClassOf :CalculateIndividualFundamentalData ;
                                            rdfs:comment "Calculation the vibrational mode contribution to the thermodynamic of a 2D-graphical species structure"^^xsd:string ;
                                            rdfs:label "Vibrational Modes"^^xsd:string .
 

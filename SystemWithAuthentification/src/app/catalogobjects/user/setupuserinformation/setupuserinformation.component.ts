@@ -100,7 +100,7 @@ export class SetupuserinformationComponent implements OnInit {
 			if (loginaccount[Ontologyconstants.UID] != null) {
 				uid = loginaccount[Ontologyconstants.UID];
 			} else {
-				alert("not authorized");
+				alert('not authorized');
 			}
             if(loginaccount[Ontologyconstants.UserAccountRole] != null) {
 				role = loginaccount[Ontologyconstants.UserAccountRole];

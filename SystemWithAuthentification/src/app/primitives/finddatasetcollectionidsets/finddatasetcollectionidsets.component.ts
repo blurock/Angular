@@ -63,7 +63,7 @@ export class FinddatasetcollectionidsetsComponent implements OnInit {
 					this.collectionmenu = this.createMenu(this.collectionarray);
 						this.setCollectionSet(this.collectionarray[0]);
 				} else {
-		alert("findCollectionSets() error");
+		alert('findCollectionSets() error');
 
 				}
 			},

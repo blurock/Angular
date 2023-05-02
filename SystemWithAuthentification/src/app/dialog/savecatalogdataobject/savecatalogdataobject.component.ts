@@ -54,7 +54,6 @@ export class SavecatalogdataobjectComponent extends BaseCatalogInterface {
 	}
 
 	public openDialog(catalog: any): void {
-		alert("openDialog:" + JSON.stringify(catalog));
 		const dialogRef = this.dialog.open(SavecatalogdataobjectdialogComponent, {
 			data: { catalog: catalog, annotations: this.annoinfo }
 		});

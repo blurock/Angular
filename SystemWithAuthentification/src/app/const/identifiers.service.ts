@@ -14,6 +14,7 @@ export class IdentifiersService {
 	public CatalogHiearchyNode = 'dataset:cataloghiearchynode';
 	public DatasetCollectionsLabel = 'dataset:datasetcollectionslabel'
 	
+	public DatabaseObjectIDOutputTransaction = 'dataset:transoutobjid';
 	public FirestoreCatalogID = 'dataset:firestorecatalog';
 	public DataCatalog = 'skos:inScheme';
 	public SimpleCatalogName = 'qb:DataSet';

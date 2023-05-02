@@ -16,15 +16,10 @@ parameters: Observable<any>;
   }
 
   call() {
-    alert("Call");
- 
  this.parameters = this.ontologyservice.getAnnotationsFromID('dataset:DescriptionAbstract');
- alert("called");
  this.parameters.subscribe(val => {
-      alert("Val: ");
-      alert(val);
-      alert(val["rdfs:label"]);
-      alert(val["rdfs:comment"]);
+      alert(val['rdfs:label']);
+      alert(val['rdfs:comment']);
     })
   }
 

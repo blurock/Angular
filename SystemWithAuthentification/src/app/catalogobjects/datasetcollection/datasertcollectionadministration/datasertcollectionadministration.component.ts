@@ -72,6 +72,7 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 				this.maintainer = result;
 				this.objectform.get('CatalogDataObjectMaintainer').setValue(this.maintainer);
 			} else {
+				this.runservice.checkReturn(result);
 				alert(this.manageuser.errormaintainer);
 			}
 		});

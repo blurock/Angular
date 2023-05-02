@@ -138,7 +138,7 @@ export class RepositorydatapartitionblockComponent implements OnInit, AfterViewI
 			const wlinks = catalog[this.identifiers.ObjectSiteReference];
 			this.weblinks.setData(wlinks);
 		} else {
-			alert("Display not set up yes (refresh)")
+			alert('Display not set up yes (refresh)');
 		}
 	}
 

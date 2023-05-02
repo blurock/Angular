@@ -89,6 +89,7 @@ export class FindspecifictransactionindatasetComponent implements OnInit {
 				if (success == 'true') {
 					this.dialogRef.close(responsedata);
 				} else {
+					this.runservice.checkReturn(responsedata);
 					this.dialogRef.close(responsedata);
 				}
 			}

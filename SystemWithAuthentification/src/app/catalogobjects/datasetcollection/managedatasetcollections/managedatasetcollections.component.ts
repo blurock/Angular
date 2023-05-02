@@ -1,9 +1,9 @@
-import { Component, OnInit, EventEmitter,ViewChild } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
-import {CreatenewdatasetcollectionComponent} from '../createnewdatasetcollection/createnewdatasetcollection.component';
-import {ModifydatasetcollectionidsComponent} from '../modifydatasetcollectionids/modifydatasetcollectionids.component';
-import {VisualizedatasetcollectionidsComponent} from '../visualizedatasetcollectionids/visualizedatasetcollectionids.component';
+import { CreatenewdatasetcollectionComponent } from '../createnewdatasetcollection/createnewdatasetcollection.component';
+import { ModifydatasetcollectionidsComponent } from '../modifydatasetcollectionids/modifydatasetcollectionids.component';
+import { VisualizedatasetcollectionidsComponent } from '../visualizedatasetcollectionids/visualizedatasetcollectionids.component';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { OntologycatalogService } from '../../../services/ontologycatalog.servic
 })
 export class ManagedatasetcollectionsComponent implements OnInit {
 
-	
+
 	waitmessage = 'Initializing';
 
 	catalogobj: any;
@@ -21,7 +21,7 @@ export class ManagedatasetcollectionsComponent implements OnInit {
 	maintainer: string;
 
 	catalogtype = "dataset:ActivityInformationDatasetCollectionSetCreation";
-	
+
 	@ViewChild('createcollection') createcollection: CreatenewdatasetcollectionComponent;
 	@ViewChild('modifycollection') modifycollection: ModifydatasetcollectionidsComponent;
 	@ViewChild('visualcollection') visualcollection: VisualizedatasetcollectionidsComponent;
@@ -43,27 +43,25 @@ export class ManagedatasetcollectionsComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
- 	}
- 	
- 	setData(collectionids: any) {
-		 //this.createcollection.setTransaction(collectionids);
-		 alert("ManagedatasetcollectionsComponent 0");
-		 this.modifycollection.setPrerequisite(collectionids);
-		 alert("ManagedatasetcollectionsComponent after modifycollection");
-		 this.visualcollection.setData(collectionids);
-	 }
- 	
-    newCollectionV($event){
-				this.setData($event);
-				};
-    newCollectionM($event){
+	}
+
+	setData(collectionids: any) {
+		//this.createcollection.setTransaction(collectionids);
+		this.modifycollection.setPrerequisite(collectionids);
+		this.visualcollection.setData(collectionids);
+	}
+
+	newCollectionV($event) {
 		this.setData($event);
-		}
-    newCollectionC($event){
+	};
+	newCollectionM($event) {
 		this.setData($event);
-		}
-		
-public getCatalogAnnoations(): void {
+	}
+	newCollectionC($event) {
+		this.setData($event);
+	}
+
+	public getCatalogAnnoations(): void {
 		this.waitmessage = 'Waiting for Info call';
 		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
 			next: (responsedata: any) => {

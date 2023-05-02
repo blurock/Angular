@@ -71,7 +71,7 @@ export class SetofsitereferencesComponent implements OnInit {
 			links.push(link);
 		}
 		} else {
-			alert("SetofsitereferencesComponent: catalog null");
+			alert('SetofsitereferencesComponent: catalog null');
 		}
 	}
 

@@ -122,7 +122,7 @@ export class ParsefiletransactionComponent implements OnInit {
 						this.parsedTransactionEvent.emit(transobj);
 					}
 				} else {
-					alert("Error in reading: " + JSON.stringify(result));
+					alert('Error in reading: ' + JSON.stringify(result));
 				}
 			} else {
 				this.resultHtml = this.readinfailed;

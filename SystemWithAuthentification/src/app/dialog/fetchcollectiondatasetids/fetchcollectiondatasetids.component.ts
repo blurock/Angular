@@ -90,6 +90,7 @@ export class FetchcollectiondatasetidsComponent implements OnInit {
 						this.dialogRef.close(responsedata);
 					} else {
 						this.message = responsedata['dataset:serviceresponsemessage'];
+						this.runservice.checkReturn(responsedata);
 						this.dialogRef.close(responsedata);
 					}
 				}

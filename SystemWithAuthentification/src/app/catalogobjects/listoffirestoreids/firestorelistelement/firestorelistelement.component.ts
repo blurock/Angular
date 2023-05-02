@@ -71,6 +71,7 @@ export class FirestorelistelementComponent implements OnInit {
 						alert('Result null');
 					}
 				} else {
+					this.runservice.checkReturn(responsedata);
 					alert('Read Object not successful');
 				}
 			}
