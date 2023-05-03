@@ -148,6 +148,7 @@ public class OntologyBase {
 					System.out.println("OntologyBase.class.getResourceAsStream: " +  str);
 					//str = new FileInputStream(filename);
 					datasetmodel.read(str, "http://esblurock.info", "TURTLE");
+					//datasetmodel.read(str, "https://blurock-database.ew.r.appspot.com", "TURTLE");
 				} catch (Exception ex) {
 					System.out.println("Error in reading Ontology:   " + filename + "\n" + ex.toString());
 				} catch (java.lang.NoClassDefFoundError ex) {

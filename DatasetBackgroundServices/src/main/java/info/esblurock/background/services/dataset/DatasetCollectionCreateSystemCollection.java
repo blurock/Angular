@@ -27,10 +27,14 @@ public class DatasetCollectionCreateSystemCollection {
         String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
         info.addProperty(ClassLabelConstants.SourceCollectionMaintainer,maintainer);
         info.addProperty(ClassLabelConstants.DestinationCollectionMaintainer,systemhierarchy);
+        
         String systemcollectionlabel = info.get(ClassLabelConstants.SystemDatasetCollectionsSetLabel).getAsString();
-        info.addProperty(ClassLabelConstants.DatasetCollectionSetSourceLabel, systemcollectionlabel);
         String collectionlabel = info.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
-        info.addProperty(ClassLabelConstants.DatasetCollectionSetDestinationLabel, collectionlabel);
+        
+        info.addProperty(ClassLabelConstants.DatasetCollectionSetSourceLabel, collectionlabel);
+        info.addProperty(ClassLabelConstants.DatasetCollectionSetDestinationLabel, systemcollectionlabel);
+        info.addProperty(ClassLabelConstants.DatasetName, systemcollectionlabel);
+        
         response = copyCollectionSet(event,info);
         
         return response;

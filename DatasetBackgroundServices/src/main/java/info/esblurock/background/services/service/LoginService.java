@@ -141,7 +141,6 @@ public class LoginService extends HttpServlet {
     private JsonObject firstLogin(Document document, String uid, String idToken, String email, String username, String authtype) {
 
         JsonObject response = null;
-
         JsonObject empty = CreateDocumentTemplate.createTemplate("dataset:LoginAccountInformation");
         JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(empty);
         firestoreid.addProperty(ClassLabelConstants.SimpleCatalogName, uid);
@@ -193,6 +192,7 @@ public class LoginService extends HttpServlet {
                 response = DatabaseServicesBase.standardServiceResponse(document,
                         "Successful creation of LoginAccountInformation", arr);
             } catch (Exception ex) {
+                ex.printStackTrace();
                 response = DatabaseServicesBase.standardErrorResponse(document,
                         "Error in writing LoginAccountInformation: " + ex.getMessage(), null);
             }

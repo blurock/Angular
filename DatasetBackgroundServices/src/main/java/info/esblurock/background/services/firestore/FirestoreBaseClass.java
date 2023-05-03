@@ -6,6 +6,9 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
 import com.google.cloud.storage.StorageOptions;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.cloud.FirestoreClient;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -27,16 +30,24 @@ public class FirestoreBaseClass {
 
 	public static Firestore getFirebaseDatabase() throws IOException {
 		if (database == null) {
-			database = FirestoreBaseClass.setUpDatabaseLocal();
+			database = FirestoreBaseClass.setupDatabase();
 		}
 		return database;
 	}
 
 	private static Firestore setupDatabase() throws IOException {
 	    
-	    Firestore db =
-	            FirestoreOptions.newBuilder().setProjectId("blurock-database").build().getService();
+	    GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
+	    FirebaseOptions options = new FirebaseOptions.Builder()
+	        .setCredentials(credentials)
+	        .setProjectId(projectId)
+	        .build();
+	    if(FirebaseApp.getInstance() == null) {
+	    FirebaseApp.initializeApp(options);
+	    }
 
+	    Firestore db = FirestoreClient.getFirestore();
+	    
 		return db;
 	}
 

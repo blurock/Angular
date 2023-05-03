@@ -62,7 +62,7 @@ public class ReadFirestoreInformation {
         Firestore db;
         try {
             db = FirestoreBaseClass.getFirebaseDatabase();
-            DocumentReference docref = SetUpDocumentReference.setup(db, firestoreid);
+           DocumentReference docref = SetUpDocumentReference.setup(db, firestoreid);
             ApiFuture<DocumentSnapshot> future = docref.get();
             DocumentSnapshot document = future.get();
             if (document.exists()) {
@@ -72,7 +72,7 @@ public class ReadFirestoreInformation {
                 response = DatabaseServicesBase.standardServiceResponse(docmessage, "Success: ReadFirestoreInformation",
                         catalog);
             } else {
-                String message = "Document not found: ";
+               String message = "Document not found: ";
                 response = DatabaseServicesBase.standardErrorResponse(docmessage, message, firestoreid);
             }
         } catch (IOException e) {

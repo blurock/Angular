@@ -69,17 +69,20 @@ export class CopysystemdatasetcollectionsComponent implements OnInit {
 		this.manageuser.determineMaintainer().subscribe(result => {
 			if (result != null) {
 				this.maintainer = result;
-				this.objectform.get('CatalogDataObjectMaintainer').setValue(this.maintainer);
+		        this.objectform.get('CatalogDataObjectMaintainer').setValue(this.maintainer);
+		        this.objectform.get('DestinationCollectionMaintainer').setValue(this.maintainer);
 			} else {
 				alert(this.manageuser.errormaintainer);
 			}
 		});
 
 	}
+	
+	invalid() {
+		return this.objectform.invalid;
+	}
 
 	ngOnInit(): void {
-		this.objectform.get('CatalogDataObjectMaintainer').setValue(this.maintainer);
-		this.objectform.get('DestinationCollectionMaintainer').setValue(this.maintainer);
 	}
 	
 	setCollection($event): void {

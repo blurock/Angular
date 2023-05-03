@@ -55,9 +55,11 @@ public class BackgroundService extends HttpServlet {
         String bodyS = IOUtils.toString(request.getInputStream(), "UTF-8");
         JsonObject body = JsonObjectUtilities.jsonObjectFromString(bodyS);
         String uidfrombody = body.get("uid").getAsString();
+        System.out.println("BackgroundService frombody   " + uidfrombody);
 
         String authHeader = request.getHeader("authorization");
         String idToken = authHeader.split(" ")[1];
+        System.out.println("BackgroundService idToken " + idToken);
 
         FirebaseToken decodedToken;
 
@@ -75,8 +77,11 @@ public class BackgroundService extends HttpServlet {
                             null);
                 }
             } else {
+                System.out.println("BackgroundService:token null -- " + uidfrombody);
                 if (uidfrombody.equals("Guest")) {
+                    
                     answer = DatabaseServicesBase.process(body);
+                    System.out.println("Done with guest: " + answer);
                 } else {
                     Document document = MessageConstructor.startDocument("Service fatal error Guest login");
                     answer = DatabaseServicesBase.standardErrorResponse(document, "Illegal Guest process", null);

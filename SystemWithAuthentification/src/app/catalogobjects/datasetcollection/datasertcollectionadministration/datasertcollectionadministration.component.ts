@@ -61,8 +61,8 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 			DatasetCollectionsSetLabel: ['', Validators.required],
 			CatalogDataObjectMaintainer: ['', Validators.required],
 			SystemDatasetCollectionsSetLabel: ['', Validators.required],
-			DescriptionTitle: ['', Validators.required],
-			DatasetVersion: ['', Validators.required]
+			DescriptionTitle: ['System Dataset Collection', Validators.required],
+			DatasetVersion: ['1.0', Validators.required]
 		});
 		this.getCatalogAnnoations(this.activitytype);
 		this.getCatalogAnnoations(this.catalogtype);

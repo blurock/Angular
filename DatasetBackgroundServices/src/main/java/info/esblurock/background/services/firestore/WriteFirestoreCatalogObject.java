@@ -62,6 +62,7 @@ public class WriteFirestoreCatalogObject {
 	        Map<String, Object> mapObj = new Gson().fromJson(catalog, type);
 	        ApiFuture<WriteResult> result =  null;
 	        Timestamp time = null;
+
 	              result = docRef.set(mapObj);
 	                    time = result.get().getUpdateTime();
 	                    String catid = firestorecatalogid.get(ClassLabelConstants.DataCatalog).getAsString();
