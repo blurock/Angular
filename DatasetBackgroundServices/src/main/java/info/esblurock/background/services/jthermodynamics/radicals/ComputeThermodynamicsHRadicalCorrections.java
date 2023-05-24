@@ -135,7 +135,8 @@ public class ComputeThermodynamicsHRadicalCorrections {
     }
 
     private static JsonObject spinContribution(Element body, JsonObject info) {
-        String gasconstantS = SProperties.getProperty("thermo.data.gasconstant.clasmolsk");
+        //String gasconstantS = SProperties.getProperty("thermo.data.gasconstant.clasmolsk");
+        String gasconstantS = "1.98587755";
         double gasConstant = Double.valueOf(gasconstantS).doubleValue();
         double spin = gasConstant * Math.log1p(1.0);
         Double spinD = Double.valueOf(spin);

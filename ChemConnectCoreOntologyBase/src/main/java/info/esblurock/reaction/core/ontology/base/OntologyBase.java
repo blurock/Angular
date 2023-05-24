@@ -67,86 +67,44 @@ public class OntologyBase {
 			if (datasetmodel == null) {
 				AlternativeEntryWithAppFiles alt = new AlternativeEntryWithAppFiles();
 				datasetmodel = ModelFactory.createOntologyModel();
-				/*
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getVcardURL(),
-				 * alt.getVcardLocal()); System.out.println("Vcard:      " +
-				 * alt.getVcardLocal());
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getSSNURL(),
-				 * alt.getSSNLocal()); System.out.println("ssn:        " + alt.getSSNLocal());
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getDataCubeURL(),
-				 * alt.getDataCubleLocal()); System.out.println("data cube: " +
-				 * alt.getDataCubleLocal());
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTQuantity(),
-				 * alt.getQUDTQuantityLocal()); System.out.println("qudt:      " +
-				 * alt.getQUDTQuantityLocal());
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getFoafURL(),
-				 * alt.getFoafLocal()); System.out.println("foaf:      " + alt.getFoafLocal());
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getSKOSURL(),
-				 * alt.getSKOSLocal()); System.out.println("skos:      " + alt.getSKOSLocal());
-				 */
-				/*
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getDctermsURL(),
-				 * alt.getDcTermsLocal());
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getDCITypeURL(),
-				 * alt.getDCITypeLocal());
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getProvoURL(),
-				 * alt.getProvoLocal());
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getOrgURL(),
-				 * alt.getOrgLocal());
-				 * 
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTQudt(),
-				 * alt.getQUDTQudtLocal());
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTDimension(),
-				 * alt.getQUDTQudtLocal());
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTUnit(),
-				 * alt.getQUDTUnitLocal());
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getPhysicsUnit(),
-				 * alt.getPhysicsUnitLocal());
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTQuantity(),
-				 * alt.getQUDTOwlLocal());
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTUnitOwl(),
-				 * alt.getQUDTUnitOwlLocal());
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getElements(),
-				 * alt.getElementsLocal());
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getSOSA(),
-				 * alt.getSOSALocal());
-				 */
-				/*
-				 * datasetmodel.read(alt.getQUDTQudt());
-				 * datasetmodel.read(alt.getQUDTDimension());
-				 * datasetmodel.read(alt.getQUDTUnit());
-				 * datasetmodel.read(alt.getPhysicsUnit());
-				 * datasetmodel.read(alt.getQUDTQuantity());
-				 * datasetmodel.read(alt.getQUDTUnitOwl());
-				 */
-				/*
-				 * System.out.println("dcat:      " + alt.getDCatLocal());
-				 * datasetmodel.getDocumentManager().addAltEntry(alt.getDCatURL(),
-				 * alt.getDCatLocal());
-				 * 
-				 * datasetmodel.getDocumentManager().addAltEntry(
-				 * "http://www.w3.org/2004/02/skos/core",
-				 * "https://github.com/w3c/dxwg/blob/dcat-2pwd-internal-review/dcat/rdf/dcat.ttl"
-				 * ); datasetmodel.read(alt.getVcardURL());
-				 * datasetmodel.read(alt.getDataCubeURL()); datasetmodel.read(alt.getSKOSURL());
-				 * datasetmodel.read(alt.getSOSA());
-				 * datasetmodel.read("http://www.w3.org/ns/prov.ttl"); datasetmodel.read(
-				 * "https://github.com/w3c/dxwg/blob/dcat-2pwd-internal-review/dcat/rdf/dcat.ttl"
-				 * ); datasetmodel.read("http://qudt.org/1.1/vocab/dimensionalunit");
-				 * datasetmodel.read("http://qudt.org/1.1/vocab/dimension");
-				 * datasetmodel.read("http://qudt.org/1.1/vocab/quantity");
-				 * datasetmodel.read("http://qudt.org/1.1/vocab/unit");
-				 * 
-				 * //datasetmodel.read(alt.getElements());
-				 */
+                datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTQudt(), alt.getQUDTQudtLocal());
+				
+                datasetmodel.getDocumentManager().addAltEntry(alt.getVaemLocal(), alt.getVaem());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTDatatype(), alt.getQUDTDatatypeLocal());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTUnit(), alt.getQUDTUnitLocal());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTQuantitykind(), alt.getQUDTQuantitykindLocal());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTDimensionvector(), alt.getQUDTDimensionvectorLocal());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTConstant(), alt.getQUDTConstantLocal());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTSou(), alt.getQUDTSouLocal());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTSoqk(), alt.getQUDTSoqkLocal());
+                
+				
+                datasetmodel.getDocumentManager().addAltEntry(alt.getDcTermsURL(), alt.getDcTermsLocal());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTShacloverlay(), alt.getQUDTShacloverlayLocal());
+
+                datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTDtype(), alt.getQUDTDtypeLocal());
+
+                
+                datasetmodel.getDocumentManager().addAltEntry(alt.getDCatURL(), alt.getDCatLocal());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getVcardURL(), alt.getVcardLocal());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getProvoURL(), alt.getProvoLocal());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getSSNURL(), alt.getSSNLocal());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getSKOSURL(), alt.getSKOSLocal());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getSOSA(), alt.getSOSALocal());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getPrefixURL(), alt.getPrefixLocal());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTFacadeURL(), alt.getQUDTFacadeLocal());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getShaclURL(), alt.getShaclLocal());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getFunctionsURL(), alt.getFunctionsLocal());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getVaemLocal(), alt.getVaem());
+                datasetmodel.getDocumentManager().addAltEntry(alt.getSplLocal(), alt.getplURL());
+                
+                datasetmodel.getDocumentManager().setProcessImports(false);
 				
 				//String filename = "../ChemConnectCoreOntologyBase/src/main/java/resources/Dataset.ttl";
 				String filename = "/resources/DatasetQUDT.ttl";
 				InputStream str;
 				try {
 					str = OntologyBase.class.getResourceAsStream(filename);
-					System.out.println("OntologyBase.class.getResourceAsStream: " +  str);
-					//str = new FileInputStream(filename);
 					datasetmodel.read(str, "http://esblurock.info", "TURTLE");
 					//datasetmodel.read(str, "https://blurock-database.ew.r.appspot.com", "TURTLE");
 				} catch (Exception ex) {

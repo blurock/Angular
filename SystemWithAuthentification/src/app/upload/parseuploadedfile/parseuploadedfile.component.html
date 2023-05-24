@@ -5,7 +5,7 @@
 		</mat-card-title-group>
 	</mat-card-header>
 	<mat-card-content>
-<ng-container *ngIf='annoinfo != null;'>
+		<ng-container *ngIf='annoinfo != null;  else loading'>
 
 			<mat-grid-list cols="6" rowHeight="100px">
 				<mat-grid-tile [colspan]="2">
@@ -19,17 +19,23 @@
 					</button>
 				</mat-grid-tile>
 				<mat-grid-tile [colspan]="2">
-					<button mat-mini-fab color="primary" class="submit-btn" matTooltip="{{submitdescr}}" (click)="submitParse()"
-						[disabled]="invalid()">{{submitbutton}}</button>
+					<button mat-mini-fab color="primary" class="submit-btn" matTooltip="{{submitdescr}}"
+						(click)="submitParse()" [disabled]="invalid()">{{submitbutton}}</button>
 				</mat-grid-tile>
 
 			</mat-grid-list>
 
-<app-activityrepositorypartitiontocatalog #partition [(annoinfo)]="annoinfo"></app-activityrepositorypartitiontocatalog>
-</ng-container>
+			<app-activityrepositorypartitiontocatalog #partition [(annoinfo)]="annoinfo">
+			</app-activityrepositorypartitiontocatalog>
+		</ng-container>
+		<ng-template #loading>
+		    Setup
+			<mat-spinner></mat-spinner>
+		</ng-template>
+
 		<mat-divider></mat-divider>
 		<ng-container *ngIf="resultHtml != null;">
-		<div [innerHTML]="resultHtml"></div>
+			<div [innerHTML]="resultHtml"></div>
 		</ng-container>
 		<mat-divider></mat-divider>
 	</mat-card-content>

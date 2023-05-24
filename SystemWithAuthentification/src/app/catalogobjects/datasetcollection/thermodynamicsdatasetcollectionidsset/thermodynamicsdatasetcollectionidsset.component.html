@@ -19,7 +19,13 @@
 				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
 			</ng-container>
 			<ng-template #waiting>
-				Initializing Collection Dataset IDs
+			    Setup
+				<mat-spinner></mat-spinner>
 			</ng-template>
+		<ng-container *ngIf='message != null;'>
+			<mat-divider></mat-divider>
+			<div [innerHTML]="message"></div>
+			<mat-divider></mat-divider>
+		</ng-container>
 	</mat-card-content>
 </mat-card>

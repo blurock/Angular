@@ -143,6 +143,7 @@ public class DatasetCollectionManagement {
 		Document document = MessageConstructor.startDocument("Dataset Collection Set Creation Event");
 		Element body = MessageConstructor.isolateBody(document);
 		String descr = info.get(ClassLabelConstants.DescriptionAbstract).getAsString();
+        body.addElement("div").addText("Collection Type      : " + collectiontype);
         body.addElement("div").addText("Owner                : " + owner);
         body.addElement("div").addText("Maintainer           : " + maintainer);
         body.addElement("div").addText("Collection Name      : " + collectionname);
@@ -153,9 +154,12 @@ public class DatasetCollectionManagement {
 				.createEmptyChemConnectCurrentDatasetIDSet(collectionname, owner, transactionID, maintainer, descr);
 		idcollection.addProperty(ClassLabelConstants.DescriptionTitle, title);
 		fillInDatasetCollectionWithDefaults(collectiontype,collectionid,idcollection);
+		System.out.println("setupNewDatabaseCollectionSet:\n" + JsonObjectUtilities.toString(idcollection));
         JsonObject transfirestoreID = BaseCatalogData.insertFirestoreAddress(event);
         idcollection.add(ClassLabelConstants.FirestoreCatalogIDForTransaction,transfirestoreID.deepCopy());
 		String message = WriteFirestoreCatalogObject.writeCatalogObject(idcollection);
+		body.addElement("div").addText(message);
+		System.out.println("setupNewDatabaseCollectionSet: message: " + message);
 		putInLocalVersion(idcollection);
 		JsonArray arr = new JsonArray();
 		arr.add(idcollection);

@@ -30,7 +30,8 @@ public abstract class AlternativeEntry {
 		return "http://xmlns.com/foaf/0.1/";
 	}
 	public String getSKOSURL() {
-		return "https://www.w3.org/2009/08/skos-reference/skos.rdf";
+        return "http://www.w3.org/2004/02/skos/core";
+        //return "https://www.w3.org/2009/08/skos-reference/skos.rdf";
 	}
 	public String getDataCiteURL() {
 		return "http://purl.org/spar/datacite/";
@@ -54,14 +55,6 @@ public abstract class AlternativeEntry {
 		return "http://www.w3.org/2001/XMLSchema";
 	}
 	
-	public String getQUDTUnitOwl() {
-		return "http://data.qudt.org/qudt/owl/1.0.0/unit.owl";
-	}
-	abstract public String getQUDTUnitOwlLocal();
-	public String getQUDTUnit() {
-		return "http://data.nasa.gov/qudt/owl/unit";
-	}
-	abstract public String getQUDTUnitLocal();
 	public String getQUDTUnitPrefix() {
 		return "unit:";
 	}
@@ -72,6 +65,62 @@ public abstract class AlternativeEntry {
 	public String getPhysicsUnitPrefix() {
 		return "unit:";
 	}
+    public String getVaem() {
+        return "http://www.linkedmodel.org/schema/vaem";
+    }
+    public String getShaclURL() {
+        return "http://www.w3.org/ns/shacl#";
+    }
+    public String getFunctionsURL() {
+        return "http://qudt.org/2.1/schema/extensions/functions";
+    }
+    public String getplURL() {
+        return "http://spinrdf.org/spl";
+    }
+
+	
+    public String getQUDTQudt() {
+        return "http://qudt.org/2.1/schema/qudt";
+    }
+    public String getQUDTDatatype() {
+        return "http://qudt.org/2.1/schema/datatype";
+    }
+    public String getQUDTUnit() {
+        return "http://qudt.org/2.1/vocab/unit";
+    }
+    public String getQUDTQuantitykind() {
+        return "http://qudt.org/2.1/vocab/quantitykind";
+    }
+    public String getQUDTDimensionvector() {
+        return "http://qudt.org/2.1/vocab/dimensionvector";
+    }
+    public String getQUDTConstant() {
+        return "http://qudt.org/2.1/vocab/constant";
+    }
+    public String getQUDTSou() {
+        return "http://qudt.org/2.1/vocab/sou";
+    }
+    public String getQUDTSoqk() {
+        return "http://qudt.org/2.1/vocab/soqk";
+    }
+    public String getPrefixURL() {
+        return "http://qudt.org/2.1/vocab/prefix";
+    }
+    public String getQUDTFacadeURL() {
+        return "http://qudt.org/2.1/schema/facade/qudt";
+    }
+	
+    public String getQUDTShacloverlay() {
+        return "http://qudt.org/2.1/schema/shacl/overlay/qudt";
+    }
+    
+	
+    public String getQUDTDtype() {
+        return "http://www.linkedmodel.org/schema/dtype";
+    }
+	
+	
+	
 	
 	public String getQUDTQuantity() {
 		//return "http://data.nasa.gov/qudt/owl/quantity";
@@ -84,10 +133,6 @@ public abstract class AlternativeEntry {
 	}
 	abstract public String getQUDTOwlLocal();
 	
-	public String getQUDTQudt() {
-		return "http://data.nasa.gov/qudt/owl/qudt";
-	}
-	abstract public String getQUDTQudtLocal();
 	public String getQUDTDimension() {
 		return "http://data.qudt.org/qudt/owl/1.0.0/dimension.owl";
 	}

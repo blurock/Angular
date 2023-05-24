@@ -29,7 +29,7 @@ export class ThermocalculationsetupComponent implements OnInit {
 	temperaturelist = [
 		300, 400, 500, 600, 800, 1000, 1500
 	];
-
+    collectionready = true;
 
 	@Input() annoinfo: any;
 
@@ -118,6 +118,7 @@ export class ThermocalculationsetupComponent implements OnInit {
 			this.objectform.get('CatalogDataObjectMaintainer').setValue(this.maintainer);
 		}
 		this.objectform.get('DatasetCollectionsSetLabel').setValue(collectionname);
+		this.collectionready = true;
 	}
 
 	setMethod($event: string): void {

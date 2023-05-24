@@ -104,7 +104,6 @@ public class FindDatasetCollections {
             JsonArray ansarr = new JsonArray();
             ansarr.add(sets);
             response = DatabaseServicesBase.standardServiceResponse(docmessage, "Collection Sets read", ansarr);
-            JsonObjectUtilities.printResponse(response);
         } else {
             String message = "Unsuccessful read of Dataset Collection: no maintainer specified";
             Document docmessage = MessageConstructor.startDocument("Find All Dataset Collection Sets");

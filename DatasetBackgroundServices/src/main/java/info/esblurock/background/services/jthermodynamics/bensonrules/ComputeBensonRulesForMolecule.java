@@ -48,6 +48,7 @@ public class ComputeBensonRulesForMolecule {
             int count = 0;
             for (int i = 0; i < bensonarr.size(); i++) {
                 JsonObject bensonobj = bensonarr.get(i).getAsJsonObject();
+                
                 String bensonname = bensonobj.get(ClassLabelConstants.BensonRuleDatabaseReference).getAsString();
                JsonObject rule = readInBensonRuleFromLabel(bensonname, body, maintainer, dataset, document);
                 if (rule != null) {
@@ -60,9 +61,9 @@ public class ComputeBensonRulesForMolecule {
                     contributions.add(contribution);
                 } else {
                     Element errorrow = table.addElement("tr");
-                    errorrow.addElement("td").addElement("'" + bensonname + "'");
-                    errorrow.addElement("td").addElement("not found");
-                    errorrow.addElement("td").addElement("not found");
+                    errorrow.addElement("td").addText("'" + bensonname + "'");
+                    errorrow.addElement("td").addText("not found");
+                    errorrow.addElement("td").addText("not found");
                 }
             }
             String message = "Success: ";
@@ -172,7 +173,7 @@ public class ComputeBensonRulesForMolecule {
             }
 
         } else {
-            System.out.println("Meta atom substitutions for 'BensonAtom' not performed because meta atoms not found");
+            System.err.println("Meta atom substitutions for 'BensonAtom' not performed because meta atoms not found");
             molecule = null;
         }
         return molecule;

@@ -22,8 +22,14 @@
 				</button>
 			</mat-grid-tile>
 		</mat-grid-list>
+		<ng-container *ngIf='annoinfo != null;  else loading'>
 			<app-listoffirestoreids #outlst [(annoinfo)]="annoinfo" [(listtitle)]="outputtransactions">
 			</app-listoffirestoreids>
+		</ng-container>
+		<ng-template #loading>
+		    Setup
+			<mat-spinner></mat-spinner>
+		</ng-template>
 		<mat-divider></mat-divider>
 		<div [innerHTML]="resultHtml"></div>
 		<mat-divider></mat-divider>

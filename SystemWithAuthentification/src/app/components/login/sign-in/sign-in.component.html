@@ -1,6 +1,7 @@
 <mat-card class="login-card">
 	<mat-card-title class="center-title">Sign In ChemConnect</mat-card-title>
 	<mat-card-content>
+		<ng-container *ngIf='loginprocess; else login'>
 		<mat-divider></mat-divider>
 		<div class="password-section">
 			<div>
@@ -38,19 +39,24 @@
 		</div>
 		<mat-divider></mat-divider>
 		<div class="google-section">
-			<button mat-raised-button class="full-width" color="primary" (click)="authService.GoogleAuth()">
+			<button mat-raised-button class="full-width" color="primary" (click)="googlelogin()">
 				Log in with Google
 			</button>
 		</div>
 		<div class="google-section">
-			<button mat-raised-button class="full-width" color="primary" (click)="authService.GithubAuth()">
+			<button mat-raised-button class="full-width" color="primary" (click)="githublogin()">
 				Log in with Github
 			</button>
 		</div>
 		<div class="google-section">
-			<button mat-raised-button class="full-width" color="primary" (click)="authService.FacebookAuth()">
+			<button mat-raised-button class="full-width" color="primary" (click)="facebooklogin()">
 				Log in with Facebook
 			</button>
 		</div>
+		</ng-container>
+		<ng-template #login>
+		<mat-spinner></mat-spinner>
+		</ng-template>
+		
 	</mat-card-content>
 </mat-card>

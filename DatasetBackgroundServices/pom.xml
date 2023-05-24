@@ -191,7 +191,7 @@
 		</resources>
 
 		<plugins>
-			<!--
+		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
@@ -205,11 +205,12 @@
 					</archive>
 				</configuration>
 				            <goals>
-                <goal>inplace</goal>
+                <goal>install</goal>
             </goals>
 
 			</plugin>
-			-->
+		
+			
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>

@@ -430,7 +430,7 @@ public enum TransactionProcess {
 
         @Override
         JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
-            return DatasetCollectionCreateSystemCollection.copyCollectionSet(event, info);
+            return DatasetCollectionCreateSystemCollection.copyCollectionSet(event, info,"dataset:ThermodynamicsDatasetCollectionIDsSet");
         }
 
         @Override

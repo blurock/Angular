@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1683030600380" name="http://www.linkedmodel.org/schema/dtype" uri="localcopy/dtype.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1683030600380" name="http://www.linkedmodel.org/schema/vaem" uri="localcopy/vaem.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1683030600380" name="http://www.w3.org/ns/dcat" uri="dcat.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1683030600380" name="http://www.w3.org/ns/sosa/" uri="sosa.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1683030600380" name="http://www.w3.org/ns/ssn/" uri="ssn.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1684825650191" name="http://www.linkedmodel.org/schema/dtype" uri="localcopy/dtype.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1684825650191" name="http://www.w3.org/ns/dcat" uri="dcat.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1684825650191" name="http://www.w3.org/ns/sosa/" uri="sosa.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1684825650191" name="http://www.w3.org/ns/ssn/" uri="ssn.owl"/>
     </group>
 </catalog>

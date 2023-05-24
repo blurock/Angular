@@ -11,7 +11,7 @@
 				<p>
 					With this menu a copy of a system collection is created for the user to use and modify
 				</p>
-				<ng-container *ngIf='activityanno != null;'>
+				<ng-container *ngIf='activityanno != null; else waiting'>
 					<form [formGroup]="objectform" class="infoform">
 						<mat-grid-list cols="4" rowHeight="100px">
 
@@ -66,11 +66,15 @@
 
 							<mat-grid-tile [colspan]="4">
 								<button mat-raised-button color="primary" class="submit" (click)="submitSystem()"
-									[disabled]="invalid()">{{submit}}</button>
+									[disabled]="invalid()">{{submitlabel}}</button>
 							</mat-grid-tile>
 						</mat-grid-list>
 					</form>
 				</ng-container>
+			<ng-template #waiting>
+				Setup
+				<mat-spinner></mat-spinner>
+			</ng-template>
 			</mat-card-content>
 		</mat-card>
 	</mat-tab>

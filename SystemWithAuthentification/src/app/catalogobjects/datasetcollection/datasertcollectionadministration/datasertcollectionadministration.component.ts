@@ -18,7 +18,7 @@ import {IdentifiersService} from '../../../const/identifiers.service';
 })
 export class DatasertcollectionadministrationComponent implements OnInit {
 
-	setuptitle = 'Add Collection Dataset to Master Dataset';
+	setuptitle = 'Add Collection Dataset to System Collection Dataset';
 	selected: string;
 	items: NavItem[];
 	resultHtml: string;
@@ -62,7 +62,8 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 			CatalogDataObjectMaintainer: ['', Validators.required],
 			SystemDatasetCollectionsSetLabel: ['', Validators.required],
 			DescriptionTitle: ['System Dataset Collection', Validators.required],
-			DatasetVersion: ['1.0', Validators.required]
+			DatasetVersion: ['1.0', Validators.required],
+			DatasetName: ['', Validators.required]
 		});
 		this.getCatalogAnnoations(this.activitytype);
 		this.getCatalogAnnoations(this.catalogtype);
@@ -88,7 +89,6 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 		this.collection = $event;
 		const type = $event['dcat:dataset'];
 		this.selected = $event[this.identifiers.DatasetCollectionsLabel];
-		
 		if(type == 'dataset:ThermodynamicsSystemCollectionIDsSet') {
 			this.selected = $event[this.identifiers.CatalogObjectKey];
 			this.objectform.get('CatalogDataObjectMaintainer').setValue('systemthermodynamics');
@@ -145,7 +145,7 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 		activity[this.activityanno['dataset:SystemDatasetCollectionsSetLabel'][this.identifier]] = this.objectform.get('SystemDatasetCollectionsSetLabel').value;
 		activity[this.activityanno['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle').value;
 		activity[this.activityanno['dataset:DatasetVersion'][this.identifier]] = this.objectform.get('DatasetVersion').value;
-
+		activity[this.activityanno['dataset:DatasetName'][this.identifier]] = this.objectform.get('DatasetName').value;
 	}
 	submitSystem(): void {
 		const transaction = {};

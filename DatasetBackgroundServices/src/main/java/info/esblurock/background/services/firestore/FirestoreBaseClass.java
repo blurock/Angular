@@ -5,7 +5,6 @@ import java.io.IOException;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
-import com.google.cloud.storage.StorageOptions;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
@@ -38,12 +37,21 @@ public class FirestoreBaseClass {
 	private static Firestore setupDatabase() throws IOException {
 	    
 	    GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
-	    FirebaseOptions options = new FirebaseOptions.Builder()
+	    
+	    FirebaseOptions options = FirebaseOptions.builder()
+	            .setCredentials(credentials)
+	            .setProjectId(projectId)
+	            .build();
+	    
+	    /*
+	    FirebaseOptions options1 = new FirebaseOptions.Builder()
 	        .setCredentials(credentials)
 	        .setProjectId(projectId)
 	        .build();
+	    */
+	    
 	    if(FirebaseApp.getInstance() == null) {
-	    FirebaseApp.initializeApp(options);
+	        FirebaseApp.initializeApp(options);
 	    }
 
 	    Firestore db = FirestoreClient.getFirestore();
@@ -53,9 +61,10 @@ public class FirestoreBaseClass {
 
 	private static Firestore setUpDatabaseLocal() throws IOException {
 		GoogleCredentials cred = GoogleCredentials.getApplicationDefault();
-		FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder().setProjectId(projectId)
+		FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder()
+		        .setProjectId(projectId)
 				.setCredentials(cred)
-				.setEmulatorHost("localhost:8083")
+				.setEmulatorHost(host)
 				.build();
 		 
 		Firestore db = firestoreOptions.getService();

@@ -71,21 +71,20 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
   }
 
 	public getCatalogAnnoations(): void {
-		this.message = 'Waiting for Info call';
+		this.message = 'Setup';
 		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
 			next: (responsedata: any) => {
 				const response = responsedata;
-				this.message = response[Ontologyconstants.message];
+				this.message = '<p>Setup Success</p> ' + response[Ontologyconstants.message];
 				if (response[Ontologyconstants.successful]) {
-          
  					const catalog = response[Ontologyconstants.catalogobject];
 					this.catalogobj = catalog[Ontologyconstants.outputobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];
 				} else {
-					this.message = responsedata;
+					this.message = '<p>Error in performing setup (try reloading page or logging in again):</p>' +  response[Ontologyconstants.message]
 				}
 			},
-			error: (info: any) => { alert('Get Annotations failed:' + this.message); }
+			error: (info: any) => { this.message = '<p>Error in setup (try reloading or logging in again):</p>'}
 		});
 	}
 

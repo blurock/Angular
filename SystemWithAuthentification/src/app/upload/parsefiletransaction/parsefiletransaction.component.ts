@@ -75,7 +75,7 @@ export class ParsefiletransactionComponent implements OnInit {
 				if (response[Ontologyconstants.successful]) {
 					const catalog = response[Ontologyconstants.catalogobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];
-					this.resultHtml = 'Annotations';
+					this.resultHtml = 'Waiting for parse tranactions';
 				} else {
 					this.message = responsedata;
 				}
@@ -122,6 +122,7 @@ export class ParsefiletransactionComponent implements OnInit {
 						this.parsedTransactionEvent.emit(transobj);
 					}
 				} else {
+					
 					alert('Error in reading: ' + JSON.stringify(result));
 				}
 			} else {

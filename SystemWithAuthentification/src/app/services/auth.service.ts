@@ -188,8 +188,6 @@ export class AuthService {
 						if (loginresult != null) {
 							const result = loginresult[0];
 							const status = result['dataset:loginstage'];
-
-
 							this.session.setLoginStatus(status);
 							const loginaccount = result['dataset:loginaccountinfo'];
 							if (status == "dataset:LoginAuthenticated" || status == 'dataset:LoginAccountInformation') {

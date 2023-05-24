@@ -80,7 +80,8 @@ public class ComputeThermodynamicsSymmetryContribution {
         try {
             result = single.determineSymmetry(symmetry, molecule);
             double symmD = (double) result;
-            String gasconstantS = SProperties.getProperty("thermo.data.gasconstant.clasmolsk");
+            //String gasconstantS = SProperties.getProperty("thermo.data.gasconstant.clasmolsk");
+            String gasconstantS ="1.98587755";
             double gasConstant = Double.valueOf(gasconstantS).doubleValue();
             double correction = -gasConstant * Math.log(symmD);
             body.addElement("div").addText("Symmetry      : " + symmD);

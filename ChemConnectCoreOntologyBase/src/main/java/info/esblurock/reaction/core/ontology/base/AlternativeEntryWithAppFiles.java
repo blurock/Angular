@@ -4,24 +4,28 @@ import java.net.URL;
 
 public class AlternativeEntryWithAppFiles extends AlternativeEntry {
 
-	public String getSKOSLocal() {
-		String path = "file:info/esblurock/reaction/core/ontology/base/resources/skos.rdf";
-		//URL url = getClass().getClassLoader().getResource(path);
-		//return url.toString();
-		return path;
-	}
+    public String getSKOSLocal() {
+        String path = "info/esblurock/reaction/core/ontology/base/resources/skos.rdf";
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
+    public String getVaemLocal() {
+        String path = "info/esblurock/reaction/core/ontology/base/resources/vaem.ttl";        
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
 	public String getDataCubleLocal() {
 		String path = "file:info/esblurock/reaction/core/ontology/base/resources/cube.ttl";
 		URL url = getClass().getClassLoader().getResource(path);
 		return url.toString();
 	}
 	public String getVcardLocal() {
-		String path = "file:info/esblurock/reaction/core/ontology/base/resources/vcard.ttl";
+		String path = "info/esblurock/reaction/core/ontology/base/resources/vcard.ttl";
 		URL url = getClass().getClassLoader().getResource(path);
 		return url.toString();
 	}
 	public String getDCatLocal() {
-		String path = "file:info/esblurock/reaction/core/ontology/base/resources/dcat.ttl";
+		String path = "info/esblurock/reaction/core/ontology/base/resources/dcat.ttl";
 		URL url = getClass().getClassLoader().getResource(path);
 		return url.toString();
 	}
@@ -31,18 +35,25 @@ public class AlternativeEntryWithAppFiles extends AlternativeEntry {
 		return url.toString();
 	}
 	public String getSSNLocal() {
-		String path = "file:info/esblurock/reaction/core/ontology/base/resources/ssn.ttl";
+		String path = "info/esblurock/reaction/core/ontology/base/resources/ssn.ttl";
 		URL url = getClass().getClassLoader().getResource(path);
 		return url.toString();
 	}
-	public String getDcTermsLocal() {
-		return "file:info/esblurock/reaction/core/ontology/base/resources/dcterms.ttl";
-	}
+    public String getDcTermsLocal() {
+        String path = "info/esblurock/reaction/core/ontology/base/resources/dcterms.ttl";
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
+    public String getSplLocal() {
+        String path = "info/esblurock/reaction/core/ontology/base/resources/spl.owl";
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
 	public String getDCITypeLocal() {
 		return "file:info/esblurock/reaction/core/ontology/base/resources/dcterms.ttl";
 	}
 	public String getProvoLocal() {
-		return "file:info/esblurock/reaction/core/ontology/base/resources/prov-o.ttl";
+		return "info/esblurock/reaction/core/ontology/base/resources/prov-o.ttl";
 	}
 	public String getOrgLocal() {
 		return "file:info/esblurock/reaction/core/ontology/base/resources/org.ttl";
@@ -52,6 +63,11 @@ public class AlternativeEntryWithAppFiles extends AlternativeEntry {
 		URL url = getClass().getClassLoader().getResource(path);
 		return url.toString();
 	}
+    public String getShaclLocal() {
+        String path = "info/esblurock/reaction/core/ontology/base/resources/shacl.ttl";
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
 
 	@Override
 	public String getRDFSLocal() {
@@ -75,12 +91,76 @@ public class AlternativeEntryWithAppFiles extends AlternativeEntry {
 	
 	
 	
-	@Override
-	public String getQUDTUnitLocal() {
-		String path = "info/esblurock/core/ontologybase/resources/unit.owl";
-		URL url = getClass().getClassLoader().getResource(path);
-		return url.toString();
-	}
+    public String getQUDTConstantLocal() {
+        String path = "resources/localcopyV21/constant.ttl";
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
+    public String getQUDTDatatypeLocal() {
+        String path = "resources/localcopyV21/datatype.ttl";
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
+    public String getQUDTDimensionvectorLocal() {
+        String path = "resources/localcopyV21/dimensionvector.ttl";
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
+    public String getQUDTQuantitykindLocal() {
+        String path = "resources/localcopyV21/quantitykind.ttl";
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
+    public String getQUDTSoqkLocal() {
+        String path = "resources/localcopyV21/soqk.ttl";
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
+    public String getQUDTSouLocal() {
+        String path = "resources/localcopyV21/sou.ttl";
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
+    public String getQUDTUnitLocal() {
+        String path = "resources/localcopyV21/unit.ttl";
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
+    public String getFunctionsLocal() {
+        String path = "resources/localcopyV21/functions.ttl";
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
+	
+	
+    public String getQUDTQudtLocal() {
+        String path = "resources/localcopyV21/qudtshacl.ttl";
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
+    public String getQUDTDtypeLocal() {
+        String path = "resources/localcopyV21/unit.ttl";
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
+    public String getQUDTShacloverlayLocal() {
+        String path = "resources/localcopyV21/shacloverlay.ttl";
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
+    public String getPrefixLocal() {
+        String path = "resources/localcopyV21/shacloverlay.ttl";
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
+    public String getQUDTFacadeLocal() {
+        String path = "resources/localcopyV21/facade.ttl";
+        URL url = getClass().getClassLoader().getResource(path);
+        return url.toString();
+    }
+	
+	
+	
 	public String getPhysicsUnitLocal() {
 		String path = "info/esblurock/core/ontologybase/resources/VOCAB_QUDT-UNITS-PHYSICAL-CHEMISTRY-AND-MOLECULAR-PHYSICS-v2.0.ttl";
 		URL url = getClass().getClassLoader().getResource(path);
@@ -100,11 +180,6 @@ public class AlternativeEntryWithAppFiles extends AlternativeEntry {
 		return url.toString();
 		
 	}
-	public String getQUDTQudtLocal() {
-		String path = "info/esblurock/core/ontologybase/resources/qudt.owl";
-		URL url = getClass().getClassLoader().getResource(path);
-		return url.toString();
-	}
 
 	@Override
 	public String getQUDTDimensionLocal() {
@@ -118,7 +193,7 @@ public class AlternativeEntryWithAppFiles extends AlternativeEntry {
 		return url.toString();
 	}
 	public String getSOSALocal() {
-		String path = "info/esblurock/core/ontologybase/resources/sosa.ttl";
+		String path = "resources/sosa.owl";
 		URL url = getClass().getClassLoader().getResource(path);
 		return url.toString();
 	}

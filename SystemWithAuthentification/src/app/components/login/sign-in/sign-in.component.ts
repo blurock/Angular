@@ -11,16 +11,21 @@ export class SignInComponent implements OnInit {
     hide = true;
 	password = "password";
 	email = new FormControl('', [Validators.required, Validators.email]);
+	
+	loginprocess: boolean;
 	constructor(
 
 		public authService: AuthService,
 		private router: Router
 	) {
+		this.loginprocess = true;
 	 }
 
 	ngOnInit(): void {
+		
 	}
 	signIn() {
+		this.loginprocess = false;
 		this.authService.SignIn(this.email.value, this.password);
 	}
 	forgot = function() {
@@ -28,6 +33,18 @@ export class SignInComponent implements OnInit {
 	};
 	register = function() {
 		this.router.navigateByUrl('/register-user');
+	}
+	googlelogin() {
+		this.loginprocess = false;
+		this.authService.GoogleAuth();
+	}
+	githublogin() {
+		this.loginprocess = false;
+		this.authService.GithubAuth();
+	}
+	facebooklogin() {
+		this.loginprocess = false;
+		this.authService.FacebookAuth();
 	}
 	getErrorMessage() {
 		if (this.email.hasError('required')) {

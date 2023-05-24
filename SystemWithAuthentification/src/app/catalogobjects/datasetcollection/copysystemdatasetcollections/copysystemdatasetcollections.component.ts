@@ -27,6 +27,7 @@ export class CopysystemdatasetcollectionsComponent implements OnInit {
 	objectform: FormGroup;
 	selected: string;
 	sourcedataset: string;
+	submitlabel = 'Create System Collection';
 
 	resultHtml: string;
 
@@ -69,12 +70,12 @@ export class CopysystemdatasetcollectionsComponent implements OnInit {
 		this.manageuser.determineMaintainer().subscribe(result => {
 			if (result != null) {
 				this.maintainer = result;
-		        this.objectform.get('CatalogDataObjectMaintainer').setValue(this.maintainer);
-		        this.objectform.get('DestinationCollectionMaintainer').setValue(this.maintainer);
 			} else {
 				alert(this.manageuser.errormaintainer);
 			}
 		});
+			this.objectform.get('CatalogDataObjectMaintainer').setValue('systemthermodynamics');
+		        this.objectform.get('DestinationCollectionMaintainer').setValue('systemthermodynamics');
 
 	}
 	
@@ -89,10 +90,10 @@ export class CopysystemdatasetcollectionsComponent implements OnInit {
 		const type = $event['dcat:dataset'];
 		var collectionname = $event[this.identifiers.DatasetCollectionsLabel];
 		if(type == 'dataset:ThermodynamicsSystemCollectionIDsSet') {
-			collectionname = $event[this.identifiers.CatalogObjectKey];
-			this.objectform.get('CatalogDataObjectMaintainer').setValue('systemthermodynamics');
+			//collectionname = $event[this.identifiers.CatalogObjectKey];
+			this.objectform.get('SourceCollectionMaintainer').setValue('systemthermodynamics');
 		} else {
-			this.objectform.get('CatalogDataObjectMaintainer').setValue(this.maintainer);
+			this.objectform.get('SourceCollectionMaintainer').setValue(this.maintainer);
 		}
 		this.objectform.get('DatasetCollectionSetSourceLabel').setValue(collectionname);
 	}
@@ -118,18 +119,21 @@ export class CopysystemdatasetcollectionsComponent implements OnInit {
 	
 	getActivity(activity: any): void {
 		activity[this.activityanno['dataset:CatalogDataObjectMaintainer'][this.identifier]] =
-			this.maintainer;
+			this.objectform.get('CatalogDataObjectMaintainer').value;
 		activity[this.activityanno['dataset:DatasetCollectionSetSourceLabel'][this.identifier]] =
 			this.objectform.get('DatasetCollectionSetSourceLabel').value;
 		activity[this.activityanno['dataset:SourceCollectionMaintainer'][this.identifier]] =
 			this.objectform.get('SourceCollectionMaintainer').value;
+			
 		activity[this.activityanno['dataset:DatasetCollectionSetDestinationLabel'][this.identifier]] =
 			this.objectform.get('DatasetCollectionSetDestinationLabel').value;
 		activity[this.activityanno['dataset:DestinationCollectionMaintainer'][this.identifier]] =
-			this.maintainer;
+			this.objectform.get('DestinationCollectionMaintainer').value;
+		
 		activity[this.activityanno['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle').value;
 		activity[this.activityanno['dataset:DatasetVersion'][this.identifier]] = this.objectform.get('DatasetVersion').value;
 		activity[this.activityanno['dataset:DatasetName'][this.identifier]] = this.objectform.get('DatasetName').value;
+		
 	}
 
 	submitSystem(): void {
@@ -149,6 +153,7 @@ export class CopysystemdatasetcollectionsComponent implements OnInit {
 				if (success === 'true') {
 					alert('Transaction successful');
 				} else {
+					this.runservice.checkReturn(result);
 				}
 			} else {
 				this.resultHtml = this.failedsubmission;

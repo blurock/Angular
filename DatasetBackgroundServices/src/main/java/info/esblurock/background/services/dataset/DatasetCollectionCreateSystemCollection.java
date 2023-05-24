@@ -35,7 +35,7 @@ public class DatasetCollectionCreateSystemCollection {
         info.addProperty(ClassLabelConstants.DatasetCollectionSetDestinationLabel, systemcollectionlabel);
         info.addProperty(ClassLabelConstants.DatasetName, systemcollectionlabel);
         
-        response = copyCollectionSet(event,info);
+        response = copyCollectionSet(event,info,"dataset:ThermodynamicsSystemCollectionIDsSet");
         
         return response;
     }
@@ -63,7 +63,7 @@ public class DatasetCollectionCreateSystemCollection {
      * 
      * 
      */
-    public static JsonObject copyCollectionSet(JsonObject event, JsonObject info) {
+    public static JsonObject copyCollectionSet(JsonObject event, JsonObject info, String objecttype) {
         JsonObject response = null;
         Document document = MessageConstructor.startDocument("Dataset Collection Set Creation Event");
         Element body = MessageConstructor.isolateBody(document);
@@ -100,16 +100,17 @@ public class DatasetCollectionCreateSystemCollection {
         
         
         if(datasetcollectionset != null) {
-            JsonObject systemcollectionset = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicsDatasetCollectionIDsSet");
-            systemcollectionset.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
+            JsonObject systemcollectionset = CreateDocumentTemplate.createTemplate(objecttype);
+            systemcollectionset.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, destmaintainer);
             systemcollectionset.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, destcollectionlabel);
             systemcollectionset.addProperty(ClassLabelConstants.CatalogObjectKey, destcollectionlabel);
             systemcollectionset.addProperty(ClassLabelConstants.DescriptionAbstract, title);
-            systemcollectionset.addProperty(ClassLabelConstants.DatasetCollectionType, "dataset:ThermodynamicsDatasetCollectionIDsSet");
+            systemcollectionset.addProperty(ClassLabelConstants.DatasetCollectionType, objecttype);
             systemcollectionset.add(ClassLabelConstants.FirestoreCatalogIDForTransaction,transactionfirestore);
-            BaseCatalogData.insertStandardBaseInformation(systemcollectionset, maintainer, transactionID, title);
-            BaseCatalogData.insertFirestoreAddress(systemcollectionset);
             
+            BaseCatalogData.insertStandardBaseInformation(systemcollectionset, destmaintainer, transactionID, title);
+            BaseCatalogData.insertFirestoreAddress(systemcollectionset);
+            System.out.println("copyCollectionSet: " + JsonObjectUtilities.toString(systemcollectionset));
             boolean success1 = copyDatasetElements(systemcollectionset, transactionID,
                     destmaintainer, transactionfirestore,version, datasetname,datasetcollectionset, 
                     ClassLabelConstants.JThermodynamics2DSubstructureThermodynamics,document);
