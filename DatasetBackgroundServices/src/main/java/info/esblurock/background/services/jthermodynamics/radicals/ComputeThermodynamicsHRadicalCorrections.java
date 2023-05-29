@@ -37,7 +37,7 @@ public class ComputeThermodynamicsHRadicalCorrections {
         try {
             RHmolecule = formRH.convert(Rmolecule);
             MoleculeUtilities.normalizeMolecule(RHmolecule);
-
+            
             JsonArray contributions = new JsonArray();
 
             JsonObject hcontribution = hydrogenRadical(body, info);
@@ -124,7 +124,7 @@ public class ComputeThermodynamicsHRadicalCorrections {
         return hcontribution;
     }
 
-    private static JsonObject translationContribution(IAtomContainer RHmolecule, Element body, JsonObject info) {
+    public static JsonObject translationContribution(IAtomContainer RHmolecule, Element body, JsonObject info) {
         Double transEntropyCorrectionD = CalculateTranslationalCorrection.calculate(RHmolecule);
         JsonObject tcontribution = ParameterUtilities.parameterWithEntropy(transEntropyCorrectionD.doubleValue(),
                 "Translational Energy Correction", info);
@@ -176,7 +176,7 @@ public class ComputeThermodynamicsHRadicalCorrections {
         return response;
     }
 
-    private static JsonObject symmetry(IAtomContainer moleculetocompute, Document document, JsonObject info) {
+    public static JsonObject symmetry(IAtomContainer moleculetocompute, Document document, JsonObject info) {
 
         JsonObject colrecordid = info.get(ClassLabelConstants.DatabaseCollectionRecordID).getAsJsonObject();
         String maintainer = colrecordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();

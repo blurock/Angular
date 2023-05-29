@@ -87,6 +87,7 @@ public class DatabaseCalculateInternalSymmetryCorrection extends CalculateIntern
 				}
 			}
 		} catch (ThermodynamicException e) {
+		    body.addElement("div").addText("Error in computing Internal Symmetries");
 		}
 		return contributions;
 	}

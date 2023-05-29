@@ -220,8 +220,7 @@ public enum ServiceCollectionComputeThermodynamics {
         @Override
         public JsonObject process(JsonObject activity) {
             JsonObject info = activity.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
-            ComputeTotalThermodynamics.calculateTHERMThermodynamics(info);
-            return null;
+            return ComputeTotalThermodynamics.calculateTHERMThermodynamics(info);
         }
         
     },

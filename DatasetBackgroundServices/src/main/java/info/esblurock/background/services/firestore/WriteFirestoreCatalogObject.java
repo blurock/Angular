@@ -55,8 +55,6 @@ public class WriteFirestoreCatalogObject {
 	
 	   public static String writeWithException(Firestore db, JsonObject catalog, JsonObject firestorecatalogid) throws Exception {
 	        DocumentReference docRef = SetUpDocumentReference.setup(db, firestorecatalogid);
-	        System.out.println("WriteFirestoreCatalogObject: " + docRef.getPath());
-
 	        String message = "Successful Write:\n";
 	        Type type = new TypeToken<HashMap<String, Object>>() {
 	        }.getType();

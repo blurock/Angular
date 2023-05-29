@@ -115,7 +115,7 @@ public class DatabaseCalculateOpticalSymmetryCorrection extends CalculateOptical
 			}
 		}
 		} else {
-		    contributions = null;
+		    body.addElement("div").addText("No Optical Symmetries found in database");
 		}
 		return contributions;
 	}
