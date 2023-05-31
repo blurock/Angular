@@ -5,9 +5,13 @@ package info.esblurock.background.services.datamanipulation;
 
 import java.util.StringTokenizer;
 
+import org.dom4j.Document;
+import org.dom4j.Element;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.utilities.XMLUtilityRoutines;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
@@ -23,7 +27,7 @@ public enum PartitionSetOfStringObjects {
 	PartitionTherGasThermodynamics {
 
 		@Override
-		void partition(JsonArray partitionarr, JsonObject info, String content) {
+		void partition(JsonArray partitionarr, JsonObject info, String content, Document document) {
 			JThergasTokenizer tokenizer = new JThergasTokenizer(content);
 			int count = 0;
 			while (tokenizer.countTokens() > 2) {
@@ -31,8 +35,10 @@ public enum PartitionSetOfStringObjects {
 				String transactionID = info.get(ClassLabelConstants.TransactionID).getAsString();
 				JsonObject block = BaseCatalogData.createStandardDatabaseObject(
 						"dataset:RepositoryTherGasThermodynamicsBlock", owner, transactionID, "false");
+				block.addProperty(ClassLabelConstants.Position, count);
 				JsonObject thermoblock = block.get(ClassLabelConstants.RepositoryThermoPartitionBlock)
 						.getAsJsonObject();
+				Element body = MessageConstructor.isolateBody(document);
 				try {
 					tokenizer.readBlock();
 					thermoblock.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine1, tokenizer.line1);
@@ -41,8 +47,11 @@ public enum PartitionSetOfStringObjects {
 					thermoblock.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine3, tokenizer.line3);
 					thermoblock.addProperty(ClassLabelConstants.Position, count);
 					partitionarr.add(block);
+					String lne = count + ":" + tokenizer.line1 + "\n";
+					body.addElement("pre").addText(lne);
 					count++;
 				} catch (JThergasReadException e) {
+				    body.addElement("pre").addText("Error: " + count + ":  " + e.getMessage() + "\n");
 					partitionarr.add(block);
 					count++;
 				}
@@ -59,7 +68,7 @@ public enum PartitionSetOfStringObjects {
 	PartitionToLineSet {
 
 		@Override
-		void partition(JsonArray partitionarr, JsonObject info, String content) {
+		void partition(JsonArray partitionarr, JsonObject info, String content, Document document) {
 			int sze = info.get(ClassLabelConstants.BlockLineCount).getAsInt();
 			StringTokenizer tok = new StringTokenizer(content, "\n");
 			int count = sze;
@@ -95,7 +104,7 @@ public enum PartitionSetOfStringObjects {
 	}, PartitionXMLListOfCatalogObjects {
 
 		@Override
-		void partition(JsonArray partitionarr, JsonObject info, String content) {
+		void partition(JsonArray partitionarr, JsonObject info, String content, Document document) {
 			String catalogid = info.get(ClassLabelConstants.FileSourceFormat).getAsString();
 			String[] blocks = XMLUtilityRoutines.parseObjectsFromXMLString(content, catalogid);
 			String owner = info.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
@@ -121,7 +130,7 @@ public enum PartitionSetOfStringObjects {
 
 	};
 
-	abstract void partition(JsonArray partitionarr, JsonObject info, String content);
+	abstract void partition(JsonArray partitionarr, JsonObject info, String content, Document document);
 
 	abstract String getBlockClass();
 
@@ -139,10 +148,10 @@ public enum PartitionSetOfStringObjects {
 	 *         <li>The method of partitioning (FilePartitionMethod)
 	 *         <ul>
 	 */
-	public static JsonArray partitionString(JsonObject info, String content) {
+	public static JsonArray partitionString(JsonObject info, String content, Document document) {
 		JsonArray partitionarr = new JsonArray();
 		PartitionSetOfStringObjects method = getMethod(info);
-		method.partition(partitionarr, info, content);
+		method.partition(partitionarr, info, content,document);
 		return partitionarr;
 	}
 

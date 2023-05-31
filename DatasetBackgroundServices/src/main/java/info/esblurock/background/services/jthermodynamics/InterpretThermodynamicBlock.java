@@ -19,6 +19,7 @@ import jThergas.data.JThermgasThermoStructureDataPoint;
 import jThergas.data.group.JThergasGroupElement;
 import jThergas.data.group.JThergasThermoStructureGroupPoint;
 import jThergas.data.thermo.JThergasThermoData;
+import jThergas.exceptions.JThergasNotAGroupElement;
 import jThergas.exceptions.JThergasReadException;
 import thermo.compute.utilities.StringToAtomContainer;
 import thermo.data.structure.structure.MetaAtomInfo;
@@ -105,21 +106,22 @@ public class InterpretThermodynamicBlock {
 		String line2 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine2).getAsString();
 		String line3 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine3).getAsString();
 		
-		
-		
-		double positionD = lines.get(ClassLabelConstants.Position).getAsDouble();
-		int group = (int) positionD;
-		// JsonObject recordid =
-		// info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection).getAsJsonObject();
-		JThergasThermoStructureGroupPoint point = new JThergasThermoStructureGroupPoint();
 		Element row = table.addElement("tr");
-
-        boolean line1aB = false;
-        if (line1a.length() > 0) {
-            line1aB = true;
-        }
-		
+		double positionD = 0;
 		try {
+		    positionD = lines.get(ClassLabelConstants.Position).getAsDouble();
+		    int group = (int) positionD;
+		    // JsonObject recordid =
+		    // info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection).getAsJsonObject();
+		    JThergasThermoStructureGroupPoint point = new JThergasThermoStructureGroupPoint();
+		    
+
+		    boolean line1aB = false;
+		    if (line1a.length() > 0) {
+		        line1aB = true;
+		    }
+		
+		
 			point.parse(line1, line1a, line2, line3, line1aB, group, group);
 			JsonObject bensonrulestructure = bensonrule.get(ClassLabelConstants.JThermodynamicsBensonRuleStructure)
 					.getAsJsonObject();
@@ -131,12 +133,13 @@ public class InterpretThermodynamicBlock {
 		} catch (JThergasReadException e) {
 		    bensonrule = null;
 			row.addElement("td").addText("Error in parse: " + positionD + " first line: " + line1);
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (NumberFormatException e) {
 		    bensonrule = null;
 		    row.addElement("td").addText("Error in parse: position (number exception): " + positionD + " first line: " + line1);
-            e.printStackTrace();
+            //e.printStackTrace();
 		}
+		
 		return bensonrule;
 	}
 

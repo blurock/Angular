@@ -56,7 +56,7 @@ public class PartiionSetWithinRepositoryFileProcess {
 		String methodS = info.get(ClassLabelConstants.FilePartitionMethod).getAsString();
 		info.addProperty(ClassLabelConstants.CatalogObjectOwner, owner);
 		info.addProperty(ClassLabelConstants.TransactionID, transactionID);
-        JsonArray objects = PartitionSetOfStringObjects.partitionString(info, content);
+        JsonArray objects = PartitionSetOfStringObjects.partitionString(info, content,document);
                 
 		String sourceformat = info.get(ClassLabelConstants.FileSourceFormat).getAsString();
 		JsonArray set = new JsonArray();
