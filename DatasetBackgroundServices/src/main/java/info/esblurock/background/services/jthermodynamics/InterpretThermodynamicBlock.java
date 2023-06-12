@@ -26,6 +26,13 @@ import thermo.data.structure.structure.MetaAtomInfo;
 import thermo.exception.ThermodynamicComputeException;
 
 public class InterpretThermodynamicBlock {
+    /**
+     * @param parsed The thermodynamic block of molecule structure to be parsed 
+     * @param table The table in the document to fill
+     * @param info The supplementary information 
+     * 
+     * @return The JThermodynamics2DMoleculeThermodynamics (null if error in parsing)
+     */
 	public static JsonObject interpretMolecularThermodynamics(JsonObject parsed, Element table, JsonObject info) {
 		JsonObject molthermo = CreateDocumentTemplate.createTemplate("dataset:JThermodynamics2DMoleculeThermodynamics");
 		if(!interpretSpeciesStandardThermodynamics(molthermo, parsed, table, info)) {
@@ -34,6 +41,13 @@ public class InterpretThermodynamicBlock {
 		return molthermo;
 	}
 
+	/**
+	 * @param parsed The thermodynamic block of substructures (defined by JThermodynamicsSubstructureType) structure to be parsed 
+	 * @param table The table in the document to fill
+	 * @param info The supplementary information (source of JThermodynamicsSubstructureType)
+	 * 
+	 * @return The JThermodynamics2DSubstructureThermodynamics (null if error in parsing)
+	 */
 	public static JsonObject interpretSubstructureThermodynamics(JsonObject parsed, Element table, JsonObject info) {
 		JsonObject molthermo = CreateDocumentTemplate
 				.createTemplate("dataset:JThermodynamics2DSubstructureThermodynamics");
@@ -46,6 +60,13 @@ public class InterpretThermodynamicBlock {
 		return molthermo;
 	}
 
+	/**
+	 * @param molthermo The subclass of JThermodynamics2DTempDependentThermo
+	 * @param parsed The thermodynamic block of substructures
+	 * @param table The table in the document to fill
+	 * @param info The supplementary information 
+	 * @return The JThermodynamics2DSubstructureThermodynamics (null if error in parsing)
+	 */
 	public static boolean interpretSpeciesStandardThermodynamics(JsonObject molthermo, JsonObject parsed,
 			Element table, JsonObject info) {
 	    boolean noerror = true;
@@ -82,6 +103,13 @@ public class InterpretThermodynamicBlock {
 		return noerror;
 	}
 
+	/** Interpret the substructure/molecule
+	 * 
+	 * @param point The JTherGas structure that parses the lines
+	 * @param row The row element of the table
+	 * @param info The supplementary information 
+	 * @return The JThermodynamics2DSubstructureThermodynamics (null if error in parsing)
+	 */
 	private static JsonObject interpretMoleculeStructure(JThermgasThermoStructureDataPoint point, Element row,
 			JsonObject info) {
 		String structure = point.getStructure().getNancyLinearForm();
@@ -105,6 +133,13 @@ public class InterpretThermodynamicBlock {
 
 	}
 
+	/** Interpret the Benson Rule
+	 * 
+     * @param point The JTherGas structure that parses the lines
+     * @param row The row element of the table
+     * @param info The supplementary information 
+     * @return The JThermodynamics2DSubstructureThermodynamics (null if error in parsing)
+	 */
 	public static JsonObject interpretBensonRuleThermodynamics(JsonObject parsed, Element table, JsonObject info) {
 		JsonObject bensonrule = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicBensonRuleDefinition");
 		JsonObject lines = parsed.get(ClassLabelConstants.RepositoryThermoPartitionBlock).getAsJsonObject();
@@ -150,6 +185,12 @@ public class InterpretThermodynamicBlock {
 		return bensonrule;
 	}
 
+	/**
+	 * @param point
+	 * @param bensonrulethermo
+	 * @param info
+	 * @param row
+	 */
 	private static void interpretStandardThermodynamics(JThermgasThermoStructureDataPoint point,
 			JsonObject bensonrulethermo, JsonObject info, Element row) {
 		JThergasThermoData thermodynamics = point.getThermodynamics();
