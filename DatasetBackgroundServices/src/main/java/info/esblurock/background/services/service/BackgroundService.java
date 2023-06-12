@@ -5,10 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Base64;
-import java.util.Iterator;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +21,6 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.InitiallizeSystem;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
-import info.esblurock.background.services.servicecollection.ServiceCollectionQueryOntology;
-import info.esblurock.background.services.transaction.TransactionProcess;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 @WebServlet(name = "BackgroundService", urlPatterns = { "/service" })

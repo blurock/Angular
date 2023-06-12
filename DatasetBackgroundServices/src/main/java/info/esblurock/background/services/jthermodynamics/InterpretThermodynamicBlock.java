@@ -28,20 +28,27 @@ import thermo.exception.ThermodynamicComputeException;
 public class InterpretThermodynamicBlock {
 	public static JsonObject interpretMolecularThermodynamics(JsonObject parsed, Element table, JsonObject info) {
 		JsonObject molthermo = CreateDocumentTemplate.createTemplate("dataset:JThermodynamics2DMoleculeThermodynamics");
-		return interpretSpeciesStandardThermodynamics(molthermo, parsed, table, info);
+		if(!interpretSpeciesStandardThermodynamics(molthermo, parsed, table, info)) {
+		    molthermo = null;
+		}
+		return molthermo;
 	}
 
 	public static JsonObject interpretSubstructureThermodynamics(JsonObject parsed, Element table, JsonObject info) {
 		JsonObject molthermo = CreateDocumentTemplate
 				.createTemplate("dataset:JThermodynamics2DSubstructureThermodynamics");
-		JsonObject substruct = interpretSpeciesStandardThermodynamics(molthermo, parsed, table, info);
-		String type = info.get(ClassLabelConstants.JThermodynamicsSubstructureType).getAsString();
-		substruct.addProperty(ClassLabelConstants.JThermodynamicsSubstructureType, type);
-		return substruct;
+        if(!interpretSpeciesStandardThermodynamics(molthermo, parsed, table, info)) {
+            molthermo = null;
+        } else {
+            String type = info.get(ClassLabelConstants.JThermodynamicsSubstructureType).getAsString();
+            molthermo.addProperty(ClassLabelConstants.JThermodynamicsSubstructureType, type);
+        }
+		return molthermo;
 	}
 
-	public static JsonObject interpretSpeciesStandardThermodynamics(JsonObject molthermo, JsonObject parsed,
+	public static boolean interpretSpeciesStandardThermodynamics(JsonObject molthermo, JsonObject parsed,
 			Element table, JsonObject info) {
+	    boolean noerror = true;
 		JsonObject lines = parsed.get(ClassLabelConstants.RepositoryThermoPartitionBlock).getAsJsonObject();
 		String line1 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1).getAsString();
 		String line1a = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1a).getAsString();
@@ -58,21 +65,21 @@ public class InterpretThermodynamicBlock {
 		Element row = table.addElement("tr");
 		try {
 			point.parse(line1, line1a, line2, line3, line1aB, group, group);
+			
 			JsonObject molstructure = interpretMoleculeStructure(point, row, info);
 			molthermo.add(ClassLabelConstants.JThermodynamics2DSpeciesStructure, molstructure);
 			JsonObject molthermodynamics = molthermo.get(ClassLabelConstants.JThermodynamicStandardThermodynamics)
 					.getAsJsonObject();
 			interpretStandardThermodynamics(point, molthermodynamics, info, row);
 		} catch (JThergasReadException e) {
-			row.addElement("td").addText("Error in parse: " + e.getMessage());
-			e.printStackTrace();
+		    noerror = false;
+		    row.addElement("td").addText("'" + line1 + "' Error in parse: " + e.getMessage());
 		} catch (Exception e) {
-            row.addElement("td").addText("Error in parse: " + e.getMessage());
-            e.printStackTrace();
-		    
-		}
+		    noerror = false;
+            row.addElement("td").addText("'" + line1 + "' Error in parse: " + e.getMessage());
+        }
 
-		return molthermo;
+		return noerror;
 	}
 
 	private static JsonObject interpretMoleculeStructure(JThermgasThermoStructureDataPoint point, Element row,

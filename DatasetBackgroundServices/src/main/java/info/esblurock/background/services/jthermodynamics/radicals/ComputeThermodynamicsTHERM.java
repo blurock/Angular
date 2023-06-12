@@ -74,7 +74,6 @@ public class ComputeThermodynamicsTHERM {
         JsonObject contribution = null;
         JsonObject hbiinfo = info.deepCopy();
         hbiinfo.addProperty(ClassLabelConstants.JThermodynamicsSubstructureType, "dataset:HBISubstructure");
-
         JsonObject response = CalculateStructureCorrection.calculate(hbiinfo);
         String message = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
         MessageConstructor.combineBodyIntoDocument(document, message);
@@ -83,38 +82,82 @@ public class ComputeThermodynamicsTHERM {
             JsonArray hbicontributions = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
             if (hbicontributions.size() > 0) {
                 contribution = hbicontributions.get(0).getAsJsonObject();
-                body.addElement("div").addText("No HBI correction was added to the contributions");
+                body.addElement("div").addText("HBI correction was added to the contributions");
             } else {
                 body.addElement("div").addText("No appropriate HBI correction was found");
             }
         } else {
             body.addElement("div").addText("No HBI correction was added to the contributions");
         }
-
+        
         return contribution;
     }
 
     private static JsonObject computeNonRadicalContributions(IAtomContainer RHmolecule,
             JsonObject info, Document document) {
+        boolean noerrors = true;
+        
         JsonArray contributions = new JsonArray();
         Element body = MessageConstructor.isolateBody(document);
         JsonObject response = null;
         JsonObject tcontribution = ComputeThermodynamicsHRadicalCorrections.translationContribution(RHmolecule, body,
                 info);
-        contributions.add(tcontribution);
+        if(tcontribution != null) {
+            contributions.add(tcontribution);
+        } else {
+            body.addElement("div").addText("Error in translational contribution");
+            noerrors = false;
+        }
+        
         JsonObject symmresponse = ComputeThermodynamicsHRadicalCorrections.symmetry(RHmolecule, document, info);
         MessageConstructor.combineBodyIntoDocument(document,
                 symmresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
+        body = MessageConstructor.isolateBody(document);
         if (symmresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
             JsonArray symcontributions = symmresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
             contributions.addAll(symcontributions);
-            String title = "Symmetry contributions added to calculation";
-            response = DatabaseServicesBase.standardServiceResponse(document, title, contributions);
+            body.addElement("div").addText(symcontributions.size() + " symmetry contributions added");
+            
         } else {
-            String symmerrormessage = "Error in computing symmetry contributions";
-            response = DatabaseServicesBase.standardErrorResponse(document, symmerrormessage, contributions);
+            noerrors = false;
+            body.addElement("div").addText("Error in computing symmetry contributions");
         }
+        
+        
+        boolean ringerror = addSubstructureContribution(info,"dataset:RingStrainCorrectionSubstructure",contributions,document);
+        boolean stericerror = addSubstructureContribution(info,"dataset:dataset:StericCorrectionSubstructure",contributions,document);
+        
+        noerrors = noerrors && ringerror && stericerror;
+        String title = "Translational, Symmetry, Ring strain and steric successfully contributions added";
+        
+        if(!noerrors) {
+            title = "Errors in adding Translational, Symmetry, Ring strain and steric corrections";
+        }
+        
+        response = DatabaseServicesBase.standardServiceResponse(document, title, contributions);
         return response;
+    }
+    
+    public static boolean addSubstructureContribution(JsonObject info, String substructure, JsonArray contributions, Document document) {
+        boolean noerror = true;
+        JsonObject subinfo = info.deepCopy();
+        subinfo.addProperty(ClassLabelConstants.JThermodynamicsSubstructureType, substructure);
+        JsonObject response = CalculateStructureCorrection.calculate(subinfo);
+        String message = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
+        MessageConstructor.combineBodyIntoDocument(document, message);
+        Element body = MessageConstructor.isolateBody(document);
+        if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+            JsonArray subcontributions = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+            if (subcontributions.size() > 0) {
+                contributions.addAll(subcontributions);
+                body.addElement("div").addText(subcontributions.size() + substructure + " correction was added to the contributions");
+            } else {
+                noerror = false;
+                body.addElement("div").addText("No " + substructure.substring(8) + " correction was found");
+            }
+            
+        }
+        return noerror;
     }
 
 }
