@@ -65,7 +65,6 @@ public class DatabaseServicesBase {
 							ServiceCollectionDatabaseAccess access = ServiceCollectionDatabaseAccess.valueOf(service);
 							response = access.process(body);
 						} catch (IllegalArgumentException ex5) {
-						    ex5.printStackTrace(System.out);
 							response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);
 							response.addProperty(ClassLabelConstants.ServiceResponseMessage,
 									"Service not available: '" + service + "'\n" + ex5.toString());

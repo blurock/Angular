@@ -22,7 +22,7 @@ public class AltListProperties {
         try
         {
         	String content = SetupAltLabelList.listToString();
-        	//System.out.println(content);
+        	System.out.println(content);
             //Write content to file
             Files.writeString(filePath,content);
          } 

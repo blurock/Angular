@@ -47,4 +47,7 @@ export class ApplicationcardsComponent implements OnInit {
   copycollection() {
     this.router.navigateByUrl(`/copycollection`);
   }
+  examine() {
+    this.router.navigateByUrl(`/examine`);
+  }
 }

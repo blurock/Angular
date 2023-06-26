@@ -47,7 +47,6 @@ import {MatTableModule} from '@angular/material/table';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 
-
 import { CatalogbaseextraComponent } from './catalogobjects/catalogbaseextra/catalogbaseextra.component';
 import { CatalogbasedataComponent } from './catalogobjects/catalogbasedata/catalogbasedata.component';
 import { DatadatadescriptionComponent } from './catalogobjects/datadatadescription/datadatadescription.component';
@@ -177,6 +176,7 @@ import { ApplicationcardsComponent } from './layout/applicationcards/application
 import { FindintermediatettransactionComponent } from './dialog/findintermediatettransaction/findintermediatettransaction.component';
 import { DatasetcollectionchoicemenuComponent } from './primitives/datasetcollectionchoicemenu/datasetcollectionchoicemenu.component';
 import { CopysystemdatasetcollectionsComponent } from './catalogobjects/datasetcollection/copysystemdatasetcollections/copysystemdatasetcollections.component';
+import { ExaminedatabaseelementsComponent } from './catalogobjects/examine/examinedatabaseelements/examinedatabaseelements.component';
 
 
 
@@ -309,7 +309,8 @@ import { CopysystemdatasetcollectionsComponent } from './catalogobjects/datasetc
   ApplicationcardsComponent,
   FindintermediatettransactionComponent,
   DatasetcollectionchoicemenuComponent,
-  CopysystemdatasetcollectionsComponent
+  CopysystemdatasetcollectionsComponent,
+  ExaminedatabaseelementsComponent
 	],
 	imports: [
 		AppFirebaseModule,

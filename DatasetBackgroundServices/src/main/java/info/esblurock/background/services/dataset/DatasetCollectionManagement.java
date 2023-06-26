@@ -30,7 +30,7 @@ public class DatasetCollectionManagement {
 	/**
 	 * Retrieve copy of ChemConnectDatasetCollectionIDsSet with specification
 	 * 
-	 * @param collectionsetidinfo The ActivityInfoDatasetCollectionIDSpecification
+	 * @param collectionsetidinfo The DatasetCollectionSetRecordIDInfo
 	 * @return The corresponding ChemConnectDatasetCollectionIDsSet, null if it
 	 *         doesn't exist.
 	 * 
@@ -71,9 +71,9 @@ public class DatasetCollectionManagement {
 
 	/**
 	 * Generate the FirestoreCatalogID from the
-	 * ActivityInfoDatasetCollectionIDSpecification
+	 * DatasetCollectionSetRecordIDInfo
 	 * 
-	 * @param collectionsetidinfo The ActivityInfoDatasetCollectionIDSpecification
+	 * @param collectionsetidinfo The DatasetCollectionSetRecordIDInfo
 	 * @return The FirestoreID using the specification.
 	 */
 	public static JsonObject getDatabaseSetID(JsonObject collectionsetidinfo) {
@@ -154,12 +154,10 @@ public class DatasetCollectionManagement {
 				.createEmptyChemConnectCurrentDatasetIDSet(collectionname, owner, transactionID, maintainer, descr);
 		idcollection.addProperty(ClassLabelConstants.DescriptionTitle, title);
 		fillInDatasetCollectionWithDefaults(collectiontype,collectionid,idcollection);
-		System.out.println("setupNewDatabaseCollectionSet:\n" + JsonObjectUtilities.toString(idcollection));
         JsonObject transfirestoreID = BaseCatalogData.insertFirestoreAddress(event);
         idcollection.add(ClassLabelConstants.FirestoreCatalogIDForTransaction,transfirestoreID.deepCopy());
 		String message = WriteFirestoreCatalogObject.writeCatalogObject(idcollection);
 		body.addElement("div").addText(message);
-		System.out.println("setupNewDatabaseCollectionSet: message: " + message);
 		putInLocalVersion(idcollection);
 		JsonArray arr = new JsonArray();
 		arr.add(idcollection);

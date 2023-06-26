@@ -1,0 +1,97 @@
+<mat-tab-group>
+	<mat-tab label="Choose Dataset Collection for Object">
+		<mat-card class="card">
+			<mat-card-header>
+				<mat-card-title-group class="title-group">
+					<mat-card-title>{{setuptitle}}</mat-card-title>
+					<mat-card-subtitle>Chosen Collection: {{selected}}</mat-card-subtitle>
+				</mat-card-title-group>
+			</mat-card-header>
+			<mat-card-content>
+				<p>
+					This menu selects the dataset collection and the specific object type to examine.
+				</p>
+				<ng-container *ngIf='cataloganno != null; else waiting'>
+					<form [formGroup]="objectform" class="infoform">
+						<mat-grid-list cols="2" rowHeight="100px">
+							<mat-grid-tile [colspan]="2">
+								<mat-form-field class="title">
+									<mat-label>{{cataloganno['dataset:DescriptionTitle'][rdfslabel]}}</mat-label>
+									<input matInput formControlName="DescriptionTitle">
+									<mat-hint>{{cataloganno['dataset:DescriptionTitle'][rdfscomment]}}</mat-hint>
+								</mat-form-field>
+							</mat-grid-tile>
+
+							<mat-grid-tile [colspan]="1" background="lightgray">
+								<app-datasetcollectionchoicemenu [(activityanno)]="cataloganno"
+									[(maintainer)]="maintainer" (collection)="setCollection($event)" class="label">
+								</app-datasetcollectionchoicemenu>
+							</mat-grid-tile>
+
+							<mat-grid-tile [colspan]="1">
+								<mat-form-field class="label">
+									<mat-label>
+										{{cataloganno['dataset:ThermodynamicDatasetCollectionType'][rdfslabel]}}
+									</mat-label>
+									<input matInput formControlName="ThermodynamicDatasetCollectionType"
+										[matMenuTriggerFor]="menu.childMenu">
+									<mat-hint>
+										{{cataloganno['dataset:ThermodynamicDatasetCollectionType'][rdfscomment]}}
+									</mat-hint>
+									<app-menu-item #menu [items]="methoditems"
+										(selectionEvent)="setType($event)"></app-menu-item>
+								</mat-form-field>
+							</mat-grid-tile>
+
+							<mat-grid-tile [colspan]="2">
+								<button mat-raised-button color="primary" class="submit" (click)="submitSystem()"
+									[disabled]="invalid()">{{submitlabel}}</button>
+							</mat-grid-tile>
+
+						</mat-grid-list>
+					</form>
+		    <app-parameterspecification #enthalpy [(annoinfo)]="cataloganno" [(parameterinfo)]="molarenthalpy">
+			</app-parameterspecification>
+			<app-parameterspecification #entropy [(annoinfo)]="cataloganno" [(parameterinfo)]="molarentropy">
+			</app-parameterspecification>
+			<app-parameterspecification #heatcapacity [(annoinfo)]="cataloganno" [(parameterinfo)]="molarheatcapacity">
+			</app-parameterspecification>
+
+				</ng-container>
+				<ng-template #waiting>
+					Setup
+					<mat-spinner></mat-spinner>
+				</ng-template>
+			</mat-card-content>
+		</mat-card>
+	</mat-tab>
+
+	<mat-tab label="Objects">
+		<ng-container *ngIf='tabledata != null;'>
+<table mat-table [dataSource]="tabledata" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  
+  					<ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns; let i = index">
+						<th mat-header-cell *matHeaderCellDef> {{column}} </th>
+						<td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+					</ng-container>
+
+  
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+		</ng-container>
+	</mat-tab>
+
+	<mat-tab label="Logs">
+		<ng-container *ngIf='resultHtml != null;'>
+			<mat-divider></mat-divider>
+			<div [innerHTML]="resultHtml"></div>
+			<mat-divider></mat-divider>
+		</ng-container>
+	</mat-tab>
+</mat-tab-group>

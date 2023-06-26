@@ -35,7 +35,7 @@ export class CopysystemdatasetcollectionsComponent implements OnInit {
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
 
-	maintainer ="Guest";
+	maintainer = 'Guest';
 	catalogtype = 'dataset:ThermodynamicsDatasetCollectionIDsSet';
 	cataloganno: any;
 	activitytype = 'dataset:ActivityInformationCopyCollection';

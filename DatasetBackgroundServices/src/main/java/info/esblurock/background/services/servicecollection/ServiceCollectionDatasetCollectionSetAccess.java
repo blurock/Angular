@@ -9,6 +9,8 @@ import com.google.gson.JsonObject;
 import info.esblurock.background.services.dataset.DatasetCollectionIDManagement;
 import info.esblurock.background.services.dataset.DatasetCollectionManagement;
 import info.esblurock.background.services.dataset.FindDatasetCollections;
+import info.esblurock.background.services.dataset.ReadInDatasetWithDatasetCollectionProcess;
+import info.esblurock.background.services.dataset.examine.ProcessExamineDatasetCollectionSetObject;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
@@ -18,7 +20,15 @@ import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRouti
 
 public enum ServiceCollectionDatasetCollectionSetAccess {
     
-    
+    ExamineDatasetCollectionSetObject {
+
+        @Override
+        public JsonObject process(JsonObject info) {
+            JsonObject activity = info.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
+            return ProcessExamineDatasetCollectionSetObject.process(activity);
+        }
+        
+    },
 
    GetListOfDatasetCollectionIDsSet {
 
@@ -44,55 +54,66 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 
 		@Override
 		public JsonObject process(JsonObject json) {
-			Document document = MessageConstructor.startDocument("ReadInDatasetWithDatasetCollection");
-			Element body = MessageConstructor.isolateBody(document);
-			JsonObject idsset = json.get(ClassLabelConstants.ChemConnectDatasetCollectionIDsSet).getAsJsonObject();
-			String classname = json.get(ClassLabelConstants.DatasetCollectionObjectType).getAsString();
-			String label = idsset.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
-			String maintainer = idsset.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-			body.addElement("div").addText("Dataset  : " + label);
-			body.addElement("div").addText("Maintainer: " + maintainer);
-			body.addElement("div").addText("Classname: " + classname);
-			String identifier = DatasetOntologyParseBase.getIDFromAnnotation(classname);
-			JsonObject response = null;
-			if (identifier != null) {
-				if (idsset.get(identifier) != null) {
-					JsonObject collectioninfo = idsset.get(identifier).getAsJsonObject();
-					collectioninfo.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, label);
-					
-					//String catalogtype = OntologyUtilityRoutines.exactlyOnePropertySingle(classname, "dcat:catalog");
-					
-					JsonObject collectionid = DatasetCollectionIDManagement.firebaseIDOfCollection(classname,
-							collectioninfo);
-					JsonObject criteria = null;
-					if(json.get(ClassLabelConstants.SetOfPropertyValueQueryPairs) != null) {
-					    criteria = json.get(ClassLabelConstants.SetOfPropertyValueQueryPairs).getAsJsonObject();
-					}
-					response = ReadFirestoreInformation.readFirestoreCollection(criteria, collectionid);
-					MessageConstructor.combineBodyIntoDocument(document, response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
-					if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-					    response = DatabaseServicesBase.standardServiceResponse(document,
-					            "Success in reading dataset collection", response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray());
-					} else {
-					    response = DatabaseServicesBase.standardErrorResponse(document,
-	                            "Error in reading firestore collection", null);
-					}
-				} else {
-					response = DatabaseServicesBase.standardErrorResponse(document,
-							classname + "(" + identifier + ")  not is dataset collection: " + label, null);
-				}
-			} else {
-				response = DatabaseServicesBase.standardErrorResponse(document,
-						"Error: Identifer for " + classname + " not found", null);
-			}
-			return response;
-		}
+		    /*
+            Document document = MessageConstructor.startDocument("ReadInDatasetWithDatasetCollection");
+            JsonObject idsset = json.get(ClassLabelConstants.ChemConnectDatasetCollectionIDsSet).getAsJsonObject();
+            String classname = json.get(ClassLabelConstants.DatasetCollectionObjectType).getAsString();
+            String dataset = idsset.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+            String maintainer = idsset.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+            JsonObject criteria = null;
+		    return ReadInDatasetWithDatasetCollectionProcess.process(maintainer, dataset, classname, criteria, document);
+		    */
+            Document document = MessageConstructor.startDocument("ReadInDatasetWithDatasetCollection");
+            Element body = MessageConstructor.isolateBody(document);
+            JsonObject idsset = json.get(ClassLabelConstants.ChemConnectDatasetCollectionIDsSet).getAsJsonObject();
+            String classname = json.get(ClassLabelConstants.DatasetCollectionObjectType).getAsString();
+            String label = idsset.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
+            String maintainer = idsset.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+            body.addElement("div").addText("Dataset  : " + label);
+            body.addElement("div").addText("Maintainer: " + maintainer);
+            body.addElement("div").addText("Classname: " + classname);
+            String identifier = DatasetOntologyParseBase.getIDFromAnnotation(classname);
+            JsonObject response = null;
+            if (identifier != null) {
+                if (idsset.get(identifier) != null) {
+                    JsonObject collectioninfo = idsset.get(identifier).getAsJsonObject();
+                    collectioninfo.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, label);
+                    
+                    //String catalogtype = OntologyUtilityRoutines.exactlyOnePropertySingle(classname, "dcat:catalog");
+                    
+                    JsonObject collectionid = DatasetCollectionIDManagement.firebaseIDOfCollection(classname,
+                            collectioninfo);
+                    JsonObject criteria = null;
+                    if(json.get(ClassLabelConstants.SetOfPropertyValueQueryPairs) != null) {
+                        criteria = json.get(ClassLabelConstants.SetOfPropertyValueQueryPairs).getAsJsonObject();
+                    }
+                    response = ReadFirestoreInformation.readFirestoreCollection(criteria, collectionid);
+                    MessageConstructor.combineBodyIntoDocument(document, response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
+                    if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+                        response = DatabaseServicesBase.standardServiceResponse(document,
+                                "Success in reading dataset collection", response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray());
+                    } else {
+                        response = DatabaseServicesBase.standardErrorResponse(document,
+                                "Error in reading firestore collection", null);
+                    }
+                } else {
+                    response = DatabaseServicesBase.standardErrorResponse(document,
+                            classname + "(" + identifier + ")  not is dataset collection: " + label, null);
+                }
+            } else {
+                response = DatabaseServicesBase.standardErrorResponse(document,
+                        "Error: Identifer for " + classname + " not found", null);
+            }
+            return response;
+     }
 
 	}, ReadInDatasetWithDatasetCollectionLabel {
 		@Override
 		public JsonObject process(JsonObject json) {
+		    JsonObject response = null;
+		    try {
 			Document document = MessageConstructor.startDocument("ReadInDatasetWithDatasetCollectionLabel");
-			JsonObject response = GetListOfDatasetCollectionIDsSet.process(json);
+			response = GetListOfDatasetCollectionIDsSet.process(json);
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				JsonObject collectionids = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 				
@@ -109,6 +130,9 @@ public enum ServiceCollectionDatasetCollectionSetAccess {
 				    response = readresponse;
 				}
 			}
+		    } catch(Exception ex) {
+		        ex.printStackTrace();
+		    }
 			return response;
 		}
 	}, FindAllDatasetCollectionSets {

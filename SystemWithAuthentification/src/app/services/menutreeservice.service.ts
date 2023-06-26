@@ -29,7 +29,7 @@ export class MenutreeserviceService {
 		}
 		return navitemarray;
 	}
-	
+
 	public findTransactionChoices(transactiontree: any): NavItem[] {
 		const classification = transactiontree[this.dataobjectlabel];
 		const anno = transactiontree[this.annotationslabel];
@@ -44,10 +44,9 @@ export class MenutreeserviceService {
 
 	subchoices(anno: any, classification: any, navitemarray: NavItem[]): void {
 		const subclasses = classification['dataset:classificationtree'];
-		
+
 		if (subclasses != null) {
-			for (let i = 0; i < subclasses.length; i++) {
-				const classelement = subclasses[i];
+			for (const classelement of subclasses) {
 				const type = classelement['dataset:catalogtype'];
 				const typeinfo = anno[type];
 				if (typeinfo != null) {

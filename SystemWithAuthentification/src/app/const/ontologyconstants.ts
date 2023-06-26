@@ -45,6 +45,11 @@ export class Ontologyconstants {
 	public static DatabasePerson = 'vcard:Individual';
 	public static UserAccountRole = 'dataset:UserAccountRole';
 	
+	public static DatasetObjectSummaryTableDescriptors = 'dataset:summarytabledescriptors';
+	public static DatasetObjectSummaryTableSearchTerms = 'dataset:summarytablesearchterms';
+	public static SummaryTableDescriptionKey           = 'dataset:summarytabledescriptionkey';
+	public static SummaryTableSearchKey                = 'dataset:summarytablesearchkey';
+	
 	public static textfile = 'dataset:FileTypeText';
 	
 	public static ThermodynamicsSystemCollectionIDsSet = 'dataset:systemdatasetcollection';
