@@ -177,8 +177,6 @@ export class ExaminedatabaseelementsComponent implements OnInit {
 	showResult(result: any) {
 		this.displayedColumns = result[Ontologyconstants.SummaryTableDescriptionKey];
 		this.tabledata = result[Ontologyconstants.DatasetObjectSummaryTableDescriptors];
-		alert(JSON.stringify(this.displayedColumns));
-		alert(this.tabledata.length);
 	}
 	
 	getServiceData(servicedata: any): void {
