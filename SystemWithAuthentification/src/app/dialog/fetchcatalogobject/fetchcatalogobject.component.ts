@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { NavItem } from '../../primitives/nav-item';
 import { MenutreeserviceService } from '../../services/menutreeservice.service';
@@ -17,8 +17,8 @@ export class FetchcatalogobjectComponent implements OnInit {
 
 	imageURL: string;
 	message: string;
-	uploadForm: FormGroup;
-	idForm: FormGroup;
+	uploadForm: UntypedFormGroup;
+	idForm: UntypedFormGroup;
 	dataimage = 'text';
 	catalog: any;
 	rdfslabel = Ontologyconstants.rdfslabel;
@@ -37,7 +37,7 @@ export class FetchcatalogobjectComponent implements OnInit {
 		public dialogRef: MatDialogRef<FetchcatalogobjectComponent>,
 		private menusetup: MenutreeserviceService,
 		private runservice: RunserviceprocessService,
-		public fb: FormBuilder,
+		public fb: UntypedFormBuilder,
 		@Inject(MAT_DIALOG_DATA) public data: any,
 
 	) {

@@ -4,7 +4,7 @@ import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { ThermodynamicsdatasetcollectionidssetComponent } from '../../datasetcollection/thermodynamicsdatasetcollectionidsset/thermodynamicsdatasetcollectionidsset.component';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NavItem } from '../../../primitives/nav-item';
@@ -24,7 +24,7 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 	resultHtml: string;
 	userid: string;
 	useritems: any;
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 	sourcedataset = 'Choose Source';
 	submit = 'Create System Dataset';
 	failedsubmission = 'Failed Transaction: no result given';
@@ -50,7 +50,7 @@ export class DatasertcollectionadministrationComponent implements OnInit {
 	@ViewChild('thermocollectionset') thermocollectionset: ThermodynamicsdatasetcollectionidssetComponent;
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private annotations: OntologycatalogService,
 		private runservice: RunserviceprocessService,
 		private manageuser: ManageuserserviceService,

@@ -9,7 +9,7 @@ import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesyto
 import { IdentifiersService } from '../../../const/identifiers.service';
 import { SetofdataobjectlinksComponent } from '../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
 import { SetofsitereferencesComponent } from '../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
-import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormArray, UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SavecatalogdataobjectdialogComponent } from '../../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
 import { SavecatalogdataobjectComponent } from '../../../dialog/savecatalogdataobject/savecatalogdataobject.component';
@@ -22,12 +22,12 @@ import { DatadatadescriptionComponent } from '../../datadatadescription/datadata
 })
 export class DatasetrepositoryfilestagingComponent extends SavecatalogdataobjectComponent implements OnInit, AfterViewInit {
 
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 	catalogtype: string;
 
 	constructor(
 		public dialog: MatDialog,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		public annotations: OntologycatalogService,
 		public identifiers: IdentifiersService) {
 		super(dialog, annotations, identifiers,

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { ChemconnectthermodynamicsdatabaseComponent } from '../chemconnectthermodynamicsdatabase/chemconnectthermodynamicsdatabase.component';
@@ -22,7 +22,7 @@ export class JthermodynamicsvibrationalstructureComponent implements OnInit {
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
 	
-	idForm: FormGroup;
+	idForm: UntypedFormGroup;
 
 	@Output() annoReady = new EventEmitter<any>();
     annowaiting = 'Waiting for annotations setup';
@@ -38,7 +38,7 @@ export class JthermodynamicsvibrationalstructureComponent implements OnInit {
 	@ViewChild('structure') structure: Jthermodynamics2dspeciesstructureComponent;
 
 	constructor(
-		public fb: FormBuilder,
+		public fb: UntypedFormBuilder,
 		public annotations: OntologycatalogService,
 	) {
     	this.idForm = this.fb.group({

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { UploadinterfaceconstantsService } from '../uploadinterfaceconstants.service';
 
 @Component({
@@ -9,8 +9,8 @@ import { UploadinterfaceconstantsService } from '../uploadinterfaceconstants.ser
 })
 export class CreatecatalogobjectsfrompartitionsComponent implements OnInit {
 
-	@Input() createform: FormGroup;
-	@Input() uploadinfoform: FormGroup;
+	@Input() createform: UntypedFormGroup;
+	@Input() uploadinfoform: UntypedFormGroup;
 	@Input() formatInformation: any;
 	@Input() unitsneeded: string[];
 	@Input() unitInformation: any;
@@ -27,14 +27,14 @@ export class CreatecatalogobjectsfrompartitionsComponent implements OnInit {
 
 	public unitslabel = 'qudt:QuantityKind';
 	public hasunitslabel = 'qudt:hasUnitSystem';
-	enthalpy: FormGroup;
-	entropy: FormGroup;
-	heatcapacity: FormGroup;
-	frequency: FormGroup;
+	enthalpy: UntypedFormGroup;
+	entropy: UntypedFormGroup;
+	heatcapacity: UntypedFormGroup;
+	frequency: UntypedFormGroup;
 
 
 	constructor(public labels: UploadinterfaceconstantsService,
-		private _formBuilder: FormBuilder) { }
+		private _formBuilder: UntypedFormBuilder) { }
 
 
 	ngOnInit(): void {
@@ -109,7 +109,7 @@ export class CreatecatalogobjectsfrompartitionsComponent implements OnInit {
 		return json;
 	}
 
-	unitsAsJSON(type: string, units: FormGroup): any {
+	unitsAsJSON(type: string, units: UntypedFormGroup): any {
 		const specificunit = units.get('UnitsOfValue').value;
 		const uncertainty = units.get('DataPointUncertainty').value;
 		const label = units.get('ParameterLabel').value;

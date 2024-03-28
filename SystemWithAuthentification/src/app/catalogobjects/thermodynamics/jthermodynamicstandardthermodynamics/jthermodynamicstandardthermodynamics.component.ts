@@ -3,7 +3,7 @@ import { OntologycatalogService } from '../../../services/ontologycatalog.servic
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { ParametervalueComponent } from '../../parametervalue/parametervalue.component';
 import { ParameterspecificationComponent } from '../../parameterspecification/parameterspecification.component';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormArray } from '@angular/forms';
 
 
 @Component({
@@ -33,7 +33,7 @@ export class JthermodynamicstandardthermodynamicsComponent implements OnInit {
 
 	@Input() annoinfo: any;
 
-	pairs: FormArray;
+	pairs: UntypedFormArray;
 
 	enthalpyid = 'dataset:ParameterSpecificationEnthaply';
 	entropyid = 'dataset:ParameterSpecificationEntropy';
@@ -55,7 +55,7 @@ export class JthermodynamicstandardthermodynamicsComponent implements OnInit {
 
 	constructor(
 		public annotations: OntologycatalogService,
-		private formBuilder: FormBuilder
+		private formBuilder: UntypedFormBuilder
 	) {
 		this.pairs = this.formBuilder.array([]);
 
@@ -123,7 +123,7 @@ export class JthermodynamicstandardthermodynamicsComponent implements OnInit {
 		}
 	}
 
-	newPair(): FormGroup {
+	newPair(): UntypedFormGroup {
 		return this.formBuilder.group({
 			ThermodynamicHeatCapacityValue: ['', Validators.required],
 			ThermodynamicTemperature: ['', Validators.required],

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { DatasettransactionspecificationforcollectionComponent } from '../../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
 import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
@@ -12,7 +12,7 @@ import { Ontologyconstants } from '../../../../const/ontologyconstants';
 export class ActivityinformationinterpretsymmetryinformationComponent implements OnInit {
 
 	display = false;
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 	formattrans: string;
 
 	fileformat = 'dataset:JThermodynamicsSymmetryDefinitionFormat';
@@ -29,7 +29,7 @@ export class ActivityinformationinterpretsymmetryinformationComponent implements
 	@ViewChild('spec') spec: DatasettransactionspecificationforcollectionComponent;
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private fileservice: UploadmenuserviceService
 	) {
 

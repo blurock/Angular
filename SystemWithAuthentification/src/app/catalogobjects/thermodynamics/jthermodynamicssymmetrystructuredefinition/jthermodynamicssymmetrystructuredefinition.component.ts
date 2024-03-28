@@ -3,7 +3,7 @@ import { OntologycatalogService } from '../../../services/ontologycatalog.servic
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { ChemconnectthermodynamicsdatabaseComponent } from '../chemconnectthermodynamicsdatabase/chemconnectthermodynamicsdatabase.component';
 import { Jthermodynamics2dspeciesstructureComponent } from '../jthermodynamics2dspeciesstructure/jthermodynamics2dspeciesstructure.component';
-import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormArray, UntypedFormGroup } from '@angular/forms';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
 import { NavItem } from '../../../primitives/nav-item';
 
@@ -48,7 +48,7 @@ export class JthermodynamicssymmetrystructuredefinitionComponent implements OnIn
 
 	constructor(
 		public annotations: OntologycatalogService,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private menusetup: MenutreeserviceService
 
 	) {
@@ -81,16 +81,16 @@ export class JthermodynamicssymmetrystructuredefinitionComponent implements OnIn
 	}
 
 	get symmelements() {
-		return this.objectform.controls["symmelements"] as FormArray;
+		return this.objectform.controls["symmelements"] as UntypedFormArray;
 	}
-	newSymmElement(): FormGroup {
+	newSymmElement(): UntypedFormGroup {
 		return this.formBuilder.group({
 			JThermodynamicsSymmetryDefinitionNodeLabel: ['', Validators.required],
 			JThermodynamicsSymmetryDefinitionNodeType: ['', Validators.required],
 			JThermodynamicsSymmetryDefinitionSubGroupLabel: ['', Validators.required]
 		});
 	}
-	addSymmElement(): FormGroup {
+	addSymmElement(): UntypedFormGroup {
 		const countform = this.newSymmElement();
 		this.symmelements.push(countform);
 		return countform;

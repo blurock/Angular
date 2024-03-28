@@ -1,5 +1,5 @@
 import { Input, Output, Component, OnInit, EventEmitter } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms';
 import { IdentifiersService } from '../../../const/identifiers.service';
 import { OntologycatalogService } from 'src/app/services/ontologycatalog.service';
 import {UploadmenuserviceService} from 'src/app/services/uploadmenuservice.service';
@@ -12,7 +12,7 @@ import { Ontologyconstants } from '../../../const/ontologyconstants';
 })
 export class BibsetofauthorsComponent implements OnInit {
 
-	authors: FormArray;
+	authors: UntypedFormArray;
 	selectedtitle: any;
 
 	@Input() anno: any;
@@ -55,7 +55,7 @@ export class BibsetofauthorsComponent implements OnInit {
 
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private annotations: OntologycatalogService,
 		public identifiers: IdentifiersService) {
 	}
@@ -63,7 +63,7 @@ export class BibsetofauthorsComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
-	newAuthor(): FormGroup {
+	newAuthor(): UntypedFormGroup {
 		return this.formBuilder.group({
 			index: [''],
 			AuthorFamilyName: ['', Validators.required],

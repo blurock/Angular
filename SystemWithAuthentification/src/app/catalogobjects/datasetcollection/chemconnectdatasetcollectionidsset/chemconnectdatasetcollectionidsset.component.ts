@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 
@@ -20,12 +20,12 @@ export class ChemconnectdatasetcollectionidssetComponent implements OnInit {
 	identifier = Ontologyconstants.dctermsidentifier;
 maintainernotchange = true;
 
-	idForm: FormGroup;
+	idForm: UntypedFormGroup;
 	waiting = 'waiting for annotations ';
 
 
 	constructor(
-		public fb: FormBuilder
+		public fb: UntypedFormBuilder
 	) {
 		this.idForm = this.fb.group({
 			CatalogDataObjectMaintainer: ['', Validators.required],

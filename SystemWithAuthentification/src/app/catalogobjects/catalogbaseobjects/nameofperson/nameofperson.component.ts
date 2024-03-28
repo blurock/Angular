@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { Ontologyconstants } from 'src/app/const/ontologyconstants';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
 import { NavItem } from '../../../primitives/nav-item';
 
@@ -14,7 +14,7 @@ export class NameofpersonComponent implements OnInit {
 	@Input() annoinfo: any;
 	@Output() namedatachange = new EventEmitter<any>();
 
-	nameGroup: FormGroup;
+	nameGroup: UntypedFormGroup;
 
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
@@ -24,7 +24,7 @@ export class NameofpersonComponent implements OnInit {
 
 
 	constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
 		private menusetup: MenutreeserviceService
 	) {
 		this.nameGroup = this.formBuilder.group({

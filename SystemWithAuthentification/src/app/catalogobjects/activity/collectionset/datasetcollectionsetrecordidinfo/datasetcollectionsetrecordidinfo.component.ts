@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
 
@@ -16,14 +16,14 @@ export class DatasetcollectionsetrecordidinfoComponent implements OnInit {
 
 	@Input() annoinfo: any;
 
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 	title = 'Collection Record ID';
 	maintainernotchange = true;
 	collectionidfixed = false;
 
 	constructor(
 		manageuser: ManageuserserviceService,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 	) {
 		this.objectform = this.formBuilder.group({
 			DatasetCollectionsSetLabel: ['', Validators.required],

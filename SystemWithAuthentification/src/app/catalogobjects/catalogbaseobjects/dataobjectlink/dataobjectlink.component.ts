@@ -1,5 +1,5 @@
 import { Input, Output, Component, OnInit, AfterViewInit, EventEmitter, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormArray, UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms';
 import { IdentifiersService } from '../../../const/identifiers.service';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
@@ -12,7 +12,7 @@ import { NavItem } from '../../../primitives/nav-item';
 	styleUrls: ['./dataobjectlink.component.scss']
 })
 export class DataobjectlinkComponent implements OnInit {
-	linkform: FormGroup;
+	linkform: UntypedFormGroup;
 	display = false;
 	conceptmenulabel = 'dataset:DataTypeConcept';
 	conceptitems: NavItem[];
@@ -31,7 +31,7 @@ export class DataobjectlinkComponent implements OnInit {
 	@ViewChild('firestoreid') firestoreid: FiresytorecatalogidComponent;
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		public identifiers: IdentifiersService,
 		private menusetup: MenutreeserviceService) {
 		this.linkform = this.objectlinkform();
@@ -43,7 +43,7 @@ export class DataobjectlinkComponent implements OnInit {
 		this.items = this.menusetup.findChoices(this.anno, this.formatmenulabel);
 		this.conceptitems = this.menusetup.findChoices(this.anno, this.conceptmenulabel);
 	}
-	objectlinkform(): FormGroup {
+	objectlinkform(): UntypedFormGroup {
 		const objectform = this.formBuilder.group({
 			index: [''],
 			DatabaseObjectType: ['', Validators.required],

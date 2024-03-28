@@ -3,7 +3,7 @@ import { OntologycatalogService } from '../../../services/ontologycatalog.servic
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { ChemconnectthermodynamicsdatabaseComponent } from '../chemconnectthermodynamicsdatabase/chemconnectthermodynamicsdatabase.component';
 import { Jthermodynamics2dspeciesstructureComponent } from '../jthermodynamics2dspeciesstructure/jthermodynamics2dspeciesstructure.component';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
 import { NavItem } from '../../../primitives/nav-item';
 
@@ -49,7 +49,7 @@ export class JthermodynamicsmetaatomdefinitionComponent implements OnInit {
 
 	constructor(
 		public annotations: OntologycatalogService,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private menusetup: MenutreeserviceService
 
 	) {

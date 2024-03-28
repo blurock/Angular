@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as saveAs from 'file-saver';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-viewcatalogandsavetolocalfile',
@@ -19,12 +19,12 @@ filenamenotvalid = 'Filename no valid';
 saved = 'Saved to ';
 cancel = 'Canceled';
 
-objectform: FormGroup;
+objectform: UntypedFormGroup;
 
 //public catalogS = 'not initialized';
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     public dialogRef: MatDialogRef<ViewcatalogandsavetolocalfileComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public mydata: any
 ) {

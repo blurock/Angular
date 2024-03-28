@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef, Input } from '@angular
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { VisualizefileComponent } from '../../../../dialog/visualizefile/visualizefile.component';
 import { DatasetrepositoryfileComponent } from '../datasetrepositoryfile/datasetrepositoryfile.component';
@@ -24,7 +24,7 @@ export class ActivityrepositoryinitialreadlocalfileComponent implements OnInit {
     title = 'Read Local File Activity Informaton for Transaction';
     
     
-	infoform: FormGroup;
+	infoform: UntypedFormGroup;
 	maintainer: string;
 	dataimage = null;
 
@@ -33,7 +33,7 @@ export class ActivityrepositoryinitialreadlocalfileComponent implements OnInit {
 	constructor(
 		public annotations: OntologycatalogService,
 		manageuser: ManageuserserviceService,
-		private _formBuilder: FormBuilder,
+		private _formBuilder: UntypedFormBuilder,
 		public dialog: MatDialog,
 		private cd: ChangeDetectorRef
 	) {

@@ -1,5 +1,5 @@
 import { Input, Output, Component, OnInit, EventEmitter } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormArray, UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms';
 import { IdentifiersService } from '../../../const/identifiers.service';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
@@ -11,7 +11,7 @@ import { NavItem } from '../../../primitives/nav-item';
   styleUrls: ['./objectsitereference.component.scss']
 })
 export class ObjectsitereferenceComponent implements OnInit {
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 
 	@Input() anno: any;
     @Output() deleteEvent : EventEmitter<number> = new EventEmitter<number>();
@@ -24,7 +24,7 @@ siteclass = "dataset:HttpAddressInformationType";
 siteitems: NavItem[];
 
   constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		public identifiers: IdentifiersService,
 		private menusetup: MenutreeserviceService) {
 		this.objectform = this.formBuilder.group({

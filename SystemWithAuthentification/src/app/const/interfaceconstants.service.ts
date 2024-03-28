@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
-import { FormGroup} from '@angular/forms';
+import { UntypedFormGroup} from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -71,7 +71,7 @@ export class InterfaceconstantsService {
         }
         return of(typeInfo);
     }   
-    public setDataFormat(typeInfo: any, objectform: FormGroup): number {
+    public setDataFormat(typeInfo: any, objectform: UntypedFormGroup): number {
 		const fmt = typeInfo['format'];
 		objectform.get('FileSourceFormat').setValue(fmt);
 		const method = typeInfo['method']

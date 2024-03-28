@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 
 @Component({
@@ -17,14 +17,14 @@ export class RepositorythermopartitionblockComponent implements OnInit {
 	identifier = Ontologyconstants.dctermsidentifier;
 
 
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 	display = false;
 
 	title = 'Thermodynamic Block';
 
 
 	constructor(
-		private formBuilder: FormBuilder
+		private formBuilder: UntypedFormBuilder
 	) {
 
 

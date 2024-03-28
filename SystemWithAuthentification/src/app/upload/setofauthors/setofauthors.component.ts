@@ -1,5 +1,5 @@
 import { EventEmitter, Input, Output, Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -11,10 +11,10 @@ export class SetofauthorsComponent implements OnInit {
 
 	@Input() index: number;
 	@Input() titleInformation: any;
-	@Output() newItemEvent = new EventEmitter<FormGroup>();
-	@Output() deleteItemEvent = new EventEmitter<FormGroup>();
+	@Output() newItemEvent = new EventEmitter<UntypedFormGroup>();
+	@Output() deleteItemEvent = new EventEmitter<UntypedFormGroup>();
 
-	authors: FormArray;
+	authors: UntypedFormArray;
 
 	addauthor = 'Add Author';
 
@@ -23,12 +23,12 @@ export class SetofauthorsComponent implements OnInit {
 	authorgivennamehint = 'this includes middle and and initials';
 	authortitle = 'Title';
 
-	constructor(private formBuilder: FormBuilder) { }
+	constructor(private formBuilder: UntypedFormBuilder) { }
 
-	public setAuthors(authors: FormArray): void {
+	public setAuthors(authors: UntypedFormArray): void {
 		this.authors = authors;
 	}
-	newAuthor(): FormGroup {
+	newAuthor(): UntypedFormGroup {
 		return this.formBuilder.group({
 			index: [''],
 			AuthorFamilyName: ['', Validators.required],
@@ -49,6 +49,6 @@ export class SetofauthorsComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.authors = new FormArray([]);
+		this.authors = new UntypedFormArray([]);
 	}
 }

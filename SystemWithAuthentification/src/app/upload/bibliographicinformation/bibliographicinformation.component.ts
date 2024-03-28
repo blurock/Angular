@@ -1,5 +1,5 @@
 import { Input, Output, EventEmitter, Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { SetofauthorsComponent } from '../setofauthors/setofauthors.component';
 
 @Component({
@@ -9,10 +9,10 @@ import { SetofauthorsComponent } from '../setofauthors/setofauthors.component';
 })
 export class BibliographicinformationComponent implements OnInit {
 
-	@Input() references: FormArray;
+	@Input() references: UntypedFormArray;
 	@Input() titleInformation: any;
-	@Output() newItemEvent = new EventEmitter<FormGroup>();
-	constructor(private formbuilder: FormBuilder) { }
+	@Output() newItemEvent = new EventEmitter<UntypedFormGroup>();
+	constructor(private formbuilder: UntypedFormBuilder) { }
 
 	addreference = 'Add Reference';
 	bibliolabel = 'Full Title';
@@ -37,11 +37,11 @@ export class BibliographicinformationComponent implements OnInit {
 		this.newItemEvent.emit(bibliographicform);
 	}
 
-	referenceAuthors(empIndex: number): FormArray {
-		return this.references.at(empIndex).get('authors') as FormArray;
+	referenceAuthors(empIndex: number): UntypedFormArray {
+		return this.references.at(empIndex).get('authors') as UntypedFormArray;
 	}
 
-	addAuthor(author: FormGroup): void {
+	addAuthor(author: UntypedFormGroup): void {
 		const index = author.get('index').value;
 		const authors = this.referenceAuthors(index);
 		authors.push(author);

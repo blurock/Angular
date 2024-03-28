@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Ontologyconstants } from 'src/app/const/ontologyconstants';
 
 interface choiceelement {
@@ -17,7 +17,7 @@ interface choiceelement {
 
 export class SimplechoiceprimitiveComponent implements OnInit, OnChanges {
 
-  choices = new FormControl();
+  choices = new UntypedFormControl();
   rdfslabel = 'rdfs:label';
   rdfscomment = 'rdfs:comment';
   title: string;

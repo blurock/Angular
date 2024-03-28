@@ -1,5 +1,5 @@
 import { Input, Component, AfterViewInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { IdentifiersService } from '../../../const/identifiers.service';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { NavItem } from '../../../primitives/nav-item';
@@ -12,7 +12,7 @@ import { MenutreeserviceService } from '../../../services/menutreeservice.servic
 })
 export class GcsblobfileinformationstagingComponent implements AfterViewInit {
 
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 
 	@Input() anno: any;
 
@@ -23,7 +23,7 @@ export class GcsblobfileinformationstagingComponent implements AfterViewInit {
 	formatmenulabel = 'dataset:FileSourceFormat';
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		public identifiers: IdentifiersService,
 		private menusetup: MenutreeserviceService) {
 					this.objectform = this.formBuilder.group({

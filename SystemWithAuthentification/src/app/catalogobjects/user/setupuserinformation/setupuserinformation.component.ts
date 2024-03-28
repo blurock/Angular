@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { NavItem } from '../../../primitives/nav-item';
@@ -19,8 +19,8 @@ export class SetupuserinformationComponent implements OnInit {
 
 	islinear = true;
 	tocreate = true;
-	signinFormGroup: FormGroup;
-	userAccountGroup: FormGroup;
+	signinFormGroup: UntypedFormGroup;
+	userAccountGroup: UntypedFormGroup;
 
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
@@ -47,7 +47,7 @@ export class SetupuserinformationComponent implements OnInit {
 	constructor(
 		public session: SessiondatamanagementService,
 		public dialog: MatDialog,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		public annotations: OntologycatalogService,
 		private menusetup: MenutreeserviceService,
 		public router: Router

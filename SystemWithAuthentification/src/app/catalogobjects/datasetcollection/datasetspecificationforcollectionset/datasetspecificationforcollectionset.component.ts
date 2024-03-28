@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
@@ -23,12 +23,12 @@ export class DatasetspecificationforcollectionsetComponent implements OnInit {
 	identifier = Ontologyconstants.dctermsidentifier;
 	status = 'CatalogObjectStatusCurrent';
 
-	idForm: FormGroup;
+	idForm: UntypedFormGroup;
 
 	waiting = 'waiting for annotations ';
 
 	constructor(
-		public fb: FormBuilder,
+		public fb: UntypedFormBuilder,
 		private menusetup: MenutreeserviceService
 	) {
 		this.idForm = this.fb.group({

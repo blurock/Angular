@@ -1,5 +1,5 @@
 import { Input, Output, Component, OnInit, EventEmitter } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormArray, UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms';
 import { IdentifiersService } from '../../const/identifiers.service';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 
@@ -10,7 +10,7 @@ import { Ontologyconstants } from '../../const/ontologyconstants';
 })
 export class SimpledatabaseobjectstructureComponent implements OnInit {
 
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 
 	@Input() anno: any;
 
@@ -19,7 +19,7 @@ export class SimpledatabaseobjectstructureComponent implements OnInit {
 	label: string;
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		public identifiers: IdentifiersService) { 
 					this.objectform = this.formBuilder.group({
 			DatabaseObjectType: [''],

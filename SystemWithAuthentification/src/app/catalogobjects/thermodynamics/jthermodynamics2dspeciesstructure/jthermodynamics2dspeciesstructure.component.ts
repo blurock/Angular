@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { JthermodynamicsatomcountsetComponent } from '../jthermodynamicsatomcountset/jthermodynamicsatomcountset.component';
 
@@ -14,7 +14,7 @@ export class Jthermodynamics2dspeciesstructureComponent implements OnInit {
 
 	title = '2D Species Structure';
 
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
@@ -23,7 +23,7 @@ export class Jthermodynamics2dspeciesstructureComponent implements OnInit {
 	@ViewChild('counts') counts: JthermodynamicsatomcountsetComponent;
 
 	constructor(
-		private formBuilder: FormBuilder
+		private formBuilder: UntypedFormBuilder
 	) {
 		this.objectform = this.formBuilder.group({
 			JThermodynamicsStructureAsCMLString: ['', Validators.required],

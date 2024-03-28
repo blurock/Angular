@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IdentifiersService } from '../../const/identifiers.service';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { RunserviceprocessService } from '../../services/runserviceprocess.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
 	selector: 'app-findintermediatettransaction',
@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class FindintermediatettransactionComponent implements OnInit {
 
 	annoinfo: any;
-	idForm: FormGroup;
+	idForm: UntypedFormGroup;
 
 	datasetitems: [];
 	uniquenameitems = [];
@@ -30,7 +30,7 @@ export class FindintermediatettransactionComponent implements OnInit {
 
 
 	constructor(
-		private fb: FormBuilder,
+		private fb: UntypedFormBuilder,
 		private dialogRef: MatDialogRef<FindintermediatettransactionComponent>,
 		private runservice: RunserviceprocessService,
 		private identifiers: IdentifiersService,

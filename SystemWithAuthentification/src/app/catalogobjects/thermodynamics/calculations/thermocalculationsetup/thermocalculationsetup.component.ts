@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
 import { NavItem } from '../../../../primitives/nav-item';
@@ -36,7 +36,7 @@ export class ThermocalculationsetupComponent implements OnInit {
 	molarenthalpy: any;
 	molarentropy: any;
 	molarheatcapacity: any;
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 	methoditems: NavItem[];
 	structitems: NavItem[];
 	maintainer: string;
@@ -48,7 +48,7 @@ export class ThermocalculationsetupComponent implements OnInit {
 
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private menuserver: OntologycatalogService,
 		private menusetup: MenutreeserviceService,
 		manageuser: ManageuserserviceService,

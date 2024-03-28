@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RunserviceprocessService } from '../../services/runserviceprocess.service';
 import { Ontologyconstants } from '../../const/ontologyconstants';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { NavItem } from '../../primitives/nav-item';
 
 
@@ -33,7 +33,7 @@ export class DatasetcollectionchoicemenuComponent implements OnInit {
 	items: NavItem[];
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private runservice: RunserviceprocessService,
 	) {
 

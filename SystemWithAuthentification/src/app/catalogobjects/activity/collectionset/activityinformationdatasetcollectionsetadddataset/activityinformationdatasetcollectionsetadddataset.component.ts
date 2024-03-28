@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { DatasettransactionspecificationforcollectionComponent } from '../../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
 import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
@@ -24,7 +24,7 @@ export class ActivityinformationdatasetcollectionsetadddatasetComponent implemen
 	@Input() annoinfo: any;
 	
 	maintainer: string;
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 	items: NavItem[];
 	title = 'Activity Information for adding dataset to collection';
 	speciesspec = 'dataset:DatasetCollectionType';
@@ -36,7 +36,7 @@ export class ActivityinformationdatasetcollectionsetadddatasetComponent implemen
 
   constructor(
     manageuser: ManageuserserviceService,
-    	private formBuilder: FormBuilder,
+    	private formBuilder: UntypedFormBuilder,
 		private menusetup: MenutreeserviceService
 
   ) {

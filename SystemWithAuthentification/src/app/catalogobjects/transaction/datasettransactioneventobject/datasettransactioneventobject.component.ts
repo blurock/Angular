@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, ViewChild, Output, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
@@ -21,7 +21,7 @@ export class DatasettransactioneventobjectComponent implements OnInit {
 	@Input() catalogobj: any;
 	@Output() annoReady = new EventEmitter<any>();
 
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 	maintainer: string;
 	message: string;
 	annoinfo: any;
@@ -68,7 +68,7 @@ export class DatasettransactioneventobjectComponent implements OnInit {
 
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		manageuser: ManageuserserviceService,
 		public annotations: OntologycatalogService,
 		private router: Router,

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { SetofdataobjectlinksComponent } from '../../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
 import { SetofsitereferencesComponent } from '../../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
@@ -18,7 +18,7 @@ import { NavItem } from '../../../../primitives/nav-item';
 })
 export class DatasetrepositoryfileComponent implements OnInit {
 
-	infoform: FormGroup;
+	infoform: UntypedFormGroup;
 	items: NavItem[];
 
 	rdfslabel = Ontologyconstants.rdfslabel;
@@ -37,7 +37,7 @@ export class DatasetrepositoryfileComponent implements OnInit {
 
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private menusetup: MenutreeserviceService
 	) {
 		this.infoform = this.formBuilder.group({

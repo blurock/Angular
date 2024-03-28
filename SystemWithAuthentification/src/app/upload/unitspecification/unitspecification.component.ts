@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormArray, FormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms';
 import { UploadinterfaceconstantsService } from '../uploadinterfaceconstants.service'
 
 @Component({
@@ -9,7 +9,7 @@ import { UploadinterfaceconstantsService } from '../uploadinterfaceconstants.ser
 })
 export class UnitspecificationComponent implements OnInit {
 
-	@Input() unitparameters: FormGroup;
+	@Input() unitparameters: UntypedFormGroup;
 	@Input() unitclass: string;
 	@Input() units: string[];
 	@Input() uncertaintyInformation: any;

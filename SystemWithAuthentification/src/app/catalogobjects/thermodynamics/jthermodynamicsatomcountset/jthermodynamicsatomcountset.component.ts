@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormArray } from '@angular/forms';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 
 @Component({
@@ -28,7 +28,7 @@ export class JthermodynamicsatomcountsetComponent implements OnInit {
 
 
 	constructor(
-		private formBuilder: FormBuilder
+		private formBuilder: UntypedFormBuilder
 	) {
 	}
 
@@ -69,10 +69,10 @@ export class JthermodynamicsatomcountsetComponent implements OnInit {
 	}
 
 	get atomcounts() {
-		return this.countform.controls["atomcounts"] as FormArray;
+		return this.countform.controls["atomcounts"] as UntypedFormArray;
 	}
 
-	newAtomCount(): FormGroup {
+	newAtomCount(): UntypedFormGroup {
 		return this.formBuilder.group({
 			AtomTypeCount: ['', Validators.required],
 			JThermodynamics2DSpeciesLabel: ['', Validators.required],

@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { DatasettransactionspecificationforcollectionComponent } from '../../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
 import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
 import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
@@ -34,7 +34,7 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 	molarheatcapacity: any;
 	fileformatdata: any;
 
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 
 	structurespecification = 'dataset:JThermodynamicsSpeciesSpecificationType';
 	structuretype = 'dataset:JThermodynamicsSubstructureType';
@@ -55,7 +55,7 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private menuserver: OntologycatalogService,
 		private fileservice: UploadmenuserviceService,
 		private menusetup: MenutreeserviceService

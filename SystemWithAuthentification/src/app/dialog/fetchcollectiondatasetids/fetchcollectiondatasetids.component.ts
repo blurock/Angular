@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { RunserviceprocessService } from '../../services/runserviceprocess.service';
@@ -15,8 +15,8 @@ export class FetchcollectiondatasetidsComponent implements OnInit {
 
 	imageURL: string;
 	message: string;
-	uploadForm: FormGroup;
-	idForm: FormGroup;
+	uploadForm: UntypedFormGroup;
+	idForm: UntypedFormGroup;
 	dataimage = 'text';
 	catalog: any;
 	rdfslabel = Ontologyconstants.rdfslabel;
@@ -36,7 +36,7 @@ export class FetchcollectiondatasetidsComponent implements OnInit {
 	constructor(
 		public dialogRef: MatDialogRef<FetchcollectiondatasetidsComponent>,
 		private runservice: RunserviceprocessService,
-		public fb: FormBuilder,
+		public fb: UntypedFormBuilder,
 		@Inject(MAT_DIALOG_DATA) public data: any,
 
 	) {

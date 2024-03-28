@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
 import { NavItem } from '../../../primitives/nav-item';
@@ -22,7 +22,7 @@ export class ChemconnectthermodynamicsdatabaseComponent implements OnInit {
 	@Input() annoinfo: any;
 	@Input() catalogtype: string;
 
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 	objectmenulabel = 'dataset:DatabaseObjectType';
 	items: NavItem[];
 	rdfslabel = Ontologyconstants.rdfslabel;
@@ -39,7 +39,7 @@ export class ChemconnectthermodynamicsdatabaseComponent implements OnInit {
 
 	constructor(
 		private manageuser: ManageuserserviceService,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private menusetup: MenutreeserviceService
 	) {
 		this.objectform = this.formBuilder.group({

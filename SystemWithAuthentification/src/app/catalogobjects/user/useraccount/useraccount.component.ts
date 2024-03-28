@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter  } from '@angular/core';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
 import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
@@ -33,7 +33,7 @@ descriptionsuffix = 'UserAccount';
 
 	annoinfo: any;
 	catalogobj: any;
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 	maintainer: string;
 	userAccountGroup: any;
 
@@ -45,7 +45,7 @@ descriptionsuffix = 'UserAccount';
 	constructor(
 		manageuser: ManageuserserviceService,
 		public annotations: OntologycatalogService,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private menusetup: MenutreeserviceService
 	) {
 		this.getCatalogAnnoations();

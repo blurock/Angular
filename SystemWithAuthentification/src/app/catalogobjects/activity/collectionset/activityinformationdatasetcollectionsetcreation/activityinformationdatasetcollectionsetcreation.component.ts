@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import {DatasetcollectionsetrecordidinfoComponent} from '../datasetcollectionsetrecordidinfo/datasetcollectionsetrecordidinfo.component';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
@@ -19,7 +19,7 @@ export class ActivityinformationdatasetcollectionsetcreationComponent implements
 	@Input() annoinfo: any;
 	maintainer: string;
 	
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 	title = 'Activity Information for creating a collection';
 	spectitle = 'Default Collection ID Specification';
 
@@ -29,7 +29,7 @@ export class ActivityinformationdatasetcollectionsetcreationComponent implements
 
   constructor(
     manageuser: ManageuserserviceService,
-    	private formBuilder: FormBuilder
+    	private formBuilder: UntypedFormBuilder
   ) {
     		this.objectform = this.formBuilder.group({
             DatasetCollectionType: ['', Validators.required],

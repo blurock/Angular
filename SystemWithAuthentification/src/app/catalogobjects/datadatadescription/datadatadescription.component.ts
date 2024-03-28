@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, AfterViewInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormArray, UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms';
 import { IdentifiersService } from '../../const/identifiers.service';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { MenutreeserviceService } from '../../services/menutreeservice.service';
@@ -17,7 +17,7 @@ export class DatadatadescriptionComponent implements OnInit {
 	@ViewChild('concept') concept: CatalogconceptpurposeComponent;
 	@ViewChild('keywords') keywords: KeywordlistprimitiveComponent;
 
-	public objectform: FormGroup;
+	public objectform: UntypedFormGroup;
 	message: string;
 	rdfsidentifier = Ontologyconstants.dctermsidentifier;
 	rdfslabel = Ontologyconstants.rdfslabel;
@@ -41,7 +41,7 @@ export class DatadatadescriptionComponent implements OnInit {
 
 
 	constructor(
-		private formBuilder: FormBuilder
+		private formBuilder: UntypedFormBuilder
 	) {
 		this.objectform = this.formBuilder.group({
 			DescriptionAbstract: ['', Validators.required],

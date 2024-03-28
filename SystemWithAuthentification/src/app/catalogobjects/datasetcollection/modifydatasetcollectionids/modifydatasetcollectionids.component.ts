@@ -5,7 +5,7 @@ import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondia
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import {ActivityinformationdatasetcollectionsetadddatasetComponent} from '../../activity/collectionset/activityinformationdatasetcollectionsetadddataset/activityinformationdatasetcollectionsetadddataset.component';
 
 @Component({
@@ -24,7 +24,7 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 	transfirestoreid: any;
 	catalog: any;
 	prerequisite: any;
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 	original = false;
 
 	viewtransactionid = false;
@@ -56,7 +56,7 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		public annotations: OntologycatalogService,
 		public dialog: MatDialog
 	) {

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, AfterViewInit, OnChanges } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms';
 import { CollectiondocumentidpairaddressComponent } from '../recordobjects/collectiondocumentidpairaddress/collectiondocumentidpairaddress.component';
 import { IdentifiersService } from '../../const/identifiers.service';
 import { Ontologyconstants } from '../../const/ontologyconstants';
@@ -17,21 +17,21 @@ export class FiresytorecatalogidComponent implements AfterViewInit {
 	
 	display: boolean;
 
-	objectform: FormGroup;
-	documentdpairaddress: FormArray;
+	objectform: UntypedFormGroup;
+	documentdpairaddress: UntypedFormArray;
 	message = 'No FirestoreID';
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = 'rdfs:comment';
 
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		public identifiers: IdentifiersService) {
 		this.objectform = this.formBuilder.group({
 			DataCatalog: ['', Validators.required],
 			SimpleCatalogName: ['', Validators.required],
 		});
-		this.documentdpairaddress = new FormArray([]);
+		this.documentdpairaddress = new UntypedFormArray([]);
 		this.display = false;
 	}
 	
@@ -49,7 +49,7 @@ ngAfterViewInit(): void {
 		if (catalogID != null) {
 			this.objectform.get('DataCatalog').setValue(catalogID[this.identifiers.DataCatalog]);
 			this.objectform.get('SimpleCatalogName').setValue(catalogID[this.identifiers.SimpleCatalogName]);
-			this.documentdpairaddress = new FormArray([]);
+			this.documentdpairaddress = new UntypedFormArray([]);
 			const catalogpairobj = catalogID[this.identifiers.CollectionDocumentIDPairAddress];
 			const pairarray = catalogpairobj[this.identifiers.CollectionDocumentIDPair];
 			for (let pair of pairarray) {

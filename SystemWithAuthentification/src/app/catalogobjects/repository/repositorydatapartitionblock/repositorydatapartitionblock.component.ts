@@ -9,7 +9,7 @@ import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesyto
 import { IdentifiersService } from '../../../const/identifiers.service';
 import { SetofdataobjectlinksComponent } from '../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
 import { SetofsitereferencesComponent } from '../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SavecatalogdataobjectdialogComponent } from '../../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
 import { SavecatalogdataobjectComponent } from '../../../dialog/savecatalogdataobject/savecatalogdataobject.component';
@@ -24,7 +24,7 @@ import { InterfaceconstantsService } from '../../../const/interfaceconstants.ser
 })
 export class RepositorydatapartitionblockComponent implements OnInit, AfterViewInit {
 
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 	items: NavItem[];
 	partitionitems: NavItem[];
 	display = false;
@@ -52,7 +52,7 @@ export class RepositorydatapartitionblockComponent implements OnInit, AfterViewI
 
 	constructor(
 		private menusetup: MenutreeserviceService,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private interfaceconstants: InterfaceconstantsService,
 		public identifiers: IdentifiersService) {
 

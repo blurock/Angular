@@ -1,5 +1,5 @@
 import { Input, Output, Component, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormArray, UntypedFormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UploadinterfaceconstantsService } from '../uploadinterfaceconstants.service'
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { UploadfileinformationComponent } from '../uploadfileinformation/uploadfileinformation.component';
@@ -50,7 +50,7 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 	constructor(
 		manageuser: ManageuserserviceService,
 		public annotations: OntologycatalogService,
-		private _formBuilder: FormBuilder,
+		private _formBuilder: UntypedFormBuilder,
 		public labels: UploadinterfaceconstantsService,
 		private uploadService: UploadmenuserviceService,
 		public identifiers: IdentifiersService,

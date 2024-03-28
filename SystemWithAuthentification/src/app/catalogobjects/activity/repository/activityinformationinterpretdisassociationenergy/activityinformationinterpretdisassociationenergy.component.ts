@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { DatasettransactionspecificationforcollectionComponent } from '../../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
 import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
 import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
@@ -17,7 +17,7 @@ export class ActivityinformationinterpretdisassociationenergyComponent implement
 
 	molarenergy: any;
 	display = false;
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 
 	fileformat = 'dataset:JThermodynamicsDisassociationEnergyFormat';
 	rdfslabel = Ontologyconstants.rdfslabel;
@@ -40,7 +40,7 @@ export class ActivityinformationinterpretdisassociationenergyComponent implement
 	@ViewChild('spec') spec: ParameterspecificationComponent;
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private menuserver: OntologycatalogService,
 		private fileservice: UploadmenuserviceService,
 		private menusetup: MenutreeserviceService

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { ParameterspecificationComponent } from '../parameterspecification/parameterspecification.component';
 
@@ -16,7 +16,7 @@ export class ParametervalueComponent implements OnInit {
   
   display = true;
   specdisplay = false;
-  objectform: FormGroup;
+  objectform: UntypedFormGroup;
   	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
@@ -25,7 +25,7 @@ export class ParametervalueComponent implements OnInit {
 
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: UntypedFormBuilder
   ) {
     		this.objectform = this.formBuilder.group({
 			ValueAsString: ['', Validators.required],

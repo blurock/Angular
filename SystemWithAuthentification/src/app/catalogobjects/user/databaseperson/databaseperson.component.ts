@@ -5,7 +5,7 @@ import { NameofpersonComponent } from '../../catalogbaseobjects/nameofperson/nam
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
 import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
 import { SimpledatabaseobjectstructureComponent } from '../../simpledatabaseobjectstructure/simpledatabaseobjectstructure.component';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { NavItem } from '../../../primitives/nav-item';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
 import { SetofdataobjectlinksComponent } from '../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
@@ -31,7 +31,7 @@ export class DatabasepersonComponent implements OnInit {
 
 
 	annoinfo: any;
-	personGroup: FormGroup;
+	personGroup: UntypedFormGroup;
 	userclassification = 'dataset:UserClassification';
 	userclassificationitems: NavItem[] = [];
 	
@@ -47,7 +47,7 @@ export class DatabasepersonComponent implements OnInit {
 
 	constructor(
 		private menusetup: MenutreeserviceService,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		public annotations: OntologycatalogService
 	) {
 		this.getCatalogAnnoations();

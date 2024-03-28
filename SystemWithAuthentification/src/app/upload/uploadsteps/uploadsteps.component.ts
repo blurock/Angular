@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild,EventEmitter  } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { UploadmenuserviceService } from '../../services/uploadmenuservice.service';
 import {UploadfileinformationComponent} from '../uploadfileinformation/uploadfileinformation.component';
@@ -24,9 +24,9 @@ import {InterprettextblockresultsComponent} from '../interprettextblockresults/i
 })
 export class UploadstepsComponent implements OnInit {
 
-	parseinfoform: FormGroup;
-	createform: FormGroup;
-	references: FormArray;
+	parseinfoform: UntypedFormGroup;
+	createform: UntypedFormGroup;
+	references: UntypedFormArray;
 	uncertaintyInformation: any;
 	unitInformation: any;
 
@@ -54,14 +54,14 @@ export class UploadstepsComponent implements OnInit {
 	parseFile = new EventEmitter<any>();
 	
 	constructor(
-		private _formBuilder: FormBuilder,
+		private _formBuilder: UntypedFormBuilder,
 		private uploadService: UploadmenuserviceService) { 
 		}
 
 	ngOnInit() {
 		this.createform = this._formBuilder.group({
 		});
-		this.references = new FormArray([]);
+		this.references = new UntypedFormArray([]);
 		this.uploadService.getTitleChoices().subscribe((data) => {
 			this.titleInformation = data;
 			this.titles = Object.keys(data);

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
@@ -16,7 +16,7 @@ export class ActivityrepositorypartitiontocatalogComponent implements OnInit {
 
 	@Input() annoinfo: any;
 
-	parseinfoform: FormGroup;
+	parseinfoform: UntypedFormGroup;
 	maintainer: string;
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
@@ -42,7 +42,7 @@ export class ActivityrepositorypartitiontocatalogComponent implements OnInit {
 		private uploadService: UploadmenuserviceService,
 		public annotations: OntologycatalogService,
 		manageuser: ManageuserserviceService,
-		private _formBuilder: FormBuilder
+		private _formBuilder: UntypedFormBuilder
 	) {
 		this.parseinfoform = this._formBuilder.group({
 			BlockLineCount: ['not applicable'],

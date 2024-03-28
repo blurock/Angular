@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, EventEmitter, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
@@ -15,7 +15,7 @@ import { Ontologyconstants } from '../../../../const/ontologyconstants';
 export class RepositoryparsedtofixedblocksizeComponent implements OnInit {
 
 	catalogtype: string;
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 	catalogobj: any;
 	public annoinfo: any;
 	annoReady = new EventEmitter<any>();
@@ -36,7 +36,7 @@ export class RepositoryparsedtofixedblocksizeComponent implements OnInit {
 	constructor(
 		private menusetup: MenutreeserviceService,
 		public dialog: MatDialog,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		public annotations: OntologycatalogService,
 		public identifiers: IdentifiersService) {
 

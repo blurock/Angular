@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../../services/auth.service";
-import { FormControl, Validators} from '@angular/forms';
+import { UntypedFormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 @Component({
 	selector: 'app-sign-in',
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class SignInComponent implements OnInit {
     hide = true;
 	password = "password";
-	email = new FormControl('', [Validators.required, Validators.email]);
+	email = new UntypedFormControl('', [Validators.required, Validators.email]);
 	
 	loginprocess: boolean;
 	constructor(

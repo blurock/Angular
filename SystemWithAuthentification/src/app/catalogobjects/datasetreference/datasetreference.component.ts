@@ -1,5 +1,5 @@
 import { Input, Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { IdentifiersService } from '../../const/identifiers.service';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 
@@ -12,7 +12,7 @@ export class DatasetreferenceComponent implements OnInit {
 
 	titleinformation = [];
 
-	references: FormArray;
+	references: UntypedFormArray;
 
 	@Input() anno: any;
 
@@ -24,15 +24,15 @@ export class DatasetreferenceComponent implements OnInit {
 	title = 'Title';
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		public identifiers: IdentifiersService) { }
 
 	ngOnInit(): void {
-		this.references = new FormArray([]);
+		this.references = new UntypedFormArray([]);
 		this.findChoices('dataset:AuthorNameTitle');
 
 	}
-	newAuthor(): FormGroup {
+	newAuthor(): UntypedFormGroup {
 		return this.formBuilder.group({
 			index: [''],
 			AuthorFamilyName: ['', Validators.required],
@@ -40,7 +40,7 @@ export class DatasetreferenceComponent implements OnInit {
 			AuthorNameTitle: [''],
 		});
 	}
-	referenceform(): FormGroup {
+	referenceform(): UntypedFormGroup {
 		const objectform = this.formBuilder.group({
 			DOI: ['', Validators.required],
 			ReferenceString: ['', Validators.required],
@@ -56,7 +56,7 @@ export class DatasetreferenceComponent implements OnInit {
 		this.references.push(objectform);
 	}
 	public setData(refs: []): void {
-		this.references = new FormArray([]);
+		this.references = new UntypedFormArray([]);
 		for (const ref of refs) {
 			const objectform = this.referenceform();
 			objectform.get('DOI').setValue(ref[this.identifiers.DOI]);
@@ -64,7 +64,7 @@ export class DatasetreferenceComponent implements OnInit {
 			objectform.get('ReferenceTitle').setValue(ref[this.identifiers.ReferenceTitle]);
 
 			const setofauthors = ref[this.identifiers.AuthorInformation] as [];
-			const authorsform = objectform.get('AuthorInformation') as FormArray;
+			const authorsform = objectform.get('AuthorInformation') as UntypedFormArray;
 			let i = 0;
 			for (const author of setofauthors) {
 				const authorForm = this.newAuthor();
@@ -79,20 +79,20 @@ export class DatasetreferenceComponent implements OnInit {
 		}
 	}
 
-	referenceAuthors(empIndex: number): FormArray {
-		return this.references.at(empIndex).get('AuthorInformation') as FormArray;
+	referenceAuthors(empIndex: number): UntypedFormArray {
+		return this.references.at(empIndex).get('AuthorInformation') as UntypedFormArray;
 	}
 
-	addNewAuthor(reference: FormGroup) {
-		const setofauthors = reference.get('AuthorInformation') as FormArray;
+	addNewAuthor(reference: UntypedFormGroup) {
+		const setofauthors = reference.get('AuthorInformation') as UntypedFormArray;
 		const author = this.newAuthor();
 		author.get('index').setValue(setofauthors.length);
 		setofauthors.push(author);
 	}
 
-	deleteAuthor(reference: FormArray, author: FormGroup) {
+	deleteAuthor(reference: UntypedFormArray, author: UntypedFormGroup) {
 		const index = author.get('index').value;
-		const authors = reference.get('AuthorInformation') as FormArray;
+		const authors = reference.get('AuthorInformation') as UntypedFormArray;
 		authors.removeAt(index);
 		for (let i = 0; i < authors.length; i++) {
 			let author = authors.at(i);
@@ -101,7 +101,7 @@ export class DatasetreferenceComponent implements OnInit {
 
 	}
 
-	addAuthor(author: FormGroup): void {
+	addAuthor(author: UntypedFormGroup): void {
 		const index = author.get('index').value;
 		const authors = this.referenceAuthors(index);
 		authors.push(author);
@@ -111,19 +111,19 @@ export class DatasetreferenceComponent implements OnInit {
 		const refs = [];
 		catalog[this.identifiers.DataSetReference] = refs;
 		for (let i = 0; i < this.references.length; i++) {
-			const referenceform = this.references.at(i) as FormGroup;
+			const referenceform = this.references.at(i) as UntypedFormGroup;
 			const ref = {};
 			refs.push(ref);
 			ref[this.identifiers.DOI] = referenceform.get('DOI').value;
 			ref[this.identifiers.ReferenceString] = referenceform.get('ReferenceString').value;
 			ref[this.identifiers.ReferenceTitle] = referenceform.get('ReferenceTitle').value;
-			const authors = referenceform.get('AuthorInformation') as FormArray;
+			const authors = referenceform.get('AuthorInformation') as UntypedFormArray;
 			const authorsarray = [];
 			ref[this.identifiers.AuthorInformation] = authorsarray;
 			for (let j = 0; j < authors.length; j++) {
 				const auth = {};
 				authorsarray.push(auth);
-				const a = authors.at(j) as FormGroup;
+				const a = authors.at(j) as UntypedFormGroup;
 				auth[this.identifiers.AuthorFamilyName] = a.get('AuthorFamilyName').value;
 				auth[this.identifiers.AuthorGivenName] = a.get('AuthorGivenName').value;
 				auth[this.identifiers.AuthorNameTitle] = a.get('AuthorNameTitle').value;

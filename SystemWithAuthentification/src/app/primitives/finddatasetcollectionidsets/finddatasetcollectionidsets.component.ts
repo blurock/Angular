@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { RunserviceprocessService } from '../../services/runserviceprocess.service';
 import { NavItem } from '..//nav-item';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
 	selector: 'app-finddatasetcollectionidsets',
@@ -17,7 +17,7 @@ export class FinddatasetcollectionidsetsComponent implements OnInit {
 	@Input() hint: string;
 	@Output() chosen = new EventEmitter<any>();
 
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 
 	identifier = Ontologyconstants.dctermsidentifier;
 	collectionTitle = 'Collection Sets';
@@ -32,7 +32,7 @@ export class FinddatasetcollectionidsetsComponent implements OnInit {
 	}];
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		public runservice: RunserviceprocessService
 	) {
 		this.objectform = this.formBuilder.group({

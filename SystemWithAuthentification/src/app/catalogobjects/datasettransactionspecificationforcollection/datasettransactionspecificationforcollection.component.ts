@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
 import { MenutreeserviceService } from '../../services/menutreeservice.service';
@@ -23,14 +23,14 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 
 
 	maintainer: string;
-	idForm: FormGroup;
+	idForm: UntypedFormGroup;
 	items: NavItem[] = [];
 
 
 	waiting = 'waiting for annotations ';
 
 	constructor(
-		public fb: FormBuilder,
+		public fb: UntypedFormBuilder,
 		private manageuser: ManageuserserviceService,
 		private menusetup: MenutreeserviceService
 	) {

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { MenutreeserviceService } from '../../services/menutreeservice.service';
 import { NavItem } from '../../primitives/nav-item';
@@ -10,7 +10,7 @@ import { NavItem } from '../../primitives/nav-item';
 	styleUrls: ['./parameterspecification.component.scss']
 })
 export class ParameterspecificationComponent implements OnInit {
-	paramspecform: FormGroup;
+	paramspecform: UntypedFormGroup;
 	parameterlabeltid: string;
 	unitclassid: string;
 	unitsofvalueid; string;
@@ -33,7 +33,7 @@ export class ParameterspecificationComponent implements OnInit {
 	defaultuncertainty = 'dataset:ImpliedDigitsUncertainty';
 
 	constructor(
-		private _formBuilder: FormBuilder,
+		private _formBuilder: UntypedFormBuilder,
 		private menusetup: MenutreeserviceService
 	) {
 		this.paramspecform = this._formBuilder.group({

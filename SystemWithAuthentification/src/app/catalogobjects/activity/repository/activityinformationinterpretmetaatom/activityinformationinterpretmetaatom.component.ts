@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { DatasettransactionspecificationforcollectionComponent } from '../../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
 import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
@@ -14,7 +14,7 @@ import { NavItem } from '../../../../primitives/nav-item';
 export class ActivityinformationinterpretmetaatomComponent implements OnInit {
 
 	display = false;
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 
 	fileformat = 'dataset:JThermodynamicsMetaAtomFormat';
 	rdfslabel = Ontologyconstants.rdfslabel;
@@ -33,7 +33,7 @@ export class ActivityinformationinterpretmetaatomComponent implements OnInit {
 	@ViewChild('spec') spec: DatasettransactionspecificationforcollectionComponent;
 
 	constructor(
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private fileservice: UploadmenuserviceService,
 		private menusetup: MenutreeserviceService
 	) {

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MenutreeserviceService } from '../../services/menutreeservice.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Ontologyconstants } from '../../const/ontologyconstants';
@@ -12,7 +12,7 @@ import { RunserviceprocessService } from '../../services/runserviceprocess.servi
 })
 export class FindspecifictransactionindatasetComponent implements OnInit {
 
-	idForm: FormGroup;
+	idForm: UntypedFormGroup;
 
 	annoinfo: any;
 
@@ -32,7 +32,7 @@ export class FindspecifictransactionindatasetComponent implements OnInit {
 	maintainer: string;
 
 	constructor(
-		public fb: FormBuilder,
+		public fb: UntypedFormBuilder,
 		private menusetup: MenutreeserviceService,
 		public dialogRef: MatDialogRef<FindspecifictransactionindatasetComponent>,
 		private runservice: RunserviceprocessService,

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, AfterViewInit, ViewChild } from '@angular/core';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { NavItem } from '../../primitives/nav-item';
-import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormArray, UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms';
 import { MenutreeserviceService } from '../../services/menutreeservice.service';
 
 
@@ -12,7 +12,7 @@ import { MenutreeserviceService } from '../../services/menutreeservice.service';
 })
 export class CatalogconceptpurposeComponent implements OnInit {
 
-	objectform: FormGroup;
+	objectform: UntypedFormGroup;
 
 	@Input() descriptionsuffix: string;
 	@Input() annoinfo: any;
@@ -37,7 +37,7 @@ export class CatalogconceptpurposeComponent implements OnInit {
 	purposeid: string;
 
 	constructor(
-		 private formBuilder: FormBuilder,
+		 private formBuilder: UntypedFormBuilder,
 		 private menusetup: MenutreeserviceService
 	) {
 		this.objectform = this.formBuilder.group({
