@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import * as moment from 'moment';
+import { DatePipe } from '@angular/common';
 import { SetofdataobjectlinksComponent } from '../../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
 import { SetofsitereferencesComponent } from '../../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
 import { DatasetreferenceComponent } from '../../../datasetreference/datasetreference.component';
@@ -78,7 +78,9 @@ export class DatasetrepositoryfileComponent implements OnInit {
 
 		let dateTime = new Date();
 		const DATE_TIME_FORMAT = 'YYYY-MM-DDTHH:mm';
-		descr[this.annoinfo['dataset:DateCreated'][this.identifier]] = moment(dateTime, DATE_TIME_FORMAT);
+		const date = new Date();
+		//descr[this.annoinfo['dataset:DateCreated'][this.identifier]] = moment(dateTime, DATE_TIME_FORMAT);
+		descr[this.annoinfo['dataset:DateCreated'][this.identifier]] = new DatePipe('en-US').transform(date, DATE_TIME_FORMAT);
 		this.transspec.getData(catalog);
 		this.addSetOfReferencesAndLinks(catalog);
 	}

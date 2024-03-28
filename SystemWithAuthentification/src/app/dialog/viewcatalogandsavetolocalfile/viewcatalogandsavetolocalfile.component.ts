@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import * as saveAs from 'file-saver';
+//import * as saveAs from 'file-saver';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -42,7 +42,19 @@ objectform: UntypedFormGroup;
        const root = this.objectform.get('filename').value;
        const filename = root + '.json';
        const blob = new Blob([JSON.stringify(this.catalog, null, 2)], {type : 'application/json'});
-saveAs(blob, filename);
+       const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'file.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    // Clean up the object URL to release memory
+    URL.revokeObjectURL(url);
+
+//saveAs(blob, filename);
        this.dialogRef.close(this.saved + filename);
      } else {
        alert(this.filenamenotvalid)
