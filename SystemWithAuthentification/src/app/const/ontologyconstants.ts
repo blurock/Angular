@@ -49,6 +49,7 @@ export class Ontologyconstants {
 	public static DatasetObjectSummaryTableSearchTerms = 'dataset:summarytablesearchterms';
 	public static SummaryTableDescriptionKey           = 'dataset:summarytabledescriptionkey';
 	public static SummaryTableSearchKey                = 'dataset:summarytablesearchkey';
+	public static DataObjectSummaryTableDescriptionTerms = 'dataset:summarytabledescriptionterms';
 	
 	public static textfile = 'dataset:FileTypeText';
 	

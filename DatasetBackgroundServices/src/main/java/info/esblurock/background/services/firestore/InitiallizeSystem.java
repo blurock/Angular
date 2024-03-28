@@ -31,8 +31,7 @@ public class InitiallizeSystem {
 							options = new FirebaseOptions.Builder()
 							  .setCredentials(GoogleCredentials.getApplicationDefault())
 							  //.setStorageBucket("blurock-database.appspot.com")
-							  .setStorageBucket("blurock-database.appspot.com")
-							  
+							  .setStorageBucket("localhost:9199")
 							  .build();
 				}
 			

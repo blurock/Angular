@@ -3,13 +3,11 @@ package info.esblurock.background.services.jthermodynamics.symmetry;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import org.dom4j.Document;
-import org.dom4j.Element;
-import org.json.JSONObject;
-import org.json.XML;
 import org.openscience.cdk.AtomContainer;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtomContainer;
+import org.dom4j.Document;
+import org.dom4j.Element;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,7 +33,7 @@ public class InterpretSymmetryBlock {
 	 *         JThermodynamicsSymmetryStructureDefinition
 	 */
 	public static JsonObject interpret(String xmlString, Element table) {
-	    org.w3c.dom.Document xml = XMLUtilityRoutines.convertStringToXMLDocument(xmlString);
+	    Document xml = XMLUtilityRoutines.convertStringToXMLDocument(xmlString);
 		return interpret(xml,table);
 	}
 
@@ -47,7 +45,7 @@ public class InterpretSymmetryBlock {
 	 * @return The JsonObject representation of
 	 *         JThermodynamicsSymmetryStructureDefinition
 	 */
-	public static JsonObject interpret(org.w3c.dom.Document xml, Element table) {
+	public static JsonObject interpret(Document xml, Element table) {
 		JsonObject symmetry = interpretSymmetry(xml);
 		String symmetryfactor = symmetry.get(ClassLabelConstants.SymmetryFactorOfStructure).getAsString();
 		String symname = symmetry.get(ClassLabelConstants.JThermodynamicSymmetryDefinitionLabel).getAsString();
@@ -73,7 +71,7 @@ public class InterpretSymmetryBlock {
 	 * GenerateJThermodynamics2DSpeciesStructure to create the full JThermodynamics2DSpeciesStructure
 	 * 
 	 */
-	private static JsonObject interpretStructure(org.w3c.dom.Document doc, Element table) {
+	private static JsonObject interpretStructure(Document doc, Element table) {
 		JsonObject structure = null;
 		String strObject = XMLUtilityRoutines.retrieveAsStringFromDocument(doc,"molecule");
 		try {
@@ -97,7 +95,7 @@ public class InterpretSymmetryBlock {
 	 * This basically, using  XMLUtilityRoutines, translates the XML represenation of JThermodynamicsSymmetryDefinition
 	 * to a JsonObject representation of JThermodynamicsSymmetryDefinition.
 	 */
-	static JsonObject interpretSymmetry(org.w3c.dom.Document doc) {
+	static JsonObject interpretSymmetry(Document doc) {
 		JsonObject symmetry = XMLUtilityRoutines.getJsonObjectFromDocument(doc, ClassLabelConstants.JThermodynamicsSymmetryDefinition);
 		if (!symmetry.get(ClassLabelConstants.JThermodynamicsSymmetryNodeGroupDefinition).isJsonArray()) {
 			JsonObject nodedef = symmetry.get(ClassLabelConstants.JThermodynamicsSymmetryNodeGroupDefinition)

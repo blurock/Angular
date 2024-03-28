@@ -52,6 +52,7 @@ public class LoginService extends HttpServlet {
      *
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	System.out.println("Login: ");
         InitiallizeSystem.initialize();
         Document document = MessageConstructor.startDocument("First Login");
         String bodyS = IOUtils.toString(request.getInputStream(), "UTF-8");
@@ -60,6 +61,7 @@ public class LoginService extends HttpServlet {
         String idToken = authHeader.split(" ")[1];
         FirebaseToken decodedToken;
         try {
+        	System.out.println("Login: " + idToken);
             decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
             String uid = decodedToken.getUid();
            

@@ -3,6 +3,10 @@ package info.esblurock.reaction.core.ontology.base;
 
 import org.junit.Test;
 
+import info.esblurock.reaction.core.ontology.base.classification.ClassificationHierarchy;
+import info.esblurock.reaction.core.ontology.base.classification.DatabaseOntologyClassification;
+import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
+
 
 public class CanonicalClassNameTest {
 
@@ -24,13 +28,13 @@ public class CanonicalClassNameTest {
 		//if(module != null) {
 		//	System.out.println(DatasetOntologyParseBase.getDomainFromModule(module));
 		//}
-		/*
-		HierarchyNode hierarchy = DatasetOntologyParseBase.findClassHierarchy(classname);
+		
+		ClassificationHierarchy hierarchy = DatabaseOntologyClassification.getClassificationHierarchy(classname);
 		System.out.println(hierarchy.toString(classname + ":   "));
-		System.out.println(DatasetOntologyParseBase.getSubClasses(classname));
-		System.out.println("from module: " + DatasetOntologyParseBase.getModuleMembershipFromConcept(classname));
-		System.out.println("classname: "   + DatasetOntologyParseBase.getCanonicalClassName(classname));
-		System.out.println("\n");
-		*/
+		//System.out.println(DatasetOntologyParseBase.getSubClasses(classname));
+		//System.out.println("from module: " + DatasetOntologyParseBase.getModuleMembershipFromConcept(classname));
+		//System.out.println("classname: "   + DatasetOntologyParseBase.getCanonicalClassName(classname));
+		//System.out.println("\n");
+		
 	}
 }

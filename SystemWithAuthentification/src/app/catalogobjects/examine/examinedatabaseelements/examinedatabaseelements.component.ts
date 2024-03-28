@@ -10,30 +10,30 @@ import { MatDialog } from '@angular/material/dialog';
 import { NavItem } from '../../../primitives/nav-item';
 import { IdentifiersService } from '../../../const/identifiers.service';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
-import {RundatabaseserviceComponent} from '../../../dialog/rundatabaseservice/rundatabaseservice.component';
-import {MatTableModule} from '@angular/material/table'; 
+import { RundatabaseserviceComponent } from '../../../dialog/rundatabaseservice/rundatabaseservice.component';
+import { MatTableModule } from '@angular/material/table';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ParameterspecificationComponent } from '../../parameterspecification/parameterspecification.component';
 
 
 export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+	name: string;
+	position: number;
+	weight: number;
+	symbol: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+	{ position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
+	{ position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
+	{ position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
+	{ position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+	{ position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
+	{ position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
+	{ position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
+	{ position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
+	{ position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
+	{ position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
 ];
 
 @Component({
@@ -51,10 +51,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 
 export class ExaminedatabaseelementsComponent implements OnInit {
-	
-	displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-	//displayedColumns: string[] = ['position', 'name', 'weight'];
-  dataSource = ELEMENT_DATA;
+
 
 	setuptitle = 'Determine Dataset Collection for Objects';
 	maintainer = 'Guest';
@@ -66,7 +63,7 @@ export class ExaminedatabaseelementsComponent implements OnInit {
 	identifier = Ontologyconstants.dctermsidentifier;
 	failedsubmission = 'Failed Submission';
 	failedresponse = 'Error in finding object';
-	
+
 	molarenthalpyparameter = 'dataset:ParameterSpecificationEnthaply';
 	molarentropyarameter = 'dataset:ParameterSpecificationEntropy';
 	molarheatcapacityparameter = 'dataset:ParameterSpecificationHeatCapacity';
@@ -74,8 +71,20 @@ export class ExaminedatabaseelementsComponent implements OnInit {
 	molarentropy: any;
 	molarheatcapacity: any;
 
-	
+
 	tabledata: any;
+	searchterms: any;
+	displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+	dataSource = ELEMENT_DATA;
+	selectedtype: string;
+	selectedterm: string;
+	searchtypes: any;
+	singlesearchtype: string;
+	typesearchterms: any;
+	singlesearchterms: any;
+	keys: any;
+	original: any;
+	searchkeys: any;
 
 	cataloganno: any;
 	methoditemstype = 'dataset:ThermodynamicDatasetCollectionType';
@@ -142,15 +151,15 @@ export class ExaminedatabaseelementsComponent implements OnInit {
 		}
 		this.objectform.get('DatasetCollectionsSetLabel').setValue(collectionname);
 	}
-	
+
 	invalid() {
 		return this.objectform.invalid;
 	}
-	
+
 	setType($event) {
 		this.objectform.get('ThermodynamicDatasetCollectionType').setValue($event);
 	}
-	
+
 	submitSystem() {
 		const servicedata = {};
 		this.getServiceData(servicedata);
@@ -171,14 +180,27 @@ export class ExaminedatabaseelementsComponent implements OnInit {
 				this.resultHtml = this.failedsubmission;
 			}
 		});
-		
+
 	}
-	
+
 	showResult(result: any) {
-		this.displayedColumns = result[Ontologyconstants.SummaryTableDescriptionKey];
+        this.searchkeys = result[Ontologyconstants.SummaryTableSearchKey];
+        this.searchterms = result[Ontologyconstants.DatasetObjectSummaryTableSearchTerms]
+ 		this.displayedColumns = result[Ontologyconstants.SummaryTableDescriptionKey];
 		this.tabledata = result[Ontologyconstants.DatasetObjectSummaryTableDescriptors];
+		this.original = this.tabledata;
 	}
 	
+	setValue(type: string, key: string) {
+    this.tabledata = [];
+    for(const element of this.original) {
+      const str:string = element[type];
+      if(str === key) {
+        this.tabledata.push(element);
+      }
+    }
+  }
+
 	getServiceData(servicedata: any): void {
 		const activity = {};
 		this.getData(activity);
@@ -186,15 +208,15 @@ export class ExaminedatabaseelementsComponent implements OnInit {
 		servicedata[Ontologyconstants.ActivityInfo] = activity;
 	}
 
-	
+
 	getData(activity: any) {
-	    activity[this.cataloganno['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle').value;
-		activity[this.cataloganno['dataset:ThermodynamicDatasetCollectionType'][this.identifier]] = this.objectform.get('ThermodynamicDatasetCollectionType').value;	    
-	    const recordid = {};
+		activity[this.cataloganno['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle').value;
+		activity[this.cataloganno['dataset:ThermodynamicDatasetCollectionType'][this.identifier]] = this.objectform.get('ThermodynamicDatasetCollectionType').value;
+		const recordid = {};
 		recordid[this.cataloganno['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.objectform.get('CatalogDataObjectMaintainer').value;
 		recordid[this.cataloganno['dataset:DatasetCollectionsSetLabel'][this.identifier]] = this.objectform.get('DatasetCollectionsSetLabel').value;
-	    activity[this.cataloganno['dataset:DatasetCollectionSetRecordIDInfo'][this.identifier]] = recordid;
-	    
+		activity[this.cataloganno['dataset:DatasetCollectionSetRecordIDInfo'][this.identifier]] = recordid;
+
 		const enthalpyvalue = {};
 		this.enthalpy.getData(enthalpyvalue);
 		activity[this.cataloganno['dataset:ParameterSpecificationEnthaply'][this.identifier]] = enthalpyvalue;
@@ -204,7 +226,7 @@ export class ExaminedatabaseelementsComponent implements OnInit {
 		const heatcapacityvalue = {};
 		this.heatcapacity.getData(heatcapacityvalue);
 		activity[this.cataloganno['dataset:ParameterSpecificationHeatCapacity'][this.identifier]] = heatcapacityvalue;
-	    
+
 	}
 
 	public getCatalogAnnoations(type: string): void {

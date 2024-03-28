@@ -27,10 +27,8 @@ public class MessageConstructor {
 
 	public static Element isolateBody(Document document) {
 		Element body = null;
-		List<Node> nodes = document.selectNodes("html/body");
-		if (nodes.size() > 0) {
-			body = (Element) nodes.get(0);
-		}
+		Element rootElement = document.getRootElement();
+	    body = rootElement.element("body");
 		return body;
 	}
 
@@ -38,10 +36,7 @@ public class MessageConstructor {
 		Element body = null;
 		try {
 			Document document = DocumentHelper.parseText(text);
-			List<Node> nodes = document.selectNodes("/body");
-			if (nodes.size() > 1) {
-				body = (Element) nodes.get(0);
-			}
+			body = isolateBody(document);
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}

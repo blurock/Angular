@@ -29,7 +29,7 @@ public enum DataObjectSummary {
             JsonObject struct = obj.get(ClassLabelConstants.JThermodynamics2DSpeciesStructure).getAsJsonObject();
             String name = struct.get(ClassLabelConstants.JThermodynamicsStructureName).getAsString();
             arr.add(name);
-            this.addThermoSummary(obj,info,arr);
+            addThermoSummary(obj,info,arr);
             return arr;
         }
 
@@ -70,7 +70,7 @@ public enum DataObjectSummary {
             arr.add(name);
             String type = obj.get(ClassLabelConstants.JThermodynamicsSubstructureType).getAsString();
             arr.add(type);
-            this.addThermoSummary(obj,info,arr);
+            addThermoSummary(obj,info,arr);
             return arr;
         }
 
@@ -195,7 +195,6 @@ public enum DataObjectSummary {
             arr.add(type);
             String structurespec = obj.get(ClassLabelConstants.JThermodynamicsStructureSpecification).getAsString();
             arr.add(structurespec);
-            
             return arr;
        }
 
@@ -322,6 +321,8 @@ public enum DataObjectSummary {
             String descriptor = (String) descriptors.get(i).getAsString();
             values.addProperty(key,descriptor);
         }
+        createSearchSummary(values,classname,obj,info);
+        
          return values;
     }
     
@@ -331,17 +332,16 @@ public enum DataObjectSummary {
      * @param info information from the activity
      * @return search terms
      */
-    public static JsonObject createSearchSummary(String classname, JsonObject obj, JsonObject info) {
+    public static void createSearchSummary(JsonObject values, String classname, JsonObject obj, JsonObject info) {
         DataObjectSummary create = DataObjectSummary.valueOf(classname.substring(8));
         JsonArray descriptors = create.searchObjectValues(obj,info);
         JsonArray keys = create.searchObjectNames();
-        JsonObject values = new JsonObject();
+        
         for(int i=0; i< keys.size(); i++) {
             String key = (String) keys.get(i).getAsString();
             String descriptor = (String) descriptors.get(i).getAsString();
             values.addProperty(key,descriptor);
         }
-         return values;
     }
     
     protected void addThermoSummary(JsonObject obj, JsonObject info, JsonArray arr) {

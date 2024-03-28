@@ -104,8 +104,13 @@ public class OntologyBase {
 				String filename = "/resources/DatasetQUDT.ttl";
 				InputStream str;
 				try {
+				    System.out.println("BEGIN: read(str, \"http://esblurock.info\", \"TURTLE\");");
+				    long startTime = System.currentTimeMillis();
 					str = OntologyBase.class.getResourceAsStream(filename);
 					datasetmodel.read(str, "http://esblurock.info", "TURTLE");
+					long endTime = System.currentTimeMillis();
+					long elapsedTime = endTime - startTime;
+                    System.out.println("END: time(ms)=" + elapsedTime);
 					//datasetmodel.read(str, "https://blurock-database.ew.r.appspot.com", "TURTLE");
 				} catch (Exception ex) {
 					System.out.println("Error in reading Ontology:   " + filename + "\n" + ex.toString());

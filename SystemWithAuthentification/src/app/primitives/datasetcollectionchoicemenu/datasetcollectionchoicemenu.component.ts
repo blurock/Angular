@@ -15,6 +15,8 @@ export class DatasetcollectionchoicemenuComponent implements OnInit {
 	@Input() activityanno: any;
 	@Input() maintainer: string;
 	@Output() collection = new EventEmitter<any>();
+	
+	firebase = 'Firebase ID token has expired';
 
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
@@ -97,7 +99,7 @@ export class DatasetcollectionchoicemenuComponent implements OnInit {
 					}
 
 				} else {
-					alert('List of Datasets not available');
+					this.runservice.checkReturn(responsedata);
 				}
 			}
 		});

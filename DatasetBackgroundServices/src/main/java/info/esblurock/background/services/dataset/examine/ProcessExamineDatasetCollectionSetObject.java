@@ -3,6 +3,10 @@ package info.esblurock.background.services.dataset.examine;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.HashMap;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -75,15 +79,24 @@ public class ProcessExamineDatasetCollectionSetObject {
                 
                 Element lst = body.addElement("ul");
                 
+                
+                HashMap<String,HashSet<String>> termmaps = summaryOfSearchTermsInitialize(searchkey);
                 JsonArray summaryelements = new JsonArray();
                 for(JsonElement ele: dataobjects) {
                     JsonObject dataobject = (JsonObject) ele;
                     lst.addElement("li").setText(dataobject.get(ClassLabelConstants.CatalogObjectKey).getAsString());
                     JsonObject descriptors = DataObjectSummary.createDescriptorSummary(classname,dataobject, info);
-                    JsonObject searchterms = DataObjectSummary.createSearchSummary(classname,dataobject, info);
+                    JsonObject searchterms =  new JsonObject();
+                    DataObjectSummary.createSearchSummary(searchterms,classname,dataobject, info);
+                    descriptors.add(ClassLabelConstants.FirestoreCatalogID,
+                            dataobject.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject());
                     searchvalues.add(searchterms);
                     descriptionvalues.add(descriptors);
+                    summaryOfSearchTerms(searchkey,searchterms,termmaps);
                     }
+                JsonObject searchsummary = summaryOfSearchTermsFinalize(termmaps);
+                summary.add(ClassLabelConstants.DatasetObjectSummaryTableSearchTerms, searchsummary);
+                
                 String text = "Successful read of " +  summaryelements.size() + " " +  classname + " objects";
                 response = DatabaseServicesBase.standardServiceResponse(document, text, summary);
             } else {
@@ -98,5 +111,36 @@ public class ProcessExamineDatasetCollectionSetObject {
         }
         return response;
     }
-
+    
+    private static HashMap<String,HashSet<String>> summaryOfSearchTermsInitialize(JsonArray labels) {
+        HashMap<String,HashSet<String>> summary = new HashMap<String,HashSet<String>>();
+        
+        for(int i=0; i<labels.size(); i++) {
+            HashSet<String> terms = new HashSet<String>();
+            String label = labels.get(i).getAsString();
+            summary.put(label, terms);   
+        }
+        return summary;
+    }
+    private static void summaryOfSearchTerms(JsonArray labels,JsonObject terms, HashMap<String,HashSet<String>> summary) {
+        for(int i=0; i<labels.size(); i++) {
+            String label = labels.get(i).getAsString();
+            String term = terms.get(label).getAsString();
+            HashSet<String> labelterms = summary.get(label);
+            labelterms.add(term);
+        }
+    }
+    private static JsonObject summaryOfSearchTermsFinalize(HashMap<String,HashSet<String>> summary) {
+        JsonObject searchterms = new JsonObject();
+        Set<String> keys = summary.keySet();
+        for(String key: keys) {
+            HashSet<String> terms = summary.get(key);
+            JsonArray labelterms = new JsonArray();
+            for(String term: terms) {
+                labelterms.add(term);
+            }
+            searchterms.add(key, labelterms);
+        }
+        return searchterms;
+    }
 }
