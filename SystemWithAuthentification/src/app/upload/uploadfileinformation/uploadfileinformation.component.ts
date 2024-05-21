@@ -6,6 +6,7 @@ import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fet
 import { ActivityrepositoryinitialreadlocalfileComponent } from '../../catalogobjects/activity/repository/activityrepositoryinitialreadlocalfile/activityrepositoryinitialreadlocalfile.component';
 import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { RuntransactiondialogComponent } from '../../dialog/runtransactiondialog/runtransactiondialog.component';
+import { stringify } from 'querystring';
 
 @Component({
 	selector: 'app-uploadfileinformation',
@@ -36,6 +37,7 @@ export class UploadfileinformationComponent implements OnInit {
 	readinfailed = 'Activity Read Failed';
 	readincanceled = 'Cancel Read';
 	failedsubmission = 'Failed Submission';
+	acterror = 'Expecting "dataset:activity" at the top level of the JSON object';
 
 	@ViewChild('upload') upload: ActivityrepositoryinitialreadlocalfileComponent;
 
@@ -67,7 +69,12 @@ export class UploadfileinformationComponent implements OnInit {
 	}
 
 	setData(activity: any) {
-		this.upload.setData(activity);
+		if(activity['dataset:activityinfo']) {
+			this.upload.setData(activity['dataset:activityinfo']);
+		} else {
+			alert(this.acterror)
+		}
+		
 	}
 
 	getAnnotations() {

@@ -2,6 +2,7 @@ package info.esblurock.background.services.ontology;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +13,7 @@ import org.dom4j.Document;
 
 import com.google.gson.JsonObject;
 
+
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
@@ -21,6 +23,9 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 @WebServlet(name = "CatalogInformationServlet", urlPatterns = { "/cataloginfo" })
 
 public class CatalogInformationServlet extends HttpServlet {
+	
+	private static final Logger logger = Logger.getLogger(CatalogInformationServlet.class.getName());
+
 
 	/**
 	 * 
@@ -29,12 +34,15 @@ public class CatalogInformationServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		logger.info("CatalogInformationServlet");
+		
 		String catalogname = request.getParameter("catalogname");
 		if (!catalogname.startsWith("dataset:")) {
 			catalogname = "dataset:" + catalogname;
 		}
         Document document = MessageConstructor.startDocument("DatasetCollectionDocumentIDPairForHierarchy");
 		JsonObject catalogandanno = CreateDocumentTemplate.createTemplateWithAnnotations(catalogname);
+		logger.info("CatalogInformationServlet:" + JsonObjectUtilities.toString(catalogandanno));
         JsonObject serveresponse = DatabaseServicesBase.standardServiceResponse(document,
                 "Success: DatasetCollectionDocumentIDPairForHierarchy", catalogandanno);
 		PrintWriter out = response.getWriter();
@@ -42,6 +50,7 @@ public class CatalogInformationServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		out.print(JsonObjectUtilities.toString(serveresponse));
 		out.flush();
+		logger.info("CatalogInformationServlet end");
 	}
 
 }

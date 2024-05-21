@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -78,6 +78,31 @@ export class OntologycatalogService {
 
 	public getNewCatalogObject(id: string): Observable<any> {
 		const cataloginfoshttp = environment.apiURL + '/' + CatalogInfo + '?catalogname=' + id;
+/*		
+		//const cataloginfoshttp = environment.apiURL+ '/' + CatalogInfo;
+		//const params = new HttpParams().set('catalogname',id);
+		//const headerdata = new HttpHeaders()
+		//.set('content-type', 'text/plain')
+		//	.set('Access-Control-Allow-Origin', '*')
+		alert("OntologycatalogService without params: " + cataloginfoshttp);
+		//alert("OntologycatalogService params: " + params.toString());
+		  		return this.httpClient.get(cataloginfoshttp,{ 'params': params, 'headers': headerdata })
+			.pipe(
+				catchError(error => {
+					if (error.error instanceof ErrorEvent) {
+						this.errorMsg = `Error: ${error.error.message}`;
+						alert("OntologycatalogService ErrorEvent: " + this.errorMsg);
+					} else {
+						
+						this.errorMsg = ServiceUtilityRoutines.getServerErrorMessage(error);
+						
+						alert("OntologycatalogService General: " + this.errorMsg);
+					}
+					return of(this.errorMsg);
+				}));
+
+	}
+*/
 		return this.standardHttpCall(cataloginfoshttp);
 	}
 	public getClassificationHierarchy(id: string): Observable<any> {
@@ -96,6 +121,7 @@ export class OntologycatalogService {
 					} else {
 						
 						this.errorMsg = ServiceUtilityRoutines.getServerErrorMessage(error);
+						alert("OntologycatalogService: " + this.errorMsg);
 					}
 					return of(this.errorMsg);
 				}));

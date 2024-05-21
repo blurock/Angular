@@ -89,6 +89,7 @@ export class ActivityrepositorypartitiontocatalogComponent implements OnInit {
 	setData(activity: any): void {
 		this.setIDs()
 		this.parseinfoform.get('BlockLineCount').setValue(activity[this.blkcntid]);
+		alert('ActivityrepositorypartitiontocatalogComponent 2');
 		this.parseinfoform.get('DescriptionTitle').setValue(activity[this.descrtitleid]);
 		this.parseinfoform.get('FileSourceFormat').setValue(activity[this.formatid]);
 		this.parseinfoform.get('FilePartitionMethod').setValue(activity[this.methodid]);

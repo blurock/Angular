@@ -15,4 +15,7 @@
 instance_class: F2
 runtime: java11
 entrypoint: 'java -cp "*" info.esblurock.background.services.ServerMain'
+access_settings:
+  cors_settings:
+    allow_http_options: "true"
 # [END gae_java11_firestore_yaml]

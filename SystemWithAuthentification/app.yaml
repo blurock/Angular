@@ -1,21 +1,22 @@
-runtime: python27
-api_version: 1
-threadsafe: true
+runtime: python38
+
 handlers:
 - url: /
   static_files: dist/SystemWithAuthentification/index.html
   upload: dist/SystemWithAuthentification/index.html
 - url: /
   static_dir: dist/SystemWithAuthentification
+- url: /(.+\.js)
+  static_files:  dist/SystemWithAuthentification/\1
+  upload:  dist/SystemWithAuthentification/(.+\.js)
+- url: /cataloginfo
+  login: optional
+  secure: optional
+  static_dir: /__static__
+  http_headers:
+    Access-Control-Allow-Origin: \*
+    Access-Control-Allow-Methods: "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers: "content-type,authorization,Access-Control-Allow-Origin,Access-Control-Allow-Methods,Access-Control-Allow-Headers"
+    Access-Control-Max-Age: "3600"
 
-skip_files:
-  - e2e/
-  - node_modules/
-  - src/
-  - coverage
-  - ^(.*/)?\..*$
-  - ^(.*/)?.*\.json$
-  - ^(.*/)?.*\.md$
-  - ^(.*/)?.*\.yaml$
-  - ^LICENSE
   

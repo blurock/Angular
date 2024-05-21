@@ -106,7 +106,8 @@ export class FetchcatalogobjectComponent implements OnInit {
 	}
 	uploadFileEvt(imgFile: any): void {
 		if (imgFile.target.files && imgFile.target.files[0]) {
-			const file = (imgFile.target as HTMLInputElement).files[0];
+		const f = (imgFile.target as HTMLInputElement);
+			const file = f.files[0];
 			this.uploadForm.patchValue({
 				FileSourceIdentifier: file.name
 			});
@@ -117,6 +118,7 @@ export class FetchcatalogobjectComponent implements OnInit {
 				this.setDataFromFile();
 			};
 			reader.readAsText(imgFile.target.files[0]);
+			
 		} else {
 
 		}

@@ -16,6 +16,12 @@
 		<endpoints.framework.version>2.2.2</endpoints.framework.version>
 		<endpoints.management.version>1.0.14</endpoints.management.version>
 		<endpoints.project.id>blurock-database</endpoints.project.id>
+        <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
+  <cors.origin>*</cors.origin>
+  <cors.methods>GET,POST,PUT,DELETE,OPTIONS</cors.methods>
+  <cors.headers>Content-Type,Authorization</cors.headers>
+  <cors.maxAge>3600</cors.maxAge>
+
 
 		<exec.mainClass>info.esblurock.background.services.ServerMain</exec.mainClass>
 		<googleCloudProjectId>blurock-database</googleCloudProjectId>
@@ -80,6 +86,13 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 		</dependency>
+<!-- https://mvnrepository.com/artifact/com.google.cloud/google-cloud-logging -->
+<dependency>
+    <groupId>com.google.cloud</groupId>
+    <artifactId>google-cloud-logging</artifactId>
+    <version>3.16.2</version>
+</dependency>
+
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>apache-jena-libs</artifactId>
@@ -201,6 +214,14 @@
 	<build>
 		<finalName>background</finalName>
 		<resources>
+    <resource>
+      <directory>src/main/appengine</directory>
+      <filtering>true</filtering>
+      <includes>
+        <include>app.yaml</include>
+      </includes>
+    </resource>
+
 			<resource>
 				<directory>src/main</directory>
 				<includes>
@@ -237,7 +258,7 @@
 				<version>2.4.4</version>
 				<configuration>
 					<projectId>blurock-database</projectId>
-					<version>1</version>
+					<version>2</version>
 				</configuration>
 			</plugin>
       <plugin>

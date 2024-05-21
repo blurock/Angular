@@ -1,6 +1,8 @@
 package info.esblurock.background.services;
 
 
+import java.util.logging.Logger;
+
 import org.apache.jena.query.ARQ;
 import org.eclipse.jetty.annotations.AnnotationConfiguration;
 
@@ -9,6 +11,8 @@ import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.webapp.Configuration;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.eclipse.jetty.webapp.WebInfConfiguration;
+
+import info.esblurock.background.services.ontology.CatalogInformationServlet;
 
 
 /**
@@ -48,7 +52,7 @@ public class ServerMain {
     // Start the server! 🚀
     server.start();
     System.out.println("Server started!");
-
+    Logger.getLogger("Main").info("Starting Server");
     // Keep the main thread alive while the server is running.
     server.join();
   }

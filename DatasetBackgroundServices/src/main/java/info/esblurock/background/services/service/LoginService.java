@@ -2,7 +2,7 @@ package info.esblurock.background.services.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Base64;
+import java.util.logging.Logger;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,6 +24,7 @@ import info.esblurock.background.services.dataset.user.GetUserAccountAndDatabase
 import info.esblurock.background.services.firestore.InitiallizeSystem;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
+import info.esblurock.background.services.ontology.CatalogInformationServlet;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.background.services.transaction.TransactionProcess;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
@@ -42,6 +43,7 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 public class LoginService extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+    private static final Logger logger = Logger.getLogger(LoginService.class.getName());
 
     /**
      * POST The input is one JSON argument (read in using InputStream). The argument
@@ -52,6 +54,7 @@ public class LoginService extends HttpServlet {
      *
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	logger.info("LoginService call");
     	System.out.println("Login: ");
         InitiallizeSystem.initialize();
         Document document = MessageConstructor.startDocument("First Login");

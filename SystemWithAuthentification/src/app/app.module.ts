@@ -177,6 +177,8 @@ import { FindintermediatettransactionComponent } from './dialog/findintermediate
 import { DatasetcollectionchoicemenuComponent } from './primitives/datasetcollectionchoicemenu/datasetcollectionchoicemenu.component';
 import { CopysystemdatasetcollectionsComponent } from './catalogobjects/datasetcollection/copysystemdatasetcollections/copysystemdatasetcollections.component';
 import { ExaminedatabaseelementsComponent } from './catalogobjects/examine/examinedatabaseelements/examinedatabaseelements.component';
+import { ReactComponentDirective } from './directives/react-component.directive';
+import { TodosPageComponent } from './components/react/todos-page/todos-page.component';
 
 
 
@@ -310,7 +312,9 @@ import { ExaminedatabaseelementsComponent } from './catalogobjects/examine/exami
   FindintermediatettransactionComponent,
   DatasetcollectionchoicemenuComponent,
   CopysystemdatasetcollectionsComponent,
-  ExaminedatabaseelementsComponent
+  ExaminedatabaseelementsComponent,
+  ReactComponentDirective,
+  TodosPageComponent
 	],
 	imports: [
 		AppFirebaseModule,

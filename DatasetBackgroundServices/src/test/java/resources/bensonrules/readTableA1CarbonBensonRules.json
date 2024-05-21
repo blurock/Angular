@@ -7,7 +7,11 @@
 				"dataset:purposekey-filestaging": "dataset:PurposeFileStaging",
 				"dataset:dataconcept-staging": "dataset:ConceptFileStaging"
 			},
-			"dataset:keyword-filestaging": [],
+			"dataset:keyword-filestaging": [
+		      "Benson Rules",
+		      "2D-Thermodynamics",
+		      "Group-Additivity"
+    ],
 			"dataset:title-staging": "Read in standard Carbon-Hydrogen atom benson rules from table A.1 from Benson Thermochemical Kinetics",
 			"dataset:abstract-staging": "Read the standard Carbon-Hydrogen atom benson rules. This is Table A.1 from Benson Thermochemical Kinetics.",
 			"dcterms:created": "today"
@@ -19,6 +23,7 @@
 		"dcterms:title": "Carbon-Hydrogen Benson Rules set",
 		"dataset:filesourcesubtype": "",
 		"dataset:datasettransactionspecification": {
+		"dataset:dataobjstatus": "dataset:CatalogObjectStatusCurrent",
 			"dataset:catalogobjectmaintainer": "Administrator",
 			"dataset:datasetname": "Standard",
 			"dataset:datasetversion": "1.0",
