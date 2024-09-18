@@ -107,17 +107,18 @@ public class OntologyBase {
 				    System.out.println("BEGIN: read(str, \"http://esblurock.info\", \"TURTLE\");");
 				    long startTime = System.currentTimeMillis();
 					str = OntologyBase.class.getResourceAsStream(filename);
+					
 					datasetmodel.read(str, "http://esblurock.info", "TURTLE");
 					long endTime = System.currentTimeMillis();
 					long elapsedTime = endTime - startTime;
                     System.out.println("END: time(ms)=" + elapsedTime);
 					//datasetmodel.read(str, "https://blurock-database.ew.r.appspot.com", "TURTLE");
 				} catch (Exception ex) {
-					System.out.println("Error in reading Ontology:   " + filename + "\n" + ex.toString());
+					System.out.println("Exception: Error in reading Ontology:   " + filename + "\n" + ex.toString());
 				} catch (java.lang.NoClassDefFoundError ex) {
-					System.out.println("Error in reading Ontology:   " + filename + "\n" + ex.toString());
+					System.out.println("NoClassFound: Error in reading Ontology:   " + filename + "\n" + ex.toString());
 				} catch (java.lang.NoSuchFieldError ex) {
-					System.out.println("Error in reading Ontology:   " + filename + "\n" + ex.toString());
+					System.out.println("NoSuchField: Error in reading Ontology:   " + filename + "\n" + ex.toString());
 				}
 			}
 			return datasetmodel;
