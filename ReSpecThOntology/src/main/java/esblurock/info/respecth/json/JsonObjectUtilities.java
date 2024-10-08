@@ -9,7 +9,9 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -222,5 +224,43 @@ public class JsonObjectUtilities {
         }
     }
     
+
+        /** Take the intersection of two JsonArray objects
+         * 
+         * @param jsonArray1 The first JsonArray
+         * @param jsonArray2 The second JsonArray
+         * @return The intersection of jsonArray1 and jsonArray2
+         */
+        public static JsonArray getJsonArrayIntersection(JsonArray jsonArray1, JsonArray jsonArray2) {
+            // Convert the first JsonArray to a Set of JsonElements
+            Set<JsonElement> set1 = new HashSet<>();
+            for (JsonElement element : jsonArray1) {
+                set1.add(element);
+            }
+
+            // Convert the second JsonArray to a Set of JsonElements
+            Set<JsonElement> set2 = new HashSet<>();
+            for (JsonElement element : jsonArray2) {
+                set2.add(element);
+            }
+
+            // Perform intersection of the two sets
+            set1.retainAll(set2);
+
+            // Convert the result set back to a JsonArray
+            JsonArray intersectionArray = new JsonArray();
+            for (JsonElement element : set1) {
+                intersectionArray.add(element);
+            }
+
+            return intersectionArray;
+        }
+        public static JsonArray subtractArraySimple(JsonArray bigger, JsonArray smaller) {
+        	JsonArray ans = bigger.deepCopy();
+        	for(int i=0;i<smaller.size();i++) {
+        		ans.remove(smaller.get(i).getAsJsonObject());
+        	}
+        	return ans;
+        }
 	
 }

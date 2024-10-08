@@ -1,10 +1,7 @@
 package esblurock.info.respecth.xml;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -14,6 +11,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import com.google.gson.JsonArray;
 
 /** Utility routines for parsing XML files
  * 
@@ -34,19 +33,39 @@ public class XMLUtilities {
         return doc;
 	}
 	
-	/** Find the list of nodes names of the children
+	/** Find the list of unique nodes names of the children
 	 * @param node The top document node (at this level)
 	 * @return a list of node names
 	 */
-	public static List<String> listNodesFromDocumentNode(Node node) {
-		List<String> names = new ArrayList<String>();
+	public static JsonArray listNodesFromDocumentNode(Node node) {
+		JsonArray names = new JsonArray();
         NodeList nodeList = node.getChildNodes();
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node childNode = nodeList.item(i);
-            String name = childNode.getNodeName();
-            names.add(name);
+            if (childNode.getNodeType() == Node.ELEMENT_NODE) {
+            	String name = childNode.getNodeName();
+            	names.add(name);
+            }
         }
         return names;
+	}
+
+	public static Node getChildWithNameFromDocumentNode(Node node, String identifier) {
+		Node found = null;
+        NodeList nodeList = node.getChildNodes();
+        for (int i = 0; i < nodeList.getLength() && found == null; i++) {
+            Node childNode = nodeList.item(i);
+            if (childNode.getNodeType() == Node.ELEMENT_NODE) {
+            	
+            	String name = childNode.getNodeName();
+            	if(name.equals(identifier)) {
+            		found = childNode;
+            		
+
+            	}
+            }
+        }
+        return found;
 	}
 
 }

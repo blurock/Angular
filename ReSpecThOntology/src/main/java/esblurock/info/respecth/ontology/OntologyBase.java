@@ -69,6 +69,8 @@ public class OntologyBase {
             datasetmodel.getDocumentManager().setProcessImports(false);
 			*/
 			//String filename = "../ChemConnectCoreOntologyBase/src/main/java/resources/Dataset.ttl";
+			//String filename = "/respecthUnitsV14.ttl";
+			
 			String filename = "/respecthUnitsV14.ttl";
 			InputStream str;
 			try {
