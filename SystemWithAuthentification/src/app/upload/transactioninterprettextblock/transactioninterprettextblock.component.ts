@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { OntologycatalogService } from '../../services/ontologycatalog.service';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
 import { ActivityinformationComponent } from '../../catalogobjects/transaction/activityinformation/activityinformation.component';
 import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';

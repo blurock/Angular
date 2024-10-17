@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, EventEmitter, Input } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
 import { IdentifiersService } from '../../../../const/identifiers.service';

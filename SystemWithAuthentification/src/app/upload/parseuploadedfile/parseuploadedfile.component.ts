@@ -8,7 +8,7 @@ import { OntologycatalogService } from '../../services/ontologycatalog.service';
 import { SubmitfileandinformatioonComponent } from '../submitfileandinformatioon/submitfileandinformatioon.component';
 import { DatasetrepositoryfilestagingComponent } from '../../catalogobjects/repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
 import { DatasetreferenceComponent } from '../../catalogobjects/datasetreference/datasetreference.component';
-import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef, MatLegacyDialogConfig as MatDialogConfig, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 import { IdentifiersService } from '../../const/identifiers.service';
 import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';

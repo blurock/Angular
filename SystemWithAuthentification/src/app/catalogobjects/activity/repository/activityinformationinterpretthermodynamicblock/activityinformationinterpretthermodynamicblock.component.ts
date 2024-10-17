@@ -5,7 +5,7 @@ import { DatasettransactionspecificationforcollectionComponent } from '../../../
 import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
 import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { MatLegacyChipInputEvent as MatChipInputEvent } from '@angular/material/legacy-chips';
 import { NavItem } from '../../../../primitives/nav-item';
 import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 
