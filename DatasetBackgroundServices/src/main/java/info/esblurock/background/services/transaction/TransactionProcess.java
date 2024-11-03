@@ -7,7 +7,6 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.SystemObjectInformation;
@@ -23,9 +22,7 @@ import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
 import info.esblurock.background.services.firestore.gcs.PartiionSetWithinRepositoryFileProcess;
 import info.esblurock.background.services.firestore.gcs.UploadFileToGCS;
 import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.service.rdfs.GenerateAndWriteRDFForObject;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
-import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.constants.OntologyObjectLabels;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
@@ -34,7 +31,6 @@ import info.esblurock.reaction.core.ontology.base.dataset.CreateLinksInStandardC
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRoutines;
-import info.esblurock.reaction.core.ontology.base.utilities.SubstituteJsonValues;
 
 public enum TransactionProcess {
     
@@ -592,11 +588,10 @@ public enum TransactionProcess {
         Document document = MessageConstructor.startDocument("Transaction: " + transaction);
         String transname = transaction.substring(8);
         TransactionProcess process = TransactionProcess.valueOf(transname);
-        String transactionID = SystemObjectInformation.determineTransactionID();
+		         String transactionID = SystemObjectInformation.determineTransactionID();
         String transactionobjectname = process.transactionObjectName();
         JsonObject event = BaseCatalogData.createStandardDatabaseObject(transactionobjectname, owner, transactionID,
                 owner);
-
         String title = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
         JsonObject shortdescr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
         shortdescr.addProperty(ClassLabelConstants.TransactionEventType, transaction);

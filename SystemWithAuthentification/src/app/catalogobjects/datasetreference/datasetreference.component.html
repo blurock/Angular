@@ -1,4 +1,4 @@
-<mat-card class="setofreferences">
+<mat-card appearance="outlined" class="setofreferences">
 	<mat-card-header>
 		<mat-card-title-group class="addreference">
 			<mat-card-subtitle> Set of References</mat-card-subtitle>
@@ -9,7 +9,7 @@
 	</mat-card-header>
 	<mat-card-content>
 		<div *ngFor="let reference of references.controls; let empIndex=index">
-			<mat-card class="bibliocard">
+			<mat-card appearance="outlined" class="bibliocard">
 				<mat-card-content>
 
 					<div class="reference" [formGroup]="reference">

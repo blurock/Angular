@@ -1,14 +1,3 @@
-c
-c                   12 aout 1986 - modifie le 16 nov. 1990
-c                Modification des valeurs (*) de la table 2 
-c                et ajout de n-c4h9(.) et i-c4h9 le 16/12/91
-c
-c                donnees pour le calcul de delta hf de radicaux
-c                 par energie de dissociation de liaison
-c                 --------------------------------------
-c
-c                 table 2 alkanes
-c
   2  1 105.2 0.2 ch3(.)
 l ch3(.)
   2  2 100.9 1.0 c2h5(*)
@@ -39,9 +28,6 @@ l c(#1)h/ch2/ch2/1,1/ch2(.)
 l ch2(.)/ch2/ch2/ch3
   2 21 100.9 0.0 i-c4h9
 l ch2(.)/ch(ch3)2
-c
-c                table 3 olefins and aromatics.
-c
   3  1 110.9 2.0 ch2//ch
 l ch2//ch(.)
   3  2 113.3 2.0 phi
@@ -122,9 +108,6 @@ l ch3/ch//ch/c(.)(ch3)2
 l ch3/ch(.)/ch//c(ch3)2
   3 51  82.6 2.0 ch3/ch//ch/ch(.)/ch3
 l ch3/ch//ch/ch(.)/ch3
-c
-c                table 4: radicaux c,n,o
-c
   4  1 119.0 1.0 oh(.)
 l oh(.)
   4  2 104.4 1.0 ch3/o(.)
@@ -207,9 +190,6 @@ l  ch3/ch(.)/co/oh
 l  ch2(.)/co/oh
   4 44 100.2 1.3 phi/co/o/ch2(.)
 l c(#1)&ch&ch&ch&ch&ch&1,1/co/o/ch2(.)
-c
-c                table 5:radicaux soufres
-c
   5  1  91.1 1.0 sh(.)
 l sh(.)
   5  2  90.7 2.0 ch3/s(.)
@@ -249,9 +229,6 @@ l cn/ch(.)/ch3
 l cn/c(ch3)2(.)
   6 16 101.2 0.5 o/no2
 l o(.)/'no2'
-c
-c                table 7 halogenes
-c
   7  3 100.0 2.0 ch2f(.)
 l ch2f(.)
   7  4 101.0 2.0 chf2(.)
@@ -300,9 +277,6 @@ l c'cl''br'(.)/cf3
 l o'cl'(.)
   7 34  71.5 0.0 clo2(.)
 l o'cl'/o(.)
-c
-c                table 8: radicaux avec si
-c
   8  1  90.3 0.0 'si'h3(.)
 l 'si'h3(.)
   8  2  99.6 0.0 ch3/'si'h2(.)
@@ -313,4 +287,3 @@ l 'si'h(.)(ch3)2
 l 'si'(.)(ch3)3
   8  6  88.2 0.0 phi/'si'h2(.)
 l c(#1)&ch&ch&ch&ch&ch&1,1/'si'h2(.)
-e

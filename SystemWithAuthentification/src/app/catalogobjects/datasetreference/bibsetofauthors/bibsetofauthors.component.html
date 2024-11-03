@@ -1,6 +1,6 @@
 <button mat-button color="primary" (click)="addAuthor()">{{addauthor}}</button>
 <div *ngFor="let author of authors.controls; ; let authorIndex=index">
-	<mat-card class="bibliocard">
+	<mat-card appearance="outlined" class="bibliocard">
 		<mat-card-content>
 		
 			<div class="author" [formGroup]="author">

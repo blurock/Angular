@@ -3,11 +3,11 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef, MatLegacyDialogConfig as MatDialogConfig, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { FetchcatalogobjectComponent } from '../../../../dialog/fetchcatalogobject/fetchcatalogobject.component';
-import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
+//import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 import { GeneralcatalogobjectvisualizationComponent } from '../../../generalcatalogobjectvisualization/generalcatalogobjectvisualization.component';
 @Component({
 	selector: 'app-thermodynamiccontributions',
@@ -131,7 +131,7 @@ export class ThermodynamiccontributionsComponent implements OnInit {
 			const bensoncps = contribution[this.annoinfo['dataset:ThermodynamicCpAtTemperature'][this.identifier]];
 			for(let cpt of bensoncps){
 				const temp = Number(cpt['dataset:thermotemperature']).toFixed(2);
-				const tempS = String(temp);
+				//const tempS = String(temp);
 				const cp = Number(cpt['dataset:heatcapacityvalue']).toFixed(3);
 				data[temp] = cp;
 			};
@@ -180,8 +180,12 @@ export class ThermodynamiccontributionsComponent implements OnInit {
 
 	catalogVisible(element: any): void {
 			this.catalogvisible = true;
-			this.toggleviscatalog = 'Hide Catalog Object';        
-		this.catalogobj.setData(element['source']);
+			this.toggleviscatalog = 'Hide Catalog Object';   
+			const catalog = element['source'];
+			const data = {};
+			data[Ontologyconstants.catalogobject] = catalog;
+			data[Ontologyconstants.annotations] = this.annoinfo;
+		this.catalogobj.setData(data);
 	}
 
 	getAnnotations() {
@@ -189,7 +193,7 @@ export class ThermodynamiccontributionsComponent implements OnInit {
 			next: (responsedata: any) => {
 				const response = responsedata;
 				if (response[Ontologyconstants.successful]) {
-					const catalog = response[Ontologyconstants.catalogobject];
+					const catalog = response[Ontologyconstants.outputobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];
 				} else {
 					alert(this.interfaceconst.getannotationsfnotsuccessful);

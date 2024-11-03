@@ -6,12 +6,12 @@ import { ManageuserserviceService } from '../../../services/manageuserservice.se
 import { ThermodynamicsdatasetcollectionidssetComponent } from '../../datasetcollection/thermodynamicsdatasetcollectionidsset/thermodynamicsdatasetcollectionidsset.component';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { NavItem } from '../../../primitives/nav-item';
 import { IdentifiersService } from '../../../const/identifiers.service';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
 import { RundatabaseserviceComponent } from '../../../dialog/rundatabaseservice/rundatabaseservice.component';
-import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table';
+import { MatTableModule } from '@angular/material/table';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ParameterspecificationComponent } from '../../parameterspecification/parameterspecification.component';
 

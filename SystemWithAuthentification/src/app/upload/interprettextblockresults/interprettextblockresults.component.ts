@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, ViewChild, Output } from '@angular/core';
 import { FindspecifictransactionindatasetComponent } from '../../dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
 import { Ontologyconstants } from '../../const/ontologyconstants';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { UploadmenuserviceService } from '../../services/uploadmenuservice.service';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
 import { RuntransactiondialogComponent } from '../../dialog/runtransactiondialog/runtransactiondialog.component';

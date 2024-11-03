@@ -4,7 +4,7 @@
 	-->
 	<form [formGroup]="objectform">
 		<div *ngFor="let pair of documentdpairaddress.controls; ; let pairIndex=index">
-			<mat-card class="paircard">
+			<mat-card appearance="outlined" class="paircard">
 				<mat-card-content>
 					<div class="pair" [formGroup]="pair">
 						<mat-grid-list cols="3" rowHeight="100px">

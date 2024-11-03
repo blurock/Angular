@@ -6,29 +6,23 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.ManageDatasetDocumentLists;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
-import info.esblurock.background.services.transaction.TransactionProcess;
-import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
-import info.esblurock.reaction.core.ontology.base.utilities.SubstituteJsonValues;
 
 public class CreateUserAccountTransaction {
 
     public static JsonObject create(JsonObject event, JsonObject prerequisites, JsonObject info, boolean writecatalog) {
-        // Get prerequisite transaction CreateDatabasePersonEvent
-        JsonObject persontransaction = prerequisites.get("dataset:eventcreateperson").getAsJsonObject();
-        // Get DatabasePerson ID
-        JsonArray personids = persontransaction.get(ClassLabelConstants.DatabaseObjectIDOutputTransaction)
-                .getAsJsonArray();
-        JsonObject personid = personids.get(0).getAsJsonObject();
+		JsonObject personid = prerequisites.get("dataset:eventcreateperson").getAsJsonObject();
+				
         return createUserAccount(event, personid, info, writecatalog);
     }
 
@@ -48,10 +42,21 @@ public class CreateUserAccountTransaction {
             JsonObject useraccountdescription = catalog.get(ClassLabelConstants.DataDescriptionUserAccount)
                     .getAsJsonObject();
             JsonObject infodescription = info.get(ClassLabelConstants.DataDescriptionPerson).getAsJsonObject();
+            
             String infoabstract = infodescription.get(ClassLabelConstants.DescriptionAbstractPerson).getAsString();
             String infotitle = infodescription.get(ClassLabelConstants.DescriptionTitlePerson).getAsString();
-            String keys = infodescription.get(ClassLabelConstants.DescriptionKeywordPerson).getAsString();
-
+            JsonElement keyselement = infodescription.get(ClassLabelConstants.DescriptionKeywordPerson);
+            String keys = "";
+            if(keyselement.isJsonArray()) {
+            	JsonArray JAkeys = (JsonArray) keyselement;
+            	for(int i=0; i<JAkeys.size(); i++) {
+            		if(i!=0)
+            			keys = keys + ",";
+            		keys = keys + JAkeys.get(i).getAsString();
+            	}
+            } else {
+            	keys = keyselement.getAsString();
+            }
             useraccountdescription.addProperty(ClassLabelConstants.DescriptionAbstractUserAccount, infoabstract);
             useraccountdescription.addProperty(ClassLabelConstants.DescriptionTitleUserAccount, infotitle);
             useraccountdescription.addProperty(ClassLabelConstants.DescriptionKeywordUserAccount, keys);
@@ -112,13 +117,12 @@ public class CreateUserAccountTransaction {
     }
 
     public static ArrayList<String> getUserAccountNameIDs(String username) {
-        boolean ans = true;
         String classname = "dataset:UserAccount";
         ArrayList<String> accountids = ManageDatasetDocumentLists.getCollectionIDsForClass(classname);
         if (accountids.contains(username)) {
             accountids = null;
         } else {
-
+            
         }
         return accountids;
     }

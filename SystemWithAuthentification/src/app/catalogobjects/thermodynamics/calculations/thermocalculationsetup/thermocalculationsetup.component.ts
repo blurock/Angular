@@ -6,7 +6,7 @@ import { OntologycatalogService } from '../../../../services/ontologycatalog.ser
 import { NavItem } from '../../../../primitives/nav-item';
 import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
-import { MatLegacyChipInputEvent as MatChipInputEvent } from '@angular/material/legacy-chips';
+import { MatChipInputEvent } from '@angular/material/chips';
 import {IdentifiersService} from '../../../../const/identifiers.service';
 
 

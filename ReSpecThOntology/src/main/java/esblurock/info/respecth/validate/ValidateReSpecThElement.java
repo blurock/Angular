@@ -25,7 +25,7 @@ public class ValidateReSpecThElement {
 	 * @param xmlelements The xmlelement of the current node (of the given identifier)
 	 * @return (RespecthChildrenOfElementWithNotFound)
 	 */
-	public static JsonArray setWithtMatchingMandatoryElements(String identifier, JsonArray xmlelements) {
+	public static JsonObject setWithtMatchingMandatoryElements(String identifier, JsonArray xmlelements) {
 		JsonObject ans = new JsonObject();
 		JsonArray leaves = OntologyAnnotationUtilities.findLeafNodesGivenIdentifier(identifier);
 		

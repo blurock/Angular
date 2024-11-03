@@ -10,7 +10,7 @@ export const environment = {
 	firebase: {
 		apiKey: 'AIzaSyBFHXqA8MXdv-KbON_IU78BItS9KangM1Y',
 		authDomain: 'blurock-database.firebaseapp.com',
-		databaseURL: 'http://localhost:8083',
+		databaseURL: 'http://localhost:8082',
 		projectId: 'blurock-database',
 		storageBucket: 'blurock-database.appspot.com',
 		messagingSenderId: '814571995343',

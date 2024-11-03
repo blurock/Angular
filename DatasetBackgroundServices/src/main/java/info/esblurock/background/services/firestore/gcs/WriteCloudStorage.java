@@ -8,6 +8,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.Storage;
@@ -20,6 +21,7 @@ import com.google.firebase.cloud.StorageClient;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
 
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
@@ -48,7 +50,7 @@ public class WriteCloudStorage {
 		body.addElement("div").addText("Media Type: " + mediatype);
 		String mediasubtype = info.get(ClassLabelConstants.FileSourceMediaSubType).getAsString();
 		body.addElement("div").addText("Media  SubType: " + mediasubtype);
-		Bucket bucket = StorageClient.getInstance().bucket();
+		//Bucket bucket = StorageClient.getInstance().bucket("blurock-database.appspot.com");
 
 		storage = StorageOptions.getDefaultInstance().getService();
 		// Create blob
@@ -57,10 +59,12 @@ public class WriteCloudStorage {
 		String dir = dirpath + "/" + transactionid;
 
 		body.addElement("div").addText("Write to: " + dir);
-		BlobInfo blobInfo = BlobInfo.newBuilder(bucket.getName(), dir)
+		BlobId blobId = BlobId.of("blurock-database.appspot.com", dir); 
+	    BlobInfo blobInfo = BlobInfo.newBuilder(blobId)
 				.setContentEncoding(StandardCharsets.UTF_8.toString()).setContentType("text").build();
 		// Upload blob to GCS (same as Firebase Storage)
 		byte[] contentB = content.getBytes(StandardCharsets.UTF_8);
+		//texRef.putBytes(contentB);
 		storage.create(blobInfo, contentB);
 		JsonObject catalog = BaseCatalogData.createStandardDatabaseObject("dataset:RepositoryFileStaging", owner,
 				transactionid, "false");

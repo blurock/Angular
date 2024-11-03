@@ -17,7 +17,7 @@ import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate
 public class FirestoreBaseClass {
 
 	public static String projectId = "blurock-database";
-	public static String host = "localhost:8083";
+	public static String host = "localhost:8081";
 
 	private static Firestore database = null;
 

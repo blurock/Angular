@@ -33,10 +33,11 @@ mat-divider {
   margin-top: 20px;
 }
 
-.mat-mini-fab {
+.mat-mdc-mini-fab {
   box-shadow: none;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
 ::ng-deep .mat-button-wrapper {
   padding: 0 !important;
 }

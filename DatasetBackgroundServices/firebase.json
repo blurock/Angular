@@ -1,55 +1,39 @@
 {
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  },
-  "functions": {
-    "predeploy": [
-      "npm --prefix \"$RESOURCE_DIR\" run lint",
-      "npm --prefix \"$RESOURCE_DIR\" run build"
-    ],
-    "source": "functions"
-  },
-  "hosting": {
-    "public": "public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  },
-  "storage": {
-    "rules": "storage.rules"
+    "storage": {
+    "rules": "storage.rules"  // Path to your storage rules file
+    },
+    "functions": {
+    "source": "functions"  // Path to your Cloud Functions folder
   },
   "emulators": {
     "auth": {
-      "port": 9099
+	"host": "localhost",
+	"port": 9099
     },
     "functions": {
-      "port": 5001
+	"host": "localhost",
+	"port": 5001
     },
-    "firestore": {
-      "port": 8082
-    },
-    "database": {
-      "port": 9000
+      "firestore": {
+	  "host": "localhost",
+	  "port": 8081,
+	  "dataDir": "./firestore-data",
+	  "rules": "firestore.rules",
+	  "indexes": "firestore.indexes.json"
     },
     "hosting": {
       "port": 5002
     },
     "storage": {
-      "port": 9199
+	"host": "localhost",
+	"port": 9199,
+	"storageDir": "./storage-files"
     },
     "ui": {
       "enabled": true
     },
-    "singleProjectMode": true
+      "singleProjectMode": true,
+      "exportOnExit": "./emulator-data"
   },
   "remoteconfig": {
     "template": "remoteconfig.template.json"

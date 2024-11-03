@@ -15,7 +15,6 @@ export class AuthGuard  {
 		next: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean | UrlTree{
 			let ans = true;
-			alert('Auth: ' + this.authService.isLoggedIn);
 		if (this.authService.isLoggedIn !== true) {
 			if(this.authService.isRegistered) {
 				if(this.authService.isValidated) {

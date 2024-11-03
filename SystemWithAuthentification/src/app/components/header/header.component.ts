@@ -1,7 +1,7 @@
 import { catchError, take } from 'rxjs/operators';
 import { Component } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import { AuthService } from '../../auth.service';

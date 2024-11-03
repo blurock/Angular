@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, EventEmitter, Input } from '@angular/core';
 import { SavecatalogdataobjectComponent } from '../../../../dialog/savecatalogdataobject/savecatalogdataobject.component';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
 import { IdentifiersService } from '../../../../const/identifiers.service';

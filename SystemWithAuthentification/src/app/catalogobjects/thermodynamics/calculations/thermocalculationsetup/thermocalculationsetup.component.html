@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card appearance="outlined" class="card">
 	<mat-card-header>
 		<mat-card-title-group class="title-group">
 			<mat-card-subtitle class="title">{{title}}</mat-card-subtitle>
@@ -90,15 +90,15 @@
 
 					<mat-grid-tile [colspan]="6">
 						<mat-form-field class="chip-list">
-							<mat-chip-list class="chip-list" #chipList aria-label="Keyword selection">
-								<mat-chip *ngFor="let temperature of temperaturelist" [selectable]="selectable"
+							<mat-chip-grid class="chip-list" #chipList aria-label="Keyword selection">
+								<mat-chip-row *ngFor="let temperature of temperaturelist" [selectable]="selectable"
 									[removable]="removable" (removed)="remove(keyword)">
 									{{temperature}}
 									<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-								</mat-chip>
+								</mat-chip-row>
 								<input placeholder="Temperatures" [matChipInputFor]="chipList"
 									(matChipInputTokenEnd)="add($event)">
-							</mat-chip-list>
+							</mat-chip-grid>
 						</mat-form-field>
 					</mat-grid-tile>
 				</form>

@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { OntologycatalogService } from '../../services/ontologycatalog.service';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
 import { ActivityinformationComponent } from '../../catalogobjects/transaction/activityinformation/activityinformation.component';
 import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
@@ -143,7 +143,7 @@ export class TransactioninterprettextblockComponent implements OnInit {
 		if (this.prerequisite != null) {
 				this.activity.setPrerequisiteData(this.prerequisite);
 		} else {
-			alert('prerequisite not set up');
+			alert('TransactioninterprettextblockComponent: prerequisite not set up');
 		}
 	}
 
@@ -159,7 +159,7 @@ export class TransactioninterprettextblockComponent implements OnInit {
 				prerequisites['dataset:partitionfile'] = firestoreid;
 				transaction['dataset:transreqobj'] = prerequisites;
 			} else {
-				alert('Prerequisite not set');
+				alert('TransactioninterprettextblockComponent: Prerequisite not set');
 			}
 
 		} else {

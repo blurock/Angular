@@ -1,6 +1,6 @@
 <button mat-button color="primary" (click)="addreferencegroup()">{{addreference}}</button>
 <div *ngFor="let reference of references.controls; ; let empIndex=index">
-	<mat-card class="bibliocard">
+	<mat-card appearance="outlined" class="bibliocard">
 		<mat-card-content>
 		
 		<div class="author" [formGroup]="reference">

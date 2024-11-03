@@ -5,7 +5,7 @@ import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { NavItem } from '../../../primitives/nav-item';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
 import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
 import {SessiondatamanagementService} from '../../../services/sessiondatamanagement.service';
 import { Router } from '@angular/router';

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, EventEmitter, Input } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
 import { IdentifiersService } from '../../../../const/identifiers.service';
@@ -28,7 +28,7 @@ export class RepositoryparsedtofixedblocksizeComponent implements OnInit {
 	title = 'Fixed Number of Lines Block';
 
 	display = false;
-	
+
 	@Input() cataloginfo: any;
 
 	@ViewChild('partition') partition: RepositorydatapartitionblockComponent;
@@ -54,16 +54,22 @@ export class RepositoryparsedtofixedblocksizeComponent implements OnInit {
 	}
 
 	public setData(catalog: any) {
-		const cntid = this.annoinfo['dataset:BlockLineCount'][this.identifier];
-		this.objectform.get('BlockLineCount').setValue(catalog[cntid]);
-		const lnsid = this.annoinfo['dataset:ParsedLine'][this.identifier];
-		const lines = catalog[lnsid];
-		let text = "";
-		for (let line of lines) {
-			text = text.concat(line).concat('\n');
+		this.cataloginfo = catalog;
+		alert("RepositoryparsedtofixedblocksizeComponent setData: " + JSON.stringify(this.cataloginfo));
+		if (this.annoinfo != null) {
+			const cntid = this.annoinfo['dataset:BlockLineCount'][this.identifier];
+			this.objectform.get('BlockLineCount').setValue(catalog[cntid]);
+			const lnsid = this.annoinfo['dataset:ParsedLine'][this.identifier];
+			const lines = catalog[lnsid];
+			let text = "";
+			for (let line of lines) {
+				text = text.concat(line).concat('\n');
+			}
+			this.objectform.get('ParsedLine').setValue(text);
+			this.partition.setData(catalog);
+		} else {
+			alert("annotations not ready... wait");
 		}
-		this.objectform.get('ParsedLine').setValue(text);
-		this.partition.setData(catalog);
 	}
 	public getData(catalog: any) {
 		const cntid = this.annoinfo['dataset:BlockLineCount'][this.identifier];
@@ -90,12 +96,15 @@ export class RepositoryparsedtofixedblocksizeComponent implements OnInit {
 				this.message = response[Ontologyconstants.message];
 				if (response[Ontologyconstants.successful]) {
 					const catalog = response[Ontologyconstants.catalogobject];
+					alert("getCatalogAnnoations(): " + JSON.stringify(Object.keys(catalog)));
 					this.catalogobj = catalog[Ontologyconstants.outputobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];
+					alert("getCatalogAnnoations(): " + JSON.stringify(this.annoinfo));
 					this.display = true;
 					this.annoReady.emit(this.annoinfo);
-					if(this.cataloginfo != null) {
-					this.partition.setDataFormat(this.cataloginfo);
+					if (this.cataloginfo != null) {
+						this.setData(this.cataloginfo);
+						this.partition.setDataFormat(this.cataloginfo);
 					}
 					this.objectform.get('BlockLineCount').setValue(this.cataloginfo['BlockLineCount'])
 				} else {
@@ -105,7 +114,7 @@ export class RepositoryparsedtofixedblocksizeComponent implements OnInit {
 			error: (info: any) => { alert('Get Annotations failed:' + this.message); }
 		});
 	}
-   public setFormat(cataloginfo: any) {
-	   this.partition.setDataFormat(cataloginfo);
-   }
+	public setFormat(cataloginfo: any) {
+		this.partition.setDataFormat(cataloginfo);
+	}
 }

@@ -58,12 +58,10 @@ export class ActivityrepositorypartitiontocatalogComponent implements OnInit {
 				alert(manageuser.determineMaintainer);
 			}
 		});
+		this.filesourcetypechoices = ["not set up"];
 		this.uploadService.getFormatClassification().subscribe((data) => {
 			this.formatInformation = data;
 			this.filesourcetypechoices = Object.keys(data);
-			for (const element of Object.entries(data)) {
-				const key = element[0];
-			}
 		}, (error) => {
 			alert(this.getannofilefnotsuccessful);
 		})
@@ -75,7 +73,8 @@ export class ActivityrepositorypartitiontocatalogComponent implements OnInit {
 	}
 	
 	invalid(): boolean {
-		return this.parseinfoform.invalid || this.spec.invalid();
+		return this.parseinfoform.invalid
+		    || this.spec.invalid();
 	}
 
 	setIDs() {
@@ -87,9 +86,8 @@ export class ActivityrepositorypartitiontocatalogComponent implements OnInit {
 	}
 
 	setData(activity: any): void {
-		this.setIDs()
+		this.setIDs();
 		this.parseinfoform.get('BlockLineCount').setValue(activity[this.blkcntid]);
-		alert('ActivityrepositorypartitiontocatalogComponent 2');
 		this.parseinfoform.get('DescriptionTitle').setValue(activity[this.descrtitleid]);
 		this.parseinfoform.get('FileSourceFormat').setValue(activity[this.formatid]);
 		this.parseinfoform.get('FilePartitionMethod').setValue(activity[this.methodid]);

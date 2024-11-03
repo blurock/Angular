@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, ViewChild, Output } from '@angular/core';
 import { DatasetrepositoryfilestagingComponent } from '../../catalogobjects/repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
 import { FindspecifictransactionindatasetComponent } from '../../dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
 import { DatasettransactioneventobjectComponent } from '../../catalogobjects/transaction/datasettransactioneventobject/datasettransactioneventobject.component';
 import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
@@ -98,7 +98,7 @@ export class InitialreadinofrepositoryfileeventComponent implements OnInit {
 								if (this.catalogobj != null) {
 									this.catalogread = false;
 									this.repository.setData(this.catalogobj);
-									this.repositoryEvent.emit(this.catalogobj);
+									this.repositoryEvent.emit(responsedata);
 								} else {
 									alert('Error in reading catalog object, object is null: ' + JSON.stringify(message));
 								}

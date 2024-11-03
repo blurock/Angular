@@ -16,7 +16,7 @@ public class TestGenerateDefaultFirestoreID {
 	public void test() {
 		System.out.println("----------- TestGenerateDefaultFirestoreID -------------");
 		System.out.println("----------- dataset:TransactionEventObject -------------");
-		String catalogID = "dataset:TransactionEventObject";
+		String catalogID = "dataset:ThermodynamicBensonRuleDefinitionDatabase";
 		JsonObject json = CreateDocumentTemplate.createTemplate(catalogID);
 		JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(json);
 		System.out.println(JsonObjectUtilities.toString(firestoreid));

@@ -1,13 +1,12 @@
 package info.esblurock.background.services.firestore;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 
 import com.google.appengine.api.utils.SystemProperty;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.FirestoreOptions;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-import com.google.firebase.cloud.StorageClient;
 
 public class InitiallizeSystem {
 
@@ -19,22 +18,26 @@ public class InitiallizeSystem {
 
 	private static void intializeFirebase() {
 		if (options == null) {
-		    
-			try {
-			if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
-				options = FirebaseOptions.builder().setCredentials(GoogleCredentials.getApplicationDefault())
-						.setStorageBucket("blurock-database.appspot.com").build();
-				 } else {
-					 //FileInputStream serviceAccount =
-							  //new FileInputStream("path/to/serviceAccountKey.json");
 
-							options = new FirebaseOptions.Builder()
-							  .setCredentials(GoogleCredentials.getApplicationDefault())
-							  //.setStorageBucket("blurock-database.appspot.com")
-							  .setStorageBucket("localhost:9199")
-							  .build();
+			try {
+				if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
+					options = FirebaseOptions.builder().setCredentials(GoogleCredentials.getApplicationDefault())
+							.setStorageBucket("blurock-database.appspot.com").build();
+				} else {
+					FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder()
+							.setProjectId("blurock-database").setCredentials(GoogleCredentials.getApplicationDefault())
+							.setHost("localhost:8081") // Firestore emulator host
+							.build();
+
+					// FileInputStream serviceAccount =
+					// new FileInputStream("path/to/serviceAccountKey.json");
+
+					options = new FirebaseOptions.Builder().setFirestoreOptions(firestoreOptions)
+							.setCredentials(GoogleCredentials.getApplicationDefault())
+							// .setStorageBucket("blurock-database.appspot.com")
+							.setStorageBucket("localhost:9199").build();
 				}
-			
+
 				FirebaseApp.initializeApp(options);
 			} catch (IOException e) {
 				e.printStackTrace();

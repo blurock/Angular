@@ -65,7 +65,8 @@ export class FirestorelistelementComponent implements OnInit {
 				const success = responsedata['dataset:servicesuccessful'];
 				if (success == 'true') {
 					this.catalogobject = responsedata['dataset:simpcatobj'];
-					if (this.catalogobject != null) {
+					alert("getCatalogObject() " + JSON.stringify(this.catalogobject));
+					if (responsedata != null) {
 						this.catalogview.setData(this.catalogobject);
 					} else {
 						alert('Result null');

@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { Directive, ViewContainerRef, ComponentRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { LoadChildDirective } from '../../directives/load-child.directive';
 import { DatasetrepositoryfilestagingComponent } from '../repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
 import { RepositoryparsedtofixedblocksizeComponent } from '../repository/partition/repositoryparsedtofixedblocksize/repositoryparsedtofixedblocksize.component';
@@ -40,6 +39,7 @@ export class GeneralcatalogobjectvisualizationComponent implements OnInit {
 				this.isNotSetUp = false;
 			}
 		} else if (catalogtype === 'dataset:RepositoryParsedToFixedBlockSize') {
+			alert("dataset:RepositoryParsedToFixedBlockSize");
 			if (this.isNotSetUp) {
 				this.componentRef = this.dynamicChild.viewContainerRef.createComponent(RepositoryparsedtofixedblocksizeComponent);
 				this.isNotSetUp = false;
@@ -101,10 +101,12 @@ export class GeneralcatalogobjectvisualizationComponent implements OnInit {
 		return this.componentRef.instance.annoinfo;
 	}
 	public setData(catalog: any): void {
+		
 		if (this.isNotSetUp) {
 			const catalogtype = catalog['dataset:objectype'];
 			this.setChild(catalogtype);
 		}
+		alert("setData: " + JSON.stringify(Object.keys(catalog)));
 		this.componentRef.instance.setData(catalog);
 	}
 

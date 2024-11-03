@@ -8,7 +8,6 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
 import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.service.rdfs.GenerateAndWriteRDFForObject;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
@@ -17,57 +16,56 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import info.esblurock.reaction.core.ontology.base.utilities.SubstituteJsonValues;
 
 public class CreateDatabasePersonTransaction {
-    
-    
-    public static JsonObject create(JsonObject event, JsonObject info, boolean writecatalog) {
-        String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
-        String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
-        Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent");
-        JsonObject response = null;
-        try {
-        JsonObject catalog = substituteAndWriteDatabasePerson(event,document, info, owner, transactionID, writecatalog);
-                JsonArray catalogarr = new JsonArray();
-                catalogarr.add(catalog);
-                JsonObject descr = catalog.get(ClassLabelConstants.DataDescriptionPerson).getAsJsonObject();
-                String title = descr.get(ClassLabelConstants.DescriptionTitlePerson).getAsString();
-                String message = "Successful creation of DatabasePerson: " + title;
-                response = DatabaseServicesBase.standardServiceResponse(document, message, catalogarr);
-        } catch(Exception ex) {
-            String errormessage = "Failed (" + ex.getClass().getCanonicalName() + ") create DatabasePerson: " + ex.getMessage();
-            response = DatabaseServicesBase.standardErrorResponse(document, errormessage, null);
-        }
-        return response;
-    }
 
-    public static JsonObject substituteAndWriteDatabasePerson(JsonObject event, Document document, 
-            JsonObject source, String owner, String transID, boolean writecatalog) throws Exception {
-        Element body = MessageConstructor.isolateBody(document);
-        String classname = "dataset:DatabasePerson";
-        String makepublic = "true";
-        if(source.get(ClassLabelConstants.MakePublicRead) != null) {
-            makepublic = source.get(ClassLabelConstants.MakePublicRead).getAsString();
-        }
-        body.addElement("div").addText("Maker Public: " + makepublic);
-        JsonObject catalog = BaseCatalogData.createStandardDatabaseObject(classname, owner, transID, makepublic);
-        String identifier = catalog.get(AnnotationObjectsLabels.identifier).getAsString();
-        SubstituteJsonValues.substituteJsonObject(catalog, source);
-        JsonObject descr = source.get(ClassLabelConstants.DataDescriptionPerson).getAsJsonObject();
-        String title = descr.get(ClassLabelConstants.DescriptionTitlePerson).getAsString();
-        catalog.addProperty(ClassLabelConstants.PersonFullName, title);
-        catalog.addProperty(AnnotationObjectsLabels.identifier, identifier);
-        JsonObject transfirestoreID = event.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
-        catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction, transfirestoreID.deepCopy());
+	public static JsonObject create(JsonObject event, JsonObject info, boolean writecatalog) {
+		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+		String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
+		Document document = MessageConstructor.startDocument("CreateDatabasePersonEvent");
+		JsonObject response = null;
+		try {
+			JsonObject catalog = substituteAndWriteDatabasePerson(event, document, info, owner, transactionID,
+					writecatalog);
+			JsonArray catalogarr = new JsonArray();
+			catalogarr.add(catalog);
+			JsonObject descr = catalog.get(ClassLabelConstants.DataDescriptionPerson).getAsJsonObject();
+			String title = descr.get(ClassLabelConstants.DescriptionTitlePerson).getAsString();
+			String message = "Successful creation of DatabasePerson: " + title;
+			response = DatabaseServicesBase.standardServiceResponse(document, message, catalogarr);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			String errormessage = "Failed (" + ex.getClass().getCanonicalName() + ") create DatabasePerson: "
+					+ ex.getMessage();
+			response = DatabaseServicesBase.standardErrorResponse(document, errormessage, null);
+		}
+		return response;
+	}
 
-        
-        JsonObject firestoreID = BaseCatalogData.insertFirestoreAddress(catalog);
-        body.addElement("pre").addText("Writing DatabasePerson to:\n" + JsonObjectUtilities.toString(firestoreID));
-        if(writecatalog) {
-            String message = WriteFirestoreCatalogObject.writeCatalogObjectWithException(catalog);
-            body.addElement("pre").addText(message);
-        }
-        return catalog;
-    }
-    
-    
+	public static JsonObject substituteAndWriteDatabasePerson(JsonObject event, Document document, JsonObject source,
+			String owner, String transID, boolean writecatalog) throws Exception {
+		Element body = MessageConstructor.isolateBody(document);
+		String classname = "dataset:DatabasePerson";
+		String makepublic = "true";
+		if (source.get(ClassLabelConstants.MakePublicRead) != null) {
+			makepublic = source.get(ClassLabelConstants.MakePublicRead).getAsString();
+		}
+		body.addElement("div").addText("Maker Public: " + makepublic);
+		JsonObject catalog = BaseCatalogData.createStandardDatabaseObject(classname, owner, transID, makepublic);
+		String identifier = catalog.get(AnnotationObjectsLabels.identifier).getAsString();
+		SubstituteJsonValues.substituteJsonObject(catalog, source);
+		JsonObject descr = source.get(ClassLabelConstants.DataDescriptionPerson).getAsJsonObject();
+		String title = descr.get(ClassLabelConstants.DescriptionTitlePerson).getAsString();
+		catalog.addProperty(ClassLabelConstants.PersonFullName, title);
+		catalog.addProperty(AnnotationObjectsLabels.identifier, identifier);
+		JsonObject transfirestoreID = event.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+		catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction, transfirestoreID.deepCopy());
+
+		JsonObject firestoreID = BaseCatalogData.insertFirestoreAddress(catalog);
+		body.addElement("pre").addText("Writing DatabasePerson to:\n" + JsonObjectUtilities.toString(firestoreID));
+		if (writecatalog) {
+			String message = WriteFirestoreCatalogObject.writeCatalogObjectWithException(catalog);
+			body.addElement("pre").addText(message);
+		}
+		return catalog;
+	}
 
 }

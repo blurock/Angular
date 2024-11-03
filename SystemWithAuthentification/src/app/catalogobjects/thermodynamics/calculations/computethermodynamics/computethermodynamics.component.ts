@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
 import { ThermocalculationsetupComponent } from '../thermocalculationsetup/thermocalculationsetup.component';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { FetchcatalogobjectComponent } from '../../../../dialog/fetchcatalogobject/fetchcatalogobject.component';
 import { RundatabaseserviceComponent } from '../../../../dialog/rundatabaseservice/rundatabaseservice.component';

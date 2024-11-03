@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { LoadChildDirective } from '../../directives/load-child.directive';
-import { Directive, ViewContainerRef, ComponentRef, ChangeDetectorRef } from '@angular/core';
-import { FiresytorecatalogidComponent } from '../firesytorecatalogid/firesytorecatalogid.component';
+import { ViewContainerRef } from '@angular/core';
 import { IdentifiersService } from '../../const/identifiers.service';
 import {FirestorelistelementComponent} from './firestorelistelement/firestorelistelement.component';
 

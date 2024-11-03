@@ -13,7 +13,7 @@ public class TestInsertCatalogName {
 
     @Test
     public void test() {
-        String classname = "dataset:ThermodynamicBensonRuleDefinition";
+        String classname = "dataset:ThermodynamicBensonRuleDefinitionClass";
         String owner = "Administration";
         String transID = BaseCatalogData.generateUniqueUUID();
         JsonObject obj = BaseCatalogData.createStandardDatabaseObject(classname, owner, transID, "true");

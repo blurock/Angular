@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
 import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { SavecatalogdataobjectdialogComponent } from '../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
@@ -88,9 +88,9 @@ export class ManagegeneralcatalogobjectvisComponent implements OnInit {
 				const success = result['dataset:servicesuccessful'];
 				this.resultHtml = result['dataset:serviceresponsemessage'];
 				if (success == 'true') {
-					const catalog = result['dataset:simpcatobj'];
-					if (catalog != null) {
-						this.catalogvis.setData(catalog);
+					//const catalog = result['dataset:simpcatobj'];
+					if (result != null) {
+						this.catalogvis.setData(result);
 					}
 				} else {
 					alert('Error in reading: ' + JSON.stringify(result));

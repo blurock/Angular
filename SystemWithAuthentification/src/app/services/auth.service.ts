@@ -180,13 +180,12 @@ export class AuthService {
 	getUserInformationFromServer(logintransaction: any, token: string, user: any) {
 		const headerdata = ServiceUtilityRoutines.setupHeader(token);
 		const httpaddr = environment.apiURL + '/' + Login;
-		window.alert("getUserInformationFromServer: '" + httpaddr + "'");
-		window.alert("getUserInformationFromServer: '" + JSON.stringify(logintransaction) + "'");
+		//window.alert("getUserInformationFromServer: '" + httpaddr + "'");
+		//window.alert("getUserInformationFromServer: '" + JSON.stringify(logintransaction) + "'");
 		this.httpClient.post(httpaddr, logintransaction, { headers: headerdata })
 			.subscribe({
 				
 				next: (response: any) => {
-					alert("getUserInformationFromServer response: '" + response[Ontologyconstants.successful] + "'");
 					if (response[Ontologyconstants.successful] == "true") {
 						const loginresult = response[Ontologyconstants.catalogobject];
 						if (loginresult != null) {
