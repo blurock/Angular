@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.firestore.InitiallizeSystem;
 import info.esblurock.background.services.transaction.TransactionProcess;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
@@ -15,7 +16,8 @@ public class TestParseBensonRuleRepositoryFile {
 
 	@Test
 	public void test() {
-		String srcpath = "src/test/java/resources/bensonrules/parseTableA1CarbonBensonRules.json";
+		InitiallizeSystem .initialize();
+		String srcpath = "src/test/java/resources/bensonrules/test/testParseTableA1CarbonBensonRules.json";
 		try {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);

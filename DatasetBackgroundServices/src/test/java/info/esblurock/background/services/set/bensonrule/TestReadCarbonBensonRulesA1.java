@@ -17,7 +17,7 @@ public class TestReadCarbonBensonRulesA1 {
 	@Test
 	public void test() {
 		InitiallizeSystem .initialize();
-		String srcpath = "src/test/java/resources/bensonrules/readTableA1CarbonBensonRules.json";
+		String srcpath = "src/test/java/resources/bensonrules/test/testReadTableA1CarbonBensonRules.json";
 		try {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);

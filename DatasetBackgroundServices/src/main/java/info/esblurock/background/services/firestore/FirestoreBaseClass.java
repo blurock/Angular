@@ -5,6 +5,8 @@ import java.io.IOException;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.FirestoreOptions;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
@@ -20,6 +22,7 @@ public class FirestoreBaseClass {
 	public static String host = "localhost:8081";
 
 	private static Firestore database = null;
+	private static Storage storage = null;
 
 	public static JsonObject createEmptyFirestoreCatalogID() {
 		JsonObject firestoreid = CreateDocumentTemplate.createTemplate("dataset:FirestoreCatalogID");
@@ -27,6 +30,15 @@ public class FirestoreBaseClass {
 		return firestoreid;
 	}
 
+	public static Storage getStorage() throws IOException {
+		if(storage == null) {
+			storage = StorageOptions.getDefaultInstance()
+					.getService();
+		} else {
+			
+		}
+		return storage;
+	}
 	public static Firestore getFirebaseDatabase() throws IOException {
 		if (database == null) {
 			database = FirestoreBaseClass.setupDatabase();
