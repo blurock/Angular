@@ -1,12 +1,8 @@
 package info.esblurock.background.services.datamanipulation;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -16,9 +12,7 @@ import org.openscience.cdk.interfaces.IAtomContainer;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import info.esblurock.background.services.dataset.DatasetCollectionManagement;
 import info.esblurock.background.services.firestore.ManageDatasetCatalogObjects;
-import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
 import info.esblurock.background.services.jthermodynamics.InterpretThermodynamicBlock;
 import info.esblurock.background.services.jthermodynamics.structure.GenerateJThermodynamics2DSpeciesStructure;
 import info.esblurock.background.services.jthermodynamics.symmetry.InterpretSymmetryBlock;
@@ -31,9 +25,6 @@ import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate
 import info.esblurock.reaction.core.ontology.base.dataset.CreateLinksInStandardCatalogInformation;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
-import jThergas.data.group.JThergasThermoStructureGroupPoint;
-import jThergas.exceptions.JThergasReadException;
-import thermo.build.ReadDisassociationData;
 import thermo.compute.utilities.StringToAtomContainer;
 import thermo.data.structure.structure.BuildStructureLibrary;
 import thermo.data.structure.structure.MetaAtomInfo;
@@ -395,6 +386,9 @@ public enum InterpretTextBlock {
      * 
      */
     public static JsonObject interpret(JsonObject event, JsonObject prerequisites, JsonObject info) {
+    	JsonObject response = null;
+    	try {
+    	System.out.println("InterpretTextBlock interpret 0");
         String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
         String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
         JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
@@ -412,19 +406,31 @@ public enum InterpretTextBlock {
         InterpretTextBlock method = getMethod(info);
         Element table = method.setUpOutputTable(info, body);
         JsonArray errors = new JsonArray();
+    	System.out.println("InterpretTextBlock interpret 10");
         for (int i = 0; i < parsedlineset.size(); i++) {
             JsonObject parsed = parsedlineset.get(i).getAsJsonObject();
             if (checkIfCompatableParse(parsed, info)) {
+            	System.out.println("InterpretTextBlock interpret 11  1");
                 JsonObject catalog = method.interpret(parsed, table, info);
+            	System.out.println("InterpretTextBlock interpret 11  2");
                 if (catalog != null) {
+                	System.out.println("InterpretTextBlock interpret 11  3.1");
                     catalog.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, catalogrecordid);
+                	System.out.println("InterpretTextBlock interpret 11  3.2");
                     catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction, transfirestoreID.deepCopy());
+                	System.out.println("InterpretTextBlock interpret 11  3.3");
+                	System.out.println(JsonObjectUtilities.toString(catalog));
                     BaseCatalogData.insertStandardBaseInformation(catalog, owner, transactionID, "false", true);
+                	System.out.println("InterpretTextBlock interpret 11  3.4");
                     CreateLinksInStandardCatalogInformation.transfer(info, catalog);
+                	System.out.println("InterpretTextBlock interpret 11  3.5");
                     CreateLinksInStandardCatalogInformation.transfer(parsed, catalog);
+                	System.out.println("InterpretTextBlock interpret 11  3.6");
                     CreateLinksInStandardCatalogInformation.linkCatalogObjects(parsed,
                             "dataset:ConceptLinkRepositoryPartitionToInterpretation", catalog);
+                	System.out.println("InterpretTextBlock interpret 11  3.7");
                     catalogset.add(catalog);
+                	System.out.println("InterpretTextBlock interpret 11  4");
                 } else {
                     errors.add(parsed);
                     errorcnt++;
@@ -436,9 +442,11 @@ public enum InterpretTextBlock {
                         .addText("Incompatable parse: Expected: " + sourceformatinfo + " Got: " + sourceformatparsed);
                 errorcnt++;
             }
+        	System.out.println("InterpretTextBlock interpret 11  5");
+
         }
         String classname = "";
-        JsonObject response = null;
+        
         if (errorcnt == 0) {
             if (catalogset.size() > 0) {
                 JsonObject catalog = catalogset.get(0).getAsJsonObject();
@@ -464,7 +472,11 @@ public enum InterpretTextBlock {
             response = DatabaseServicesBase.standardErrorResponse(document, errormessage, errors);
         }
 
-        return response;
+        
+    	} catch(Exception ex) {
+    		ex.printStackTrace();
+    	}
+    	return response;
     }
 
     private static InterpretTextBlock getMethod(JsonObject info) {

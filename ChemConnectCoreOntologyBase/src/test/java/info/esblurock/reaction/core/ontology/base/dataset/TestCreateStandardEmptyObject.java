@@ -37,9 +37,9 @@ public class TestCreateStandardEmptyObject {
 		System.out.println(JsonObjectUtilities.toString(obj1));
 */
 		System.out.println("---------------------------------------");
-		System.out.println("TestCreateStandardEmptyObject: dataset:JThermodynamicsMetaAtomDefinitionClass");
+		System.out.println("TestCreateStandardEmptyObject: dataset:ThermodynamicBensonRuleDefinitionDataSet");
 		System.out.println("---------------------------------------");
-		String classname2 = "dataset:JThermodynamicsMetaAtomDefinitionClass";
+		String classname2 = "dataset:ThermodynamicBensonRuleDefinitionDataSet";
 		JsonObject obj2 = BaseCatalogData.createStandardDatabaseObject(classname2, owner, transID, "true");
 		System.out.println(JsonObjectUtilities.toString(obj2));
 	}

@@ -16,6 +16,7 @@
 			"dataset:abstract-staging": "Read the standard Carbon-Hydrogen atom benson rules. This is Table A.1 from Benson Thermochemical Kinetics.",
 			"dcterms:created": "today"
 		},
+		"dataset:collectionobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDatabase",
 		"dataset:uploadsrc": "dataset:LocalFileSystem",
 		"dataset:filesourceformat": "dataset:TherGasBensonRules",
 		"dataset:fileidentifier": "src/test/java/resources/bensonrules/tableA1CarbonBensonRules.txt",

@@ -40,6 +40,8 @@ public class PartiionSetWithinRepositoryFileProcess {
 	 */
 	public static JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
 	    JsonObject response = null;
+    	String colltype = info.get(ClassLabelConstants.DatasetCollectionObjectType).getAsString();
+    	event.addProperty(ClassLabelConstants.DatasetCollectionObjectType, colltype);
 		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
 		String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
 		JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)

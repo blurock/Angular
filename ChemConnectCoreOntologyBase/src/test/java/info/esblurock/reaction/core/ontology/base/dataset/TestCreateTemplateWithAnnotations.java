@@ -19,7 +19,9 @@ public class TestCreateTemplateWithAnnotations {
     @Test
     public void test() {
         System.out.println("---------------------------------------------------------------------");
-        String classname1 = "dataset:ActivityRepositoryInitialReadInfo";
+        String classname1 = "dataset:ThermodynamicBensonRuleDefinitionDataSet";
+        JsonObject obj = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicBensonRuleDefinitionDataSet");
+        System.out.println(JsonObjectUtilities.toString(obj));
         System.out.println(classname1);
         JsonObject objanno1 = CreateDocumentTemplate.createTemplateWithAnnotations(classname1);
         //JsonObject ans = objanno1.get("dataset:simpcatobj").getAsJsonObject();

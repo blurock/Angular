@@ -15,6 +15,7 @@ import info.esblurock.background.services.jthermodynamics.structure.GenerateJThe
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import jThergas.data.JThermgasThermoStructureDataPoint;
 import jThergas.data.group.JThergasGroupElement;
 import jThergas.data.group.JThergasThermoStructureGroupPoint;
@@ -141,7 +142,8 @@ public class InterpretThermodynamicBlock {
      * @return The JThermodynamics2DSubstructureThermodynamics (null if error in parsing)
 	 */
 	public static JsonObject interpretBensonRuleThermodynamics(JsonObject parsed, Element table, JsonObject info) {
-		JsonObject bensonrule = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicBensonRuleDefinition");
+		JsonObject bensonrule = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicBensonRuleDefinitionDataSet");
+		System.out.println(JsonObjectUtilities.toString(bensonrule));
 		JsonObject lines = parsed.get(ClassLabelConstants.RepositoryThermoPartitionBlock).getAsJsonObject();
 		String line1 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1).getAsString();
 		String line1a = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1a).getAsString();
@@ -162,7 +164,6 @@ public class InterpretThermodynamicBlock {
 		    if (line1a.length() > 0) {
 		        line1aB = true;
 		    }
-		
 		
 			point.parse(line1, line1a, line2, line3, line1aB, group, group);
 			JsonObject bensonrulestructure = bensonrule.get(ClassLabelConstants.JThermodynamicsBensonRuleStructure)

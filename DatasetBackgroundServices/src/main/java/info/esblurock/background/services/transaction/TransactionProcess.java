@@ -97,6 +97,8 @@ public enum TransactionProcess {
         @Override
         JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
             TransactionProcess process = TransactionProcess.valueOf("InitialReadInOfRepositoryFile");
+            JsonObject simpledescr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
+            simpledescr.addProperty(ClassLabelConstants.TransactionEventType, "dataset:InitialReadInOfRepositoryFile");
             return process.process(event, prerequisites, info);
         }
 
@@ -117,6 +119,8 @@ public enum TransactionProcess {
         @Override
         JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
             TransactionProcess process = TransactionProcess.valueOf("InitialReadInOfRepositoryFile");
+            JsonObject simpledescr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
+            simpledescr.addProperty(ClassLabelConstants.TransactionEventType, "dataset:InitialReadInOfRepositoryFile");
             return process.process(event, prerequisites, info);
         }
 
@@ -138,6 +142,8 @@ public enum TransactionProcess {
         @Override
         JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
             TransactionProcess process = TransactionProcess.valueOf("InitialReadInOfRepositoryFile");
+            JsonObject simpledescr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
+            simpledescr.addProperty(ClassLabelConstants.TransactionEventType, "dataset:InitialReadInOfRepositoryFile");
             return process.process(event, prerequisites, info);
         }
 
@@ -159,6 +165,8 @@ public enum TransactionProcess {
         JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
             JsonObject response = null;
             try {
+            	String colltype = info.get(ClassLabelConstants.DatasetCollectionObjectType).getAsString();
+            	event.addProperty(ClassLabelConstants.DatasetCollectionObjectType, colltype);
             String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
             String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
             response = UploadFileToGCS.readFromSource(transactionID, owner, info);
@@ -780,4 +788,5 @@ public enum TransactionProcess {
         }
         return prerequisitelist;
     }
+    
 }

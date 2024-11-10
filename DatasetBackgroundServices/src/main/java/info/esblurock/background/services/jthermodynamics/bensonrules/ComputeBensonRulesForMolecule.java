@@ -286,7 +286,7 @@ public class ComputeBensonRulesForMolecule {
         prop1.addProperty(ClassLabelConstants.ShortStringKey, bensonname);
         arr1.add(prop1);
 
-        String classname = "dataset:ThermodynamicBensonRuleDefinition";
+        String classname = "dataset:ThermodynamicBensonRuleDefinitionDatabase";
         String service = "ReadInDatasetWithDatasetCollectionLabel";
         
         JsonObject json = new JsonObject();

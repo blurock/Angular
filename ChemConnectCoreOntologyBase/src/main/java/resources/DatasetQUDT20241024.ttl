@@ -19741,7 +19741,7 @@ The SetOfPropertyValueQueryPairs is used if a subset of the collection of standa
 :ThermodynamicBensonRuleDefinitionDataSet rdf:type owl:Class ;
                                           rdfs:subClassOf :ThermodynamicBensonRuleDefinitionClass ;
                                           <http://purl.org/dc/elements/1.1/type> :ThermodynamicBensonRuleDefinitionDataSet ;
-                                          <http://purl.org/dc/terms/identifier> "dataset:bensonruledataset"^^rdfs:Literal ;
+                                          <http://purl.org/dc/terms/identifier> "dataset:bensonruledataset" ;
                                           :documentNameSource :JThermodynamicsStructureName ;
                                           rdfs:comment "The Benson rule for the data set" ;
                                           rdfs:label "Benson Rule Dataset" ;

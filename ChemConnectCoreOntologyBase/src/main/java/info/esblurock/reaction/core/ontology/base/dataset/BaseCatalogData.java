@@ -50,23 +50,32 @@ public class BaseCatalogData {
 	
 	public static void insertStandardBaseInformation(JsonObject obj, String owner, 
 			String transactionID, String publicB, boolean computeaddress) {
+		System.out.println("BaseCatalogData: insertStandardBaseInformation 0.");
 		obj.addProperty(ClassLabelConstants.CatalogObjectOwner, owner);
 		obj.addProperty(ClassLabelConstants.CatalogObjectAccessModify, owner );
+		System.out.println("BaseCatalogData: insertStandardBaseInformation 0.1");
 		if(publicB == null) {
 			publicB = "false";
 		}
+		System.out.println("BaseCatalogData: insertStandardBaseInformation 0.2");
 		if(publicB.equals("true")) {
 			obj.addProperty(ClassLabelConstants.CatalogObjectAccessRead, "Public");			
 		} else {
 			obj.addProperty(ClassLabelConstants.CatalogObjectAccessRead, owner);
 		}
 		obj.addProperty(ClassLabelConstants.TransactionID, transactionID);
+		System.out.println("BaseCatalogData: insertStandardBaseInformation 1");
         String type = GenericSimpleQueries.classFromIdentifier(obj.get(AnnotationObjectsLabels.identifier).getAsString());
+		System.out.println("BaseCatalogData: insertStandardBaseInformation 2");
 		insertCatalogObjectKey(obj,type);
+		System.out.println("BaseCatalogData: insertStandardBaseInformation 3");
 		obj.addProperty(ClassLabelConstants.DatabaseObjectType, type);
+		System.out.println("BaseCatalogData: insertStandardBaseInformation 4");
 		if(computeaddress) {
+			System.out.println("BaseCatalogData: insertStandardBaseInformation 5");
 			insertFirestoreAddress(obj);
 		}
+		System.out.println("BaseCatalogData: insertStandardBaseInformation 6");
 	}
 	
 	public static JsonObject insertFirestoreAddress(JsonObject obj) {

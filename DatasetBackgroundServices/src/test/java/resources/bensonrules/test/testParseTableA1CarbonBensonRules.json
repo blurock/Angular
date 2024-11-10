@@ -7,6 +7,7 @@
 			"dataset:datasetversion": "1.0",
 			"dataset:uniquegenericname": "testTableA1CarbonBensonRules"
 		},
+		"dataset:collectionobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDatabase",
 		"dataset:filepartitionmethod": "dataset:PartitionTherGasThermodynamics",
 		"dataset:filesourceformat": "dataset:TherGasBensonRules",
 		"dcterms:title": "Carbon-Hydrogen Benson Rules set from Table A1 from Benson Thermochemical Kinetics"
