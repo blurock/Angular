@@ -374,7 +374,7 @@ public enum InterpretTextBlock {
      * @return The response.
      * 
      * info:
-     * DatasetTransactionSpecificationForCollection
+     * DatasetSpecificationForCollectionSet
      * BlockInterpretationMethod
      * The parameter unit information needed to interpret the block
      * 
@@ -391,10 +391,10 @@ public enum InterpretTextBlock {
     	System.out.println("InterpretTextBlock interpret 0");
         String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
         String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
-        JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
+        JsonObject datasetspec = info.get(ClassLabelConstants.SpecificationForDataset)
                 .getAsJsonObject();
-        JsonObject catalogrecordid = recordid.deepCopy();
-        event.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
+        //JsonObject catalogrecordid = recordid.deepCopy();
+        event.add(ClassLabelConstants.SpecificationForDataset, datasetspec);
         JsonObject transfirestoreID = BaseCatalogData.insertFirestoreAddress(event);
         Document document = MessageConstructor.startDocument("TransactionInterpretTextBlock");
         Element body = MessageConstructor.isolateBody(document);
@@ -415,7 +415,7 @@ public enum InterpretTextBlock {
             	System.out.println("InterpretTextBlock interpret 11  2");
                 if (catalog != null) {
                 	System.out.println("InterpretTextBlock interpret 11  3.1");
-                    catalog.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, catalogrecordid);
+                    catalog.add(ClassLabelConstants.SpecificationForDataset, datasetspec);
                 	System.out.println("InterpretTextBlock interpret 11  3.2");
                     catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction, transfirestoreID.deepCopy());
                 	System.out.println("InterpretTextBlock interpret 11  3.3");
@@ -448,6 +448,7 @@ public enum InterpretTextBlock {
         String classname = "";
         
         if (errorcnt == 0) {
+        	/*
             if (catalogset.size() > 0) {
                 JsonObject catalog = catalogset.get(0).getAsJsonObject();
                 classname = catalog.get(ClassLabelConstants.DatabaseObjectType).getAsString();
@@ -460,6 +461,7 @@ public enum InterpretTextBlock {
                 String errormessage = "No objects created for interpret";
                 response = DatabaseServicesBase.standardErrorResponse(document, errormessage, null);
             }
+            */
         } else {
             String errormessage = "Errors found in parsing blocks";
             Element div = body.addElement("div");

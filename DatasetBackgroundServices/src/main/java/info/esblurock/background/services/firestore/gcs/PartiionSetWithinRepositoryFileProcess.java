@@ -44,9 +44,9 @@ public class PartiionSetWithinRepositoryFileProcess {
     	event.addProperty(ClassLabelConstants.DatasetCollectionObjectType, colltype);
 		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
 		String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
-		JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
+		JsonObject datasetspec = info.get(ClassLabelConstants.SpecificationForDataset)
 				.getAsJsonObject();
-		event.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
+		event.add(ClassLabelConstants.SpecificationForDataset, datasetspec);
         JsonObject transfirestoreID = BaseCatalogData.insertFirestoreAddress(event);
 		Document document = MessageConstructor.startDocument("PartiionSetWithinRepositoryFile");
 		Element body = MessageConstructor.isolateBody(document);
@@ -72,7 +72,7 @@ public class PartiionSetWithinRepositoryFileProcess {
             catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction,transfirestoreID.deepCopy());
 			catalog.addProperty(ClassLabelConstants.FileSourceFormat, sourceformat);
 			catalog.addProperty(ClassLabelConstants.FilePartitionMethod, methodS);
-			catalog.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
+			catalog.add(ClassLabelConstants.SpecificationForDataset, datasetspec);
 			CreateLinksInStandardCatalogInformation.transfer(info, catalog);
 			CreateLinksInStandardCatalogInformation.transfer(staging, catalog);
 			CreateLinksInStandardCatalogInformation.linkCatalogObjects(staging,

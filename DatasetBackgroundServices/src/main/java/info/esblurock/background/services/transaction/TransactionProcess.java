@@ -175,12 +175,12 @@ public enum TransactionProcess {
                 if (arr.size() > 0) {
                     JsonObject catalog = arr.get(0).getAsJsonObject();
 
-                    JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
-                            .getAsJsonObject();
+                    String dataid = info.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel)
+                            .getAsString();
                     BaseCatalogData.insertFirestoreAddress(catalog);
                     CreateLinksInStandardCatalogInformation.addPrerequisitesToDataObjectLink(catalog, prerequisites);
                     CreateLinksInStandardCatalogInformation.transfer(info, catalog);
-                    event.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
+                    event.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, dataid);
                     JsonObject transfirestoreID = BaseCatalogData.insertFirestoreAddress(event);
                     catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction, transfirestoreID.deepCopy());
                     WriteFirestoreCatalogObject.writeCatalogObject(catalog);
@@ -285,12 +285,9 @@ public enum TransactionProcess {
         @Override
         String transactionKey(JsonObject catalog) {
 
-            JsonObject structure = catalog.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
-                    .getAsJsonObject();
-            String maintainer = structure.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-            String dataset = structure.get(ClassLabelConstants.DatasetName).getAsString();
-            String version = structure.get(ClassLabelConstants.DatasetVersion).getAsString();
-            return maintainer + "." + dataset + ":" + version;
+            String maintainer = catalog.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+            String dataset = catalog.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+            return maintainer + "." + dataset;
         }
 
         @Override
@@ -353,7 +350,7 @@ public enum TransactionProcess {
             JsonObject structure = catalog.get(ClassLabelConstants.DatasetSpecificationforDestinationCollectionSet)
                     .getAsJsonObject();
             String maintainer = structure.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-            String dataset = structure.get(ClassLabelConstants.DatasetName).getAsString();
+            String dataset = structure.get(ClassLabelConstants.CollectionName).getAsString();
             String version = structure.get(ClassLabelConstants.DatasetVersion).getAsString();
             return "Delete." + maintainer + "." + dataset + ":" + version;
         }
@@ -377,7 +374,7 @@ public enum TransactionProcess {
             JsonObject structure = catalog.get(ClassLabelConstants.DatasetSpecificationforDestinationCollectionSet)
                     .getAsJsonObject();
             String maintainer = structure.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-            String dataset = structure.get(ClassLabelConstants.DatasetName).getAsString();
+            String dataset = structure.get(ClassLabelConstants.CollectionName).getAsString();
             String version = structure.get(ClassLabelConstants.DatasetVersion).getAsString();
             return "Copy." + maintainer + "." + dataset + ":" + version;
         }
@@ -401,7 +398,7 @@ public enum TransactionProcess {
             JsonObject structure = catalog.get(ClassLabelConstants.DatasetSpecificationforDestinationCollectionSet)
                     .getAsJsonObject();
             String maintainer = structure.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-            String dataset = structure.get(ClassLabelConstants.DatasetName).getAsString();
+            String dataset = structure.get(ClassLabelConstants.CollectionName).getAsString();
             String version = structure.get(ClassLabelConstants.DatasetVersion).getAsString();
             return "Move." + maintainer + "." + dataset + ":" + version;
         }

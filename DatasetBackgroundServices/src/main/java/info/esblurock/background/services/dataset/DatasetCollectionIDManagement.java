@@ -30,11 +30,11 @@ public class DatasetCollectionIDManagement {
 	 */
 	public static JsonObject firebaseIDOfCollection(String classname, JsonObject recordid) {
 		String maintainer = recordid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-		String datasetname = recordid.get(ClassLabelConstants.DatasetName).getAsString();
+		String collectionname = recordid.get(ClassLabelConstants.CollectionName).getAsString();
 		String datasetversion = recordid.get(ClassLabelConstants.DatasetVersion).getAsString();
 		JsonObject catrecordid = CreateDocumentTemplate.createTemplate("dataset:DatasetSpecificationForCollectionSet");
 		catrecordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
-		catrecordid.addProperty(ClassLabelConstants.DatasetName, datasetname);
+		catrecordid.addProperty(ClassLabelConstants.CollectionName, collectionname);
 		catrecordid.addProperty(ClassLabelConstants.DatasetVersion, datasetversion);
 		catrecordid.addProperty(ClassLabelConstants.CatalogDataObjectStatus, "CatalogObjectStatusCurrent");
 		JsonObject firestoreid = FindDatasetCollections.findDatasetCollectionID(classname, catrecordid);

@@ -147,13 +147,11 @@ public enum UploadFileToGCS {
 	public static JsonObject readFromSource(String transactionID, String owner, JsonObject info) {
 	    JsonObject response = null;
 	    try {
-		JsonObject recordid = info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection)
-				.getAsJsonObject();
-		JsonElement main = recordid.get(ClassLabelConstants.CatalogDataObjectMaintainer);
-		String maintainer = owner;
-		if(main != null)  {
-		    maintainer = main.getAsString();
-		}
+	    	String maintainer = owner;
+	    	JsonElement main = info.get(ClassLabelConstants.CatalogDataObjectMaintainer);
+	    	if(main != null)
+	    		maintainer = main.getAsString();
+		JsonObject datasetspec = info.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
 		String source = info.get(ClassLabelConstants.UploadFileSource).getAsString();
 		String sourcename = source.substring(8);
 		UploadFileToGCS upload = UploadFileToGCS.valueOf(sourcename);
@@ -162,7 +160,7 @@ public enum UploadFileToGCS {
 			JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 			JsonObject gcsstaging = arr.get(0).getAsJsonObject();
 			gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadInLocalStorageSystem");
-			gcsstaging.add(ClassLabelConstants.DatasetTransactionSpecificationForCollection, recordid);
+			gcsstaging.add(ClassLabelConstants.CatalogObjectUniqueGenericLabel, datasetspec);
 			JsonObject stagingblob = gcsstaging.get(ClassLabelConstants.GCSBlobFileInformationStaging)
 					.getAsJsonObject();
 			String description = info.get(ClassLabelConstants.DescriptionTitle).getAsString();

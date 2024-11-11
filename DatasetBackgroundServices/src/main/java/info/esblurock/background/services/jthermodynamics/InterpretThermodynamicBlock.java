@@ -155,8 +155,6 @@ public class InterpretThermodynamicBlock {
 		try {
 		    positionD = lines.get(ClassLabelConstants.Position).getAsDouble();
 		    int group = (int) positionD;
-		    // JsonObject recordid =
-		    // info.get(ClassLabelConstants.DatasetTransactionSpecificationForCollection).getAsJsonObject();
 		    JThergasThermoStructureGroupPoint point = new JThergasThermoStructureGroupPoint();
 		    
 

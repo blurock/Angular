@@ -31,19 +31,19 @@ public class FindDatasetCollections {
         JsonObject empty = CreateDocumentTemplate.createTemplate(classname);
         empty.add(ClassLabelConstants.DatasetSpecificationForCollectionSet, recordid);
         // In some objects, this conflicts
-        empty.remove(ClassLabelConstants.DatasetTransactionSpecificationForCollection);
+        empty.remove(ClassLabelConstants.DatasetSpecificationForCollectionSet);
         JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(empty);
         firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
          return firestoreid;
     }
 
-    public static JsonObject findDatasetCollectionID(String classname, String maintainer, String dataset,
+    public static JsonObject findDatasetCollectionID(String classname, String maintainer, String collectionset,
             String version) {
         JsonObject empty = CreateDocumentTemplate.createTemplate(classname);
         JsonObject recordid = empty.get(ClassLabelConstants.DatasetSpecificationForCollectionSet).getAsJsonObject();
         recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
         recordid.addProperty(ClassLabelConstants.DatasetVersion, version);
-        recordid.addProperty(ClassLabelConstants.DatasetName, dataset);
+        recordid.addProperty(ClassLabelConstants.CollectionName, collectionset);
         recordid.addProperty(ClassLabelConstants.CatalogDataObjectStatus, "CatalogObjectStatusCurrent");
 
         JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(empty);

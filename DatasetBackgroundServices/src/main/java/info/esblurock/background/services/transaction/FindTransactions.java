@@ -230,7 +230,7 @@ public class FindTransactions {
     /**
      * Find a specific transaction for a dataset
      * 
-     * The point of this is to use the DatasetTransactionSpecificationForCollection
+     * The point of this is to use the SpecificationForDataset
      * specification to find the collection of transactions. The ID finds the
      * specific ID
      * 
@@ -293,8 +293,8 @@ public class FindTransactions {
         return response;
     }
 
-    public static JsonObject findDatasetNameForMaintainer(JsonObject info) {
-        Document document = MessageConstructor.startDocument("findDatasetNameForMaintainer");
+    public static JsonObject findCollectionNameForMaintainer(JsonObject info) {
+        Document document = MessageConstructor.startDocument("findCollectionNameForMaintainer");
         Element body = MessageConstructor.isolateBody(document);
         JsonObject response = null;
         String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
@@ -331,7 +331,7 @@ public class FindTransactions {
             CollectionReference col = db.collection("hierthermodynamicdataset");
             // CatalogObjectDatasetMaintainer
             DocumentReference datasetnamesref = col.document(maintainer);
-            JsonArray listofdatasetnames = getDatasetName(datasetnamesref,info,body);
+            JsonArray listofdatasetnames = getCollectionName(datasetnamesref,info,body);
             
             if(listofdatasetnames.size() > 0) {
                 JsonObject node =  new JsonObject();
@@ -355,12 +355,12 @@ public class FindTransactions {
         return response;
     }
    
-    private static JsonArray getDatasetName(DocumentReference datasetnamesref, JsonObject info, Element body) {
+    private static JsonArray getCollectionName(DocumentReference datasetnamesref, JsonObject info, Element body) {
         JsonArray listofdatasetnames = new JsonArray();
         Iterable<CollectionReference> collections = datasetnamesref.listCollections();
         Iterator<CollectionReference> iter = collections.iterator();
         while (iter.hasNext()) {
-            // CatalogHierarchyDatasetName (and others)
+            // CatalogHierarchyCollectionName (and others)
             CollectionReference collection = iter.next();
             String datasetname = collection.getId();
             if (!(datasetname.equals("hieridcollectionset")

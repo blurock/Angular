@@ -33,7 +33,7 @@ public class ReadFirestoreInformation {
 
     /**
      * @param classname The name of the class of the object to retrieve
-     * @param datasetid The DatasetTransactionSpecificationForCollection of the
+     * @param datasetid The DatasetSpecificationForCollectionSet of the
      *                  dataset
      * @param id        The id of the object in the collection
      * @return response with the read catalog object

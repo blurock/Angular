@@ -21,7 +21,7 @@ public enum ServiceCollectionDatabaseAccess {
 			Element body = MessageConstructor.isolateBody(document);
 			JsonObject response = null;
 			String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-			String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();
+			String dataset = info.get(ClassLabelConstants.CollectionName).getAsString();
 			String symmetrytype = info.get(ClassLabelConstants.StructureSymmetryType).getAsString();
 			body.addElement("div").addText("Maintainer: " + maintainer);
 			body.addElement("div").addText("dataset   : " + dataset);
@@ -71,7 +71,7 @@ public enum ServiceCollectionDatabaseAccess {
 			Element body = MessageConstructor.isolateBody(document);
 			JsonObject response = null;
 			String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-			String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();
+			String dataset = info.get(ClassLabelConstants.CollectionName).getAsString();
 			String symmetrytype = info.get(ClassLabelConstants.StructureSymmetryType).getAsString();
 			String symmname = info.get(ClassLabelConstants.JThermodynamicSymmetryDefinitionLabel).getAsString();
 			body.addElement("div").addText("Maintainer: " + maintainer);
@@ -117,7 +117,7 @@ public enum ServiceCollectionDatabaseAccess {
 			Element body = MessageConstructor.isolateBody(document);
 			JsonObject response = null;
 			String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-			String dataset = info.get(ClassLabelConstants.DatasetName).getAsString();
+			String dataset = info.get(ClassLabelConstants.CollectionName).getAsString();
 			String metaatomtype = info.get(ClassLabelConstants.JThermodynamicsMetaAtomType).getAsString();
 			body.addElement("div").addText("Maintainer: " + maintainer);
 			body.addElement("div").addText("dataset   : " + dataset);

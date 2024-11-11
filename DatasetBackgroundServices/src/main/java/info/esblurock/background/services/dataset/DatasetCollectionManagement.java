@@ -147,7 +147,7 @@ public class DatasetCollectionManagement {
         body.addElement("div").addText("Owner                : " + owner);
         body.addElement("div").addText("Maintainer           : " + maintainer);
         body.addElement("div").addText("Collection Name      : " + collectionname);
-        body.addElement("div").addText("Default Dataset Name : " + collectionid.get(ClassLabelConstants.DatasetName));
+        body.addElement("div").addText("Default Collection   : " + collectionid.get(ClassLabelConstants.CollectionName));
         body.addElement("div").addText("Default Status       : " + collectionid.get(ClassLabelConstants.CatalogDataObjectStatus));
         body.addElement("div").addText("Default Version      : " + collectionid.get(ClassLabelConstants.DatasetVersion));
 		JsonObject idcollection = DatasetCollectionIDManagement
@@ -176,8 +176,8 @@ public class DatasetCollectionManagement {
             id.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
             String status = idcollection.get(ClassLabelConstants.CatalogDataObjectStatus).getAsString();
             id.addProperty(ClassLabelConstants.CatalogDataObjectStatus, status);
-            String datasetname = idcollection.get(ClassLabelConstants.DatasetName).getAsString();
-            id.addProperty(ClassLabelConstants.DatasetName, datasetname);
+            String collectionname = idcollection.get(ClassLabelConstants.CollectionName).getAsString();
+            id.addProperty(ClassLabelConstants.CollectionName, collectionname);
             String version = idcollection.get(ClassLabelConstants.DatasetVersion).getAsString();
             id.addProperty(ClassLabelConstants.DatasetVersion, version);
             
@@ -214,12 +214,12 @@ public class DatasetCollectionManagement {
 			event.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
 			String classname = info.get(ClassLabelConstants.DatabaseObjectType).getAsString();
 
-			String datasetname = catrecordid.get(ClassLabelConstants.DatasetName).getAsString();
+			String collectionname = catrecordid.get(ClassLabelConstants.CollectionName).getAsString();
 			String datasetversion = catrecordid.get(ClassLabelConstants.DatasetVersion).getAsString();
 
 			String collection = collectionset.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
 
-			body.addElement("div").addText("Classname: " + classname + "(" + datasetname + ": " + datasetversion + ")");
+			body.addElement("div").addText("Classname: " + classname + "(" + collectionname + ": " + datasetversion + ")");
 			body.addElement("div").addText("Into collection: '" + collection + "'");
 			DatasetCollectionIDManagement.insertCollectionInfoDataset(classname, collectiontype, catrecordid, collectionset);
 			collectionset.add(ClassLabelConstants.DatasetCollectionSetRecordIDInfo, recordid);
@@ -249,12 +249,12 @@ public class DatasetCollectionManagement {
 			String maintainer = collectionids.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 			String collectioname = collectionids.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();
 			JsonObject collectionid = collectionids.get(identifier).getAsJsonObject();
-			String datasetname = collectionid.get(ClassLabelConstants.DatasetName).getAsString();
+			String collectionname = collectionid.get(ClassLabelConstants.CollectionName).getAsString();
 			String datasetversion = collectionid.get(ClassLabelConstants.DatasetVersion).getAsString();
 			JsonObject recordid = catalog.get(ClassLabelConstants.DatabaseCollectionOfCurrentClass).getAsJsonObject();
 			recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 			recordid.addProperty(ClassLabelConstants.DatasetCollectionsSetLabel, collectioname);
-			recordid.addProperty(ClassLabelConstants.DatasetName, datasetname);
+			recordid.addProperty(ClassLabelConstants.CollectionName, collectionname);
 			recordid.addProperty(ClassLabelConstants.DatasetVersion, datasetversion);
 			recordid.addProperty(ClassLabelConstants.CatalogDataObjectStatus, "CatalogObjectStatusCurrent");
 			String classname = GenericSimpleQueries.classFromIdentifier(identifier);

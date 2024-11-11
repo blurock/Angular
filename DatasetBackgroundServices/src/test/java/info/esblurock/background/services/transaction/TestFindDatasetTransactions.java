@@ -14,23 +14,10 @@ public class TestFindDatasetTransactions {
 
 	@Test
 	public void test() {
-
-		JsonObject recordid = CreateDocumentTemplate
-				.createTemplate("dataset:DatasetTransactionSpecificationForCollection");
-		String datasetname = "Standard";
-		String datasetversion = "1.0";
-		String maintainer = "Administrator";
-		String series = "disassociationEnergyAlkanes";
 		String eventtype = "dataset:PartiionSetWithinRepositoryFile";
-		recordid.addProperty(ClassLabelConstants.DatasetName, datasetname);
-		recordid.addProperty(ClassLabelConstants.DatasetVersion, datasetversion);
-		recordid.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
-		recordid.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, series);
-
+		String series = "disassociationEnergyAlkanes";
 		JsonObject json = new JsonObject();
-		json.add(ClassLabelConstants.ActivityInformationRecord, recordid);
-		// JsonObject transaction =
-		// FindTransactions.findDatasetTransaction(recordid,type,false);
+		json.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, series);
 		TransactionProcess.fillInDatasetPrerequisites(eventtype, json);
 		System.out.println(JsonObjectUtilities.toString(json));
 	}

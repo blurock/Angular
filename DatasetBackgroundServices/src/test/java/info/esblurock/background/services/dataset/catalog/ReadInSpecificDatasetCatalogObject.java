@@ -22,7 +22,7 @@ public class ReadInSpecificDatasetCatalogObject {
         String specid = "dataset:datasetfortypeincollection";
         json.add(specid,jsontransspec);
         jsontransspec.addProperty(ClassLabelConstants.CatalogDataObjectStatus,"");
-        jsontransspec.addProperty(ClassLabelConstants.DatasetName,"Standard");
+        jsontransspec.addProperty(ClassLabelConstants.CollectionName,"Standard");
         jsontransspec.addProperty(ClassLabelConstants.DatasetVersion,"1.0");
         jsontransspec.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel,"tableA1CarbonBensonRules");
         jsontransspec.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer,"Administrator");

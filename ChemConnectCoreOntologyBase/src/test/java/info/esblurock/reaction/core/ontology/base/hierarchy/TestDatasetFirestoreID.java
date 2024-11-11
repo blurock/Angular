@@ -21,11 +21,10 @@ public class TestDatasetFirestoreID {
 		String publicB = "true";
 		JsonObject json = BaseCatalogData.createStandardDatabaseObject(classname, owner, transactionID, publicB);
 		
-		String recordid = ClassLabelConstants.DatasetTransactionSpecificationForCollection;
+		String recordid = ClassLabelConstants.DatasetSpecificationForCollectionSet;
 		System.out.println("insertStandardBaseInformation: " + recordid);
 		System.out.println("insertStandardBaseInformation: " + JsonObjectUtilities.toString(json));
 		JsonObject rec = json.get(recordid).getAsJsonObject();
-		rec.addProperty(ClassLabelConstants.DatasetName, "DatasetName");
 		rec.addProperty(ClassLabelConstants.CatalogDataObjectStatus, "DatasetStatus");
 		rec.addProperty(ClassLabelConstants.DatasetVersion, "version");
 		rec.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, "Unique");

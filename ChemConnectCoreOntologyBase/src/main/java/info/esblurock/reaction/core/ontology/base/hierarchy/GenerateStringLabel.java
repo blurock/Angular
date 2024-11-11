@@ -58,7 +58,7 @@ public enum GenerateStringLabel {
 
 		@Override
 		String deriveName(String hierclass, String classname, JsonObject object) {
-			String label = ClassLabelConstants.DatasetName;
+			String label = ClassLabelConstants.CollectionName;
 			String owner = object.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
 			return getValueFromObject(object,label,owner);
 		}
