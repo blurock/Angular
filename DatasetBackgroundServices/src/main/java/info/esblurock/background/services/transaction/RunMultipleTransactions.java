@@ -1,12 +1,15 @@
 package info.esblurock.background.services.transaction;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.StringTokenizer;
 
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.firestore.gcs.UploadFileToGCS;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
@@ -17,7 +20,7 @@ public class RunMultipleTransactions {
 	 * @param printresults true if each transaction should be printed
 	 * @return The last response. If an error occurred, then the last response is the error response.
 	 */
-	public static JsonObject runMultipleFromListOfFiles(String transactioninputs, boolean printresults) {
+	public static JsonObject runMultipleFromListOfFiles(String transactioninputs, String owner, boolean fromresource, boolean printresults) {
 		StringTokenizer tok = new StringTokenizer(transactioninputs,"\n");
 		boolean success = true;
 		JsonObject response = null;
@@ -25,8 +28,13 @@ public class RunMultipleTransactions {
 			String srcpath = tok.nextToken();
 			String content;
 			try {
-			    String owner = "Administrator";
-				content = Files.readString(Paths.get(srcpath));
+				if(fromresource) {
+					InputStream inputStream = RunMultipleTransactions.class.getResourceAsStream(srcpath);
+					content = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+					System.out.println(content);
+				} else {
+					content = Files.readString(Paths.get(srcpath));
+				}
 				JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
 				response = TransactionProcess.processFromTransaction(json, owner);
 				if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {

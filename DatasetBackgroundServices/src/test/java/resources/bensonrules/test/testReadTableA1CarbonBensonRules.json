@@ -21,14 +21,12 @@
 		"dataset:filesourceformat": "dataset:TherGasBensonRules",
 		"dataset:fileidentifier": "src/test/java/resources/bensonrules/tableA1CarbonBensonRules.txt",
 		"dataset:filemediatype": "dataset:FileTypeText",
-		"dcterms:title": "Carbon-Hydrogen Benson Rules set",
+		"dcterms:title": "Read Carbon-Hydrogen Benson Rules set",
 		"dataset:filesourcesubtype": "",
-		"dataset:datasettransactionspecification": {
-		"dataset:dataobjstatus": "dataset:CatalogObjectStatusCurrent",
+		"dataset:specificationfordataset": {
 			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:datasetname": "Standard",
-			"dataset:datasetversion": "1.0",
-			"dataset:uniquegenericname": "testTableA1CarbonBensonRules"
+			"dataset:uniquegenericname": "testTableA1CarbonBensonRules",
+			"dataset:datasetobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDataSet"
 		},
 		"dcterms:identifier": "initialrepositorylocal",
 		"dcterms:BibliographicResource": [

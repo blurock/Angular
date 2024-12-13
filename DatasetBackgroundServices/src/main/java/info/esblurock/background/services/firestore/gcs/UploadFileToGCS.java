@@ -56,6 +56,35 @@ public enum UploadFileToGCS {
 		}
 
 	},
+	ResourceFileSystem {
+
+		@Override
+		JsonObject process(String transactionID, String owner, String maintainer, JsonObject info) {
+			Document document = MessageConstructor.startDocument("InitialReadFromResources");
+			Element body = MessageConstructor.isolateBody(document);
+			String location = info.get(ClassLabelConstants.FileSourceIdentifier).getAsString();
+			body.addElement("div").addText("File Location: '" + location + "'");
+			//Path filePath = Paths.get(location);
+			JsonObject response = new JsonObject();
+			try {
+				InputStream inputStream = UploadFileToGCS.class.getResourceAsStream(location);
+				String content = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+				response = WriteCloudStorage.writeString(transactionID, owner, maintainer, content, info,
+						"dcat:ResourceFileSystem");
+				if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+					JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+					JsonObject gcsstaging = arr.get(0).getAsJsonObject();
+					gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType,
+							"dataset:InitialReadInLocalStorageSystem");
+				}
+			} catch (IOException e) {
+				response = DatabaseServicesBase.standardErrorResponse(document,
+						"Error in reading: '" + location + "'\n" + e.getMessage(), response);
+			}
+			return response;
+		}
+
+	},
 	URLSourceFile {
 
 		@Override
@@ -71,8 +100,8 @@ public enum UploadFileToGCS {
 				String content = IOUtils.toString(in, StandardCharsets.UTF_8);
 				response = WriteCloudStorage.writeString(transactionID, owner, maintainer, content, info,
 						"dcat:URLSourceFile");
-				JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 				if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+					JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 					JsonObject gcsstaging = arr.get(0).getAsJsonObject();
 					gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadFromWebLocation");
 				}
@@ -101,19 +130,21 @@ public enum UploadFileToGCS {
 			Element body = MessageConstructor.isolateBody(document);
 			String contentutf8 = info.get(ClassLabelConstants.FileSourceIdentifier).getAsString();
 			String content = "";
+			JsonObject response = null;
             try {
                 content = URLDecoder.decode(contentutf8,"UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
- 			body.addElement("pre").addText("String content: '" + content + "'");
-			JsonObject response = WriteCloudStorage.writeString(transactionID, owner, maintainer, content, info,
+                body.addElement("pre").addText("String content: '" + content + "'");
+                response = WriteCloudStorage.writeString(transactionID, owner, maintainer, content, info,
 					"dataset:StringSource");
-			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-				JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
-				JsonObject gcsstaging = arr.get(0).getAsJsonObject();
-				gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadFromUserInterface");
-			}
+                if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+                	JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+                	JsonObject gcsstaging = arr.get(0).getAsJsonObject();
+                	gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadFromUserInterface");
+                }
+            } catch (UnsupportedEncodingException e) {
+				response = DatabaseServicesBase.standardErrorResponse(document,
+						"Error in converting string to UTF-8: '" + "'\n" + e.getMessage(), response);
+            }
 			return response;
 		}
 
@@ -147,11 +178,10 @@ public enum UploadFileToGCS {
 	public static JsonObject readFromSource(String transactionID, String owner, JsonObject info) {
 	    JsonObject response = null;
 	    try {
-	    	String maintainer = owner;
-	    	JsonElement main = info.get(ClassLabelConstants.CatalogDataObjectMaintainer);
-	    	if(main != null)
-	    		maintainer = main.getAsString();
-		JsonObject datasetspec = info.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
+	    	JsonObject datasetid = info.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
+	    	String maintainer = datasetid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+	    	
+		//JsonObject datasetspec = info.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
 		String source = info.get(ClassLabelConstants.UploadFileSource).getAsString();
 		String sourcename = source.substring(8);
 		UploadFileToGCS upload = UploadFileToGCS.valueOf(sourcename);
@@ -160,7 +190,7 @@ public enum UploadFileToGCS {
 			JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 			JsonObject gcsstaging = arr.get(0).getAsJsonObject();
 			gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadInLocalStorageSystem");
-			gcsstaging.add(ClassLabelConstants.CatalogObjectUniqueGenericLabel, datasetspec);
+			gcsstaging.add(ClassLabelConstants.SpecificationForDataset, datasetid);
 			JsonObject stagingblob = gcsstaging.get(ClassLabelConstants.GCSBlobFileInformationStaging)
 					.getAsJsonObject();
 			String description = info.get(ClassLabelConstants.DescriptionTitle).getAsString();

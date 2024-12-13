@@ -18,11 +18,11 @@
 		"dataset:filemediatype": "dataset:FileTypeText",
 		"dcterms:title": "Ring Strain Correction Thermodynamics ",
 		"dataset:filesourcesubtype": "",
-		"dataset:datasettransactionspecification": {
+		"dataset:collectionobjecttype": "dataset:JThermodynamics2DSubstructureThermodynamicsDatabase",
+		"dataset:specificationfordataset": {
 			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:datasetname": "Standard",
-			"dataset:datasetversion": "1.0",
-			"dataset:uniquegenericname": "substructthermoCycles"
+			"dataset:uniquegenericname": "SubstructthermoCyclesThermodynamics",
+			"dataset:datasetobjecttype": "dataset:JThermodynamics2DSubstructureThermodynamicsDataSet"
 		},
 		"dcterms:identifier": "initialrepositorylocal",
 		"dcterms:BibliographicResource": [

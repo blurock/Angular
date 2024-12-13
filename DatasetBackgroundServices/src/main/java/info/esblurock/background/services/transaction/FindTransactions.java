@@ -204,6 +204,7 @@ public class FindTransactions {
             JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(emptycatalog);
             firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
             JsonObject setofprops = FindTransactionFromActivityInfo.determineSetOfProps(type, info);
+
             JsonObject response = ReadFirestoreInformation.readFirestoreCollection(setofprops, firestoreid);
             if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
                 JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();

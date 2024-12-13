@@ -9,6 +9,7 @@ import org.junit.Test;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.firestore.InitiallizeSystem;
 import info.esblurock.background.services.transaction.FindTransactions;
 import info.esblurock.background.services.transaction.TransactionProcess;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
@@ -18,6 +19,7 @@ public class TestPartitionMetaAtomFile {
 
 	@Test
 	public void test() {
+		InitiallizeSystem .initialize();
 		String srcpath = "src/test/java/resources/metaatoms/parsemetaatom.json";
 		try {
 			String content = Files.readString(Paths.get(srcpath));

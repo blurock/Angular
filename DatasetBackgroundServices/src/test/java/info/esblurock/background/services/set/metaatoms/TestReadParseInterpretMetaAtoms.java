@@ -18,7 +18,7 @@ public class TestReadParseInterpretMetaAtoms {
 		String paths = "src/test/java/resources/metaatoms/readmetaatom.json" +
 				"src/test/java/resources/metaatoms/parsemetaatom.json" +
 				"src/test/java/resources/metaatoms/createmetaatoms.json";
-		JsonObject response = RunMultipleTransactions.runMultipleFromListOfFiles(paths,false);
+		JsonObject response = RunMultipleTransactions.runMultipleFromListOfFiles(paths,"Adminstration",false,false);
 		if(response != null) {
 			JsonObjectUtilities.printResponse(response);
 		} else {

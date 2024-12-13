@@ -10,7 +10,7 @@ import info.esblurock.background.services.dataset.DatasetCollectionIDManagement;
 import info.esblurock.background.services.dataset.DatasetCollectionManagement;
 import info.esblurock.background.services.dataset.FindDatasetCollections;
 import info.esblurock.background.services.dataset.ReadInDatasetWithDatasetCollectionProcess;
-import info.esblurock.background.services.dataset.examine.ProcessExamineDatasetCollectionSetObject;
+import info.esblurock.background.services.dataset.examine.ProcessExamineDatabaseCollectionSetObject;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
@@ -20,12 +20,12 @@ import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRouti
 
 public enum ServiceCollectionDatasetCollectionSetAccess {
     
-    ExamineDatasetCollectionSetObject {
+    ExamineDatabaseCollectionSetObject {
 
         @Override
         public JsonObject process(JsonObject info) {
             JsonObject activity = info.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
-            return ProcessExamineDatasetCollectionSetObject.process(activity);
+            return ProcessExamineDatabaseCollectionSetObject.process(activity);
         }
         
     },

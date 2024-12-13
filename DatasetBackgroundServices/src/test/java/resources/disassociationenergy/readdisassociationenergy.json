@@ -18,11 +18,11 @@
 		"dataset:filemediatype": "dataset:FileTypeText",
 		"dcterms:title": "Disassociation Energy set",
 		"dataset:filesourcesubtype": "",
-		"dataset:datasettransactionspecification": {
+		"dataset:collectionobjecttype": "dataset:JThermodynamicsDisassociationEnergyOfStructureDatabase",
+		"dataset:specificationfordataset": {
 			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:datasetname": "Standard",
-			"dataset:datasetversion": "1.0",
-			"dataset:uniquegenericname": "disassociationEnergyAlkanes"
+			"dataset:uniquegenericname": "DisassociationEnergyAlkanes",
+			"dataset:datasetobjecttype": "dataset:JThermodynamicsDisassociationEnergyOfStructureDataSet"
 		},
 		"dcterms:identifier": "initialrepositorylocal",
 		"dcterms:BibliographicResource": [

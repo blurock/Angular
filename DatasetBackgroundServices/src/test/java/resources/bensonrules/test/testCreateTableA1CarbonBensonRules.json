@@ -1,11 +1,10 @@
 {
 	"prov:activity": "dataset:TransactionInterpretTextBlock",
 	"dataset:activityinfo": {
-		"dataset:datasettransactionspecification": {
+		"dataset:specificationfordataset": {
 			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:datasetname": "Standard",
-			"dataset:datasetversion": "1.0",
-			"dataset:uniquegenericname": "testTableA1CarbonBensonRules"
+			"dataset:uniquegenericname": "testTableA1CarbonBensonRules",
+			"dataset:datasetobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDataSet"
 		},
 		"dataset:filesourceformat": "dataset:TherGasBensonRules",
 		"dataset:blockinterpretationmethod": "dataset:ParseLinesJThermodynamicsBensonRules",

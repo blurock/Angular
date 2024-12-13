@@ -15,10 +15,10 @@ public class TestFullReadParseCreateCarbonBensonRules {
 	@Test
 	public void test() {
 		InitiallizeSystem .initialize();
-		String paths = "src/test/java/resources/bensonrules/readTableA1CarbonBensonRules.json\n" +
-				 "src/test/java/resources/bensonrules/parseTableA1CarbonBensonRules.json\n" +
-				 "src/test/java/resources/bensonrules/createTableA1CarbonBensonRules.json\n";
-		JsonObject response = RunMultipleTransactions.runMultipleFromListOfFiles(paths,false);
+		String paths = "src/test/java/resources/bensonrules/test/testReadTableA1CarbonBensonRules.json\n" +
+				 "src/test/java/resources/bensonrules/test/testParseTableA1CarbonBensonRules.json\n" +
+				 "src/test/java/resources/bensonrules/test/testCreateTableA1CarbonBensonRules.json\n";
+		JsonObject response = RunMultipleTransactions.runMultipleFromListOfFiles(paths,"Administrator", false, false);
 		if(response != null) {
 			JsonObjectUtilities.printResponse(response);
 		} else {

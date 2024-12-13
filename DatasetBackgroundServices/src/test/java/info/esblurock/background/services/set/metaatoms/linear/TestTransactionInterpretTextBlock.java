@@ -25,10 +25,17 @@ public class TestTransactionInterpretTextBlock {
 			String content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
 			String maintainer = "Administrator";
+			//try {
+			
+			
+			
 			JsonObject response = TransactionProcess.processFromTransaction(json,maintainer);
-			System.out.println("----------------------------------------------");
-			JsonObjectUtilities.printResponse(response);
-			System.out.println("----------------------------------------------");
+			System.out.println("1----------------------------------------------");
+			//JsonObjectUtilities.printResponse(response);
+			System.out.println("2----------------------------------------------");
+			//} catch(Exception ex) {
+				//ex.printStackTrace();
+			//}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

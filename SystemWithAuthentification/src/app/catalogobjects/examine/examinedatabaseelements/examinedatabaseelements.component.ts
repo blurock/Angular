@@ -89,7 +89,7 @@ export class ExaminedatabaseelementsComponent implements OnInit {
 	cataloganno: any;
 	methoditemstype = 'dataset:ThermodynamicDatasetCollectionType';
 
-	catalogtype = 'dataset:ActivityExamineDatasetObject';
+	catalogtype = 'dataset:ActivityExamineDatabaseObject';
 	objectform: UntypedFormGroup;
 	selected: string;
 	resultHtml: string;
@@ -204,7 +204,7 @@ export class ExaminedatabaseelementsComponent implements OnInit {
 	getServiceData(servicedata: any): void {
 		const activity = {};
 		this.getData(activity);
-		servicedata.service = 'ExamineDatasetCollectionSetObject';
+		servicedata.service = 'ExamineDatabaseCollectionSetObject';
 		servicedata[Ontologyconstants.ActivityInfo] = activity;
 	}
 

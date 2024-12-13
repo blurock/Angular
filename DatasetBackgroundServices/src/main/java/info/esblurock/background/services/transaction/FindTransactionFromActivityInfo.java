@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 
 public enum FindTransactionFromActivityInfo {
@@ -25,24 +26,26 @@ public enum FindTransactionFromActivityInfo {
 					.getAsJsonObject();
 			String datasetid = datasetspec.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
 			String maintainer = datasetspec.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-			String type = datasetspec.get(ClassLabelConstants.CatalogObjectType).getAsString();
+			String type = datasetspec.get(ClassLabelConstants.DatasetObjectType).getAsString();
 			//String version = recordid.get(ClassLabelConstants.DatasetVersion).getAsString();
 			JsonObject setofprops = CreateDocumentTemplate.createTemplate("dataset:SetOfPropertyValueQueryPairs");
 			JsonArray props = new JsonArray();
 			setofprops.add(ClassLabelConstants.PropertyValueQueryPair, props);
 			
+			String prefix = ClassLabelConstants.SpecificationForDataset + ".";
+			
 			JsonObject prop1 = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
-			prop1.addProperty(ClassLabelConstants.DatabaseObjectType, "dataset:uniquegenericname");
+			prop1.addProperty(ClassLabelConstants.DatabaseObjectType,prefix + ClassLabelConstants.CatalogObjectUniqueGenericLabel);
 			prop1.addProperty(ClassLabelConstants.ShortStringKey, datasetid);
 			props.add(prop1);
 			
 			JsonObject prop2 = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
-			prop2.addProperty(ClassLabelConstants.DatabaseObjectType, ClassLabelConstants.CatalogDataObjectMaintainer);
+			prop2.addProperty(ClassLabelConstants.DatabaseObjectType, prefix + ClassLabelConstants.CatalogDataObjectMaintainer);
 			prop2.addProperty(ClassLabelConstants.ShortStringKey, maintainer);
 			props.add(prop2);
 			
 			JsonObject prop3 = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
-			prop3.addProperty(ClassLabelConstants.DatabaseObjectType, ClassLabelConstants.CatalogObjectType);
+			prop3.addProperty(ClassLabelConstants.DatabaseObjectType, prefix + ClassLabelConstants.DatasetObjectType);
 			prop3.addProperty(ClassLabelConstants.ShortStringKey, type);
 			props.add(prop3);
 			

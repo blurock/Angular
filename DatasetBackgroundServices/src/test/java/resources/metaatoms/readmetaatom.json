@@ -11,11 +11,11 @@
 			"dataset:abstract-staging": "Read in a Benson Meta atom set. The set of substructures",
 			"dcterms:created": "today"
 		},
-		"dataset:datasettransactionspecification": {
+		"dataset:collectionobjecttype": "dataset:JThermodynamicsMetaAtomDefinitionDatabase",
+		"dataset:specificationfordataset": {
 			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:datasetname": "Standard",
-			"dataset:datasetversion": "1.0",
-			"dataset:uniquegenericname": "metaAtomsForBensonAtoms"
+			"dataset:uniquegenericname": "MetaAtomsForBensonAtoms",
+			"dataset:datasetobjecttype": "dataset:JThermodynamicsMetaAtomDefinitionDataSet"
 		},
 		"dataset:uploadsrc": "dataset:LocalFileSystem",
 		"dataset:filesourceformat": "dataset:JThermodynamicsMetaAtoms",

@@ -36,7 +36,7 @@ public class WriteFirestoreCatalogObject {
 		try {
 		    message = writeCatalogObjectWithException(catalog);
 		} catch (Exception e) {
-			message = "Could not set up Firestore: " + e.getMessage() + "\n";
+			message = "ERROR: Could not set up Firestore: " + e.getMessage() + "\n";
 		}
 		return message;
 	}

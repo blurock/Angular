@@ -1,23 +1,14 @@
 package info.esblurock.background.services.firestore.gcs;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
 
-import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
-import com.google.cloud.storage.StorageOptions.Builder;
-import com.google.cloud.storage.testing.RemoteStorageHelper;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.cloud.StorageClient;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -27,6 +18,7 @@ import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class WriteCloudStorage {
 
@@ -51,11 +43,13 @@ public class WriteCloudStorage {
 		String mediasubtype = info.get(ClassLabelConstants.FileSourceMediaSubType).getAsString();
 		body.addElement("div").addText("Media  SubType: " + mediasubtype);
 		//Bucket bucket = StorageClient.getInstance().bucket("blurock-database.appspot.com");
+		JsonObject datasetid = info.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
+		String setid = datasetid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
 
 		try {
 			storage = FirestoreBaseClass.getStorage();
 			String formatallabel = formattype.substring(8);
-			String dirpath = "upload/" + maintainer + "/" + formatallabel;
+			String dirpath = "upload/" + maintainer + "/" + formatallabel + "/" + setid;
 			String dir = dirpath + "/" + transactionid;
 
 			body.addElement("div").addText("Write to: " + dir);

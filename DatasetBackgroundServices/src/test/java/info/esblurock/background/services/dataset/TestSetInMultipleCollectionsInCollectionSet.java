@@ -27,7 +27,7 @@ public class TestSetInMultipleCollectionsInCollectionSet {
 				+
 				"src/test/java/resources/dataset/addcollectionBensonRules.json\n"
 				;
-		JsonObject response = RunMultipleTransactions.runMultipleFromListOfFiles(paths,false);
+		JsonObject response = RunMultipleTransactions.runMultipleFromListOfFiles(paths,"Adminstration",false,false);
 		if(response != null) {
 			JsonObjectUtilities.printResponse(response);
 		} else {

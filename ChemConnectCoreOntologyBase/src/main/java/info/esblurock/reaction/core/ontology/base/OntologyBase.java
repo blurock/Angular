@@ -102,7 +102,8 @@ public class OntologyBase {
 				
 				//String filename = "../ChemConnectCoreOntologyBase/src/main/java/resources/Dataset.ttl";
 				//String filename = "/resources/DatasetQUDT.ttl";
-				String filename = "/resources/DatasetQUDT20241024.ttl";
+				//String filename = "/resources/DatasetQUDT20241024.ttl";
+                String filename = "/resources/DatasetQUDT20241116.ttl";
 				InputStream str;
 				try {
 				    System.out.println("BEGIN: read(str, \"http://esblurock.info\", \"TURTLE\");");

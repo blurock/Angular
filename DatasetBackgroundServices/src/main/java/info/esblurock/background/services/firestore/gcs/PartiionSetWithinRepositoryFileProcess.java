@@ -53,7 +53,6 @@ public class PartiionSetWithinRepositoryFileProcess {
 		JsonObject staging = retrieveContentCatalogObjectFromPrerequisites(prerequisites);
 		if(staging != null) {
 		String content = retrieveContentFromTransaction(staging);
-		
 		// Parse the content using the info (FilePartitionMethod)
 		String methodS = info.get(ClassLabelConstants.FilePartitionMethod).getAsString();
 		info.addProperty(ClassLabelConstants.CatalogObjectOwner, owner);
@@ -113,7 +112,13 @@ public class PartiionSetWithinRepositoryFileProcess {
 			// (GCSBlobFileInformationStaging)
 			JsonObject gcsinfo = staging.get(ClassLabelConstants.GCSBlobFileInformationStaging).getAsJsonObject();
 			// read content from blob storage
+			//System.out.println("------------------------------------------------------");
+			//System.out.println(JsonObjectUtilities.toString(gcsinfo));
+			//System.out.println("------------------------------------------------------");
 			content = ReadCloudStorage.read(gcsinfo);
+			//System.out.println("------------------------------------------------------");
+			//System.out.println(content);
+			//System.out.println("------------------------------------------------------");
 		}
 		return content;
 	}

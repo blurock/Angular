@@ -18,11 +18,11 @@
 		"dataset:filemediatype": "dataset:FileTypeText",
 		"dcterms:title": "Internal Symmetry Rules for Carbon Atom",
 		"dataset:filesourcesubtype": "",
-		"dataset:datasettransactionspecification": {
+		"dataset:collectionobjecttype": "dataset:JThermodynamicsSymmetryStructureDefinitionDatabase",
+		"dataset:specificationfordataset": {
 			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:datasetname": "Standard",
-			"dataset:datasetversion": "1.0",
-			"dataset:uniquegenericname": "internalSymmetryCarbonAtom"
+			"dataset:uniquegenericname": "InternalSymmetryCarbonAtom",
+			"dataset:datasetobjecttype": "dataset:JThermodynamicsSymmetryStructureDefinitionDataSet"
 		},
 		"dcterms:identifier": "initialrepositorylocal",
 		"dcterms:BibliographicResource": [

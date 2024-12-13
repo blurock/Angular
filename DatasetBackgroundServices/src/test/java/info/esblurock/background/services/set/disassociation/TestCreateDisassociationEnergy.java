@@ -22,12 +22,12 @@ public class TestCreateDisassociationEnergy {
 		try {
 			content = Files.readString(Paths.get(srcpath));
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
-			System.out.println("----------------------------------------------");
+			System.out.println("D----------------------------------------------");
 			String maintainer = "Administrator";
 			JsonObject response = TransactionProcess.processFromTransaction(json,maintainer);
-			System.out.println("----------------------------------------------");
+			System.out.println("D----------------------------------------------");
 			JsonObjectUtilities.printResponse(response);
-			System.out.println("----------------------------------------------");
+			System.out.println("D----------------------------------------------");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -25,7 +25,7 @@ import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBa
 import info.esblurock.reaction.core.ontology.base.dataset.ParseCompoundObject;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
-public class ProcessExamineDatasetCollectionSetObject {
+public class ProcessExamineDatabaseCollectionSetObject {
     
      /** 
       * 
@@ -45,7 +45,7 @@ public class ProcessExamineDatasetCollectionSetObject {
      */
     public static JsonObject process(JsonObject info) {
         JsonObject response = null;
-        Document document = MessageConstructor.startDocument("ProcessExamineDatasetCollectionSetObject");
+        Document document = MessageConstructor.startDocument("ProcessExamineDatabaseCollectionSetObject");
         Element body = MessageConstructor.isolateBody(document);
         JsonObject recordid = info.get(ClassLabelConstants.DatasetCollectionSetRecordIDInfo).getAsJsonObject();
         String dataset = recordid.get(ClassLabelConstants.DatasetCollectionsSetLabel).getAsString();

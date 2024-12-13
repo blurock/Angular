@@ -27,50 +27,55 @@ import thermo.data.structure.structure.MetaAtomInfo;
 import thermo.exception.ThermodynamicComputeException;
 
 public class InterpretThermodynamicBlock {
-    /**
-     * @param parsed The thermodynamic block of molecule structure to be parsed 
-     * @param table The table in the document to fill
-     * @param info The supplementary information 
-     * 
-     * @return The JThermodynamics2DMoleculeThermodynamics (null if error in parsing)
-     */
+	/**
+	 * @param parsed The thermodynamic block of molecule structure to be parsed
+	 * @param table  The table in the document to fill
+	 * @param info   The supplementary information
+	 * 
+	 * @return The JThermodynamics2DMoleculeThermodynamics (null if error in
+	 *         parsing)
+	 */
 	public static JsonObject interpretMolecularThermodynamics(JsonObject parsed, Element table, JsonObject info) {
 		JsonObject molthermo = CreateDocumentTemplate.createTemplate("dataset:JThermodynamics2DMoleculeThermodynamics");
-		if(!interpretSpeciesStandardThermodynamics(molthermo, parsed, table, info)) {
-		    molthermo = null;
+		if (!interpretSpeciesStandardThermodynamics(molthermo, parsed, table, info)) {
+			molthermo = null;
 		}
 		return molthermo;
 	}
 
 	/**
-	 * @param parsed The thermodynamic block of substructures (defined by JThermodynamicsSubstructureType) structure to be parsed 
-	 * @param table The table in the document to fill
-	 * @param info The supplementary information (source of JThermodynamicsSubstructureType)
+	 * @param parsed The thermodynamic block of substructures (defined by
+	 *               JThermodynamicsSubstructureType) structure to be parsed
+	 * @param table  The table in the document to fill
+	 * @param info   The supplementary information (source of
+	 *               JThermodynamicsSubstructureType)
 	 * 
-	 * @return The JThermodynamics2DSubstructureThermodynamics (null if error in parsing)
+	 * @return The JThermodynamics2DSubstructureThermodynamics (null if error in
+	 *         parsing)
 	 */
 	public static JsonObject interpretSubstructureThermodynamics(JsonObject parsed, Element table, JsonObject info) {
 		JsonObject molthermo = CreateDocumentTemplate
-				.createTemplate("dataset:JThermodynamics2DSubstructureThermodynamics");
-        if(!interpretSpeciesStandardThermodynamics(molthermo, parsed, table, info)) {
-            molthermo = null;
-        } else {
-            String type = info.get(ClassLabelConstants.JThermodynamicsSubstructureType).getAsString();
-            molthermo.addProperty(ClassLabelConstants.JThermodynamicsSubstructureType, type);
-        }
+				.createTemplate("dataset:JThermodynamics2DSubstructureThermodynamicsDataSet");
+		if (!interpretSpeciesStandardThermodynamics(molthermo, parsed, table, info)) {
+			molthermo = null;
+		} else {
+			String type = info.get(ClassLabelConstants.JThermodynamicsSubstructureType).getAsString();
+			molthermo.addProperty(ClassLabelConstants.JThermodynamicsSubstructureType, type);
+		}
 		return molthermo;
 	}
 
 	/**
 	 * @param molthermo The subclass of JThermodynamics2DTempDependentThermo
-	 * @param parsed The thermodynamic block of substructures
-	 * @param table The table in the document to fill
-	 * @param info The supplementary information 
-	 * @return The JThermodynamics2DSubstructureThermodynamics (null if error in parsing)
+	 * @param parsed    The thermodynamic block of substructures
+	 * @param table     The table in the document to fill
+	 * @param info      The supplementary information
+	 * @return The JThermodynamics2DSubstructureThermodynamics (null if error in
+	 *         parsing)
 	 */
-	public static boolean interpretSpeciesStandardThermodynamics(JsonObject molthermo, JsonObject parsed,
-			Element table, JsonObject info) {
-	    boolean noerror = true;
+	public static boolean interpretSpeciesStandardThermodynamics(JsonObject molthermo, JsonObject parsed, Element table,
+			JsonObject info) {
+		boolean noerror = true;
 		JsonObject lines = parsed.get(ClassLabelConstants.RepositoryThermoPartitionBlock).getAsJsonObject();
 		String line1 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1).getAsString();
 		String line1a = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1a).getAsString();
@@ -85,31 +90,37 @@ public class InterpretThermodynamicBlock {
 		int group = (int) positionD;
 		JThermgasThermoStructureDataPoint point = new JThermgasThermoStructureDataPoint();
 		Element row = table.addElement("tr");
+		String phase = "Parse";
 		try {
 			point.parse(line1, line1a, line2, line3, line1aB, group, group);
-			
+			phase = "Interpret Molecule";
 			JsonObject molstructure = interpretMoleculeStructure(point, row, info);
 			molthermo.add(ClassLabelConstants.JThermodynamics2DSpeciesStructure, molstructure);
+			phase = "Get";
 			JsonObject molthermodynamics = molthermo.get(ClassLabelConstants.JThermodynamicStandardThermodynamics)
 					.getAsJsonObject();
+			phase = "Interpret Thermodynamics";
 			interpretStandardThermodynamics(point, molthermodynamics, info, row);
+			phase = "complete";
 		} catch (JThergasReadException e) {
-		    noerror = false;
-		    row.addElement("td").addText("'" + line1 + "' Error in parse: " + e.getMessage());
+			noerror = false;
+			row.addElement("td").addText("'" + line1 + "' Error in " + phase + ": " + e.getMessage());
 		} catch (Exception e) {
-		    noerror = false;
-            row.addElement("td").addText("'" + line1 + "' Error in parse: " + e.getMessage());
-        }
+			noerror = false;
+			row.addElement("td").addText("'" + line1 + "' Error in " + phase + ": " + e.getMessage());
+		}
 
 		return noerror;
 	}
 
-	/** Interpret the substructure/molecule
+	/**
+	 * Interpret the substructure/molecule
 	 * 
 	 * @param point The JTherGas structure that parses the lines
-	 * @param row The row element of the table
-	 * @param info The supplementary information 
-	 * @return The JThermodynamics2DSubstructureThermodynamics (null if error in parsing)
+	 * @param row   The row element of the table
+	 * @param info  The supplementary information
+	 * @return The JThermodynamics2DSubstructureThermodynamics (null if error in
+	 *         parsing)
 	 */
 	private static JsonObject interpretMoleculeStructure(JThermgasThermoStructureDataPoint point, Element row,
 			JsonObject info) {
@@ -134,35 +145,36 @@ public class InterpretThermodynamicBlock {
 
 	}
 
-	/** Interpret the Benson Rule
+	/**
+	 * Interpret the Benson Rule
 	 * 
-     * @param point The JTherGas structure that parses the lines
-     * @param row The row element of the table
-     * @param info The supplementary information 
-     * @return The JThermodynamics2DSubstructureThermodynamics (null if error in parsing)
+	 * @param point The JTherGas structure that parses the lines
+	 * @param row   The row element of the table
+	 * @param info  The supplementary information
+	 * @return The JThermodynamics2DSubstructureThermodynamics (null if error in
+	 *         parsing)
 	 */
 	public static JsonObject interpretBensonRuleThermodynamics(JsonObject parsed, Element table, JsonObject info) {
-		JsonObject bensonrule = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicBensonRuleDefinitionDataSet");
-		System.out.println(JsonObjectUtilities.toString(bensonrule));
+		JsonObject bensonrule = CreateDocumentTemplate
+				.createTemplate("dataset:ThermodynamicBensonRuleDefinitionDataSet");
 		JsonObject lines = parsed.get(ClassLabelConstants.RepositoryThermoPartitionBlock).getAsJsonObject();
 		String line1 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1).getAsString();
 		String line1a = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine1a).getAsString();
 		String line2 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine2).getAsString();
 		String line3 = lines.get(ClassLabelConstants.ThermodynamicsTherGasLine3).getAsString();
-		
+
 		Element row = table.addElement("tr");
 		double positionD = 0;
 		try {
-		    positionD = lines.get(ClassLabelConstants.Position).getAsDouble();
-		    int group = (int) positionD;
-		    JThergasThermoStructureGroupPoint point = new JThergasThermoStructureGroupPoint();
-		    
+			positionD = lines.get(ClassLabelConstants.Position).getAsDouble();
+			int group = (int) positionD;
+			JThergasThermoStructureGroupPoint point = new JThergasThermoStructureGroupPoint();
 
-		    boolean line1aB = false;
-		    if (line1a.length() > 0) {
-		        line1aB = true;
-		    }
-		
+			boolean line1aB = false;
+			if (line1a.length() > 0) {
+				line1aB = true;
+			}
+
 			point.parse(line1, line1a, line2, line3, line1aB, group, group);
 			JsonObject bensonrulestructure = bensonrule.get(ClassLabelConstants.JThermodynamicsBensonRuleStructure)
 					.getAsJsonObject();
@@ -172,15 +184,16 @@ public class InterpretThermodynamicBlock {
 			interpretStandardThermodynamics(point, bensonrulethermo, info, row);
 
 		} catch (JThergasReadException e) {
-		    bensonrule = null;
+			bensonrule = null;
 			row.addElement("td").addText("Error in parse: " + positionD + " first line: " + line1);
-			//e.printStackTrace();
+			// e.printStackTrace();
 		} catch (NumberFormatException e) {
-		    bensonrule = null;
-		    row.addElement("td").addText("Error in parse: position (number exception): " + positionD + " first line: " + line1);
-            //e.printStackTrace();
+			bensonrule = null;
+			row.addElement("td")
+					.addText("Error in parse: position (number exception): " + positionD + " first line: " + line1);
+			// e.printStackTrace();
 		}
-		
+
 		return bensonrule;
 	}
 
@@ -217,10 +230,10 @@ public class InterpretThermodynamicBlock {
 		// Heat Capacity and temperature
 		JsonObject heatcapacityspec = info.get(ClassLabelConstants.ParameterSpecificationHeatCapacity)
 				.getAsJsonObject();
-		bensonrulethermo.add(ClassLabelConstants.ParameterSpecificationHeatCapacity,heatcapacityspec);
+		bensonrulethermo.add(ClassLabelConstants.ParameterSpecificationHeatCapacity, heatcapacityspec);
 		JsonObject temperaturespec = info.get(ClassLabelConstants.ParameterSpecificationTemperature).getAsJsonObject();
-        bensonrulethermo.add(ClassLabelConstants.ParameterSpecificationTemperature,temperaturespec);
-		
+		bensonrulethermo.add(ClassLabelConstants.ParameterSpecificationTemperature, temperaturespec);
+
 		String temperatures[] = bensonTemperatureSortedArray(info);
 		JsonArray cpatTarray = new JsonArray();
 		bensonrulethermo.add(ClassLabelConstants.ThermodynamicCpAtTemperature, cpatTarray);
@@ -231,7 +244,7 @@ public class InterpretThermodynamicBlock {
 				cpatT.addProperty(ClassLabelConstants.ThermodynamicTemperature, temperatures[i]);
 				String cpS = Double.toString(cpValues[i]);
 				cpatT.addProperty(ClassLabelConstants.ThermodynamicHeatCapacityValue, cpS);
-				cpatT.addProperty(ClassLabelConstants.ValueUncertainty, "0.0");				
+				cpatT.addProperty(ClassLabelConstants.ValueUncertainty, "0.0");
 				cpatTarray.add(cpatT);
 			}
 		}

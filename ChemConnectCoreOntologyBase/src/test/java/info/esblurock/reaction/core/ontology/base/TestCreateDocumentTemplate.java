@@ -15,10 +15,10 @@ public class TestCreateDocumentTemplate {
 		System.out.println("---------------------------------------");
 		System.out.println("TestCreateDocumentTemplate");
 		System.out.println("---------------------------------------");
-		JsonObject obj = CreateDocumentTemplate.createTemplate("dataset:DatabasePerson");
+		JsonObject obj = CreateDocumentTemplate.createTemplate("dataset:RepositoryFileStaging");
 		System.out.println(JsonObjectUtilities.toString(obj));
 		System.out.println("---------------------------------------");
-		String address = "dataset:CollectionDocumentIDPairAddress";
+		String address = "dataset:SpecificationForDataset";
 		JsonObject obj1 = CreateDocumentTemplate.createTemplate(address);
 		System.out.println(JsonObjectUtilities.toString(obj1));
 		System.out.println("---------------------------------------");

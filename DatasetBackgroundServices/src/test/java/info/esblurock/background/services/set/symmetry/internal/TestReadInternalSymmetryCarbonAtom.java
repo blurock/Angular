@@ -25,7 +25,7 @@ public class TestReadInternalSymmetryCarbonAtom {
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
 			JsonObject response = TransactionProcess.processFromTransaction(json,maintainer);
 			JsonObjectUtilities.printResponse(response);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

@@ -34,6 +34,16 @@ public enum GenerateStringLabel {
         }
         
     },
+    LabelDerivedFromDatasetObjectType {
+
+        @Override
+        String deriveName(String hierclass, String classname, JsonObject object) {
+            String label = ClassLabelConstants.DatasetObjectType;
+            String id = object.get(ClassLabelConstants.DatabaseObjectType).getAsString();
+            return getValueFromObject(object,label,id);
+        }
+        
+    },
     LabelDerivedFromTransactionEventType {
 
 		@Override

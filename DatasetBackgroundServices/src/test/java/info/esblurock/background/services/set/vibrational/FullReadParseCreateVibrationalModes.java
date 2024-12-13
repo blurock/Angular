@@ -16,7 +16,7 @@ public class FullReadParseCreateVibrationalModes {
 		String paths = "src/test/java/resources/vibrational/readVibrationalModes.json\n" +
 				"src/test/java/resources/vibrational/parseVibrationalModes.json\n" +
 				"src/test/java/resources/vibrational/createVibrationalModes.json\n";
-		JsonObject response = RunMultipleTransactions.runMultipleFromListOfFiles(paths,false);
+		JsonObject response = RunMultipleTransactions.runMultipleFromListOfFiles(paths,"Adminstration",false,false);
 		if(response != null) {
 			JsonObjectUtilities.printResponse(response);
 		} else {

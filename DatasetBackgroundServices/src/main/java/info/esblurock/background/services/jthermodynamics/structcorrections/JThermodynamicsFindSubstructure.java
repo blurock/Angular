@@ -20,12 +20,12 @@ import thermo.data.structure.structure.matching.GetSubstructureMatches;
 public class JThermodynamicsFindSubstructure {
 
     /**
-     * @param species The species in the JThermodynamics2DSpeciesStructure form
-     * @param substructures A JsonArray of JThermodynamics2DSubstructureThermodynamics (read from the database)
-     * @return the best (largest) JThermodynamics2DSubstructureThermodynamics from the JsonArray
+     * @param species The species in the JThermodynamics2DSpeciesStructureDatabase form
+     * @param substructures A JsonArray of JThermodynamics2DSubstructureThermodynamicsDatabase (read from the database)
+     * @return the best (largest) JThermodynamics2DSubstructureThermodynamicsDatabase from the JsonArray
      * @throws CDKException This is thrown if there is a problem in converting the JThermodynamics2DSubstructureThermodynamics to IAtomContainer
      * 
-     * This top level routine converts all JThermodynamics2DSubstructureThermodynamics and JThermodynamics2DSpeciesStructure JsonObjects
+     * This top level routine converts all JThermodynamics2DSubstructureThermodynamicsDatabase and JThermodynamics2DSpeciesStructureDatabase JsonObjects
      * to the JThermodynamicsAtomCountSet class (which extends the AtomCounts) class. 
      * 
      * The AtomCounts class is used to order the list of structures.

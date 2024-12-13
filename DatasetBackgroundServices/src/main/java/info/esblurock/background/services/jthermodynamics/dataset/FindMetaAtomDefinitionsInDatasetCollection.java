@@ -147,7 +147,7 @@ public class FindMetaAtomDefinitionsInDatasetCollection {
     }
 
     public static JsonArray findMetaAtomDefinitions(String maintainer, String dataset, JsonObject setofproperties) {
-        String classname = "dataset:JThermodynamicsMetaAtomDefinition";
+        String classname = "dataset:JThermodynamicsMetaAtomDefinitionDatabase";
         String service = "ReadInDatasetWithDatasetCollectionLabel";
         JsonObject json = new JsonObject();
         JsonObject recordid = CreateDocumentTemplate.createTemplate("dataset:DatasetCollectionSetRecordIDInfo", false);

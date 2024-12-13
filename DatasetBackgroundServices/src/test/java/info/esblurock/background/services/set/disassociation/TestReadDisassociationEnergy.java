@@ -24,7 +24,7 @@ public class TestReadDisassociationEnergy {
 			String maintainer = "Administrator";
 			JsonObject response = TransactionProcess.processFromTransaction(json,maintainer);
 			JsonObjectUtilities.printResponse(response);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

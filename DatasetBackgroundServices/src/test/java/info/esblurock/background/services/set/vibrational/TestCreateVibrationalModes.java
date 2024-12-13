@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.google.gson.JsonObject;
 
+import info.esblurock.background.services.firestore.InitiallizeSystem;
 import info.esblurock.background.services.transaction.TransactionProcess;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
@@ -17,6 +18,7 @@ public class TestCreateVibrationalModes {
 
 	@Test
 	public void test() {
+		InitiallizeSystem .initialize();
 		String srcpath = "src/test/java/resources/vibrational/createVibrationalModes.json";
 		String maintainer = "Administrator";
 		try {
@@ -24,7 +26,7 @@ public class TestCreateVibrationalModes {
 			JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
 			JsonObject response = TransactionProcess.processFromTransaction(json,maintainer);
 			JsonObjectUtilities.printResponse(response);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

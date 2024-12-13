@@ -113,7 +113,7 @@ public class DatasetCollectionCreateSystemCollection {
             System.out.println("copyCollectionSet: " + JsonObjectUtilities.toString(systemcollectionset));
             boolean success1 = copyDatasetElements(systemcollectionset, transactionID,
                     destmaintainer, transactionfirestore,version, collectionname,datasetcollectionset, 
-                    ClassLabelConstants.JThermodynamics2DSubstructureThermodynamics,document);
+                    ClassLabelConstants.JThermodynamics2DSubstructureThermodynamicsDatabase,document);
             boolean success2 = copyDatasetElements(systemcollectionset, transactionID,
                     destmaintainer, transactionfirestore,version, collectionname,datasetcollectionset, 
                     ClassLabelConstants.ThermodynamicBensonRuleDefinition,document);
