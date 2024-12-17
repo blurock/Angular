@@ -16,6 +16,7 @@ import info.esblurock.background.services.dataset.DatasetCollectionManagement;
 import info.esblurock.background.services.dataset.user.CreateDatabasePersonTransaction;
 import info.esblurock.background.services.dataset.user.CreateUserAccountTransaction;
 import info.esblurock.background.services.dataset.user.InitializerUserAccountTransaction;
+import info.esblurock.background.services.datasetobjects.TransferDatasetObjectCollectionToDatabaseProcess;
 import info.esblurock.background.services.firestore.ManageDatasetCatalogObjects;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
@@ -263,6 +264,7 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionObjectName() {
+			//return "dataset:DatasetTransactionEventObject";
 			return "dataset:DatasetTransactionEventObject";
 		}
 
@@ -305,6 +307,30 @@ public enum TransactionProcess {
 			return "dataset:DatasetTransactionEventObject";
 		}
 
+	},
+	TransferDatasetObjectCollectionToDatabase {
+
+		@Override
+		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+			return TransferDatasetObjectCollectionToDatabaseProcess.process(event,info);
+		}
+
+		@Override
+		String transactionKey(JsonObject catalog) {
+			String name = catalog.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+			JsonObject structure = catalog.get(ClassLabelConstants.DatasetSpecificationForCollectionSet)
+					.getAsJsonObject();
+
+			String maintainer = structure.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+			String dataset = structure.get(ClassLabelConstants.CollectionName).getAsString();
+			return "Transfer." + maintainer + "." + name + "." + dataset ;
+		}
+
+		@Override
+		String transactionObjectName() {
+			return "dataset:DatasetCollectionObjectSetWriteTransaction";
+		}
+		
 	},
 	DatasetCollectionSetCreationEvent {
 

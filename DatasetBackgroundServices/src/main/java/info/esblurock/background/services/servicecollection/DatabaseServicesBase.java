@@ -52,7 +52,7 @@ public class DatabaseServicesBase {
 				response = agentfire.process(body);
 			} catch (IllegalArgumentException ex2) {
 				try {
-					ServiceCollectionDatasetCollectionSetAccess agentcoll = ServiceCollectionDatasetCollectionSetAccess
+					ServiceCollectionDatabaseCollectionSetAccess agentcoll = ServiceCollectionDatabaseCollectionSetAccess
 							.valueOf(service);
 					response = agentcoll.process(body);
 				} catch (IllegalArgumentException ex3) {
@@ -65,10 +65,16 @@ public class DatabaseServicesBase {
 							ServiceCollectionDatabaseAccess access = ServiceCollectionDatabaseAccess.valueOf(service);
 							response = access.process(body);
 						} catch (IllegalArgumentException ex5) {
-							response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);
-							response.addProperty(ClassLabelConstants.ServiceResponseMessage,
-									"Service not available: '" + service + "'\n" + ex5.toString());
-							response.add(ClassLabelConstants.SimpleCatalogObject, null);
+							try {
+								ServiceCollectionDatasetObjectsManipulation datasetmanipulation = ServiceCollectionDatasetObjectsManipulation
+										.valueOf(service);
+								response = datasetmanipulation.process(body);
+							} catch (IllegalArgumentException ex6) {
+								response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);
+								response.addProperty(ClassLabelConstants.ServiceResponseMessage,
+										"Service not available: '" + service + "'\n" + ex5.toString());
+								response.add(ClassLabelConstants.SimpleCatalogObject, null);
+							}
 						}
 					}
 				}

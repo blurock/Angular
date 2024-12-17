@@ -298,7 +298,7 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
      * 
      * @param event The transaction (DatasetCollectionObjectSetWriteTransaction)
      * @param classname The classname of the catalog object to write
-     * @param collectionset The collection set to which the catalog objects belond
+     * @param collectionset The collection set to which the catalog objects belong
      * @param set The set of catalog objects to write
      * @return The response 
      * 
@@ -320,8 +320,8 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
 
         String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
         String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
-        JsonObject catalog = BaseCatalogData.createStandardDatabaseObject("dataset:DatasetCollectionObjectSetWriteTransaction", owner,
-                transactionID, "false");
+        //JsonObject catalog = BaseCatalogData.createStandardDatabaseObject("dataset:DatasetCollectionObjectSetWriteTransaction", owner,
+        //        transactionID, "false");
         
         JsonObject response = null;
         List<String> datasetIDs = ManageDatasetDocumentLists.getCollectionIDs(classname, collectionset);
@@ -403,7 +403,7 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
         ManageDatasetDocumentLists.writeCollectionIDs(datasetIDs,classname,collectionset);
         JsonArray replaced = new JsonArray();
         event.add(ClassLabelConstants.DataCatalogOutputObjectReplaced, replaced);
-        event.add(ClassLabelConstants.DatabaseObjectIDOutputTransaction, firestoreids);
+        //event.add(ClassLabelConstants.DatabaseObjectIDOutputTransaction, firestoreids);
     }
     
     /** Extract list of CatalogObjectKey from JsonArray of catalog objects

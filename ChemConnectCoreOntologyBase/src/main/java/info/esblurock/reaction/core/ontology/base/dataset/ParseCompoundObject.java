@@ -35,6 +35,7 @@ public class ParseCompoundObject {
 						+ "UNION"
 						+ "{?object owl:onClass ?record . ?object owl:qualifiedCardinality ?cardinality}"
 						+ "}";
+		
 		List<Map<String, RDFNode>> lst = OntologyBase.resultSetToMap(query);
 		List<Map<String, String>> stringlst = OntologyBase.resultmapToStrings(lst);
 		

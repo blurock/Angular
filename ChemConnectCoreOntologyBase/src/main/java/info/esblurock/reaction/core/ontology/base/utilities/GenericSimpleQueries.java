@@ -95,5 +95,30 @@ public class GenericSimpleQueries {
 		return type;
 	}
 
+	public static String classWithSameParent(String classname) {
+		String query = "SELECT ?siblingClass ?parentClass\n"
+				+ "WHERE {\n"
+				+ "    # Get the parent class of our input class\n"
+				+ "    " + classname + " rdfs:subClassOf ?parentClass "
+				+ "    . \n"
+				+ "    # Find other classes with the same parent\n"
+				+ "    ?siblingClass rdfs:subClassOf ?parentClass "
+				+ "    . \n"
+				+ "    # Exclude the input class itself\n"
+				+ "    FILTER (?siblingClass != " + classname + ")\n"
+				+ "    \n"
+				+ "    # Optional: Ensure we're only looking at named classes (not blank nodes)\n"
+				+ "    FILTER (isIRI(?siblingClass))\n"
+				
+				+ "}";
+		
+		List<String> lst = OntologyBase.isolateProperty(query,"siblingClass");
+		String sibling = null;
+		if(lst.size() > 0) {
+			sibling = lst.get(0);
+		}
+		return sibling;
+		
+	}
 
 }

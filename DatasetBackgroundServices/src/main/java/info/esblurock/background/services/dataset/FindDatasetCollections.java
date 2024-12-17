@@ -31,7 +31,7 @@ public class FindDatasetCollections {
         JsonObject empty = CreateDocumentTemplate.createTemplate(classname);
         empty.add(ClassLabelConstants.DatasetSpecificationForCollectionSet, recordid);
         // In some objects, this conflicts
-        empty.remove(ClassLabelConstants.DatasetSpecificationForCollectionSet);
+        //empty.remove(ClassLabelConstants.SpecificationForDataset);
         JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(empty);
         firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
          return firestoreid;

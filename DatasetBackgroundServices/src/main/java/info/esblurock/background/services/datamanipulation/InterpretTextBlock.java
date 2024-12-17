@@ -418,6 +418,7 @@ public enum InterpretTextBlock {
             if (checkIfCompatableParse(parsed, info)) {
                 JsonObject catalog = method.interpret(parsed, table, info);
                 if (catalog != null) {
+                	catalog.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, genericlabel);
                     catalog.add(ClassLabelConstants.SpecificationForDataset, datasetspec);
                     catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction, transfirestoreID.deepCopy());
                     BaseCatalogData.insertStandardBaseInformation(catalog, owner, transactionID, "false", true);

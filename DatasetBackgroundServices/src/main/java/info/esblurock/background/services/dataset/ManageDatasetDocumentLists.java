@@ -12,6 +12,7 @@ import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
+import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class ManageDatasetDocumentLists {
     static String indexID = "CatalogIDs";
