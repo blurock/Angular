@@ -427,7 +427,7 @@ public enum InterpretTextBlock {
                     CreateLinksInStandardCatalogInformation.linkCatalogObjects(parsed,
                             "dataset:ConceptLinkRepositoryPartitionToInterpretation", catalog);
                     catalogset.add(catalog);
-                    addToChemConnectDatabaseObjectsForLabel(event, catalog);
+                    DatasetObjectLabelListManipulation.addToChemConnectDatabaseObjectsForLabel(event, catalog);
      
                 } else {
                     errors.add(parsed);
@@ -462,7 +462,7 @@ public enum InterpretTextBlock {
         			set.add(catalog);
         		}
 
-                JsonObject genericset = addToChemConnectDatabaseUniqueGenericLabelSet(event,info);
+                JsonObject genericset = DatasetObjectLabelListManipulation.addToChemConnectDatabaseUniqueGenericLabelSet(event,info);
                 if(genericset == null) {
                 	errors.add("ERROR: trouble adding the DatabaseUniqueGenericLabelSet");
                 }
@@ -513,165 +513,9 @@ public enum InterpretTextBlock {
 		return sourceformatinfo.equals(sourceformatparsed);
 	}
 
-	private static JsonObject addToChemConnectDatabaseObjectsForLabel(JsonObject event, JsonObject catalog) {
-		JsonObject created = createChemConnectDatabaseObjectsForLabel(event,catalog);
-		JsonObject firestoreid = created.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
-		String simplename = firestoreid.get(ClassLabelConstants.SimpleCatalogName).getAsString();
-		System.out.println("addToChemConnectDatabaseObjectsForLabel simplename=" + simplename);
-		JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(firestoreid);
-		System.out.println("addToChemConnectDatabaseObjectsForLabel response=" + response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean());
-		JsonObject objforlabel = null;
-		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-			if (!response.get(ClassLabelConstants.SimpleCatalogObject).isJsonNull()) {
-				JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
-				System.out.println("addToChemConnectDatabaseObjectsForLabel size=" + arr.size());
-				if (arr.size() > 0) {
-					objforlabel = arr.get(0).getAsJsonObject();
-					System.out.println("addToChemConnectDatabaseObjectsForLabel id=" +objforlabel.get(ClassLabelConstants.CatalogObjectKey).toString());
-				} else {
-					objforlabel = null;
-				}
-			} else {
-				objforlabel = null;
-			}
-		} else {
-			objforlabel = created;
-			firestoreid.addProperty(ClassLabelConstants.SimpleCatalogName,simplename);
-		}
-		
-		if (objforlabel != null) {
-			JsonObject datasetid = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
-			String uniquelabelString = datasetid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
-			JsonArray names = objforlabel.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsJsonArray();
-			names.add(uniquelabelString);
-			String message = WriteFirestoreCatalogObject.writeCatalogObject(objforlabel);
-			if (message.startsWith("ERROR")) {
-				objforlabel = null;
-			}
-		}
-		return objforlabel;
-	}
 	
-	private static JsonObject createChemConnectDatabaseObjectsForLabel(JsonObject event, JsonObject catalog) {
-		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
-		String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
-		JsonObject datasetid = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
-		String maintainer = datasetid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-		String objtype = datasetid.get(ClassLabelConstants.DatasetObjectType).getAsString();
-		JsonObject genericset = BaseCatalogData.createStandardDatabaseObject("dataset:ChemConnectDatabaseObjectsForLabel", 
-				owner, transactionID, "false");
-
-		genericset.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
-		genericset.addProperty(ClassLabelConstants.DatasetObjectType,objtype );
-		
-		String uniquelabelString = datasetid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
-		String id = catalog.get(ClassLabelConstants.CatalogObjectKey).getAsString();
-		System.out.println("createChemConnectDatabaseObjectsForLabel id=                " + id);
-		System.out.println("createChemConnectDatabaseObjectsForLabel uniquelabelString= " + uniquelabelString);
-		genericset.addProperty(ClassLabelConstants.CatalogObjectKeyLabel,id);
-		genericset.addProperty(ClassLabelConstants.CatalogObjectKey,id);
-
-		BaseCatalogData.insertFirestoreAddress(genericset);
-		return genericset;
-		
-	}
 	
-	/**
-	 * @param event The transaction
-	 * @param info  The activity info
-	 * @return The current ChemConnectDatabaseUniqueGenericLabelSet, null if
-	 *         something went wrong
-	 * 
-	 *         The necessary information is extracted from the transaction and the
-	 *         info.
-	 * 
-	 *         This routine creates a ChemConnectDatabaseUniqueGenericLabelSet
-	 *         (using createChemConnectDatabaseUniqueGenericLabelSet) using the
-	 *         generated firestoreID, the database is checked if one already exists.
-	 *         if no, the generated catalog object is used, if yes, then the one
-	 *         from the database is used.
-	 * 
-	 *         The new ChemConnectDatabaseUniqueGenericLabelSet is added (using
-	 *         addGenericLabel)
-	 */
-	private static JsonObject addToChemConnectDatabaseUniqueGenericLabelSet(JsonObject event, JsonObject info) {
-		JsonObject created = createChemConnectDatabaseUniqueGenericLabelSet(event, info);
-		
-		JsonObject firestoreid = created.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
-		String simplename = firestoreid.get(ClassLabelConstants.SimpleCatalogName).getAsString();
-		JsonObject response = ReadFirestoreInformation.readFirestoreCollection(null,firestoreid);
-		JsonObject genericset = null;
-		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-			if (!response.get(ClassLabelConstants.SimpleCatalogObject).isJsonNull()) {
-				JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
-				if (arr.size() > 0) {
-					genericset = arr.get(0).getAsJsonObject();
-				} else {
-					genericset = null;
-				}
-			} else {
-				genericset = null;
-			}
-		} else {
-			genericset = created;
-			firestoreid.addProperty(ClassLabelConstants.SimpleCatalogName,simplename);
-		}
 
-		if (genericset != null) {
-			JsonObject datasetid = info.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
-			String uniquelabelString = datasetid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
-			JsonObject descr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
-			String title = descr.get(ClassLabelConstants.DescriptionTitleTransaction).getAsString();
-			addGenericLabel(genericset, title, uniquelabelString);
 
-			String message = WriteFirestoreCatalogObject.writeCatalogObject(genericset);
-			if (message.startsWith("ERROR")) {
-				genericset = null;
-			}
-		}
-		return genericset;
-	}
-
-	/**
-	 * @param event The current transaction
-	 * @param info  The current info
-	 * @return The generated ChemConnectDatabaseUniqueGenericLabelSet
-	 * 
-	 *         The necessary information is extracted from the transaction and the
-	 *         info.
-	 */
-	private static JsonObject createChemConnectDatabaseUniqueGenericLabelSet(JsonObject event, JsonObject info) {
-		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
-		String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
-		JsonObject datasetid = info.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
-		String maintainer = datasetid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-		String objtype = datasetid.get(ClassLabelConstants.DatasetObjectType).getAsString();
-		JsonObject genericset = BaseCatalogData.createStandardDatabaseObject("dataset:ChemConnectDatabaseUniqueGenericLabelSet", 
-				owner, transactionID, "false");
-
-		genericset.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
-		genericset.addProperty(ClassLabelConstants.DatasetObjectType,objtype );
-
-		BaseCatalogData.insertFirestoreAddress(genericset);
-		return genericset;
-	}
-
-	/**
-	 * @param genericset        The current ChemConnectDatabaseUniqueGenericLabelSet
-	 * @param title             The title extracted from the transaction
-	 * @param uniquelabelString The unique label extracted from info
-	 * 
-	 *                          A new UniqueGenericLabelSpecification is created and
-	 *                          added to the
-	 *                          ChemConnectDatabaseUniqueGenericLabelSet
-	 * 
-	 */
-	private static void addGenericLabel(JsonObject genericset, String title, String uniquelabelString) {
-		JsonObject uniqueelement = new JsonObject();
-		uniqueelement.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, uniquelabelString);
-		uniqueelement.addProperty(ClassLabelConstants.DescriptionTitle, title);
-		JsonArray set = genericset.get(ClassLabelConstants.UniqueGenericLabelSpecification).getAsJsonArray();
-		set.add(uniqueelement);
-	}
 
 }

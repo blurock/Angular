@@ -62,18 +62,14 @@ public class ReadFirestoreInformation {
         Firestore db;
         try {
             db = FirestoreBaseClass.getFirebaseDatabase();
-           DocumentReference docref = SetUpDocumentReference.setup(db, firestoreid);
-            ApiFuture<DocumentSnapshot> future = docref.get();
-            DocumentSnapshot document = future.get();
-            if (document.exists()) {
-                Map<String, Object> mapObj = document.getData();
-                String jsonString = new Gson().toJson(mapObj);
-                JsonObject catalog = JsonObjectUtilities.jsonObjectFromString(jsonString);
-                response = DatabaseServicesBase.standardServiceResponse(docmessage, "Success: ReadFirestoreInformation",
-                        catalog);
+            DocumentReference docref = SetUpDocumentReference.setup(db, firestoreid);
+            JsonObject catalog = readUsingDocumentReference(firestoreid,docref);
+            if(catalog != null) {
+            	response = DatabaseServicesBase.standardServiceResponse(docmessage, "Success: ReadFirestoreInformation",
+                    catalog);
             } else {
-               String message = "Document not found: ";
-                response = DatabaseServicesBase.standardErrorResponse(docmessage, message, firestoreid);
+                String message = "Document not found: ";
+                response = DatabaseServicesBase.standardErrorResponse(docmessage, message, firestoreid);            	
             }
         } catch (IOException e) {
             response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), firestoreid);
@@ -83,6 +79,18 @@ public class ReadFirestoreInformation {
             response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), firestoreid);
         }
         return response;
+    }
+    
+    public static JsonObject readUsingDocumentReference(JsonObject firestoreid, DocumentReference docref) throws InterruptedException, ExecutionException {
+        ApiFuture<DocumentSnapshot> future = docref.get();
+        DocumentSnapshot document = future.get();
+        JsonObject catalog = null;
+        if (document.exists()) {
+            Map<String, Object> mapObj = document.getData();
+            String jsonString = new Gson().toJson(mapObj);
+            catalog = JsonObjectUtilities.jsonObjectFromString(jsonString);
+        }
+        return catalog;
     }
 
     /**

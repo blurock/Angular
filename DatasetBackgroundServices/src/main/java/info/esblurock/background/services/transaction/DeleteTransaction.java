@@ -1,5 +1,7 @@
 package info.esblurock.background.services.transaction;
 
+import java.util.concurrent.ExecutionException;
+
 import org.dom4j.Document;
 import org.dom4j.Element;
 
@@ -15,9 +17,18 @@ import info.esblurock.background.services.service.rdfs.DeleteRDFs;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
+import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRoutines;
 
 public class DeleteTransaction extends DeleteCatalogDataObject {
 
+	/** deleteTransactionwithID
+	 * 
+	 * @param firestoreid The firestoreID of the transaction to delete.
+	 * @return Response
+	 * 
+	 * Once the transaction is read in, DeleteTransaction.deleteTransaction is called.
+	 * 
+	 */
 	public static JsonObject deleteTransactionwithID(JsonObject firestoreid) {
 		JsonObject deleteresponse = null;
 		JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(firestoreid);
@@ -51,6 +62,8 @@ public class DeleteTransaction extends DeleteCatalogDataObject {
 	 *                    This deletes the catalog objects listed in the
 	 *                    transaction, the RDFs (using the TransactionID) that were
 	 *                    created and the transactions
+	 * @throws ExecutionException 
+	 * @throws InterruptedException 
 	 */
 	public static JsonObject deleteTransaction(JsonObject transaction) {
 	    String idS = transaction.get(ClassLabelConstants.CatalogObjectKey).getAsString();
@@ -59,11 +72,32 @@ public class DeleteTransaction extends DeleteCatalogDataObject {
 		DeleteCatalogDataObject.getFirestoreID();
 		int deleted = 0;
 		JsonArray arr = transaction.get(ClassLabelConstants.DatabaseObjectIDOutputTransaction).getAsJsonArray();
+		JsonObject shortdescr = transaction.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
+		String transactionname = shortdescr.get(ClassLabelConstants.TransactionEventType).getAsString();
+		String transname = transactionname.substring(8);
+		
+		String catalogtype = OntologyUtilityRoutines.exactlyOnePropertySingle(transactionname, "dcat:catalog");
+		
+		body.addElement("div").addText("Delete transaction: " + transname + " (" + arr.size() + " " + catalogtype + " objects)");
+		DeleteTransactionCatalogObjects deleteprocess = null;
+		try {
+		deleteprocess = DeleteTransactionCatalogObjects.valueOf(transname);
+		} catch(IllegalArgumentException ex) {
+			body.addElement("div").addText("Just delete catalog objects");
+		}
 		for (int i = 0; i < arr.size(); i++) {
 			JsonObject firestoreid = arr.get(i).getAsJsonObject();
 			DocumentReference docref = SetUpDocumentReference.setup(db, firestoreid);
+			if(deleteprocess != null) {
+				try {
+					deleteprocess.delete(transaction,firestoreid,docref,body);
+				} catch (InterruptedException | ExecutionException e) {
+					body.addElement("div").addText("Error in reading " + i + "th element");
+				}
+			}
 			docref.delete();
 			deleted++;
+			body.addElement("div").addText("Delete Element: " + firestoreid.get(ClassLabelConstants.SimpleCatalogName).getAsString());
 		}
 		String message1 = "Deleted objects: " + Integer.toString(deleted);
 		body.addElement("div").addText(message1);

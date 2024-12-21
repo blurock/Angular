@@ -151,7 +151,9 @@ public class JsonObjectUtilities {
 			System.out.println("The process was a success");
 			String message = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 			System.out.println(message);
-			if(response.get(ClassLabelConstants.SimpleCatalogObject).isJsonObject()) {
+			if(response.get(ClassLabelConstants.SimpleCatalogObject).isJsonNull()) {
+				System.out.println("No catalog objects specified");
+			} else if(response.get(ClassLabelConstants.SimpleCatalogObject).isJsonObject()) {
 				JsonObject object = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 				System.out.println(JsonObjectUtilities.toString(object));
 			} else {
