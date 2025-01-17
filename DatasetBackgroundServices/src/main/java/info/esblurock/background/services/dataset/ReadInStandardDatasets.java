@@ -80,13 +80,17 @@ public class ReadInStandardDatasets {
 				//+ "/resources/standard/symmetry/external/TransactionParseExternalSymmetryCarbonAtom.json\n"
 				//+ "/resources/standard/symmetry/external/TransactionCreateExternalSymmetryCarbonAtom.json\n"
 
-				+ "/resources/standard/symmetry/optical/TransactionReadOpticalSymmetry.json\n"
-				+ "/resources/standard/symmetry/optical/TransactionParseOpticalSymmetry.json\n"
-				+ "/resources/standard/symmetry/optical/TransactionCreateOpticalSymmetry.json\n"
+				//+ "/resources/standard/symmetry/optical/TransactionReadOpticalSymmetry.json\n"
+				//+ "/resources/standard/symmetry/optical/TransactionParseOpticalSymmetry.json\n"
+				//+ "/resources/standard/symmetry/optical/TransactionCreateOpticalSymmetry.json\n"
 				
-				+ "/resources/standard/symmetry/secondary/TransactionReadSecondarySymmetryCarbonAtom.json\n"
-				+ "/resources/standard/symmetry/secondary/TransactionParseSecondarySymmetryCarbonAtom.json\n"
-				+ "/resources/standard/symmetry/secondary/TransactionCreateSecondarySymmetryCarbonAtom.json\n"
+				//+ "/resources/standard/symmetry/secondary/TransactionReadSecondarySymmetryCarbonAtom.json\n"
+				//+ "/resources/standard/symmetry/secondary/TransactionParseSecondarySymmetryCarbonAtom.json\n"
+				//+ "/resources/standard/symmetry/secondary/TransactionCreateSecondarySymmetryCarbonAtom.json\n"
+
+				//+ "/resources/standard/hbi/burke/TransactionReadHBIBurke2015.json\n"
+				//+ "/resources/standard/hbi/burke/TransactionParseHBIBurke2015.json\n"
+				+ "/resources/standard/hbi/burke/TransactionCreateHBIBurke2015.json\n"
 ;
 		try {
 		JsonObject response = RunMultipleTransactions.runMultipleFromListOfFiles(paths,"Administrator", true, false);

@@ -31,7 +31,6 @@ export class ActivityrepositoryinitialreadlocalfileComponent implements OnInit {
 	@ViewChild('reposfile') reposfile: DatasetrepositoryfileComponent;
 
 	constructor(
-		public annotations: OntologycatalogService,
 		manageuser: ManageuserserviceService,
 		private _formBuilder: UntypedFormBuilder,
 		public dialog: MatDialog,

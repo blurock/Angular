@@ -225,6 +225,9 @@ public class DatasetObjectLabelListManipulation extends DeleteCatalogDataObject 
 					getFirestoreID();
 					DocumentReference docref = SetUpDocumentReference.setup(db, firestoreid);
 					docref.delete();
+				} else {
+					String message = WriteFirestoreCatalogObject.writeCatalogObject(labelset);
+					body.addElement("div").addText("Write reduced list (" + message + ")");
 				}
 			} else {
 				body.addElement("div").addText(uniquelabel + " not found in list");
@@ -265,6 +268,9 @@ public class DatasetObjectLabelListManipulation extends DeleteCatalogDataObject 
 					getFirestoreID();
 					DocumentReference docref = SetUpDocumentReference.setup(db, firestoreid);
 					docref.delete();
+				} else {
+					String message = WriteFirestoreCatalogObject.writeCatalogObject(genericset);
+					body.addElement("div").addText("Write reduced list (" + message + ")");
 				}
 			} else {
 				body.addElement("div").addText(uniquelabel + " not found in list");

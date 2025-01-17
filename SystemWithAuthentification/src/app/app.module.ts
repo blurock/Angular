@@ -179,6 +179,7 @@ import { CopysystemdatasetcollectionsComponent } from './catalogobjects/datasetc
 import { ExaminedatabaseelementsComponent } from './catalogobjects/examine/examinedatabaseelements/examinedatabaseelements.component';
 import { ReactComponentDirective } from './directives/react-component.directive';
 import { TodosPageComponent } from './components/react/todos-page/todos-page.component';
+import { SpecificationfordatasetComponent } from './catalogobjects/specificationfordataset/specificationfordataset.component';
 
 
 
@@ -314,7 +315,8 @@ import { TodosPageComponent } from './components/react/todos-page/todos-page.com
   CopysystemdatasetcollectionsComponent,
   ExaminedatabaseelementsComponent,
   ReactComponentDirective,
-  TodosPageComponent
+  TodosPageComponent,
+  SpecificationfordatasetComponent
 	],
 	imports: [
 		AppFirebaseModule,

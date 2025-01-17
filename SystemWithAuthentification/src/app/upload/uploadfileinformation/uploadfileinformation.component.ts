@@ -98,6 +98,7 @@ export class UploadfileinformationComponent implements OnInit {
 	displayCatalogInfo(): void {
 		const activity = {};
 		this.upload.getData(activity);
+		alert(JSON.stringify(activity));
 		const dialogConfig = new MatDialogConfig();
 
 		dialogConfig.disableClose = false;
@@ -158,8 +159,5 @@ export class UploadfileinformationComponent implements OnInit {
 			}
 
 		});
-
-
 	}
-
 }

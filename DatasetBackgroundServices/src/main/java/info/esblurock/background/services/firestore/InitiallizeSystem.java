@@ -17,8 +17,9 @@ public class InitiallizeSystem {
 	}
 
 	private static void intializeFirebase() {
+		if (FirebaseApp.getApps().isEmpty()) {
 		if (options == null) {
-
+			
 			try {
 				if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
 					options = FirebaseOptions.builder().setCredentials(GoogleCredentials.getApplicationDefault())
@@ -31,9 +32,11 @@ public class InitiallizeSystem {
 
 					// FileInputStream serviceAccount =
 					// new FileInputStream("path/to/serviceAccountKey.json");
+					
 
 					options = new FirebaseOptions.Builder().setFirestoreOptions(firestoreOptions)
 							.setCredentials(GoogleCredentials.getApplicationDefault())
+							.setProjectId("blurock-database")
 							// .setStorageBucket("blurock-database.appspot.com")
 							.setStorageBucket("localhost:9199").build();
 				}
@@ -44,5 +47,8 @@ public class InitiallizeSystem {
 			}
 		} else {
 		}
+	} else {
+		System.out.println("In 'InitiallizeSystem' FirebaseApp already initialized");
+	}
 	}
 }

@@ -26,15 +26,20 @@ public class RunMultipleTransactions {
 		JsonObject response = null;
 		while(tok.hasMoreElements() && success) {
 			String srcpath = tok.nextToken();
-			String content;
+			String content = null;
 			try {
 				if(fromresource) {
 					InputStream inputStream = RunMultipleTransactions.class.getResourceAsStream(srcpath);
-					content = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
-					System.out.println(content);
+					if(inputStream == null) {
+						System.out.println("Resource not found: '" + srcpath + "'");
+					} else {
+						content = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+						System.out.println(content);
+					}
 				} else {
 					content = Files.readString(Paths.get(srcpath));
 				}
+				if(content != null) {
 				JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
 				response = TransactionProcess.processFromTransaction(json, owner);
 				if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
@@ -44,6 +49,7 @@ public class RunMultipleTransactions {
 				} else {
 					success = false;
 					System.out.println(" ------------ Transaction failed ------------ ");
+				}
 				}
 			} catch (IOException e) {
 				success = false;

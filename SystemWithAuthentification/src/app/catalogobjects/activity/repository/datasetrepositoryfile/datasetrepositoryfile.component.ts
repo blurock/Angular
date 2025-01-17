@@ -6,9 +6,9 @@ import { SetofsitereferencesComponent } from '../../../catalogbaseobjects/setofs
 import { DatasetreferenceComponent } from '../../../datasetreference/datasetreference.component';
 import { KeywordlistprimitiveComponent } from '../../../../primitives/keywordlistprimitive/keywordlistprimitive.component';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
-import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
-import { DatasettransactionspecificationforcollectionComponent } from '../../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
+import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
 import { NavItem } from '../../../../primitives/nav-item';
+import {InterfaceconstantsService} from '../../../../const/interfaceconstants.service';
 
 
 @Component({
@@ -20,7 +20,11 @@ export class DatasetrepositoryfileComponent implements OnInit {
 
 	infoform: UntypedFormGroup;
 	items: NavItem[];
-
+	errorcatalogtypes = 'Error in determining catalog types';
+	catalogtype: any;
+	catalogtypes: any;
+	fileformat: string;
+	
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
@@ -33,28 +37,35 @@ export class DatasetrepositoryfileComponent implements OnInit {
 	@ViewChild('objectlinks') objectlinks: SetofdataobjectlinksComponent;
 	@ViewChild('weblinks') weblinks: SetofsitereferencesComponent;
 	@ViewChild('keywords') keywords: KeywordlistprimitiveComponent;
-	@ViewChild('transspec') transspec: DatasettransactionspecificationforcollectionComponent;
+	@ViewChild('datasetspec') datasetspec: SpecificationfordatasetComponent;
 
 
 	constructor(
 		private formBuilder: UntypedFormBuilder,
-		private menusetup: MenutreeserviceService
+		public interfaceconstants: InterfaceconstantsService,
 	) {
+		interfaceconstants.getTherGasCatalogTypes().subscribe(result => {
+			if (result != null) {
+				this.catalogtypes = result;
+			} else {
+				alert(interfaceconstants.errorcatalogtypes);
+			}
+			})
+
 		this.infoform = this.formBuilder.group({
 			FileSourceFormat: ['', Validators.required],
 			DescriptionTitleFileStaging: ['', Validators.required],
-			DescriptionAbstractFileStaging: ['', Validators.required]
+			DescriptionAbstractFileStaging: ['', Validators.required],
+			DatasetCollectionObjectType: ['', Validators.required]
 		});
 	}
 	ngOnInit(): void {
-		this.items = this.menusetup.findChoices(this.annoinfo, this.formatmenulabel);
-
 	}
 
 	invalid(): boolean {
 		let ans = true;
-		if (this.transspec != null) {
-			ans = this.transspec.invalid() || this.infoform.invalid;
+		if (this.datasetspec != null) {
+			ans = this.datasetspec.invalid() || this.infoform.invalid;
 		}
 		return ans;
 	}
@@ -63,7 +74,9 @@ export class DatasetrepositoryfileComponent implements OnInit {
 		catalog[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.infoform.get('DescriptionTitleFileStaging').value;
 		catalog[this.annoinfo['dataset:DescriptionTitleFileStaging'][this.identifier]] = this.infoform.get('DescriptionTitleFileStaging').value;
 		catalog[this.annoinfo['dataset:DescriptionAbstractFileStaging'][this.identifier]] = this.infoform.get('DescriptionAbstractFileStaging').value;
-		catalog[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.infoform.get('FileSourceFormat').value;
+		
+		catalog[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.fileformat;
+		catalog[this.annoinfo['dataset:DatasetCollectionObjectType'][this.identifier]] = this.infoform.get('DatasetCollectionObjectType').value;
 
 		const descr = {};
 		catalog[this.annoinfo['dataset:DataDescriptionFileStaging'][this.identifier]] = descr;
@@ -76,12 +89,11 @@ export class DatasetrepositoryfileComponent implements OnInit {
 		descr[this.annoinfo['dataset:DescriptionTitleFileStaging'][this.identifier]] = this.infoform.get('DescriptionTitleFileStaging').value;
 		descr[this.annoinfo['dataset:DescriptionKeywordFileStaging'][this.identifier]] = this.keywords.getKeys();
 
-		let dateTime = new Date();
 		const DATE_TIME_FORMAT = 'YYYY-MM-DDTHH:mm';
 		const date = new Date();
-		//descr[this.annoinfo['dataset:DateCreated'][this.identifier]] = moment(dateTime, DATE_TIME_FORMAT);
+	//descr[this.annoinfo['dataset:DateCreated'][this.identifier]] = moment(dateTime, DATE_TIME_FORMAT);
 		descr[this.annoinfo['dataset:DateCreated'][this.identifier]] = new DatePipe('en-US').transform(date, DATE_TIME_FORMAT);
-		this.transspec.getData(catalog);
+		this.datasetspec.getData(catalog);
 		this.addSetOfReferencesAndLinks(catalog);
 	}
 	public addSetOfReferencesAndLinks(info: any): void {
@@ -95,7 +107,9 @@ export class DatasetrepositoryfileComponent implements OnInit {
 			this.infoform.get('DescriptionTitleFileStaging').setValue(catalog[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
 			this.infoform.get('DescriptionTitleFileStaging').setValue(catalog[this.annoinfo['dataset:DescriptionTitleFileStaging'][this.identifier]]);
 			this.infoform.get('DescriptionAbstractFileStaging').setValue(catalog[this.annoinfo['dataset:DescriptionAbstractFileStaging'][this.identifier]]);
-			this.infoform.get('FileSourceFormat').setValue(catalog[this.annoinfo['dataset:FileSourceFormat'][this.identifier]]);
+			this.fileformat = catalog[this.annoinfo['dataset:FileSourceFormat'][this.identifier]];
+			this.setFileFormat(this.fileformat);
+			this.infoform.get('DatasetCollectionObjectType').setValue(catalog[this.annoinfo['dataset:DatasetCollectionObjectType'][this.identifier]]);
 
 			const descr = catalog[this.annoinfo['dataset:DataDescriptionFileStaging'][this.identifier]];
 			if (descr != null) {
@@ -104,14 +118,20 @@ export class DatasetrepositoryfileComponent implements OnInit {
 				const keys = descr[this.annoinfo['dataset:DescriptionKeywordFileStaging'][this.identifier]];
 				if (keys != null) {
 					this.keywords.setKeys(keys);
-                    const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
-					this.transspec.setData(catalog[specid]);
+                    const specid = this.annoinfo['dataset:SpecificationForDataset'][this.identifier];
+					this.datasetspec.setData(catalog[specid]);
 					this.setSetOfReferencesAndLinks(catalog);
 				}
 			}
 		}
 		}
 
+    selectionPicked($event: any): void {
+		this.catalogtype = $event;
+		this.datasetspec.setCatalogType(this.catalogtype);
+		this.infoform.get('DatasetCollectionObjectType').setValue(this.catalogtype.database);
+		this.fileformat = this.catalogtype.format;
+		}
 
 	public setSetOfReferencesAndLinks(activity: any): void {
 		const refs = activity['dcterms:BibliographicResource'];
@@ -129,7 +149,9 @@ export class DatasetrepositoryfileComponent implements OnInit {
 	}
 
 	setFileFormat(format: string): void {
-		this.infoform.get('FileSourceFormat').setValue(format);
+		this.fileformat = format;
+		const catalogtype = this.interfaceconstants.getCatalogTypeForFormat(format);
+		this.infoform.get('FileSourceFormat').setValue(catalogtype.label);
 	}
 
 

@@ -132,11 +132,13 @@ export class AuthService {
 	}
 
 	AuthLogin(provider: any) {
+		alert("AuthLogin provider: " + provider);
 		this.session.clearSession();
 		return this.afAuth
 			.signInWithPopup(provider)
 			.then((result) => {
-				this.SetUserData(result.user);
+				alert("AuthLogin set user data: ");
+				//this.SetUserData(result.user);
 			})
 			.catch((error) => {
 				window.alert("Authorization error: " + error);
@@ -147,6 +149,8 @@ export class AuthService {
 	sign up with username/password and sign in with social auth  
 	provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
 	SetUserData(user: any): void {
+		alert("SetUserData: " + user.uid);
+		
 		getAuth().currentUser.getIdToken(true).then((token) => {
 			if (this.session.getAuthorizationData() == null || this.session.getUserAccount() == null) {
 				const uid = user.uid;

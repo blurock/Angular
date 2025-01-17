@@ -12,6 +12,7 @@ import org.eclipse.jetty.webapp.Configuration;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.eclipse.jetty.webapp.WebInfConfiguration;
 
+import info.esblurock.background.services.firestore.InitiallizeSystem;
 import info.esblurock.background.services.ontology.CatalogInformationServlet;
 
 
@@ -22,7 +23,7 @@ import info.esblurock.background.services.ontology.CatalogInformationServlet;
 public class ServerMain {
 
   public static void main(String[] args) throws Exception {
-
+  System.out.println("---------------------------------ServerMain-----------------------------");
     // Create a server that listens on port 8080.
     Server server = new Server(8080);
     WebAppContext webAppContext = new WebAppContext();
@@ -48,6 +49,7 @@ public class ServerMain {
             .getResource("webapp")
             .toExternalForm());
 
+    System.out.println("---------------------------------ServerMain-----------------------------");    
     ARQ.init();
     // Start the server! 🚀
     server.start();
