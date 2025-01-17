@@ -75,15 +75,15 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "SystemWithAuthentification:build",
-            "proxyConfig": "src/proxy.conf.json"
+            "proxyConfig": "src/proxy.conf.json",
+            "buildTarget": "SystemWithAuthentification:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "SystemWithAuthentification:build:production"
+              "buildTarget": "SystemWithAuthentification:build:production"
             },
-          "development": {        
-			"browserTarget": "SystemWithAuthentification:build:development"      
+          "development": {
+            "buildTarget": "SystemWithAuthentification:build:development"
 			}
           },
           "defaultConfiguration": "development"
@@ -91,7 +91,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "SystemWithAuthentification:build"
+            "buildTarget": "SystemWithAuthentification:build"
           }
         },
         "test": {
