@@ -3,7 +3,6 @@ package info.esblurock.background.services.datamanipulation;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -31,10 +30,6 @@ public class CatalogModificationEventProcess {
 		JsonObject eventfire = event.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
 		catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction, eventfire);
 		activity.remove(ClassLabelConstants.ModifiedCatalogObject);
-		
-		System.out.println("CatalogModificationEventProcess  event: " + JsonObjectUtilities.toString(event));
-		System.out.println("CatalogModificationEventProcess  catalog: " + JsonObjectUtilities.toString(catalog));
-		
 		String message = WriteFirestoreCatalogObject.writeCatalogObject(catalog);
 		if (message.startsWith("ERROR")) {
 			Document errdoc = MessageConstructor.startDocument("Error: CatalogModificationEvent");
@@ -46,7 +41,6 @@ public class CatalogModificationEventProcess {
 		} else {
 			Document doc = MessageConstructor.startDocument("Error: CatalogModificationEvent");
 			Element body = MessageConstructor.isolateBody(doc);
-			JsonElement element = info.get(ClassLabelConstants.JsonDifferences);
 			JsonArray jsonarray = info.get(ClassLabelConstants.JsonDifferences).getAsJsonArray();
 			String json = JsonObjectUtilities.toString(jsonarray);
 			body.addElement("pre").addText(json);
