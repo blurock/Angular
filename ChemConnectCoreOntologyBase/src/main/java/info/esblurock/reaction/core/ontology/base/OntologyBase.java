@@ -23,6 +23,7 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.sparql.core.ResultBinding;
 
+
 public class OntologyBase {
 
 	/**
@@ -33,6 +34,7 @@ public class OntologyBase {
 		static OntModel unitsmodel = null;
 		static OntModel datasetmodel = null;
 		static Map<String, String> namespaceMap = null;
+		static boolean waiting = false;
 
 		/**
 		 * Static routine to generate/return the ontology of units
@@ -56,6 +58,23 @@ public class OntologyBase {
 			return unitsmodel;
 		}
 
+		/*
+		public static OntModel getDatabaseOntology() {
+			if (datasetmodelfinal == null) {
+				System.out.println("getDatabaseOntology");
+				OntModel datasetmodelinit = ModelFactory.createOntologyModel();
+				OntologyBase.Util.getDatabaseOntology(datasetmodelinit);
+				if (datasetmodelfinal == null) {
+					System.out.println("database model NULL: getDatabaseOntology");
+					datasetmodelfinal = datasetmodelinit;
+				} else {
+					datasetmodelinit.close();
+					System.out.println("CLOSED: getDatabaseOntology");
+				}
+			}
+			return datasetmodelfinal;
+		}
+*/
 		/**
 		 * This routine generates/returns the ontology for UI structures and data
 		 * structure relationships
@@ -64,7 +83,18 @@ public class OntologyBase {
 		 * @throws FileNotFoundException 
 		 */
 		public static OntModel getDatabaseOntology() {
+			if(waiting) {
+				try {
+					System.out.println("Waiting for datasetmodel to be read");
+					long waittTime = System.currentTimeMillis();
+					Thread.sleep(15000);
+					System.out.println("Waited for datasetmodel to be read: " + (System.currentTimeMillis() - waittTime));
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 			if (datasetmodel == null) {
+				waiting = true;
 				AlternativeEntryWithAppFiles alt = new AlternativeEntryWithAppFiles();
 				datasetmodel = ModelFactory.createOntologyModel();
                 datasetmodel.getDocumentManager().addAltEntry(alt.getQUDTQudt(), alt.getQUDTQudtLocal());
@@ -109,11 +139,11 @@ public class OntologyBase {
 				    System.out.println("BEGIN: read(str, \"http://esblurock.info\", \"TURTLE\");");
 				    long startTime = System.currentTimeMillis();
 					str = OntologyBase.class.getResourceAsStream(filename);
-					
 					datasetmodel.read(str, "http://esblurock.info", "TURTLE");
 					long endTime = System.currentTimeMillis();
 					long elapsedTime = endTime - startTime;
                     System.out.println("END: time(ms)=" + elapsedTime);
+                    waiting = false;
 					//datasetmodel.read(str, "https://blurock-database.ew.r.appspot.com", "TURTLE");
 				} catch (Exception ex) {
 					System.out.println("Exception: Error in reading Ontology:   " + filename + "\n" + ex.toString());

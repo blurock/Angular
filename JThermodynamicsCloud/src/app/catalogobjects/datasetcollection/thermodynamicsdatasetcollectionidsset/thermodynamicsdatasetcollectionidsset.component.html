@@ -1,0 +1,31 @@
+<mat-card appearance="outlined" class="matcard">
+	<mat-card-header>
+		<mat-card-subtitle>{{subtitle}}</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+			<ng-container *ngIf='annoinfo != null; else waiting'>
+			<app-chemconnectdatasetcollectionidsset #collectionid [(annoinfo)]="annoinfo" [(maintainer)]="maintainer"></app-chemconnectdatasetcollectionidsset>
+				<app-datasetspecificationforcollectionset #benson [(annoinfo)]="annoinfo" [(subtitle)]="bensontitle" 
+				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
+				<app-datasetspecificationforcollectionset #disassociation [(annoinfo)]="annoinfo" [(subtitle)]="disassociationtitle" 
+				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
+				<app-datasetspecificationforcollectionset #metaatom [(annoinfo)]="annoinfo" [(subtitle)]="metaatomtitle" 
+				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
+				<app-datasetspecificationforcollectionset #symmetry [(annoinfo)]="annoinfo" [(subtitle)]="symmetrytitle" 
+				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
+				<app-datasetspecificationforcollectionset #vibrational [(annoinfo)]="annoinfo" [(subtitle)]="vibrationaltitle" 
+				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
+				<app-datasetspecificationforcollectionset #substructure [(annoinfo)]="annoinfo" [(subtitle)]="substructuretitle" 
+				[(maintainer)]="maintainer"></app-datasetspecificationforcollectionset>
+			</ng-container>
+			<ng-template #waiting>
+			    Setup
+				<mat-spinner></mat-spinner>
+			</ng-template>
+		<ng-container *ngIf='message != null;'>
+			<mat-divider></mat-divider>
+			<div [innerHTML]="message"></div>
+			<mat-divider></mat-divider>
+		</ng-container>
+	</mat-card-content>
+</mat-card>

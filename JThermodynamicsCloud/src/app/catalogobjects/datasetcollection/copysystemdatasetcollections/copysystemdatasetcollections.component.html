@@ -1,0 +1,92 @@
+<mat-tab-group>
+	<mat-tab label="Choose Dataset Collection">
+		<mat-card appearance="outlined" class="card">
+			<mat-card-header>
+				<mat-card-title-group class="title-group">
+					<mat-card-title>{{setuptitle}}</mat-card-title>
+					<mat-card-subtitle>Chosen Collection: {{selected}}</mat-card-subtitle>
+				</mat-card-title-group>
+			</mat-card-header>
+			<mat-card-content>
+				<p>
+					With this menu a copy of a system collection is created for the user to use and modify
+				</p>
+				<ng-container *ngIf='activityanno != null; else waiting'>
+					<form [formGroup]="objectform" class="infoform">
+						<mat-grid-list cols="4" rowHeight="100px">
+
+
+							<mat-grid-tile [colspan]="4">
+								<mat-form-field class="label">
+									<mat-label>{{activityanno['dataset:DescriptionTitle'][rdfslabel]}}
+									</mat-label>
+									<input matInput formControlName="DescriptionTitle">
+									<mat-hint>{{activityanno['dataset:DescriptionTitle'][rdfscomment]}}
+									</mat-hint>
+								</mat-form-field>
+							</mat-grid-tile>
+
+							<mat-grid-tile [colspan]="1" background="lightgray">
+								<app-datasetcollectionchoicemenu [(activityanno)]="activityanno"
+									[(maintainer)]="maintainer" (collection)="setCollection($event)" class="label">
+								</app-datasetcollectionchoicemenu>
+							</mat-grid-tile>
+
+							<mat-grid-tile [colspan]="1">
+								<mat-form-field class="label">
+									<mat-label>
+										{{activityanno['dataset:DatasetCollectionSetDestinationLabel'][rdfslabel]}}
+									</mat-label>
+									<input matInput formControlName="DatasetCollectionSetDestinationLabel">
+									<mat-hint>
+										{{activityanno['dataset:DatasetCollectionSetDestinationLabel'][rdfscomment]}}
+									</mat-hint>
+
+								</mat-form-field>
+							</mat-grid-tile>
+
+							<mat-grid-tile [colspan]="1">
+								<mat-form-field class="label">
+									<mat-label>{{activityanno['dataset:DatasetVersion'][rdfslabel]}}
+									</mat-label>
+									<input matInput formControlName="DatasetVersion">
+									<mat-hint>{{activityanno['dataset:DatasetVersion'][rdfscomment]}}
+									</mat-hint>
+								</mat-form-field>
+							</mat-grid-tile>
+							<mat-grid-tile [colspan]="1">
+								<mat-form-field class="label">
+									<mat-label>{{activityanno['dataset:DatasetName'][rdfslabel]}}
+									</mat-label>
+									<input matInput formControlName="DatasetName">
+									<mat-hint>{{activityanno['dataset:DatasetName'][rdfscomment]}}
+									</mat-hint>
+								</mat-form-field>
+							</mat-grid-tile>
+
+							<mat-grid-tile [colspan]="4">
+								<button mat-raised-button color="primary" class="submit" (click)="submitSystem()"
+									[disabled]="invalid()">{{submitlabel}}</button>
+							</mat-grid-tile>
+						</mat-grid-list>
+					</form>
+				</ng-container>
+			<ng-template #waiting>
+				Setup
+				<mat-spinner></mat-spinner>
+			</ng-template>
+			</mat-card-content>
+		</mat-card>
+	</mat-tab>
+	<mat-tab label="Dataset">
+		<app-thermodynamicsdatasetcollectionidsset #thermocollectionset></app-thermodynamicsdatasetcollectionidsset>
+	</mat-tab>
+	<mat-tab label="Logs">
+		<ng-container *ngIf='resultHtml != null;'>
+			<mat-divider></mat-divider>
+			<div [innerHTML]="resultHtml"></div>
+			<mat-divider></mat-divider>
+		</ng-container>
+
+	</mat-tab>
+</mat-tab-group>

@@ -1,0 +1,30 @@
+<mat-card appearance="outlined">
+	<mat-card-header>
+		<mat-card-title-group class="title-group">
+			<mat-card-subtitle class="title">{{title}}</mat-card-subtitle>
+		</mat-card-title-group>
+	</mat-card-header>
+	<mat-card-content>
+		<ng-container *ngIf='annoinfo != null; else loading'>
+			<form [formGroup]="objectform">
+				<mat-form-field class="type">
+					<mat-label>{{annoinfo['dataset:JThermodynamicsSubstructureType'][rdfslabel]}}</mat-label>
+					<input matInput formControlName="JThermodynamicsSubstructureType"
+						[matMenuTriggerFor]="menu.childMenu">
+					<mat-hint>{{annoinfo['dataset:JThermodynamicsSubstructureType'][rdfscomment]}}</mat-hint>
+				</mat-form-field>
+				<app-menu-item #menu [items]="items" (selectionEvent)="setType($event)"></app-menu-item>
+			</form>
+			<app-jthermodynamics2dspeciesstructure #structure [(annoinfo)]="annoinfo">
+			</app-jthermodynamics2dspeciesstructure>
+			<app-chemconnectthermodynamicsdatabase #base [(annoinfo)]="annoinfo" [(catalogtype)]="catalogtype">
+			</app-chemconnectthermodynamicsdatabase>
+
+		</ng-container>
+		<ng-template #loading>
+			<div>
+				{{message}}
+			</div>
+		</ng-template>
+	</mat-card-content>
+</mat-card>

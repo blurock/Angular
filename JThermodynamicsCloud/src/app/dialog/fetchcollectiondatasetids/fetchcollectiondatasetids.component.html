@@ -1,0 +1,76 @@
+<mat-card appearance="outlined" class="matcard">
+	<mat-card-header>
+		<mat-card-title>{{title}}</mat-card-title>
+	</mat-card-header>
+
+	<mat-card-content>
+
+		<mat-grid-list cols="6" rowHeight="100px">
+			<form [formGroup]="uploadForm">
+				<mat-grid-tile [colspan]="1">
+					<!-- Select File -->
+
+					<input type="file" (change)="uploadFileEvt($event)" #fileUpload class="file-input" />
+
+					<button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+						<mat-icon>attach_file</mat-icon>
+					</button>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="5">
+					<mat-form-field class="uploadform">
+						<mat-label>{{filesourceidentifierlabel}}</mat-label>
+						<input matInput formControlName="FileSourceIdentifier">
+						<mat-hint>{{filenamehint}}</mat-hint>
+					</mat-form-field>
+
+				</mat-grid-tile>
+			</form>
+			<ng-container *ngIf='fromdatabase;'>
+				<mat-grid-tile [colspan]="6">
+					<button mat-mini-fab color="primary" class="submit-btn" (click)="setDataFromFile()"
+						[disabled]="catalog==null">
+						Fetch from File
+					</button>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="6">
+					<textarea class="textarea">{{catalog | json}}</textarea>
+				</mat-grid-tile>
+
+				<form [formGroup]="idForm">
+					<ng-container *ngIf='annoinfo != null; else waiting'>
+						<mat-grid-tile [colspan]="6">
+							<mat-form-field class="label">
+								<mat-label>{{annoinfo['dataset:CatalogDataObjectMaintainer'][rdfslabel]}}
+								</mat-label>
+								<input matInput formControlName="CatalogDataObjectMaintainer" [readonly]="maintainernotchange">
+								<mat-hint>{{annoinfo['dataset:CatalogDataObjectMaintainer'][rdfscomment]}}
+								</mat-hint>
+							</mat-form-field>
+						</mat-grid-tile>
+						<div>Here</div>
+						<mat-grid-tile [colspan]="6">
+								<app-finddatasetcollectionidsets   [(annoinfo)]="annoinfo" [(maintainer)]="maintainer" (chosen)="chosen($event)"
+								[(label)]="annoinfo['dataset:DatasetCollectionsSetLabel'][rdfslabel]"
+								[(hint)]="annoinfo['dataset:DatasetCollectionsSetLabel'][rdfscomment]" class="label"></app-finddatasetcollectionidsets>
+						</mat-grid-tile>
+						<mat-grid-tile [colspan]="6">
+							<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchFromDatabase()"
+								[disabled]="idForm.invalid">
+								Fetch from Dataset
+							</button>
+						</mat-grid-tile>
+
+					</ng-container>
+					<ng-template #waiting>
+						waiting for annotations (try again)
+					</ng-template>
+				</form>
+			</ng-container>
+
+		</mat-grid-list>
+	</mat-card-content>
+	<mat-card-footer>
+		<button mat-button (click)="onNoClick()">Cancel</button>
+		<button mat-button (click)="fetchFromDatabase()" cdkFocusInitial>Ok</button>
+	</mat-card-footer>
+</mat-card>

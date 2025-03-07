@@ -1,0 +1,11 @@
+<mat-card appearance="outlined">
+	<mat-card-header>
+		<mat-card-title-group class="title-group">
+<mat-card-subtitle class="title">{{title}}</mat-card-subtitle>
+		</mat-card-title-group>
+	</mat-card-header>
+	<mat-card-content>
+		<app-repositorythermopartitionblock #thermo [(annoinfo)]="annoinfo" [(annoReady)]="annoReady"></app-repositorythermopartitionblock>
+		<app-repositorydatapartitionblock #partition [(annoReady)]="annoReady"></app-repositorydatapartitionblock>
+	</mat-card-content>
+</mat-card>

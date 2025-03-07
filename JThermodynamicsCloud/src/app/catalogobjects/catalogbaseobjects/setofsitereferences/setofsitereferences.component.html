@@ -1,0 +1,14 @@
+<mat-card appearance="outlined" class="cardbase">
+	<mat-card-header>
+		<mat-card-title-group class="addlink">
+			<mat-card-subtitle>Set of Web Links</mat-card-subtitle>
+			<button mat-button class="addlinkbutton" (click)="addEmptyObjectLink()">
+				<mat-icon>add</mat-icon>
+			</button>
+		</mat-card-title-group>
+	</mat-card-header>
+
+	<mat-card-content>
+		<ng-container dynamicChildLoader=""></ng-container>
+	</mat-card-content>
+</mat-card>

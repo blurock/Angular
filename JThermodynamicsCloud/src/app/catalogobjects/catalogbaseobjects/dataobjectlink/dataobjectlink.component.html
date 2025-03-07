@@ -1,0 +1,41 @@
+<mat-card appearance="outlined" class="bibliocard">
+	<mat-card-content>
+	
+		<form  class="linkform" [formGroup]="linkform">
+				<mat-form-field class="linkconcept">
+					<mat-label>{{anno['dataset:DatabaseObjectType'][rdfslabel]}}</mat-label>
+					<input matInput formControlName="DatabaseObjectType" [matMenuTriggerFor]="typemenu">
+					<mat-hint>{{anno['dataset:DatabaseObjectType'][rdfscomment]}}</mat-hint>
+				</mat-form-field>
+				<mat-menu #typemenu="matMenu">
+				<app-menu-item #menu [items]="items" (selectionEvent)="setFileDatabaseObjectType($event)">
+				</app-menu-item>
+				</mat-menu>
+				<mat-form-field class="objecttype">
+					<mat-label>{{anno['dataset:DataTypeConcept'][rdfslabel]}}</mat-label>
+					<input matInput formControlName="DataTypeConcept" [matMenuTriggerFor]="menuconcept">
+					<mat-hint>{{anno['dataset:DataTypeConcept'][rdfscomment]}}</mat-hint>
+				</mat-form-field>
+				<mat-menu #menuconcept="matMenu">
+				<app-menu-item #conceptmenu [items]="conceptitems" (selectionEvent)="setDataTypeConcept($event)">
+				</app-menu-item>
+				</mat-menu>
+					<button mat-button class="deletebutton" (click)="deleteLink()">
+						<mat-icon>delete</mat-icon>
+					</button>
+		</form>
+		<div>
+		<ng-container *ngIf='display; else loading'>
+		
+			<app-firesytorecatalogid #firestoreid  [catalogID]="firestoreidvalues"   
+			     [anno]="anno" [allowchange]="allowchange"></app-firesytorecatalogid>
+		
+		</ng-container>
+		<ng-template #loading>
+	<div>
+		No Firestore ID
+	</div>
+		</ng-template>
+		</div>
+	</mat-card-content>
+</mat-card>

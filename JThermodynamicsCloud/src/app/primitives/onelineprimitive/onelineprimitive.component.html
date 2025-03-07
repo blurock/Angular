@@ -1,0 +1,23 @@
+  <div [ngSwitch]="linewidth" class="full-width">
+    <mat-form-field class="oneline100" *ngSwitchCase="'full'">
+      <input matInput [ngModel]="oneline" (ngModelChange)="onelineC($event)">
+      <mat-label>{{annolabel}}</mat-label>
+      <mat-hint>{{annohint}}</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="oneline50" *ngSwitchCase="'half'">
+      <input matInput [ngModel]='oneline' (ngModelChange)='oneline=$event')>
+      <mat-label>{{annolabel}}</mat-label>
+      <mat-hint>{{annohint}}</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="oneline33" *ngSwitchCase="'third'">
+      <input matInput [ngModel]="oneline" (ngModelChange)="oneline=$event")>
+      <mat-label>{{annolabel}}</mat-label>
+      <mat-hint>{{annohint}}</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="onelinef" *ngSwitchCase="'free'">
+      <input matInput [ngModel]="oneline" (ngModelChange)="oneline=$event")>
+      <mat-label>{{annolabel}}</mat-label>
+      <mat-hint>{{annohint}}</mat-hint>
+    </mat-form-field>
+  </div>
+

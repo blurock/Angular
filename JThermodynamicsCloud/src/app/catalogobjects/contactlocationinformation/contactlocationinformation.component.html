@@ -1,0 +1,69 @@
+<ng-container *ngIf='annoinfo; else loading'>
+	<form [formGroup]="objectform">
+		<mat-card appearance="outlined" class="border">
+			<mat-card-header>
+				<mat-card-subtitle>{{header}}</mat-card-subtitle>
+			</mat-card-header>
+			<mat-card-content>
+				<mat-grid-list cols="12" rowHeight="100px">
+					<mat-grid-tile [colspan]="12">
+						<mat-form-field class="label">
+							<input matInput placeholder="{{searchplaceholder}}" #addressInput
+								(keyup.enter)="onEnter(addressInput.value)">
+							<mat-hint>{{searchhint}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="12">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:LocationAddress'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="LocationAddress">
+							<mat-hint>{{annoinfo['dataset:LocationAddress'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="3">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:LocationCity'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="LocationCity">
+							<mat-hint>{{annoinfo['dataset:LocationCity'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="2">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:LocationPostcode'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="LocationPostcode">
+							<mat-hint>{{annoinfo['dataset:LocationPostcode'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="3">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:LocationCountry'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="LocationCountry">
+							<mat-hint>{{annoinfo['dataset:LocationCountry'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="2">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:GPSLatitude'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="GPSLatitude">
+							<mat-hint>{{annoinfo['dataset:GPSLatitude'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="2">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:GPSLongitude'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="GPSLongitude">
+							<mat-hint>{{annoinfo['dataset:GPSLongitude'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+				</mat-grid-list>
+			</mat-card-content>
+
+		</mat-card>
+
+	</form>
+</ng-container>
+<ng-template #loading>
+	<div>
+		loading
+	</div>
+</ng-template>

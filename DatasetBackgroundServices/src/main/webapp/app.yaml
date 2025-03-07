@@ -12,10 +12,11 @@
 #  limitations under the License.
 
 # [START gae_java11_firestore_yaml]
+runtime: java17
+entrypoint: 'java -cp "target/background/*:target/background/WEB-INF/classes:target/background/WEB-INF/lib/*" info.esblurock.background.services.ServerMain'
 instance_class: F2
-runtime: java11
-entrypoint: 'java -cp "*" info.esblurock.background.services.ServerMain'
 access_settings:
   cors_settings:
     allow_http_options: "true"
+
 # [END gae_java11_firestore_yaml]

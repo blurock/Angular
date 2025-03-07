@@ -1,0 +1,36 @@
+
+<mat-card appearance="outlined">
+	<mat-card-header class="header">
+		<mat-card-title>
+			{{title}}
+		</mat-card-title>
+	</mat-card-header>
+	<mat-card-content class="content">
+	
+		<div>
+			<textarea cdkTextareaAutosize 
+			       #autosize="cdkTextareaAutosize"
+			       cdkAutosizeMinRows="10" 
+			       cdkAutosizeMaxRows="20" 
+			       class="textarea">
+				{{mydata.dataimage | json}}
+			</textarea>
+		</div>
+		
+		<div>
+			<form [formGroup]="objectform">
+				<mat-form-field class="namefield">
+					<mat-label>{{filenamelabel}}</mat-label>
+					<input matInput formControlName="filename">
+					<mat-hint>{{hintlabel}}</mat-hint>
+				</mat-form-field>
+			</form>
+		</div>
+		
+		
+	</mat-card-content>
+	<mat-card-footer>
+		<button mat-button (click)="closeDialog()">Cancel</button>
+		<button mat-button (click)="saveDataClick()">Save</button>
+	</mat-card-footer>
+</mat-card>

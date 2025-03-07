@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<version>1.0</version>
 	<groupId>info.esblurock.</groupId>
 	<artifactId>DatasetBackgroundServices</artifactId>
 	<packaging>war</packaging>
 	<properties>
-		<appengine.maven.plugin.version>2.4.2</appengine.maven.plugin.version>
+		<appengine.maven.plugin.version>2.8.1</appengine.maven.plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<maven.compiler.source>22</maven.compiler.source>
-		<maven.compiler.target>22</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<endpoints.framework.version>2.2.2</endpoints.framework.version>
 		<endpoints.management.version>1.0.14</endpoints.management.version>
 		<endpoints.project.id>blurock-database</endpoints.project.id>
-        <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
-  <cors.origin>*</cors.origin>
-  <cors.methods>GET,POST,PUT,DELETE,OPTIONS</cors.methods>
-  <cors.headers>Content-Type,Authorization</cors.headers>
-  <cors.maxAge>3600</cors.maxAge>
+		<property name="java.util.logging.config.file"
+			value="WEB-INF/logging.properties" />
+		<cors.origin>*</cors.origin>
+		<cors.methods>GET,POST,PUT,DELETE,OPTIONS</cors.methods>
+		<cors.headers>Content-Type,Authorization</cors.headers>
+		<cors.maxAge>3600</cors.maxAge>
 
 
 		<exec.mainClass>info.esblurock.background.services.ServerMain</exec.mainClass>
 		<googleCloudProjectId>blurock-database</googleCloudProjectId>
 
 	</properties>
-	
+
 	<dependencyManagement>
 		<dependencies>
 
@@ -38,62 +41,36 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-
-
 		</dependencies>
 	</dependencyManagement>
 
 	<dependencies>
-		<!--
 		<dependency>
-			<groupId>org.w3c</groupId>
-			<artifactId>dom</artifactId>
-			<version>2.3.0-jaxb-1.0.6</version>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20240303</version>
 		</dependency>
 		<dependency>
-			<groupId>jaxen</groupId>
-			<artifactId>jaxen</artifactId>
-			<version>1.2.0</version>
+			<groupId>com.google.firebase</groupId>
+			<artifactId>firebase-admin</artifactId>
+			<version>9.4.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.code.findbugs</groupId>
+					<artifactId>jsr305</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+
 		</dependency>
-		<dependency>
-			<groupId>javax.xml.parsers</groupId>
-			<artifactId>jaxp-api</artifactId>
-			<version>1.4.5</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.woodstox</groupId>
-			<artifactId>woodstox-core</artifactId>
-			<version>5.0.2</version>
-		</dependency>
--->
-<!-- https://mvnrepository.com/artifact/org.json/json -->
-<dependency>
-    <groupId>org.json</groupId>
-    <artifactId>json</artifactId>
-    <version>20240303</version>
-</dependency>
-			<dependency>
-            <groupId>com.google.firebase</groupId>
-            <artifactId>firebase-admin</artifactId>
-            <version>9.4.1</version>
-        </dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.ws.commons/ws-commons-util -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-		</dependency>
-<!-- https://mvnrepository.com/artifact/com.google.cloud/google-cloud-logging -->
-<dependency>
-    <groupId>com.google.cloud</groupId>
-    <artifactId>google-cloud-logging</artifactId>
-    <version>3.16.2</version>
-</dependency>
-
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>apache-jena-libs</artifactId>
@@ -104,6 +81,10 @@
 					<!-- declare the exclusion here -->
 					<groupId>org.slf4j</groupId>
 					<artifactId>jcl-over-slf4j</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
 				</exclusion>
 			</exclusions>
 
@@ -133,6 +114,13 @@
 			<groupId>info.esblurock</groupId>
 			<artifactId>JthermodynamicData</artifactId>
 			<version>1.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.code.findbugs</groupId>
+					<artifactId>jsr305</artifactId>
+				</exclusion>
+			</exclusions>
+
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -152,45 +140,6 @@
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.14.3</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-surefire-plugin</artifactId>
-			<version>3.0.0-M5</version>
-			<type>maven-plugin</type>
-		</dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.19.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.19.0</version>
-        </dependency>
-        
-        
-            <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>2.0.6</version>
-    </dependency>
- 
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j2-impl</artifactId>
-      <version>2.20.0</version>
-      <scope>runtime</scope>
-    </dependency>
- 
-
-		<!-- Embedded Jetty dependencies -->
-		<!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-servlets -->
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-servlets</artifactId>
-			<version>9.4.44.v20210927</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
@@ -214,37 +163,39 @@
 			<version>9.4.43.v20210629</version>
 			<type>jar</type>
 		</dependency>
-		<!-- extra explicit dependency needed because there is a JSP in the sample-->
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>apache-jsp</artifactId>
 			<version>9.4.44.v20210927</version>
 		</dependency>
 
-        <dependency>
-            <groupId>com.google.appengine</groupId>
-            <artifactId>appengine-api-1.0-sdk</artifactId>
-            <version>2.0.25</version>
-        </dependency>
-<!-- https://mvnrepository.com/artifact/com.google.cloud/google-cloud-firestore -->
-<dependency>
-    <groupId>com.google.cloud</groupId>
-    <artifactId>google-cloud-firestore</artifactId>
-    <version>3.19.3</version>
-</dependency>
-
+		<dependency>
+			<groupId>com.google.appengine</groupId>
+			<artifactId>appengine-api-1.0-sdk</artifactId>
+			<version>2.0.33</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-firestore</artifactId>
+			<version>3.19.3</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.code.findbugs</groupId>
+					<artifactId>jsr305</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
-
 	<build>
 		<finalName>background</finalName>
 		<resources>
-    <resource>
-      <directory>src/main/appengine</directory>
-      <filtering>true</filtering>
-      <includes>
-        <include>app.yaml</include>
-      </includes>
-    </resource>
+			<resource>
+				<directory>src/main/appengine</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>app.yaml</include>
+				</includes>
+			</resource>
 
 			<resource>
 				<directory>src/main</directory>
@@ -256,276 +207,94 @@
 		</resources>
 
 		<plugins>
-		<!--
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.3.2</version>
-				<configuration>
-				<attachClasses>true</attachClasses>
-					<archive>
-						<manifest>
-							<mainClass>info.esblurock.background.services.ServerMain</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-				            <goals>
-                <goal>install</goal>
-            </goals>
 
-			</plugin>
-		-->
-			
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>
 				<version>2.4.4</version>
+
 				<configuration>
+					<outputDirectory>${project.build.directory}/background</outputDirectory>
+					<resources>
+						<resource>
+							<directory>src/main/appengine</directory>
+							<filtering>false</filtering>
+						</resource>
+					</resources>
 					<projectId>blurock-database</projectId>
 					<version>2</version>
 				</configuration>
 			</plugin>
-      <plugin>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.1.0</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.6.1</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-clean-plugin</artifactId>
-        <version>3.0.0</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-install-plugin</artifactId>
-        <version>2.5.2</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.20</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-site-plugin</artifactId>
-        <version>3.6</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>3.0.2</version>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <version>3.1</version>
-      </plugin>
-
-<!--
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.3.0</version>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<archive>
-						<manifest>
-							<mainClass>${exec.mainClass}</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>3.3.0</version>
-				<executions>
-					<execution>
-						<id>copy</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>
-                ${project.build.directory}/appengine-staging
-              </outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
--->
-
-		</plugins>
-	</build>
-
-
-	<!--
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.7</version>
-				<executions>
-					<execution>
-						<id>copy-web-resources</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>
-                ${project.build.directory}/classes/META-INF/resources
-              </outputDirectory>
-							<resources>
-								<resource>
-									<directory>./src/main/webapp</directory>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-
-
-			<plugin>
-				<groupId>com.google.cloud.tools</groupId>
-				<artifactId>appengine-maven-plugin</artifactId>
-				<version>2.2.0</version>
-				<configuration>
-					<projectId>${googleCloudProjectId}</projectId>
-					<version>1</version>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.3.0</version>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<archive>
-						<manifest>
-							<mainClass>${exec.mainClass}</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id> 
-						<phase>package</phase> 
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-
-		</plugins>
-
-
-	</build>
-
--->
-	<!--
-	
-	<build>
-		<sourceDirectory>src/main/java</sourceDirectory>
-		<testSourceDirectory>src/test/java</testSourceDirectory>
-		<finalName>background</finalName>
-		<plugins>
+        <plugin>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.1.0</version>
+            <configuration>
+                <archive>
+                    <manifestEntries>
+                        <Implementation-Title>JThermodyanicsData</Implementation-Title>
+                        <Implementation-Version>1.0</Implementation-Version>
+                        <Implementation-Vendor>Blurock Consulting AB</Implementation-Vendor>
+                        <Specification-Title>Edward Blurock</Specification-Title>
+                    </manifestEntries>
+                </archive>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.3.0</version>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <classpathPrefix>lib/</classpathPrefix>
+                        <classpathPrefix>classes/</classpathPrefix>
+                        <mainClass>info.esblurock.background.services.ServerMain</mainClass>
+                    </manifest>
+                    <manifestEntries>
+                        <Implementation-Title>JThermodyanicsData</Implementation-Title>
+                        <Implementation-Version>1.0</Implementation-Version>
+                        <Implementation-Vendor>Blurock Consulting AB</Implementation-Vendor>
+                        <Specification-Title>Edward Blurock</Specification-Title>
+                    </manifestEntries>
+                </archive>
+            </configuration>
+        </plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<source>${maven.compiler.source}</source>
-					<target>${maven.compiler.target}</target>
-				</configuration>
-			</plugin>
-			<plugin>
-
-				<groupId>org.apache.maven.plugins</groupId>
-
-				<artifactId>maven-enforcer-plugin</artifactId>
-
-				<version>3.0.0-M3</version>
-
-				<executions>
-
-					<execution>
-
-						<id>enforce-maven</id>
-
-						<goals>
-
-							<goal>enforce</goal>
-
-						</goals>
-
-						<configuration>
-
-							<rules>
-
-								<requireMavenVersion>
-
-									<version>3.5.0</version>
-
-								</requireMavenVersion>
-
-							</rules>
-
-						</configuration>
-
-					</execution>
-
-				</executions>
-
+				<version>3.6.1</version>
 			</plugin>
 
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.3.1</version>
-				            <configuration>  
-                <archive>  
-                    <manifest>  
-                        <mainClass>info.esblurock.background.services.Main</mainClass>  
-                    </manifest>  
-                </archive>  
-            </configuration>  
-
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
 			</plugin>
 
 			<plugin>
-				<groupId>com.google.cloud.tools</groupId>
-				<artifactId>endpoints-framework-maven-plugin</artifactId>
-				<version>2.0.1</version>
-				<configuration>
-					<hostname>${endpoints.project.id}.appspot.com</hostname>
-				</configuration>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>2.5.2</version>
 			</plugin>
+
+
+			<plugin>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.6</version>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.0.2</version>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>3.1</version>
+			</plugin>
+
+
 		</plugins>
-
 	</build>
 
-	-->
+
+
 </project>

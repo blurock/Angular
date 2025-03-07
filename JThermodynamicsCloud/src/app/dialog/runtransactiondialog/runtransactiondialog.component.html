@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>{{data['prov:activity']}}</h1>
+		<div mat-dialog-content>
+			<ng-container *ngIf='data != null; else waiting'>
+				<ng-container *ngIf='running; else setup'>
+				    Processing
+					<mat-spinner></mat-spinner>
+				</ng-container>
+				<ng-template #setup>
+					<pre>{{data | json}}</pre>
+				</ng-template>
+			</ng-container>
+			<ng-template #waiting>
+				no data
+			</ng-template>
+
+		</div>
+		<div mat-dialog-actions>
+			<button mat-button (click)="runTransaction()">Run</button>
+			<button mat-button (click)="onNoClick()">Cancel</button>
+		</div>

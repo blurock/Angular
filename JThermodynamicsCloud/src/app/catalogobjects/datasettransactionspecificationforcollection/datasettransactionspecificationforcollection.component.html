@@ -1,0 +1,54 @@
+<mat-card appearance="outlined" class="matcard">
+	<mat-card-header>
+		<mat-card-subtitle>{{subtitle}}</mat-card-subtitle>
+	</mat-card-header>
+	<mat-card-content>
+		<form [formGroup]="idForm">
+			<ng-container *ngIf='annoinfo != null; else waiting'>
+				<mat-grid-list cols="6" rowHeight="100px">
+					<mat-grid-tile [colspan]="6">
+						<mat-form-field class="generic">
+							<mat-label>{{annoinfo['dataset:CatalogObjectUniqueGenericLabel'][rdfslabel]}}
+							</mat-label>
+							<input matInput formControlName="CatalogObjectUniqueGenericLabel">
+							<mat-hint>{{annoinfo['dataset:CatalogObjectUniqueGenericLabel'][rdfscomment]}}
+							</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="6">
+						<mat-form-field class="datasetname">
+							<mat-label>{{annoinfo['dataset:DatasetName'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="DatasetName">
+							<mat-hint>{{annoinfo['dataset:DatasetName'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					
+					<mat-grid-tile [colspan]="4">
+						<mat-form-field class="status">
+							<mat-label>{{annoinfo['dataset:CatalogDataObjectStatus'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="CatalogDataObjectStatus"
+								[matMenuTriggerFor]="menu.childMenu">
+							<mat-hint>{{annoinfo['dataset:CatalogDataObjectStatus'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+						<app-menu-item #menu [items]="items" (selectionEvent)="setStatus($event)">
+						</app-menu-item>
+					</mat-grid-tile>
+
+					<mat-grid-tile [colspan]="2">
+						<mat-form-field class="version">
+							<mat-label>{{annoinfo['dataset:DatasetVersion'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="DatasetVersion" placeholder="1.0">
+							<mat-hint>{{annoinfo['dataset:DatasetVersion'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					
+				</mat-grid-list>
+			</ng-container>
+			<ng-template #waiting>
+				Spec: waiting for annotations
+			</ng-template>
+			
+		</form>
+		
+	</mat-card-content>
+</mat-card>

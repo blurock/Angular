@@ -1,0 +1,39 @@
+<form [formGroup]="unitparameters" class="infoform">
+	<mat-grid-list cols="4" rowHeight="75px" class="unitset">
+		<mat-grid-tile [colspan]="1" background="lightgray">
+			<mat-form-field class="biblioreference">
+				<mat-label>{{labels.parameterlabellabel}}</mat-label>
+				<input matInput formControlName="ParameterLabel">
+				<mat-hint>{{labels.parameterlabelhint}}</mat-hint>
+			</mat-form-field>
+		</mat-grid-tile>
+		<mat-grid-tile [colspan]="1">
+			<mat-label>
+				{{unitclass}}
+			</mat-label>
+		</mat-grid-tile>
+		<mat-grid-tile [colspan]="1" background="lightgray">
+			<mat-form-field class="generic">
+				<mat-label>{{labels.unitspecificlabel}}</mat-label>
+				<mat-select formControlName="UnitsOfValue">
+					<mat-option *ngFor="let choice of unitscpy" [value]="choice">{{choice}}</mat-option>
+				</mat-select>
+				<mat-hint>{{labels.unitspecificlabel}}</mat-hint>
+			</mat-form-field>
+		</mat-grid-tile>
+
+		<mat-grid-tile [colspan]="1" background="lightgray">
+			<mat-form-field class="generic">
+				<mat-label>{{labels.uncertaintylabel}}</mat-label>
+				<mat-select formControlName="DataPointUncertainty">
+					<mat-option *ngFor="let choice of uncertaintyInformationkeys" [value]="choice">
+						{{uncertaintyInformation[choice][rdflabel]}}</mat-option>
+				</mat-select>
+				<mat-hint>{{labels.uncertaintyhint}}</mat-hint>
+			</mat-form-field>
+		</mat-grid-tile>
+
+
+
+	</mat-grid-list>
+</form>

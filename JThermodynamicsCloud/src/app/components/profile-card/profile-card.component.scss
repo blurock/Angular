@@ -1,0 +1,43 @@
+.avatar {
+  margin-left: 5px;
+  width:50px;
+  height:50px;
+}
+img.resize {
+  width:20px;
+  height:20px;
+}
+.big-avatar {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.profile-card {
+  text-align: center;
+  min-width: 240px;
+  padding: 15px 20px 0px;
+}
+
+p {
+  color: #666666;
+}
+.profilebutton {
+  width:150px;
+}
+mat-divider {
+  margin: 10px 0;
+}
+
+.profile-footer {
+  margin-top: 20px;
+}
+
+.mat-mdc-mini-fab {
+  box-shadow: none;
+}
+
+/* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
+::ng-deep .mat-button-wrapper {
+  padding: 0 !important;
+}

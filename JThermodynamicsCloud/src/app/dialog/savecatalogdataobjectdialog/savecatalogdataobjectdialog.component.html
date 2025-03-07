@@ -1,0 +1,71 @@
+<div class="box">
+<h1 mat-dialog-title class="title">Save Data Object <strong>{{type}}</strong> </h1>
+<div mat-dialog-content class="content">
+	<ng-container *ngIf="running">
+		<mat-spinner></mat-spinner>
+	</ng-container>
+		<mat-tab-group class="mattab">
+			<mat-tab label="Update Object" >
+				<form [formGroup]="objectform">
+					<mat-grid-list [cols] = "8" rowHeight="80px">
+						<mat-grid-tile [colspan]="8" [rowspan]="2" background="lightgray">
+							<div  class="text">
+							This is the information associated with the update of a catalog object. Please indicate 
+							what type of update this is (pulldown list). Also give a short description (basically one line)
+							the type of changes that the update entails. The other tabs give details of the transaction.
+							</div>
+						</mat-grid-tile>
+				<mat-grid-tile [colspan]="8" background="lightgray">
+					<mat-form-field class="label">
+						<mat-label> Type
+						</mat-label>
+						<input matInput formControlName="CatalogObjectModificationType"
+							[matMenuTriggerFor]="rolemenu" >
+						<mat-hint>Type
+						</mat-hint>
+						<mat-menu #rolemenu>
+						<app-menu-item #useraccountmenu [items]="updatetypeitems"
+							(selectionEvent)="setUpdateType($event)">
+						</app-menu-item>
+						</mat-menu>
+					</mat-form-field>
+				</mat-grid-tile>
+				
+					<mat-grid-tile [colspan]="8">
+						<mat-form-field class="label">
+							<mat-label>Description</mat-label>
+							<input matInput formControlName="DescriptionTitle" >
+							<mat-hint>{{hint}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+				</mat-grid-list>
+				</form>
+			</mat-tab>
+			<mat-tab label="New Catalog Object">
+				<div class="json">
+				<pre>{{newdataobject | json }}</pre>
+				</div>
+			</mat-tab>
+			<mat-tab label="Original">
+				<div class="json">
+				<pre>{{originaldataobject | json }}</pre>
+				</div>
+			</mat-tab>
+			<mat-tab label="Diff">
+				<div class="json">
+				<pre>{{difference | json }}</pre>
+				</div>
+			</mat-tab>
+			<mat-tab label="Transaction ">
+				<div class="json">
+				<pre>{{transaction | json }}</pre>
+				</div>
+			</mat-tab>
+		</mat-tab-group>
+
+</div>
+<div mat-dialog-actions>
+	<button mat-button (click)="onNoClick()" class="button">Cancel</button>
+	<button mat-button (click)="saveDataClick()" class="button" [disabled]="!objectform.valid">Save</button>
+</div>
+</div>

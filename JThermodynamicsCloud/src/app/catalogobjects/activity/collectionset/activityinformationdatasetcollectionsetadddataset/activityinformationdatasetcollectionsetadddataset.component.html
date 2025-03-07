@@ -1,0 +1,56 @@
+<mat-card appearance="outlined" class="card">
+	<mat-card-header>
+		<mat-card-title-group class="title-group">
+			<mat-card-subtitle class="title">{{title}}</mat-card-subtitle>
+		</mat-card-title-group>
+	</mat-card-header>
+	<mat-card-content>
+		<ng-container *ngIf='annoinfo != null; else loading'>
+			<app-datasetcollectionsetrecordidinfo #record [(annoinfo)]="annoinfo">
+			</app-datasetcollectionsetrecordidinfo>
+			<form [formGroup]="objectform" class="infoform">
+				<mat-grid-list cols="6" rowHeight="100px">
+
+					<mat-grid-tile [colspan]="4">
+						<mat-form-field class="title">
+							<mat-label>{{annoinfo['dataset:DescriptionTitle'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="DescriptionTitle">
+							<mat-hint>{{annoinfo['dataset:DescriptionTitle'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+
+					<mat-grid-tile [colspan]="2" background="lightgray">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:DatasetCollectionType'][rdfslabel]}}
+							</mat-label>
+							<input matInput formControlName="DatasetCollectionType" [matMenuTriggerFor]="menu.childMenu">
+							<mat-hint>{{annoinfo['dataset:DatasetCollectionType'][rdfscomment]}}
+							</mat-hint>
+							<app-menu-item #menu [items]="items" (selectionEvent)="setObjectType($event)">
+							</app-menu-item>
+						</mat-form-field>
+					</mat-grid-tile>
+				</mat-grid-list>
+
+
+			</form>
+
+			<ng-container *ngIf='display; else specdisplayoff'>
+
+				<app-datasetspecificationforcollectionset #spec [(annoinfo)]="annoinfo" [(maintainer)]="maintainer" [(subtitle)]="subtitle">
+				</app-datasetspecificationforcollectionset>
+
+			</ng-container>
+			<ng-template #specdisplayoff>
+				<div>
+					Specification display disabled
+				</div>
+			</ng-template>
+
+		</ng-container>
+		<ng-template #loading>
+			<div>Loading Activity information
+			</div>
+		</ng-template>
+	</mat-card-content>
+</mat-card>

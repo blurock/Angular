@@ -1,0 +1,33 @@
+<app-header></app-header>
+<!--
+<mat-sidenav-container class="example-container">
+
+	<mat-sidenav mode="side" opened>
+		<button mat-raised-button class="toggle" color="blue" (click)="home()">Home</button>
+		<button mat-raised-button class="toggle" color="blue" (click)="uploaddata()">Upload Data</button>
+		<button mat-raised-button class="toggle" color="blue" (click)="computeThermodynamics()">Compute</button>
+		<button mat-raised-button class="toggle" color="blue" (click)="userAdministration()">User Admin</button>
+		<button mat-raised-button class="toggle" color="blue" (click)="datasetAdministration()">Dataset Admin</button>
+		<button mat-raised-button class="toggle" color="lightblue" [matMenuTriggerFor]="catalog">Catalog</button>
+
+		<mat-menu #catalog="matMenu">
+			<button mat-menu-item (click)="repositoryStaging()">Repository Staging</button>
+			<button mat-menu-item (click)="partition()">Partition</button>
+			<button mat-menu-item (click)="transaction()">Transaction</button>
+			<button mat-menu-item (click)="catalog()">Catalog</button>
+			<button mat-menu-item (click)="datasetcollection()">Dataset Collections</button>
+		</mat-menu>
+	</mat-sidenav>
+
+	<mat-sidenav-content>
+	
+	
+		<div class="div-toggle">
+			<button mat-raised-button class="toggle" color="primary">Toggle Menu</button>
+		</div>
+		
+		
+	</mat-sidenav-content>
+</mat-sidenav-container>
+-->
+<router-outlet></router-outlet>

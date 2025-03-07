@@ -1,0 +1,54 @@
+<mat-card appearance="outlined">
+	<mat-card-header>
+		<mat-card-title>
+		{{choice}}
+		</mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		<mat-grid-list cols="6" rowHeight="100px">
+		<mat-grid-tile [colspan]="6">
+					<mat-form-field appearance="fill" class="display-btn">
+				<mat-select [(value)]="choice" (valueChange)="setDatabaseObject(choice)">
+					<mat-option *ngFor="let choice of choices" [value]="choice" background="lightgray">
+						{{choice}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</mat-grid-tile>
+
+			<mat-grid-tile [colspan]="2">
+				<button mat-mini-fab color="primary" class="display-btn" matTooltip="{{displaydescbutton}}"
+					(click)="displayCatalogInfo()">{{displaybutton}}</button>
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="2">
+				<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchInformation()"
+					matTooltip="{{loadfromdatabase}}">
+					{{fetch}}
+				</button>
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="2">
+				<button mat-mini-fab color="primary" class="rbutton" matTooltip="{{savedescr}}"
+					(click)="saveCatalog()">{{savebutton}}</button>
+			</mat-grid-tile>
+		</mat-grid-list>
+
+
+		<app-generalcatalogobjectvisualization #catalogvis></app-generalcatalogobjectvisualization>
+
+	</mat-card-content>
+</mat-card>
+<mat-card appearance="outlined">
+	<mat-card-header>
+		<mat-card-title>
+			HTML Output
+		</mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		<mat-grid-list cols="6">
+			<mat-grid-tile [colspan]="6">
+				<div [innerHTML]="resultHtml"></div>
+			</mat-grid-tile>
+		</mat-grid-list>
+
+	</mat-card-content>
+</mat-card>

@@ -1,0 +1,31 @@
+.login-card {
+  max-width: 400px;
+}
+.center-title {
+		text-align: center;
+	}
+.full-width-padded {
+	    width: 100%;
+	    margin: 0 10px;
+}.full-width {
+	    width: 100%;
+}
+.half-width {
+	    width: 50%;
+		margin-top: 10px;
+		margin-bottom: 10px;
+}
+.google-section {
+	    width: 100%;
+	    margin-top: 0 10px;
+ }
+ .logo-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  margin-bottom: 16px; /* Add some spacing below the logo */
+}
+
+.logo {
+  max-width: 80px; /* Adjust as needed */
+  height: auto;
+}

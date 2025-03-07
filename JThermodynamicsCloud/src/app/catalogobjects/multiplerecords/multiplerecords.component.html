@@ -1,0 +1,47 @@
+<div>
+	<div *ngIf="primary; then thenBlock else elseBlock"></div>
+	<ng-template #thenBlock>
+		<div class="block">
+			<button (click)="addElement()">
+				<mat-icon>add_circle_outline</mat-icon>
+			</button>
+			{{comment}}
+		</div>
+	</ng-template>
+	<ng-template #elseBlock class="elseblock">
+		<button (click)="addElement()">
+			<mat-icon>add_circle_outline</mat-icon>
+		</button>
+		{{comment}}
+		<!-- mat-form-field>
+					<input matInput disabled value="{{recordlabel}}">
+				</mat-form-field  -->
+	</ng-template>
+	<div [ngSwitch]="recordtype">
+		<div *ngSwitchCase="'DataSetReference'">
+			<cdk-virtual-scroll-viewport [itemSize]="18 * 7" class="masterviewport">
+				<div class="multbox">
+					<div *ngFor="let ref of refinfo">
+						<div class="multboxelement">
+							<cdk-virtual-scroll-viewport [itemSize]="18 * 7" class="viewport">
+								<!--app-referenceinformation [annoinfo]="annoinfo" [(refinfo)]="ref">
+								</app-referenceinformation -->
+							</cdk-virtual-scroll-viewport>
+						</div>
+					</div>
+				</div>
+			</cdk-virtual-scroll-viewport>
+		</div>
+		<div class="subobjectref" *ngSwitchCase="'NameOfPerson'">
+			<div *ngFor="let ref of refinfo" width="100%">
+				<!-- app-nameofperson [annoinfo]="annoinfo" [(namedata)]="ref">
+				</app-nameofperson -->
+			</div>
+		</div>
+		<div>
+			<div *ngSwitchDefault>
+				OOps; {{recordtype}}
+			</div>
+		</div>
+	</div>
+</div>

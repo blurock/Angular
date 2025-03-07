@@ -1,0 +1,32 @@
+.block {
+	background-color:   #00CCFF;
+	width: "100%";
+}
+.elseblock {
+	background-color:  #66CCFF;
+}
+.masterviewport {
+  height: 300px;
+  width: 100%;
+  border: 1px solid black;
+}
+.viewport {
+  height: 300px;
+  width: 600px;
+  border: 1px solid black;
+}
+.multbox {
+	display: flex;
+	background-color:  #66FFFF;
+}
+.multboxelement {
+	flex: 1;
+	padding-right: 30px;
+}
+.objectref {
+	background-color:  #66FFFF;
+	padding-bottom: 20px;
+}.subobjectref {
+	background-color:  #66FFFF;
+	padding-bottom: 5px;
+}

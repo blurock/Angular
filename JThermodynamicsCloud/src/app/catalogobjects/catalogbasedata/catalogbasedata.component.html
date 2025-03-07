@@ -1,0 +1,22 @@
+
+
+<mat-grid-list cols="10" rowHeight="30px">
+	<mat-grid-tile colspan="2">
+	<button mat-button class="simplename" matTooltip="Simple Name" placement="top" color="primary">
+			{{simpleName}}
+		</button>
+	</mat-grid-tile>
+	<mat-grid-tile colspan="7">
+		<button mat-button class="title" matTooltip="Description" placement="top" color="primary">
+			{{title}}
+		</button>
+	</mat-grid-tile>
+	<mat-grid-tile colspan="1">
+		<button mat-icon-button class="toggle" matTooltip="more details" (click)="toggleExtra()" color="primary">
+			<mat-icon>
+				remove_red_eye
+			</mat-icon>
+		</button>
+	</mat-grid-tile>
+</mat-grid-list>
+<mat-divider></mat-divider>

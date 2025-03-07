@@ -1,0 +1,80 @@
+<div class="grid-container">
+	<mat-tab-group>
+		<mat-tab label="Home">
+			<app-applicationcards></app-applicationcards>
+		</mat-tab>
+		<mat-tab label="User Account">
+			<app-catalogobjectheader
+			[setData] = "setUserAccountData.bind(this)" 
+			[getData] = "getUserAccountData.bind(this)" 
+			[catalogtype]="accounttype"
+			[original]="originaluseraccount"
+			[filenameroot]="accountfilenameroot"
+			[title]="displayaccount"
+			   >
+				
+			</app-catalogobjectheader>
+			<!--
+			<mat-grid-list cols="10" rowHeight="100px">
+				<mat-grid-tile [colspan]="2" background="lightgray">
+					<button mat-button class="button" (click)="setUser()">{{refresh}}</button>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="2" background="lightgray">
+					<button mat-button class="button" (click)="fetchAccountInformation()">{{fetchinfo}}</button>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="2" background="lightgray">
+					<button mat-button class="button" (click)="displayAccountData()">{{displayinfo}}</button>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="2" background="lightgray">
+					<button mat-button class="button" (click)="displayAccountDataChanges()">{{changeinfo}}</button>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="2" background="lightgray">
+					<button mat-button class="button" (click)="savePersonData()">{{saveinfo}}</button>
+				</mat-grid-tile>
+			</mat-grid-list>
+			
+			<mat-divider></mat-divider>
+			<div [innerHTML]="safeHtmluser"></div>
+			-->
+			<mat-divider></mat-divider>
+			
+			<app-useraccount #useraccount (annoReady)="setUser()"></app-useraccount>
+		</mat-tab>
+		<mat-tab label="User Profile">
+
+			<app-catalogobjectheader
+			[setData] = "setPersonData.bind(this)" 
+			[getData] = "getPersonData.bind(this)" 
+			[catalogtype]="persontype"
+			[original]="originalperson"
+			[filenameroot]="personfilenameroot"
+			[title]="displayperson"
+			>
+			</app-catalogobjectheader>
+			<!--
+			<mat-grid-list cols="10" rowHeight="100px">
+				<mat-grid-tile [colspan]="2" background="lightgray">
+					<button mat-button class="button" (click)="setPerson()">Refresh</button>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="2" background="lightgray">
+					<button mat-button class="button" (click)="fetchPersonInformation()">Fetch Info</button>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="2" background="lightgray">
+					<button mat-button class="button" (click)="displayPersonData()">Display</button>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="2" background="lightgray">
+					<button mat-button class="button" (click)="displayPersonDataChanges()">Changes</button>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="2" background="lightgray">
+					<button mat-button class="button" (click)="savePersonData()">{{savepersondata}}</button>
+				</mat-grid-tile>
+			</mat-grid-list>
+			
+			<mat-divider></mat-divider>
+			<div [innerHTML]="safeHtmlperson"></div>
+			-->
+			<mat-divider></mat-divider>
+			<app-databaseperson #databaseperson (annoReady)="setPerson()"></app-databaseperson>
+		</mat-tab>
+	</mat-tab-group>
+</div>

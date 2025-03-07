@@ -34,7 +34,7 @@ public class CatalogInformationServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		logger.info("CatalogInformationServlet");
+		//logger.info("CatalogInformationServlet");
 		
 		String catalogname = request.getParameter("catalogname");
 		if (!catalogname.startsWith("dataset:")) {
@@ -42,7 +42,7 @@ public class CatalogInformationServlet extends HttpServlet {
 		}
         Document document = MessageConstructor.startDocument("DatasetCollectionDocumentIDPairForHierarchy");
 		JsonObject catalogandanno = CreateDocumentTemplate.createTemplateWithAnnotations(catalogname);
-		logger.info("CatalogInformationServlet:" + JsonObjectUtilities.toString(catalogandanno));
+		//logger.info("CatalogInformationServlet:" + JsonObjectUtilities.toString(catalogandanno));
         JsonObject serveresponse = DatabaseServicesBase.standardServiceResponse(document,
                 "Success: DatasetCollectionDocumentIDPairForHierarchy", catalogandanno);
 		PrintWriter out = response.getWriter();
@@ -50,7 +50,8 @@ public class CatalogInformationServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		out.print(JsonObjectUtilities.toString(serveresponse));
 		out.flush();
-		logger.info("CatalogInformationServlet end");
+        
+		//logger.info("CatalogInformationServlet end");
 	}
 
 }

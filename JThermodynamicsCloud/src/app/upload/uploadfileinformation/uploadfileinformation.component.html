@@ -1,0 +1,41 @@
+<mat-card appearance="outlined" class="card">
+	<mat-card-header>
+		<mat-card-title-group class="title-group">
+			<mat-card-subtitle class="title">{{title}}</mat-card-subtitle>
+		</mat-card-title-group>
+	</mat-card-header>
+	<mat-card-content>
+		<ng-container *ngIf='annoinfo != null;  else loading'>
+
+			<mat-grid-list cols="6" rowHeight="100px">
+				<mat-grid-tile [colspan]="2">
+					<button mat-mini-fab color="primary" class="display-btn" matTooltip="{{displaydescbutton}}"
+						(click)="displayCatalogInfo()">{{displaybutton}}</button>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="2">
+					<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchInformation()"
+						matTooltip="{{loadfromdatabase}}">
+						{{fetch}}
+					</button>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="2">
+					<button mat-mini-fab color="primary" class="rbutton" matTooltip="{{submitdescr}}" (click)="submit()"
+						[disabled]="invalid()">{{submitbutton}}</button>
+				</mat-grid-tile>
+			</mat-grid-list>
+
+			<app-activityrepositoryinitialreadlocalfile #upload [(annoinfo)]="annoinfo">
+			</app-activityrepositoryinitialreadlocalfile>
+			<mat-divider></mat-divider>
+			<ng-container *ngIf="resultHtml != null;">
+				<div [innerHTML]="resultHtml"></div>
+			</ng-container>
+			<mat-divider></mat-divider>
+		</ng-container>
+		<ng-template #loading>
+		    Setup
+			<mat-spinner></mat-spinner>
+		</ng-template>
+
+	</mat-card-content>
+</mat-card>

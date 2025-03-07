@@ -1,0 +1,14 @@
+<div class="ref">
+  <mat-form-field class="title">
+    <mat-label>{{reftitletitle}}</mat-label>
+    <input matInput matTooltip="{{reftitlecomment}}" [ngModel]="refinfo['dcterms:title']"
+      (ngModelChange)="refinfo['dcterms:title']=$event">
+      </mat-form-field>
+    <app-doi [(doi)]="refinfo['datacite:PrimaryResourceIdentifier']" [doihint]="refdoicomment" [doilabel]="refdoititle"></app-doi>
+    <app-multiplerecords 
+              [annoinfo]="annoinfo" 
+              [refinfo]="refinfo['dc:creator']" 
+              [objlabel]="'author'"
+              [primary]="false">
+    </app-multiplerecords>
+</div>

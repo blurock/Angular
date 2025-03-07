@@ -1,0 +1,55 @@
+<mat-card appearance="outlined" class="matcard">
+	<mat-card-header>
+		<mat-card-title>{{title}}</mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		<mat-grid-list cols="6" rowHeight="100px">
+			<mat-grid-tile [colspan]="3">
+				<button mat-mini-fab color="primary" class="display-btn" matTooltip="{{displaydescbutton}}"
+					(click)="displayTransactionInput()">{{displaybutton}}
+				</button>
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="3">
+				<button mat-mini-fab color="primary" class="submit-btn" (click)="submitInformation()"
+					matTooltip="{{subtransaction}}" [disabled]="invalid()">
+					{{submit}}
+				</button>
+			</mat-grid-tile>
+		</mat-grid-list>
+
+		<ng-container *ngIf='actannoinfo != null; else waiting'>
+		
+				<app-activityinformationdatasetcollectionsetadddataset #activity [(annoinfo)]="actannoinfo">
+				</app-activityinformationdatasetcollectionsetadddataset>
+			
+			<ng-container *ngIf='catannoinfo != null && viewtransactionid; else noviewtransactionid'>
+				<mat-grid-list cols="6" rowHeight="100px">
+					<mat-grid-tile [colspan]="4">
+						{{transfirestoretitle}}
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="2">
+						<button mat-mini-fab color="primary" class="display-btn" matTooltip="{{deltransdescbutton}}"
+							(click)="deleteTransaction()" [disabled]="transfirestoreid==null">{{deltransbutton}}
+
+						</button>
+					</mat-grid-tile>
+				</mat-grid-list>
+				<app-firesytorecatalogid #tranactionfirestoreid [(anno)]="annoinfo" [(catalogID)]="transfirestoreid">
+				</app-firesytorecatalogid>
+			</ng-container>
+			<ng-template #noviewtransactionid>
+				No Transaction
+			</ng-template>
+		</ng-container>
+		<ng-template #waiting>
+			{{waitmessage}}
+		</ng-template>
+
+
+		<mat-divider></mat-divider>
+		<div [innerHTML]="resultHtml"></div>
+		<mat-divider></mat-divider>
+
+
+	</mat-card-content>
+</mat-card>

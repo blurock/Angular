@@ -1,0 +1,165 @@
+<mat-stepper #stepper>
+	<mat-step [stepControl]="userAccountGroup" label="Account Setup">
+		<ng-container *ngIf='annoinfo != null;'>
+			<div>
+				<h3>Welcome New User</h3>
+				<h4>This is the information to set up a valid user account.</h4>
+				In this menu, the user should set up a unique name and choose the type of user. The rest of the
+				information has already been assigned.
+				<br>
+				Every account is defined by a unique verified email address, used for the login, and a UID, assigned by
+				the authorization technique.
+				The user name should also be unique. A user can suggest a unique name and this is checked by the
+				database to insure it has not be used by another user account.
+				<br>
+				The user account 'role' determines what manipulations and queries the user can make within the database.
+				The standard assignment is 'StandardUser' which allows the user to make calculation with the user's own
+				database.
+				The user's database can be modified by the user.
+			</div>
+
+			<form [formGroup]="userAccountGroup" class="signinform">
+				<mat-grid-list cols="8" rowHeight="100px">
+
+
+					<mat-grid-tile [colspan]="3">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:username'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="username">
+							<mat-hint>{{annoinfo['dataset:username'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="5">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:Email'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="Email" [readonly]="notadminrole">
+							<mat-hint>{{annoinfo['dataset:Email'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+
+					<mat-grid-tile [colspan]="2">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:AuthorizationType'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="AuthorizationType" [readonly]="notadminrole">
+							<mat-hint>{{annoinfo['dataset:AuthorizationType'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					<ng-container *ngIf="useraccountitems && useraccountitems.length > 0">
+					<mat-grid-tile [colspan]="2" background="lightgray">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:UserAccountRole'][rdfslabel]}}
+							</mat-label>
+
+							<input matInput formControlName="UserAccountRole" [matMenuTriggerFor]="menu"
+								[readonly]="notadminrole">
+							<mat-hint>{{annoinfo['dataset:UserAccountRole'][rdfscomment]}}
+							</mat-hint>
+
+							<mat-menu #menu="matMenu">
+									<app-menu-item #appmenu [items]="useraccountitems"
+										(selectionEvent)="setUserAccountRole($event)"></app-menu-item>
+							</mat-menu>
+						</mat-form-field>
+					</mat-grid-tile>
+					</ng-container>
+					<mat-grid-tile [colspan]="4">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:UID'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="UID" [readonly]="notadminrole">
+							<mat-hint>{{annoinfo['dataset:UID'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+
+				</mat-grid-list>
+			</form>
+		</ng-container>
+	</mat-step>
+	
+	<mat-step [stepControl]="signinFormGroup" label="User Information">
+		<ng-container *ngIf='annoinfo != null;'>
+			<div>
+				<h3>Please take the time to fill in the information about you as a user</h3>
+				<br>
+				This information will not be used outside this system and is meant to give insight to the collaborators.
+			</div>
+
+			<form [formGroup]="signinFormGroup" class="signinform">
+				<mat-grid-list cols="8" rowHeight="100px">
+
+
+					<mat-grid-tile [colspan]="3">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:familyName'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="familyName">
+							<mat-hint>{{annoinfo['dataset:familyName'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+
+					<mat-grid-tile [colspan]="3">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:givenName'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="givenName">
+							<mat-hint>{{annoinfo['dataset:givenName'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+
+					<mat-grid-tile [colspan]="2" background="label">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:UserTitle'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="UserTitle" [matMenuTriggerFor]="titlemenu"
+								(readonly)="notadminrole">
+							<mat-hint>{{annoinfo['dataset:UserTitle'][rdfscomment]}}</mat-hint>
+							<mat-menu #titlemenu="matMenu">
+							<app-menu-item #usertitlemenu [items]="usertitleitems"
+								(selectionEvent)="setUserTitle($event)">
+							</app-menu-item>
+							</mat-menu>
+						</mat-form-field>
+						
+					</mat-grid-tile>
+					
+					<mat-grid-tile [colspan]="8" background="lightgray">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:UserClassification'][rdfslabel]}}
+							</mat-label>
+							<input matInput formControlName="UserClassification"
+								[matMenuTriggerFor]="menuclassification">
+							<mat-hint>{{annoinfo['dataset:UserClassification'][rdfscomment]}}
+							</mat-hint>
+							<mat-menu #menuclassification="matMenu">
+							<app-menu-item #userclassificationmenu [items]="userclassificationitems"
+								(selectionEvent)="setUserClassification($event)">
+							</app-menu-item>
+							</mat-menu>
+						</mat-form-field>
+					</mat-grid-tile>
+				
+					<mat-grid-tile [colspan]="8">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:DescriptionAbstractPerson'][rdfslabel]}}</mat-label>
+							<textarea matInput formControlName="DescriptionAbstractPerson"></textarea>
+								<mat-hint>{{annoinfo['dataset:DescriptionAbstractPerson'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+				</mat-grid-list>
+			</form>
+
+		</ng-container>
+	</mat-step>
+	<mat-step [stepControl]="userAccountGroup" label="Create User Account">
+			<div>
+			<h3> Create the user account </h3>
+			This step will create the user account so you can start using JThermodynamics. 
+			<br>
+			The next steps will set up the default database to be used by the user for calculations and database modifications.
+			</div>	
+			<ng-container *ngIf='tocreate; else gototop'>
+			<button mat-raised-button color="primary" (click)="createUserAccount()" class="label">{{submitbutton}}</button>
+			</ng-container>
+		    <ng-template #gototop>
+			 <button mat-raised-button color="primary" (click)="gotoTopWindow()" class="label">{{gototopbutton}}</button>
+		    </ng-template>
+
+			<div [innerHTML]="resultHtml"></div>
+	</mat-step>
+</mat-stepper>

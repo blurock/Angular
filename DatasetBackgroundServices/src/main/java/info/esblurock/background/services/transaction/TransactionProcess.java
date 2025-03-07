@@ -1,5 +1,6 @@
 package info.esblurock.background.services.transaction;
 
+import java.io.Console;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.SystemObjectInformation;
+import info.esblurock.background.services.datamanipulation.CatalogModificationEventProcess;
 import info.esblurock.background.services.datamanipulation.InterpretTextBlock;
 import info.esblurock.background.services.dataset.DatasetCollectionCreateSystemCollection;
 import info.esblurock.background.services.dataset.DatasetCollectionManagement;
@@ -35,7 +37,46 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRoutines;
 
 public enum TransactionProcess {
+	
+	CatalogModificationEvent {
 
+		@Override
+		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+			return CatalogModificationEventProcess.process(event, info);
+		}
+
+		@Override
+		String transactionKey(JsonObject catalog) {
+			String type = catalog.get(ClassLabelConstants.DatabaseObjectType).getAsString();
+			return type;
+		}
+
+		@Override
+		String transactionObjectName() {
+			return "dataset:ChemConnectTransactionEvent";
+		}
+		
+	},
+	DatabaseDeleteTransaction {
+
+		@Override
+		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+			JsonObject firestoreid = info.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+			JsonObject response = DeleteTransaction.deleteTransactionwithID(firestoreid);
+			return response;
+		}
+
+		@Override
+		String transactionKey(JsonObject catalog) {
+			return null;
+		}
+
+		@Override
+		String transactionObjectName() {
+			return "dataset:DatasetTransactionEventObject";
+		}
+
+	},
 	InitializerUserAccount {
 
 		@Override
@@ -264,7 +305,6 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionObjectName() {
-			//return "dataset:DatasetTransactionEventObject";
 			return "dataset:DatasetTransactionEventObject";
 		}
 
@@ -483,29 +523,7 @@ public enum TransactionProcess {
 			return "dataset:DatasetSystemCollectionManagementTransaction";
 		}
 
-	},
-	DatabaseDeleteTransaction {
-
-		@Override
-		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
-			JsonObject firestoreid = info.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
-			JsonObject response = DeleteTransaction.deleteTransactionwithID(firestoreid);
-			return response;
-		}
-
-		@Override
-		String transactionKey(JsonObject catalog) {
-			return null;
-		}
-
-		@Override
-		String transactionObjectName() {
-			return "dataset:DatasetTransactionEventObject";
-		}
-
-	}
-
-	;
+	};
 
 	public static void addLinkToCatalog(JsonArray catalogobjs, JsonObject linkobj, String type, String concept) {
 		for (int i = 0; i < catalogobjs.size(); i++) {
@@ -573,14 +591,14 @@ public enum TransactionProcess {
 				if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 					catalog = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 				} else {
-					System.out.println("Catalog object not found: " + JsonObjectUtilities.toString(stagingid));
-					System.out.println(response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
+					System.err.println("Catalog object not found: " + JsonObjectUtilities.toString(stagingid));
+					System.err.println(response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
 				}
 			} else {
-				System.out.println("Error in prerequisites: found prerequisites, but empty");
+				System.err.println("Error in prerequisites: found prerequisites, but empty");
 			}
 		} else {
-			System.out.println("Prerequisite '" + transidentifier + "' not found in\n"
+			System.err.println("Prerequisite '" + transidentifier + "' not found in\n"
 					+ JsonObjectUtilities.toString(prerequisites));
 		}
 		return catalog;
@@ -632,18 +650,20 @@ public enum TransactionProcess {
 		String transname = transaction.substring(8);
 		TransactionProcess process = TransactionProcess.valueOf(transname);
 		String transactionID = SystemObjectInformation.determineTransactionID();
-		String transactionobjectname = process.transactionObjectName();
+		// These assume that all transaction are of class ChemConnectTransactionEvent (which is independent of the catalog object class):
+		String transactionobjectname = "dataset:ChemConnectTransactionEvent";
 		JsonObject event = BaseCatalogData.createStandardDatabaseObject(transactionobjectname, owner, transactionID,
 				"false");
+		JsonObject transfirestoreid = BaseCatalogData.insertFirestoreAddress(event);
 		String title = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
 		JsonObject shortdescr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
 		shortdescr.addProperty(ClassLabelConstants.TransactionEventType, transaction);
 		shortdescr.addProperty(ClassLabelConstants.DescriptionTitleTransaction, title);
 		shortdescr.addProperty(ClassLabelConstants.TransactionKey, transactionID);
-
+        
 		event.add(ClassLabelConstants.ActivityInformationRecord, info);
 		JsonObject response = process.process(event, prerequisites, info);
-		JsonObject transfirestoreid = BaseCatalogData.insertFirestoreAddress(event);
+		
 
 		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			if (!response.get(ClassLabelConstants.SimpleCatalogObject).isJsonNull()) {
@@ -685,7 +705,7 @@ public enum TransactionProcess {
 	}
 
 	/**
-	 * @param json The TransactionEventInputObject object from the post
+	 * @param json The TransactionEventWithPrerequisites object from the post
 	 * @return the transaction event
 	 * 
 	 *         The object should have
@@ -817,7 +837,7 @@ public enum TransactionProcess {
 					prerequisitelist.add(firebaseid);
 					prerequisites.add(label, firebaseid);
 				} else {
-					System.out.println("No transaction found");
+					System.err.println("No transaction found");
 				}
 			}
 		}

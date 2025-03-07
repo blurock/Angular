@@ -1,0 +1,54 @@
+<div class="address">
+	<ng-container *ngIf='anno; else loading'>
+		<form [formGroup]="form">
+			<div formArrayName="contactdatainfoset">
+				<mat-card appearance="outlined" class="contactocard">
+					<mat-card-header>
+						<mat-card-title-group class="addcontact">
+							<mat-card-subtitle> Set of Contact Info</mat-card-subtitle>
+							<button mat-button class="addcontactbutton" (click)="addContactInfo()">
+								<mat-icon>add</mat-icon>
+							</button>
+						</mat-card-title-group>
+					</mat-card-header>
+					<mat-card-content>
+						<div *ngFor="let info of contactdatainfoset.controls; ; let infoIndex=index"
+							[formGroupName]="infoIndex">
+							<mat-grid-list cols="12" rowHeight="100px">
+								<mat-grid-tile [colspan]="5">
+									<mat-form-field class="namefield">
+										<mat-label>{{anno['dataset:ContactType'][rdfslabel]}}</mat-label>
+										<input matInput formControlName="ContactType" [matMenuTriggerFor]="classmenu">
+										<mat-hint>{{anno['dataset:ContactType'][rdfscomment]}}</mat-hint>
+									<mat-menu #classmenu="matMenu">
+										<app-menu-item #userclassificationmenu [items]="items"
+											(selectionEvent)="setContactType($event,infoIndex)">
+										</app-menu-item>
+									</mat-menu>
+									</mat-form-field>
+								</mat-grid-tile>
+								<mat-grid-tile [colspan]="5">
+									<mat-form-field class="namefield">
+										<mat-label>{{anno['dataset:ContactKey'][rdfslabel]}}</mat-label>
+										<input matInput formControlName="ContactKey">
+										<mat-hint>{{anno['dataset:ContactKey'][rdfscomment]}}</mat-hint>
+									</mat-form-field>
+								</mat-grid-tile>
+								<mat-grid-tile [colspan]="2">
+									<button mat-button class="deletebutton" (click)="removeContactInfo(infoIndex)">
+										<mat-icon>delete</mat-icon>
+									</button>
+								</mat-grid-tile>
+							</mat-grid-list>
+						</div>
+					</mat-card-content>
+				</mat-card>
+			</div>
+		</form>
+	</ng-container>
+</div>
+<ng-template #loading>
+	<div>
+		loading
+	</div>
+</ng-template>

@@ -1,0 +1,82 @@
+<mat-card appearance="outlined" class="card">
+	<mat-card-header>
+	{{title}}
+	</mat-card-header>
+	<mat-card-content>
+		<ng-container *ngIf='annoinfo != null; else loading'>
+					<div [formGroup]="countform" class="infoform">
+		
+				<mat-grid-list cols="6" rowHeight="100px">
+					<mat-grid-tile [colspan]="2">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:CarbonAtomCount'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="CarbonAtomCount">
+							<mat-hint>{{annoinfo['dataset:CarbonAtomCount'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="2">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:HydrogenAtomCount'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="HydrogenAtomCount">
+							<mat-hint>{{annoinfo['dataset:HydrogenAtomCount'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="2">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:OxygenAtomCount'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="OxygenAtomCount">
+							<mat-hint>{{annoinfo['dataset:OxygenAtomCount'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+				</mat-grid-list>
+				
+			<button mat-button color="primary" (click)="addAtomCount()">{{addatomcount}}</button>
+
+			<ng-container formArrayName="atomcounts">
+			<ng-container *ngFor="let count of atomcounts.controls; let countIndex=index">
+			
+			
+			
+			<div class="count-form-row" [formGroup]="count">
+			
+			
+				<mat-grid-list cols="6" rowHeight="100px">
+					<mat-grid-tile [colspan]="3">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:JThermodynamics2DSpeciesLabel'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="JThermodynamics2DSpeciesLabel">
+							<mat-hint>{{annoinfo['dataset:JThermodynamics2DSpeciesLabel'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="2">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:AtomTypeCount'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="AtomTypeCount">
+							<mat-hint>{{annoinfo['dataset:AtomTypeCount'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="1">
+					<mat-icon class="delete-btn" (click)="deleteAtomCount(countIndex)">
+                    delete_forever</mat-icon>
+					</mat-grid-tile>
+					
+				</mat-grid-list>
+				
+			</div>
+			
+		
+			
+			</ng-container>
+			</ng-container>
+			
+			</div>
+			
+		</ng-container>
+		<ng-template #loading>
+			<div>
+				Loading H Disassociation Parameter Annotations
+			</div>
+		</ng-template>
+		
+	</mat-card-content>
+</mat-card>

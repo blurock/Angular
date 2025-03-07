@@ -1,0 +1,22 @@
+	<form [formGroup]="objectform">
+			<mat-card appearance="outlined" class="border">
+			<mat-card-header>
+			<mat-card-subtitle>{{header}}</mat-card-subtitle>
+			</mat-card-header>
+				<mat-card-content>
+				<mat-form-field class="title">
+									<mat-label>{{titlelabel}}</mat-label>
+									<input matInput formControlName="DescriptionTitle">
+									<mat-hint>{{titlehint}}</mat-hint>
+				</mat-form-field>
+				<mat-form-field class="abstract">
+									<mat-label>{{abstrlabel}}</mat-label>
+									<textarea matInput formControlName="DescriptionAbstract"></textarea>
+									<mat-hint>{{abstrhint}}</mat-hint>
+				</mat-form-field>
+				<app-catalogconceptpurpose #concept [annoinfo]="annoinfo" [descriptionsuffix]="descriptionsuffix"></app-catalogconceptpurpose>
+				<app-keywordlistprimitive #keywords></app-keywordlistprimitive>
+				</mat-card-content>
+				
+			</mat-card>
+	</form>

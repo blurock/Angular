@@ -1,0 +1,19 @@
+<form [formGroup]="uploadForm">
+	<!-- Select File -->
+	<input type="file" accept="text/*" (change)="uploadFileEvt($event)" #fileUpload class="file-input" />
+
+	<button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+		<mat-icon>attach_file</mat-icon>
+	</button>
+	<mat-form-field class="uploadform">
+		<mat-label>{{filesourceidentifierlabel}}</mat-label>
+		<input matInput formControlName="FileSourceIdentifier">
+		<mat-hint>{{filenamehint}}</mat-hint>
+	</mat-form-field>
+	<div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+		<img [src]="imageURL" [alt]="uploadForm.value.FileSourceIdentifier">
+	</div>
+	<div>
+		<textarea>{{dataimage}}</textarea>
+	</div>
+</form>

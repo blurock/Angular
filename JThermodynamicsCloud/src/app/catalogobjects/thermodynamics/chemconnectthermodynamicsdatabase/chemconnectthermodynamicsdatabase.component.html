@@ -1,0 +1,76 @@
+<mat-card appearance="outlined" class="card">
+	<mat-card-content>
+		<ng-container *ngIf='annoinfo != null; else loading'>
+				<app-datasettransactionspecificationforcollection #spec [(annoinfo)]="annoinfo" [(subtitle)]="specsubtitle">
+				</app-datasettransactionspecificationforcollection>
+
+			<app-setofsitereferences #weblinks [(anno)]="annoinfo"></app-setofsitereferences>
+			<app-setofdataobjectlinks #objectlinks [(anno)]="annoinfo"></app-setofdataobjectlinks>
+			<app-datasetreference #references [(anno)]="annoinfo"></app-datasetreference>
+			<app-firesytorecatalogid #firestoreid [(anno)]="annoinfo"></app-firesytorecatalogid>
+
+			<form [formGroup]="objectform" class="infoform">
+				<mat-grid-list cols="6" rowHeight="100px">
+				
+				<mat-grid-tile [colspan]="2" background="lightgray">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:DatabaseObjectType'][rdfslabel]}}
+							</mat-label>
+							<input matInput formControlName="DatabaseObjectType" [matMenuTriggerFor]="menu.childMenu">
+							<mat-hint>{{annoinfo['dataset:DatabaseObjectType'][rdfscomment]}}
+							</mat-hint>
+							<app-menu-item #menu [items]="items" (selectionEvent)="setDatabaseObjectType($event)"></app-menu-item>
+						</mat-form-field>
+					</mat-grid-tile>
+					
+					<mat-grid-tile [colspan]="2">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:CatalogObjectKey'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="CatalogObjectKey">
+							<mat-hint>{{annoinfo['dataset:CatalogObjectKey'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+
+					<mat-grid-tile [colspan]="2">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:TransactionID'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="TransactionID">
+							<mat-hint>{{annoinfo['dataset:TransactionID'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+
+					<mat-grid-tile [colspan]="2">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:CatalogObjectOwner'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="CatalogObjectOwner">
+							<mat-hint>{{annoinfo['dataset:CatalogObjectOwner'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+
+					<mat-grid-tile [colspan]="2">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:CatalogObjectAccessModify'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="CatalogObjectAccessModify">
+							<mat-hint>{{annoinfo['dataset:CatalogObjectAccessModify'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					
+					<mat-grid-tile [colspan]="2">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:CatalogObjectAccessRead'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="CatalogObjectAccessRead">
+							<mat-hint>{{annoinfo['dataset:CatalogObjectAccessRead'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+				</mat-grid-list>
+			</form>
+
+		</ng-container>
+		<ng-template #loading>
+			<div>
+				Loading Activity information
+			</div>
+		</ng-template>
+	</mat-card-content>
+</mat-card>
+

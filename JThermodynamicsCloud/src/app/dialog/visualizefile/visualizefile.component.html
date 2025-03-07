@@ -1,0 +1,15 @@
+<mat-card appearance="outlined">
+	<mat-card-header class="header">
+		<mat-card-title>
+			{{filename}}
+		</mat-card-title>
+	</mat-card-header>
+	<mat-card-content class="content">
+			<textarea cdkTextareaAutosize 
+			       cdkAutosizeMinRows="10" 
+			       cdkAutosizeMaxRows="20" 
+			       class="textarea">
+				{{text}}
+			</textarea>
+	</mat-card-content>
+</mat-card>

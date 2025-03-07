@@ -1,0 +1,22 @@
+
+	<div *ngIf="user | async as userValue">
+	<button mat-button class="profilebutton" color="primary" [matMenuTriggerFor]="beforeMenu">
+
+		<img [alt]="userValue.displayName" [src]="userValue.photoURL" class="avatar">
+	</button>
+	<mat-menu #beforeMenu="matMenu" xPosition="before">
+		<div class="profile-card">
+			<img [alt]="userValue.displayName" [src]="userValue.photoURL" class="avatar" />
+			<h4>{{ userValue.displayName }}</h4>
+			<p>{{ userValue.email }}</p>
+			<mat-divider></mat-divider>
+			<button mat-stroked-button (click)="logout()">
+				Sign Out
+			</button>
+			<mat-divider></mat-divider>
+			<p class="profile-footer">
+			</p>
+		</div>
+	</mat-menu>
+	
+</div>

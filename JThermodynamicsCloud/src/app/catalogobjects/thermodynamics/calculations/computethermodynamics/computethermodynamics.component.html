@@ -1,0 +1,87 @@
+<mat-tab-group>
+	<mat-tab label="Info">
+		<mat-card appearance="outlined" class="example-card">
+			<mat-card-header>
+				<mat-card-subtitle>Calculations</mat-card-subtitle>
+				<mat-card-title>Calculations from 2-D Lewis Structures</mat-card-title>
+			</mat-card-header>
+			<mat-card-content>
+				<p>Thermodynamics calculations are made using the thermodynamic database of Benson rules (or HBI rules),
+					symmetry structures (optical, internal and external), structural,for example steric or
+					ring structure influenced, and radical corrections (disassociation energies, symmetry losses, etc.).
+				</p>
+				The calcuation is designed for flexibility in input and in output forms:
+				<ul>
+					<li> <b>Molecule Representation</b>Currently the molecule input is through one of several linear
+						representations. In the interface, the linear representation
+						type is chosen and a field</li>
+					<li> <b>Molecule Name and title of calculation</b> For future reference, a name
+						can be given to the molecule and a title can given an indication of the calculation.</li>
+					<li> <b>Collection Set</b> The collection set name is given to specify which fundamental data should
+						be used for the calculation.</li>
+					<li> <b>Output Units</b> Through the interface, the user can specify the units of the output
+						enthalpy, entropy and heat-capacity. </li>
+				</ul>
+
+				<mat-divider></mat-divider>
+			</mat-card-content>
+		</mat-card>
+	</mat-tab>
+	<mat-tab label="Setup">
+		<mat-card appearance="outlined" class="card">
+			<mat-card-header>
+				<mat-card-title-group class="title-group">
+					<mat-card-subtitle class="title">{{title}}</mat-card-subtitle>
+				</mat-card-title-group>
+			</mat-card-header>
+			<mat-card-content>
+				<ng-container *ngIf='annoinfo != null; else loading'>
+					<mat-grid-list cols="6" rowHeight="100px">
+
+						<mat-grid-tile [colspan]="2">
+							<button mat-mini-fab color="primary" class="display-btn" matTooltip="{{displaydescbutton}}"
+								(click)="displayCatalogInfo()">{{displaybutton}}</button>
+						</mat-grid-tile>
+						<mat-grid-tile [colspan]="2">
+							<button mat-mini-fab color="primary" class="fetch-btn" (click)="fetchInformation()"
+								matTooltip="{{loadfromdatabase}}">
+								{{fetch}}
+							</button>
+						</mat-grid-tile>
+						<mat-grid-tile [colspan]="2">
+							<button mat-mini-fab color="primary" class="submit-btn" matTooltip="{{submitdescr}}"
+								(click)="submit()" [disabled]="invalid()">{{submitbutton}}</button>
+						</mat-grid-tile>
+
+					</mat-grid-list>
+					<app-thermocalculationsetup #calcsetup [(annoinfo)]="annoinfo"></app-thermocalculationsetup>
+				</ng-container>
+				<ng-template #loading>
+			        <mat-spinner></mat-spinner>
+					<div>
+						Loading Activity information
+					</div>
+				</ng-template>
+			</mat-card-content>
+		</mat-card>
+	</mat-tab>
+	<mat-tab label="Result">
+		<app-thermodynamiccontributions #thermocontributions></app-thermodynamiccontributions>
+	</mat-tab>
+	<mat-tab label="Json">
+		<ng-container *ngIf='calculationresult != null;'>
+			<mat-divider></mat-divider>
+			<pre>{{calculationresult | json}}</pre>
+			<mat-divider></mat-divider>
+		</ng-container>
+	</mat-tab>
+	<mat-tab label="Logs">
+
+		<ng-container *ngIf='resultHtml != null;'>
+			<mat-divider></mat-divider>
+			<div [innerHTML]="resultHtml"></div>
+			<mat-divider></mat-divider>
+		</ng-container>
+
+	</mat-tab>
+</mat-tab-group>

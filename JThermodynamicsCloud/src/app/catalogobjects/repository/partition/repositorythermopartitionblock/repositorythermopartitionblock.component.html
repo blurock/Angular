@@ -1,0 +1,27 @@
+<mat-card appearance="outlined">
+	<mat-card-header>
+		<mat-card-title-group class="title-group">
+			<mat-card-subtitle class="title">{{title}}</mat-card-subtitle>
+		</mat-card-title-group>
+	</mat-card-header>
+	<mat-card-content>
+		<ng-container *ngIf='display; else loading'>
+			<form [formGroup]="objectform">
+				<div>
+					<mat-form-field class="textfield">
+						<mat-label>{{annoinfo['dataset:RepositoryThermoPartitionBlock'][rdfslabel]}}</mat-label>
+						<textarea matInput formControlName="ThermoBlock" cdkTextareaAutosize class="textblock"
+							#autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+						<mat-hint>{{annoinfo['dataset:RepositoryThermoPartitionBlock'][rdfscomment]}}</mat-hint>
+					</mat-form-field>
+				</div>
+		</form>
+		</ng-container>
+		<ng-template #loading>
+			<div>
+				{{message}}
+			</div>
+		</ng-template>
+
+	</mat-card-content>
+</mat-card>

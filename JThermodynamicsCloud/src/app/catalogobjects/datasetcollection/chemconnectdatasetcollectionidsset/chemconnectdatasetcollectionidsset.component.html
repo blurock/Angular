@@ -1,0 +1,38 @@
+<mat-card appearance="outlined" class="matcard">
+	<mat-card-content>
+		<form [formGroup]="idForm">
+			<ng-container *ngIf='annoinfo != null; else waiting'>
+				<mat-grid-list cols="6" rowHeight="100px">
+					<mat-grid-tile [colspan]="3">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:CatalogDataObjectMaintainer'][rdfslabel]}}
+							</mat-label>
+							<input matInput formControlName="CatalogDataObjectMaintainer" [readonly]="maintainernotchange">
+							<mat-hint>{{annoinfo['dataset:CatalogDataObjectMaintainer'][rdfscomment]}}
+							</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+					
+					<mat-grid-tile [colspan]="3">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:DatasetCollectionsSetLabel'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="DatasetCollectionsSetLabel">
+							<mat-hint>{{annoinfo['dataset:DatasetCollectionsSetLabel'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+
+					<mat-grid-tile [colspan]="6">
+						<mat-form-field class="abstract">
+							<mat-label>{{annoinfo['dataset:DescriptionAbstract'][rdfslabel]}}</mat-label>
+							<textarea matInput formControlName="DescriptionAbstract"></textarea>
+							<mat-hint>{{annoinfo['dataset:DescriptionAbstract'][rdfscomment]}}</mat-hint>
+						</mat-form-field>
+					</mat-grid-tile>
+				</mat-grid-list>
+			</ng-container>
+			<ng-template #waiting>
+				Spec: waiting for annotations
+			</ng-template>
+		</form>
+	</mat-card-content>
+</mat-card>

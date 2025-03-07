@@ -1,0 +1,24 @@
+.catalogobj {
+	width: 100%;
+}
+.textarea {
+	width: 100%;
+}
+.text-input {
+  padding: 6px 10px;
+  color: #333;
+  border: 1px solid #444;
+  border-radius: 6px;
+  width: 100%;
+  resize: none; /* hide browser provided resize handles */
+  overflow-y: overlay;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px; /* equal to avgLineHeight in controller */
+  -ms-overflow-style: none; /* hide scrollbar in IE and Edge */
+  scrollbar-width: none; /* hide scrollbar in Firefox */
+}
+
+.text-input::-webkit-scrollbar {
+  display: none; /* hide scrollbar in Chrome and variants */
+}

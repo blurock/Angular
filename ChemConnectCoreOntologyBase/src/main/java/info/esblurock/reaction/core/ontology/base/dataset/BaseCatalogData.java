@@ -1,6 +1,12 @@
 package info.esblurock.reaction.core.ontology.base.dataset;
 
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
+
 
 import com.google.gson.JsonObject;
 
@@ -69,6 +75,12 @@ public class BaseCatalogData {
 				.classFromIdentifier(obj.get(AnnotationObjectsLabels.identifier).getAsString());
 		insertCatalogObjectKey(obj, type);
 		obj.addProperty(ClassLabelConstants.DatabaseObjectType, type);
+		
+		
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd:HH mm:ss");
+		df.setTimeZone(TimeZone.getTimeZone("GMT"));
+		Date date = new Date();
+		obj.addProperty(ClassLabelConstants.DateCreated, df.format(date));
 		if (computeaddress) {
 			insertFirestoreAddress(obj);
 		}

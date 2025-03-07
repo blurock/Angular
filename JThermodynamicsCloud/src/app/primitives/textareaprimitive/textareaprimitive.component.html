@@ -1,0 +1,23 @@
+
+<div [ngSwitch]="textwidth">
+<mat-form-field class="textarea100" *ngSwitchCase="'full'">
+<mat-label>{{textlab}}</mat-label>
+	<textarea matInput [ngModel]="textarea" (ngModelChange)="textChange($event)"></textarea>
+<mat-hint>{{annohint}}</mat-hint>
+</mat-form-field>
+<mat-form-field class="textarea50" *ngSwitchCase="'half'">
+	<mat-label>{{textlab}}</mat-label>
+	<textarea matInput [ngModel]="textarea" (ngModelChange)="textChange($event)"></textarea>
+	<mat-hint>{{annohint}}</mat-hint>
+</mat-form-field>
+<mat-form-field class="textarea33" *ngSwitchCase="'third'">
+	<mat-label>{{textlab}}</mat-label>
+	<textarea matInput [ngModel]="textarea" (ngModelChange)="textChange($event)"></textarea>
+	<mat-hint>{{annohint}}</mat-hint>
+</mat-form-field>
+<mat-form-field class="textarea"  *ngSwitchCase="'free'">
+	<mat-label>{{textlab}}</mat-label>
+	<textarea matInput [ngModel]="textarea" (ngModelChange)="textChange($event)"></textarea>
+	<mat-hint>{{annohint}}</mat-hint>
+</mat-form-field>
+</div>
