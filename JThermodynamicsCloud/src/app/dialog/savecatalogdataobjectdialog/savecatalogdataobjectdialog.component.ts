@@ -95,11 +95,9 @@ export class SavecatalogdataobjectdialogComponent implements AfterViewInit {
 		this.difference = diff(this.originaldataobject, this.newdataobject);
 
 		this.transaction[Ontologyconstants.TransactionEventType] = this.transactiontype;
-		console.log('transactiontype: ' + this.transactiontype);
 		this.activity = {};
 		this.transaction[Ontologyconstants.ActivityInfo] = this.activity;
 		
-		console.log('transaction: ' + JSON.stringify(this.transaction));
 		this.activity[Ontologyconstants.FirebaseCatalogIDForModifiedObject] = this.newdataobject[Ontologyconstants.FirestoreCatalogID];
 		this.activity[Ontologyconstants.FirestoreCatalogIDForSourceTransaction] = this.originaldataobject[Ontologyconstants.FirestoreCatalogIDForTransaction];
 		this.activity[Ontologyconstants.ModifiedCatalogObject] = this.newdataobject;

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter,  AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { UntypedFormBuilder, Validators, FormsModule } from '@angular/forms';
@@ -38,9 +38,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 		DatadatadescriptionComponent,
 		SimpledatabaseobjectstructureComponent]
 })
-export class UseraccountComponent implements OnInit,  AfterViewInit {
+export class UseraccountComponent implements OnInit, AfterViewInit {
 
-	@Output() annoReady = new EventEmitter<any>();
 
 	title = "User Account Information";
 	message = "Waiting";
@@ -48,7 +47,7 @@ export class UseraccountComponent implements OnInit,  AfterViewInit {
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
 	adminrole = false;
-    useraccountclassification = 'dataset:UserAccountRole';
+	useraccountclassification = 'dataset:UserAccountRole';
 	descriptionsuffix = 'UserAccount';
 	catalogtype = "dataset:UserAccount";
 	useraccountrole = 'dataset:UserAccountRole';
@@ -61,16 +60,19 @@ export class UseraccountComponent implements OnInit,  AfterViewInit {
 	maintainer: string = '';
 	userAccountGroup: any;
 	showuseraccount: boolean = false;
+	
+	@Output() setDataChange = new EventEmitter<any>();
+	@Output() annoReady = new EventEmitter<any>();
 
 	@ViewChild('description') description!: DatadatadescriptionComponent;
 	//@ViewChild('firestoreid') firestoreid!: FiresytorecatalogidComponent;
 	@ViewChild('simpledata') simpledata!: SimpledatabaseobjectstructureComponent;
 
 	setUserAccountRole($event: String) {
-		if(this.adminrole) {
+		if (this.adminrole) {
 			this.userAccountGroup.get('UserAccountRole').setValue($event);
 		}
-		
+
 	}
 	constructor(
 		private menusetup: MenutreeserviceService,
@@ -99,14 +101,14 @@ export class UseraccountComponent implements OnInit,  AfterViewInit {
 
 	}
 
-		
+
 
 	ngOnInit(): void {
 
 	}
 	ngAfterViewInit(): void {
 		this.viewinitialized = true;
-		
+
 		if (this.useraccount) {
 			this.setData(this.useraccount);
 		}
@@ -117,20 +119,22 @@ export class UseraccountComponent implements OnInit,  AfterViewInit {
 		this.message = 'Waiting for Info call';
 		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
 			next: (responsedata: any) => {
-				const response = responsedata;
-				this.message = response[Ontologyconstants.message];
-				if (response[Ontologyconstants.successful]) {
-					const catalog = response[Ontologyconstants.catalogobject];
-					this.catalogobj = catalog[Ontologyconstants.outputobject];
-					this.annoinfo = catalog[Ontologyconstants.annotations];
-					this.useraccountitems = this.menusetup.findChoices(this.annoinfo, this.useraccountclassification);
-					this.annoReady.emit();
-					this.cdRef.detectChanges();
-					if (this.useraccount) {
-						this.setData(this.useraccount);
+				if (responsedata) {
+					const response = responsedata;
+					this.message = response[Ontologyconstants.message];
+					if (response[Ontologyconstants.successful]) {
+						const catalog = response[Ontologyconstants.catalogobject];
+						this.catalogobj = catalog[Ontologyconstants.outputobject];
+						this.annoinfo = catalog[Ontologyconstants.annotations];
+						this.useraccountitems = this.menusetup.findChoices(this.annoinfo, this.useraccountclassification);
+						this.annoReady.emit();
+						this.cdRef.detectChanges();
+						if (this.useraccount) {
+							this.setData(this.useraccount);
+						}
+					} else {
+						this.message = responsedata;
 					}
-				} else {
-					this.message = responsedata;
 				}
 			},
 			error: (info: any) => { alert('Get Annotations failed:' + this.message); }
@@ -145,11 +149,15 @@ export class UseraccountComponent implements OnInit,  AfterViewInit {
 		this.description.getData(catalog);
 		this.simpledata.getData(catalog);
 		//this.firestoreid.getData(catalog);
-		
+
 	}
 
 	setData(catalog: any): void {
 		this.useraccount = catalog;
+		if(this.setDataChange) {
+			this.setDataChange.emit(catalog);
+		}
+		
 		if (this.viewinitialized && this.annoinfo != null) {
 			this.userAccountGroup.get('UID').setValue(catalog[this.annoinfo['dataset:UID'][this.identifier]]);
 			this.userAccountGroup.get('AuthorizationType').setValue(catalog[this.annoinfo['dataset:AuthorizationType'][this.identifier]]);
@@ -161,8 +169,8 @@ export class UseraccountComponent implements OnInit,  AfterViewInit {
 			const firestoreidvalues = catalog[this.annoinfo['dataset:FirestoreCatalogID'][this.identifier]];
 			//this.firestoreid.setData(firestoreidvalues);
 			this.simpledata.setData(catalog);
-			
-			
+
+
 		}
 	}
 }

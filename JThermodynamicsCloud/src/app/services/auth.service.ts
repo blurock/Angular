@@ -77,31 +77,16 @@ export class AuthService {
 	}
 
 	async AuthLogin(provider: any) {
-		console.log('googlelogin() in AuthService AuthLogin')
 		try {
 			const result = await signInWithPopup(this.auth, provider); // Sign in with popup
-			// This gives you a GoogleAuthProvider with an access token.
-			//const credential = provider.credentialFromResult(result);
-			//const token = credential?.accessToken;
 			// The signed-in user info.
 			const user = result.user;
 			this.SetUserData(user);
-			// ... handle successful login (e.g., navigate to another page)
 		} catch (error: any) {
 			console.error('Error signing in with Google:', error);
 			// ... handle error (e.g., display error message to the user)
 		}
 	}
-	/*
-async getToken(): Promise<string | null> {
-        try {
-            return await idToken(this.auth);
-        } catch (error) {
-            console.error('Error getting ID token:', error);
-            return null
-        }
-    }
-*/
 	SetUserData(user: any): void {
 		try {
 			if (user) { // Check if user is not null
@@ -141,7 +126,6 @@ async getToken(): Promise<string | null> {
 			}
 		} catch (error) {
 			console.error("Error getting ID token:", error);
-			// Handle the error appropriately
 		}
 	}
 
@@ -159,7 +143,6 @@ getToken(): Observable<string | null> {
         return this.getToken().pipe( // Use getToken() as an Observable
             switchMap((token) => {
                 if (!token) {
-					alert("No user token found");
                     return of(null); // Or handle the absence of a token as needed
                 }
                 this.session.setToken(token);
@@ -175,8 +158,7 @@ getToken(): Observable<string | null> {
         return this.getToken().pipe( // Use getToken() as an Observable
             switchMap((token) => {
                 if (!token) {
-					alert("No user token found");
-                    return of(null); // Or handle the absence of a token as needed
+                   return of(null); // Or handle the absence of a token as needed
                 }
                 this.session.setToken(token);
                 const headers = new HttpHeaders({

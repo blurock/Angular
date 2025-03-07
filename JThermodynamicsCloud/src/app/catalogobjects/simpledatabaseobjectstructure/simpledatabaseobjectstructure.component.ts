@@ -1,4 +1,4 @@
-import { Input, Component, OnInit,ViewChild, AfterViewInit, SimpleChanges, ElementRef } from '@angular/core';
+import { Input, Component, OnInit,ViewChild, AfterViewInit, SimpleChanges, ElementRef, AfterViewChecked } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import { IdentifiersService } from '../../const/identifiers.service';
 import { Ontologyconstants } from '../../const/ontologyconstants';
@@ -26,7 +26,7 @@ import {MatIconModule} from '@angular/material/icon';
 	FiresytorecatalogidComponent,
 		MatIconModule]
 })
-export class SimpledatabaseobjectstructureComponent implements AfterViewInit {
+export class SimpledatabaseobjectstructureComponent implements AfterViewInit{
 	
 	cataloginfotitle: string;
 	objectpositiontitle: string;
@@ -93,9 +93,9 @@ export class SimpledatabaseobjectstructureComponent implements AfterViewInit {
 		if (this.simpledata) {
 			this.setData(this.simpledata);
 		}
-        this.showobject = false;
+		this.showobject = false;
 	}
-	
+		
 	ngOnChanges(changes: SimpleChanges) {
     if (changes['anno'] && changes['anno'].currentValue) {
 		if(this.simpledata) {

@@ -36,7 +36,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 })
 export class DatabasepersonComponent implements OnInit, AfterViewInit {
 
-	@Output() annoReady = new EventEmitter<any>();
 
 	message: string = '';
 	catalogtype = 'dataset:DatabasePerson';
@@ -54,6 +53,9 @@ export class DatabasepersonComponent implements OnInit, AfterViewInit {
 	viewinitialized: boolean = false;
 
 	databaseperson: any | null = null;
+	
+	@Output() setDataChange = new EventEmitter<any>();
+	@Output() annoReady = new EventEmitter<any>();
 
 	@ViewChild('nameofperson', { static: false }) nameofperson!: NameofpersonComponent;
 	@ViewChild('description') description!: DatadatadescriptionComponent;
@@ -101,6 +103,7 @@ export class DatabasepersonComponent implements OnInit, AfterViewInit {
 		this.message = 'Waiting for Info call';
 		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
 			next: (responsedata: any) => {
+				if (responsedata) {
 				const response = responsedata;
 				this.message = response[Ontologyconstants.message];
 				if (response[Ontologyconstants.successful]) {
@@ -115,6 +118,7 @@ export class DatabasepersonComponent implements OnInit, AfterViewInit {
 				} else {
 					this.message = responsedata;
 				}
+				}
 			},
 			error: (info: any) => { alert('Get Annotations failed:' + this.message); }
 		});
@@ -122,6 +126,9 @@ export class DatabasepersonComponent implements OnInit, AfterViewInit {
 
 	setData(catalog: any): void {
 		this.databaseperson = catalog;
+		if(this.setDataChange) {
+			this.setDataChange.emit(catalog);
+		}
 		if (this.viewinitialized && this.annoinfo != null && this.nameofperson) {
 			const pdescr = catalog[this.annoinfo['dataset:PersonalDescription'][this.identifier]];
 			this.personGroup.get('UserClassification')?.setValue(pdescr[this.annoinfo['dataset:UserClassification'][this.identifier]]);

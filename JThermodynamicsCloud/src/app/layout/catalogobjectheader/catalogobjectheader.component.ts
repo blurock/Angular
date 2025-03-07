@@ -132,8 +132,6 @@ export class CatalogobjectheaderComponent {
 					const catalogarray = result[Ontologyconstants.catalogobject];
 					const catalog = catalogarray[0];
 					if(this.setData) {
-						console.log('saveCatalogObject: setData');
-						console.log(JSON.stringify(catalog));
 						this.original = catalog;
 						this.setData(catalog);
 					}
@@ -190,6 +188,7 @@ export class CatalogobjectheaderComponent {
 		this.annotations.getNewCatalogObject(this.activitytype).subscribe({
 
 			next: (responsedata: any) => {
+				if(responsedata) {
 				const response = responsedata;
 				this.message = response[Ontologyconstants.message];
 				if (response[Ontologyconstants.successful]) {
@@ -198,6 +197,7 @@ export class CatalogobjectheaderComponent {
 					this.updatetypes = this.menusetup.findChoices(this.saveanno, this.typeclassification);
 				} else {
 					this.message = responsedata;
+				}
 				}
 			},
 			error: (info: any) => {

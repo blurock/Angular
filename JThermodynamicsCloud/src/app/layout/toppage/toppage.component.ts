@@ -84,7 +84,12 @@ export class ToppageComponent implements AfterViewInit {
 		this.setData();
 	}
 
-	
+	setUserAccountSessionData(catalog: any) {
+		this.session.setUserAccount(catalog);
+	}
+	setPersonSessionData(catalog: any) {
+		this.session.setDatabasePerson(catalog);
+	}
 	setUserAccountData(catalog: any) {
 		this.useraccount.setData(catalog);
 	}

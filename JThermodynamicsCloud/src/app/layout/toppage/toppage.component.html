@@ -38,7 +38,7 @@
 			-->
 			<mat-divider></mat-divider>
 			
-			<app-useraccount #useraccount (annoReady)="setUser()"></app-useraccount>
+			<app-useraccount #useraccount (annoReady)="setUser()" (setDataChange)="setUserAccountSessionData"></app-useraccount>
 		</mat-tab>
 		<mat-tab label="User Profile">
 
@@ -74,7 +74,7 @@
 			<div [innerHTML]="safeHtmlperson"></div>
 			-->
 			<mat-divider></mat-divider>
-			<app-databaseperson #databaseperson (annoReady)="setPerson()"></app-databaseperson>
+			<app-databaseperson #databaseperson (annoReady)="setPerson()" (setDataChange)="setPersonSessionData"></app-databaseperson>
 		</mat-tab>
 	</mat-tab-group>
 </div>
