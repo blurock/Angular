@@ -16,19 +16,18 @@ export class UsercreateGuard  {
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 		var ans = true;
-		alert('islogged in' + this.authService.isLoggedIn);
 		if (this.authService.isLoggedIn() !== true) {
 			if (this.authService.isRegistered) {
 				if (this.authService.isValidated) {
 					ans = true;
 				} else {
-					return this.router.parseUrl('/verify-email-address');
+					return this.router.navigateByUrl('/verify-email-address');
 				}
 			} else {
-				return this.router.parseUrl('');
+				return this.router.navigateByUrl('');
 			}
 		} else {
-			return this.router.parseUrl('/toppage');
+			return this.router.navigateByUrl('/toppage');
 		}
 		return ans;
 	}

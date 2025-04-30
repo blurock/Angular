@@ -1,3 +1,4 @@
+import { Input } from '@angular/core';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
@@ -29,6 +30,9 @@ export class KeywordlistprimitiveComponent {
   readonly formControl = new FormControl(['angular']);
 
   announcer = inject(LiveAnnouncer);
+  
+  
+  @Input() title: string = 'Keywords';
   
   trackByKeyword(index: number, keyword: string): string { // Correct type for keyword
   return keyword; // Or a unique ID if you have one

@@ -8,45 +8,55 @@
 
 					<mat-grid-tile [colspan]="6">
 						<mat-form-field class="generic">
-							<mat-label>{{annoinfo['dataset:CatalogObjectUniqueGenericLabel'][rdfslabel]}}
+							<mat-label>{{annoinfo['dataset:CatalogObjectOwner'][rdfslabel]}}
 							</mat-label>
-							<input matInput formControlName="CatalogObjectUniqueGenericLabel">
-							<mat-hint>{{annoinfo['dataset:CatalogObjectUniqueGenericLabel'][rdfscomment]}}
+							<input matInput formControlName="CatalogObjectOwner">
+							<mat-hint>{{annoinfo['dataset:CatalogObjectOwner'][rdfscomment]}}
 							</mat-hint>
-						</mat-form-field>
-					</mat-grid-tile>
-					<mat-grid-tile [colspan]="6">
-						<mat-form-field class="datasetname">
-							<mat-label>{{annoinfo['dataset:DatasetName'][rdfslabel]}}</mat-label>
-							<input matInput formControlName="DatasetName">
-							<mat-hint>{{annoinfo['dataset:DatasetName'][rdfscomment]}}</mat-hint>
 						</mat-form-field>
 					</mat-grid-tile>
 					<mat-grid-tile [colspan]="6">
 						<mat-form-field class="transactions">
 							<mat-label>{{transactionslabel}}</mat-label>
 							<input matInput formControlName="TransactionEventType"
-								[matMenuTriggerFor]="transactionsmenu.childMenu">
+								[matMenuTriggerFor]="transactionsmenu">
 							<mat-hint>{{transactionshint}}</mat-hint>
 						</mat-form-field>
-						<app-menu-item #transactionsmenu [items]="transactionsitems"
+						<mat-menu #transactionsmenu="matMenu">
+						<app-menu-item #transactions [items]="transactionsitems"
 							(selectionEvent)="setTransaction($event)">
 						</app-menu-item>
+						</mat-menu>
 					</mat-grid-tile>
+					
+					
 					<mat-grid-tile [colspan]="6">
-						<mat-form-field class="transactionid">
-							<mat-label>{{annoinfo['dataset:TransactionID'][rdfslabel]}}</mat-label>
-							<input matInput formControlName="TransactionID" placeholder="1.0">
-							<mat-hint>{{annoinfo['dataset:TransactionID'][rdfscomment]}}</mat-hint>
+						<mat-form-field class="transactions">
+							<mat-label>{{annoinfo['dataset:TransactionKey'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="TransactionKey"
+								[matMenuTriggerFor]="choicemenu">
+							<mat-hint>{{annoinfo['dataset:TransactionKey'][rdfscomment]}}</mat-hint>
 						</mat-form-field>
+						<mat-menu #choicemenu="matMenu">
+						<app-menu-item #transactions [items]="transchoices"
+							(selectionEvent)="setChoice($event)">
+						</app-menu-item>
+						</mat-menu>
 					</mat-grid-tile>
+					<ng-container *ngIf="idForm.invalid">
 					<mat-grid-tile [colspan]="6">
-						<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchFromDatabaseObject()"
-							[disabled]="idForm.invalid">
-							Fetch from Dataset
+						<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchFromDatabaseObject()">
+							Fetch Transaction Choices
 						</button>
 					</mat-grid-tile>
-
+					</ng-container>
+					<ng-container *ngIf="!idForm.invalid">
+					<mat-grid-tile [colspan]="6">
+						<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchTransaction()">
+							Choose Transaction
+						</button>
+					</mat-grid-tile>
+					</ng-container>
 				</mat-grid-list>
 			</form>
 

@@ -1,19 +1,23 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild,ComponentRef} from '@angular/core';
 import { LoadChildDirective } from '../../directives/load-child.directive';
-import { DatasetrepositoryfilestagingComponent } from '../repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
-import { RepositoryparsedtofixedblocksizeComponent } from '../repository/partition/repositoryparsedtofixedblocksize/repositoryparsedtofixedblocksize.component';
-import { JthermodynamicdisassociationenergyComponent } from '../thermodynamics/jthermodynamicdisassociationenergy/jthermodynamicdisassociationenergy.component';
-import { JthermodynamicsvibrationalstructureComponent } from '../thermodynamics/jthermodynamicsvibrationalstructure/jthermodynamicsvibrationalstructure.component';
-import { Jthermodynamics2dmoleculethermodynamicsComponent } from '../thermodynamics/jthermodynamics2dmoleculethermodynamics/jthermodynamics2dmoleculethermodynamics.component';
-import { Jthermodynamics2dsubstructurethermodynamicsComponent } from '../thermodynamics/jthermodynamics2dsubstructurethermodynamics/jthermodynamics2dsubstructurethermodynamics.component';
-import { ThermodynamicbensonruledefinitionComponent } from '../thermodynamics/thermodynamicbensonruledefinition/thermodynamicbensonruledefinition.component';
-import { JthermodynamicsmetaatomdefinitionComponent } from '../thermodynamics/jthermodynamicsmetaatomdefinition/jthermodynamicsmetaatomdefinition.component';
-import { JthermodynamicssymmetrystructuredefinitionComponent } from '../thermodynamics/jthermodynamicssymmetrystructuredefinition/jthermodynamicssymmetrystructuredefinition.component';
-import { RepositorythergasthermodynamicsblockComponent } from '../repository/partition/repositorythergasthermodynamicsblock/repositorythergasthermodynamicsblock.component';
-import { ThermodynamicsdatasetcollectionidssetComponent } from '../datasetcollection/thermodynamicsdatasetcollectionidsset/thermodynamicsdatasetcollectionidsset.component';
+import { CatalogbaseComponent } from '../../primitives/catalogbase/catalogbase.component';
+import { MatCardModule } from '@angular/material/card';
+//import { DatasetrepositoryfilestagingComponent } from '../repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
+//import { RepositoryparsedtofixedblocksizeComponent } from '../repository/partition/repositoryparsedtofixedblocksize/repositoryparsedtofixedblocksize.component';
+//import { JthermodynamicdisassociationenergyComponent } from '../thermodynamics/jthermodynamicdisassociationenergy/jthermodynamicdisassociationenergy.component';
+//import { JthermodynamicsvibrationalstructureComponent } from '../thermodynamics/jthermodynamicsvibrationalstructure/jthermodynamicsvibrationalstructure.component';
+//import { Jthermodynamics2dmoleculethermodynamicsComponent } from '../thermodynamics/jthermodynamics2dmoleculethermodynamics/jthermodynamics2dmoleculethermodynamics.component';
+//import { Jthermodynamics2dsubstructurethermodynamicsComponent } from '../thermodynamics/jthermodynamics2dsubstructurethermodynamics/jthermodynamics2dsubstructurethermodynamics.component';
+//import { ThermodynamicbensonruledefinitionComponent } from '../thermodynamics/thermodynamicbensonruledefinition/thermodynamicbensonruledefinition.component';
+//import { JthermodynamicsmetaatomdefinitionComponent } from '../thermodynamics/jthermodynamicsmetaatomdefinition/jthermodynamicsmetaatomdefinition.component';
+//import { JthermodynamicssymmetrystructuredefinitionComponent } from '../thermodynamics/jthermodynamicssymmetrystructuredefinition/jthermodynamicssymmetrystructuredefinition.component';
+//import { RepositorythergasthermodynamicsblockComponent } from '../repository/partition/repositorythergasthermodynamicsblock/repositorythergasthermodynamicsblock.component';
+//import { ThermodynamicsdatasetcollectionidssetComponent } from '../datasetcollection/thermodynamicsdatasetcollectionidsset/thermodynamicsdatasetcollectionidsset.component';
 
 @Component({
 	selector: 'app-generalcatalogobjectvisualization',
+	standalone: true,
+	imports: [MatCardModule],
 	templateUrl: './generalcatalogobjectvisualization.component.html',
 	styleUrls: ['./generalcatalogobjectvisualization.component.scss']
 })
@@ -24,7 +28,7 @@ export class GeneralcatalogobjectvisualizationComponent implements OnInit {
 
 	catalogtype = 'No object';
 	isNotSetUp = true;
-	componentRef = null;
+	componentRef!: ComponentRef<CatalogbaseComponent>;
 	constructor() { }
 
 	ngOnInit(): void {
@@ -33,6 +37,7 @@ export class GeneralcatalogobjectvisualizationComponent implements OnInit {
 
 	public setChild(catalogtype: string): void {
 		this.catalogtype = catalogtype;
+		/*
 		if (catalogtype === 'dataset:RepositoryFileStaging') {
 			if (this.isNotSetUp) {
 				this.componentRef = this.dynamicChild.viewContainerRef.createComponent(DatasetrepositoryfilestagingComponent);
@@ -94,11 +99,15 @@ export class GeneralcatalogobjectvisualizationComponent implements OnInit {
 		else {
 			alert('catalog object not found: "' + catalogtype + '""');
 		}
-
+*/
 	}
 
 	getAnnotations(): any {
-		return this.componentRef.instance.annoinfo;
+		var annoinfo = null;
+		if(this.componentRef) {
+			annoinfo = this.componentRef.instance.annoinfo;
+		}
+		return annoinfo
 	}
 	public setData(catalog: any): void {
 		

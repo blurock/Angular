@@ -1,26 +1,49 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormArray, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { MenutreeserviceService } from '../../services/menutreeservice.service';
 import { NavItem } from '../../primitives/nav-item';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
+import { MenuItemComponent } from '../../primitives/menu-item/menu-item.component';
 
 @Component({
 	selector: 'app-parameterspecification',
+	standalone: true,
+	imports: [
+		CommonModule,
+		MatCardModule,
+		ReactiveFormsModule,
+		MatGridListModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatOptionModule,
+		MatSelectModule,
+		MatInputModule,
+		MatMenuModule,
+		MenuItemComponent
+	],
 	templateUrl: './parameterspecification.component.html',
 	styleUrls: ['./parameterspecification.component.scss']
 })
 export class ParameterspecificationComponent implements OnInit {
 	paramspecform: UntypedFormGroup;
-	parameterlabeltid: string;
-	unitclassid: string;
-	unitsofvalueid; string;
-	parametertypeid: string;
-	unitsid: string;
-	uncertaintyid: string;
+	parameterlabeltid!: string;
+	unitclassid!: string;
+	unitsofvalueid!: string;
+	parametertypeid!: string;
+	unitsid!: string;
+	uncertaintyid!: string;
 	
-	items: NavItem[];
-	unitsarray: [string];
-	title: string;
+	items: NavItem[] = [];
+	unitsarray: string[] = [];
+	title!: string;
 
 	@Input() annoinfo: any;
 	@Input() parameterinfo: any;
@@ -52,16 +75,16 @@ export class ParameterspecificationComponent implements OnInit {
 
 	ngOnInit(): void {
 	this.title = this.parameterinfo['skos:prefLabel'];
-		this.paramspecform.get('UnitClass').setValue(this.parameterinfo['qudt:QuantityKind']);
-		this.paramspecform.get('ParameterTypeSpecification').setValue(this.parameterinfo['dataset:dynamicType']);
+		this.paramspecform.get('UnitClass')?.setValue(this.parameterinfo['qudt:QuantityKind']);
+		this.paramspecform.get('ParameterTypeSpecification')?.setValue(this.parameterinfo['dataset:dynamicType']);
 		this.items = this.menusetup.findChoices(this.annoinfo, this.uncertaintymenulabel);
 		this.unitsarray = this.parameterinfo['qudt:Unit'];
-		this.paramspecform.get('ParameterLabel').setValue(this.parameterinfo['skos:prefLabel']);
-		this.paramspecform.get('UnitsOfValue').setValue(this.unitsarray[0]);
-		this.paramspecform.get('DataPointUncertainty').setValue(this.defaultuncertainty)	}
+		this.paramspecform.get('ParameterLabel')?.setValue(this.parameterinfo['skos:prefLabel']);
+		this.paramspecform.get('UnitsOfValue')?.setValue(this.unitsarray[0]);
+		this.paramspecform.get('DataPointUncertainty')?.setValue(this.defaultuncertainty)	}
 
-	setUncertainty($event: string): void {
-		this.paramspecform.get('DataPointUncertainty').setValue($event);
+	setUncertainty($event: String): void {
+		this.paramspecform.get('DataPointUncertainty')?.setValue($event);
 	}
 
 
@@ -78,23 +101,23 @@ export class ParameterspecificationComponent implements OnInit {
 
 	getData(specification: any) {
 		this.setIDs();
-		specification[this.parameterlabeltid] = this.paramspecform.get('ParameterLabel').value;
-		const unitvalue = {};
+		specification[this.parameterlabeltid] = this.paramspecform.get('ParameterLabel')?.value ?? ''
+		const unitvalue: Record<string,unknown> = {};
 		specification[this.unitsid] = unitvalue;
-		unitvalue[this.unitclassid] = this.paramspecform.get('UnitClass').value;
-		unitvalue[this.unitsofvalueid] = this.paramspecform.get('UnitsOfValue').value;
-		specification[this.parametertypeid] = this.paramspecform.get('ParameterTypeSpecification').value;
-		specification[this.uncertaintyid] = this.paramspecform.get('DataPointUncertainty').value;
+		unitvalue[this.unitclassid] = this.paramspecform.get('UnitClass')?.value ?? '';
+		unitvalue[this.unitsofvalueid] = this.paramspecform.get('UnitsOfValue')?.value ?? ''
+		specification[this.parametertypeid] = this.paramspecform.get('ParameterTypeSpecification')?.value ?? ''
+		specification[this.uncertaintyid] = this.paramspecform.get('DataPointUncertainty')?.value ?? ''
 	}
 
 	setData(specification: any) {
 		this.setIDs();
-		this.paramspecform.get('ParameterLabel').setValue(specification[this.parameterlabeltid]);
+		this.paramspecform.get('ParameterLabel')?.setValue(specification[this.parameterlabeltid]);
 		const valueunits = specification[this.unitsid]
-		this.paramspecform.get('UnitClass').setValue(valueunits[this.unitclassid]);
-		this.paramspecform.get('UnitsOfValue').setValue(valueunits[this.unitsofvalueid]);
-		this.paramspecform.get('ParameterTypeSpecification').setValue(specification[this.parametertypeid]);
-		this.paramspecform.get('DataPointUncertainty').setValue(specification[this.uncertaintyid]);
+		this.paramspecform.get('UnitClass')?.setValue(valueunits[this.unitclassid]);
+		this.paramspecform.get('UnitsOfValue')?.setValue(valueunits[this.unitsofvalueid]);
+		this.paramspecform.get('ParameterTypeSpecification')?.setValue(specification[this.parametertypeid]);
+		this.paramspecform.get('DataPointUncertainty')?.setValue(specification[this.uncertaintyid]);
 	}
 	
 

@@ -36,9 +36,11 @@
 			<mat-form-field class="title">
 				<mat-label>{{annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][rdfslabel]}}</mat-label>
 											<input matInput formControlName="JThermodynamicsSpeciesSpecificationType"
-								[matMenuTriggerFor]="menu.childMenu">
+								[matMenuTriggerFor]="menu">
 				<mat-hint>{{annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][rdfscomment]}}</mat-hint>
+				<mat-menu #menu="matMenu">
           <app-menu-item #menu [items]="items" (selectionEvent)="setJThermodynamicsSpeciesSpecificationType($event)"></app-menu-item>
+				</mat-menu>
 			</mat-form-field>
 		</mat-grid-tile>
 
@@ -47,11 +49,11 @@
 
 			<ng-container *ngIf='display; else specdisplayoff'>
 
-				<app-parameterspecification #frequencyspec [(annoinfo)]="annoinfo" [(parameterinfo)]="frequency">
+				<app-parameterspecification #frequencyspec [annoinfo]="annoinfo" [parameterinfo]="frequency">
 				</app-parameterspecification>
 
-				<app-datasettransactionspecificationforcollection #paramspec [(annoinfo)]="annoinfo">
-				</app-datasettransactionspecificationforcollection>
+				<app-specificationfordataset #spec [annoinfo]="annoinfo" [subtitle]="specsubtitle">
+				</app-specificationfordataset>
 			</ng-container>
 			<ng-template #specdisplayoff>
 				<div>

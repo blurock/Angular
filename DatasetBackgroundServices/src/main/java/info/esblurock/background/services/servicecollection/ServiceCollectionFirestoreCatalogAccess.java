@@ -184,6 +184,15 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 			return response;
 		}
 	},
+	FindTransactionFromOwnerAndType {
+
+		@Override
+		public JsonObject process(JsonObject json) {
+			JsonObject response = FindTransactions.FindTransactionFromOwnerAndType(json);
+			return response;
+		}
+		
+	},
 	FindTransactionChoicesOfTypeAndKey {
 
 		@Override

@@ -1,5 +1,7 @@
 package info.esblurock.background.services.datamanipulation;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import org.dom4j.Element;
 
 import com.google.cloud.firestore.DocumentReference;
@@ -14,9 +16,53 @@ import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
-import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class DatasetObjectLabelListManipulation extends DeleteCatalogDataObject {
+	
+	public static JsonObject GenerateChemConnectDatabaseUniqueGenericLabelSet(JsonObject event, JsonObject prerequisites, JsonObject info) {
+		JsonObject responseJsonObject = null;
+		
+		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+		String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
+		JsonObject datasetid = info.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();		
+		String maintainer = datasetid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+		String objtype = datasetid.get(ClassLabelConstants.DatasetObjectType).getAsString();
+		JsonObject genericset = CreateDocumentTemplate.createTemplate("dataset:ChemConnectDatabaseUniqueGenericLabelSet");
+		genericset.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
+		String objtypeshort = objtype.substring(8);
+		genericset.addProperty(ClassLabelConstants.DatasetObjectType,objtype );
+		genericset.addProperty(ClassLabelConstants.DatasetObjectTypeName,objtypeshort );
+		BaseCatalogData.insertStandardBaseInformation(genericset, owner, transactionID, "false", false);
+		BaseCatalogData.insertFirestoreAddress(genericset);
+		
+		
+		return responseJsonObject;
+	}
+	
+	public static JsonObject findGenerateChemConnectDatabaseUniqueGenericLabelSetTransaction(String owner, String classname ) {
+		String keyString = owner + "." + classname;
+		
+        JsonObject setofprops1 = CreateDocumentTemplate.createTemplate("dataset:SetOfPropertyValueQueryPairs");
+        JsonArray arr1 = new JsonArray();
+        setofprops1.add(ClassLabelConstants.PropertyValueQueryPair, arr1);
+        
+        JsonObject prop1 = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
+        String ref1 = ClassLabelConstants.ShortTransactionDescription
+        prop1.addProperty(ClassLabelConstants.DatabaseObjectType, "dataset:bensonrulestructure.dataset:bensonruleref");
+        prop1.addProperty(ClassLabelConstants.ShortStringKey, bensonname);
+        arr1.add(prop1);
+		
+		return null;
+	}
+	
+	public static JsonObject ModifyChemConnectDatabaseUniqueGenericLabelSet(JsonObject event, JsonObject prerequisites, JsonObject info) {
+		JsonObject responseJsonObject = null;
+		
+		
+		return responseJsonObject;
+	}
+	
+	
 	
 	public static JsonObject addToChemConnectDatabaseObjectsForLabel(JsonObject event, JsonObject catalog) {
 		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
@@ -95,6 +141,7 @@ public class DatasetObjectLabelListManipulation extends DeleteCatalogDataObject 
 		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
 		String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
 		JsonObject datasetid = info.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
+		JsonObject transactionfirestoreJsonObject = event.get(ClassLabelConstants.FirestoreCatalogIDForTransaction).getAsJsonObject();
 
 		JsonObject created = createChemConnectDatabaseUniqueGenericLabelSet(owner, transactionID, datasetid);
 		
@@ -129,26 +176,6 @@ public class DatasetObjectLabelListManipulation extends DeleteCatalogDataObject 
 				genericset = null;
 			}
 		}
-		return genericset;
-	}
-	/**
-	 * @param event The current transaction
-	 * @param info  The current info
-	 * @return The generated ChemConnectDatabaseUniqueGenericLabelSet
-	 * 
-	 *         The necessary information is extracted from the transaction and the
-	 *         info.
-	 */
-	private static JsonObject createChemConnectDatabaseUniqueGenericLabelSet(String owner, String transactionID, JsonObject datasetid) {
-		String maintainer = datasetid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-		String objtype = datasetid.get(ClassLabelConstants.DatasetObjectType).getAsString();
-		JsonObject genericset = CreateDocumentTemplate.createTemplate("dataset:ChemConnectDatabaseUniqueGenericLabelSet");
-		genericset.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
-		String objtypeshort = objtype.substring(8);
-		genericset.addProperty(ClassLabelConstants.DatasetObjectType,objtype );
-		genericset.addProperty(ClassLabelConstants.DatasetObjectTypeName,objtypeshort );
-		BaseCatalogData.insertStandardBaseInformation(genericset, owner, transactionID, "false", false);
-		BaseCatalogData.insertFirestoreAddress(genericset);
 		return genericset;
 	}
 

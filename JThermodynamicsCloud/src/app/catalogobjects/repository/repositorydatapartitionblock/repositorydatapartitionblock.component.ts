@@ -6,10 +6,10 @@ import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesyto
 import { IdentifiersService } from '../../../const/identifiers.service';
 import { SetofdataobjectlinksComponent } from '../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
 import { SetofsitereferencesComponent } from '../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavItem } from '../../../primitives/nav-item';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
-import { InterfaceconstantsService } from '../../../const/interfaceconstants.service';
+import { FileformatmanagerService } from '../../../services/fileformatmanager.service';
 
 @Component({
 	selector: 'app-repositorydatapartitionblock',
@@ -18,7 +18,7 @@ import { InterfaceconstantsService } from '../../../const/interfaceconstants.ser
 })
 export class RepositorydatapartitionblockComponent implements OnInit, AfterViewInit {
 
-	objectform: UntypedFormGroup;
+	objectform: FormGroup;
 	items: NavItem[];
 	partitionitems: NavItem[];
 	display = false;
@@ -34,20 +34,20 @@ export class RepositorydatapartitionblockComponent implements OnInit, AfterViewI
 	identifier = Ontologyconstants.dctermsidentifier;
 
 
-	@Input() annoReady: EventEmitter<any>;
+	@Input() annoReady!: EventEmitter<any>;
 
 
-	@ViewChild('simpledata') simpledata: SimpledatabaseobjectstructureComponent;
-	@ViewChild('firestoreid') firestoreid: FiresytorecatalogidComponent;
-	@ViewChild('references') references: DatasetreferenceComponent;
-	@ViewChild('objectlinks') objectlinks: SetofdataobjectlinksComponent;
-	@ViewChild('weblinks') weblinks: SetofsitereferencesComponent;
+	@ViewChild('simpledata') simpledata!: SimpledatabaseobjectstructureComponent;
+	@ViewChild('firestoreid') firestoreid!: FiresytorecatalogidComponent;
+	@ViewChild('references') references!: DatasetreferenceComponent;
+	@ViewChild('objectlinks') objectlinks!: SetofdataobjectlinksComponent;
+	@ViewChild('weblinks') weblinks!: SetofsitereferencesComponent;
 
 
 	constructor(
 		private menusetup: MenutreeserviceService,
 		private formBuilder: UntypedFormBuilder,
-		private interfaceconstants: InterfaceconstantsService,
+		private format: FileformatmanagerService,
 		public identifiers: IdentifiersService) {
 
 
@@ -164,11 +164,11 @@ export class RepositorydatapartitionblockComponent implements OnInit, AfterViewI
 		if (!this.fixedtype) {
 			this.objectform.get('FileSourceFormat').setValue($event);
 		} else {
-			this.interfaceconstants.dataFormatInformation($event).subscribe(result => {
+			this.format.dataFormatInformation($event).subscribe(result => {
 				if (result != null) {
 					this.setDataFormatNonNull(result);
 				} else {
-					alert(this.interfaceconstants.errorcatalogtypes);
+					alert(this.format.errorcatalogtypes);
 				}
 			});
 		}

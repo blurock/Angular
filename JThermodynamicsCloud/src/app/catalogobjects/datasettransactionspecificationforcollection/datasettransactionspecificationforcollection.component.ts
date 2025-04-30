@@ -1,19 +1,38 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
 import { MenutreeserviceService } from '../../services/menutreeservice.service';
 import { NavItem } from '../../primitives/nav-item';
+import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MenuItemComponent } from '../../primitives/menu-item/menu-item.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
 	selector: 'app-datasettransactionspecificationforcollection',
+	standalone: true,
+	imports:[
+		CommonModule,
+		MatCardModule,
+		MatFormFieldModule,
+		ReactiveFormsModule,
+		MatGridListModule,
+		MenuItemComponent,
+		MatSelectModule,
+		MatMenuTrigger,
+		MatMenuModule
+	],
 	templateUrl: './datasettransactionspecificationforcollection.component.html',
 	styleUrls: ['./datasettransactionspecificationforcollection.component.scss']
 })
 export class DatasettransactionspecificationforcollectionComponent implements OnInit {
 
-	@Input() annoinfo: any;
-	@Input() subtitle: string;
+	@Input() annoinfo!: any;
+	@Input() subtitle!: string;
 	transspec: any;
 
 	rdfslabel = Ontologyconstants.rdfslabel;
@@ -22,7 +41,7 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 	statusitems = 'dataset:CatalogDataObjectStatus';
 
 
-	maintainer: string;
+	maintainer: string = '';
 	idForm: UntypedFormGroup;
 	items: NavItem[] = [];
 
@@ -61,14 +80,14 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 	}
 
 	public getData(catalog: any): void {
-		const jsontransspec = {};
+		const jsontransspec: Record<string,unknown> = {};
 		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
 		catalog[specid] = jsontransspec;
 
-		jsontransspec[this.annoinfo['dataset:CatalogDataObjectStatus'][this.identifier]] = this.idForm.get('CatalogDataObjectStatus').value;
-		jsontransspec[this.annoinfo['dataset:DatasetName'][this.identifier]] = this.idForm.get('DatasetName').value;
-		jsontransspec[this.annoinfo['dataset:DatasetVersion'][this.identifier]] = this.idForm.get('DatasetVersion').value;
-		jsontransspec[this.annoinfo['dataset:CatalogObjectUniqueGenericLabel'][this.identifier]] = this.idForm.get('CatalogObjectUniqueGenericLabel').value;
+		jsontransspec[this.annoinfo['dataset:CatalogDataObjectStatus'][this.identifier]] = this.idForm.get('CatalogDataObjectStatus')?.value ?? '';
+		jsontransspec[this.annoinfo['dataset:DatasetName'][this.identifier]] = this.idForm.get('DatasetName')?.value ?? '';
+		jsontransspec[this.annoinfo['dataset:DatasetVersion'][this.identifier]] = this.idForm.get('DatasetVersion')?.value ?? '';
+		jsontransspec[this.annoinfo['dataset:CatalogObjectUniqueGenericLabel'][this.identifier]] = this.idForm.get('CatalogObjectUniqueGenericLabel')?.value ?? '';
 		jsontransspec[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.maintainer;
 		this.transspec = jsontransspec;
 
@@ -76,18 +95,18 @@ export class DatasettransactionspecificationforcollectionComponent implements On
 
 	public setData(jsontransspec: any): void {
 		const status = jsontransspec[this.annoinfo['dataset:CatalogDataObjectStatus'][this.identifier]];
-		this.idForm.get('CatalogDataObjectStatus').setValue(status);
+		this.idForm.get('CatalogDataObjectStatus')?.setValue(status);
 		const datasetname = jsontransspec[this.annoinfo['dataset:DatasetName'][this.identifier]];
-		this.idForm.get('DatasetName').setValue(datasetname);
+		this.idForm.get('DatasetName')?.setValue(datasetname);
 		const version = jsontransspec[this.annoinfo['dataset:DatasetVersion'][this.identifier]];
-		this.idForm.get('DatasetVersion').setValue(version);
+		this.idForm.get('DatasetVersion')?.setValue(version);
 		const label = jsontransspec[this.annoinfo['dataset:CatalogObjectUniqueGenericLabel'][this.identifier]];
-		this.idForm.get('CatalogObjectUniqueGenericLabel').setValue(label);
+		this.idForm.get('CatalogObjectUniqueGenericLabel')?.setValue(label);
 		//this.maintainer = jsontransspec['dataset:catalogobjectmaintainer'];
 		this.transspec = jsontransspec;
 	}
-setStatus(status: string): void {
-	this.idForm.get('CatalogDataObjectStatus').setValue(status);
+setStatus(status: String): void {
+	this.idForm.get('CatalogDataObjectStatus')?.setValue(status);
 }
 
 }

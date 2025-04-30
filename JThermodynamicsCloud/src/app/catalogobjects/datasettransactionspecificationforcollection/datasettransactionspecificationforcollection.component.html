@@ -27,11 +27,13 @@
 						<mat-form-field class="status">
 							<mat-label>{{annoinfo['dataset:CatalogDataObjectStatus'][rdfslabel]}}</mat-label>
 							<input matInput formControlName="CatalogDataObjectStatus"
-								[matMenuTriggerFor]="menu.childMenu">
+								[matMenuTriggerFor]="menu">
 							<mat-hint>{{annoinfo['dataset:CatalogDataObjectStatus'][rdfscomment]}}</mat-hint>
 						</mat-form-field>
-						<app-menu-item #menu [items]="items" (selectionEvent)="setStatus($event)">
+						<mat-menu #menu="matMenu">
+						<app-menu-item #menuitem [items]="items" (selectionEvent)="setStatus($event)">
 						</app-menu-item>
+						</mat-menu>
 					</mat-grid-tile>
 
 					<mat-grid-tile [colspan]="2">

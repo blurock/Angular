@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialog } from '@angular/material/dialog';
@@ -124,7 +124,7 @@ export class CatalogobjectheaderComponent {
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {
 				if (!result[Ontologyconstants.message]) {
-					this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(this.constants.cqncelled);
+					this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(this.constants.cancelled);
 				} else {
 					this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(result[Ontologyconstants.message]);
 				}
@@ -139,7 +139,7 @@ export class CatalogobjectheaderComponent {
 				}
 					
 			} else {
-				this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(this.constants.cqncelled);
+				this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(this.constants.cancelled);
 			}
 
 		});

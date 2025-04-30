@@ -5,7 +5,10 @@ import { SignInComponent } from './components/login/sign-in/sign-in.component';
 import {ToppageComponent} from './layout/toppage/toppage.component';
 import {SetupuserinformationComponent} from './catalogobjects/user/setupuserinformation/setupuserinformation.component';
 import {UsercreateGuard} from './usercreate.guard';
-import { AuthGuard } from './auth.guard';
+import {UploadstepsComponent} from './upload/uploadsteps/uploadsteps.component';
+import {MoleculeCreatorComponent} from './jsme/moleculecreatorcomponent/moleculecreatorcomponent.component'
+
+//import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
 		{ path: '', component: HomepageComponent },
@@ -13,7 +16,11 @@ export const routes: Routes = [
 			
 	,{ path: 'usersetup', component: SetupuserinformationComponent, canActivate: [UsercreateGuard] },
 	//{ path: 'toppage', component: ToppageComponent, canActivate: [AuthGuard]  },
-	{ path: 'toppage', component: ToppageComponent}
+	{ path: 'uploaddatabaseitem', component: UploadstepsComponent
+	//, canActivate: [AuthGuard] 
+	},
+	{ path: 'toppage', component: ToppageComponent},
+	{path: 'drawmolecule', component: MoleculeCreatorComponent}
 
 
 

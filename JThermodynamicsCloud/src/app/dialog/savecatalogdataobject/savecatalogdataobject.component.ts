@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SavecatalogdataobjectdialogComponent } from '../savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
-import { BaseCatalogInterface } from '../../primitives/basecataloginterface';
 import { OntologycatalogService } from '../../services/ontologycatalog.service';
 import { IdentifiersService } from '../../const/identifiers.service';
 import { Ontologyconstants } from '../../const/ontologyconstants';
@@ -10,7 +9,7 @@ import { Ontologyconstants } from '../../const/ontologyconstants';
 	templateUrl: './savecatalogdataobject.component.html',
 	styleUrls: ['./savecatalogdataobject.component.scss']
 })
-export class SavecatalogdataobjectComponent extends BaseCatalogInterface {
+export class SavecatalogdataobjectComponent  {
 	catalogobj: any;
 	public annoinfo = null;
 	annoReady = new EventEmitter<any>();
@@ -26,7 +25,7 @@ export class SavecatalogdataobjectComponent extends BaseCatalogInterface {
 		public dialog: MatDialog,
 		public annotations: OntologycatalogService,
 		public identifiers: IdentifiersService) {
-		super();
+		
 	}
 
 	public getCatalogAnnoations(): void {

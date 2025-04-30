@@ -7,84 +7,7 @@ import { UntypedFormGroup} from '@angular/forms';
 })
 export class InterfaceconstantsService {
   
-  	catalogtypes = [
-		{
-			label: 'Benson Rules', 
-			format: 'dataset:TherGasBensonRules',
-			catalog: 'dataset:RepositoryTherGasThermodynamicsBlock', 
-			id: 1,
-			method: 'dataset:PartitionTherGasThermodynamics',
-			type: 0,
-			database: 'dataset:ThermodynamicBensonRuleDefinitionDatabase',
-			dataset: 'dataset:ThermodynamicBensonRuleDefinitionDataset'
-		},
-		{
-			label: '2D Substructures', 
-			format: 'dataset:TherGasSubstructureThermodynamics',
-			catalog: 'dataset:RepositoryTherGasThermodynamicsBlock', 
-			id: 1,
-			method: 'dataset:PartitionTherGasThermodynamics',
-			type: 0,
-			database: 'dataset:JThermodynamicsSymmetryStructureDefinitionDatabase',
-			dataset: 'dataset:JThermodynamicsSymmetryStructureDefinitionDataset'
-		},
-		{
-			label: 'Molecules', 
-			format: 'dataset:TherGasSubstructureThermodynamics',
-			catalog: 'dataset:RepositoryTherGasThermodynamicsBlock', 
-			id: 1,
-			method: 'dataset:PartitionTherGasThermodynamics',
-			type: 0,
-			database: 'dataset:JThermodynamics2DMoleculeThermodynamicsDatabase',
-			dataset: 'dataset:JThermodynamics2DMoleculeThermodynamicsDataset'
-		},
-		{
-			label: 'Disassociation Energy', 
-			format: 'dataset:JThermodynamicsDisassociationEnergyFormat',
-			catalog: 'dataset:RepositoryParsedToFixedBlockSize', 
-			id: 0, 
-			method: 'dataset:PartitionToLineSet',
-			type: 1,	
-			BlockLineCount: 1,
-			database: 'dataset:JThermodynamicsDisassociationEnergyOfStructureDatabase',
-			dataset: 'dataset:JThermodynamicsDisassociationEnergyOfStructureDataset'
-		},
-		{
-			label: 'Meta Atom', format: 'dataset:JThermodynamicsMetaAtomFormat',
-			catalog: 'dataset:RepositoryParsedToFixedBlockSize', 
-			id: 0, 
-			method: 'dataset:PartitionToLineSet',
-			type: 1,	
-			BlockLineCount: 1,
-			database: 'dataset:JThermodynamicsMetaAtomDefinitionDatabas3',
-			dataset: 'dataset:ThermodynamicBensonRuleDefinitionDataset'
-		},
-		{
-			label: 'Vibrational Modes', format: 'dataset:JThermodynamicsVibrationalModes',
-			catalog: 'dataset:RepositoryParsedToFixedBlockSize',
-			id: 0,
-			method: 'dataset:PartitionToLineSet',
-			type: 1,
-			BlockLineCount: 1,
-			database: 'dataset:JThermodynamicsVibrationalStructureDatabase',
-			dataset: 'dataset:JThermodynamicsVibrationalStructureDataset'
-			
-		},
-		{
-			label: 'Symmetry Definition', 
-			format: 'dataset:JThermodynamicsSymmetryDefinitionFormat',
-			catalog: 'dataset:RepositoryParsedToFixedBlockSize', 
-			id: 0,
-			method: 'dataset:PartitionXMLListOfCatalogObjects',
-			type: 1,
-			BlockLineCount: 1,
-			database: 'dataset:JThermodynamicsSymmetryStructureDefinitionDatabase',
-			dataset: 'dataset:JThermodynamicsSymmetryStructureDefinitionDataset'
-			
-		}
-		
-	];
-	public errorcatalogtypes = 'Error in determining catalog types';
+	public 
 
 
   constructor() { }
@@ -107,9 +30,11 @@ export class InterfaceconstantsService {
     }   
     public setDataFormat(typeInfo: any, objectform: UntypedFormGroup): number {
 		const fmt = typeInfo['format'];
-		objectform.get('FileSourceFormat').setValue(fmt);
-		const method = typeInfo['method']
-		objectform.get('FilePartitionMethod').setValue(method);
+		
+			objectform.get('FileSourceFormat')?.setValue(fmt) ?? ''
+			const method = typeInfo['method']
+			objectform.get('FilePartitionMethod')?.setValue(method) ?? '';
+		
 		return typeInfo['type'];
 	}
 	public menuLabelsForFileFormat(): string[] {

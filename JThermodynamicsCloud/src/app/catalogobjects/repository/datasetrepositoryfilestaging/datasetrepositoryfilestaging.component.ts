@@ -1,95 +1,101 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { OntologycatalogService } from 'src/app/services/ontologycatalog.service';
-import { BaseCatalogInterface } from 'src/app/primitives/basecataloginterface';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
-import { repository } from '../../../const/repositorystagingexample';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { SimpledatabaseobjectstructureComponent } from '../../simpledatabaseobjectstructure/simpledatabaseobjectstructure.component';
 import { DatasetreferenceComponent } from '../../datasetreference/datasetreference.component';
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
 import { IdentifiersService } from '../../../const/identifiers.service';
 import { SetofdataobjectlinksComponent } from '../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
 import { SetofsitereferencesComponent } from '../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
-import { FormArray, UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SavecatalogdataobjectdialogComponent } from '../../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
-import { SavecatalogdataobjectComponent } from '../../../dialog/savecatalogdataobject/savecatalogdataobject.component';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
+import { GcsblobfileinformationstagingComponent } from '../gcsblobfileinformationstaging/gcsblobfileinformationstaging.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
+import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
+import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
 
 @Component({
 	selector: 'app-datasetrepositoryfilestaging',
 	templateUrl: './datasetrepositoryfilestaging.component.html',
-	styleUrls: ['./datasetrepositoryfilestaging.component.scss']
+	styleUrls: ['./datasetrepositoryfilestaging.component.scss'],
+	standalone: true,
+	imports: [MatCardModule,
+		MatFormFieldModule,
+		ReactiveFormsModule,
+		MatProgressSpinner,
+		CommonModule,
+		SimpledatabaseobjectstructureComponent,
+		DatasetreferenceComponent,
+		FiresytorecatalogidComponent,
+		SetofdataobjectlinksComponent,
+		SetofsitereferencesComponent,
+		DatadatadescriptionComponent,
+		GcsblobfileinformationstagingComponent]
 })
-export class DatasetrepositoryfilestagingComponent extends SavecatalogdataobjectComponent implements OnInit, AfterViewInit {
-
-	objectform: UntypedFormGroup;
-	catalogtype: string;
-
-	constructor(
-		public dialog: MatDialog,
-		private formBuilder: UntypedFormBuilder,
-		public annotations: OntologycatalogService,
-		public identifiers: IdentifiersService) {
-		super(dialog, annotations, identifiers,
-		);
-		this.catalogtype = 'dataset:DatasetRepositoryFileStaging';
-		this.getCatalogAnnoations();
-
-	}
+export class DatasetrepositoryfilestagingComponent extends CatalogbaseComponent implements OnInit {
 
 	descriptionsuffix = 'FileStaging';
 	menuclass = "dataset:FileSourceFormat";
+	objectform: FormGroup;
 
-	descr: string;
-
-	@ViewChild('simpledata') simpledata: SimpledatabaseobjectstructureComponent;
-	@ViewChild('firestoreid') firestoreid: FiresytorecatalogidComponent;
-	@ViewChild('references') references: DatasetreferenceComponent;
-	@ViewChild('objectlinks') objectlinks: SetofdataobjectlinksComponent;
-	@ViewChild('weblinks') weblinks: SetofsitereferencesComponent;
-	@ViewChild('gcs') gcs: DatasetreferenceComponent;
-	@ViewChild('description') description: DatadatadescriptionComponent;
-
-
-	ngOnInit(): void {
+	constructor(
+		private identifiers: IdentifiersService,
+		private formBuilder: FormBuilder,
+		annotations: OntologycatalogService,
+		cdRef: ChangeDetectorRef,
+		constants: UserinterfaceconstantsService
+	) {
+		super(constants, annotations, cdRef);
+		this.catalogtype = 'dataset:RepositoryFileStaging';
+		this.getCatalogAnnoations();
 		this.objectform = this.formBuilder.group({
 			DescriptionTitle: ['', Validators.required]
 		});
 
 	}
-	ngAfterViewInit(): void {
+
+	@ViewChild('simpledata') simpledata!: SimpledatabaseobjectstructureComponent;
+	@ViewChild('firestoreid') firestoreid!: FiresytorecatalogidComponent;
+	@ViewChild('references') references!: DatasetreferenceComponent;
+	@ViewChild('objectlinks') objectlinks!: SetofdataobjectlinksComponent;
+	@ViewChild('weblinks') weblinks!: SetofsitereferencesComponent;
+	@ViewChild('gcs') gcs!: DatasetreferenceComponent;
+	@ViewChild('description') description!: DatadatadescriptionComponent;
+
+
+	ngOnInit(): void {
+
 	}
 
-	public setData(catalog: any): void {
+	public override setData(activity: any): void {
+		super.setData(activity);
 		if (this.simpledata != null) {
-			this.simpledata.setData(catalog);
-			const firestoreidvalues = catalog[this.identifiers.FirestoreCatalogID];
+			this.simpledata.setData(this.catalog);
+			const firestoreidvalues = this.catalog[this.identifiers.FirestoreCatalogID];
 			this.firestoreid.setData(firestoreidvalues);
-			const refs = catalog[this.identifiers.DataSetReference];
+			const refs = this.catalog[this.identifiers.DataSetReference];
 			this.references.setData(refs);
-			const gcs = catalog[this.identifiers.GCSBlobFileInformationStaging];
+			const gcs = this.catalog[this.identifiers.GCSBlobFileInformationStaging];
 			this.gcs.setData(gcs);
-			const olinks = catalog[this.identifiers.DataObjectLink];
+			const olinks = this.catalog[this.identifiers.DataObjectLink];
 			this.objectlinks.setData(olinks);
-			const wlinks = catalog[this.identifiers.ObjectSiteReference];
+			const wlinks = this.catalog[this.identifiers.ObjectSiteReference];
 			this.objectlinks.setData(wlinks);
-			const rtitle = catalog[this.identifiers.DescriptionTitle];
-			const descr = catalog['descr-filestaging'];
+			const rtitle = this.catalog[this.identifiers.DescriptionTitle];
+			const descr = this.catalog['descr-filestaging'];
 			this.description.setData(descr);
-			const title = catalog[this.identifiers.DescriptionTitle];
+			const title = this.catalog[this.identifiers.DescriptionTitle];
 			if (title != null) {
-				this.objectform.get('DescriptionTitle').setValue(title);
+				this.objectform.get('DescriptionTitle')?.setValue(title);
 			}
 		} else {
 			alert('Display objects not set up');
 		}
 	}
 
-	public openMenu() {
-
-	}
-
-	public getData(catalog: any): void {
+	public override getData(catalog: any): void {
 		if (this.simpledata != null) {
 			this.simpledata.getData(catalog);
 			this.references.getData(catalog);

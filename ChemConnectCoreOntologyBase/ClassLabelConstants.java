@@ -136,7 +136,6 @@ public static String JThermodynamicsSymmetryNodeGroupDefinition =    "dataset:no
 public static String JThermodynamicsThermodynamicParameter =         "database:thermoparam";
 public static String ThermodynamicCpAtTemperature =                  "dataset:cpattemp";
 public static String CondensedCatalogDescription =                   "dataset:catalogobj-condensed";
-public static String CondensedTransactionEventDescription =          "transaction-condensed";
 public static String SetOfPropertyValueQueryPairs =                  "dataset:propvaluepairset";
 public static String PurposeConceptPair =                            "prov:influenced";
 public static String PurposeConceptTransaction =                     "dataset:purpose-trans";

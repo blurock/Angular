@@ -1,54 +1,74 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { FormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
-import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
 import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
-import { DatasettransactionspecificationforcollectionComponent } from '../../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
+import { CommonModule } from '@angular/common';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CatalogactivitybaseComponent } from '../../../../primitives/catalogactivitybase/catalogactivitybase.component';
+import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
+import { MatInputModule } from '@angular/material/input';
+import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
+import { Ontologyconstants } from '../../../../const/ontologyconstants';
+import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
 
 
 @Component({
 	selector: 'app-activityrepositorypartitiontocatalog',
+	standalone: true,
+	imports: [
+		CommonModule,
+		ReactiveFormsModule,
+		MatGridListModule,
+		MatFormFieldModule,
+		ReactiveFormsModule,
+		MatInputModule,
+		SpecificationfordatasetComponent
+	],
 	templateUrl: './activityrepositorypartitiontocatalog.component.html',
 	styleUrls: ['./activityrepositorypartitiontocatalog.component.scss']
 })
-export class ActivityrepositorypartitiontocatalogComponent implements OnInit {
+export class ActivityrepositorypartitiontocatalogComponent extends CatalogactivitybaseComponent implements OnInit {
 
-	@Input() annoinfo: any;
-
-	parseinfoform: UntypedFormGroup;
-	maintainer: string;
-	rdfslabel = Ontologyconstants.rdfslabel;
-	rdfscomment = Ontologyconstants.rdfscomment;
-	identifier = Ontologyconstants.dctermsidentifier;
+	parseinfoform: FormGroup;
+	maintainer: string = '';
 	formatInformation: any;
 	filesourcetypechoices: string[];
 	showblkcnt = true;
-	
-	
+	parsemethod: string = ';'
+
+	getfileformatnotsuccessful: string;
 
 	blkcntid = '';
 	descrtitleid = '';
 	formatid = '';
 	methodid = '';
 	specid = '';
+    collectionid = '';
 
-	getannofilefnotsuccessful = 'Error in retrieving File Format information';
 
-	@ViewChild('spec') spec: DatasettransactionspecificationforcollectionComponent;
+	@ViewChild('spec') spec!: SpecificationfordatasetComponent;
 
 
 	constructor(
-		private uploadService: UploadmenuserviceService,
-		public annotations: OntologycatalogService,
+		uploadService: UploadmenuserviceService,
 		manageuser: ManageuserserviceService,
-		private _formBuilder: UntypedFormBuilder
+		formBuilder: FormBuilder,
+		cd: ChangeDetectorRef,
+		constants: UserinterfaceconstantsService,
+		annotations: OntologycatalogService,
+		format: FileformatmanagerService
 	) {
-		this.parseinfoform = this._formBuilder.group({
+		super(constants, annotations, cd);
+
+		this.getfileformatnotsuccessful = constants.getfileformatnotsuccessful;
+		this.parseinfoform = formBuilder.group({
 			BlockLineCount: ['not applicable'],
 			DescriptionTitle: ['', Validators.required],
 			FileSourceFormat: ['', Validators.required],
 			FilePartitionMethod: ['', Validators.required],
+			DatasetCollectionObjectType:  ['', Validators.required]
 		});
 
 		manageuser.determineMaintainer().subscribe(result => {
@@ -59,22 +79,22 @@ export class ActivityrepositorypartitiontocatalogComponent implements OnInit {
 			}
 		});
 		this.filesourcetypechoices = ["not set up"];
-		this.uploadService.getFormatClassification().subscribe((data) => {
+		format.getFormatClassification().subscribe((data) => {
 			this.formatInformation = data;
 			this.filesourcetypechoices = Object.keys(data);
 		}, (error) => {
-			alert(this.getannofilefnotsuccessful);
+			alert(this.getfileformatnotsuccessful);
 		})
-
-
+		this.catalogtype = "dataset:ActivityRepositoryPartitionToCatalog";
+		this.getCatalogAnnoations();
 	}
 
 	ngOnInit(): void {
 	}
-	
+
 	invalid(): boolean {
 		return this.parseinfoform.invalid
-		    || this.spec.invalid();
+			|| this.spec.invalid();
 	}
 
 	setIDs() {
@@ -82,35 +102,59 @@ export class ActivityrepositorypartitiontocatalogComponent implements OnInit {
 		this.descrtitleid = this.annoinfo['dataset:DescriptionTitle'][this.identifier];
 		this.formatid = this.annoinfo['dataset:FileSourceFormat'][this.identifier];
 		this.methodid = this.annoinfo['dataset:FilePartitionMethod'][this.identifier];
-		this.specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];;
+		this.specid = this.annoinfo['dataset:SpecificationForDataset'][this.identifier];
+		this.collectionid = this.annoinfo['dataset:DatasetCollectionObjectType'][this.identifier];
 	}
 
-	setData(activity: any): void {
-		this.setIDs();
-		this.parseinfoform.get('BlockLineCount').setValue(activity[this.blkcntid]);
-		this.parseinfoform.get('DescriptionTitle').setValue(activity[this.descrtitleid]);
-		this.parseinfoform.get('FileSourceFormat').setValue(activity[this.formatid]);
-		this.parseinfoform.get('FilePartitionMethod').setValue(activity[this.methodid]);
-		this.spec.setData(activity[this.specid]);
+	override annotationsFound(response: any): void {
+		super.annotationsFound(response);
+	    this.setIDs();
 	}
-	getData(activity: any): void {
+
+
+	override setData(a: any): void {
+		super.setData(a);
 		this.setIDs();
-		activity[this.blkcntid] = this.parseinfoform.get('BlockLineCount').value;
-		activity[this.descrtitleid] = this.parseinfoform.get('DescriptionTitle').value;
-		activity[this.formatid] = this.parseinfoform.get('FileSourceFormat').value;
-		activity[this.methodid] = this.parseinfoform.get('FilePartitionMethod').value;
+		this.parseinfoform.get('BlockLineCount')?.setValue(this.catalog[this.blkcntid]);
+		this.parseinfoform.get('DescriptionTitle')?.setValue(this.catalog[this.descrtitleid]);
+		this.parseinfoform.get('FileSourceFormat')?.setValue(this.catalog[this.formatid]);
+		this.parseinfoform.get('FilePartitionMethod')?.setValue(this.catalog[this.methodid]);
+		this.parseinfoform.get('DatasetCollectionObjectType')?.setValue(this.catalog[this.collectionid]);
+		this.spec.setData(this.catalog[this.specid]);
+	}
+	override getData(activity: any): void {
+		this.setIDs();
+		activity[this.blkcntid] = this.parseinfoform.get('BlockLineCount')?.value ?? '';
+		activity[this.descrtitleid] = this.parseinfoform.get('DescriptionTitle')?.value ?? '';
+		activity[this.formatid] = this.parseinfoform.get('FileSourceFormat')?.value ?? '';
+		activity[this.methodid] = this.parseinfoform.get('FilePartitionMethod')?.value ?? '';
+		activity[this.collectionid] = this.parseinfoform.get('DatasetCollectionObjectType')?.value ?? '';
 		this.spec.getData(activity);
 	}
 
-	selectFileFormat($event): void {
-		this.parseinfoform.get('FilePartitionMethod').setValue(this.formatInformation[$event]['dataset:partitionMethod']);
+	override setPrerequisiteData(prerequisite: any): void {
+		const activity = prerequisite[Ontologyconstants.ActivityInfo];
+		this.setIDs();
+		const format = activity[this.formatid];
+		this.selectFileFormat(format);
+		this.parseinfoform.get('DescriptionTitle')?.setValue(activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
+		this.parseinfoform.get('FileSourceFormat')?.setValue(format);
+        this.parseinfoform.get('DatasetCollectionObjectType')?.setValue(activity[this.collectionid]);
+
+		const specdata = activity[this.specid];
+		this.spec.setData(specdata);
+	}
+
+	selectFileFormat($event: any): void {
+		this.parseinfoform.get('FilePartitionMethod')?.setValue(this.formatInformation[$event]['dataset:partitionMethod']);
 		const blkcnt = this.formatInformation[$event]['dataset:blocklinecount'];
 		if (blkcnt.length > 0) {
 			this.showblkcnt = true;
 		} else {
 			this.showblkcnt = false;
 		}
-		this.parseinfoform.get('BlockLineCount').setValue(blkcnt);
+		this.parseinfoform.get('BlockLineCount')?.setValue(blkcnt);
+		this.parsemethod = this.formatInformation[$event]['dataset:partitionMethod'];
 	}
 
 }

@@ -8,3 +8,13 @@
 	float: right;
 	width: 100%;
 }
+.output-container {
+      width: 100%;
+      height: 200px; 
+      overflow-y: scroll;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      padding: 10px;
+      font-family: monospace;
+      line-height: 1.4; /* Adjust line height for better readability */
+    }

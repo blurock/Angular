@@ -7,7 +7,6 @@ import { RepositoryparsedtofixedblocksizeComponent } from '../partition/reposito
 import { RepositorythergasthermodynamicsblockComponent } from '../partition/repositorythergasthermodynamicsblock/repositorythergasthermodynamicsblock.component';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { SavecatalogdataobjectdialogComponent } from '../../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
-import {InterfaceconstantsService} from '../../../const/interfaceconstants.service';
 
 @Component({
 	selector: 'app-managerepositorydatapartitionblockcomponent',
@@ -45,7 +44,6 @@ export class ManagerepositorydatapartitionblockcomponentComponent implements OnI
 
 
 	constructor(manageuser: ManageuserserviceService,
-	    interfaceconstants: InterfaceconstantsService,
 		public dialog: MatDialog,
 		public dialogvis: MatDialog) {
 		manageuser.determineMaintainer().subscribe(result => {

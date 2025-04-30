@@ -72,11 +72,12 @@
 			<app-firesytorecatalogid #transaction 
 			      [anno]="anno" 
 				  [title]="objectpositiontitle"></app-firesytorecatalogid>
-			<app-firesytorecatalogid #firestoreidtrans 
+			<ng-container *ngIf="!istransaction">
+				<app-firesytorecatalogid #firestoreidtrans 
 			      [anno]="anno"
 				  [title]="transactionpositiontitle"></app-firesytorecatalogid>
-		</ng-container>
-
+				  </ng-container>
+			</ng-container>
 	</mat-card>
 </ng-container>
 <ng-template #loading>

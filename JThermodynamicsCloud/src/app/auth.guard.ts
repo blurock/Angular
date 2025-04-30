@@ -21,12 +21,12 @@ export class AuthGuard  {
 		if (this.authService.isLoggedIn() !== true) {
 			if(this.authService.isRegistered) {
 				if(this.authService.isValidated) {
-					return this.router.parseUrl('/usersetup');
+					return this.router.navigateByUrl('/usersetup');
 				} else {
-					return this.router.parseUrl('/verify-email-address');
+					return this.router.navigateByUrl('/verify-email-address');
 				}
 			} else {
-				this.router.parseUrl('');
+				this.router.navigateByUrl('');
 				ans = false;
 			}
 		} else {

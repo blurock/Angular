@@ -24,37 +24,6 @@
 							<mat-hint>{{annoinfo['dataset:FileSourceFormat'][rdfscomment]}}</mat-hint>
 						</mat-form-field>
 					</mat-grid-tile>
-					
-					<ng-container *ngIf="notbenson">
-						<mat-grid-tile [colspan]="3" background="lightgray">
-							<mat-form-field class="label">
-								<mat-label>{{annoinfo['dataset:JThermodynamicsSubstructureType'][rdfslabel]}}
-								</mat-label>
-								<input matInput formControlName="JThermodynamicsSubstructureType"
-									[matMenuTriggerFor]="menu.childMenu">
-								<mat-hint>{{annoinfo['dataset:JThermodynamicsSubstructureType'][rdfscomment]}}
-								</mat-hint>
-								<app-menu-item #menu [items]="structitems"
-									(selectionEvent)="setJThermodynamicsSubstructureType($event)"></app-menu-item>
-							</mat-form-field>
-						</mat-grid-tile>
-
-						<mat-grid-tile [colspan]="3" background="lightgray">
-							<mat-form-field class="label">
-								<mat-label>{{annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][rdfslabel]}}
-								</mat-label>
-								<input matInput formControlName="JThermodynamicsSpeciesSpecificationType"
-									[matMenuTriggerFor]="menu.childMenu">
-								<mat-hint>{{annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][rdfscomment]}}
-								</mat-hint>
-								<app-menu-item #menu [items]="items"
-									(selectionEvent)="setJThermodynamicsSpeciesSpecificationType($event)">
-								</app-menu-item>
-							</mat-form-field>
-						</mat-grid-tile>
-					</ng-container>
-					
-					
 					<mat-grid-tile [colspan]="3">
 						<mat-form-field class="label">
 							<mat-label>{{annoinfo['dataset:BlockInterpretationMethod'][rdfslabel]}}</mat-label>
@@ -63,34 +32,22 @@
 						</mat-form-field>
 					</mat-grid-tile>
 					<mat-grid-tile [colspan]="6">
-						<mat-form-field class="chip-list">
-							<mat-chip-grid class="chip-list" #chipList aria-label="Keyword selection">
-								<mat-chip-row *ngFor="let temperature of temperaturelist" [selectable]="selectable"
-									[removable]="removable" (removed)="remove(keyword)">
-									{{temperature}}
-									<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-								</mat-chip-row>
-								<input placeholder="Temperatures" [matChipInputFor]="chipList"
-									[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-									[matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
-							</mat-chip-grid>
-						</mat-form-field>
+						<app-keywordlistprimitive #keywords class="chip-list" title="Thermodynamic Keywords"></app-keywordlistprimitive>
 					</mat-grid-tile>
-
 				</mat-grid-list>
 			</form>
 
 			<ng-container *ngIf='display; else specdisplayoff'>
 
-				<app-parameterspecification #enthalpy [(annoinfo)]="annoinfo" [(parameterinfo)]="molarenthalpy">
+				<app-parameterspecification #enthalpy [annoinfo]="annoinfo" [parameterinfo]="molarenthalpy">
 				</app-parameterspecification>
-				<app-parameterspecification #entropy [(annoinfo)]="annoinfo" [(parameterinfo)]="molarentropy">
+				<app-parameterspecification #entropy [annoinfo]="annoinfo" [parameterinfo]="molarentropy">
 				</app-parameterspecification>
-				<app-parameterspecification #heatcapacity [(annoinfo)]="annoinfo" [(parameterinfo)]="molarheatcapacity">
+				<app-parameterspecification #heatcapacity [annoinfo]="annoinfo" [parameterinfo]="molarheatcapacity">
 				</app-parameterspecification>
 
-				<app-datasettransactionspecificationforcollection #spec [(annoinfo)]="annoinfo">
-				</app-datasettransactionspecificationforcollection>
+				<app-specificationfordataset #spec [annoinfo]="annoinfo" [subtitle]="specsubtitle">
+				</app-specificationfordataset>
 			</ng-container>
 			<ng-template #specdisplayoff>
 				<div>

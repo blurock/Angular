@@ -37,17 +37,14 @@
 			</form>
 
 			<ng-container *ngIf='display; else specdisplayoff'>
-
-				<app-datasettransactionspecificationforcollection #spec [(annoinfo)]="annoinfo">
-				</app-datasettransactionspecificationforcollection>
-
+				<app-specificationfordataset #spec [annoinfo]="annoinfo" [subtitle]="specsubtitle">
+				</app-specificationfordataset>
 			</ng-container>
 			<ng-template #specdisplayoff>
 				<div>
 					Specification display disabled
 				</div>
 			</ng-template>
-
 		</ng-container>
 		<ng-template #loading>
 			<div>

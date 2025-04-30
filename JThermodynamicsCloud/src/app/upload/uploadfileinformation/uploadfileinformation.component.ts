@@ -1,4 +1,4 @@
-import { Output, EventEmitter, Component, OnInit, ViewChild } from '@angular/core';
+import { Output, EventEmitter, Component, OnInit, ViewChild, NgModule } from '@angular/core';
 import { OntologycatalogService } from '../../services/ontologycatalog.service';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -6,12 +6,27 @@ import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fet
 import { ActivityrepositoryinitialreadlocalfileComponent } from '../../catalogobjects/activity/repository/activityrepositoryinitialreadlocalfile/activityrepositoryinitialreadlocalfile.component';
 import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { RuntransactiondialogComponent } from '../../dialog/runtransactiondialog/runtransactiondialog.component';
-import { stringify } from 'querystring';
+import {MatCardModule} from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
 
 @Component({
 	selector: 'app-uploadfileinformation',
 	templateUrl: './uploadfileinformation.component.html',
-	styleUrls: ['./uploadfileinformation.component.scss']
+	styleUrls: ['./uploadfileinformation.component.scss'],
+	standalone: true,
+	imports: [MatCardModule,
+	MatDividerModule,
+	MatButtonModule,
+	MatGridListModule,
+	MatTooltipModule,
+	MatProgressSpinnerModule,
+	CommonModule,
+	ActivityrepositoryinitialreadlocalfileComponent]
 })
 export class UploadfileinformationComponent implements OnInit {
 
@@ -20,8 +35,8 @@ export class UploadfileinformationComponent implements OnInit {
 	catalogobj: any;
 	annoinfo: any;
 	activitydata: any;
-	maintainer: string;
-	resultHtml: string;
+	maintainer: string = '';
+	resultHtml: string = '';
 
 	getannotationsfnotsuccessful = 'Initialization not successful';
 	failedresponse = 'Storage of stagine file failed';
@@ -39,13 +54,13 @@ export class UploadfileinformationComponent implements OnInit {
 	failedsubmission = 'Failed Submission';
 	acterror = 'Expecting "dataset:activity" at the top level of the JSON object';
 
-	@ViewChild('upload') upload: ActivityrepositoryinitialreadlocalfileComponent;
+	@ViewChild('upload') upload!: ActivityrepositoryinitialreadlocalfileComponent;
 
 	constructor(
 		public annotations: OntologycatalogService,
 		public dialog: MatDialog
 	) {
-		this.getAnnotations();
+		//this.getAnnotations();
 	}
 
 	ngOnInit(): void {
@@ -60,7 +75,7 @@ export class UploadfileinformationComponent implements OnInit {
 	}
 	getTransactionData(transaction: any) {
 		transaction[Ontologyconstants.TransactionEventType] = Ontologyconstants.InitialReadInOfRepositoryFileActivity;
-		const activity = {};
+		const activity: Record<string, unknown> = {};
 		this.upload.getData(activity);
 		transaction[Ontologyconstants.ActivityInfo] = activity;
 		activity[Ontologyconstants.UploadFileSource] = Ontologyconstants.StringSource;
@@ -77,23 +92,6 @@ export class UploadfileinformationComponent implements OnInit {
 		
 	}
 
-	getAnnotations() {
-		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
-			next: (responsedata: any) => {
-				const response = responsedata;
-				this.resultHtml = response[Ontologyconstants.message];
-				if (response[Ontologyconstants.successful]) {
-					const catalog = response[Ontologyconstants.catalogobject];
-					this.activitydata = catalog[Ontologyconstants.outputobject];
-					this.annoinfo = catalog[Ontologyconstants.annotations];
-				} else {
-					alert(this.getannotationsfnotsuccessful);
-				}
-			},
-			error: (info: any) => { alert(this.getannotationsfnotsuccessful + '\n' + info); }
-		});
-
-	}
 
 	displayCatalogInfo(): void {
 		const activity = {};

@@ -8,7 +8,9 @@ import { MenutreeserviceService } from '../../../services/menutreeservice.servic
 @Component({
 	selector: 'app-gcsblobfileinformationstaging',
 	templateUrl: './gcsblobfileinformationstaging.component.html',
-	styleUrls: ['./gcsblobfileinformationstaging.component.scss']
+	styleUrls: ['./gcsblobfileinformationstaging.component.scss'],
+	standalone: true,
+	imports: []
 })
 export class GcsblobfileinformationstagingComponent implements AfterViewInit {
 

@@ -1,8 +1,11 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-visualizefile',
+  standalone: true,
+  imports: [MatCardModule],
   templateUrl: './visualizefile.component.html',
   styleUrls: ['./visualizefile.component.scss']
 })

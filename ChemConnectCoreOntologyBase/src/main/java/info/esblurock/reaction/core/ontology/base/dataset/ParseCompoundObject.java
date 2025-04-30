@@ -63,9 +63,10 @@ public class ParseCompoundObject {
 	}
 	
 	private static boolean isCompoundObject(String elementType) {
+		boolean activity = elementType.equals("dataset:ActivityInformationRecord");
         boolean compoundbaseobject = OntologyUtilityRoutines.isSubClassOf(elementType, compoundclass, false);
         boolean compoundexpobject = OntologyUtilityRoutines.isSubClassOf(elementType, compoundexpclass, false);
         boolean compoundthermoobject = OntologyUtilityRoutines.isSubClassOf(elementType, thermoclass, false);
-        return compoundbaseobject || compoundexpobject || compoundthermoobject;
+        return compoundbaseobject || compoundexpobject || compoundthermoobject || activity;
 	}
 }

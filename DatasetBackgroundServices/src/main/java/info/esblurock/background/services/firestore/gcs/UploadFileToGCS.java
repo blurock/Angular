@@ -180,8 +180,6 @@ public enum UploadFileToGCS {
 	    try {
 	    	JsonObject datasetid = info.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
 	    	String maintainer = datasetid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-	    	
-		//JsonObject datasetspec = info.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
 		String source = info.get(ClassLabelConstants.UploadFileSource).getAsString();
 		String sourcename = source.substring(8);
 		UploadFileToGCS upload = UploadFileToGCS.valueOf(sourcename);

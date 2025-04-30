@@ -1,53 +1,75 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { DatasettransactionspecificationforcollectionComponent } from '../../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
+import { FormBuilder, FormGroup, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
 import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { NavItem } from '../../../../primitives/nav-item';
 import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
+import { CatalogactivitybaseComponent } from '../../../../primitives/catalogactivitybase/catalogactivitybase.component';
+import { CommonModule } from '@angular/common';
+import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
+import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MenuItemComponent } from '../../../../primitives/menu-item/menu-item.component';
+import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
 
 @Component({
 	selector: 'app-activityinformationinterpretdisassociationenergy',
+	standalone: true,
+	imports: [
+		CommonModule,
+		MatCardModule,
+	MatGridListModule,
+	ReactiveFormsModule,
+	MatFormFieldModule,
+	MatInputModule,
+	MatMenuModule,
+	MenuItemComponent,
+		SpecificationfordatasetComponent,
+		ParameterspecificationComponent
+	],
 	templateUrl: './activityinformationinterpretdisassociationenergy.component.html',
 	styleUrls: ['./activityinformationinterpretdisassociationenergy.component.scss']
 })
-export class ActivityinformationinterpretdisassociationenergyComponent implements OnInit {
+export class ActivityinformationinterpretdisassociationenergyComponent extends CatalogactivitybaseComponent implements OnInit {
 
 	molarenergy: any;
 	display = false;
-	objectform: UntypedFormGroup;
+	objectform: FormGroup;
 
 	fileformat = 'dataset:JThermodynamicsDisassociationEnergyFormat';
-	rdfslabel = Ontologyconstants.rdfslabel;
-	rdfscomment = Ontologyconstants.rdfscomment;
-	identifier = Ontologyconstants.dctermsidentifier;
 	speciesspecification = 'dataset:SpeciesSpecificationNancyLinearForm';
 
+    specsubtitle: string = 'Dataset Specification for Disassociation Energy';
 
 	fileformatdata: any;
-	items: NavItem[];
+	items: NavItem[] = [];
 
-	@Input() annoinfo: any;
 
 	molarenergyparameter = ['dataset:ParameterSpecificationHDisassociationEnergy'];
 	title = 'This is the Activity Information for Interpreting Hydrogen Disassociation Energy';
 	
 	structurespecification = 'dataset:JThermodynamicsSpeciesSpecificationType';
 
-	@ViewChild('paramspec') paramspec: DatasettransactionspecificationforcollectionComponent;
-	@ViewChild('spec') spec: ParameterspecificationComponent;
+	@ViewChild('paramspec') paramspec!: SpecificationfordatasetComponent;
+	@ViewChild('spec') spec!: ParameterspecificationComponent;
 
 	constructor(
-		private formBuilder: UntypedFormBuilder,
+		cd: ChangeDetectorRef,
+		constants: UserinterfaceconstantsService,
+		annotations: OntologycatalogService,
+		private formBuilder: FormBuilder,
 		private menuserver: OntologycatalogService,
-		private fileservice: UploadmenuserviceService,
+		private fileservice: FileformatmanagerService,
 		private menusetup: MenutreeserviceService
 	) {
-		const set = [];
-		set.push(this.molarenergyparameter);
-		menuserver.getParameterSet(set).subscribe({
+		super(constants, annotations, cd);
+		annotations.getParameterSet(this.molarenergyparameter).subscribe({
 			next: (data: any) => {
 				this.molarenergy = data[this.molarenergyparameter[0]];
 				this.display = true;
@@ -60,7 +82,7 @@ export class ActivityinformationinterpretdisassociationenergyComponent implement
 			FileSourceFormat: ['File Format', Validators.required],
 			JThermodynamicsSpeciesSpecificationType: ['dataset:SpeciesSpecificationNancyLinearForm', Validators.required]
 		});
-		this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue(this.speciesspecification);
+		this.objectform.get('JThermodynamicsSpeciesSpecificationType')!.setValue(this.speciesspecification);
 
 	}
 	invalid(): boolean {
@@ -73,48 +95,54 @@ export class ActivityinformationinterpretdisassociationenergyComponent implement
 			next: (data: any) => {
 				this.fileformatdata = data;
 				const Hdisformat = data[this.fileformat];
-				this.objectform.get('FileSourceFormat').setValue(this.fileformat);
+				this.objectform.get('FileSourceFormat')!.setValue(this.fileformat);
 				const block = Hdisformat['dataset:interpretMethod'];
-				this.objectform.get('BlockInterpretationMethod').setValue(block);
+				this.objectform.get('BlockInterpretationMethod')!.setValue(block);
 			}
 		});
 		this.items = this.menusetup.findChoices(this.annoinfo, this.structurespecification);
 	}
 	
-	setPrerequisiteData(prerequisite: any) {
+	override annotationsFound(response: any): void {
+		super.annotationsFound(response);
+	}
+
+	override setPrerequisiteData(prerequisite: any) {
 		const activity = prerequisite['dataset:activityinfo'];
 		const formatdata = this.fileformatdata[this.fileformat];
 		const block = formatdata['dataset:interpretMethod'];
-		this.objectform.get('BlockInterpretationMethod').setValue(block);
-		this.objectform.get('DescriptionTitle').setValue(activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
-		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
+		this.objectform.get('BlockInterpretationMethod')!.setValue(block);
+		this.objectform.get('DescriptionTitle')!.setValue(activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
+		const specid = this.annoinfo['dataset:SpecificationForDataset'][this.identifier];
 		this.spec.setData(activity[specid]);
 	}
 
-	getData(activity: any): void {
-		activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod').value;
-		activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.objectform.get('FileSourceFormat').value;
-		activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle').value;
-		activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]] = this.objectform.get('JThermodynamicsSpeciesSpecificationType').value;
+	override getData(activity: any): void {
+		activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod')?.value ?? '';
+		activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.objectform.get('FileSourceFormat')?.value ?? '';
+		activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle')?.value ?? '';
+		activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]] 
+		     = this.objectform.get('JThermodynamicsSpeciesSpecificationType')?.value ?? '';
 		
 		this.spec.getData(activity);
 		const paramspecvalue = {};
 		this.paramspec.getData(paramspecvalue);
 		activity[this.annoinfo['dataset:ParameterSpecificationHDisassociationEnergy'][this.identifier]] = paramspecvalue;
 	}
-	setData(activity: any): void {
-		this.objectform.get('BlockInterpretationMethod').setValue(activity[this.annoinfo['dataset:BlockInterpretationMethod']][this.identifier]);
-		this.objectform.get('FileSourceFormat').setValue(activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]]);
-		this.objectform.get('DescriptionTitle').setValue(activity[this.annoinfo['dataset:DescriptionTitle']][this.identifier]);
-		this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue(activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]]);
+	override setData(a: any): void {
+		super.setData(a);
+		this.objectform.get('BlockInterpretationMethod')!.setValue(this.catalog[this.annoinfo['dataset:BlockInterpretationMethod']][this.identifier]);
+		this.objectform.get('FileSourceFormat')!.setValue(this.catalog[this.annoinfo['dataset:FileSourceFormat'][this.identifier]]);
+		this.objectform.get('DescriptionTitle')!.setValue(this.catalog[this.annoinfo['dataset:DescriptionTitle']][this.identifier]);
+		this.objectform.get('JThermodynamicsSpeciesSpecificationType')!.setValue(this.catalog[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]]);
 
-		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
-		this.spec.setData(activity[specid]);
-		const energy = activity[this.annoinfo['dataset:ParameterSpecificationHDisassociationEnergy'][this.identifier]];
+		const specid = this.annoinfo['dataset:SpecificationForDataset'][this.identifier];
+		this.spec.setData(this.catalog[specid]);
+		const energy = this.catalog[this.annoinfo['dataset:ParameterSpecificationHDisassociationEnergy'][this.identifier]];
 		this.paramspec.setData(energy);
 	}
-setJThermodynamicsSpeciesSpecificationType($event) {
-	this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue($event);
+setJThermodynamicsSpeciesSpecificationType($event: String) {
+	this.objectform.get('JThermodynamicsSpeciesSpecificationType')!.setValue($event);
 }
 
 }

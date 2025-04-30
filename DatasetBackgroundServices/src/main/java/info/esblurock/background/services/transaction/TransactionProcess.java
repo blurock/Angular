@@ -1,5 +1,7 @@
 package info.esblurock.background.services.transaction;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.io.Console;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +14,7 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.SystemObjectInformation;
 import info.esblurock.background.services.datamanipulation.CatalogModificationEventProcess;
+import info.esblurock.background.services.datamanipulation.DatasetObjectLabelListManipulation;
 import info.esblurock.background.services.datamanipulation.InterpretTextBlock;
 import info.esblurock.background.services.dataset.DatasetCollectionCreateSystemCollection;
 import info.esblurock.background.services.dataset.DatasetCollectionManagement;
@@ -147,8 +150,8 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionKey(JsonObject catalog) {
-			JsonObject gcsblob = catalog.get(ClassLabelConstants.GCSBlobFileInformationStaging).getAsJsonObject();
-			String key = gcsblob.get(ClassLabelConstants.FileSourceFormat).getAsString();
+	    	JsonObject datasetid = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
+			String key = datasetid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
 			return key;
 		}
 
@@ -169,8 +172,8 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionKey(JsonObject catalog) {
-			JsonObject gcsblob = catalog.get(ClassLabelConstants.GCSBlobFileInformationStaging).getAsJsonObject();
-			String key = gcsblob.get(ClassLabelConstants.FileSourceFormat).getAsString();
+	    	JsonObject datasetid = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
+			String key = datasetid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
 			return key;
 		}
 
@@ -192,8 +195,8 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionKey(JsonObject catalog) {
-			JsonObject gcsblob = catalog.get(ClassLabelConstants.GCSBlobFileInformationStaging).getAsJsonObject();
-			String key = gcsblob.get(ClassLabelConstants.FileSourceFormat).getAsString();
+	    	JsonObject datasetid = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
+			String key = datasetid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
 			return key;
 		}
 
@@ -208,8 +211,6 @@ public enum TransactionProcess {
 		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
 			JsonObject response = null;
 			try {
-				String colltype = info.get(ClassLabelConstants.DatasetCollectionObjectType).getAsString();
-				event.addProperty(ClassLabelConstants.DatasetCollectionObjectType, colltype);
 				String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
 				String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
 				response = UploadFileToGCS.readFromSource(transactionID, owner, info);
@@ -217,13 +218,12 @@ public enum TransactionProcess {
 					JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 					if (arr.size() > 0) {
 						JsonObject catalog = arr.get(0).getAsJsonObject();
-						JsonObject datasetid = info.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
-						catalog.add(ClassLabelConstants.SpecificationForDataset, datasetid);
+						String genericnameString = info.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+						catalog.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, genericnameString);
 						BaseCatalogData.insertFirestoreAddress(catalog);
 						CreateLinksInStandardCatalogInformation.addPrerequisitesToDataObjectLink(catalog,
 								prerequisites);
 						CreateLinksInStandardCatalogInformation.transfer(info, catalog);
-						event.add(ClassLabelConstants.SpecificationForDataset, datasetid);
 						JsonObject transfirestoreID = BaseCatalogData.insertFirestoreAddress(event);
 						catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction, transfirestoreID.deepCopy());
 						String message = WriteFirestoreCatalogObject.writeCatalogObject(catalog);
@@ -260,8 +260,8 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionKey(JsonObject catalog) {
-			JsonObject gcsblob = catalog.get(ClassLabelConstants.GCSBlobFileInformationStaging).getAsJsonObject();
-			String key = gcsblob.get(ClassLabelConstants.FileSourceFormat).getAsString();
+	    	JsonObject datasetid = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
+			String key = datasetid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
 			return key;
 		}
 
@@ -280,8 +280,9 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionKey(JsonObject catalog) {
-			String fileformat = catalog.get(ClassLabelConstants.FileSourceFormat).getAsString();
-			return fileformat;
+	    	JsonObject datasetid = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
+			String key = datasetid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+			return key;
 		}
 
 		@Override
@@ -301,24 +302,6 @@ public enum TransactionProcess {
 			JsonObject structure = catalog.get(ClassLabelConstants.JThermodynamics2DSpeciesStructure).getAsJsonObject();
 			String name = structure.get(ClassLabelConstants.JThermodynamicsStructureIsomerName).getAsString();
 			return name;
-		}
-
-		@Override
-		String transactionObjectName() {
-			return "dataset:DatasetTransactionEventObject";
-		}
-
-	},
-	TransactionSetupBensonRule {
-
-		@Override
-		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
-			return InterpretTextBlock.interpret(event, prerequisites, info);
-		}
-
-		@Override
-		String transactionKey(JsonObject catalog) {
-			return null;
 		}
 
 		@Override
@@ -347,6 +330,51 @@ public enum TransactionProcess {
 			return "dataset:DatasetTransactionEventObject";
 		}
 
+	},
+	GenerateChemConnectDatabaseUniqueGenericLabelSetEvent {
+
+		@Override
+		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+			return DatasetObjectLabelListManipulation.GenerateChemConnectDatabaseUniqueGenericLabelSet(event,prerequisites,info);
+		}
+
+		@Override
+		String transactionKey(JsonObject catalog) {
+			String maintainer = catalog.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+			JsonObject dataset = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
+			String classString = dataset.get(ClassLabelConstants.DatasetObjectTypeName).getAsString();
+			return maintainer + "." + classString;
+		}
+
+		@Override
+		String transactionObjectName() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+	},
+	ModifyChemConnectDatabaseUniqueGenericLabelSetEvent {
+
+		@Override
+		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
+			return DatasetObjectLabelListManipulation.ModifyChemConnectDatabaseUniqueGenericLabelSet(event,prerequisites,info);
+		}
+
+		@Override
+		String transactionKey(JsonObject catalog) {
+			String maintainer = catalog.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+			JsonObject dataset = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
+			String label = dataset.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+			String classString = dataset.get(ClassLabelConstants.DatasetObjectTypeName).getAsString();
+			return maintainer + "." + classString + "." + label;
+		}
+
+		@Override
+		String transactionObjectName() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
 	},
 	TransferDatasetObjectCollectionToDatabase {
 
@@ -577,7 +605,6 @@ public enum TransactionProcess {
 	 */
 	public static JsonObject retrieveSingleOutputFromTransaction(JsonObject prerequisites, String transidentifier) {
 		JsonObject catalog = null;
-		// Get the InitialReadInOfRepositoryFile transaction
 		if (prerequisites.get(transidentifier) != null) {
 			JsonObject stagingtransaction = prerequisites.get(transidentifier).getAsJsonObject();
 			// Get the set of output FirestoreID from transaction
@@ -650,8 +677,8 @@ public enum TransactionProcess {
 		String transname = transaction.substring(8);
 		TransactionProcess process = TransactionProcess.valueOf(transname);
 		String transactionID = SystemObjectInformation.determineTransactionID();
-		// These assume that all transaction are of class ChemConnectTransactionEvent (which is independent of the catalog object class):
-		String transactionobjectname = "dataset:ChemConnectTransactionEvent";
+		// These assume that all transaction are of class TransactionEventObject (which is independent of the catalog object class):
+		String transactionobjectname = process.transactionObjectName();
 		JsonObject event = BaseCatalogData.createStandardDatabaseObject(transactionobjectname, owner, transactionID,
 				"false");
 		JsonObject transfirestoreid = BaseCatalogData.insertFirestoreAddress(event);
@@ -829,6 +856,12 @@ public enum TransactionProcess {
 		JsonArray prerequisitelist = new JsonArray();
 		for (String name : prerequisitenames) {
 			String label = DatasetOntologyParseBase.getIDFromAnnotation(name);
+			String idlabel = label;
+			if (prerequisites.get(idlabel) == null) {
+				if (prerequisites.get(name) != null) {
+					idlabel = name;
+					}
+			}
 			// If the prerequisite has not been filled in yet, find it and add it in.
 			if (prerequisites.get(label) == null) {
 				JsonObject transaction = FindTransactions.findDatasetTransaction(info, name, true);
@@ -838,6 +871,12 @@ public enum TransactionProcess {
 					prerequisites.add(label, firebaseid);
 				} else {
 					System.err.println("No transaction found");
+				}
+			} else {
+				if(idlabel == name) {
+					JsonObject prerequisite = prerequisites.get(name).getAsJsonObject();
+					prerequisites.add(label, prerequisite);
+					prerequisites.remove(name);
 				}
 			}
 		}

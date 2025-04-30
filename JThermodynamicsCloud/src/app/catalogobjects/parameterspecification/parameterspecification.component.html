@@ -30,9 +30,11 @@
 			<mat-form-field class="label">
 				<mat-label>{{annoinfo['dataset:DataPointUncertainty'][rdfslabel]}}</mat-label>
 											<input matInput formControlName="DataPointUncertainty"
-								[matMenuTriggerFor]="menu.childMenu">
+								[matMenuTriggerFor]="menu">
 				<mat-hint>{{annoinfo['dataset:DataPointUncertainty'][rdfscomment]}}</mat-hint>
-          <app-menu-item #menu [items]="items" (selectionEvent)="setUncertainty($event)"></app-menu-item>
+				<mat-menu #menu="matMenu">
+          <app-menu-item #itemmenu [items]="items" (selectionEvent)="setUncertainty($event)"></app-menu-item>
+				</mat-menu>
 			</mat-form-field>
 		</mat-grid-tile>
 

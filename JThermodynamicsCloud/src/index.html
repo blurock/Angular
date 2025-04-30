@@ -8,7 +8,21 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
+  <script src="assets/jsme/jsme.nocache.js"></script>
+  <script>
+    // Force the module base to be /assets/jsme/
+    if (window.jsme) {
+      window.jsme.__moduleBase = '/assets/jsme/';
+    }
+  </script>
+  <script>
+      //this function will be called after the JavaScriptApplet code has been loaded.
+      function jsmeOnLoad() {
+          jsmeApplet = new JSApplet.JSME("jsme_container", "380px", "340px");
+      }
+  </script>
+
+ </head>
 <body>
   <app-root></app-root>
 </body>

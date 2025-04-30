@@ -1,47 +1,71 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { DatasettransactionspecificationforcollectionComponent } from '../../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
 import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 import { NavItem } from '../../../../primitives/nav-item';
+import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
+import { MenuItemComponent } from '../../../../primitives/menu-item/menu-item.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
+import { CatalogactivitybaseComponent } from '../../../../primitives/catalogactivitybase/catalogactivitybase.component';
+import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
+import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
 
 @Component({
 	selector: 'app-activityinformationinterpretvibrationalmode',
+	standalone: true,
+	imports: [
+				CommonModule,
+		MatCardModule,
+	MatGridListModule,
+	ReactiveFormsModule,
+	MatFormFieldModule,
+	MatInputModule,
+	MatMenuModule,
+	MenuItemComponent,
+		SpecificationfordatasetComponent,
+		ParameterspecificationComponent
+	],
 	templateUrl: './activityinformationinterpretvibrationalmode.component.html',
 	styleUrls: ['./activityinformationinterpretvibrationalmode.component.scss']
 })
-export class ActivityinformationinterpretvibrationalmodeComponent implements OnInit {
+export class ActivityinformationinterpretvibrationalmodeComponent extends CatalogactivitybaseComponent implements OnInit {
 
 	frequency: any;
 	display = false;
-	objectform: UntypedFormGroup;
+	objectform: FormGroup;
 
 	fileformat = 'dataset:JThermodynamicsVibrationalModes';
-	rdfslabel = Ontologyconstants.rdfslabel;
-	rdfscomment = Ontologyconstants.rdfscomment;
-	identifier = Ontologyconstants.dctermsidentifier;
 	structurespecification = 'dataset:JThermodynamicsSpeciesSpecificationType';
-	items: NavItem[];
+	items: NavItem[] = [];
 
 	fileformatdata: any;
 
-	@Input() annoinfo: any;
-
 	frequencyparameter = 'dataset:ParameterSpecificationStructureVibrationFrequency';
 	title = 'This is the Activity Information for Interpreting Vibrational Contributions';
+	specsubtitle: string = 'Dataset Specification';
+	
 
-	@ViewChild('paramspec') paramspec: DatasettransactionspecificationforcollectionComponent;
-	@ViewChild('frequencyspec') frequencyspec: ParameterspecificationComponent;
+	@ViewChild('paramspec') paramspec!: SpecificationfordatasetComponent;
+	@ViewChild('frequencyspec') frequencyspec!: ParameterspecificationComponent;
 
 	constructor(
-		private formBuilder: UntypedFormBuilder,
+		cd: ChangeDetectorRef,
+		constants: UserinterfaceconstantsService,
+		annotations: OntologycatalogService,
+		private formBuilder: FormBuilder,
 		private menuserver: OntologycatalogService,
-		private fileservice: UploadmenuserviceService,
+		private fileservice: FileformatmanagerService,
 		private menusetup: MenutreeserviceService
 	) {
+		super(constants, annotations, cd);
 		const set = [];
 		set.push(this.frequencyparameter);
 		menuserver.getParameterSet(set).subscribe({
@@ -67,45 +91,50 @@ export class ActivityinformationinterpretvibrationalmodeComponent implements OnI
 			next: (data: any) => {
 				this.fileformatdata = data;
 				const freqformat = data[this.fileformat];
-				this.objectform.get('FileSourceFormat').setValue(this.fileformat);
+				this.objectform.get('FileSourceFormat')!.setValue(this.fileformat);
 				const block = freqformat['dataset:interpretMethod'];
-				this.objectform.get('BlockInterpretationMethod').setValue(block);
+				this.objectform.get('BlockInterpretationMethod')!.setValue(block);
 			}
 		});
 		this.items = this.menusetup.findChoices(this.annoinfo, this.structurespecification);
 	}
 	
-	setPrerequisiteData(prerequisite: any) {
+	override annotationsFound(response: any): void {
+		super.annotationsFound(response);
+	}
+	
+	override setPrerequisiteData(prerequisite: any) {
 		const actinfo = prerequisite['dataset:activityinfo'];
 		const titleid = this.annoinfo['dataset:DescriptionTitle'][this.identifier];
-		this.objectform.get('DescriptionTitle').setValue(actinfo[titleid]);
+		this.objectform.get('DescriptionTitle')!.setValue(actinfo[titleid]);
 
-		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
+		const specid = this.annoinfo['dataset:SpecificationForDataset'][this.identifier];
 		const specdata = actinfo[specid];
 		this.paramspec.setData(specdata);
 	}
 
-	getData(activity: any): void {
-		activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]] = this.objectform.get('JThermodynamicsSpeciesSpecificationType').value;
-		activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod').value;
-		activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.objectform.get('FileSourceFormat').value;
-		activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle').value;
+	override getData(activity: any): void {
+		activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]] = this.objectform.get('JThermodynamicsSpeciesSpecificationType')?.value ?? '';
+		activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod')?.value ?? '';
+		activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.objectform.get('FileSourceFormat')?.value ?? '';
+		activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle')?.value ?? '';
 		this.paramspec.getData(activity);
 		const freqspecvalue = {};
 		this.frequencyspec.getData(freqspecvalue);
 		activity[this.annoinfo['dataset:ParameterSpecificationStructureVibrationFrequency'][this.identifier]] = freqspecvalue;
 	}
-	setData(activity: any): void {
-		this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue(activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]]);
-		this.objectform.get('BlockInterpretationMethod').setValue(activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]]);
-		this.objectform.get('FileSourceFormat').setValue(activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]]);
-		this.objectform.get('DescriptionTitle').setValue(activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
-		this.paramspec.setData(activity);
-		const freq = activity[this.annoinfo['dataset:ParameterSpecificationStructureVibrationFrequency'][this.identifier]];
+	override setData(a: any): void {
+		super.setData(a);
+		this.objectform.get('JThermodynamicsSpeciesSpecificationType')!.setValue(this.catalog[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]]);
+		this.objectform.get('BlockInterpretationMethod')!.setValue(this.catalog[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]]);
+		this.objectform.get('FileSourceFormat')!.setValue(this.catalog[this.annoinfo['dataset:FileSourceFormat'][this.identifier]]);
+		this.objectform.get('DescriptionTitle')!.setValue(this.catalog[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
+		this.paramspec.setData(this.catalog);
+		const freq = this.catalog[this.annoinfo['dataset:ParameterSpecificationStructureVibrationFrequency'][this.identifier]];
 		this.frequencyspec.setData(freq);
 	}
-	setJThermodynamicsSpeciesSpecificationType($event) {
-	    this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue($event);
+	setJThermodynamicsSpeciesSpecificationType($event: String) {
+	    this.objectform.get('JThermodynamicsSpeciesSpecificationType')!.setValue($event);
    }
 
 }

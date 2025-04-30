@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, ViewChild, Output } from '@angular/core';
 import { ParseuploadedfileComponent } from '../parseuploadedfile/parseuploadedfile.component';
-import { InterfaceconstantsService } from '../../const/interfaceconstants.service';
 import { DatasettransactioneventobjectComponent } from '../../catalogobjects/transaction/datasettransactioneventobject/datasettransactioneventobject.component';
 import { FindspecifictransactionindatasetComponent } from '../../dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
 import { Ontologyconstants } from '../../const/ontologyconstants';

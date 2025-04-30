@@ -1,7 +1,6 @@
-import { Input, Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { UntypedFormArray, UntypedFormGroup, FormGroup, Validators } from '@angular/forms';
 import { IdentifiersService } from '../../const/identifiers.service';
-import { Ontologyconstants } from '../../const/ontologyconstants';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule, AbstractControl, FormBuilder, FormArray } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
@@ -10,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInput } from '@angular/material/input';
+import { CatalogrecordbaseComponent } from '../../primitives/catalogrecordbase/catalogrecordbase.component';
 
 @Component({
 	selector: 'app-datasetreference',
@@ -19,18 +19,13 @@ import { MatInput } from '@angular/material/input';
 	imports: [MatFormFieldModule, MatCardModule, MatIconModule,
 		CommonModule, ReactiveFormsModule, MatMenuModule, MatSelectModule, MatInput]
 })
-export class DatasetreferenceComponent implements OnInit {
+export class DatasetreferenceComponent extends CatalogrecordbaseComponent implements OnInit {
 
 
 	titleinformation: Record<string, any>[] = [];
 
 	referencesForm: FormGroup;
 	referencedata: any[] = [];
-
-	@Input() anno: any;
-
-	rdfslabel = Ontologyconstants.rdfslabel;
-	rdfscomment = 'rdfs:comment';
 
 	addreference = "Add Reference";
 	filled = false;
@@ -39,6 +34,7 @@ export class DatasetreferenceComponent implements OnInit {
 	constructor(
 		private formBuilder: FormBuilder,
 		public identifiers: IdentifiersService) {
+			super();
 		this.referencesForm = this.newReferenceSet();
 	}
 
@@ -89,7 +85,7 @@ export class DatasetreferenceComponent implements OnInit {
 		this.referenceset.push(objectform);
 	}
 
-	public setData(refs: any[]): void {
+	override setData(refs: any[]): void {
 		this.referencedata = refs;
 		this.referencesForm = this.newReferenceSet();
 		for(const ref of refs) {
@@ -147,7 +143,7 @@ export class DatasetreferenceComponent implements OnInit {
 		authors.push(author);
 	}
 
-	public getData(catalog: any): void {
+	override getData(catalog: any): void {
 		const refs: any[] = [];
 		catalog[this.identifiers.DataSetReference] = refs;
 		for (let i = 0; i < this.referenceset.length; i++) {
@@ -183,9 +179,9 @@ export class DatasetreferenceComponent implements OnInit {
 		return control instanceof FormArray;
 	}
 	findChoices(annoref: string): void {
-		if(this.anno) {
+		if(this.annoinfo) {
 		if (!this.filled) {
-			const choiceanno = this.anno[annoref];
+			const choiceanno = this.annoinfo[annoref];
 			const classification = choiceanno['classification'];
 			this.title = choiceanno[this.rdfslabel];
 			if (classification != null) {
@@ -195,7 +191,7 @@ export class DatasetreferenceComponent implements OnInit {
 					for (let i = 0; i < subclasses.length; i++) {
 						const classelement = subclasses[i];
 						const type = classelement['dataset:catalogtype'];
-						const typeinfo = this.anno[type];
+						const typeinfo = this.annoinfo[type];
 						if (typeinfo != null) {
 							const alabel = typeinfo[this.rdfslabel];
 							const acomment = typeinfo[this.rdfscomment];

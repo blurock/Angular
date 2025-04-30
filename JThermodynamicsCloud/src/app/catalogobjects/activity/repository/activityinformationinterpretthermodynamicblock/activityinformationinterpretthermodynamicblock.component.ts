@@ -1,29 +1,56 @@
-import { Component, OnInit, AfterViewInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ChangeDetectorRef, AfterViewInit, ViewChild } from '@angular/core';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { DatasettransactionspecificationforcollectionComponent } from '../../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
-import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
+import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { NavItem } from '../../../../primitives/nav-item';
-import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
+import { CommonModule } from '@angular/common';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
+import { MatCardModule } from '@angular/material/card';
+import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
+import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
+import { MenuItemComponent } from '../../../../primitives/menu-item/menu-item.component';
+import { KeywordlistprimitiveComponent } from '../../../../primitives/keywordlistprimitive/keywordlistprimitive.component';
 
 @Component({
 	selector: 'app-activityinformationinterpretthermodynamicblock',
+	standalone: true,
+	imports: [
+		CommonModule,
+		MatCardModule,
+		ReactiveFormsModule,
+		MatGridListModule,
+		MatFormFieldModule,
+		MatInputModule,
+		SpecificationfordatasetComponent,
+		MatSelectModule,
+		MatInputModule,
+		MatMenuModule,
+		MatChipsModule,
+		ParameterspecificationComponent,
+		SpecificationfordatasetComponent,
+		KeywordlistprimitiveComponent
+	],
 	templateUrl: './activityinformationinterpretthermodynamicblock.component.html',
 	styleUrls: ['./activityinformationinterpretthermodynamicblock.component.scss']
 })
-export class ActivityinformationinterpretthermodynamicblockComponent implements OnInit, AfterViewInit {
+export class ActivityinformationinterpretthermodynamicblockComponent implements AfterViewInit {
+
+	rdfslabel: string = Ontologyconstants.rdfslabel;
+	rdfscomment: string = Ontologyconstants.rdfscomment;
+	identifier: string = Ontologyconstants.dctermsidentifier;
+
 
 	molarenthalpyparameter = 'dataset:ParameterSpecificationEnthaply';
 	molarentropyarameter = 'dataset:ParameterSpecificationEntropy';
 	molarheatcapacityparameter = 'dataset:ParameterSpecificationHeatCapacity';
-	rdfslabel = Ontologyconstants.rdfslabel;
-	rdfscomment = Ontologyconstants.rdfscomment;
-	identifier = Ontologyconstants.dctermsidentifier;
+	specsubtitle = 'Datasaet Specification';
 
-	title: string;
+	title: string = '';
 
 	temperaturelist = [
 		300, 400, 500, 600, 800, 1000, 1500
@@ -35,37 +62,41 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 	fileformatdata: any;
 
 	objectform: UntypedFormGroup;
-
-	structurespecification = 'dataset:JThermodynamicsSpeciesSpecificationType';
-	structuretype = 'dataset:JThermodynamicsSubstructureType';
-	items: NavItem[];
-	structitems: NavItem[];
-	notbenson = false;
-
-	@Input() annoinfo: any;
-	@Input() fileformat: string;
-	@Output() activitysetup = new EventEmitter();
+	fileformat: string = '';
+	prerequisite: any;
 
 	display = false;
 
-	@ViewChild('enthalpy') enthalpy: ParameterspecificationComponent;
-	@ViewChild('entropy') entropy: ParameterspecificationComponent;
-	@ViewChild('heatcapacity') heatcapacity: ParameterspecificationComponent;
-	@ViewChild('spec') spec: DatasettransactionspecificationforcollectionComponent;
+	@Input() annoinfo: any;
+
+	@ViewChild('enthalpy') enthalpy!: ParameterspecificationComponent;
+	@ViewChild('entropy') entropy!: ParameterspecificationComponent;
+	@ViewChild('heatcapacity') heatcapacity!: ParameterspecificationComponent;
+	@ViewChild('keywords') keywords!: KeywordlistprimitiveComponent;
+
+	private spec: SpecificationfordatasetComponent | undefined;
+	@ViewChild('spec')
+	set subComponent(comp: SpecificationfordatasetComponent | undefined) {
+		this.spec = comp;
+		if (this.spec) {
+			if (this.prerequisite) {
+				this.prerequisiteWithAnnpublic()
+			}
+		}
+	}
 
 
 	constructor(
 		private formBuilder: UntypedFormBuilder,
+		private format: FileformatmanagerService,
 		private menuserver: OntologycatalogService,
-		private fileservice: UploadmenuserviceService,
-		private menusetup: MenutreeserviceService
-
+		private cdr: ChangeDetectorRef
 	) {
 		const set = [];
 		set.push(this.molarenthalpyparameter);
 		set.push(this.molarentropyarameter);
 		set.push(this.molarheatcapacityparameter);
-		menuserver.getParameterSet(set).subscribe({
+		this.menuserver.getParameterSet(set).subscribe({
 			next: (data: any) => {
 				this.molarenthalpy = data[this.molarenthalpyparameter];
 				this.molarentropy = data[this.molarentropyarameter];
@@ -81,58 +112,55 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 			JThermodynamicsSubstructureType: ['', Validators.required]
 
 		});
+
+		this.fileformatdata = this.format.formatInformation;
 	}
 
-	ngOnInit(): void {
-		this.title = this.fileformat;
-		if (this.fileformat != null) {
-			this.fileservice.getFormatClassification().subscribe({
-				next: (data: any) => {
-					this.fileformatdata = data;
-				}
-			});
-		} else {
-			alert('File format not defined in ActivityinformationinterpretthermodynamicblockComponent');
-		}
-		this.items = this.menusetup.findChoices(this.annoinfo, this.structurespecification);
-		this.structitems = this.menusetup.findChoices(this.annoinfo, this.structuretype);
-
-	}
 	ngAfterViewInit(): void {
-		this.activitysetup.emit();
 	}
+
 
 	invalid(): boolean {
 		return this.objectform.invalid;
 	}
 
 	setPrerequisiteData(prerequisite: any): void {
-		const activityinfo = prerequisite['dataset:activityinfo'];
-		const Hdisformat = this.fileformatdata[this.fileformat];
-		this.objectform.get('FileSourceFormat').setValue(this.fileformat);
-		if(this.fileformat === "dataset:TherGasBensonRules") {
-			this.notbenson = false;
-		} else {
-			this.notbenson = true;
+		this.prerequisite = prerequisite;
+		const activityinfo = prerequisite[Ontologyconstants.ActivityInfo];
+		console.log("setPrerequisiteData: " + Object.keys(activityinfo));
+		console.log("setPrerequisiteData: " + JSON.stringify(activityinfo));
+		this.fileformat = activityinfo['dataset:filesourceformat']
+		this.objectform.get('FileSourceFormat')!.setValue(this.fileformat);
+		if (this.annoinfo) {
+			this.prerequisiteWithAnnpublic();
 		}
-		const block = Hdisformat['dataset:interpretMethod'];
-		this.objectform.get('BlockInterpretationMethod').setValue(block);
-		this.objectform.get('DescriptionTitle').setValue(activityinfo[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
+	}
 
-		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
+	prerequisiteWithAnnpublic() {
+		const activityinfo = this.prerequisite['dataset:activityinfo'];
+		const Hdisformat = this.fileformatdata[this.fileformat];
+		const block = Hdisformat['dataset:interpretMethod'];
+		this.objectform.get('BlockInterpretationMethod')!.setValue(block);
+		this.objectform.get('DescriptionTitle')!.setValue(activityinfo[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
+
+		const specid = this.annoinfo['dataset:SpecificationForDataset'][this.identifier];
 		const specdata = activityinfo[specid];
-		this.spec.setData(specdata);
+		if (this.spec) {
+			this.spec.setData(specdata);
+		}
+	}
+
+	annotationsFound(response: any): void {
+		if (this.prerequisite) {
+			this.prerequisiteWithAnnpublic();
+		}
 	}
 
 	getData(activity: any): void {
-		activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod').value;
-		activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.objectform.get('FileSourceFormat').value;
-		activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle').value;
-		if (this.notbenson) {
-			activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]] = this.objectform.get('JThermodynamicsSpeciesSpecificationType').value;
-			activity[this.annoinfo['dataset:JThermodynamicsSubstructureType'][this.identifier]] = this.objectform.get('JThermodynamicsSubstructureType').value;
-		}
-		this.spec.getData(activity);
+		activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod')?.value ?? '';
+		activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.objectform.get('FileSourceFormat')?.value ?? '';
+		activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle')?.value ?? '';
+		this.spec!.getData(activity);
 		const enthalpyvalue = {};
 		this.enthalpy.getData(enthalpyvalue);
 		activity[this.annoinfo['dataset:ParameterSpecificationEnthaply'][this.identifier]] = enthalpyvalue;
@@ -142,12 +170,12 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 		const heatcapacityvalue = {};
 		this.heatcapacity.getData(heatcapacityvalue);
 		activity[this.annoinfo['dataset:ParameterSpecificationHeatCapacity'][this.identifier]] = heatcapacityvalue;
-		const tempparam = {};
+		const tempparam: Record<string, unknown> = {};
 
 		activity['dataset:thermotemperature'] = tempparam;
 		const parameterlabeltid = this.annoinfo['dataset:ParameterLabel'][this.identifier];
 		tempparam[parameterlabeltid] = 'Temperature';
-		const unitvalue = {};
+		const unitvalue: Record<string, unknown> = {};
 		const unitsid = this.annoinfo['dataset:ValueUnits'][this.identifier];
 		tempparam[unitsid] = unitvalue;
 		const unitclassid = this.annoinfo['dataset:UnitClass'][this.identifier];
@@ -161,30 +189,27 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 		activity[this.annoinfo['dataset:JThermodynamicBensonTemperatures'][this.identifier]] = this.temperaturelist;
 	}
 	setData(activity: any): void {
-		//this.objectform.get('BlockInterpretationMethod').setValue(activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]]);
-		this.objectform.get('FileSourceFormat').setValue(activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]]);
-		this.objectform.get('DescriptionTitle').setValue(activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
-		if (this.notbenson) {
-			const spectype = activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]];
-			this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue(spectype);
-			const structtype = activity[this.annoinfo['dataset:JThermodynamicsSubstructureType'][this.identifier]];
-			this.objectform.get('JThermodynamicsSubstructureType').setValue(structtype);
-		} else {
-
+		if (this.annoinfo) {
+			this.objectform.get('FileSourceFormat')!.setValue(activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]]);
+			this.objectform.get('DescriptionTitle')!.setValue(activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
+			const specid = this.annoinfo['dataset:SpecificationForDataset'][this.identifier];
+			if (this.spec) {
+				this.spec!.setData(activity[specid]);
+			}
+			if(this.entropy) {
+			const entropyvalue = activity[this.annoinfo['dataset:ParameterSpecificationEntropy'][this.identifier]];
+			this.entropy.setData(entropyvalue);
+			}
+			if(this.heatcapacity) {
+			const heatcapacityvalue = activity[this.annoinfo['dataset:ParameterSpecificationHeatCapacity'][this.identifier]];
+			this.heatcapacity.setData(heatcapacityvalue);				
+			}
+			this.temperaturelist = activity[this.annoinfo['dataset:JThermodynamicBensonTemperatures'][this.identifier]];
+			if(this.enthalpy) {
+			const enthalpyvalue = activity[this.annoinfo['dataset:ParameterSpecificationEnthalpy'][this.identifier]];
+			this.enthalpy.setData(enthalpyvalue);				
+			}
 		}
-		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
-
-		this.spec.setData(activity[specid]);
-
-		const entropyvalue = activity[this.annoinfo['dataset:ParameterSpecificationEntropy'][this.identifier]];
-		this.entropy.setData(entropyvalue);
-		const heatcapacityvalue = activity[this.annoinfo['dataset:ParameterSpecificationHeatCapacity'][this.identifier]];
-		this.heatcapacity.setData(heatcapacityvalue);
-		this.temperaturelist = activity[this.annoinfo['dataset:JThermodynamicBensonTemperatures'][this.identifier]];
-
-		const enthalpyvalue = activity[this.annoinfo['dataset:ParameterSpecificationEnthalpy'][this.identifier]];
-		this.enthalpy.setData(enthalpyvalue);
-
 	}
 
 	add(event: MatChipInputEvent): void {
@@ -197,12 +222,6 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 		if (index >= 0) {
 			this.temperaturelist.splice(index, 1);
 		}
-	}
-	setJThermodynamicsSpeciesSpecificationType($event) {
-		this.objectform.get('JThermodynamicsSpeciesSpecificationType').setValue($event);
-	}
-	setJThermodynamicsSubstructureType($event) {
-		this.objectform.get('JThermodynamicsSubstructureType').setValue($event);
 	}
 
 }

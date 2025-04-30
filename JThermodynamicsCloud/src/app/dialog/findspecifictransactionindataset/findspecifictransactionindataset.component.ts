@@ -1,12 +1,35 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { MenutreeserviceService } from '../../services/menutreeservice.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { RunserviceprocessService } from '../../services/runserviceprocess.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { CommonModule } from '@angular/common';
+import { MatInput } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MenutreeserviceService } from '../../services/menutreeservice.service';
+import { MenuItemComponent } from '../../primitives/menu-item/menu-item.component';
+import { NavItem } from '../../primitives/nav-item';
 
 @Component({
 	selector: 'app-findspecifictransactionindataset',
+	standalone: true,
+	imports: [
+		MatFormFieldModule, 
+  	MatCardModule, 
+  	MatGridListModule,
+  	FormsModule,
+	CommonModule, 
+	ReactiveFormsModule,  
+	MatInput,
+	MatMenuModule,
+	MatIconModule,
+	MatButtonModule,
+	MenuItemComponent],
 	templateUrl: './findspecifictransactionindataset.component.html',
 	styleUrls: ['./findspecifictransactionindataset.component.scss']
 })
@@ -26,9 +49,12 @@ export class FindspecifictransactionindatasetComponent implements OnInit {
 	maintainerid = 'maintainer';
 	transactionchoicesid = 'transactionchoices';
 	transactionid = 'transaction';
+	transactionsitems: NavItem[];
+	
+	transchoices: NavItem[] = [];
+	setoftransactions = [];
 
-	transactions = 'dataset:TransactionEventType';
-	transactionsitems: any;
+	transactiontype = 'dataset:TransactionEventType';
 	maintainer: string;
 
 	constructor(
@@ -38,62 +64,85 @@ export class FindspecifictransactionindatasetComponent implements OnInit {
 		private runservice: RunserviceprocessService,
 		@Inject(MAT_DIALOG_DATA) public data: any
 	) {
-		this.idForm = this.fb.group({
-			DatasetName: ['', Validators.required],
-			CatalogObjectUniqueGenericLabel: ['', Validators.required],
-			TransactionID: ['', Validators.required],
-			TransactionEventType: ['', Validators.required]
-		});
-
 		this.annoinfo = data[this.annoinfoid];
 		this.maintainer = data[this.maintainerid];
-		const choices = data[this.transactionchoicesid];
-		if(choices != null) {
-			this.transactions = choices;
+		this.transactionsitems = this.menusetup.findChoices(this.annoinfo, this.transactiontype);
+		this.idForm = this.fb.group({
+			CatalogObjectOwner: [this.maintainer, Validators.required],
+			TransactionEventType: ['', Validators.required],
+			TransactionKey: ['', Validators.required]
+		});
+		if(data[this.transactionid]) {
+			this.setTransaction(data[this.transactionid]);
 		}
-		const trans = data[this.transactionid];
-		if(trans != null) {
-			this.idForm.get('TransactionEventType').setValue(trans);
-		}
-
-		this.transactionsitems = this.menusetup.findChoices(this.annoinfo, this.transactions);
 	}
 
 	ngOnInit(): void {
 	}
 
 	setTransaction($event: any): void {
-		this.idForm.get('TransactionEventType').setValue($event);
+		this.idForm.get('TransactionEventType')!.setValue($event);
+	}
+	setChoice($event: any) {
+		this.idForm.get('TransactionKey')!.setValue($event);
 	}
 	onNoClick(): void {
 		this.dialogRef.close();
 
 	}
 	fetchFromDatabaseObject(): void {
-		const json = {};
-		json[this.serviceid] = 'FindSpecificTransactionInDataset';
-		json[this.annoinfo['dataset:TransactionID'][this.identifier]] = this.idForm.get('TransactionID').value;
-		json[this.annoinfo['dataset:TransactionEventType'][this.identifier]] = this.idForm.get('TransactionEventType').value;
-		const activity = {};
-		json[this.annoinfo['dataset:ActivityInformationRecord'][this.identifier]] = activity;
-		const jsontransspec = {};
-		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
-		activity[specid] = jsontransspec;
-		jsontransspec[this.annoinfo['dataset:DatasetVersion'][this.identifier]] = "1.0";
-		jsontransspec[this.annoinfo['dataset:DatasetName'][this.identifier]] = this.idForm.get('DatasetName').value;
-		jsontransspec[this.annoinfo['dataset:CatalogObjectUniqueGenericLabel'][this.identifier]] = this.idForm.get('CatalogObjectUniqueGenericLabel').value;
-		jsontransspec['dataset:catalogobjectmaintainer'] = this.maintainer;
+		const json: Record<string,unknown>  = {};
+		json[this.serviceid] = 'FindTransactionFromOwnerAndType';
+		json[this.annoinfo['dataset:CatalogObjectOwner'][this.identifier]] = this.idForm.get('CatalogObjectOwner')!.value;
+		json[this.annoinfo['dataset:TransactionEventType'][this.identifier]] = this.idForm.get('TransactionEventType')!.value;
+		const activity: Record<string,unknown> = {};
+		activity[this.annoinfo['dataset:CatalogObjectOwner'][this.identifier]] = this.idForm.get('CatalogObjectOwner')!.value;
+		activity[this.annoinfo['dataset:TransactionEventType'][this.identifier]] = this.idForm.get('TransactionEventType')!.value;
 		this.runservice.run(json).subscribe({
 			next: (responsedata: any) => {
-				const success = responsedata['dataset:servicesuccessful'];
+				const success = responsedata[Ontologyconstants.successful];
 				if (success == 'true') {
-					this.dialogRef.close(responsedata);
-				} else {
-					this.runservice.checkReturn(responsedata);
-					this.dialogRef.close(responsedata);
-				}
+					
+					const array = responsedata[Ontologyconstants.catalogobject];
+					this.createChoiceMenu(array);
+					} else {
+						this.dialogRef.close(null);
+			}
 			}
 		});
 
+	}
+	
+	createChoiceMenu(transarray: any) {
+		this.transchoices = [];
+		this.setoftransactions = transarray;
+		for(var trans of transarray) {
+			
+			const descr = trans['dataset:transaction-description-short'];
+			const name = descr['dataset:transactionkey'];
+			
+			
+			const item: NavItem = {
+				displayName: name,
+ 				 disabled: false,
+  				value: name,
+  				children: []
+			};
+			this.transchoices.push(item);
+		}
+		this.idForm.get('TransactionKey')!.setValue(this.transchoices[0].value);
+	}
+	
+	fetchTransaction() {
+		const key = this.idForm.get('TransactionKey')?.value ?? '';
+		var i = 0;
+		for(var trans of this.setoftransactions) {
+			const descr = trans['dataset:transaction-description-short'];
+			const name = descr['dataset:transactionkey'];
+			if(name == key) {
+				this.dialogRef.close(this.setoftransactions[i]);
+			}
+		i++;
+	}
 	}
 }

@@ -141,11 +141,18 @@ public class ReadFirestoreInformation {
                     row.addElement("td", type);
                     row.addElement("td", value);
                    
+                    
+                    
                     if (query == null) {
+                    	System.out.println("Before Collectuion:    " + collection.get().get().getDocuments().size() + " " + type + " " + value);
                         query = collection.whereEqualTo(type, value);
+                        System.out.println("After Query       :    " + query.get().get().getDocuments().size() + " " + type + " " + value);
                     } else {
+                    	System.out.println("Before Query      :    " + query.get().get().getDocuments().size() + " " + type + " " + value);
                         query = query.whereEqualTo(type, value);
+                        System.out.println("After Query       :    " + query.get().get().getDocuments().size() + " " + type + " " + value);
                     }
+                    
                     
                 }
             } else {

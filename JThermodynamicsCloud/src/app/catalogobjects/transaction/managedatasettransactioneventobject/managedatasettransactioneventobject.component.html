@@ -1,44 +1,69 @@
-<mat-card appearance="outlined">
-<mat-card-header>
-<mat-card-title>
-{{title}}
-</mat-card-title>
-</mat-card-header>
-<mat-card-content>
-		<mat-grid-list cols="6" rowHeight="100px">
-			<mat-grid-tile [colspan]="2">
-				<button mat-mini-fab color="primary" class="display-btn" matTooltip="{{displaydescbutton}}"
-					(click)="displayCatalogInfo()">{{displaybutton}}</button>
-			</mat-grid-tile>
-			<mat-grid-tile [colspan]="2">
-				<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchInformation()"
-				matTooltip="{{loadfromdatabase}}">
-					{{fetch}}
-				</button>
-			</mat-grid-tile>
-			<mat-grid-tile [colspan]="2">
-				<button mat-mini-fab color="primary" class="rbutton" matTooltip="{{savedescr}}"
-					(click)="saveCatalog()">{{savebutton}}</button>
-			</mat-grid-tile>
-		</mat-grid-list>
+<div class="title">
+	<h2>{{activitytitle}}
+		<mat-icon (click)="toggleActivityShow()" style="cursor: pointer;">
+			{{ showActivity ? 'visibility' : 'visibility_off' }}
+		</mat-icon>
+	</h2>
+</div>
+<mat-divider></mat-divider>
 
+	<mat-card appearance="outlined">
+		<mat-card-header>
+			<mat-card-title>
+				{{title}}
+			</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<app-transactionobjectheader #infoheader 
+			    [prerequisiteid]="prerequisiteid"
+				[setData]="setActivityData.bind(this)" 
+				[getData]="getActivityData.bind(this)"
+				[setPrerequisiteData]="setActivityPrerequisiteData.bind(this)" 
+				[annoinfo]="activityannoinfo"
+				[transaction]="transaction" [prerequisitetype]="prerequisitetype" 
+				[filenameroot]="activityfileroot" [title]="parsefiletitle"
+				(transactionSuccess)="transactionEvent($event)"
+				(safeHtml)="responseOutput($event)"
+				>
+				
+			</app-transactionobjectheader>
+			<ng-template #dynamicChild></ng-template>
+			
+		</mat-card-content>
+	</mat-card>
+	<mat-card appearance="outlined">
+		<mat-card-header>
+			<mat-card-title>
+				HTML Output
+			</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<mat-grid-list cols="6">
+				<mat-grid-tile [colspan]="6">
+					<div #outputContainer class="output-container">
+					      <div [innerHTML]="safeHtml"></div>
+					    </div>
+				</mat-grid-tile>
+			</mat-grid-list>
 
-<app-datasettransactioneventobject #transevent></app-datasettransactioneventobject>
+		</mat-card-content>
+	</mat-card>
+	<div class="title">
+		<h2>{{transactiontitle}}
+			<mat-icon (click)="toggleTransactionShow()" style="cursor: pointer;">
+				{{ showTransaction ? 'visibility' : 'visibility_off' }}
+			</mat-icon>
+		</h2>
+	</div>
 
-</mat-card-content>
-</mat-card>
-<mat-card appearance="outlined">
-<mat-card-header>
-<mat-card-title>
-HTML Output
-</mat-card-title>
-</mat-card-header>
-<mat-card-content>
-		<mat-grid-list cols="6">
-			<mat-grid-tile [colspan]="6">
-			<div [innerHTML]="resultHtml"></div>
-			</mat-grid-tile>
-		</mat-grid-list>	
-
-</mat-card-content>
-</mat-card>
+<mat-divider></mat-divider>
+<ng-container *ngIf="showTransaction">
+	<app-transactionresultheader #uploadtransheader [transaction]="transaction"
+		[setData]="setTransactionData.bind(this)" 
+		[getData]="getTransactionData.bind(this)" 
+		(transactionSuccess)="transactionEvent($event)"
+		[title]="transactiontitle">
+	</app-transactionresultheader>
+	<app-transactioneventobject #transactionevent (annoReady)="transitionAnnoReady()">
+	</app-transactioneventobject>
+</ng-container>

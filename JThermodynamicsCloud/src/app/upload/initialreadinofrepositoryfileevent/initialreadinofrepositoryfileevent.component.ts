@@ -15,7 +15,9 @@ import { OntologycatalogService } from '../../services/ontologycatalog.service';
 @Component({
 	selector: 'app-initialreadinofrepositoryfileevent',
 	templateUrl: './initialreadinofrepositoryfileevent.component.html',
-	styleUrls: ['./initialreadinofrepositoryfileevent.component.scss']
+	styleUrls: ['./initialreadinofrepositoryfileevent.component.scss'],
+	standalone: true,
+	imports: [DatasetrepositoryfilestagingComponent, FindspecifictransactionindatasetComponent, DatasettransactioneventobjectComponent, FetchcatalogobjectComponent, RuntransactiondialogComponent, FindintermediatettransactionComponent]
 })
 export class InitialreadinofrepositoryfileeventComponent implements OnInit {
 

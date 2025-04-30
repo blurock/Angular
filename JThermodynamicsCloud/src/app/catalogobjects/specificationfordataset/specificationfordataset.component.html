@@ -4,7 +4,8 @@
 	</mat-card-header>
 	<mat-card-content>
 		<form [formGroup]="idForm">
-			<ng-container *ngIf='annoinfo != null; else waiting'>
+			<ng-container *ngIf='annoinfo != null; else nullanno'>
+				<p>Form</p>
 				<mat-grid-list cols="6" rowHeight="100px">
 					<mat-grid-tile [colspan]="3">
 						<mat-form-field class="generic">
@@ -18,17 +19,15 @@
 					<mat-grid-tile [colspan]="3">
 						<mat-form-field class="dataobjtype">
 							<mat-label>{{annoinfo['dataset:DatasetObjectType'][rdfslabel]}}</mat-label>
-							<input matInput formControlName="DatasetObjectType">
+							<input matInput formControlName="DatasetObjectType" [readonly]="nochange">
 							<mat-hint>{{annoinfo['dataset:DatasetObjectType'][rdfscomment]}}</mat-hint>
 						</mat-form-field>
-					</mat-grid-tile>					
+					</mat-grid-tile>
 				</mat-grid-list>
 			</ng-container>
-			<ng-template #waiting>
+			<ng-template #nullanno>
 				{{waiting}}
 			</ng-template>
-			
 		</form>
-		
 	</mat-card-content>
 </mat-card>

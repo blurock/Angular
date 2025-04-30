@@ -16,7 +16,9 @@ public enum FindTransactionFromActivityInfo {
 		void fill(JsonObject info, JsonObject transaction) {
 			JsonObject datasetspec = info.get(ClassLabelConstants.SpecificationForDataset)
 					.getAsJsonObject();
-			transaction.add(ClassLabelConstants.SpecificationForDataset, datasetspec);
+			JsonObject activity = transaction.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
+			activity.add(ClassLabelConstants.SpecificationForDataset, datasetspec);
+			transaction.addProperty(ClassLabelConstants.CatalogObjectOwner, datasetspec.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString());
             BaseCatalogData.insertFirestoreAddress(transaction);
 		}
 
@@ -32,7 +34,7 @@ public enum FindTransactionFromActivityInfo {
 			JsonArray props = new JsonArray();
 			setofprops.add(ClassLabelConstants.PropertyValueQueryPair, props);
 			
-			String prefix = ClassLabelConstants.SpecificationForDataset + ".";
+			String prefix = ClassLabelConstants.ActivityInformationRecord + "." + ClassLabelConstants.SpecificationForDataset + ".";
 			
 			JsonObject prop1 = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
 			prop1.addProperty(ClassLabelConstants.DatabaseObjectType,prefix + ClassLabelConstants.CatalogObjectUniqueGenericLabel);
@@ -81,12 +83,14 @@ public enum FindTransactionFromActivityInfo {
 		transactionobjectname = process.transactionObjectName();
 		name = transactionobjectname.substring(8);
 		FindTransactionFromActivityInfo fill = FindTransactionFromActivityInfo.valueOf(name);
-		
+		System.out.println("findTransaction fill: " + name);
 		if (fill != null) {
 			transaction = CreateDocumentTemplate.createTemplate(transactionobjectname);
 			JsonObject shortdescr = transaction.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
 			shortdescr.addProperty(ClassLabelConstants.TransactionEventType, transactiontype);
 			fill.fill(info, transaction);
+		} else {
+			System.out.println("findTransaction fill: not found: '" + name + "'");
 		}
 		return transaction;
 	}

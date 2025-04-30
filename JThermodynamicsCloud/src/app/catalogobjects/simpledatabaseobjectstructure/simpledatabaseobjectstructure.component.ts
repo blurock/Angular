@@ -1,16 +1,16 @@
-import { Input, Component, OnInit,ViewChild, AfterViewInit, SimpleChanges, ElementRef, AfterViewChecked } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
+import { Input, Component, OnInit, ViewChild, AfterViewInit, SimpleChanges, ElementRef, AfterViewChecked } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { IdentifiersService } from '../../const/identifiers.service';
 import { Ontologyconstants } from '../../const/ontologyconstants';
-import {MatCardModule} from '@angular/material/card'; 
-import {MatFormFieldModule} from '@angular/material/form-field'; 
-import {MatGridListModule} from '@angular/material/grid-list'; 
-import {ReactiveFormsModule} from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { FiresytorecatalogidComponent } from '../firesytorecatalogid/firesytorecatalogid.component';
-import {UserinterfaceconstantsService} from '../../const/userinterfaceconstants.service';
-import {MatIconModule} from '@angular/material/icon';
+import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
 	selector: 'app-simpledatabaseobjectstructure',
@@ -18,16 +18,16 @@ import {MatIconModule} from '@angular/material/icon';
 	styleUrls: ['./simpledatabaseobjectstructure.component.scss'],
 	standalone: true,
 	imports: [MatCardModule,
-	MatFormFieldModule,
-	MatGridListModule,
-	ReactiveFormsModule,
-	MatInputModule,
-	CommonModule,
-	FiresytorecatalogidComponent,
+		MatFormFieldModule,
+		MatGridListModule,
+		ReactiveFormsModule,
+		MatInputModule,
+		CommonModule,
+		FiresytorecatalogidComponent,
 		MatIconModule]
 })
-export class SimpledatabaseobjectstructureComponent implements AfterViewInit{
-	
+export class SimpledatabaseobjectstructureComponent implements AfterViewInit {
+
 	cataloginfotitle: string;
 	objectpositiontitle: string;
 	transactionpositiontitle: string;
@@ -36,30 +36,30 @@ export class SimpledatabaseobjectstructureComponent implements AfterViewInit{
 	objectform: UntypedFormGroup;
 	identifier = Ontologyconstants.dctermsidentifier;
 	simpledata: any | null = null;
-    transactionelement!: FiresytorecatalogidComponent;
-    objectelement!: FiresytorecatalogidComponent;
-    
+	transactionelement!: FiresytorecatalogidComponent;
+	objectelement!: FiresytorecatalogidComponent;
+
 	@Input() anno: any;
 	@Input() allowchange: boolean = false;
-	
-	
-@ViewChild('transaction') set transaction(element: FiresytorecatalogidComponent) {
-    this.objectelement = element;
-    if (this.objectelement) {
-      if(this.simpledata) {
-      this.setData(this.simpledata);
-      }
-    }
-  }
+	@Input() istransaction: boolean = false;
 
-@ViewChild('firestoreidtrans') set firestoreidtrans(element: FiresytorecatalogidComponent) {
-    this.transactionelement = element;
-    if (this.transactionelement) {
-      if(this.simpledata) {
-      this.setData(this.simpledata);
-      }
-    }
-  }
+	@ViewChild('transaction') set transaction(element: FiresytorecatalogidComponent) {
+		this.objectelement = element;
+		if (this.objectelement) {
+			if (this.simpledata) {
+				this.setData(this.simpledata);
+			}
+		}
+	}
+
+	@ViewChild('firestoreidtrans') set firestoreidtrans(element: FiresytorecatalogidComponent) {
+		this.transactionelement = element;
+		if (this.transactionelement) {
+			if (this.simpledata) {
+				this.setData(this.simpledata);
+			}
+		}
+	}
 
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = 'rdfs:comment';
@@ -68,10 +68,10 @@ export class SimpledatabaseobjectstructureComponent implements AfterViewInit{
 	constructor(
 		public interfaceconst: UserinterfaceconstantsService,
 		private formBuilder: UntypedFormBuilder,
-		public identifiers: IdentifiersService) { 
-			this.cataloginfotitle	= interfaceconst.cataloginfotitle;
-			this.transactionpositiontitle = interfaceconst.transactionpositiontitle;
-			this.objectpositiontitle = interfaceconst.catalogaddresstitle;
+		public identifiers: IdentifiersService) {
+		this.cataloginfotitle = interfaceconst.cataloginfotitle;
+		this.transactionpositiontitle = interfaceconst.transactionpositiontitle;
+		this.objectpositiontitle = interfaceconst.catalogaddresstitle;
 		this.objectform = this.formBuilder.group({
 			DatabaseObjectType: [''],
 			CatalogObjectAccessRead: [''],
@@ -82,51 +82,53 @@ export class SimpledatabaseobjectstructureComponent implements AfterViewInit{
 			DateCreated: [''],
 		});
 
-		}
-		
-		    toggleShow(): void {
+	}
+
+	toggleShow(): void {
 		this.showobject = !this.showobject;
-		}
+	}
 
 
-		ngAfterViewInit(): void {
+	ngAfterViewInit(): void {
 		if (this.simpledata) {
 			this.setData(this.simpledata);
 		}
 		this.showobject = false;
 	}
-		
+
 	ngOnChanges(changes: SimpleChanges) {
-    if (changes['anno'] && changes['anno'].currentValue) {
-		if(this.simpledata) {
-			this.setData(this.simpledata);
+		if (changes['anno'] && changes['anno'].currentValue) {
+			if (this.simpledata) {
+				this.setData(this.simpledata);
+			}
 		}
-		}
-  }
- 	
+	}
+
 
 
 	public setData(catalog: any): void {
 		this.simpledata = catalog;
-		if(this.anno && this.transactionelement) {
-		this.objectform.patchValue({
-			DatabaseObjectType: catalog[this.identifiers.DatabaseObjectType]
-		});
-		this.objectform.get('CatalogObjectAccessRead')?.setValue(catalog[this.identifiers.CatalogObjectAccessRead]);
-		this.objectform.get('CatalogObjectOwner')?.setValue(catalog[this.identifiers.CatalogObjectOwner]);
-		this.objectform.get('CatalogObjectKey')?.setValue(catalog[this.identifiers.CatalogObjectKey]);
-		this.objectform.get('CatalogObjectAccessModify')?.setValue(catalog[this.identifiers.CatalogObjectAccessModify]);
-		this.objectform.get('TransactionID')?.setValue(catalog[this.identifiers.TransactionID]);
-		const transactionvalues = catalog[this.anno['dataset:FirestoreCatalogIDForTransaction'][this.identifier]];
-		this.transactionelement.setData(transactionvalues);
-		const firestoreidtransaction = catalog[this.anno['dataset:FirestoreCatalogID'][this.identifier]];
-		this.objectelement.setData(firestoreidtransaction);
+		if (this.anno && this.objectelement) {
+			this.objectform.patchValue({
+				DatabaseObjectType: catalog[this.identifiers.DatabaseObjectType]
+			});
+			this.objectform.get('CatalogObjectAccessRead')?.setValue(catalog[this.identifiers.CatalogObjectAccessRead]);
+			this.objectform.get('CatalogObjectOwner')?.setValue(catalog[this.identifiers.CatalogObjectOwner]);
+			this.objectform.get('CatalogObjectKey')?.setValue(catalog[this.identifiers.CatalogObjectKey]);
+			this.objectform.get('CatalogObjectAccessModify')?.setValue(catalog[this.identifiers.CatalogObjectAccessModify]);
+			this.objectform.get('TransactionID')?.setValue(catalog[this.identifiers.TransactionID]);
+			console.log("SimpledatabaseobjectstructureComponent setData() istransaction= " + this.istransaction);;
+			if (!this.istransaction) {
+				const transactionvalues = catalog[this.anno['dataset:FirestoreCatalogIDForTransaction'][this.identifier]];
+				this.transactionelement.setData(transactionvalues);
+			}
+			const firestoreidtransaction = catalog[this.anno['dataset:FirestoreCatalogID'][this.identifier]];
+			console.log("SimpledatabaseobjectstructureComponent firestore id= " + JSON.stringify(firestoreidtransaction));
+			this.objectelement.setData(firestoreidtransaction);
 		}
 	}
 	public getData(catalog: any): void {
 		this.showobject = true;
-		setTimeout(() => {
-    if (this.transactionelement && this.objectelement) {
 		catalog[this.identifiers.DatabaseObjectType] = this.objectform.get('DatabaseObjectType')?.value;
 		catalog[this.identifiers.CatalogObjectAccessRead] = this.objectform.get('CatalogObjectAccessRead')?.value;
 		catalog[this.identifiers.CatalogObjectOwner] = this.objectform.get('CatalogObjectOwner')?.value;
@@ -134,12 +136,21 @@ export class SimpledatabaseobjectstructureComponent implements AfterViewInit{
 		catalog[this.identifiers.CatalogObjectAccessModify] = this.objectform.get('CatalogObjectAccessModify')?.value;
 		catalog[this.identifiers.CatalogObjectAccessRead] = this.objectform.get('CatalogObjectAccessRead')?.value;
 		catalog[this.identifiers.TransactionID] = this.objectform.get('TransactionID')?.value;
-		this.transactionelement.getData(catalog);
-		const transaction = catalog[this.anno['dataset:FirestoreCatalogID'][this.identifier]];
-		catalog[this.anno['dataset:FirestoreCatalogIDForTransaction'][this.identifier]] = transaction;
-		this.objectelement.getData(catalog);
+		if (!this.istransaction) {
+			if (this.transactionelement) {
+				this.transactionelement.getData(catalog);
+				const transaction = catalog[this.anno['dataset:FirestoreCatalogID'][this.identifier]];
+				catalog[this.anno['dataset:FirestoreCatalogIDForTransaction'][this.identifier]] = transaction;
+			} else {
+				console.log("SimpledatabaseobjectstructureComponent getData transactionelement not defined")
+			}
 		}
-		},0);
- 	}
+		if (this.objectelement) {
+			this.objectelement.getData(catalog);
+		} else {
+			console.log("SimpledatabaseobjectstructureComponent getData objectelement not defined")
+		}
+
+	}
 
 }

@@ -12,7 +12,7 @@
 	</mat-card-header>
 
 	<mat-card-content>
-		<app-firesytorecatalogid #firestoreid [(anno)]="anno" [(catalogID)]="catalogID"></app-firesytorecatalogid>
+		<app-firesytorecatalogid #firestoreid [anno]="anno" [catalogID]="catalogID"></app-firesytorecatalogid>
 	</mat-card-content>
 </mat-card>
 <ng-container *ngIf='objdisplay;'>
@@ -30,7 +30,7 @@
 				</mat-tab>
 				<mat-tab label="Information">
 					<div>
-						<app-generalcatalogobjectvisualization #catalogview></app-generalcatalogobjectvisualization>
+						<!-- app-generalcatalogobjectvisualization #catalogview></app-generalcatalogobjectvisualization -->
 					</div>
 				</mat-tab>
 				</mat-tab-group>

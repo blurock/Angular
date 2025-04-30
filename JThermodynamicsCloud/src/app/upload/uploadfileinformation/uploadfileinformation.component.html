@@ -24,7 +24,7 @@
 				</mat-grid-tile>
 			</mat-grid-list>
 
-			<app-activityrepositoryinitialreadlocalfile #upload [(annoinfo)]="annoinfo">
+			<app-activityrepositoryinitialreadlocalfile #upload (annoinfo)="annoinfo">
 			</app-activityrepositoryinitialreadlocalfile>
 			<mat-divider></mat-divider>
 			<ng-container *ngIf="resultHtml != null;">

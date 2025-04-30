@@ -210,7 +210,7 @@ export class SetupuserinformationComponent implements OnInit {
 	}
 	
 	gotoTopWindow(): void {
-		this.router.parseUrl('/toppage');
+		this.router.navigateByUrl('/toppage');
 	}
 
 	createUserAccount() {

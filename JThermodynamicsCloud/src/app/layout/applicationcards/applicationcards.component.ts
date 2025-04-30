@@ -35,7 +35,8 @@ export class ApplicationcardsComponent implements OnInit {
   }
   
   calculations(): void {
-   this.router.navigateByUrl(`/compute`);
+   //this.router.navigateByUrl(`/compute`);
+   this.router.navigateByUrl(`/drawmolecule`);
   }
   
   collection(): void {

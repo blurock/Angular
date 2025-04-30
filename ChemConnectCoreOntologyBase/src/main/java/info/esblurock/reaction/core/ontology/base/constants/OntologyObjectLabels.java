@@ -38,6 +38,7 @@ public class OntologyObjectLabels {
 	
 	public static String rdfmappingclass = "dataset:rdfmappingdefinition";
 	
+	public static String subject = "<http://spinrdf.org/sp#subject>";
 	public static String mappingRelation = "<http://www.w3.org/2004/02/skos/core#mappingRelation>";
 	public static String entity = "<http://www.w3.org/ns/prov#entity>";
 	public static String rdflist = "dataset:rdflist";

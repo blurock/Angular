@@ -9,8 +9,6 @@
 		"dataset:filesourceformat": "dataset:TherGasBensonRules",
 		"dataset:blockinterpretationmethod": "dataset:ParseLinesJThermodynamicsBensonRules",
 		"dcterms:title": "Carbon-Oxygen-Hydrogen Benson Rules set from Table A1 from Benson Thermochemical Kinetics",
-		"dataset:dataobjstatus": "CatalogObjectStatusCurrent",
-		"dataset:speciespectype": "NANCY",
 		"dataset:bensontemperaturelist": [
 			300,400,500,600,800,1000,1500
 		],
