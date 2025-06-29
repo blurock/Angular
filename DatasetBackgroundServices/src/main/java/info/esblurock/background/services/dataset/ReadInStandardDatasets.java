@@ -9,16 +9,20 @@ public class ReadInStandardDatasets {
 	
 	public static void readInStandardDatasets() {
 		
-		String paths = ""
-				/*
-				"/resources/standard/bensonrules/TransactionReadTableA1CarbonBensonRules.json\n"
-				+ "/resources/standard/bensonrules/TransactionParseTableA1CarbonBensonRules.json\n"
-				+ "/resources/standard/bensonrules/TransactionCreateTableA1CarbonBensonRules.json\n"
+		String paths = 
+				
+				"/resources/standard/bensonrules/TransactionReadTableA1CarbonBensonSmallTest.json\n"
+			    + "/resources/standard/bensonrules/TransactionParseTableA1CarbonBensonSmallTest.json\n"
+				+ "/resources/standard/bensonrules/TransactionCreateTableA1CarbonBensonSmallTest.json\n"
 
-				+ "/resources/standard/bensonrules/TransactionReadTableA1CarbonOxygenBensonRules.json\n"
-				+ "/resources/standard/bensonrules/TransactionParseTableA1CarbonOxygenBensonRules.json\n"
-				+ "/resources/standard/bensonrules/TransactionCreateTableA1CarbonOxygenBensonRules.json\n"
-*/
+				//"/resources/standard/bensonrules/TransactionReadTableA1CarbonBensonRules.json\n"
+			    //+ "/resources/standard/bensonrules/TransactionParseTableA1CarbonBensonRules.json\n"
+				//+ "/resources/standard/bensonrules/TransactionCreateTableA1CarbonBensonRules.json\n"
+
+				//+"/resources/standard/bensonrules/TransactionReadTableA1CarbonOxygenBensonRules.json\n"
+				//+ "/resources/standard/bensonrules/TransactionParseTableA1CarbonOxygenBensonRules.json\n"
+				//+ "/resources/standard/bensonrules/TransactionCreateTableA1CarbonOxygenBensonRules.json\n"
+
 				//+ "/resources/standard/bensonrules/TransactionReadTableA1NitrogenCHO.json\n"
 				//+ "/resources/standard/bensonrules/TransactionParseTableA1NitrogenCHO.json\n"
 				//+ "/resources/standard/bensonrules/TransactionCreateTableA1NitrogenCHO.json\n"
@@ -90,7 +94,7 @@ public class ReadInStandardDatasets {
 
 				//+ "/resources/standard/hbi/burke/TransactionReadHBIBurke2015.json\n"
 				//+ "/resources/standard/hbi/burke/TransactionParseHBIBurke2015.json\n"
-				+ "/resources/standard/hbi/burke/TransactionCreateHBIBurke2015.json\n"
+				//+ "/resources/standard/hbi/burke/TransactionCreateHBIBurke2015.json\n"
 ;
 		try {
 		JsonObject response = RunMultipleTransactions.runMultipleFromListOfFiles(paths,"Administrator", true, false);

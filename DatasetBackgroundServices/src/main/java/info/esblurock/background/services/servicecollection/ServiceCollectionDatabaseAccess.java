@@ -7,7 +7,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.jthermodynamics.symmetry.ExtractSetOfSymmetryDefinitionsFromDataset;
-import info.esblurock.background.services.service.MessageConstructor;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.background.services.jthermodynamics.dataset.FindMetaAtomDefinitionsInDatasetCollection;
 
@@ -55,10 +56,10 @@ public enum ServiceCollectionDatabaseAccess {
 				}
 				
 				
-				response = DatabaseServicesBase.standardServiceResponse(document, "FindSetOfSymmetryElements", arr);
+				response = StandardResponse.standardServiceResponse(document, "FindSetOfSymmetryElements", arr);
 			} else {
 				body.addElement("div").addText("Error in reading symmetry elements");
-				response = DatabaseServicesBase.standardErrorResponse(document, "Error in reading External Symmetry", null);
+				response = StandardResponse.standardErrorResponse(document, "Error in reading External Symmetry", null);
 			}
 			return response;
 		}
@@ -102,9 +103,9 @@ public enum ServiceCollectionDatabaseAccess {
 					drow.addElement("td").addText(factor);
 
 				
-				response = DatabaseServicesBase.standardServiceResponse(document, "FindSetOfSymmetryElements", symmetry);
+				response = StandardResponse.standardServiceResponse(document, "FindSetOfSymmetryElements", symmetry);
 			} else {
-				response = DatabaseServicesBase.standardErrorResponse(document, "Error in reading External Symmetry", null);				
+				response = StandardResponse.standardErrorResponse(document, "Error in reading External Symmetry", null);				
 			}
 			return response;
 		}
@@ -146,10 +147,10 @@ public enum ServiceCollectionDatabaseAccess {
 				}
 				
 				
-				response = DatabaseServicesBase.standardServiceResponse(document, "FindSetOfSymmetryElements", arr);
+				response = StandardResponse.standardServiceResponse(document, "FindSetOfSymmetryElements", arr);
 			} else {
 				body.addElement("div").addText("Error in reading symmetry elements");
-				response = DatabaseServicesBase.standardErrorResponse(document, "Error in reading External Symmetry", null);
+				response = StandardResponse.standardErrorResponse(document, "Error in reading External Symmetry", null);
 			}
 			return response;
 		}

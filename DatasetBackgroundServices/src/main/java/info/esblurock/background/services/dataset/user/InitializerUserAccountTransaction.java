@@ -9,9 +9,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.background.services.transaction.TransactionProcess;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
@@ -78,26 +78,26 @@ public class InitializerUserAccountTransaction {
                         responseoutput.add(ClassLabelConstants.FirestoreCatalogID,firebaseid);
                         catalogarr.add(responseoutput);
                         String success = "Success in creating a new UserAccount: " + uid;
-                        response = DatabaseServicesBase.standardServiceResponse(document, success, catalogarr);
+                        response = StandardResponse.standardServiceResponse(document, success, catalogarr);
                     } catch (Exception e) {
                         MessageConstructor.combineBodyIntoDocument(document,
                                 personresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
-                        response = DatabaseServicesBase.standardErrorResponse(document,
+                        response = StandardResponse.standardErrorResponse(document,
                                 "Error in writing user Account object", null);
                     }
                 } else {
-                    response = DatabaseServicesBase.standardErrorResponse(document, "Error in creating UserAccount",
+                    response = StandardResponse.standardErrorResponse(document, "Error in creating UserAccount",
                             null);
                 }
             } else {
                 MessageConstructor.combineBodyIntoDocument(document,
                         personresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
-                response = DatabaseServicesBase.standardErrorResponse(document, "Error in creating DatabasePerson",
+                response = StandardResponse.standardErrorResponse(document, "Error in creating DatabasePerson",
                         null);
             }
 
         } else {
-            response = DatabaseServicesBase.standardErrorResponse(document,
+            response = StandardResponse.standardErrorResponse(document,
                     "UserAccount already exists: '" + uid + "'", null);
         }
 

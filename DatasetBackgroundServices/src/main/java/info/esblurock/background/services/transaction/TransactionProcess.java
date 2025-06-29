@@ -1,7 +1,5 @@
 package info.esblurock.background.services.transaction;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.io.Console;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +10,7 @@ import org.dom4j.Element;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import esblurock.info.neo4j.rdf.CreateRDFs;
 import info.esblurock.background.services.SystemObjectInformation;
 import info.esblurock.background.services.datamanipulation.CatalogModificationEventProcess;
 import info.esblurock.background.services.datamanipulation.DatasetObjectLabelListManipulation;
@@ -27,20 +26,20 @@ import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
 import info.esblurock.background.services.firestore.gcs.PartiionSetWithinRepositoryFileProcess;
 import info.esblurock.background.services.firestore.gcs.UploadFileToGCS;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.service.rdfs.GenerateAndWriteRDFForObject;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.background.services.utilities.CreateLinksInStandardCatalogInformation;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.constants.OntologyObjectLabels;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
-import info.esblurock.reaction.core.ontology.base.dataset.CreateLinksInStandardCatalogInformation;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRoutines;
+import jnr.ffi.Struct.int16_t;
 
 public enum TransactionProcess {
-	
+
 	CatalogModificationEvent {
 
 		@Override
@@ -58,7 +57,7 @@ public enum TransactionProcess {
 		String transactionObjectName() {
 			return "dataset:ChemConnectTransactionEvent";
 		}
-		
+
 	},
 	DatabaseDeleteTransaction {
 
@@ -150,8 +149,7 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionKey(JsonObject catalog) {
-	    	JsonObject datasetid = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
-			String key = datasetid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+			String key = catalog.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
 			return key;
 		}
 
@@ -172,8 +170,7 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionKey(JsonObject catalog) {
-	    	JsonObject datasetid = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
-			String key = datasetid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+			String key = catalog.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
 			return key;
 		}
 
@@ -195,8 +192,7 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionKey(JsonObject catalog) {
-	    	JsonObject datasetid = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
-			String key = datasetid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+			String key = catalog.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
 			return key;
 		}
 
@@ -218,11 +214,26 @@ public enum TransactionProcess {
 					JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 					if (arr.size() > 0) {
 						JsonObject catalog = arr.get(0).getAsJsonObject();
-						String genericnameString = info.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
-						catalog.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, genericnameString);
+						
+						JsonObject filededescription = info.get(ClassLabelConstants.DataDescriptionFileStaging)
+								.getAsJsonObject();
+						catalog.add(ClassLabelConstants.DataDescriptionFileStaging, filededescription);
+						String description = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
+						catalog.addProperty(ClassLabelConstants.ShortDescription, description);
+						String genericnameString = info.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel)
+								.getAsString();
+						String datasetobjecttype = info.get(ClassLabelConstants.DatasetObjectType)
+								.getAsString();
+						catalog.addProperty(ClassLabelConstants.DatasetObjectType, datasetobjecttype);	
+						JsonObject shortdescr = event.get(ClassLabelConstants.ShortTransactionDescription)
+								.getAsJsonObject();
+						shortdescr.addProperty(ClassLabelConstants.TransactionKey, "Read-" + genericnameString);
+						shortdescr.addProperty(ClassLabelConstants.DescriptionTitleTransaction, description);
 						BaseCatalogData.insertFirestoreAddress(catalog);
 						CreateLinksInStandardCatalogInformation.addPrerequisitesToDataObjectLink(catalog,
 								prerequisites);
+						
+						
 						CreateLinksInStandardCatalogInformation.transfer(info, catalog);
 						JsonObject transfirestoreID = BaseCatalogData.insertFirestoreAddress(event);
 						catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction, transfirestoreID.deepCopy());
@@ -231,7 +242,7 @@ public enum TransactionProcess {
 							Document errdoc = MessageConstructor.startDocument("Error: InitialReadInOfRepositoryFile");
 							MessageConstructor.combineBodyIntoDocument(errdoc,
 									response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
-							response = DatabaseServicesBase.standardErrorResponse(errdoc,
+							response = StandardResponse.standardErrorResponse(errdoc,
 									"Error: No catalog objects generated\n" + message, null);
 
 						}
@@ -239,20 +250,20 @@ public enum TransactionProcess {
 						Document errdoc = MessageConstructor.startDocument("Error: InitialReadInOfRepositoryFile");
 						MessageConstructor.combineBodyIntoDocument(errdoc,
 								response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
-						response = DatabaseServicesBase.standardErrorResponse(errdoc,
-								"Error: No catalog objects generated", null);
+						response = StandardResponse.standardErrorResponse(errdoc, "Error: No catalog objects generated",
+								null);
 					}
 				} else {
 					Document errdoc = MessageConstructor.startDocument("Error:InitialReadInOfRepositoryFile");
 					MessageConstructor.combineBodyIntoDocument(errdoc,
 							response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
-					response = DatabaseServicesBase.standardErrorResponse(errdoc,
-							"Error: Could not write to repository", null);
+					response = StandardResponse.standardErrorResponse(errdoc, "Error: Could not write to repository",
+							null);
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				Document document = MessageConstructor.startDocument("InitialReadInOfRepositoryFile");
-				response = DatabaseServicesBase.standardErrorResponse(document,
+				response = StandardResponse.standardErrorResponse(document,
 						"Error in InitialReadInOfRepositoryFile: \n" + ex.getMessage(), response);
 			}
 			return response;
@@ -260,8 +271,7 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionKey(JsonObject catalog) {
-	    	JsonObject datasetid = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
-			String key = datasetid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+			String key = catalog.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
 			return key;
 		}
 
@@ -280,8 +290,7 @@ public enum TransactionProcess {
 
 		@Override
 		String transactionKey(JsonObject catalog) {
-	    	JsonObject datasetid = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
-			String key = datasetid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+			String key = catalog.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
 			return key;
 		}
 
@@ -320,8 +329,7 @@ public enum TransactionProcess {
 		String transactionKey(JsonObject catalog) {
 
 			String maintainer = catalog.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
-			JsonObject dataset = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
-			String label = dataset.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+			String label = catalog.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
 			return maintainer + "." + label;
 		}
 
@@ -335,14 +343,14 @@ public enum TransactionProcess {
 
 		@Override
 		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
-			return DatasetObjectLabelListManipulation.GenerateChemConnectDatabaseUniqueGenericLabelSet(event,prerequisites,info);
+			return DatasetObjectLabelListManipulation.GenerateChemConnectDatabaseUniqueGenericLabelSet(event,
+					prerequisites, info);
 		}
 
 		@Override
 		String transactionKey(JsonObject catalog) {
 			String maintainer = catalog.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
-			JsonObject dataset = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
-			String classString = dataset.get(ClassLabelConstants.DatasetObjectTypeName).getAsString();
+			String classString = catalog.get(ClassLabelConstants.DatasetObjectTypeName).getAsString();
 			return maintainer + "." + classString;
 		}
 
@@ -351,21 +359,21 @@ public enum TransactionProcess {
 			// TODO Auto-generated method stub
 			return null;
 		}
-		
+
 	},
 	ModifyChemConnectDatabaseUniqueGenericLabelSetEvent {
 
 		@Override
 		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
-			return DatasetObjectLabelListManipulation.ModifyChemConnectDatabaseUniqueGenericLabelSet(event,prerequisites,info);
+			return DatasetObjectLabelListManipulation.ModifyChemConnectDatabaseUniqueGenericLabelSet(event,
+					prerequisites, info);
 		}
 
 		@Override
 		String transactionKey(JsonObject catalog) {
 			String maintainer = catalog.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
-			JsonObject dataset = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
-			String label = dataset.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
-			String classString = dataset.get(ClassLabelConstants.DatasetObjectTypeName).getAsString();
+			String label = catalog.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+			String classString = catalog.get(ClassLabelConstants.DatasetObjectTypeName).getAsString();
 			return maintainer + "." + classString + "." + label;
 		}
 
@@ -374,13 +382,13 @@ public enum TransactionProcess {
 			// TODO Auto-generated method stub
 			return null;
 		}
-		
+
 	},
 	TransferDatasetObjectCollectionToDatabase {
 
 		@Override
 		JsonObject process(JsonObject event, JsonObject prerequisites, JsonObject info) {
-			return TransferDatasetObjectCollectionToDatabaseProcess.process(event,info);
+			return TransferDatasetObjectCollectionToDatabaseProcess.process(event, info);
 		}
 
 		@Override
@@ -391,14 +399,14 @@ public enum TransactionProcess {
 
 			String maintainer = structure.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 			String dataset = structure.get(ClassLabelConstants.CollectionName).getAsString();
-			return "Transfer." + maintainer + "." + name + "." + dataset ;
+			return "Transfer." + maintainer + "." + name + "." + dataset;
 		}
 
 		@Override
 		String transactionObjectName() {
 			return "dataset:DatasetCollectionObjectSetWriteTransaction";
 		}
-		
+
 	},
 	DatasetCollectionSetCreationEvent {
 
@@ -558,8 +566,8 @@ public enum TransactionProcess {
 			JsonObject catalog = catalogobjs.get(i).getAsJsonObject();
 			JsonArray linkarr = catalog.get(ClassLabelConstants.DataObjectLink).getAsJsonArray();
 			JsonObject link = CreateDocumentTemplate.createTemplate("dataset:DataObjectLink");
-			link.add(ClassLabelConstants.FirestoreCatalogID, linkobj);
-			link.addProperty(ClassLabelConstants.DatabaseObjectType, type);
+			link.add(ClassLabelConstants.RelatedCatalogObjectIDAndType, linkobj);
+			link.addProperty(ClassLabelConstants.DatabaseObjectTypeLink, type);
 			link.addProperty(ClassLabelConstants.DataTypeConcept, concept);
 			linkarr.add(link);
 		}
@@ -677,26 +685,31 @@ public enum TransactionProcess {
 		String transname = transaction.substring(8);
 		TransactionProcess process = TransactionProcess.valueOf(transname);
 		String transactionID = SystemObjectInformation.determineTransactionID();
-		// These assume that all transaction are of class TransactionEventObject (which is independent of the catalog object class):
+		// These assume that all transaction are of class TransactionEventObject (which
+		// is independent of the catalog object class):
 		String transactionobjectname = process.transactionObjectName();
 		JsonObject event = BaseCatalogData.createStandardDatabaseObject(transactionobjectname, owner, transactionID,
 				"false");
+		event.add(ClassLabelConstants.ActivityInformationRecord, info);
 		JsonObject transfirestoreid = BaseCatalogData.insertFirestoreAddress(event);
 		String title = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
 		JsonObject shortdescr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
 		shortdescr.addProperty(ClassLabelConstants.TransactionEventType, transaction);
-		shortdescr.addProperty(ClassLabelConstants.DescriptionTitleTransaction, title);
 		shortdescr.addProperty(ClassLabelConstants.TransactionKey, transactionID);
-        
+		shortdescr.addProperty(ClassLabelConstants.DescriptionTitleTransaction, title);
+
 		event.add(ClassLabelConstants.ActivityInformationRecord, info);
 		JsonObject response = process.process(event, prerequisites, info);
-		
-
 		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			if (!response.get(ClassLabelConstants.SimpleCatalogObject).isJsonNull()) {
 				JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 				if (arr.size() > 0) {
 					JsonObject catalog = arr.get(0).getAsJsonObject();
+					
+					String transactionkey = process.transactionKey(catalog);
+					addRequiredTransactionInformation(event, prerequisites,transactionkey);
+
+					
 					shortdescr.addProperty(ClassLabelConstants.TransactionKey, process.transactionKey(catalog));
 					JsonArray output = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 					GenerateTransactionEventObject.addDatabaseObjectIDOutputTransaction(event, output);
@@ -705,23 +718,18 @@ public enum TransactionProcess {
 					String message = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 					MessageConstructor.combineBodyIntoDocument(document, message);
 					response.add(ClassLabelConstants.TransactionEventObject, event);
-/*
-					JsonObject rdfresponse = GenerateAndWriteRDFForObject.generate(event);
-					if (rdfresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-						String rdfmessage = rdfresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
-						MessageConstructor.combineBodyIntoDocument(document, rdfmessage);
-						response = DatabaseServicesBase.standardServiceResponse(document, "Success: " + transaction,
-								event);
-					} else {
-						response = DatabaseServicesBase.standardErrorResponse(document, rdfresponse, event);
+					boolean noerror = createRDFFromObjectArray(arr, document);
+					boolean noeventrdferror = createRDFFromObject(event, document);
+					if (!noerror || !noeventrdferror) {
+						Element body = MessageConstructor.isolateBody(document);
+						body.addElement("div").addText("Error in RDF generation: ");
 					}
-*/
 				} else {
 					String docmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 					MessageConstructor.combineBodyIntoDocument(document, docmessage);
 					Element body = MessageConstructor.isolateBody(document);
 					body.addElement("div").addText("No partitions executed, no catalog objects written");
-					response = DatabaseServicesBase.standardErrorResponse(document, "No partitions executed", response);
+					response = StandardResponse.standardErrorResponse(document, "No partitions executed", response);
 				}
 			} else {
 				Element body = MessageConstructor.isolateBody(document);
@@ -729,6 +737,59 @@ public enum TransactionProcess {
 			}
 		}
 		return response;
+	}
+
+	protected static void addRequiredTransactionInformation(JsonObject event, JsonObject prerequisites, String transactionkey) {
+		Iterator<String> keys = prerequisites.keySet().iterator();
+		JsonArray requiredinfoArray = new JsonArray();
+		event.add(ClassLabelConstants.RequiredTransactionInformation, requiredinfoArray);
+		while (keys.hasNext()) {
+			String key = keys.next();
+			JsonObject requiredtransaction = prerequisites.get(key).getAsJsonObject();
+			
+			JsonObject infoJsonObject = new JsonObject();
+			
+			JsonObject firebaseID = requiredtransaction.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+			infoJsonObject.add(ClassLabelConstants.RequiredTransactionIDAndType, firebaseID);
+			
+			String transactionID = requiredtransaction.get(ClassLabelConstants.TransactionID).getAsString();
+			infoJsonObject.addProperty(ClassLabelConstants.RequiredTransactionID, transactionID);
+			
+			JsonObject descr = requiredtransaction.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
+			String titleString = descr.get(ClassLabelConstants.DescriptionTitleTransaction).getAsString();
+			String typeString = descr.get(ClassLabelConstants.TransactionEventType).getAsString();
+			infoJsonObject.addProperty(ClassLabelConstants.RequiredTransactionType, typeString);
+			infoJsonObject.addProperty(ClassLabelConstants.DescriptionTitleRequiredTransaction, titleString);
+			
+			infoJsonObject.addProperty(ClassLabelConstants.RequiredTransactionKey, transactionkey);
+			
+			requiredinfoArray.add(infoJsonObject);
+		}
+	}
+
+	public static boolean createRDFFromObjectArray(JsonArray arr, Document document) {
+		Element body = MessageConstructor.isolateBody(document);
+		boolean noerror = true;
+		for (int i = 0; i < arr.size(); i++) {
+			JsonObject catalog = arr.get(i).getAsJsonObject();
+			noerror = noerror && createRDFFromObject(catalog, document);
+		}
+		return noerror;
+	}
+
+	public static boolean createRDFFromObject(JsonObject catalog, Document document) {
+		Element body = MessageConstructor.isolateBody(document);
+		boolean noerror = true;
+		JsonObject responseJsonObject = CreateRDFs.createRDFFromCatalogObject(catalog, document);
+		if (responseJsonObject.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+		} else {
+			noerror = false;
+			String message = responseJsonObject.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
+			body.addElement("div").addText("Error in RDF generation: Object ID:"
+					+ catalog.get(ClassLabelConstants.CatalogObjectID).getAsString());
+			body.addElement("div").addText("Error in RDF generation: " + message);
+		}
+		return noerror;
 	}
 
 	/**
@@ -860,7 +921,7 @@ public enum TransactionProcess {
 			if (prerequisites.get(idlabel) == null) {
 				if (prerequisites.get(name) != null) {
 					idlabel = name;
-					}
+				}
 			}
 			// If the prerequisite has not been filled in yet, find it and add it in.
 			if (prerequisites.get(label) == null) {
@@ -873,7 +934,7 @@ public enum TransactionProcess {
 					System.err.println("No transaction found");
 				}
 			} else {
-				if(idlabel == name) {
+				if (idlabel == name) {
 					JsonObject prerequisite = prerequisites.get(name).getAsJsonObject();
 					prerequisites.add(label, prerequisite);
 					prerequisites.remove(name);

@@ -9,10 +9,9 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.service.rdfs.GenerateAndWriteRDFForObject;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.background.services.transaction.TransactionProcess;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.collectionset.CollectionSetUtilities;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
@@ -161,7 +160,7 @@ public class DatasetCollectionManagement {
 		putInLocalVersion(idcollection);
 		JsonArray arr = new JsonArray();
 		arr.add(idcollection);
-		JsonObject response = DatabaseServicesBase.standardServiceResponse(document,
+		JsonObject response = StandardResponse.standardServiceResponse(document,
 				"Success: Create Dataset Collection IDs set with standard values", arr);
 		return response;
 	}
@@ -232,10 +231,10 @@ public class DatasetCollectionManagement {
 			putInLocalVersion(collectionset);
 			JsonArray arr = new JsonArray();
 			arr.add(collectionset);
-			response = DatabaseServicesBase.standardServiceResponse(document,
+			response = StandardResponse.standardServiceResponse(document,
 					"Success: Insert Dataset '" + classname + "' to Collection IDs set '" + collection + "'", arr);
 		} else {
-			response = DatabaseServicesBase.standardErrorResponse(document,
+			response = StandardResponse.standardErrorResponse(document,
 					"Error: Insert into Collection IDs set failed, prerequisite dataset:datasetcollectionsetcreationevent not found",
 					null);
 		}
@@ -264,7 +263,7 @@ public class DatasetCollectionManagement {
 			catid.addProperty(ClassLabelConstants.SimpleCatalogName, id);
 			catalog.add(ClassLabelConstants.FirestoreCatalogID, catid);
 			WriteFirestoreCatalogObject.writeCatalogObject(catalog);
-			GenerateAndWriteRDFForObject.generate(catalog);
+			
 		} else {
 			success = false;
 		}

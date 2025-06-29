@@ -1,0 +1,10 @@
+<ng-container *ngIf='annoinfo; else loading'>
+	<app-setofcontactinfodata #contactinfo [anno]="annoinfo"></app-setofcontactinfodata>
+	<app-setofsitereferences #weblinks [anno]="annoinfo"></app-setofsitereferences>
+	<app-setofdataobjectlinks #objectlinks [anno]="annoinfo"></app-setofdataobjectlinks>
+	<app-datasetreference #references [annoinfo]="annoinfo"></app-datasetreference>
+	<app-simpledatabaseobjectstructure #simpledata [anno]="annoinfo"></app-simpledatabaseobjectstructure>
+</ng-container>
+<ng-template #loading>
+	<mat-spinner></mat-spinner>
+</ng-template>

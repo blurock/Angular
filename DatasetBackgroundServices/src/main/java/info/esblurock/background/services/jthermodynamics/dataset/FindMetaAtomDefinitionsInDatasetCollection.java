@@ -15,8 +15,9 @@ import com.google.gson.JsonObject;
 import info.esblurock.background.services.dataset.FindDatasetCollections;
 import info.esblurock.background.services.dataset.molecule.DatasetMoleculeUtilities;
 import info.esblurock.background.services.jthermodynamics.structure.GenerateJThermodynamics2DSpeciesStructure;
-import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
@@ -56,16 +57,16 @@ public class FindMetaAtomDefinitionsInDatasetCollection {
                 body.addElement("div").addText("Substituted Molecule");
                 body.addElement("pre").addText(cmlstruct.getCmlStructureString());
                 JsonObject molstructure = GenerateJThermodynamics2DSpeciesStructure.generate(newmolecule);
-                response = DatabaseServicesBase.standardServiceResponse(document,
+                response = StandardResponse.standardServiceResponse(document,
                         "Substitute of LinearStructure successful", molstructure);
             } catch (CDKException | IOException e) {
                 e.printStackTrace();
-                response = DatabaseServicesBase.standardErrorResponse(document,
+                response = StandardResponse.standardErrorResponse(document,
                         "Error in substituting molecule: " + e.getMessage(), info);
             }
         } else {
             String errorS = "No Collection Set Record found";
-            response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+            response = StandardResponse.standardErrorResponse(document, errorS, null);
         }
 
         return response;
@@ -102,16 +103,16 @@ public class FindMetaAtomDefinitionsInDatasetCollection {
                 body.addElement("div").addText("Substituted Molecule");
                 body.addElement("pre").addText(cmlstruct.getCmlStructureString());
                 JsonObject molstructure = GenerateJThermodynamics2DSpeciesStructure.generate(newmolecule);
-                response = DatabaseServicesBase.standardServiceResponse(document,
+                response = StandardResponse.standardServiceResponse(document,
                         "Substitute of " + metaatomtype + " successful", molstructure);
             } catch (ClassNotFoundException | CDKException | IOException e) {
                 e.printStackTrace();
-                response = DatabaseServicesBase.standardErrorResponse(document,
+                response = StandardResponse.standardErrorResponse(document,
                         "Error in substituting molecule: " + e.getMessage(), info);
             }
         } else {
             String errorS = "No Collection Set Record found";
-            response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+            response = StandardResponse.standardErrorResponse(document, errorS, null);
         }
 
         return response;

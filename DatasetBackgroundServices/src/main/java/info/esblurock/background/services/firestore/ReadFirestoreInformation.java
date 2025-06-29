@@ -23,8 +23,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.FindDatasetCollections;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
@@ -65,18 +65,18 @@ public class ReadFirestoreInformation {
             DocumentReference docref = SetUpDocumentReference.setup(db, firestoreid);
             JsonObject catalog = readUsingDocumentReference(firestoreid,docref);
             if(catalog != null) {
-            	response = DatabaseServicesBase.standardServiceResponse(docmessage, "Success: ReadFirestoreInformation",
+            	response = StandardResponse.standardServiceResponse(docmessage, "Success: ReadFirestoreInformation",
                     catalog);
             } else {
                 String message = "Document not found: ";
-                response = DatabaseServicesBase.standardErrorResponse(docmessage, message, firestoreid);            	
+                response = StandardResponse.standardErrorResponse(docmessage, message, firestoreid);            	
             }
         } catch (IOException e) {
-            response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), firestoreid);
+            response = StandardResponse.standardErrorResponse(docmessage, e.toString(), firestoreid);
         } catch (InterruptedException e) {
-            response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), firestoreid);
+            response = StandardResponse.standardErrorResponse(docmessage, e.toString(), firestoreid);
         } catch (ExecutionException e) {
-            response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), firestoreid);
+            response = StandardResponse.standardErrorResponse(docmessage, e.toString(), firestoreid);
         }
         return response;
     }
@@ -186,10 +186,10 @@ public class ReadFirestoreInformation {
                     }
 
                 }
-                response = DatabaseServicesBase.standardServiceResponse(docmessage,
+                response = StandardResponse.standardServiceResponse(docmessage,
                         "Successful read of collectiion set objects", setofobjs);
             } else {
-                response = DatabaseServicesBase.standardErrorResponse(docmessage, "No documents", null);
+                response = StandardResponse.standardErrorResponse(docmessage, "No documents", null);
             }
         } catch (IOException e) {
             response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);

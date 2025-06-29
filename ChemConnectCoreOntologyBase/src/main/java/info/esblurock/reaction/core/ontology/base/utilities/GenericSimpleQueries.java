@@ -94,6 +94,19 @@ public class GenericSimpleQueries {
 		}
 		return type;
 	}
+	public static String identifierFromAltLabel(String altlabel) {
+		String query = "SELECT ?identifier\n" + 
+				"			WHERE {"
+				+ "?type <http://www.w3.org/2004/02/skos/core#altLabel> \"" +  altlabel +"\"^^xsd:string .\n"
+				+ "?type <http://purl.org/dc/terms/identifier> ?identifier "
+						+ "}";
+		List<String> lst = OntologyBase.isolateProperty(query,"identifier");
+		String type = null;
+		if(lst.size() > 0) {
+			type = lst.get(0);
+		}
+		return type;
+	}
 
 	public static String classWithSameParent(String classname) {
 		String query = "SELECT ?siblingClass ?parentClass\n"

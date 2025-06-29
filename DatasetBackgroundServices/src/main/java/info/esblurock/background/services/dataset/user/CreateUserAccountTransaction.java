@@ -11,8 +11,8 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.ManageDatasetDocumentLists;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
@@ -89,17 +89,17 @@ public class CreateUserAccountTransaction {
                 try {
                     writeUserAccount(catalog, body);
                 } catch (Exception e) {
-                    response = DatabaseServicesBase.standardErrorResponse(document,
+                    response = StandardResponse.standardErrorResponse(document,
                             "Error in writing UserAccount: '" + username + "'", null);
                 }
             }
             JsonArray catalogarr = new JsonArray();
             catalogarr.add(catalog);
-            response = DatabaseServicesBase.standardServiceResponse(document, "Sucesss: CreateUserAccountEvent",
+            response = StandardResponse.standardServiceResponse(document, "Sucesss: CreateUserAccountEvent",
                     catalogarr);
 
         } else {
-            response = DatabaseServicesBase.standardErrorResponse(document,
+            response = StandardResponse.standardErrorResponse(document,
                     "UserAccount already exists: '" + uid + "'", null);
         }
         return response;

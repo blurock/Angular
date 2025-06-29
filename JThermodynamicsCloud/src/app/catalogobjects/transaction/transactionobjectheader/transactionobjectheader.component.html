@@ -1,0 +1,22 @@
+<mat-grid-list cols="8" rowHeight="100px">
+	<mat-grid-tile [colspan]="2">
+		<button mat-mini-fab color="primary" class="submit-btn" matTooltip="{{prereqdescbutton}}"
+			[disabled] = "hasprerequisite" (click)="activitysetup()">{{prereqbutton}}</button>
+	</mat-grid-tile>
+	<mat-grid-tile [colspan]="2">
+		<button mat-mini-fab color="primary" class="submit-btn" matTooltip="{{displaydescbutton}}"
+			(click)="displayActivity()">{{displaybutton}}</button>
+	</mat-grid-tile>
+	<mat-grid-tile [colspan]="2">
+		<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchActivity()"
+			matTooltip="{{fetchdescription}}">
+			{{fetchbutton}}
+		</button>
+	</mat-grid-tile>
+	<mat-grid-tile [colspan]="2">
+		<button mat-mini-fab color="primary" class="submit-btn" matTooltip="{{submitdescr}}" (click)="submit()"
+			[disabled]="invalid()">{{submitbutton}}</button>
+	</mat-grid-tile>
+<mat-divider></mat-divider>
+</mat-grid-list>
+

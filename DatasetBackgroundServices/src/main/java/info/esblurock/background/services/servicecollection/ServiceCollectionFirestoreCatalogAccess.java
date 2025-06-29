@@ -28,9 +28,9 @@ import info.esblurock.background.services.firestore.PropertyValueQueryPair;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.firestore.SetOfPropertyValueQueryPairs;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.service.rdfs.GenerateAndWriteRDFForObject;
 import info.esblurock.background.services.transaction.FindTransactions;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
@@ -85,7 +85,7 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 			catalog.addProperty(AnnotationObjectsLabels.identifier, identifier);
 			String message = WriteFirestoreCatalogObject.writeCatalogObject(catalog);
 			body.addElement("pre").addText(message);
-			response = DatabaseServicesBase.standardServiceResponse(document,
+			response = StandardResponse.standardServiceResponse(document,
 					"Success: SubstituteAndWriteDatabasePerson", catalog);
 			return response;
 		}
@@ -101,7 +101,7 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 			JsonObject catalog = json.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 			String message = WriteFirestoreCatalogObject.writeCatalogObject(catalog);
 			body.addElement("pre").addText(message);
-			response = DatabaseServicesBase.standardServiceResponse(document,
+			response = StandardResponse.standardServiceResponse(document,
 					"Sucess: FirestoreServiceWriteCatalogObject", null);
 			return response;
 		}
@@ -145,7 +145,7 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 				JsonObject idlabellinkpairs = CreateDocumentTemplate
 						.createTemplate("dataset:SetOfLabelFirestoreIDPairs");
 				idlabellinkpairs.add(ClassLabelConstants.LabelFirestoreIDPair, idlabellinks);
-				response = DatabaseServicesBase.standardServiceResponse(document, "Success: LabelLinkToFirestoreIDRDF",
+				response = StandardResponse.standardServiceResponse(document, "Success: LabelLinkToFirestoreIDRDF",
 						idlabellinkpairs);
 			}
 			return response;

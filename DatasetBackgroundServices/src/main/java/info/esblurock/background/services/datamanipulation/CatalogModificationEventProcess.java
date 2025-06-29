@@ -7,8 +7,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
@@ -35,7 +35,7 @@ public class CatalogModificationEventProcess {
 			Document errdoc = MessageConstructor.startDocument("Error: CatalogModificationEvent");
 			MessageConstructor.combineBodyIntoDocument(errdoc,
 					message);
-			response = DatabaseServicesBase.standardErrorResponse(errdoc,
+			response = StandardResponse.standardErrorResponse(errdoc,
 					"Error: Error in writing updated object\n" + message, null);
 			
 		} else {
@@ -48,7 +48,7 @@ public class CatalogModificationEventProcess {
 			message = "New Object Updated: " + name;
 			JsonArray array = new JsonArray();
 			array.add(catalog);
-			response = DatabaseServicesBase.standardServiceResponse(doc, message, array);
+			response = StandardResponse.standardServiceResponse(doc, message, array);
 		}
 		
 		return response;

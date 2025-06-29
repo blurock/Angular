@@ -15,8 +15,9 @@ import com.google.gson.JsonObject;
 import info.esblurock.background.services.dataset.parameters.ParameterUtilities;
 import info.esblurock.background.services.jthermodynamics.InterpretThermodynamicBlock;
 import info.esblurock.background.services.jthermodynamics.dataset.FindMetaAtomDefinitionsInDatasetCollection;
-import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
@@ -71,7 +72,7 @@ public class ComputeBensonRulesForMolecule {
                 message = "Error: ";
             }
             message += "  Calculated " + count + " Benson rules out of " + bensonarr.size();
-            response = DatabaseServicesBase.standardServiceResponse(document, message, contributions);
+            response = StandardResponse.standardServiceResponse(document, message, contributions);
         } else {
             Element table = body.addElement("table");
             Element hrow = table.addElement("tr");
@@ -81,7 +82,7 @@ public class ComputeBensonRulesForMolecule {
             drow.addElement("td").addText(maintainer);
             drow.addElement("td").addText(dataset);
 
-            response = DatabaseServicesBase.standardErrorResponse(document,
+            response = StandardResponse.standardErrorResponse(document,
                     "Meta atoms for BensonAtoms not defined: check to see if collection defined properly", null);
         }
         return response;

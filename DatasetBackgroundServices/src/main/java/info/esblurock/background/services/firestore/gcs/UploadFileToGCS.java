@@ -20,8 +20,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
@@ -49,7 +49,7 @@ public enum UploadFileToGCS {
 							"dataset:InitialReadInLocalStorageSystem");
 				}
 			} catch (IOException e) {
-				response = DatabaseServicesBase.standardErrorResponse(document,
+				response = StandardResponse.standardErrorResponse(document,
 						"Error in reading: '" + location + "'\n" + e.getMessage(), response);
 			}
 			return response;
@@ -64,7 +64,7 @@ public enum UploadFileToGCS {
 			Element body = MessageConstructor.isolateBody(document);
 			String location = info.get(ClassLabelConstants.FileSourceIdentifier).getAsString();
 			body.addElement("div").addText("File Location: '" + location + "'");
-			//Path filePath = Paths.get(location);
+			// Path filePath = Paths.get(location);
 			JsonObject response = new JsonObject();
 			try {
 				InputStream inputStream = UploadFileToGCS.class.getResourceAsStream(location);
@@ -78,7 +78,7 @@ public enum UploadFileToGCS {
 							"dataset:InitialReadInLocalStorageSystem");
 				}
 			} catch (IOException e) {
-				response = DatabaseServicesBase.standardErrorResponse(document,
+				response = StandardResponse.standardErrorResponse(document,
 						"Error in reading: '" + location + "'\n" + e.getMessage(), response);
 			}
 			return response;
@@ -106,16 +106,16 @@ public enum UploadFileToGCS {
 					gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadFromWebLocation");
 				}
 			} catch (MalformedURLException e) {
-				response = DatabaseServicesBase.standardErrorResponse(document,
+				response = StandardResponse.standardErrorResponse(document,
 						"Error in reading: '" + location + "'\n" + e.getMessage(), response);
 			} catch (IOException e) {
-				response = DatabaseServicesBase.standardErrorResponse(document,
+				response = StandardResponse.standardErrorResponse(document,
 						"Error in reading: '" + location + "'\n" + e.getMessage(), response);
 			} finally {
 				try {
 					IOUtils.close(in);
 				} catch (IOException e) {
-					response = DatabaseServicesBase.standardErrorResponse(document,
+					response = StandardResponse.standardErrorResponse(document,
 							"Error in closing: '" + location + "'\n" + e.getMessage(), response);
 				}
 			}
@@ -131,20 +131,21 @@ public enum UploadFileToGCS {
 			String contentutf8 = info.get(ClassLabelConstants.FileSourceIdentifier).getAsString();
 			String content = "";
 			JsonObject response = null;
-            try {
-                content = URLDecoder.decode(contentutf8,"UTF-8");
-                body.addElement("pre").addText("String content: '" + content + "'");
-                response = WriteCloudStorage.writeString(transactionID, owner, maintainer, content, info,
-					"dataset:StringSource");
-                if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-                	JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
-                	JsonObject gcsstaging = arr.get(0).getAsJsonObject();
-                	gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadFromUserInterface");
-                }
-            } catch (UnsupportedEncodingException e) {
-				response = DatabaseServicesBase.standardErrorResponse(document,
+			try {
+				content = URLDecoder.decode(contentutf8, "UTF-8");
+				body.addElement("pre").addText("String content: '" + content + "'");
+				response = WriteCloudStorage.writeString(transactionID, owner, maintainer, content, info,
+						"dataset:StringSource");
+				if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+					JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+					JsonObject gcsstaging = arr.get(0).getAsJsonObject();
+					gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType,
+							"dataset:InitialReadFromUserInterface");
+				}
+			} catch (UnsupportedEncodingException e) {
+				response = StandardResponse.standardErrorResponse(document,
 						"Error in converting string to UTF-8: '" + "'\n" + e.getMessage(), response);
-            }
+			}
 			return response;
 		}
 
@@ -176,30 +177,33 @@ public enum UploadFileToGCS {
 	 * 
 	 */
 	public static JsonObject readFromSource(String transactionID, String owner, JsonObject info) {
-	    JsonObject response = null;
-	    try {
-	    	JsonObject datasetid = info.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
-	    	String maintainer = datasetid.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
-		String source = info.get(ClassLabelConstants.UploadFileSource).getAsString();
-		String sourcename = source.substring(8);
-		UploadFileToGCS upload = UploadFileToGCS.valueOf(sourcename);
-		response = upload.process(transactionID, owner, maintainer, info);
-		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-			JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
-			JsonObject gcsstaging = arr.get(0).getAsJsonObject();
-			gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadInLocalStorageSystem");
-			gcsstaging.add(ClassLabelConstants.SpecificationForDataset, datasetid);
-			JsonObject stagingblob = gcsstaging.get(ClassLabelConstants.GCSBlobFileInformationStaging)
-					.getAsJsonObject();
-			String description = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
-			stagingblob.addProperty(ClassLabelConstants.DescriptionAbstract, description);
+		JsonObject response = null;
+		try {
+			String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+			String genericname = info.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+			String source = info.get(ClassLabelConstants.UploadFileSource).getAsString();
+			String sourcename = source.substring(8);
+			UploadFileToGCS upload = UploadFileToGCS.valueOf(sourcename);
+			response = upload.process(transactionID, owner, maintainer, info);
+			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+				JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+				JsonObject gcsstaging = arr.get(0).getAsJsonObject();
+				gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType,
+						"dataset:InitialReadInLocalStorageSystem");
+				gcsstaging.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
+				gcsstaging.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, genericname);
+				JsonObject stagingblob = gcsstaging.get(ClassLabelConstants.GCSBlobFileInformationStaging)
+						.getAsJsonObject();
+				String description = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
+				stagingblob.addProperty(ClassLabelConstants.DescriptionAbstract, description);
+				stagingblob.addProperty(ClassLabelConstants.DescriptionTitle, description);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Document document = MessageConstructor.startDocument("UploadFileToGCS");
+			response = StandardResponse.standardErrorResponse(document,
+					"Error in UploadFileToGCS: \n" + ex.getMessage(), response);
 		}
-	    } catch(Exception ex) {
-	        ex.printStackTrace();
-	        Document document = MessageConstructor.startDocument("UploadFileToGCS");
-	        response = DatabaseServicesBase.standardErrorResponse(document,
-                    "Error in UploadFileToGCS: \n" + ex.getMessage(), response);
-	    }
 		return response;
 	}
 

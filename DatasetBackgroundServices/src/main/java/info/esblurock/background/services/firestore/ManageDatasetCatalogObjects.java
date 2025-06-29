@@ -22,8 +22,8 @@ import com.google.gson.reflect.TypeToken;
 
 import info.esblurock.background.services.dataset.FindDatasetCollections;
 import info.esblurock.background.services.dataset.ManageDatasetDocumentLists;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.constants.OntologyObjectLabels;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
@@ -68,7 +68,7 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
 
             response = movecpyCatalogObjectsTransaction(catalog, ids, srccollfirestoreid, destcollfirestoreid, false, document);
         } else {
-            response = DatabaseServicesBase.standardErrorResponse(document, erroroutput, null);
+            response = StandardResponse.standardErrorResponse(document, erroroutput, null);
         }
         return response;
     }
@@ -91,7 +91,7 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
 
             response = movecpyCatalogObjectsTransaction(catalog, ids, srccollfirestoreid, destcollfirestoreid, false, document);
         } else {
-            response = DatabaseServicesBase.standardErrorResponse(document, erroroutput, null);
+            response = StandardResponse.standardErrorResponse(document, erroroutput, null);
         }
         return response;
     }
@@ -114,7 +114,7 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
 
             response = movecpyCatalogObjectsTransaction(catalog, ids, srccollfirestoreid, destcollfirestoreid, true, document);
         } else {
-            response = DatabaseServicesBase.standardErrorResponse(document, erroroutput, null);
+            response = StandardResponse.standardErrorResponse(document, erroroutput, null);
         }
         return response;
     }
@@ -284,7 +284,7 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
         }
         JsonArray destarr = new JsonArray();
         destarr.add(catalog);
-        response = DatabaseServicesBase.standardServiceResponse(document, message, destarr);
+        response = StandardResponse.standardServiceResponse(document, message, destarr);
         return response;
     }
 
@@ -329,7 +329,7 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
         if(datasetIDs.size() == 0) {
             writeWithNoCommonCatalogObjects(event,body,set,classname,collectionset);
             String message = "Writing a new collection with a set of catalog objects";
-            response = DatabaseServicesBase.standardServiceResponse(document, message, set);
+            response = StandardResponse.standardServiceResponse(document, message, set);
        } else {
             List<String> common = new ArrayList<String>(datasetIDs);
             common.retainAll(catalogIDs);
@@ -358,7 +358,7 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
                             ManageDatasetDocumentLists.writeCollectionIDs(union,classname,collectionset);
                             event.add(ClassLabelConstants.DatabaseObjectIDOutputTransaction, firestoreids);                                           
                             String message = "";
-                            response = DatabaseServicesBase.standardServiceResponse(document, message, set);
+                            response = StandardResponse.standardServiceResponse(document, message, set);
                         } else {
                             response = errorInDeletingResponse(deleteresponse,document, "Write failed while deleting common elements Write failed while deleting common elements (no firestore list produced)");                           
                         }
@@ -373,7 +373,7 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
                  datasetIDs.addAll(catalogIDs);
                  ManageDatasetDocumentLists.writeCollectionIDs(datasetIDs,classname,collectionset);
                  String message = "Writing to a collection with a set of unique catalog objects (no duplicates)";
-                 response = DatabaseServicesBase.standardServiceResponse(document, message, set);
+                 response = StandardResponse.standardServiceResponse(document, message, set);
              }
         }
         return response;
@@ -382,7 +382,7 @@ public class ManageDatasetCatalogObjects extends DeleteCatalogDataObject {
     private static JsonObject errorInDeletingResponse(JsonObject deleteresponse, Document document, String errorresponse) {
         String message = deleteresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
         MessageConstructor.combineBodyIntoDocument(document, message);
-        JsonObject response = DatabaseServicesBase.standardErrorResponse(document, errorresponse, null);
+        JsonObject response = StandardResponse.standardErrorResponse(document, errorresponse, null);
         return response;
     }
     

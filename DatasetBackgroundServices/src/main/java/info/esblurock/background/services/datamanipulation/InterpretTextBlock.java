@@ -19,14 +19,14 @@ import info.esblurock.background.services.firestore.WriteFirestoreData;
 import info.esblurock.background.services.jthermodynamics.InterpretThermodynamicBlock;
 import info.esblurock.background.services.jthermodynamics.structure.GenerateJThermodynamics2DSpeciesStructure;
 import info.esblurock.background.services.jthermodynamics.symmetry.InterpretSymmetryBlock;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.background.services.transaction.TransactionProcess;
+import info.esblurock.background.services.utilities.CreateLinksInStandardCatalogInformation;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
-import info.esblurock.reaction.core.ontology.base.dataset.CreateLinksInStandardCatalogInformation;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.utilities.GenericSimpleQueries;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
@@ -397,10 +397,12 @@ public enum InterpretTextBlock {
     	try {
         String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
         String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
-        JsonObject datasetspec = info.get(ClassLabelConstants.SpecificationForDataset)
-                .getAsJsonObject();
-        String genericlabel = datasetspec.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
-        event.add(ClassLabelConstants.SpecificationForDataset, datasetspec);
+        
+		String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+		String uniquelabel = info.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+		String type = info.get(ClassLabelConstants.DatasetObjectType).getAsString();
+
+        
         JsonObject transfirestoreID = BaseCatalogData.insertFirestoreAddress(event);
         Document document = MessageConstructor.startDocument("TransactionInterpretTextBlock");
         Element body = MessageConstructor.isolateBody(document);
@@ -418,8 +420,10 @@ public enum InterpretTextBlock {
             if (checkIfCompatableParse(parsed, info)) {
                 JsonObject catalog = method.interpret(parsed, table, info);
                 if (catalog != null) {
-                	catalog.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, genericlabel);
-                    catalog.add(ClassLabelConstants.SpecificationForDataset, datasetspec);
+                	catalog.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
+                	catalog.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, uniquelabel);
+                	catalog.addProperty(ClassLabelConstants.DatasetObjectType, type);
+                	
                     catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction, transfirestoreID.deepCopy());
                     BaseCatalogData.insertStandardBaseInformation(catalog, owner, transactionID, "false", true);
                     CreateLinksInStandardCatalogInformation.transfer(info, catalog);
@@ -461,14 +465,14 @@ public enum InterpretTextBlock {
         			row.addElement("td").addText(message);
         			set.add(catalog);
         		}
-
+/*
                 JsonObject genericset = DatasetObjectLabelListManipulation.addToChemConnectDatabaseUniqueGenericLabelSet(event,info);
                 if(genericset == null) {
                 	errors.add("ERROR: trouble adding the DatabaseUniqueGenericLabelSet");
                 }
-
+*/
         		String message = "Successful: " + catalogset.size() + " blocks of '" + classname + "' objects";
-        		response = DatabaseServicesBase.standardServiceResponse(document, message, catalogset);
+        		response = StandardResponse.standardServiceResponse(document, message, catalogset);
                /*
                 response = ManageDatasetCatalogObjects.writeSetOfCatalogObjects(event, classname, datasetspec, catalogset);
                 MessageConstructor.combineBodyIntoDocument(document, response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
@@ -477,7 +481,7 @@ public enum InterpretTextBlock {
                 */
             } else {
                 String errormessage = "No objects created for interpret";
-                response = DatabaseServicesBase.standardErrorResponse(document, errormessage, null);
+                response = StandardResponse.standardErrorResponse(document, errormessage, null);
             }
             
         } else {
@@ -489,7 +493,7 @@ public enum InterpretTextBlock {
                 JsonObject parse = errors.get(i).getAsJsonObject();
                 ul.addElement("li",parse.get(ClassLabelConstants.Position).getAsString());
             }
-            response = DatabaseServicesBase.standardErrorResponse(document, errormessage, errors);
+            response = StandardResponse.standardErrorResponse(document, errormessage, errors);
         }
 
         

@@ -26,15 +26,14 @@ public class TestCreateTemplateWithAnnotations {
         JsonObject objanno1 = CreateDocumentTemplate.createTemplateWithAnnotations(classname1);
         //JsonObject ans = objanno1.get("dataset:simpcatobj").getAsJsonObject();
         JsonObject catalog = objanno1.get("dataobject").getAsJsonObject();
-        Set<String> keys = catalog.keySet();
-        List<String> keys1 = catalog.entrySet()
+        List<String> keys = catalog.entrySet()
                 .stream()
                 .map(i -> i.getKey())
                 .collect(Collectors.toCollection(ArrayList::new));
 
             keys.forEach(System.out::println);
         JsonObject anno = objanno1.get("annotations").getAsJsonObject();
-        System.out.println(anno.keySet());
+        //System.out.println(anno.keySet());
         System.out.println(JsonObjectUtilities.toString(anno.get("dataset:HttpAddressInformationType").getAsJsonObject()));
         System.out.println("---------------------------------------------------------------------");
     }

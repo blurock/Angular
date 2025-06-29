@@ -22,7 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
-import info.esblurock.background.services.service.MessageConstructor;
+import info.esblurock.reaction.core.MessageConstructor;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 

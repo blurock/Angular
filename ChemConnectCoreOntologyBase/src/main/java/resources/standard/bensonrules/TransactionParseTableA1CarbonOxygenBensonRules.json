@@ -1,11 +1,9 @@
 {
 	"prov:activity": "dataset:PartiionSetWithinRepositoryFile",
 	"dataset:activityinfo": {
-		"dataset:specificationfordataset": {
-			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:uniquegenericname": "TableA1CarbonOxygenHydrogenBensonRules",
-			"dataset:datasetobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDataSet"
-		},
+		"dataset:catalogobjectmaintainer": "Administrator",
+		"dataset:uniquegenericname": "TableA1CarbonOxygenHydrogenBensonRules",
+		"dataset:datasetobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDataSet",
 		"dataset:collectionobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDatabase",
 		"dataset:filepartitionmethod": "dataset:PartitionTherGasThermodynamics",
 		"dataset:filesourceformat": "dataset:TherGasBensonRules",

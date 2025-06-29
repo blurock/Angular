@@ -10,8 +10,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.jthermodynamics.structcorrections.CalculateStructureCorrection;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import thermo.data.structure.structure.AddHydrogenToSingleRadical;
 import thermo.data.structure.utilities.MoleculeUtilities;
@@ -52,20 +52,20 @@ public class ComputeThermodynamicsTHERM {
 
             if (noerrors) {
                 String title = "Successful calculation";
-                response = DatabaseServicesBase.standardServiceResponse(document, title, contributions);
+                response = StandardResponse.standardServiceResponse(document, title, contributions);
             } else {
                 String errortitle = "Error occurred while computing with HBI contributions";
-                response = DatabaseServicesBase.standardErrorResponse(document, errortitle, contributions);
+                response = StandardResponse.standardErrorResponse(document, errortitle, contributions);
             }
 
         } catch (NotARadicalException e) {
             
             response = computeNonRadicalContributions(Rmolecule, info, document);
             String errortitle = "Molecule not a radical";
-            response = DatabaseServicesBase.standardServiceResponse(document, errortitle, null);
+            response = StandardResponse.standardServiceResponse(document, errortitle, null);
         } catch (IOException e) {
             String errortitle = "Error in converting the radical to a molecule";
-            response = DatabaseServicesBase.standardErrorResponse(document, errortitle, null);
+            response = StandardResponse.standardErrorResponse(document, errortitle, null);
         }
         return response;
     }
@@ -134,7 +134,7 @@ public class ComputeThermodynamicsTHERM {
             title = "Errors in adding Translational, Symmetry, Ring strain and steric corrections";
         }
         
-        response = DatabaseServicesBase.standardServiceResponse(document, title, contributions);
+        response = StandardResponse.standardServiceResponse(document, title, contributions);
         return response;
     }
     

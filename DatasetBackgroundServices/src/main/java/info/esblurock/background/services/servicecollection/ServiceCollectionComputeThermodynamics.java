@@ -16,7 +16,8 @@ import info.esblurock.background.services.jthermodynamics.disassociation.Calcula
 import info.esblurock.background.services.jthermodynamics.structcorrections.CalculateStructureCorrection;
 import info.esblurock.background.services.jthermodynamics.symmetry.ComputeThermodynamicsSymmetryContribution;
 import info.esblurock.background.services.jthermodynamics.symmetry.DatabaseCalculateSymmetryCorrection;
-import info.esblurock.background.services.service.MessageConstructor;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 
 public enum ServiceCollectionComputeThermodynamics {
@@ -37,11 +38,11 @@ public enum ServiceCollectionComputeThermodynamics {
                     response = ComputeBensonRulesForMolecule.compute(maintainer, dataset, molecule, info);
                 } else {
                     String errorS = "No Collection Set Record found";
-                    response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                    response = StandardResponse.standardErrorResponse(document, errorS, null);
                 }
             } else {
                 String errorS = "Error in interpreting molecule";
-                response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                response = StandardResponse.standardErrorResponse(document, errorS, null);
             }
             return response;
         }
@@ -64,11 +65,11 @@ public enum ServiceCollectionComputeThermodynamics {
                             molecule, info);
                 } else {
                     String errorS = "No Collection Set Record found";
-                    response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                    response = StandardResponse.standardErrorResponse(document, errorS, null);
                 }
             } else {
                 String errorS = "Error in interpreting molecule ";
-                response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                response = StandardResponse.standardErrorResponse(document, errorS, null);
             }
             return response;
         }
@@ -91,11 +92,11 @@ public enum ServiceCollectionComputeThermodynamics {
                             molecule, info);
                 } else {
                     String errorS = "No Collection Set Record found";
-                    response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                    response = StandardResponse.standardErrorResponse(document, errorS, null);
                 }
             } else {
                 String errorS = "Error in interpreting molecule ";
-                response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                response = StandardResponse.standardErrorResponse(document, errorS, null);
             }
             return response;
         }
@@ -118,11 +119,11 @@ public enum ServiceCollectionComputeThermodynamics {
                             molecule, info);
                 } else {
                     String errorS = "No Collection Set Record found";
-                    response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                    response = StandardResponse.standardErrorResponse(document, errorS, null);
                 }
             } else {
                 String errorS = "Error in interpreting molecule ";
-                response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                response = StandardResponse.standardErrorResponse(document, errorS, null);
             }
             return response;
         }
@@ -145,11 +146,11 @@ public enum ServiceCollectionComputeThermodynamics {
                             molecule, info);
                 } else {
                     String errorS = "No Collection Set Record found";
-                    response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                    response = StandardResponse.standardErrorResponse(document, errorS, null);
                 }
             } else {
                 String errorS = "Error in interpreting molecule ";
-                response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                response = StandardResponse.standardErrorResponse(document, errorS, null);
             }
             return response;
         }
@@ -174,15 +175,15 @@ public enum ServiceCollectionComputeThermodynamics {
                     DatabaseCalculateSymmetryCorrection symmcorrection = new DatabaseCalculateSymmetryCorrection(
                             maintainer, dataset);
                     JsonArray total = symmcorrection.compute(document, molecule, body, info);
-                    response = DatabaseServicesBase.standardServiceResponse(document,
+                    response = StandardResponse.standardServiceResponse(document,
                             "ComputeThermodynamicsFromAllSymmetries computed: " + total.size(), total);
                 } else {
                     String errorS = "No Collection Set Record found";
-                    response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                    response = StandardResponse.standardErrorResponse(document, errorS, null);
                 }
             } else {
                 String errorS = "Error in interpreting molecule";
-                response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                response = StandardResponse.standardErrorResponse(document, errorS, null);
             }
             return response;
         }

@@ -4,9 +4,9 @@ import org.dom4j.Document;
 
 import com.google.gson.JsonObject;
 
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.background.services.transaction.DeleteTransaction;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 
 public class DeleteDatasetTransaction {
@@ -53,9 +53,9 @@ public class DeleteDatasetTransaction {
 			}
 		}
 		if (noerror) {
-			response = DatabaseServicesBase.standardServiceResponse(document, "Successfully deleted", null);
+			response = StandardResponse.standardServiceResponse(document, "Successfully deleted", null);
 		} else {
-			response = DatabaseServicesBase.standardErrorResponse(document, "Deletion Not Successful", null);
+			response = StandardResponse.standardErrorResponse(document, "Deletion Not Successful", null);
 		}
 
 		return response;

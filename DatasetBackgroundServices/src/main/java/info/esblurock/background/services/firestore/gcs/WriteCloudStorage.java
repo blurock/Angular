@@ -14,8 +14,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.FirestoreBaseClass;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
@@ -43,8 +43,7 @@ public class WriteCloudStorage {
 		String mediasubtype = info.get(ClassLabelConstants.FileSourceMediaSubType).getAsString();
 		body.addElement("div").addText("Media  SubType: " + mediasubtype);
 		//Bucket bucket = StorageClient.getInstance().bucket("blurock-database.appspot.com");
-		JsonObject datasetid = info.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
-		String setid = datasetid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+		String setid = info.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
 
 		try {
 			storage = FirestoreBaseClass.getStorage();
@@ -63,12 +62,14 @@ public class WriteCloudStorage {
 			JsonObject catalog = BaseCatalogData.createStandardDatabaseObject("dataset:RepositoryFileStaging", owner,
 					transactionid, "false");
 			JsonObject gcsblobinfo = catalog.get(ClassLabelConstants.GCSBlobFileInformationStaging).getAsJsonObject();
-			gcsblobinfo.addProperty(ClassLabelConstants.GCSFilePath, dirpath);
-			gcsblobinfo.addProperty(ClassLabelConstants.GCSFileName, transactionid);
 			gcsblobinfo.addProperty(ClassLabelConstants.FileSourceFormat, formattype);
 			gcsblobinfo.addProperty(ClassLabelConstants.FileSourceMediaType, mediatype);
 			gcsblobinfo.addProperty(ClassLabelConstants.FileSourceMediaSubType, mediasubtype);
 			gcsblobinfo.addProperty(ClassLabelConstants.UploadFileSource, uploadsource);
+			String fullpathString = dirpath + "/" + transactionid;
+			gcsblobinfo.addProperty(ClassLabelConstants.GCSFilePath, dirpath);
+			gcsblobinfo.addProperty(ClassLabelConstants.GCSFileName, transactionid);
+			gcsblobinfo.addProperty(ClassLabelConstants.GCSFullPathWithName, fullpathString);
 
 			String descrtitle = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
 			catalog.addProperty(ClassLabelConstants.DescriptionTitle, descrtitle);
@@ -79,9 +80,9 @@ public class WriteCloudStorage {
 			}
 			JsonArray catalogarr = new JsonArray();
 			catalogarr.add(catalog);
-			response = DatabaseServicesBase.standardServiceResponse(document, "Success: WriteCloudStorage", catalogarr);
+			response = StandardResponse.standardServiceResponse(document, "Success: WriteCloudStorage", catalogarr);
 		} catch (IOException e) {
-			response = DatabaseServicesBase.standardErrorResponse(document, "Error: Storage not initialized", null);
+			response = StandardResponse.standardErrorResponse(document, "Error: Storage not initialized", null);
 		}
 		// Create blob
 		return response;

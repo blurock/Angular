@@ -20,6 +20,8 @@ import com.google.gson.JsonObject;
 import info.esblurock.background.services.firestore.InitiallizeSystem;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.background.services.transaction.TransactionProcess;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 @WebServlet(name = "BackgroundTransaction", urlPatterns = { "/transaction" })
@@ -52,16 +54,16 @@ public class BackgroundTransaction extends HttpServlet {
                 answer = TransactionProcess.processFromTransaction(body, uid);
             } else {
                 Document document = MessageConstructor.startDocument("Transaction fatal error UID mismatch");
-                answer = DatabaseServicesBase.standardErrorResponse(null, "UIDs illegal token, user not signed in",
+                answer = StandardResponse.standardErrorResponse(null, "UIDs illegal token, user not signed in",
                         null);
             }
         } catch (FirebaseAuthException e) {
             Document document = MessageConstructor.startDocument("Transaction fatal error");
-            answer = DatabaseServicesBase.standardErrorResponse(document, "Firebase error: " + e.getMessage(), null);
+            answer = StandardResponse.standardErrorResponse(document, "Firebase error: " + e.getMessage(), null);
             e.printStackTrace();
         } catch (Exception e) {
             Document document = MessageConstructor.startDocument("General fatal error");
-            answer = DatabaseServicesBase.standardErrorResponse(document, "Error: " + e.getMessage(), null);
+            answer = StandardResponse.standardErrorResponse(document, "Error: " + e.getMessage(), null);
             e.printStackTrace();
         }
 

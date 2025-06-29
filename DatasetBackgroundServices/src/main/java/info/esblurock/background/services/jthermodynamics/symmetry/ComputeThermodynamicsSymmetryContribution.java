@@ -9,8 +9,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.parameters.ParameterUtilities;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.dataset.units.DatabaseUnitUtilities;
@@ -48,7 +48,7 @@ public class ComputeThermodynamicsSymmetryContribution {
         MessageConstructor.combineBodyIntoDocument(document,readdocument);
         JsonArray contributions = determineTotal.compute(molecule, body, info);
         String message = contributions.size() + " Contributions found to external symmetry";
-        response = DatabaseServicesBase.standardServiceResponse(document, message,
+        response = StandardResponse.standardServiceResponse(document, message,
                 contributions);
         return response;
     }
@@ -90,9 +90,9 @@ public class ComputeThermodynamicsSymmetryContribution {
                     info);
             contribution.add(ClassLabelConstants.ChemConnectThermodynamicsDatabase, symjson);
             String message = "External Symmetry contribution of " + symmetry.getElementName() + " = " + correction;
-            response = DatabaseServicesBase.standardServiceResponse(document, message, contribution);
+            response = StandardResponse.standardServiceResponse(document, message, contribution);
         } catch (CDKException e) {
-            response = DatabaseServicesBase.standardErrorResponse(document, "Error External Symmetry", null);
+            response = StandardResponse.standardErrorResponse(document, "Error External Symmetry", null);
         }
         return response;
     }
@@ -125,15 +125,15 @@ public class ComputeThermodynamicsSymmetryContribution {
                 String internalmessage = internalresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
                 MessageConstructor.combineBodyIntoDocument(document,internalmessage);
                 JsonArray contributions = internal.compute(molecule, body, info);
-                response = DatabaseServicesBase.standardServiceResponse(document, "Found External Internal Element",
+                response = StandardResponse.standardServiceResponse(document, "Found External Internal Element",
                         contributions);
             } else {
                 String errormessage = "No internal symmetries defined: Check Collection dataset definition";
-                response = DatabaseServicesBase.standardErrorResponse(document, errormessage, null);
+                response = StandardResponse.standardErrorResponse(document, errormessage, null);
             }
         } else {
             String errormessage = "No external symmetries defined: Check Collection dataset definition";
-            response = DatabaseServicesBase.standardErrorResponse(document, errormessage, null);
+            response = StandardResponse.standardErrorResponse(document, errormessage, null);
         }
         return response;
     }
@@ -159,10 +159,10 @@ public class ComputeThermodynamicsSymmetryContribution {
                 dataset);
         contributions = optical.compute(molecule, body, info);
         if (contributions != null) {
-            response = DatabaseServicesBase.standardServiceResponse(document, "Found Optical Isomer Element",
+            response = StandardResponse.standardServiceResponse(document, "Found Optical Isomer Element",
                     contributions);
         } else {
-            response = DatabaseServicesBase.standardErrorResponse(document,
+            response = StandardResponse.standardErrorResponse(document,
                     "No optical symmetry elements in database: check Collection dataset setup", null);
         }
         return response;

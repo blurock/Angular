@@ -47,9 +47,9 @@ public class DatasetObjectLabelListManipulation extends DeleteCatalogDataObject 
         setofprops1.add(ClassLabelConstants.PropertyValueQueryPair, arr1);
         
         JsonObject prop1 = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
-        String ref1 = ClassLabelConstants.ShortTransactionDescription
+        String ref1 = ClassLabelConstants.ShortTransactionDescription;
         prop1.addProperty(ClassLabelConstants.DatabaseObjectType, "dataset:bensonrulestructure.dataset:bensonruleref");
-        prop1.addProperty(ClassLabelConstants.ShortStringKey, bensonname);
+        prop1.addProperty(ClassLabelConstants.ShortStringKey, keyString);
         arr1.add(prop1);
 		
 		return null;
@@ -67,21 +67,15 @@ public class DatasetObjectLabelListManipulation extends DeleteCatalogDataObject 
 	public static JsonObject addToChemConnectDatabaseObjectsForLabel(JsonObject event, JsonObject catalog) {
 		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
 		String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
-		JsonObject datasetid = catalog.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
 		String objkey = catalog.get(ClassLabelConstants.CatalogObjectKey).getAsString();
-		JsonObject created = createChemConnectDatabaseObjectsForLabel(owner,transactionID,objkey, datasetid);
+		JsonObject created = createChemConnectDatabaseObjectsForLabel(owner,transactionID,objkey, catalog);
 		JsonObject firestoreid = created.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
 		String simplename = firestoreid.get(ClassLabelConstants.SimpleCatalogName).getAsString();
 		JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(firestoreid);
 		JsonObject objforlabel = null;
 		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			if (!response.get(ClassLabelConstants.SimpleCatalogObject).isJsonNull()) {
-				JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
-				if (arr.size() > 0) {
-					objforlabel = arr.get(0).getAsJsonObject();
-				} else {
-					objforlabel = null;
-				}
+				objforlabel = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 			} else {
 				objforlabel = null;
 			}
@@ -91,7 +85,7 @@ public class DatasetObjectLabelListManipulation extends DeleteCatalogDataObject 
 		}
 		
 		if (objforlabel != null) {
-			String uniquelabelString = datasetid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+			String uniquelabelString = catalog.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
 			JsonArray names = objforlabel.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsJsonArray();
 			names.add(uniquelabelString);
 			String message = WriteFirestoreCatalogObject.writeCatalogObject(objforlabel);
@@ -117,7 +111,6 @@ public class DatasetObjectLabelListManipulation extends DeleteCatalogDataObject 
 
 		BaseCatalogData.insertFirestoreAddress(genericset);
 		return genericset;
-		
 	}
 	/**
 	 * @param event The transaction
@@ -140,10 +133,9 @@ public class DatasetObjectLabelListManipulation extends DeleteCatalogDataObject 
 	public static JsonObject addToChemConnectDatabaseUniqueGenericLabelSet(JsonObject event, JsonObject info) {
 		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
 		String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
-		JsonObject datasetid = info.get(ClassLabelConstants.SpecificationForDataset).getAsJsonObject();
-		JsonObject transactionfirestoreJsonObject = event.get(ClassLabelConstants.FirestoreCatalogIDForTransaction).getAsJsonObject();
+		//JsonObject transactionfirestoreJsonObject = event.get(ClassLabelConstants.FirestoreCatalogIDForTransaction).getAsJsonObject();
 
-		JsonObject created = createChemConnectDatabaseUniqueGenericLabelSet(owner, transactionID, datasetid);
+		JsonObject created = createChemConnectDatabaseUniqueGenericLabelSet(owner, transactionID, info);
 		
 		JsonObject firestoreid = created.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
 		String simplename = firestoreid.get(ClassLabelConstants.SimpleCatalogName).getAsString();
@@ -166,7 +158,7 @@ public class DatasetObjectLabelListManipulation extends DeleteCatalogDataObject 
 		}
 
 		if (genericset != null) {
-			String uniquelabelString = datasetid.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+			String uniquelabelString = info.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
 			JsonObject descr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
 			String title = descr.get(ClassLabelConstants.DescriptionTitleTransaction).getAsString();
 			addGenericLabel(genericset, title, uniquelabelString);
@@ -308,4 +300,9 @@ public class DatasetObjectLabelListManipulation extends DeleteCatalogDataObject 
 		}
 
 	}
+	
+	private static JsonObject createChemConnectDatabaseUniqueGenericLabelSet(String owner, String transactionID, JsonObject datasetid) {
+		return null;
+	}
+	
 }

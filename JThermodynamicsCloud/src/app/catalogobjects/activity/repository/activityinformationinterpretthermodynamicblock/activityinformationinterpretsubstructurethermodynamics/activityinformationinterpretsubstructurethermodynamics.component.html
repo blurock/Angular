@@ -1,0 +1,38 @@
+<ng-container *ngIf="annoinfo">
+	<form [formGroup]="objectform" class="infoform">
+		<mat-grid-list cols="6" rowHeight="100px">
+<mat-grid-tile [colspan]="3" background="lightgray">
+	<mat-form-field class="label">
+		<mat-label>{{annoinfo['dataset:JThermodynamicsSubstructureType'][rdfslabel]}}
+		</mat-label>
+		<input matInput formControlName="JThermodynamicsSubstructureType"
+			[matMenuTriggerFor]="structmenu">
+		<mat-hint>{{annoinfo['dataset:JThermodynamicsSubstructureType'][rdfscomment]}}
+		</mat-hint>
+		<mat-menu #structmenu="matMenu">
+		<app-menu-item #menu [items]="structitems"
+			(selectionEvent)="setJThermodynamicsSubstructureType($event)"></app-menu-item>
+		</mat-menu>
+	</mat-form-field>
+</mat-grid-tile>
+
+<mat-grid-tile [colspan]="3" background="lightgray">
+	<mat-form-field class="label">
+		<mat-label>{{annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][rdfslabel]}}
+		</mat-label>
+		<input matInput formControlName="JThermodynamicsSpeciesSpecificationType"
+			[matMenuTriggerFor]="specmenu">
+		<mat-hint>{{annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][rdfscomment]}}
+		</mat-hint>
+		<mat-menu #specmenu="matMenu">
+		<app-menu-item #menu [items]="items"
+			(selectionEvent)="setJThermodynamicsSpeciesSpecificationType($event)">
+		</app-menu-item>
+		</mat-menu>
+	</mat-form-field>
+</mat-grid-tile>
+		</mat-grid-list>
+	</form>
+	<app-activityinformationinterpretthermodynamicblock #thermo (annoinfo)=" annoinfo">
+	</app-activityinformationinterpretthermodynamicblock>
+</ng-container>

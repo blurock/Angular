@@ -15,8 +15,8 @@ import info.esblurock.background.services.dataset.DatasetCollectionIDManagement;
 import info.esblurock.background.services.dataset.DatasetCollectionManagement;
 import info.esblurock.background.services.dataset.ReadInDatasetWithDatasetCollectionProcess;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CompoundObjectDimensionInformation;
 import info.esblurock.reaction.core.ontology.base.dataset.CompoundObjectDimensionSet;
@@ -98,14 +98,14 @@ public class ProcessExamineDatabaseCollectionSetObject {
                 summary.add(ClassLabelConstants.DatasetObjectSummaryTableSearchTerms, searchsummary);
                 
                 String text = "Successful read of " +  summaryelements.size() + " " +  classname + " objects";
-                response = DatabaseServicesBase.standardServiceResponse(document, text, summary);
+                response = StandardResponse.standardServiceResponse(document, text, summary);
             } else {
-                response = DatabaseServicesBase.standardErrorResponse(document,
+                response = StandardResponse.standardErrorResponse(document,
                         "Error: Collection Set not found (or could not be read)",
                         null);
             }
         } else {
-            response = DatabaseServicesBase.standardErrorResponse(document,
+            response = StandardResponse.standardErrorResponse(document,
                 "Error: Object not defined in collection set IDs",
                 null);
         }

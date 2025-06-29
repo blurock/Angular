@@ -27,6 +27,8 @@ import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
 import info.esblurock.background.services.ontology.CatalogInformationServlet;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.background.services.transaction.TransactionProcess;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
@@ -94,10 +96,10 @@ public class LoginService extends HttpServlet {
                 if (service.equals("dataset:FirstLoginService")) {
                     answer = firstLogin(document, uid, idToken, email, username,authtype);
                 } else {
-                    answer = DatabaseServicesBase.standardErrorResponse(document, "No Login service: " + service, null);
+                    answer = StandardResponse.standardErrorResponse(document, "No Login service: " + service, null);
                 }
             } else {
-                answer = DatabaseServicesBase.standardErrorResponse(document, "UIDs do not match", null);
+                answer = StandardResponse.standardErrorResponse(document, "UIDs do not match", null);
             }
             PrintWriter out = response.getWriter();
             response.setContentType("application/json");
@@ -105,7 +107,7 @@ public class LoginService extends HttpServlet {
             out.print(JsonObjectUtilities.toString(answer));
             out.flush();
         } catch (FirebaseAuthException e) {
-            JsonObject answer = DatabaseServicesBase.standardErrorResponse(document,
+            JsonObject answer = StandardResponse.standardErrorResponse(document,
                     "Error in Authorization: Login session expired\n" + e.getMessage(), null);
             
             PrintWriter out = response.getWriter();
@@ -169,13 +171,13 @@ public class LoginService extends HttpServlet {
                 firstloginresponse.addProperty(ClassLabelConstants.LoginStage, "dataset:LoginRegistration");
                 JsonArray arr = new JsonArray();
                 arr.add(firstloginresponse);
-                response = DatabaseServicesBase.standardServiceResponse(document,
+                response = StandardResponse.standardServiceResponse(document,
                         "Successful creation of LoginAccountInformation", arr);
             } else {
                 firstloginresponse.addProperty(ClassLabelConstants.LoginStage, "dataset:LoginAccountInformation");
                 JsonArray arr = new JsonArray();
                 arr.add(firstloginresponse);
-                response = DatabaseServicesBase.standardServiceResponse(document,
+                response = StandardResponse.standardServiceResponse(document,
                         "LoginAccountInformation exists, but not Account info: ", arr);
             }
         } else {
@@ -194,11 +196,11 @@ public class LoginService extends HttpServlet {
                 WriteFirestoreCatalogObject.writeCatalogObjectWithException(loginaccount);
                 JsonArray arr = new JsonArray();
                 arr.add(firstloginresponse);
-                response = DatabaseServicesBase.standardServiceResponse(document,
+                response = StandardResponse.standardServiceResponse(document,
                         "Successful creation of LoginAccountInformation", arr);
             } catch (Exception ex) {
                 ex.printStackTrace();
-                response = DatabaseServicesBase.standardErrorResponse(document,
+                response = StandardResponse.standardErrorResponse(document,
                         "Error in writing LoginAccountInformation: " + ex.getMessage(), null);
             }
         }

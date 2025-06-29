@@ -13,9 +13,8 @@ import org.dom4j.Document;
 
 import com.google.gson.JsonObject;
 
-
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
@@ -43,7 +42,7 @@ public class CatalogInformationServlet extends HttpServlet {
         Document document = MessageConstructor.startDocument("DatasetCollectionDocumentIDPairForHierarchy");
 		JsonObject catalogandanno = CreateDocumentTemplate.createTemplateWithAnnotations(catalogname);
 		//logger.info("CatalogInformationServlet:" + JsonObjectUtilities.toString(catalogandanno));
-        JsonObject serveresponse = DatabaseServicesBase.standardServiceResponse(document,
+        JsonObject serveresponse = StandardResponse.standardServiceResponse(document,
                 "Success: DatasetCollectionDocumentIDPairForHierarchy", catalogandanno);
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");

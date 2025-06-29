@@ -1,0 +1,11 @@
+<h2>JSME Molecule Editor</h2>
+
+<app-jsme-editor #jsmeEditorInstance></app-jsme-editor>
+
+<button (click)="logMolfile()">Get Molfile</button>
+<button (click)="logSmiles()">Get SMILES</button>
+<button (click)="resetEditor()">Reset Editor</button>
+
+<pre *ngIf="currentMolfile">Current Molfile:\n{{ currentMolfile }}</pre>
+<pre *ngIf="currentSmiles">Current SMILES:\n{{ currentSmiles }}</pre>
+

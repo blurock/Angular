@@ -14,9 +14,9 @@ import info.esblurock.background.services.jthermodynamics.CalculateThermodynamic
 import info.esblurock.background.services.jthermodynamics.bensonrules.ComputeBensonRulesForMolecule;
 import info.esblurock.background.services.jthermodynamics.disassociation.CalculateThermodynamicsForDisassociationEnergy;
 import info.esblurock.background.services.jthermodynamics.symmetry.DatabaseCalculateSymmetryCorrection;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.background.services.servicecollection.ServiceCollectionComputeThermodynamics;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import thermo.data.structure.structure.AddHydrogenToSingleRadical;
 import thermo.data.structure.translational.CalculateTranslationalCorrection;
@@ -82,35 +82,35 @@ public class ComputeThermodynamicsHRadicalCorrections {
                             contributions.addAll(disscontributions);
                         } else {
                             String dissrrormessage = "Error in computing disassociation contribution";
-                            response = DatabaseServicesBase.standardErrorResponse(document, dissrrormessage,
+                            response = StandardResponse.standardErrorResponse(document, dissrrormessage,
                                     contributions);
                         }
 
                     } else {
                         String symmerrormessage = "Error in computing symmetry contributions";
-                        response = DatabaseServicesBase.standardErrorResponse(document, symmerrormessage,
+                        response = StandardResponse.standardErrorResponse(document, symmerrormessage,
                                 contributions);
                     }
 
                 } else {
                     String viberrormessage = "Error in computing vibrational modes";
-                    response = DatabaseServicesBase.standardErrorResponse(document, viberrormessage, contributions);
+                    response = StandardResponse.standardErrorResponse(document, viberrormessage, contributions);
                 }
 
             } else {
                 String bensonerrormessage = "Error in calculating benson rules";
-                response = DatabaseServicesBase.standardErrorResponse(document, bensonerrormessage, contributions);
+                response = StandardResponse.standardErrorResponse(document, bensonerrormessage, contributions);
             }
 
             String title = "Compute H Radical Corrections Successful";
-            response = DatabaseServicesBase.standardServiceResponse(document, title, contributions);
+            response = StandardResponse.standardServiceResponse(document, title, contributions);
 
         } catch (NotARadicalException e) {
             String errortitle = "Molecule not a radical";
-            response = DatabaseServicesBase.standardServiceResponse(document, errortitle, null);
+            response = StandardResponse.standardServiceResponse(document, errortitle, null);
         } catch (IOException e) {
             String errortitle = "Error in converting the radical to a molecule";
-            response = DatabaseServicesBase.standardServiceResponse(document, errortitle, null);
+            response = StandardResponse.standardServiceResponse(document, errortitle, null);
         }
 
         return response;
@@ -168,10 +168,10 @@ public class ComputeThermodynamicsHRadicalCorrections {
                     .getAsJsonArray();
 
             String title = "Success in computing Benson rules";
-            response = DatabaseServicesBase.standardServiceResponse(document, title, bensoncontributions);
+            response = StandardResponse.standardServiceResponse(document, title, bensoncontributions);
         } else {
             String errormessage = "Error in Radical conversion to substituted molecule";
-            response = DatabaseServicesBase.standardErrorResponse(document, errormessage, null);
+            response = StandardResponse.standardErrorResponse(document, errormessage, null);
         }
         return response;
     }
@@ -187,7 +187,7 @@ public class ComputeThermodynamicsHRadicalCorrections {
                 dataset);
         JsonArray symmetries = symmcorrection.compute(document, moleculetocompute, body, info);
 
-        JsonObject response = DatabaseServicesBase.standardServiceResponse(document,
+        JsonObject response = StandardResponse.standardServiceResponse(document,
                 "ComputeThermodynamicsFromAllSymmetries computed: " + symmetries.size(), symmetries);
 
         return response;

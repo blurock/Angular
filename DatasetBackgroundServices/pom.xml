@@ -129,6 +129,17 @@
 			<version>1.0</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>esblurock.info</groupId>
+			<artifactId>Neo4JUtilities</artifactId>
+			<version>1.0</version>
+			<scope>compile</scope>
+		</dependency>
+        <dependency>
+            <groupId>org.neo4j.driver</groupId>
+            <artifactId>neo4j-java-driver</artifactId>
+            <version>5.28.4</version>
+        </dependency>
 		<!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
 		<dependency>
 			<groupId>org.dom4j</groupId>
@@ -184,6 +195,11 @@
 					<artifactId>jsr305</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>esblurock.info</groupId>
+			<artifactId>Neo4JUtilities</artifactId>
+			<version>1.0</version>
 		</dependency>
 	</dependencies>
 	<build>

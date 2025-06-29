@@ -12,8 +12,8 @@ import info.esblurock.background.services.jthermodynamics.bensonrules.ComputeBen
 import info.esblurock.background.services.jthermodynamics.radicals.ComputeThermodynamicsHRadicalCorrections;
 import info.esblurock.background.services.jthermodynamics.radicals.ComputeThermodynamicsTHERM;
 import info.esblurock.background.services.jthermodynamics.symmetry.DatabaseCalculateSymmetryCorrection;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import thermo.data.structure.structure.AddHydrogenToSingleRadical;
 import thermo.data.structure.utilities.MoleculeUtilities;
@@ -32,7 +32,7 @@ public class ComputeTotalThermodynamics {
             response = calculateTherGasThermodynamics(maintainer, dataset, molecule, info, document);
         } else {
             String errorS = "Error in interpreting molecule";
-            response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+            response = StandardResponse.standardErrorResponse(document, errorS, null);
         }
         return response;
     }
@@ -71,7 +71,7 @@ public class ComputeTotalThermodynamics {
             JsonArray symmetries = symmcorrection.compute(document, moleculetocompute, body, info);
             bensoncontributions.addAll(symmetries);
             String title = "Total Contribution";
-            response = DatabaseServicesBase.standardServiceResponse(document, title, bensoncontributions);
+            response = StandardResponse.standardServiceResponse(document, title, bensoncontributions);
         }
 
         return response;
@@ -87,12 +87,12 @@ public class ComputeTotalThermodynamics {
                 response = ComputeThermodynamicsTHERM.computeHRadicalCorrections(molecule, info, document);
             } else {
                 String errorS = "Error in interpreting molecule";
-                response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                response = StandardResponse.standardErrorResponse(document, errorS, null);
             }
         } catch (Exception ex) {
             String errorS = "Fundamental Error in HBI calculation: \n" + ex.getMessage();
             ex.printStackTrace();
-            response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+            response = StandardResponse.standardErrorResponse(document, errorS, null);
         }
         return response;
     }

@@ -16,8 +16,8 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.molecule.DatasetMoleculeUtilities;
 import info.esblurock.background.services.dataset.parameters.ParameterUtilities;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import thermo.data.structure.disassociation.DisassociationEnergy;
@@ -39,11 +39,11 @@ public class CalculateThermodynamicsForDisassociationEnergy {
             if (molecule != null) {
                 response = calculate(maintainer, dataset, molecule, info, document);
             } else {
-                response = DatabaseServicesBase.standardServiceResponse(document, "Problem converting molecules", null);
+                response = StandardResponse.standardServiceResponse(document, "Problem converting molecules", null);
             }
         } else {
             String errorS = "No Collection Set Record found";
-            response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+            response = StandardResponse.standardErrorResponse(document, errorS, null);
         }
         return response;
     }
@@ -75,16 +75,16 @@ public class CalculateThermodynamicsForDisassociationEnergy {
                         contribution.addProperty(ClassLabelConstants.DescriptionTitle, name);
                 JsonArray arr = new JsonArray();
                 arr.add(contribution);
-                response = DatabaseServicesBase.standardServiceResponse(document, "Disassociation Energy Found",
+                response = StandardResponse.standardServiceResponse(document, "Disassociation Energy Found",
                         arr);
                 } else {
-                    response = DatabaseServicesBase.standardErrorResponse(document, "Disassociation Energy Error: No Corresponding structure found for radical", null);
+                    response = StandardResponse.standardErrorResponse(document, "Disassociation Energy Error: No Corresponding structure found for radical", null);
                 }
             } else {
-                response = DatabaseServicesBase.standardErrorResponse(document, "Disassociation Energy Error: No Corresponding structure found for radical", null);
+                response = StandardResponse.standardErrorResponse(document, "Disassociation Energy Error: No Corresponding structure found for radical", null);
             }
         } else {
-            response = DatabaseServicesBase.standardErrorResponse(document,
+            response = StandardResponse.standardErrorResponse(document,
                     "No disassociation energy structures in database, check Collection dataset setup", null);
         }
         return response;

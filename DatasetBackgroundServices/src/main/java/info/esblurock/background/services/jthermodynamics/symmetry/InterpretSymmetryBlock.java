@@ -18,7 +18,7 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.utilities.XMLUtilityRoutines;
 import info.esblurock.background.services.jthermodynamics.structure.GenerateJThermodynamics2DSpeciesStructure;
-import info.esblurock.background.services.service.MessageConstructor;
+import info.esblurock.reaction.core.MessageConstructor;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;

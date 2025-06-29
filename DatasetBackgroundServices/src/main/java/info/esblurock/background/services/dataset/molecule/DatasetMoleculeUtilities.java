@@ -9,7 +9,7 @@ import org.openscience.cdk.interfaces.IAtomContainer;
 import com.google.gson.JsonObject;
 import org.dom4j.Element;
 
-import info.esblurock.background.services.service.MessageConstructor;
+import info.esblurock.reaction.core.MessageConstructor;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import thermo.compute.utilities.StringToAtomContainer;

@@ -12,9 +12,9 @@ import com.google.gson.JsonObject;
 import info.esblurock.background.services.firestore.DeleteCatalogDataObject;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.firestore.SetUpDocumentReference;
-import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.service.rdfs.DeleteRDFs;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRoutines;
@@ -115,7 +115,7 @@ public class DeleteTransaction extends DeleteCatalogDataObject {
 		deleted++;
 
 		String totalmessage = "Total number of deleted items: " + Integer.toString(deleted);
-		JsonObject response = DatabaseServicesBase.standardServiceResponse(document, totalmessage, null);
+		JsonObject response = StandardResponse.standardServiceResponse(document, totalmessage, null);
 
 		return response;
 	}

@@ -71,12 +71,9 @@ export class SpecificationfordatasetComponent {
 	
 	public getData(catalog: any): void {
 		const jsontransspec: Record<string, unknown> = {};
-		const specid = this.annoinfo['dataset:SpecificationForDataset'][this.identifier];
-		catalog[specid] = jsontransspec;
-
-		jsontransspec[this.annoinfo['dataset:DatasetObjectType'][this.identifier]] = this.idForm.get('DatasetObjectType')?.value ?? '';;
-		jsontransspec[this.annoinfo['dataset:CatalogObjectUniqueGenericLabel'][this.identifier]] = this.idForm.get('CatalogObjectUniqueGenericLabel')?.value ?? '';;
-		jsontransspec[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.maintainer;
+		catalog[this.annoinfo['dataset:DatasetObjectType'][this.identifier]] = this.idForm.get('DatasetObjectType')?.value ?? '';;
+		catalog[this.annoinfo['dataset:CatalogObjectUniqueGenericLabel'][this.identifier]] = this.idForm.get('CatalogObjectUniqueGenericLabel')?.value ?? '';;
+		catalog[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.maintainer;
 		this.transspec = jsontransspec;
 	}
 

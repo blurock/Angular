@@ -7,8 +7,9 @@ import org.dom4j.Element;
 
 import com.google.gson.JsonObject;
 
-import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 
@@ -53,7 +54,7 @@ public class ReadInDatasetWithDatasetCollectionProcess {
         MessageConstructor.combineBodyIntoDocument(document, response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
         } catch(Exception ex) {
             String text = "Error in reading collection set: " + ex.getMessage();
-            response = DatabaseServicesBase.standardErrorResponse(document, text, null);
+            response = StandardResponse.standardErrorResponse(document, text, null);
             
         }
         

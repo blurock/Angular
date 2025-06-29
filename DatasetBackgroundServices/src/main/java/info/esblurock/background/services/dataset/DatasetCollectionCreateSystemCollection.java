@@ -10,8 +10,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
@@ -138,20 +138,20 @@ public class DatasetCollectionCreateSystemCollection {
                 if(success) {
                     successtitleelement.addText("Successful Creation of System Database");
                     successdivelement.addText("All components were transferred");
-                    response = DatabaseServicesBase.standardServiceResponse(document, "Success, all data transfered", arr);
+                    response = StandardResponse.standardServiceResponse(document, "Success, all data transfered", arr);
                 } else {
                     successtitleelement.addText("Some (non-fatal) errors found");
                     successdivelement.addText("Examine logs for details, some elements may not have been transferred");
-                    response = DatabaseServicesBase.standardServiceResponse(document, "Some (non-fatal) errors found, not all objects transferred", arr);
+                    response = StandardResponse.standardServiceResponse(document, "Some (non-fatal) errors found, not all objects transferred", arr);
                 }
             } catch (Exception e) {
                 body.addElement("div").addText("DatasetCollectionID object  not written: ");
-                response = DatabaseServicesBase.standardErrorResponse(document, "Dataset Collection not found", arr);
+                response = StandardResponse.standardErrorResponse(document, "Dataset Collection not found", arr);
             }
             
 
         } else {
-            response = DatabaseServicesBase.standardErrorResponse(document, "Dataset Collection not found", null);
+            response = StandardResponse.standardErrorResponse(document, "Dataset Collection not found", null);
         }
         return response;
     }

@@ -7,8 +7,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
@@ -30,12 +30,12 @@ public class CreateDatabasePersonTransaction {
 			JsonObject descr = catalog.get(ClassLabelConstants.DataDescriptionPerson).getAsJsonObject();
 			String title = descr.get(ClassLabelConstants.DescriptionTitlePerson).getAsString();
 			String message = "Successful creation of DatabasePerson: " + title;
-			response = DatabaseServicesBase.standardServiceResponse(document, message, catalogarr);
+			response = StandardResponse.standardServiceResponse(document, message, catalogarr);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			String errormessage = "Failed (" + ex.getClass().getCanonicalName() + ") create DatabasePerson: "
 					+ ex.getMessage();
-			response = DatabaseServicesBase.standardErrorResponse(document, errormessage, null);
+			response = StandardResponse.standardErrorResponse(document, errormessage, null);
 		}
 		return response;
 	}
@@ -52,6 +52,10 @@ public class CreateDatabasePersonTransaction {
 		JsonObject catalog = BaseCatalogData.createStandardDatabaseObject(classname, owner, transID, makepublic);
 		String identifier = catalog.get(AnnotationObjectsLabels.identifier).getAsString();
 		SubstituteJsonValues.substituteJsonObject(catalog, source);
+		
+		System.out.println("CreateDatabasePersonTransaction: source: " + JsonObjectUtilities.toString(source));
+		System.out.println("CreateDatabasePersonTransaction: catalog: " + JsonObjectUtilities.toString(catalog));
+		
 		JsonObject descr = source.get(ClassLabelConstants.DataDescriptionPerson).getAsJsonObject();
 		String title = descr.get(ClassLabelConstants.DescriptionTitlePerson).getAsString();
 		catalog.addProperty(ClassLabelConstants.PersonFullName, title);

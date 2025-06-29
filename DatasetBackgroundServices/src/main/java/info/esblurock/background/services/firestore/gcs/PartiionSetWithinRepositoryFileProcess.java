@@ -9,14 +9,14 @@ import com.google.gson.JsonObject;
 import info.esblurock.background.services.datamanipulation.PartitionSetOfStringObjects;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.firestore.WriteFirestoreCatalogObject;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
 import info.esblurock.background.services.transaction.TransactionProcess;
+import info.esblurock.background.services.utilities.CreateLinksInStandardCatalogInformation;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
-import info.esblurock.reaction.core.ontology.base.dataset.CreateLinksInStandardCatalogInformation;
 import info.esblurock.reaction.core.ontology.base.transaction.transactionbase.catalogchangeevent.catcreateevent.CreateDatabasePersonEvent;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
@@ -44,9 +44,10 @@ public class PartiionSetWithinRepositoryFileProcess {
     	event.addProperty(ClassLabelConstants.DatasetCollectionObjectType, colltype);
 		String owner = event.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
 		String transactionID = event.get(ClassLabelConstants.TransactionID).getAsString();
-		JsonObject datasetspec = info.get(ClassLabelConstants.SpecificationForDataset)
-				.getAsJsonObject();
-		event.add(ClassLabelConstants.SpecificationForDataset, datasetspec);
+		String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
+		String uniquelabel = info.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
+		String type = info.get(ClassLabelConstants.DatasetObjectType).getAsString();
+		
         JsonObject transfirestoreID = BaseCatalogData.insertFirestoreAddress(event);
 		Document document = MessageConstructor.startDocument("PartiionSetWithinRepositoryFile");
 		Element body = MessageConstructor.isolateBody(document);
@@ -56,8 +57,7 @@ public class PartiionSetWithinRepositoryFileProcess {
 		// Parse the content using the info (FilePartitionMethod)
 		String methodS = info.get(ClassLabelConstants.FilePartitionMethod).getAsString();
 		info.addProperty(ClassLabelConstants.CatalogObjectOwner, owner);
-		info.addProperty(ClassLabelConstants.TransactionID, transactionID);
-        JsonArray objects = PartitionSetOfStringObjects.partitionString(info, content,document);
+        JsonArray objects = PartitionSetOfStringObjects.partitionString(info, transactionID, content,document);
                 
 		String sourceformat = info.get(ClassLabelConstants.FileSourceFormat).getAsString();
 		JsonArray set = new JsonArray();
@@ -71,7 +71,12 @@ public class PartiionSetWithinRepositoryFileProcess {
             catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction,transfirestoreID.deepCopy());
 			catalog.addProperty(ClassLabelConstants.FileSourceFormat, sourceformat);
 			catalog.addProperty(ClassLabelConstants.FilePartitionMethod, methodS);
-			catalog.add(ClassLabelConstants.SpecificationForDataset, datasetspec);
+
+			catalog.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, uniquelabel);
+			catalog.addProperty(ClassLabelConstants.DatasetObjectType, type);
+			catalog.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
+			
+			
 			CreateLinksInStandardCatalogInformation.transfer(info, catalog);
 			CreateLinksInStandardCatalogInformation.transfer(staging, catalog);
 			CreateLinksInStandardCatalogInformation.linkCatalogObjects(staging,
@@ -83,11 +88,11 @@ public class PartiionSetWithinRepositoryFileProcess {
 			set.add(catalog);
 		}
 		String message = "Successful: " + objects.size() + "blocks";
-		response = DatabaseServicesBase.standardServiceResponse(document, message, set);
+		response = StandardResponse.standardServiceResponse(document, message, set);
         
       } else {
           String text =  "Prerequisites \"dataset:initreposfile\" not found in:\n " + JsonObjectUtilities.toString(prerequisites);
-          response = DatabaseServicesBase.standardErrorResponse(document,text, null);
+          response = StandardResponse.standardErrorResponse(document,text, null);
           System.out.println(text);
       }
 

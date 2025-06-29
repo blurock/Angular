@@ -11,9 +11,8 @@ import org.dom4j.Element;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.utilities.XMLUtilityRoutines;
-import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
+import info.esblurock.reaction.core.MessageConstructor;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import jThergas.data.read.JThergasTokenizer;
@@ -27,12 +26,12 @@ public enum PartitionSetOfStringObjects {
 	PartitionTherGasThermodynamics {
 
 		@Override
-		void partition(JsonArray partitionarr, JsonObject info, String content, Document document) {
+		void partition(JsonArray partitionarr, JsonObject info, String transactionID, String content, Document document) {
+			String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 			JThergasTokenizer tokenizer = new JThergasTokenizer(content);
 			int count = 0;
 			while (tokenizer.countTokens() > 2) {
 				String owner = info.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
-				String transactionID = info.get(ClassLabelConstants.TransactionID).getAsString();
 				JsonObject block = BaseCatalogData.createStandardDatabaseObject(
 						"dataset:RepositoryTherGasThermodynamicsBlock", owner, transactionID, "false");
 				block.addProperty(ClassLabelConstants.Position, count);
@@ -46,6 +45,7 @@ public enum PartitionSetOfStringObjects {
 					thermoblock.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine2, tokenizer.line2);
 					thermoblock.addProperty(ClassLabelConstants.ThermodynamicsTherGasLine3, tokenizer.line3);
 					thermoblock.addProperty(ClassLabelConstants.Position, count);
+					block.addProperty(ClassLabelConstants.ShortDescription, tokenizer.line1);
 					partitionarr.add(block);
 					String lne = count + ":" + tokenizer.line1 + "\n";
 					body.addElement("pre").addText(lne);
@@ -68,14 +68,14 @@ public enum PartitionSetOfStringObjects {
 	PartitionToLineSet {
 
 		@Override
-		void partition(JsonArray partitionarr, JsonObject info, String content, Document document) {
+		void partition(JsonArray partitionarr, JsonObject info, String transactionID, String content, Document document) {
+			String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 			int sze = info.get(ClassLabelConstants.BlockLineCount).getAsInt();
 			StringTokenizer tok = new StringTokenizer(content, "\n");
 			int count = sze;
 			int position = 0;
 			JsonArray linearr = new JsonArray();
 			String owner = info.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
-			String transactionID = info.get(ClassLabelConstants.TransactionID).getAsString();
 			while (tok.hasMoreElements()) {
 				if (count > 0) {
 					linearr.add(tok.nextToken());
@@ -84,9 +84,11 @@ public enum PartitionSetOfStringObjects {
 				if (count == 0) {
 					JsonObject block = BaseCatalogData.createStandardDatabaseObject(
 							"dataset:RepositoryParsedToFixedBlockSize", owner, transactionID, "false");
+					block.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 					block.add(ClassLabelConstants.ParsedLine, linearr);
 					block.addProperty(ClassLabelConstants.ElementCount, sze);
 					block.addProperty(ClassLabelConstants.Position, position);
+					block.addProperty(ClassLabelConstants.ShortDescription, linearr.get(0).getAsString());
 					partitionarr.add(block);
 					linearr = new JsonArray();
 					count = sze;
@@ -104,20 +106,23 @@ public enum PartitionSetOfStringObjects {
 	}, PartitionXMLListOfCatalogObjects {
 
 		@Override
-		void partition(JsonArray partitionarr, JsonObject info, String content, Document document) {
+		void partition(JsonArray partitionarr, JsonObject info, String transactionID, String content, Document document) {
+			String maintainer = info.get(ClassLabelConstants.CatalogDataObjectMaintainer).getAsString();
 			String catalogid = info.get(ClassLabelConstants.FileSourceFormat).getAsString();
 			String[] blocks = XMLUtilityRoutines.parseObjectsFromXMLString(content, catalogid);
 			String owner = info.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
-			String transactionID = info.get(ClassLabelConstants.TransactionID).getAsString();
 			for(int position = 0; position < blocks.length;position++) {
 				String portion = blocks[position];
 				JsonArray linearr = new JsonArray();
 				linearr.add(portion);
 					JsonObject block = BaseCatalogData.createStandardDatabaseObject(
 							"dataset:RepositoryParsedToFixedBlockSize", owner, transactionID, "false");
+					block.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 					block.add(ClassLabelConstants.ParsedLine, linearr);
 					block.addProperty(ClassLabelConstants.ElementCount, portion.length());
 					block.addProperty(ClassLabelConstants.Position, position);
+					
+					block.addProperty(ClassLabelConstants.ShortDescription, "XML Portion " + position);
 					partitionarr.add(block);
 			}
 		}
@@ -130,7 +135,7 @@ public enum PartitionSetOfStringObjects {
 
 	};
 
-	abstract void partition(JsonArray partitionarr, JsonObject info, String content, Document document);
+	abstract void partition(JsonArray partitionarr, JsonObject info, String transactionID, String content, Document document);
 
 	abstract String getBlockClass();
 
@@ -148,10 +153,10 @@ public enum PartitionSetOfStringObjects {
 	 *         <li>The method of partitioning (FilePartitionMethod)
 	 *         <ul>
 	 */
-	public static JsonArray partitionString(JsonObject info, String content, Document document) {
+	public static JsonArray partitionString(JsonObject info, String transactionID, String content, Document document) {
 		JsonArray partitionarr = new JsonArray();
 		PartitionSetOfStringObjects method = getMethod(info);
-		method.partition(partitionarr, info, content,document);
+		method.partition(partitionarr, info, transactionID, content,document);
 		return partitionarr;
 	}
 

@@ -7,12 +7,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.ManageDatasetCatalogObjects;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.background.services.utilities.CreateLinksInStandardCatalogInformation;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
-import info.esblurock.reaction.core.ontology.base.dataset.CreateLinksInStandardCatalogInformation;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.utilities.GenericSimpleQueries;
 
@@ -63,9 +63,9 @@ public class TransferDatasetObjectCollectionToDatabaseProcess {
 			JsonObject writeresponse = ManageDatasetCatalogObjects.writeSetOfCatalogObjects(event, collectionclassname, collectionid, databaseobjects);
 			String wmessage = writeresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 			MessageConstructor.combineBodyIntoDocument(document, wmessage);
-			response = DatabaseServicesBase.standardServiceResponse(document, "Transfer Successful", databaseobjects);
+			response = StandardResponse.standardServiceResponse(document, "Transfer Successful", databaseobjects);
 		} else {
-			response = DatabaseServicesBase.standardErrorResponse(document, "Error in Reading in Dataset Objects", null);
+			response = StandardResponse.standardErrorResponse(document, "Error in Reading in Dataset Objects", null);
 		}
 		return response;
 	}

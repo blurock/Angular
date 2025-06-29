@@ -7,8 +7,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
@@ -54,25 +54,25 @@ public class GetUserAccountAndDatabasePersonProcess {
                     JsonArray arr = new JsonArray();
                     arr.add(catalog);
                     String title = "Success in reading account: " + uid;
-                    response = DatabaseServicesBase.standardServiceResponse(document, title, arr);
+                    response = StandardResponse.standardServiceResponse(document, title, arr);
                 } else {
                     System.out.println("User Account not found");
                     String errorresponse = "GetUserAccountAndDatabasePerson: error: " + uid + " error in reading DatabasePerson";
                     MessageConstructor.combineBodyIntoDocument(document, pairresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
-                    response = DatabaseServicesBase.standardErrorResponse(document, errorresponse,null);
+                    response = StandardResponse.standardErrorResponse(document, errorresponse,null);
                 }
             } else {
                 System.out.println("DatabasePerson not found");
 
                 String errorresponse = "GetUserAccountAndDatabasePerson: error: " + uid + " error reading UserAccount";
                 MessageConstructor.combineBodyIntoDocument(document, pairresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
-                response = DatabaseServicesBase.standardErrorResponse(document, errorresponse,null);
+                response = StandardResponse.standardErrorResponse(document, errorresponse,null);
             }
             
         } else {
             String errorresponse = "GetUserAccountAndDatabasePerson: error: NewUserAccount " + uid + " does not exist";
             MessageConstructor.combineBodyIntoDocument(document, pairresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
-            response = DatabaseServicesBase.standardErrorResponse(document, errorresponse,null);
+            response = StandardResponse.standardErrorResponse(document, errorresponse,null);
         }
         return response;
     }

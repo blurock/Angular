@@ -10,7 +10,7 @@ import org.dom4j.Element;
 import org.dom4j.Node;
 import org.junit.Test;
 
-import info.esblurock.background.services.service.MessageConstructor;
+import info.esblurock.reaction.core.MessageConstructor;
 
 public class TestMessageConstructor {
 

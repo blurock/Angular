@@ -2,14 +2,14 @@
 	"prov:activity": "dataset:InitialReadInLocalStorageSystem",
 	"dataset:transreqobj": {},
 	"dataset:activityinfo": {
-		"descr-filestaging": {
-			"dataset:purpose-filestaging": {
-				"dataset:purposekey-filestaging": "dataset:PurposeFileStaging",
-				"dataset:dataconcept-staging": "dataset:ConceptFileStaging"
+		"dataset:descrfilestaging": {
+			"dataset:purposefilestaging": {
+				"dataset:purposekeyfilestaging": "dataset:PurposeFileStaging",
+				"dataset:dataconceptstaging": "dataset:ConceptFileStaging"
 			},
-			"dataset:keyword-filestaging": [],
-			"dataset:title-staging": "Read in standard Carbon-Hydrogen atom benson rules from table A.1 from Benson Thermochemical Kinetics",
-			"dataset:abstract-staging": "Read the standard Carbon-Hydrogen atom benson rules. This is Table A.1 from Benson Thermochemical Kinetics.",
+			"dataset:keywordfilestaging": [],
+			"dataset:titlestaging": "Read in standard Carbon-Hydrogen atom benson rules from table A.1 from Benson Thermochemical Kinetics",
+			"dataset:abstractstaging": "Read the standard Carbon-Hydrogen atom benson rules. This is Table A.1 from Benson Thermochemical Kinetics.",
 			"dcterms:created": "today"
 		},
 		"dataset:uploadsrc": "dataset:ResourceFileSystem",
@@ -19,11 +19,9 @@
 		"dataset:filesourcesubtype": "",
 		"dataset:fileidentifier": "/resources/standard/bensonrules/data/tableA1CarbonBensonRules.txt",
 		"dataset:collectionobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDatabase",
-		"dataset:specificationfordataset": {
-			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:uniquegenericname": "TableA1CarbonBensonRules",
-			"dataset:datasetobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDataSet"
-		},
+		"dataset:catalogobjectmaintainer": "Administrator",
+		"dataset:uniquegenericname": "TableA1CarbonBensonRules",
+		"dataset:datasetobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDataSet",
 		"dcterms:identifier": "initialrepositorylocal",
 		"dcterms:BibliographicResource": [
 			{

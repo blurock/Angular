@@ -19,11 +19,9 @@
 		"dataset:filesourcesubtype": "",
 		"dataset:fileidentifier": "/resources/standard/bensonrules/data/tableA1NitrogenCHO.txt",
 		"dataset:collectionobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDatabase",
-		"dataset:specificationfordataset": {
-			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:uniquegenericname": "TableA1NitrogenCHO",
-			"dataset:datasetobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDataSet"
-		},
+		"dataset:catalogobjectmaintainer": "Administrator",
+		"dataset:uniquegenericname": "TableA1NitrogenCHO",
+		"dataset:datasetobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDataSet",
 		"dcterms:identifier": "initialrepositorylocal",
 		"dcterms:BibliographicResource": [
 			{

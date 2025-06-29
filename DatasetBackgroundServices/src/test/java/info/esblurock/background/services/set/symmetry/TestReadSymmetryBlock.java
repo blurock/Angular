@@ -14,7 +14,7 @@ import org.junit.Test;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.jthermodynamics.symmetry.InterpretSymmetryBlock;
-import info.esblurock.background.services.service.MessageConstructor;
+import info.esblurock.reaction.core.MessageConstructor;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class TestReadSymmetryBlock {

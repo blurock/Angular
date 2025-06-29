@@ -179,6 +179,8 @@ public class InterpretThermodynamicBlock {
 			JsonObject bensonrulestructure = bensonrule.get(ClassLabelConstants.JThermodynamicsBensonRuleStructure)
 					.getAsJsonObject();
 			interpretBensonRuleStructure(point, bensonrulestructure, row);
+			String nameString = bensonrulestructure.get(ClassLabelConstants.BensonRuleDatabaseReference).getAsString();
+			bensonrule.addProperty(ClassLabelConstants.ShortDescription, nameString);
 			JsonObject bensonrulethermo = bensonrule.get(ClassLabelConstants.JThermodynamicStandardThermodynamics)
 					.getAsJsonObject();
 			interpretStandardThermodynamics(point, bensonrulethermo, info, row);

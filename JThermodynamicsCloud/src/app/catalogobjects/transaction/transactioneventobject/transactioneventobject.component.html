@@ -1,0 +1,13 @@
+<ng-container *ngIf='annoinfo; else loading'>
+	
+	<app-listoffirestoreids #outputobjects [annoinfo]="annoinfo" [listtitle]="outputtransactions">
+	</app-listoffirestoreids>
+	
+	<app-listoffirestoreids #requiredobjects [annoinfo]="annoinfo" [listtitle]="inputtransactions">
+	</app-listoffirestoreids>
+
+	<app-simpledatabaseobjectstructure #simpledata [anno]="annoinfo" [istransaction]="istransaction"></app-simpledatabaseobjectstructure>
+	</ng-container>
+	<ng-template #loading>
+		<mat-spinner></mat-spinner>
+	</ng-template>

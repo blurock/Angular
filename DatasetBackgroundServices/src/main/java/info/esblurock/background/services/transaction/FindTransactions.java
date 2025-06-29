@@ -21,8 +21,8 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.FirestoreBaseClass;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
@@ -67,14 +67,14 @@ public class FindTransactions {
 				if (arr != null) {
 					if (arr.size() > 0) {
 						// transaction = arr.get(0).getAsJsonObject();
-						response = DatabaseServicesBase.standardServiceResponse(document,
+						response = StandardResponse.standardServiceResponse(document,
 								"Sucesss: Transaction found: ", arr);
 					} else {
 						String message = "No " + type + " found for user: " + owner;
-						response = DatabaseServicesBase.standardErrorResponse(document, message, null);
+						response = StandardResponse.standardErrorResponse(document, message, null);
 					}
 				} else {
-					response = DatabaseServicesBase.standardErrorResponse(document,
+					response = StandardResponse.standardErrorResponse(document,
 							"No transactions found: error in reading database", null);
 
 				}
@@ -82,11 +82,11 @@ public class FindTransactions {
 			} else {
 				String rdfmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 				MessageConstructor.combineBodyIntoDocument(document, rdfmessage);
-				response = DatabaseServicesBase.standardErrorResponse(document, "Error in reading database", null);
+				response = StandardResponse.standardErrorResponse(document, "Error in reading database", null);
 			}
 
 		} catch (Exception ex) {
-			response = DatabaseServicesBase.standardErrorResponse(document,
+			response = StandardResponse.standardErrorResponse(document,
 					"Fatal error in FindTransactions:  " + ex.toString(), null);
 			ex.printStackTrace();
 		}
@@ -207,7 +207,7 @@ public class FindTransactions {
 			object.addProperty(ClassLabelConstants.TransactionEventType, type);
 			object.add(ClassLabelConstants.LabelFirestoreIDPair, idpairs);
 			String message = "Success: Transaction IDs of type '" + type + "' found";
-			response = DatabaseServicesBase.standardServiceResponse(docmessage, message, object);
+			response = StandardResponse.standardServiceResponse(docmessage, message, object);
 		}
 		return response;
 	}
@@ -246,7 +246,7 @@ public class FindTransactions {
 			JsonObject object = new JsonObject();
 			object.add(ClassLabelConstants.TransactionEventObject, transactions);
 			String message = "Transactions of type '" + type + "' found";
-			response = DatabaseServicesBase.standardServiceResponse(docmessage, message, object);
+			response = StandardResponse.standardServiceResponse(docmessage, message, object);
 		}
 		return response;
 	}
@@ -336,13 +336,13 @@ public class FindTransactions {
 				if (arr != null) {
 					if (arr.size() > 0) {
 						transaction = arr.get(0).getAsJsonObject();
-						response = DatabaseServicesBase.standardServiceResponse(document,
+						response = StandardResponse.standardServiceResponse(document,
 								"Sucesss: Transaction found: ", transaction);
 					} else {
-						response = DatabaseServicesBase.standardErrorResponse(document, "No transactions found", null);
+						response = StandardResponse.standardErrorResponse(document, "No transactions found", null);
 					}
 				} else {
-					response = DatabaseServicesBase.standardErrorResponse(document,
+					response = StandardResponse.standardErrorResponse(document,
 							"No transactions found: error in reading database", null);
 
 				}
@@ -352,10 +352,10 @@ public class FindTransactions {
 				pre.addText(idS);
 				String rdfmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 				MessageConstructor.combineBodyIntoDocument(document, rdfmessage);
-				response = DatabaseServicesBase.standardErrorResponse(document, "Error in reading database", null);
+				response = StandardResponse.standardErrorResponse(document, "Error in reading database", null);
 			}
 		} else {
-			response = DatabaseServicesBase.standardErrorResponse(document, "Error in creating: " + type, null);
+			response = StandardResponse.standardErrorResponse(document, "Error in creating: " + type, null);
 		}
 		return response;
 	}
@@ -405,15 +405,15 @@ public class FindTransactions {
 				node.remove(ClassLabelConstants.SimpleDatabaseObjectStructure);
 				JsonArray arr = new JsonArray();
 				arr.add(node);
-				response = DatabaseServicesBase.standardServiceResponse(docmessage,
+				response = StandardResponse.standardServiceResponse(docmessage,
 						"Successful read of collectiion set objects", arr);
 
 			} else {
-				response = DatabaseServicesBase.standardErrorResponse(docmessage, "No Transaction objects found", null);
+				response = StandardResponse.standardErrorResponse(docmessage, "No Transaction objects found", null);
 			}
 
 		} catch (IOException e) {
-			response = DatabaseServicesBase.standardErrorResponse(docmessage, e.toString(), null);
+			response = StandardResponse.standardErrorResponse(docmessage, e.toString(), null);
 		}
 		return response;
 	}

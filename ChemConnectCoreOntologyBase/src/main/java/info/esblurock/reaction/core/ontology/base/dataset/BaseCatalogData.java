@@ -70,6 +70,8 @@ public class BaseCatalogData {
 		} else {
 			obj.addProperty(ClassLabelConstants.CatalogObjectAccessRead, owner);
 		}
+		String catalogidString = BaseCatalogData.generateUniqueUUID();
+		obj.addProperty(ClassLabelConstants.CatalogObjectID, catalogidString);
 		obj.addProperty(ClassLabelConstants.TransactionID, transactionID);
 		String type = GenericSimpleQueries
 				.classFromIdentifier(obj.get(AnnotationObjectsLabels.identifier).getAsString());

@@ -7,8 +7,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
@@ -103,11 +103,11 @@ public class FindDatasetCollections {
             }
             JsonArray ansarr = new JsonArray();
             ansarr.add(sets);
-            response = DatabaseServicesBase.standardServiceResponse(docmessage, "Collection Sets read", ansarr);
+            response = StandardResponse.standardServiceResponse(docmessage, "Collection Sets read", ansarr);
         } else {
             String message = "Unsuccessful read of Dataset Collection: no maintainer specified";
             Document docmessage = MessageConstructor.startDocument("Find All Dataset Collection Sets");
-            response = DatabaseServicesBase.standardErrorResponse(docmessage, message, null);
+            response = StandardResponse.standardErrorResponse(docmessage, message, null);
         }
         return response;
 
@@ -124,12 +124,12 @@ public class FindDatasetCollections {
             String message = "Successful read of Dataset Collection " + arr.size() + " sets";
             MessageConstructor.combineBodyIntoDocument(docmessage,
                     response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
-            response = DatabaseServicesBase.standardServiceResponse(docmessage, message, arr);
+            response = StandardResponse.standardServiceResponse(docmessage, message, arr);
         } else {
             String message = "Unsuccessful read of Dataset Collection";
             MessageConstructor.combineBodyIntoDocument(docmessage,
                     response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
-            response = DatabaseServicesBase.standardErrorResponse(docmessage, message, null);
+            response = StandardResponse.standardErrorResponse(docmessage, message, null);
         }
         return response;
     }

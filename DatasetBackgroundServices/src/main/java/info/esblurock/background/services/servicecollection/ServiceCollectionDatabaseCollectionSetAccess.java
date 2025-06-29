@@ -12,7 +12,8 @@ import info.esblurock.background.services.dataset.FindDatasetCollections;
 import info.esblurock.background.services.dataset.ReadInDatasetWithDatasetCollectionProcess;
 import info.esblurock.background.services.dataset.examine.ProcessExamineDatabaseCollectionSetObject;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
-import info.esblurock.background.services.service.MessageConstructor;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
@@ -43,9 +44,9 @@ public enum ServiceCollectionDatabaseCollectionSetAccess {
 			JsonObject collids = DatasetCollectionManagement.getDatasetCollectionSets(collrecordid);
 			JsonObject response = null;
 			if (collids != null) {
-				response = DatabaseServicesBase.standardServiceResponse(document, "Success read ", collids);
+				response = StandardResponse.standardServiceResponse(document, "Success read ", collids);
 			} else {
-				response = DatabaseServicesBase.standardErrorResponse(document, "Error: in reading ", null);
+				response = StandardResponse.standardErrorResponse(document, "Error: in reading ", null);
 			}
 			return response;
 		}
@@ -90,18 +91,18 @@ public enum ServiceCollectionDatabaseCollectionSetAccess {
                     response = ReadFirestoreInformation.readFirestoreCollection(criteria, collectionid);
                     MessageConstructor.combineBodyIntoDocument(document, response.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
                     if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-                        response = DatabaseServicesBase.standardServiceResponse(document,
+                        response = StandardResponse.standardServiceResponse(document,
                                 "Success in reading dataset collection", response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray());
                     } else {
-                        response = DatabaseServicesBase.standardErrorResponse(document,
+                        response = StandardResponse.standardErrorResponse(document,
                                 "Error in reading firestore collection", null);
                     }
                 } else {
-                    response = DatabaseServicesBase.standardErrorResponse(document,
+                    response = StandardResponse.standardErrorResponse(document,
                             classname + "(" + identifier + ")  not is dataset collection: " + label, null);
                 }
             } else {
-                response = DatabaseServicesBase.standardErrorResponse(document,
+                response = StandardResponse.standardErrorResponse(document,
                         "Error: Identifer for " + classname + " not found", null);
             }
             return response;
@@ -123,7 +124,7 @@ public enum ServiceCollectionDatabaseCollectionSetAccess {
 					String docS = readresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 					JsonArray objects = readresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 					MessageConstructor.combineBodyIntoDocument(document, docS);
-					response = DatabaseServicesBase.standardServiceResponse(document, "Succcesful Read of objects",
+					response = StandardResponse.standardServiceResponse(document, "Succcesful Read of objects",
 							objects);
 				} else {
 				    

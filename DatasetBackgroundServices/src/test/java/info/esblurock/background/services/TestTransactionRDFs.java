@@ -39,8 +39,9 @@ public class TestTransactionRDFs {
 				+ "    \"dataset:catalogkey\": \"96cfdb48-1dfa-41b3-ba2b-9e7ca9dc266c\",\n"
 				+ "    \"dcterms:identifier\": \"dataset:eventobject\"\n" + "  }\n" + "";
 		JsonObject json = JsonObjectUtilities.jsonObjectFromString(jsonS);
-		JsonArray rdfs = FindRDFInClass.createSetOfJsonObjectRDFs(json);
-		System.out.println(JsonObjectUtilities.toString(rdfs));
+		System.out.println("Input:    \n" + JsonObjectUtilities.toString(json));
+		//JsonArray rdfs = FindRDFInClass.createSetOfJsonObjectRDFs(json);
+		//System.out.println(JsonObjectUtilities.toString(rdfs));
 	}
 
 }

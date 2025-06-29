@@ -21,6 +21,8 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.firestore.InitiallizeSystem;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 @WebServlet(name = "BackgroundService", urlPatterns = { "/service" })
@@ -66,7 +68,7 @@ public class BackgroundService extends HttpServlet {
                     answer = DatabaseServicesBase.process(body);
                 } else {
                     Document document = MessageConstructor.startDocument("Service fatal error UID mismatch");
-                    answer = DatabaseServicesBase.standardErrorResponse(document, "UIDs illegal token, user not signed in",
+                    answer = StandardResponse.standardErrorResponse(document, "UIDs illegal token, user not signed in",
                             null);
                 }
             } else {
@@ -75,13 +77,13 @@ public class BackgroundService extends HttpServlet {
                     answer = DatabaseServicesBase.process(body);
                 } else {
                     Document document = MessageConstructor.startDocument("Service fatal error Guest login");
-                    answer = DatabaseServicesBase.standardErrorResponse(document, "Illegal Guest process", null);
+                    answer = StandardResponse.standardErrorResponse(document, "Illegal Guest process", null);
                 }
             }
 
         } catch (FirebaseAuthException e) {
             Document document = MessageConstructor.startDocument("Service fatal error");
-            answer = DatabaseServicesBase.standardErrorResponse(document, "Firebase error: " + e.getMessage(), null);
+            answer = StandardResponse.standardErrorResponse(document, "Firebase error: " + e.getMessage(), null);
             e.printStackTrace();
         }
 

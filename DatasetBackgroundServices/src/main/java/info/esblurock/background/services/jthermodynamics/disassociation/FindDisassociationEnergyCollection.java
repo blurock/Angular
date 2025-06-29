@@ -10,8 +10,8 @@ import org.openscience.cdk.interfaces.IAtomContainer;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import thermo.data.structure.structure.StructureAsCML;

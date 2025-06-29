@@ -11,8 +11,8 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.molecule.DatasetMoleculeUtilities;
 import info.esblurock.background.services.jthermodynamics.structure.GenerateJThermodynamics2DSpeciesStructure;
-import info.esblurock.background.services.service.MessageConstructor;
-import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
@@ -44,16 +44,16 @@ public class CalculateStructureCorrection {
                 } else {
                     String message = collectionresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
                     MessageConstructor.combineBodyIntoDocument(document, message);
-                    response = DatabaseServicesBase.standardErrorResponse(document,
+                    response = StandardResponse.standardErrorResponse(document,
                             "Error in reading" + structuretype + " structures, check Collection dataset setup", null);
                 }
 
             } else {
-                response = DatabaseServicesBase.standardServiceResponse(document, "Problem converting molecules", null);
+                response = StandardResponse.standardServiceResponse(document, "Problem converting molecules", null);
             }
         } else {
             String errorS = "No Collection Set Record found: Check Collection Specification";
-            response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+            response = StandardResponse.standardErrorResponse(document, errorS, null);
         }
         return response;
     }
@@ -76,14 +76,14 @@ public class CalculateStructureCorrection {
                         contribution.addProperty(ClassLabelConstants.DescriptionTitle, name);
                 JsonArray arr = new JsonArray();
                 arr.add(contribution);
-                response = DatabaseServicesBase.standardServiceResponse(document, "structure Found",
+                response = StandardResponse.standardServiceResponse(document, "structure Found",
                         arr);
                 } else {
-                    response = DatabaseServicesBase.standardErrorResponse(document, "Error: No Corresponding structure found for radical", null);
+                    response = StandardResponse.standardErrorResponse(document, "Error: No Corresponding structure found for radical", null);
                 }
             } catch(CDKException ex) {
                 String errorS = "Error in converting the molecule to JThermodynamics2DSpeciesStructure";
-                response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                response = StandardResponse.standardErrorResponse(document, errorS, null);
                 
             }
          return response;

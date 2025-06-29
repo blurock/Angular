@@ -15,8 +15,9 @@ import com.google.gson.JsonObject;
 
 import info.esblurock.background.services.dataset.molecule.DatasetMoleculeUtilities;
 import info.esblurock.background.services.dataset.parameters.ParameterUtilities;
-import info.esblurock.background.services.service.MessageConstructor;
 import info.esblurock.background.services.servicecollection.DatabaseServicesBase;
+import info.esblurock.reaction.core.MessageConstructor;
+import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.dataset.units.DatabaseUnitUtilities;
@@ -56,12 +57,12 @@ public class CalculateThermodynamicsFromVibration {
             response = vibrational(molecule, RH, info, document);
            } catch (NotARadicalException e) {
                 String errorS = "Error in computing vibrational calculation (species not a radical)";
-                response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+                response = StandardResponse.standardErrorResponse(document, errorS, null);
             }
             
         } else {
             String errorS = "Error in interpreting molecule ";
-            response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+            response = StandardResponse.standardErrorResponse(document, errorS, null);
         }
         return response;
     }
@@ -106,13 +107,13 @@ public class CalculateThermodynamicsFromVibration {
                 }
                contributions.add(contribution);
             }
-            response = DatabaseServicesBase.standardServiceResponse(document, dataset, contributions);
+            response = StandardResponse.standardServiceResponse(document, dataset, contributions);
             } else {
                 body.addElement("div").addText("No contributions due to vibrational contributions: probably a lack of structures in database ");
             }
         } else {
             String errorS = "No Collection Set Record found";
-            response = DatabaseServicesBase.standardErrorResponse(document, errorS, null);
+            response = StandardResponse.standardErrorResponse(document, errorS, null);
         }
         return response;
     }

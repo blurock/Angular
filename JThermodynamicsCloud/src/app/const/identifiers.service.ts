@@ -10,7 +10,8 @@ export class IdentifiersService {
 	public CatalogObjectOwner = 'dcterms:creator';
 	public CatalogObjectKey = 'dataset:catalogkey';
 	public CatalogObjectAccessModify = 'dataset:accessmodify';
-	public TransactionID = 'transaction';
+	public TransactionID = 'dataset:transactionid';
+	public TransactionIDinRDF = 'dataset:transactionidrdf';
 	public CatalogHiearchyNode = 'dataset:cataloghiearchynode';
 	public DatasetCollectionsLabel = 'dataset:datasetcollectionslabel'
 	
