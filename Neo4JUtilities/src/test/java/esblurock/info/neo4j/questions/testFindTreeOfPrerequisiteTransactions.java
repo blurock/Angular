@@ -18,7 +18,7 @@ public class testFindTreeOfPrerequisiteTransactions {
 			JsonObject input = new JsonObject();
 			input.addProperty(ClassLabelConstants.CatalogObjectOwner, "Administrator");
 			input.addProperty(ClassLabelConstants.DescriptionTitle, "Tree of Prerequisite for Interpretion transaction");
-			input.addProperty(ClassLabelConstants.TransactionID, "6f9a4653-645d-4275-a5ec-7d485e61fd79");
+			input.addProperty(ClassLabelConstants.TransactionID, "54f89a4d-c42d-478f-95b0-3fb316c0c6b1");
 			JsonObject response = RDFQuestionsUtilities.FindTreeOfPrerequisiteTransactions(input);
 			JsonObjectUtilities.printResponse(response);
 		} catch (Exception e) {

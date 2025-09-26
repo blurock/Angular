@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-                                
+                                    
+    
     
     
     
@@ -8,7 +9,8 @@
     
     <wb-module deploy-name="ChemConnectBackgroundServices-1.0">
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-                                                                
+                                                                        
+        
         
         
         
@@ -16,7 +18,8 @@
         
         
         <wb-resource deploy-path="/" source-path="/target/m2e-jee/web-resources"/>
-                                                                
+                                                                        
+        
         
         
         
@@ -24,7 +27,8 @@
         
         
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-                                                                
+                                                                        
+        
         
         
         
@@ -32,34 +36,15 @@
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-                        
+                                
+        
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-sources/annotations"/>
-                                                                
-        
-        
-        
-        
-        
-        
         <dependent-module archiveName="ChemConnectCoreOntologyBase-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ChemConnectCoreOntologyBase/ChemConnectCoreOntologyBase">
-                                                                                                
-            
-            
-            
-            
-            
-            
             <dependency-type>uses</dependency-type>
-                                                                                            
-        
-        
-        
-        
-        
-        
         </dependent-module>
-                                                                
+                                                                        
+        
         
         
         
@@ -67,7 +52,8 @@
         
         
         <property name="context-root" value="ChemConnectBackgroundServices"/>
-                                                                
+                                                                        
+        
         
         
         
@@ -75,7 +61,8 @@
         
         
         <property name="java-output-path" value="/ChemConnectBackgroundServices/target/ChemConnectBackgroundServices-1.0/WEB-INF/classes"/>
-                                                            
+                                                                    
+    
     
     
     
@@ -83,7 +70,8 @@
     
     
     </wb-module>
-                            
+                                
+
 
 
 

@@ -6,6 +6,7 @@
 	</mat-card-header>
 	<mat-card-content>
 		<ng-container *ngIf='annoinfo; else loading'>
+			<pre>annoinfo</pre>
 			<div>
 				<form [formGroup]="objectform">
 					<mat-form-field class="namefield">
@@ -14,16 +15,17 @@
 					</mat-form-field>
 				</form>
 			</div>
-			<app-datadatadescription #description (annoinfo)="annoinfo" (descriptionsuffix)="descriptionsuffix">
+			</ng-container>
+			<app-datadatadescription #description [annoinfo]="annoinfo" [descriptionsuffix]="descriptionsuffix">
 			</app-datadatadescription>
-			<app-gcsblobfileinformationstaging #gcs (anno)="annoinfo"></app-gcsblobfileinformationstaging>
 			
-			<app-simpledatabaseobjectstructure #simpledata (anno)="annoinfo"></app-simpledatabaseobjectstructure>
-			<app-setofsitereferences #weblinks (anno)="annoinfo"></app-setofsitereferences>
-			<app-setofdataobjectlinks #objectlinks (anno)="annoinfo"></app-setofdataobjectlinks>
-			<app-datasetreference #references (anno)="annoinfo"></app-datasetreference>
-			<app-firesytorecatalogid #firestoreid (anno)="annoinfo"></app-firesytorecatalogid>
-		</ng-container>
+			<app-gcsblobfileinformationstaging #gcs [anno]="annoinfo"></app-gcsblobfileinformationstaging>
+			<app-setofsitereferences #weblinks [anno]="annoinfo"></app-setofsitereferences>
+			<app-setofdataobjectlinks #objectlinks [anno]="annoinfo"></app-setofdataobjectlinks>
+			<app-datasetreference #references [annoinfo]="annoinfo"></app-datasetreference>
+			<app-firesytorecatalogid #firestoreid [anno]="annoinfo"></app-firesytorecatalogid>
+			<app-simpledatabaseobjectstructure #simpledata [anno]="annoinfo"></app-simpledatabaseobjectstructure>
+		
 		<ng-template #loading>
 		    {{message}}
 			<mat-spinner></mat-spinner>

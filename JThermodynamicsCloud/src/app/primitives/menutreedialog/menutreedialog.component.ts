@@ -1,18 +1,24 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { NavItem } from '../../primitives/nav-item';
 import { Ontologyconstants } from '../../const/ontologyconstants';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import {MenutreeserviceService} from '../../services/menutreeservice.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuItem, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
+import { MenuItemComponent } from '../menu-item/menu-item.component';
 @Component({
 	selector: 'app-menutreedialog',
 	templateUrl: './menutreedialog.component.html',
-	styleUrls: ['./menutreedialog.component.scss']
+	styleUrls: ['./menutreedialog.component.scss'],
+	standalone: true,
+	imports: [MatButtonModule,MatDialogModule,MatDividerModule,MatMenuItem,MatMenuModule,MatMenuTrigger]
 })
 export class MenutreedialogComponent implements OnInit {
 
 
 	@Input() anno: any;
-	@Input() annoref: string;
+	@Input() annoref = '';
 
 rdfslabel = Ontologyconstants.rdfslabel;
 
@@ -35,11 +41,13 @@ rdfslabel = Ontologyconstants.rdfslabel;
 }
 @Component({
 	selector: 'app-menutreedialog-window',
-	templateUrl: './menutreedialog-window.html'
+	templateUrl: './menutreedialog-window.html',
+	standalone: true,
+	imports: [MatDividerModule,MatMenuModule,MenuItemComponent]
 })
 
 export class MenutreedialogWindow implements OnInit {
-	annoref: string;
+	annoref = '';
 	anno: any;
 	annotationslabel = 'annotations';
 	annoreflabel = 'annoref';
@@ -47,7 +55,7 @@ export class MenutreedialogWindow implements OnInit {
 	rdfscomment = Ontologyconstants.rdfscomment;
 	title = 'Title';
 
-	items: NavItem[];
+	items: NavItem[] = [];
 
 	constructor(
 		public dialogRef: MatDialogRef<MenutreedialogWindow>,
@@ -67,5 +75,8 @@ export class MenutreedialogWindow implements OnInit {
 		this.dialogRef.close();
 	}
 
+	selection($event: any) {
+		
+	}
 
 };

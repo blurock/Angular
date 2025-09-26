@@ -1,21 +1,16 @@
 package esblurock.info.neo4j.rdf;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import com.google.gson.JsonObject;
 
-import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 import info.esblurock.reaction.core.ontology.base.rdfs.FindRDFInClass;
 import info.esblurock.reaction.core.ontology.base.rdfs.ListOfRDFInformation;
 import info.esblurock.reaction.core.ontology.base.rdfs.RDFInformation;
 import info.esblurock.reaction.core.ontology.base.utilities.GenericSimpleQueries;
-import info.esblurock.reaction.core.ontology.base.utilities.OntologyUtilityRoutines;
 
 public class JsonToCypherUtilities {
 
@@ -23,13 +18,13 @@ public class JsonToCypherUtilities {
 			.getAltLabelFromAnnotation("dataset:TransactionIDinRDF");
 	private static String owneraltlabel = DatasetOntologyParseBase
 			.getAltLabelFromAnnotation("dataset:CatalogObjectOwner");
+	private static String catalogidabel = DatasetOntologyParseBase
+			.getAltLabelFromAnnotation("dataset:CatalogObjectID");
 
 	public static MapOfQueryAndProperties createSimpleRelation(JsonObject obj) {
-		String id = obj.get(AnnotationObjectsLabels.identifier).getAsString();
-		String classname = GenericSimpleQueries.classFromIdentifier(id);
-
 		String transactionID = obj.get(ClassLabelConstants.TransactionID).getAsString();
 		String owner = obj.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+		String catalogid = obj.get(ClassLabelConstants.CatalogObjectID).getAsString();
 
 		ListOfRDFInformation rdfs = FindRDFInClass.createFullRDFForObject(obj);
 		MapOfQueryAndProperties queryandproperties = new MapOfQueryAndProperties();
@@ -37,12 +32,11 @@ public class JsonToCypherUtilities {
 			Map<String, Object> proplst = new HashMap<String, Object>();
 			String predicate = rdf.getPredicateClass();
 			QueryAndProperties queryprops = null;
-
-			String subjectnodeString = createNodeWithProperties(classname, rdf.getSubjectClass(), transactionID, owner,
+			String subjectnodeString = createNodeWithProperties(predicate, rdf.getSubjectClass(), transactionID, owner, catalogid,
 					true, proplst, true);
-			String objectnodeString = createNodeWithProperties(classname, rdf.getObjectClass(), transactionID, owner,
+			String objectnodeString = createNodeWithProperties(predicate, rdf.getObjectClass(), transactionID, owner, catalogid,
 					false, proplst, true);
-			String predicateString = createpPredicate(rdf.getPredicateClass(), null, null, owner, proplst);
+			String predicateString = createpPredicate(predicate, null, null, owner, catalogid, proplst);
 			if (!queryandproperties.containsQuery(predicate)) {
 				StringBuffer buffer = new StringBuffer();
 				buffer.append("CREATE ");
@@ -63,9 +57,9 @@ public class JsonToCypherUtilities {
 	}
 
 	public static String createpPredicate(String predicateClass, Map<String, Object> values, String transactionID,
-			String owner, Map<String, Object> proplst) {
+			String owner, String catalogid, Map<String, Object> proplst) {
 		StringBuffer buffer = new StringBuffer();
-		String properties = generatePropertiesForNode(values, transactionID, owner, proplst);
+		String properties = generatePropertiesForNode(values, transactionID, owner, catalogid, proplst);
 		buffer.append("[");
 		buffer.append("relation");
 		if (predicateClass != null) {
@@ -80,15 +74,9 @@ public class JsonToCypherUtilities {
 	}
 
 	public static String createNodeWithProperties(String classname, Map<String, Object> values, String transactionID,
-			String owner, boolean subject, Map<String, Object> proplst, boolean create) {
+			String owner, String catalogid, boolean subject, Map<String, Object> proplst, boolean create) {
 
-		String subjectproperties = generatePropertiesForNode(values, transactionID, owner, proplst);
-		if (create && values != null) {
-			if (values.size() == 1) {
-				String id = values.keySet().iterator().next();
-				classname = GenericSimpleQueries.classFromIdentifier(id);
-			}
-		}
+		String subjectproperties = generatePropertiesForNode(values, transactionID, owner, catalogid, proplst);
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("(");
 
@@ -114,7 +102,7 @@ public class JsonToCypherUtilities {
 		return buffer.toString();
 	}
 
-	public static String generatePropertiesForNode(Map<String, Object> values, String transactionID, String owner,
+	public static String generatePropertiesForNode(Map<String, Object> values, String transactionID, String owner, String catalogid,
 			Map<String, Object> propertymap) {
 		StringBuffer properties = new StringBuffer();
 		properties.append("{");
@@ -128,7 +116,6 @@ public class JsonToCypherUtilities {
 			} else {
 				properties.append(", ");
 			}
-
 			String classname = GenericSimpleQueries.classFromIdentifier(id);
 			String altlabel = DatasetOntologyParseBase.getAltLabelFromAnnotation(classname);
 			addProperty(altlabel, properties);
@@ -139,6 +126,9 @@ public class JsonToCypherUtilities {
 		}
 		addProperty(owneraltlabel, properties);
 		propertymap.put(owneraltlabel, owner);
+		properties.append(", ");
+		addProperty(catalogidabel, properties);
+		propertymap.put(catalogidabel, catalogid);
 		if (transactionID != null) {
 			properties.append(", ");
 			addProperty(transactionaltlabel, properties);

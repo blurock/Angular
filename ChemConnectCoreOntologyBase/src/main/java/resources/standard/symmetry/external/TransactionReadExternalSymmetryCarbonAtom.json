@@ -2,14 +2,14 @@
 	"prov:activity": "dataset:InitialReadInOfRepositoryFile",
 	"dataset:transreqobj": {},
 	"dataset:activityinfo": {
-		"descr-filestaging": {
-			"dataset:purpose-filestaging": {
-				"dataset:purposekey-filestaging": "dataset:PurposeFileStaging",
-				"dataset:dataconcept-staging": "dataset:ConceptFileStaging"
+		"dataset:descrfilestaging": {
+			"dataset:purposefilestaging": {
+				"dataset:purposekeyfilestaging": "dataset:PurposeConceptFileStagingDataSource",
+				"dataset:dataconceptstaging": "dataset:DatasetSpecificationSymmetryStructureDefinition"
 			},
-			"dataset:keyword-filestaging": [],
-			"dataset:title-staging": "Read in External Symmetry Rules for Carbon Atom",
-			"dataset:abstract-staging": "Read in External Symmetry Rules for Carbon Atom. The source of these rules is an extropolation of TherGas rules for symmetry contributions as outlined in the thesis",
+			"dataset:keywordfilestaging": ["ResourceRead","ExternalSymmetry","THERGAS"],
+			"dataset:titlestaging": "Read in External Symmetry Rules for Carbon Atom",
+			"dataset:abstractstaging": "Read in External Symmetry Rules for Carbon Atom. The source of these rules is an extropolation of TherGas rules for symmetry contributions as outlined in the thesis",
 			"dcterms:created": "today"
 		},
 		"dataset:uploadsrc": "dataset:ResourceFileSystem",
@@ -18,13 +18,23 @@
 		"dataset:filemediatype": "dataset:FileTypeText",
 		"dcterms:title": "External Symmetry Rules for Carbon Atom",
 		"dataset:filesourcesubtype": "",
+		"dataset:catalogobjectmaintainer": "Administrator",
+		"dataset:uniquegenericname": "ExternalSymmetryCarbonAtom",
+		"dataset:datasetobjecttype": "dataset:JThermodynamicsSymmetryStructureDefinitionDataSet",
 		"dataset:collectionobjecttype": "dataset:JThermodynamicsSymmetryStructureDefinitionDatabase",
-		"dataset:specificationfordataset": {
-			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:uniquegenericname": "ExternalSymmetryCarbonAtom",
-			"dataset:datasetobjecttype": "dataset:JThermodynamicsSymmetryStructureDefinitionDataSet"
-		},
 		"dcterms:identifier": "initialrepositorylocal",
+		"foaf:page": [
+			{
+			"dataset:HttpAddress": "https://doi.org/10.17605/OSF.IO/63DW5",
+			"dataset:httpinformationtype": "dataset:OpenScienceFrameworkRepository",
+			"dataset:httpdescriptiontitle": "JThermodynamics External Symmetry Structure Definition in the Open Science Framework Repository"
+		},
+			{
+			"dataset:HttpAddress": "https://github.com/blurock/Angular/blob/master/ChemConnectCoreOntologyBase/src/main/java/resources/standard/symmetry/external/data/ExternalSymmetryCarbonAtom.xml",
+			"dataset:httpinformationtype": "dataset:GitHubDataReference",
+			"dataset:httpdescriptiontitle": "JThermodynamics External Symmetry Structure Definition in the Github Repository"
+		}		
+		],
 		"dcterms:BibliographicResource": [
 			{
 				"datacite:PrimaryResourceIdentifier": "https://doi.org/10.1016/j.energy.2012.01.072",

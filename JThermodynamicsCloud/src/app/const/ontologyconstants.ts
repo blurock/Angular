@@ -60,6 +60,7 @@ export class Ontologyconstants {
 	public static DateCreated = 'dcterms:created';
 	public static JsonDifferences = 'dataset:differencejsonstring';
 	public static DescriptionTitle = 'dcterms:title';
+	public static  ShortTransactionDescription = 'dataset:transactiondescriptionshort';
 	public static TransactionDebugMode = 'dataset:transactiondebugmode';
 	public static catalogobjectmaintainer = 'dataset:catalogobjectmaintainer';
 	
@@ -83,8 +84,12 @@ export class Ontologyconstants {
 	public static ActivityInformationMolecularThermodynamics = 'dataset:ActivityInformationMolecularThermodynamics';
 	public static ActivityInformationInterpretDisassociationEnergy = 'dataset:ActivityInformationInterpretDisassociationEnergy';
 	public static ActivityInformationInterpretMetaAtom = 'dataset:ActivityInformationInterpretMetaAtom';
-	public static ActivityInformationInterpretSymmetryInformation = 'dataset:ActivityInformationInterpretMetaAtom';
+	public static ActivityInformationInterpretSymmetryInformation = 'dataset:ActivityInformationInterpretSymmetryInformation';
 	public static ActivityInformationInterpretVibrationalMode = 'dataset:ActivityInformationInterpretVibrationalMode';
+	
+	public static RDFGeneralQueryResultRow = 'dataset:generalqueryresultrow';
+	public static CatalogObjectUniqueGenericLabel = 'dataset:uniquegenericname';
+	public static TransactionID = 'dataset:transactionid';
 	
 	
 

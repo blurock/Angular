@@ -15,6 +15,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
 	selector: 'app-datasetrepositoryfilestaging',
@@ -26,6 +27,7 @@ import { UserinterfaceconstantsService } from '../../../const/userinterfaceconst
 		ReactiveFormsModule,
 		MatProgressSpinner,
 		CommonModule,
+		MatInputModule,
 		SimpledatabaseobjectstructureComponent,
 		DatasetreferenceComponent,
 		FiresytorecatalogidComponent,
@@ -49,7 +51,7 @@ export class DatasetrepositoryfilestagingComponent extends CatalogbaseComponent 
 	) {
 		super(constants, annotations, cdRef);
 		this.catalogtype = 'dataset:RepositoryFileStaging';
-		this.getCatalogAnnoations();
+		//this.getCatalogAnnoations();
 		this.objectform = this.formBuilder.group({
 			DescriptionTitle: ['', Validators.required]
 		});
@@ -61,8 +63,9 @@ export class DatasetrepositoryfilestagingComponent extends CatalogbaseComponent 
 	@ViewChild('references') references!: DatasetreferenceComponent;
 	@ViewChild('objectlinks') objectlinks!: SetofdataobjectlinksComponent;
 	@ViewChild('weblinks') weblinks!: SetofsitereferencesComponent;
-	@ViewChild('gcs') gcs!: DatasetreferenceComponent;
+	@ViewChild('gcs') gcs!: GcsblobfileinformationstagingComponent;
 	@ViewChild('description') description!: DatadatadescriptionComponent;
+
 
 
 	ngOnInit(): void {
@@ -84,7 +87,7 @@ export class DatasetrepositoryfilestagingComponent extends CatalogbaseComponent 
 			const wlinks = this.catalog[this.identifiers.ObjectSiteReference];
 			this.objectlinks.setData(wlinks);
 			const rtitle = this.catalog[this.identifiers.DescriptionTitle];
-			const descr = this.catalog['descr-filestaging'];
+			const descr = this.catalog['descrfilestaging'];
 			this.description.setData(descr);
 			const title = this.catalog[this.identifiers.DescriptionTitle];
 			if (title != null) {

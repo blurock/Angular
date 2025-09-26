@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChanges, OnChanges, AfterViewInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { CatalogconceptpurposeComponent } from '../../catalogobjects/catalogconceptpurpose/catalogconceptpurpose.component';
@@ -9,15 +9,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { NgIf } from '@angular/common';
 @Component({
 	selector: 'app-datadatadescription',
 	templateUrl: './datadatadescription.component.html',
 	styleUrls: ['./datadatadescription.component.scss'],
 	standalone: true,
 	imports: [MatCardModule, MatGridListModule, MatFormFieldModule, MatMenuModule, MatInputModule,
-		ReactiveFormsModule, KeywordlistprimitiveComponent, CatalogconceptpurposeComponent]
+		ReactiveFormsModule, KeywordlistprimitiveComponent, CatalogconceptpurposeComponent,
+	NgIf]
 })
-export class DatadatadescriptionComponent implements OnInit {
+export class DatadatadescriptionComponent implements AfterViewInit,OnChanges {
 
 
 	@ViewChild('concept') concept!: CatalogconceptpurposeComponent;
@@ -31,7 +33,6 @@ export class DatadatadescriptionComponent implements OnInit {
 
 	@Input() descriptionsuffix: string = '';
 	@Input() annoinfo: any;
-
 
 	description: string = '';
 	header: string = '';
@@ -54,30 +55,47 @@ export class DatadatadescriptionComponent implements OnInit {
 			DescriptionAbstract: ['', Validators.required],
 			DescriptionTitle: ['', Validators.required],
 		});
-		this.message = 'No Description';
+		this.message = 'No Description Setup';
+	}
+	
+	setupAnno() {
+		this.setLabels(this.descriptionsuffix);
+		console.log('setupAnno DataDataDescription', this.description);
+		console.log(Object.keys(this.annoinfo));
+		console.log('setupAnno DataDataDescription anno', JSON.stringify(this.annoinfo[this.description]));
+		this.header = this.annoinfo[this.description][this.rdfslabel];
+		this.abstrlabel = this.annoinfo[this.abst][this.rdfslabel];
+		this.abstrhint = this.annoinfo[this.abst][this.rdfscomment];
+		this.titlelabel = this.annoinfo[this.title][this.rdfslabel];
+		this.titlehint = this.annoinfo[this.title][this.rdfscomment];
+		
 	}
 	ngOnChanges(changes: SimpleChanges) {
+		console.log('Changes in DataDataDescription', changes);
 		if (changes['annoinfo'] && changes['annoinfo'].currentValue) { // Check if annoinfo has a value
-			this.setLabels(this.descriptionsuffix);
-			this.header = this.annoinfo[this.description][this.rdfslabel];
-			this.abstrlabel = this.annoinfo[this.abst][this.rdfslabel];
-			this.abstrhint = this.annoinfo[this.abst][this.rdfscomment];
-			this.titlelabel = this.annoinfo[this.title][this.rdfslabel];
-			this.titlehint = this.annoinfo[this.title][this.rdfscomment];
+			console.log('Changes in DataDataDescription anno', changes);
+			this.setupAnno();
 			if (this.datadescription) {
 				this.setData(this.datadescription);
 			}
 		}
 	}
 
-	ngOnInit(): void {
+	ngAfterViewInit(): void {
+		console.log('ngOnInit DataDataDescription');
+		console.log('ngOnInit DataDataDescription anno', this.annoinfo);
+		console.log('ngOnInit DataDataDescription anno', this.descriptionsuffix);
+		if (this.annoinfo != null) {
+			this.setupAnno();
+		}
 	}
 
 
 
 	setLabels(suffix: string): void {
+		console.log('setLabels DataDataDescription', suffix);
 		if (suffix.length == 0) {
-			this.description = 'dataset:DataDataDescription';
+			this.description = 'dataset:DataDescription';
 			this.abst = 'dataset:DescriptionAbstract';
 			this.title = 'dataset:DescriptionTitle';
 			this.purconloc = 'dataset:PurposeConcept';
@@ -131,6 +149,9 @@ export class DatadatadescriptionComponent implements OnInit {
 			}
 		}
 	}
-
+	handleChangeAfterMutation(newValue: any): void {
+	      // This is the function that runs your logic, replacing ngOnChanges.
+	      console.log('Setter called, processing (possibly mutated) value:', newValue);
+	  }
 
 }

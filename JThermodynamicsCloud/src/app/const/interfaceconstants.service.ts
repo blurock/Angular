@@ -7,7 +7,6 @@ import { UntypedFormGroup} from '@angular/forms';
 })
 export class InterfaceconstantsService {
   
-	public 
 
 
   constructor() { }

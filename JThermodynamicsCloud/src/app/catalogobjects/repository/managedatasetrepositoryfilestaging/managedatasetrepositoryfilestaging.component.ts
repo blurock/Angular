@@ -5,11 +5,24 @@ import { FetchcatalogobjectComponent } from '../../../dialog/fetchcatalogobject/
 import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { SavecatalogdataobjectdialogComponent } from '../../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { CommonModule } from '@angular/common';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
 	selector: 'app-managedatasetrepositoryfilestaging',
 	templateUrl: './managedatasetrepositoryfilestaging.component.html',
-	styleUrls: ['./managedatasetrepositoryfilestaging.component.scss']
+	styleUrls: ['./managedatasetrepositoryfilestaging.component.scss'],
+	standalone: true,
+	imports: [DatasetrepositoryfilestagingComponent,
+		MatCardModule, MatFormFieldModule, ReactiveFormsModule, 
+		MatSelectModule, CommonModule,
+				MatGridListModule,MatTooltipModule,
+	]
 })
 export class ManagedatasetrepositoryfilestagingComponent implements OnInit {
 
@@ -23,12 +36,12 @@ export class ManagedatasetrepositoryfilestagingComponent implements OnInit {
 	title = 'File Staging'
 
 
-	@ViewChild('staging') staging: DatasetrepositoryfilestagingComponent;
+	@ViewChild('staging') staging?: DatasetrepositoryfilestagingComponent;
 
 
 	annoinfo: any;
-	maintainer: string;
-	resultHtml: string;
+	maintainer = '';
+	resultHtml = '';
 
 	constructor(
 		public dialogvis: MatDialog,
@@ -49,7 +62,7 @@ export class ManagedatasetrepositoryfilestagingComponent implements OnInit {
 	}
 
 	fetchInformation() {
-		this.annoinfo = this.staging.annoinfo;
+		this.annoinfo = this.staging?.annoinfo;
 		const dialogRef = this.dialog.open(FetchcatalogobjectComponent, {
 			data: { annoinfo: this.annoinfo, maintainer: this.maintainer, fromdatabase: true, catalogtype: 'dataset:RepositoryFileStaging' },
 		});
@@ -61,7 +74,7 @@ export class ManagedatasetrepositoryfilestagingComponent implements OnInit {
 				if (success == 'true') {
 					const catalog = result['dataset:simpcatobj'];
 					if (catalog != null) {
-						this.staging.setData(catalog);
+						this.staging?.setData(catalog);
 					}
 				} else {
 				}
@@ -74,7 +87,7 @@ export class ManagedatasetrepositoryfilestagingComponent implements OnInit {
 		displayCatalogInfo(): void {
 
 		const catalog = {};
-		this.staging.getData(catalog);
+		this.staging?.getData(catalog);
 
 		const dialogConfig = new MatDialogConfig();
 
@@ -93,7 +106,7 @@ export class ManagedatasetrepositoryfilestagingComponent implements OnInit {
 	}
 	public saveCatalog(): void {
 		const catalog = {};
-		this.staging.getData(catalog);
+		this.staging?.getData(catalog);
 		this.openDialog(catalog);
 	}
 

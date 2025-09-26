@@ -1,18 +1,29 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
 import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { SavecatalogdataobjectdialogComponent } from '../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
-import { FindspecifictransactionindatasetComponent } from '../../dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
 import { GeneralcatalogobjectvisualizationComponent } from '../generalcatalogobjectvisualization/generalcatalogobjectvisualization.component'
 import { OntologycatalogService } from '../../services/ontologycatalog.service';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgFor } from '@angular/common';
 
 @Component({
 	selector: 'app-managegeneralcatalogobjectvis',
 	templateUrl: './managegeneralcatalogobjectvis.component.html',
-	styleUrls: ['./managegeneralcatalogobjectvis.component.scss']
+	styleUrls: ['./managegeneralcatalogobjectvis.component.scss'],
+	standalone: true,
+	imports: [GeneralcatalogobjectvisualizationComponent,
+		MatDialogModule,MatCardModule,MatButtonModule,
+		MatGridListModule,MatFormFieldModule,
+		MatSelectModule, MatTooltipModule,NgFor
+	]
 })
 export class ManagegeneralcatalogobjectvisComponent implements OnInit {
 
@@ -45,17 +56,17 @@ export class ManagegeneralcatalogobjectvisComponent implements OnInit {
 
 	annoinfo: any;
 	maintainer: any;
-	resultHtml: string;
+	resultHtml: string = '';
 
-	message: string;
+	message: string = '';
 	catalogobj: any;
 	display = false;
 	
-	catalogtype: string;
+	catalogtype: string = '';
 
 
 
-	@ViewChild('catalogvis') catalogvis: GeneralcatalogobjectvisualizationComponent;
+	@ViewChild('catalogvis') catalogvis?: GeneralcatalogobjectvisualizationComponent;
 	constructor(
 		public dialog: MatDialog,
 		manageuser: ManageuserserviceService,
@@ -76,8 +87,7 @@ export class ManagegeneralcatalogobjectvisComponent implements OnInit {
 	}
 
 	fetchInformation() {
-		this.annoinfo = this.catalogvis.getAnnotations();
-		alert(JSON.stringify(this.annoinfo));
+		this.annoinfo = this.catalogvis?.getAnnotations();
 		const dialogRef = this.dialog.open(FetchcatalogobjectComponent, {
 			data: { annoinfo: this.annoinfo, maintainer: this.maintainer,
 			'fromdatabase': true, 'catalogtype': this.catalogtype },
@@ -88,9 +98,8 @@ export class ManagegeneralcatalogobjectvisComponent implements OnInit {
 				const success = result['dataset:servicesuccessful'];
 				this.resultHtml = result['dataset:serviceresponsemessage'];
 				if (success == 'true') {
-					//const catalog = result['dataset:simpcatobj'];
 					if (result != null) {
-						this.catalogvis.setData(result);
+						this.catalogvis?.setData(result);
 					}
 				} else {
 					alert('Error in reading: ' + JSON.stringify(result));
@@ -104,7 +113,7 @@ export class ManagegeneralcatalogobjectvisComponent implements OnInit {
 	displayCatalogInfo(): void {
 
 		const catalog = {};
-		this.catalogvis.getData(catalog);
+		this.catalogvis?.getData(catalog);
 
 		const dialogConfig = new MatDialogConfig();
 
@@ -123,7 +132,7 @@ export class ManagegeneralcatalogobjectvisComponent implements OnInit {
 	}
 	public saveCatalog(): void {
 		const catalog = {};
-		this.catalogvis.getData(catalog);
+		this.catalogvis?.getData(catalog);
 		this.openDialog(catalog);
 	}
 
@@ -139,7 +148,7 @@ export class ManagegeneralcatalogobjectvisComponent implements OnInit {
 
 	setDatabaseObject(catalog: string): void {
 		this.catalogtype = catalog;
-    	this.catalogvis.setChild(catalog);
+    	this.catalogvis?.setChild(catalog);
 	}
 
 

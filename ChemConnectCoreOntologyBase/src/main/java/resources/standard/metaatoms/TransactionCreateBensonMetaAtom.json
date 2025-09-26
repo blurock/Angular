@@ -5,10 +5,8 @@
 		"dataset:blockinterpretationmethod": "dataset:ParseLinesJThermodynamicsMetaAtoms",
 		"dcterms:title": "The standard set of Benson Meta atoms",
 		"dataset:collectionobjecttype": "dataset:JThermodynamicsMetaAtomDefinitionDatabase",
-		"dataset:specificationfordataset": {
-			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:uniquegenericname": "MetaAtomsForBensonAtoms",
-			"dataset:datasetobjecttype": "dataset:JThermodynamicsMetaAtomDefinitionDataSet"
-		}
+		"dataset:catalogobjectmaintainer": "Administrator",
+		"dataset:uniquegenericname": "MetaAtomsForBensonAtoms",
+		"dataset:datasetobjecttype": "dataset:JThermodynamicsMetaAtomDefinitionDataSet"
 	}
 }

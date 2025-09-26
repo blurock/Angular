@@ -25,7 +25,6 @@ import { UserinterfaceconstantsService } from '../../const/userinterfaceconstant
 export class SpecificationfordatasetComponent {
 	@Input() annoinfo: any;
 	@Input() subtitle!: string;
-	transspec: any;
 	rdfslabel: string = Ontologyconstants.rdfslabel;
 	rdfscomment: string = Ontologyconstants.rdfscomment;
 	identifier: string = Ontologyconstants.dctermsidentifier;
@@ -70,20 +69,17 @@ export class SpecificationfordatasetComponent {
 	}
 	
 	public getData(catalog: any): void {
-		const jsontransspec: Record<string, unknown> = {};
 		catalog[this.annoinfo['dataset:DatasetObjectType'][this.identifier]] = this.idForm.get('DatasetObjectType')?.value ?? '';;
 		catalog[this.annoinfo['dataset:CatalogObjectUniqueGenericLabel'][this.identifier]] = this.idForm.get('CatalogObjectUniqueGenericLabel')?.value ?? '';;
 		catalog[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.maintainer;
-		this.transspec = jsontransspec;
 	}
 
-	public setData(jsontransspec: any): void {
-		if(jsontransspec) {
-		const datasetname = jsontransspec[this.annoinfo['dataset:DatasetObjectType'][this.identifier]];
+	public setData(catalog: any): void {
+		if(catalog) {
+		const datasetname = catalog[this.annoinfo['dataset:DatasetObjectType'][this.identifier]];
 		this.idForm.get('DatasetObjectType')?.setValue(datasetname);
-		const label = jsontransspec[this.annoinfo['dataset:CatalogObjectUniqueGenericLabel'][this.identifier]];
+		const label = catalog[this.annoinfo['dataset:CatalogObjectUniqueGenericLabel'][this.identifier]];
 		this.idForm.get('CatalogObjectUniqueGenericLabel')?.setValue(label);
-		this.transspec = jsontransspec;
 		}
 	}
 

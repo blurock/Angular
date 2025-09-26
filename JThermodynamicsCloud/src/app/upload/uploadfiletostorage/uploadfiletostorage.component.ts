@@ -8,13 +8,13 @@ import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fet
 	styleUrls: ['./uploadfiletostorage.component.scss']
 })
 export class UploadfiletostorageComponent implements OnInit {
-	@Input() uploadForm: UntypedFormGroup;
-	@Input() filemediatype: string;
+	@Input() uploadForm?: UntypedFormGroup;
+	@Input() filemediatype?: string;
 
 	filenamehint = "Can be changed from upload name";
 	filesourceidentifierlabel = "File Source Identifier"
 
-	imageURL: string;
+	imageURL?: string;
 	constructor(public fb: UntypedFormBuilder) {
 	}
 	ngOnInit(): void {

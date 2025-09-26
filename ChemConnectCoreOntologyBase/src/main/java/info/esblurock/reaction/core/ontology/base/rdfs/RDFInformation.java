@@ -12,7 +12,6 @@ import info.esblurock.reaction.core.ontology.base.dataset.BaseObjectJSONInterfac
 public class RDFInformation extends BaseObjectJSONInterface {
 	String classname;
 	String predicateClass;
-	String rdftriple;
 	Map<String,Object> subjectClass;
 	Map<String,Object> objectClass;
 	
@@ -25,18 +24,11 @@ public class RDFInformation extends BaseObjectJSONInterface {
 		this.objectClass = objectClass;
 	}
 	public RDFInformation(RDFInformation rdf) {
-		this.rdftriple = rdf.rdftriple;
 		this.classname = rdf.classname;
 		this.subjectClass =  new HashMap<String,Object>(rdf.subjectClass);
 		this.predicateClass = rdf.predicateClass;
 		this.objectClass =  new HashMap<String,Object>(rdf.objectClass);
 		
-	}
-	public String getRdftriple() {
-		return rdftriple;
-	}
-	public void setRdftriple(String rdftriple) {
-		this.rdftriple = rdftriple;
 	}
 	public String getClassname() {
 		return classname;
@@ -78,18 +70,16 @@ public class RDFInformation extends BaseObjectJSONInterface {
 		json.addProperty(OntologyObjectLabels.rdfmappingclass, predicateClass);
 		JsonObject subjectClassMap = new JsonObject();
 		for (String cls : subjectClass.keySet()) {
-			subjectClassMap.addProperty(cls, subjectClassMap.get(cls).getAsString());
+			subjectClassMap.addProperty(cls, subjectClass.get(cls).toString());
 		}
 		json.add(OntologyObjectLabels.subject, subjectClassMap);
 		
 		JsonObject objectClassMap = new JsonObject();
 		for (String cls : objectClass.keySet()) {
-			objectClassMap.addProperty(cls, objectClassMap.get(cls).getAsString());
+			objectClassMap.addProperty(cls, objectClass.get(cls).toString());
 		}
 		json.add(OntologyObjectLabels.entity, objectClassMap);
-		
-		json.addProperty(OntologyObjectLabels.tripleclass, rdftriple);
-		
+
 		return json;
 	}
 	

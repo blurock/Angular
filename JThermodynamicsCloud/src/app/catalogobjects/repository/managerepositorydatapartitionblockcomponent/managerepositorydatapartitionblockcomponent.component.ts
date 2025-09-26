@@ -1,17 +1,31 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RepositorydatapartitionblockComponent } from '../repositorydatapartitionblock/repositorydatapartitionblock.component';
 import { FetchcatalogobjectComponent } from '../../../dialog/fetchcatalogobject/fetchcatalogobject.component';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { RepositoryparsedtofixedblocksizeComponent } from '../partition/repositoryparsedtofixedblocksize/repositoryparsedtofixedblocksize.component';
 import { RepositorythergasthermodynamicsblockComponent } from '../partition/repositorythergasthermodynamicsblock/repositorythergasthermodynamicsblock.component';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { SavecatalogdataobjectdialogComponent } from '../../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
+import { NgIf } from '@angular/common';
+import { FileformatmanagerService } from '../../../services/fileformatmanager.service';
 
 @Component({
 	selector: 'app-managerepositorydatapartitionblockcomponent',
 	templateUrl: './managerepositorydatapartitionblockcomponent.component.html',
-	styleUrls: ['./managerepositorydatapartitionblockcomponent.component.scss']
+	styleUrls: ['./managerepositorydatapartitionblockcomponent.component.scss'],
+	standalone: true,
+	imports: [RepositorydatapartitionblockComponent,
+		RepositoryparsedtofixedblocksizeComponent,
+		RepositorythergasthermodynamicsblockComponent,
+		MatGridListModule, MatDialogModule, MatFormFieldModule,MatCardModule,MatTooltipModule,MatDividerModule,MatMenuModule,NgIf
+	]
 })
 export class ManagerepositorydatapartitionblockcomponentComponent implements OnInit {
 
@@ -26,24 +40,25 @@ export class ManagerepositorydatapartitionblockcomponentComponent implements OnI
 	fetchbutton = 'Retrieve';
 	errorcatalogtypes = 'Error in determining catalog types';
 
-	maintainer: string;
+	maintainer = '';
 	annoinfo: any;
     catalogtypes: any;
 
 
-	catalogtype: string;
-	ctypelabel: string
-	ctypeid: number
+	catalogtype = '';
+	ctypelabel = '';
+	ctypeid: number = 0;
 	cataloginfo: any
 	catalog: any;
 	message = 'info not initialized';
 
 
-	@ViewChild('fixedpartitionblock') fixedpartitionblock: RepositoryparsedtofixedblocksizeComponent;
-	@ViewChild('thermopartitionblock') thermopartitionblock: RepositorythergasthermodynamicsblockComponent;
+	@ViewChild('fixedpartitionblock') fixedpartitionblock?: RepositoryparsedtofixedblocksizeComponent;
+	@ViewChild('thermopartitionblock') thermopartitionblock?: RepositorythergasthermodynamicsblockComponent;
 
 
 	constructor(manageuser: ManageuserserviceService,
+		public interfaceconstants: FileformatmanagerService,
 		public dialog: MatDialog,
 		public dialogvis: MatDialog) {
 		manageuser.determineMaintainer().subscribe(result => {
@@ -85,25 +100,25 @@ export class ManagerepositorydatapartitionblockcomponentComponent implements OnI
 	getAnnotations(): any {
 		let annoinfo = {};
 		if (this.ctypeid == 0) {
-			annoinfo = this.fixedpartitionblock.annoinfo;
+			annoinfo = this.fixedpartitionblock?.annoinfo;
 		} else if (this.ctypeid == 1) {
-			annoinfo = this.thermopartitionblock.annoinfo;
+			annoinfo = this.thermopartitionblock?.annoinfo;
 		}
 		return annoinfo;
 	}
 
 	setData(catalog: any): void {
 		if (this.ctypeid == 0) {
-			this.fixedpartitionblock.setData(catalog);
+			this.fixedpartitionblock?.setData(catalog);
 		} else if (this.ctypeid == 1) {
-			this.thermopartitionblock.setData(catalog);
+			this.thermopartitionblock?.setData(catalog);
 		}
 	}
 	getData(catalog: any): void {
 		if (this.ctypeid == 0) {
-			this.fixedpartitionblock.getData(catalog);
+			this.fixedpartitionblock?.getData(catalog);
 		} else if (this.ctypeid == 1) {
-			this.thermopartitionblock.getData(catalog);
+			this.thermopartitionblock?.getData(catalog);
 		}
 
 	}
@@ -141,9 +156,9 @@ export class ManagerepositorydatapartitionblockcomponentComponent implements OnI
 		this.catalogtype = this.catalogtypes[ctype].catalog;
 		this.cataloginfo = this.catalogtypes[ctype];
 		if (this.ctypeid == 0) {
-			this.fixedpartitionblock.setFormat(this.cataloginfo);
+			this.fixedpartitionblock?.setFormat(this.cataloginfo);
 		} else if (this.ctypeid == 1) {
-			this.thermopartitionblock.setFormat(this.cataloginfo);
+			this.thermopartitionblock?.setFormat(this.cataloginfo);
 		}
 	}
 	displayCatalogInfo(): void {

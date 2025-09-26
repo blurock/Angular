@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import esblurock.info.neo4j.rdf.RDFQuestionsUtilities;
 import info.esblurock.background.services.firestore.FirestoreBaseClass;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.reaction.core.MessageConstructor;
@@ -26,6 +27,7 @@ import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.hierarchy.CreateHierarchyElement;
+import info.esblurock.reaction.core.ontology.base.utilities.FillInSetOfPropertyValueQueryPairs;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 /**
@@ -33,6 +35,66 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
  *
  */
 public class FindTransactions {
+	
+	public static JsonObject FindTransactionFromTransactionID(JsonObject input) {
+		Document document = MessageConstructor.startDocument("FindTransactionFromTransactionID");
+		JsonObject response = null;
+		try {
+			Element body = MessageConstructor.isolateBody(document);
+
+			String transactionID = input.get(ClassLabelConstants.TransactionID).getAsString();
+			String ownerString = input.get(ClassLabelConstants.CatalogObjectOwner).getAsString();
+			JsonObject setofprops = FillInSetOfPropertyValueQueryPairs.createSetOfPropertyValueQueryPairs();
+			FillInSetOfPropertyValueQueryPairs.addProperty(setofprops, "dataset:CatalogObjectOwner", ownerString);
+			FillInSetOfPropertyValueQueryPairs.addProperty(setofprops, "dataset:TransactionID", transactionID);
+			
+			JsonObject inputquery = new JsonObject();
+			inputquery.addProperty(ClassLabelConstants.RDFRelationClassName, "dataset:RDFTransactionID");
+			inputquery.add(ClassLabelConstants.SetOfPropertyValueQueryPairs, setofprops);
+			
+			JsonObject queryresponse =  RDFQuestionsUtilities.RDFGeneralQuery(inputquery);
+			if(queryresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+				String querymessage = queryresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
+				MessageConstructor.combineBodyIntoDocument(document, querymessage);
+				JsonArray arr = queryresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
+                if(arr.size() > 0) {
+                    JsonObject responsecatalog = arr.get(0).getAsJsonObject();
+                    JsonArray properties = responsecatalog.get(ClassLabelConstants.RDFGeneralQueryResultRow).getAsJsonArray();
+                    JsonObject catalogJsonObject = properties.get(0).getAsJsonObject();
+                    JsonObject firestoreid = catalogJsonObject.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+                    System.out.println("FindTransactionFromTransactionID Firestore ID: " + JsonObjectUtilities.toString(firestoreid));
+                    JsonObject transactionresponse = ReadFirestoreInformation.readFirestoreCatalogObject(firestoreid);
+        			if (transactionresponse.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
+        				String rdfmessage = transactionresponse.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
+        				MessageConstructor.combineBodyIntoDocument(document, rdfmessage);
+        				JsonObject obj = transactionresponse.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
+        				if (obj != null) {
+        					response = StandardResponse.standardServiceResponse(document, "Sucesss: Transaction found: ", obj);
+        				} else {
+        					response = StandardResponse.standardErrorResponse(document, "No transactions found with ID=" + transactionID, null);
+        				}
+
+        			} else {
+        				String rdfmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
+        				MessageConstructor.combineBodyIntoDocument(document, rdfmessage);
+        				response = StandardResponse.standardErrorResponse(document, "Error in reading database", null);
+        			}
+
+                } else {
+                    response = StandardResponse.standardErrorResponse(document, "No transactions found", null);
+                }
+            } else {
+                String rdfmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
+                MessageConstructor.combineBodyIntoDocument(document, rdfmessage);
+                response = StandardResponse.standardErrorResponse(document, "No Transaction found with ID=" + transactionID, null);
+			}
+		} catch (Exception ex) {
+			response = StandardResponse.standardErrorResponse(document,
+					"Fatal error in FindTransactions:  " + ex.toString(), null);
+			ex.printStackTrace();
+		}
+		return response;
+	}
 
 	public static JsonObject FindTransactionFromOwnerAndType(JsonObject json) {
 		Document document = MessageConstructor.startDocument("FindTransactionFromOwnerAndType");
@@ -251,28 +313,28 @@ public class FindTransactions {
 		return response;
 	}
 
-	/**
+	/** A transaction object of the given type with the given generic label and maintainer.
+	 * 
 	 * @param info    The activity information from the process input
-	 * @param type
-	 * @param onlyone
-	 * @return
+	 * @param type As set of property value pairs
+	 * @param onlyone true if only one is expected
+	 * @return A transaction object of the given type with the given generic label and maintainer.
+	 * 
+	 * info has the following fields:
+	 *  - CatalogObjectUniqueGenericLabel
+	 *  - CatalogDataObjectMaintainer
+	 *  - DatasetObjectType
+	 * 
+	 * 
 	 */
 	public static JsonObject findDatasetTransaction(JsonObject info, String type, boolean onlyone) {
 		JsonObject transaction = null;
 		JsonObject emptycatalog = FindTransactionFromActivityInfo.findTransaction(type, info);
-		System.out.println(
-				"FindTransactions findDatasetTransaction: " + type + "\n" + JsonObjectUtilities.toString(emptycatalog));
 		if (emptycatalog != null) {
 			JsonObject firestoreid = CreateHierarchyElement.searchForCatalogObjectInHierarchyTemplate(emptycatalog);
 			firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
 			JsonObject setofprops = FindTransactionFromActivityInfo.determineSetOfProps(type, info);
-			System.out.println(
-					"FindTransactions findDatasetTransaction: setofprops\n" + JsonObjectUtilities.toString(setofprops));
-			System.out.println("FindTransactions findDatasetTransaction: firestoreid\n"
-					+ JsonObjectUtilities.toString(firestoreid));
-
 			JsonObject response = ReadFirestoreInformation.readFirestoreCollection(setofprops, firestoreid);
-			System.out.println("Response: " + JsonObjectUtilities.toString(response));
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 				if (arr != null) {
@@ -320,14 +382,18 @@ public class FindTransactions {
 			firestoreid.remove(ClassLabelConstants.SimpleCatalogName);
 			firestoreid.addProperty(ClassLabelConstants.SimpleCatalogName, transactionID);
 			JsonObject setofprops = FindTransactionFromActivityInfo.determineSetOfProps(type, info);
-
-			JsonObject idprop = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
-			idprop.addProperty(ClassLabelConstants.DatabaseObjectType, "transaction");
-			idprop.addProperty(ClassLabelConstants.ShortStringKey, transactionID);
-			JsonArray props = setofprops.get(ClassLabelConstants.PropertyValueQueryPair).getAsJsonArray();
-			props.add(idprop);
-
+			//System.out.println("Set of props: " + JsonObjectUtilities.toString(setofprops));
+			//JsonObject idprop = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
+			//idprop.addProperty(ClassLabelConstants.DatabaseObjectType, "transaction");
+			//idprop.addProperty(ClassLabelConstants.ShortStringKey, transactionID);
+			//JsonArray props = setofprops.get(ClassLabelConstants.PropertyValueQueryPair).getAsJsonArray();
+			//props.add(idprop);
+			//System.out.println("findSpecificDatasetTransaction: " + JsonObjectUtilities.toString(firestoreid));
+			
+			//System.out.println("Set of props: " + JsonObjectUtilities.toString(setofprops));
+			
 			response = ReadFirestoreInformation.readFirestoreCollection(setofprops, firestoreid);
+			//response = ReadFirestoreInformation.readFirestoreCollection(null, firestoreid);
 
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				String rdfmessage = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();

@@ -60,17 +60,19 @@ export class FileformatmanagerService {
 			dataset: 'dataset:JThermodynamicsDisassociationEnergyOfStructureDataset'
 		},
 		{
-			label: 'Meta Atom', format: 'dataset:JThermodynamicsMetaAtomFormat',
+			label: 'Meta Atom', 
+			format: 'dataset:JThermodynamicsMetaAtomFormat',
 			catalog: 'dataset:RepositoryParsedToFixedBlockSize', 
 			id: 0, 
 			method: 'dataset:PartitionToLineSet',
 			type: 1,	
 			BlockLineCount: 1,
-			database: 'dataset:JThermodynamicsMetaAtomDefinitionDatabas3',
+			database: 'dataset:JThermodynamicsMetaAtomDefinitionDatabase',
 			dataset: 'dataset:ThermodynamicBensonRuleDefinitionDataset'
 		},
 		{
-			label: 'Vibrational Modes', format: 'dataset:JThermodynamicsVibrationalModes',
+			label: 'Vibrational Modes', 
+			format: 'dataset:JThermodynamicsVibrationalModes',
 			catalog: 'dataset:RepositoryParsedToFixedBlockSize',
 			id: 0,
 			method: 'dataset:PartitionToLineSet',

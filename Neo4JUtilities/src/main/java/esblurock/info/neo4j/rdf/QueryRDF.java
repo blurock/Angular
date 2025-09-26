@@ -1,6 +1,5 @@
 package esblurock.info.neo4j.rdf;
 
-import static org.hamcrest.CoreMatchers.nullValue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +11,6 @@ import org.neo4j.driver.Result;
 import org.neo4j.driver.Session;
 import org.neo4j.driver.Value;
 import org.neo4j.driver.exceptions.NoSuchRecordException;
-import org.neo4j.driver.types.Type;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -22,15 +20,13 @@ import org.neo4j.driver.Record;
 import esblurock.info.neo4j.utilities.Neo4JInitialization;
 import info.esblurock.reaction.core.MessageConstructor;
 import info.esblurock.reaction.core.StandardResponse;
-import info.esblurock.reaction.core.ontology.base.utilities.GenericSimpleQueries;
-import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
 public class QueryRDF {
 	
 	
 
 	public static JsonObject retreiveSubjectObjectWithRelation(String relationString, String owner, String title) {
-		RDFQueryInput input = new RDFQueryInput(null,owner,"MATCH","subject,object");
+		RDFQueryInput input = new RDFQueryInput(null,owner,null, "MATCH","subject,object");
 		input.addRelation(relationString,null);
 		QueryAndProperties queryprops = executeMATCHQuery(input);
 		System.out.println("QueryProps: " + queryprops.toString());
@@ -41,7 +37,7 @@ public class QueryRDF {
 	public static JsonObject retreiveSubjectNodeWithProperty(String label, String property, String owner, String title) {
 		Map<String, Object> properties = new java.util.HashMap<String, Object>();
 		properties.put(label, property);
-		RDFQueryInput input = new RDFQueryInput(null,owner,"MATCH","relation,object");
+		RDFQueryInput input = new RDFQueryInput(null,owner,null, "MATCH","relation,object");
 		input.setSubjectprops(properties);
 		QueryAndProperties queryprops = executeMATCHQuery(input);
 		return executeQuery(queryprops.getQuery(),queryprops.getProperties().get(0), title);
@@ -50,9 +46,15 @@ public class QueryRDF {
 	
 	public static QueryAndProperties executeMATCHQuery(RDFQueryInput input) {
 		Map<String, Object> proplst = new HashMap<String, Object>();
-		String subjectnodeString = JsonToCypherUtilities.createNodeWithProperties(input.getSubjectClassString(), input.getSubjectprops(), input.getTransactionID(),input.getOwner(),true,proplst,false);
-		String predicateString = JsonToCypherUtilities.createpPredicate(input.getRelationClass(), input.getRelationprops(), input.getTransactionID(), input.getOwner(),proplst);
-		String objectnodeString = JsonToCypherUtilities.createNodeWithProperties(input.getObjectClass(), input.getObjectprops(), input.getTransactionID(),input.getOwner(),false,proplst,false);
+		String subjectnodeString = JsonToCypherUtilities.createNodeWithProperties(input.getSubjectClassString(), input.getSubjectprops(), 
+				input.getTransactionID(),input.getOwner(),input.getCatalogid(),
+				true,proplst,false);
+		String predicateString = JsonToCypherUtilities.createpPredicate(input.getRelationClass(), input.getRelationprops(), 
+				input.getTransactionID(), input.getOwner(), input.getCatalogid(),
+				proplst);
+		String objectnodeString = JsonToCypherUtilities.createNodeWithProperties(input.getObjectClass(), input.getObjectprops(), 
+				input.getTransactionID(),input.getOwner(), input.getCatalogid(),
+				false,proplst,false);
         
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("MATCH ");

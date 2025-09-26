@@ -7,6 +7,7 @@ import {SetupuserinformationComponent} from './catalogobjects/user/setupuserinfo
 import {UsercreateGuard} from './usercreate.guard';
 import {UploadstepsComponent} from './upload/uploadsteps/uploadsteps.component';
 import {MoleculeCreatorComponent} from './jsme/moleculecreatorcomponent/moleculecreatorcomponent.component'
+import { ManagegeneralcatalogobjectvisComponent } from './catalogobjects/managegeneralcatalogobjectvis/managegeneralcatalogobjectvis.component';
 
 //import { AuthGuard } from './auth.guard';
 
@@ -20,6 +21,7 @@ export const routes: Routes = [
 	//, canActivate: [AuthGuard] 
 	},
 	{ path: 'toppage', component: ToppageComponent},
+	{ path: 'examine', component: ManagegeneralcatalogobjectvisComponent},
 	{path: 'drawmolecule', component: MoleculeCreatorComponent}
 
 

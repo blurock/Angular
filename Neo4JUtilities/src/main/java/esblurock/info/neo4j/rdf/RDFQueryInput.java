@@ -12,12 +12,14 @@ public class RDFQueryInput {
 	String objectClass;
 	String owner;
 	String transactionID;
+	String catalogid;
 	String title;
 	String returnString;
 	
-	public RDFQueryInput( String transactionID, String owner, String title, String returnString) {
+	public RDFQueryInput( String transactionID, String owner, String catalogid, String title, String returnString) {
 		this.owner = owner;
 		this.title = title;
+		this.catalogid = catalogid;
 		this.returnString = returnString;
 		this.transactionID = transactionID;
 	}
@@ -115,6 +117,14 @@ public class RDFQueryInput {
 
 	public void setTransactionID(String transactionID) {
 		this.transactionID = transactionID;
+	}
+	
+	public String getCatalogid() {
+		return catalogid;
+	}
+
+	public void setCatalogid(String catalogid) {
+		this.catalogid = catalogid;
 	}
 
 	public String toString() {

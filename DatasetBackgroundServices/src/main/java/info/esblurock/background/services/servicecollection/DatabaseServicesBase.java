@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import esblurock.info.neo4j.rdf.RDFQuestions;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 
@@ -65,15 +66,21 @@ public class DatabaseServicesBase {
 										.valueOf(service);
 								response = datasetmanipulation.process(body);
 							} catch (IllegalArgumentException ex6) {
+								try {
+									RDFQuestions rdefquestions = RDFQuestions
+											.valueOf(service);
+									response = rdefquestions.process(body); 
+								} catch (IllegalArgumentException ex7) {
 								response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);
 								response.addProperty(ClassLabelConstants.ServiceResponseMessage,
-										"Service not available: '" + service + "'\n" + ex5.toString());
+										"Service not available: '" + service + "'\n" + ex7.toString());
 								response.add(ClassLabelConstants.SimpleCatalogObject, null);
 							}
 						}
 					}
 				}
 			}
+		}
 		}
 		return response;
 	}

@@ -21,29 +21,29 @@ export class DatasettransactioneventobjectComponent implements OnInit {
 	@Input() catalogobj: any;
 	@Output() annoReady = new EventEmitter<any>();
 
-	objectform: UntypedFormGroup;
-	maintainer: string;
-	message: string;
-	annoinfo: any;
-	transanno: any
+	objectform: UntypedFormGroup = new UntypedFormGroup({});
+	maintainer: string = '';
+	message: string = '';
+	annoinfo: any = {};
+	transanno: any = {};
 
-	items: NavItem[];
+	items: NavItem[] = [];
 
 	display = false;
 	displaytransactions = false;
 	activitydisplay = false;
 
-    shortdescriptionid: string;
-    firestorecatid: string;
-    activityid: string;
-    specid: string;
-	typecommentid: string;
-	transkeyid: string;
-	eventtypeid: string;
-	objtypeid: string;
-	transidid: string;
-	ownerid: string;
-	activityinfotype: any;
+    shortdescriptionid: string = '';
+    firestorecatid: string = '';
+    activityid: string = '';
+    specid: string = '';
+	typecommentid: string = '';
+	transkeyid: string = '';
+	eventtypeid: string = '';
+	objtypeid: string = '';
+	transidid: string = '';
+	ownerid: string = '';
+	activityinfotype: any = '';
 
 	activityname = 'dataset:ActivityRepositoryInitialReadLocalFile';
 
@@ -60,11 +60,11 @@ export class DatasettransactioneventobjectComponent implements OnInit {
 	activityinfo = 'dataset:activityinfo';
 
 
-	@ViewChild('firestoreid') firestoreid: FiresytorecatalogidComponent;
-	@ViewChild('spec') spec: DatasettransactionspecificationforcollectionComponent;
-	@ViewChild('activity') activity: ActivityinformationComponent;
-	@ViewChild('outputobjects') outputobjects: ListoffirestoreidsComponent;
-	@ViewChild('requiredobjects') requiredobjects: ListoffirestoreidsComponent;
+	@ViewChild('firestoreid') firestoreid?: FiresytorecatalogidComponent;
+	@ViewChild('spec') spec?: DatasettransactionspecificationforcollectionComponent;
+	@ViewChild('activity') activity?: ActivityinformationComponent;
+	@ViewChild('outputobjects') outputobjects?: ListoffirestoreidsComponent;
+	@ViewChild('requiredobjects') requiredobjects?: ListoffirestoreidsComponent;
 
 
 	constructor(
@@ -85,7 +85,7 @@ export class DatasettransactioneventobjectComponent implements OnInit {
 		});
 
 		this.getCatalogAnnoations();
-		const json = {};
+		const json: Record<string,any> = {};
 		json[this.serviceid] = 'DatasetCreateTransactionTree';
 		const activity = {};
 		json[this.activityinfo] = activity;
@@ -173,55 +173,55 @@ export class DatasettransactioneventobjectComponent implements OnInit {
 
         //catalog[this.identifier] = this.annoinfo['dataset:DatasetTransactionEventObject'][this.identifier];
         catalog[this.identifier] = 'dataset:datasettransactionevent';
-		catalog[this.objtypeid] = this.objectform.get('DatabaseObjectType').value;
-		catalog[this.transidid] = this.objectform.get('TransactionID').value;
+		catalog[this.objtypeid] = this.objectform.get('DatabaseObjectType')?.value ?? '';
+		catalog[this.transidid] = this.objectform.get('TransactionID')?.value;
 		catalog[this.ownerid] = this.maintainer;
 
 
-		const short = {};
+		const short: Record<string, any> = {};
 		catalog[this.shortdescriptionid] = short;
-		short[this.typecommentid] = this.objectform.get('DataTypeComment').value;
-		short[this.transkeyid] = this.objectform.get('TransactionKey').value;
-		short[this.eventtypeid] = this.objectform.get('TransactionEventType').value;
+		short[this.typecommentid] = this.objectform.get('DataTypeComment')?.value;
+		short[this.transkeyid] = this.objectform.get('TransactionKey')?.value;
+		short[this.eventtypeid] = this.objectform.get('TransactionEventType')?.value;
 		const fireid = {};
 		catalog[this.firestorecatid] = fireid
-		this.firestoreid.getData(fireid);
+		this.firestoreid?.getData(fireid);
 
 		const spec = {};
 		catalog[this.specid] = spec;
-		this.spec.getData(spec);
+		this.spec?.getData(spec);
 
 		const act = {};
 		catalog[this.activityid] = act;
-		this.activity.getData(act);
-		const out = [];
+		this.activity?.getData(act);
+		const out:Record<string,any>[] = [];
 		catalog['dataset:transoutobjid'] = out;
-		this.outputobjects.getData(out);
+		this.outputobjects?.getData(out);
 	}
 
 	public setData(catalog: any): void {
 		this.setIDs();
 
-		this.objectform.get('DatabaseObjectType').setValue(catalog[this.objtypeid]);
-		this.objectform.get('CatalogObjectOwner').setValue(catalog[this.ownerid]);
-		this.objectform.get('TransactionID').setValue(catalog[this.transidid]);
+		this.objectform.get('DatabaseObjectType')?.setValue(catalog[this.objtypeid]);
+		this.objectform.get('CatalogObjectOwner')?.setValue(catalog[this.ownerid]);
+		this.objectform.get('TransactionID')?.setValue(catalog[this.transidid]);
 
 		const shortdescr = catalog[this.shortdescriptionid];
-		this.objectform.get('DataTypeComment').setValue(shortdescr[this.typecommentid]);
-		this.objectform.get('TransactionKey').setValue(shortdescr[this.transkeyid]);
-		this.objectform.get('TransactionEventType').setValue(shortdescr[this.eventtypeid]);
+		this.objectform.get('DataTypeComment')?.setValue(shortdescr[this.typecommentid]);
+		this.objectform.get('TransactionKey')?.setValue(shortdescr[this.transkeyid]);
+		this.objectform.get('TransactionEventType')?.setValue(shortdescr[this.eventtypeid]);
 		
 		this.maintainer = catalog[this.ownerid];
 		const firestore = catalog[this.firestorecatid];
-		this.firestoreid.setData(firestore);
+		this.firestoreid?.setData(firestore);
 		const spec = catalog[this.specid];
-		this.spec.setData(spec);
+		this.spec?.setData(spec);
 		const act = catalog[this.activityid];
-		this.activity.setData(act);
+		this.activity?.setData(act);
 		const out = catalog['dataset:transoutobjid'];
-		this.outputobjects.setData(out);
+		this.outputobjects?.setData(out);
 		const req = catalog['dataset:requiredtransitionid'];
-		this.requiredobjects.setData(req);
+		this.requiredobjects?.setData(req);
 	}
 
 }

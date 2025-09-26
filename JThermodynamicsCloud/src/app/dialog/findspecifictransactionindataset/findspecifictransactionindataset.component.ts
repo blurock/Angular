@@ -90,59 +90,62 @@ export class FindspecifictransactionindatasetComponent implements OnInit {
 		this.dialogRef.close();
 
 	}
+	
+	
 	fetchFromDatabaseObject(): void {
-		const json: Record<string,unknown>  = {};
-		json[this.serviceid] = 'FindTransactionFromOwnerAndType';
-		json[this.annoinfo['dataset:CatalogObjectOwner'][this.identifier]] = this.idForm.get('CatalogObjectOwner')!.value;
-		json[this.annoinfo['dataset:TransactionEventType'][this.identifier]] = this.idForm.get('TransactionEventType')!.value;
-		const activity: Record<string,unknown> = {};
-		activity[this.annoinfo['dataset:CatalogObjectOwner'][this.identifier]] = this.idForm.get('CatalogObjectOwner')!.value;
-		activity[this.annoinfo['dataset:TransactionEventType'][this.identifier]] = this.idForm.get('TransactionEventType')!.value;
-		this.runservice.run(json).subscribe({
-			next: (responsedata: any) => {
-				const success = responsedata[Ontologyconstants.successful];
-				if (success == 'true') {
-					
-					const array = responsedata[Ontologyconstants.catalogobject];
-					this.createChoiceMenu(array);
-					} else {
-						this.dialogRef.close(null);
-			}
-			}
-		});
+			const json: Record<string,unknown>  = {};
+			json[this.serviceid] = 'FindTransactionFromOwnerAndType';
+			json[this.annoinfo['dataset:CatalogObjectOwner'][this.identifier]] = this.idForm.get('CatalogObjectOwner')!.value;
+			json[this.annoinfo['dataset:TransactionEventType'][this.identifier]] = this.idForm.get('TransactionEventType')!.value;
+			const activity: Record<string,unknown> = {};
+			activity[this.annoinfo['dataset:CatalogObjectOwner'][this.identifier]] = this.idForm.get('CatalogObjectOwner')!.value;
+			activity[this.annoinfo['dataset:TransactionEventType'][this.identifier]] = this.idForm.get('TransactionEventType')!.value;
+			this.runservice.run(json).subscribe({
+				next: (responsedata: any) => {
+					const success = responsedata[Ontologyconstants.successful];
+					if (success == 'true') {
+						
+						const array = responsedata[Ontologyconstants.catalogobject];
+						this.createChoiceMenu(array);
+						} else {
+							this.dialogRef.close(null);
+				}
+				}
+			});
 
-	}
-	
-	createChoiceMenu(transarray: any) {
-		this.transchoices = [];
-		this.setoftransactions = transarray;
-		for(var trans of transarray) {
-			
-			const descr = trans['dataset:transaction-description-short'];
-			const name = descr['dataset:transactionkey'];
-			
-			
-			const item: NavItem = {
-				displayName: name,
- 				 disabled: false,
-  				value: name,
-  				children: []
-			};
-			this.transchoices.push(item);
 		}
-		this.idForm.get('TransactionKey')!.setValue(this.transchoices[0].value);
-	}
-	
-	fetchTransaction() {
-		const key = this.idForm.get('TransactionKey')?.value ?? '';
-		var i = 0;
-		for(var trans of this.setoftransactions) {
-			const descr = trans['dataset:transaction-description-short'];
-			const name = descr['dataset:transactionkey'];
-			if(name == key) {
-				this.dialogRef.close(this.setoftransactions[i]);
+	createChoiceMenu(transarray: any) {
+			this.transchoices = [];
+			this.setoftransactions = transarray;
+			for(var trans of transarray) {
+				
+				const descr = trans['dataset:transactiondescriptionshort'];
+				const name = descr['dataset:transactionkey'];
+				
+				
+				const item: NavItem = {
+					displayName: name,
+	 				 disabled: false,
+	  				value: name,
+	  				children: []
+				};
+				this.transchoices.push(item);
 			}
-		i++;
-	}
-	}
+			this.idForm.get('TransactionKey')!.setValue(this.transchoices[0].value);
+		}
+		
+		fetchTransaction() {
+			const key = this.idForm.get('TransactionKey')?.value ?? '';
+			var i = 0;
+			for(var trans of this.setoftransactions) {
+				const descr = trans['dataset:transactiondescriptionshort'];
+				const name = descr['dataset:transactionkey'];
+				if(name == key) {
+					this.dialogRef.close(this.setoftransactions[i]);
+				}
+			i++;
+		}
+		}
+	
+	
 }

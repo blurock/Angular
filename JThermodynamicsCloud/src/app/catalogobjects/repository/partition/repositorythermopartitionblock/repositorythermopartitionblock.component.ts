@@ -1,27 +1,35 @@
 import { Component, OnInit, EventEmitter, Input } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { NgIf } from '@angular/common';
 
 @Component({
 	selector: 'app-repositorythermopartitionblock',
 	templateUrl: './repositorythermopartitionblock.component.html',
-	styleUrls: ['./repositorythermopartitionblock.component.scss']
+	styleUrls: ['./repositorythermopartitionblock.component.scss'],
+	standalone: true,
+	imports: [MatCardModule,MatFormFieldModule,ReactiveFormsModule,MatInputModule,
+		FormsModule, NgIf
+	]
 })
 export class RepositorythermopartitionblockComponent implements OnInit {
 
-	@Input() annoinfo: any
-	@Input() annoReady: EventEmitter<any>;
+	@Input() annoinfo?: any
+	@Input() annoReady?: EventEmitter<any>;
 
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
 
 
-	objectform: UntypedFormGroup;
+	objectform: UntypedFormGroup = new UntypedFormGroup({});
 	display = false;
 
 	title = 'Thermodynamic Block';
-
+    message = 'Initalization';
 
 	constructor(
 		private formBuilder: UntypedFormBuilder
@@ -31,7 +39,7 @@ export class RepositorythermopartitionblockComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.annoReady.subscribe(result => {
+		this.annoReady?.subscribe(result => {
 			this.annoinfo = result;
 			this.display = true;
 		});
@@ -58,13 +66,13 @@ export class RepositorythermopartitionblockComponent implements OnInit {
 		linesS = linesS.concat('\n');
 		linesS = linesS.concat(thermo[cntid3]);
 		linesS = linesS.concat('\n');
-		this.objectform.get('ThermoBlock').setValue(linesS);
+		this.objectform?.get('ThermoBlock')?.setValue(linesS);
 	}
 	public getData(catalog: any) {
-		const thermo = {};
+		const thermo: Record<string,any> = {};
 		const thermoid = this.annoinfo['dataset:RepositoryThermoPartitionBlock'][this.identifier];
 		catalog[thermoid] = thermo;
-		const block = this.objectform.get('ThermoBlock').value;
+		const block = this.objectform?.get('ThermoBlock')?.value ??'';
 		const cntid1 = this.annoinfo['dataset:ThermodynamicsTherGasLine1'][this.identifier];
 		const cntid1a = this.annoinfo['dataset:ThermodynamicsTherGasLine1a'][this.identifier];
 		const cntid2 = this.annoinfo['dataset:ThermodynamicsTherGasLine2'][this.identifier];

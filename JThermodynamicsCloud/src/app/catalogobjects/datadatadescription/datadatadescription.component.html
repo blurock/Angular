@@ -4,6 +4,7 @@
 			<mat-card-subtitle>{{header}}</mat-card-subtitle>
 			</mat-card-header>
 				<mat-card-content>
+					<ng-container *ngIf='annoinfo; else loading'>
 				<mat-form-field class="title">
 									<mat-label>{{titlelabel}}</mat-label>
 									<input matInput formControlName="DescriptionTitle">
@@ -16,6 +17,10 @@
 				</mat-form-field>
 				<app-catalogconceptpurpose #concept [annoinfo]="annoinfo" [descriptionsuffix]="descriptionsuffix"></app-catalogconceptpurpose>
 				<app-keywordlistprimitive #keywords></app-keywordlistprimitive>
+			</ng-container>
+			<ng-template #loading>
+			    {{message}}
+			</ng-template>
 				</mat-card-content>
 				
 			</mat-card>

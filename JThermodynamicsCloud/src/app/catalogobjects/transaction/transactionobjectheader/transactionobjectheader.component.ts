@@ -120,9 +120,7 @@ export class TransactionobjectheaderComponent {
 	@Output() transactionSuccess = new EventEmitter();
 
 	activitysetup(): void {
-		console.log("activitysetup(): " + this.prerequisiteid);
 		if (this.prerequisiteid.length > 0) {
-			console.log(JSON.stringify(this.prerequisite) + "   " + this.prerequisite != null);
 			if (this.prerequisite != null) {
 				if (this.setPrerequisiteData) {
 					this.setPrerequisiteData(this.prerequisite);
@@ -132,16 +130,11 @@ export class TransactionobjectheaderComponent {
 				datainfo[this.annoinfoid] = this.fetchanno;
 				datainfo[this.maintainerid] = this.maintainer;
 				datainfo[this.transactionid] = this.prerequisitetype;
-				console.log("activitysetup() datainfo: " + JSON.stringify(datainfo));
 				const dialogRef = this.dialog.open(FindspecifictransactionindatasetComponent, {
 					data: datainfo
 				});
 				dialogRef.afterClosed().subscribe(result => {
 					if (result != null) {
-						
-						console.log("activitysetup() result-------------");
-						console.log(Object.keys(result));
-						console.log(JSON.stringify(result));
 						this.prerequisite = result;
 						if (this.setPrerequisiteData) {
 							this.setPrerequisiteData(this.prerequisite);
@@ -183,7 +176,10 @@ export class TransactionobjectheaderComponent {
 				if (result[Ontologyconstants.successful]) {
 					this.safeHtml.emit(this.sanitizer.bypassSecurityTrustHtml(result[Ontologyconstants.message]))
 					if (result[Ontologyconstants.catalogobject]) {
-						const activity = result[Ontologyconstants.catalogobject];
+						var activity = result[Ontologyconstants.catalogobject];
+						if(activity['prov:activity'] != null) {
+							activity = activity['dataset:activityinfo'];
+						}
 						if (this.setData) {
 							this.setData(activity);
 						}
@@ -232,9 +228,9 @@ export class TransactionobjectheaderComponent {
 			if (this.prerequisite != null) {
 				const firestoreid = this.prerequisite['dataset:firestorecatalog'];
 				const prerequisites: Record<string, unknown> = {};
-				if (this.prerequisitetype) {
-					if (this.prerequisitetype.length > 0) {
-						prerequisites[this.prerequisitetype] = firestoreid;
+				if (this.prerequisiteid) {
+					if (this.prerequisiteid.length > 0) {
+						prerequisites[this.prerequisiteid] = firestoreid;
 					}
 				}
 				transaction['dataset:transreqobj'] = prerequisites;

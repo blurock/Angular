@@ -7,6 +7,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
@@ -17,6 +19,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import com.google.gson.JsonArray;
@@ -26,6 +29,8 @@ import com.google.gson.JsonParser;
 
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
+import info.esblurock.reaction.core.ontology.base.dataset.DatasetOntologyParseBase;
 
 public class JsonObjectUtilities {
 	
@@ -68,6 +73,12 @@ public class JsonObjectUtilities {
 				if (prop.getValue().isJsonPrimitive()) {
 					if (prop.getValue().getAsJsonPrimitive().isString()) {
 						String ans = prop.getValue().getAsJsonPrimitive().getAsString();
+						totalarr.add(ans);
+					} else if (prop.getValue().getAsJsonPrimitive().isNumber()) {
+						Number ans = prop.getValue().getAsJsonPrimitive().getAsNumber();
+						totalarr.add(ans);
+					} else if (prop.getValue().getAsJsonPrimitive().isBoolean()) {
+						Boolean ans = prop.getValue().getAsJsonPrimitive().getAsBoolean();
 						totalarr.add(ans);
 					}
 				} else if (prop.getValue().isJsonObject()) {
@@ -130,18 +141,30 @@ public class JsonObjectUtilities {
 		
 	}
 	public static String toString(JsonArray arr) {
+		JsonElement element = null;
 		StringBuilder build = new StringBuilder();
+		try {
+		
 		for(int i=0; i<arr.size(); i++) {
-			JsonElement element = arr.get(i);
+			element = arr.get(i);
 			if(element.isJsonPrimitive()) {
 				build.append(element.getAsString());
-			} else {
+			} else if(element.isJsonObject()){
 			    build.append("\n\n");
 				JsonObject obj = element.getAsJsonObject();
-				build.append(toString(obj));
+				build.append(JsonObjectUtilities.toString(obj));
+			} else if (element.isJsonArray()) {
+				build.append("[\n");
+				JsonArray subarr = element.getAsJsonArray();
+				build.append(JsonObjectUtilities.toString(subarr));
+				build.append("\n]");
 			}
 			
 		}
+	} catch (Exception ex) {
+		System.out.println(element.toString());
+		ex.printStackTrace();
+	}
 		return build.toString();
 	}
 	
@@ -560,4 +583,24 @@ public class JsonObjectUtilities {
         changes.add(change);
 
 	}
+	public static void replaceIdentifiersWithPropertyValuePairs(JsonObject input, Set<String> classList) {
+		JsonObject propsJsonObject = CreateDocumentTemplate.createTemplate("dataset:SetOfPropertyValueQueryPairs");
+		input.add(ClassLabelConstants.SetOfPropertyValueQueryPairs, propsJsonObject);
+		JsonArray properties = propsJsonObject.get(ClassLabelConstants.PropertyValueQueryPair).getAsJsonArray();
+		for(String classnameString : classList) {
+			String idString = DatasetOntologyParseBase.getAnnotationObject(classnameString, AnnotationObjectsLabels.identifier);
+			String altlabelString = DatasetOntologyParseBase.getAnnotationObject(classnameString, AnnotationObjectsLabels.altlabel);
+			if (input.get(idString) != null) {
+				String valueString = input.get(idString).getAsString();
+				JsonObject property = CreateDocumentTemplate.createTemplate("dataset:PropertyValueQueryPair");
+				
+				property.addProperty(ClassLabelConstants.DatabaseObjectType, classnameString);
+				property.addProperty(ClassLabelConstants.ShortStringKey, valueString);
+				properties.add(property);
+				input.remove(idString);
+			}
+		}
+
+	}
+
 }

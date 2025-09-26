@@ -1,8 +1,8 @@
 {
 	"prov:activity": "dataset:InitialReadInOfRepositoryFile",
 	"dataset:activityinfo": {
-		"descr-filestaging": {
-			"dataset:purpose-filestaging": {
+		"dataset:descrfilestaging": {
+			"dataset:purposefilestaging": {
 				"dataset:purposekey-filestaging": "dataset:PurposeFileStaging",
 				"dataset:dataconcept-staging": "dataset:ConceptFileStaging"
 			},
@@ -11,18 +11,17 @@
 			"dataset:abstract-staging": "Read in a Benson Meta atom set. The set of substructures",
 			"dcterms:created": "today"
 		},
+		"dataset:catalogobjectmaintainer": "Administrator",
+		"dataset:uniquegenericname": "MetaAtomsForBensonAtoms",
+		"dataset:datasetobjecttype": "dataset:JThermodynamicsMetaAtomDefinitionDataSet",
 		"dataset:collectionobjecttype": "dataset:JThermodynamicsMetaAtomDefinitionDatabase",
-		"dataset:specificationfordataset": {
-			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:uniquegenericname": "MetaAtomsForBensonAtoms",
-			"dataset:datasetobjecttype": "dataset:JThermodynamicsMetaAtomDefinitionDataSet"
-		},
-		"dataset:uploadsrc": "dataset:ResourceFileSystem",
-		"dataset:filesourceformat": "dataset:JThermodynamicsMetaAtoms",
+		
 		"dataset:fileidentifier": "/resources/standard/metaatoms/data/MetaAtomBensonAtom.txt",
+		"dataset:uploadsrc": "dataset:ResourceFileSystem",
 		"dataset:filemediatype": "dataset:FileTypeText",
-		"dcterms:title": "Benson Meta atom set",
 		"dataset:filesourcesubtype": "",
+		"dataset:filesourceformat": "dataset:JThermodynamicsMetaAtoms",
+		"dcterms:title": "Benson Meta atom set",
 		"dcterms:identifier": "initialrepositorylocal",
 		"dcterms:BibliographicResource": [
 			{

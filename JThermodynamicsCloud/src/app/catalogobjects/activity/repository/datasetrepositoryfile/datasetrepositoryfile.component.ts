@@ -129,18 +129,14 @@ export class DatasetrepositoryfileComponent implements OnInit {
 
 	public setData(catalog: any): void {
 		if (catalog != null) {
-			console.log('DatasetrepositoryfileComponent setData: ' + JSON.stringify(catalog));
 			this.infoform.get('CatalogObjectUniqueGenericLabel')?.setValue(catalog[this.annoinfo['dataset:CatalogObjectUniqueGenericLabel'][this.identifier]]);
 			this.infoform.get('DescriptionTitleFileStaging')?.setValue(catalog[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
 			this.infoform.get('DescriptionTitleFileStaging')?.setValue(catalog[this.annoinfo['dataset:DescriptionTitleFileStaging'][this.identifier]]);
 			this.infoform.get('DescriptionAbstractFileStaging')?.setValue(catalog[this.annoinfo['dataset:DescriptionAbstractFileStaging'][this.identifier]]);
-			console.log(Object.keys(catalog));
 			this.fileformat = catalog[this.annoinfo['dataset:FileSourceFormat'][this.identifier]];
-			console.log(this.annoinfo['dataset:FileSourceFormat'][this.identifier] + ' ' + this.fileformat);
 			this.setFileFormat(this.fileformat);
 			this.infoform.get('DatasetCollectionObjectType')?.setValue(catalog[this.annoinfo['dataset:DatasetCollectionObjectType'][this.identifier]]);
-			const specid = this.annoinfo['dataset:SpecificationForDataset'][this.identifier];
-			this.spec.setData(catalog[specid]);
+			this.spec.setData(catalog);
 			const descr = catalog[this.annoinfo['dataset:DataDescriptionFileStaging'][this.identifier]];
 			if (descr != null) {
 				this.infoform.get('DescriptionAbstractFileStaging')?.setValue(descr[this.annoinfo['dataset:DescriptionAbstractFileStaging'][this.identifier]]);
@@ -165,11 +161,8 @@ export class DatasetrepositoryfileComponent implements OnInit {
 
 		const catalog: Record<string,unknown> = {};
 		this.spec.getData(catalog);
-		const specid = this.annoinfo['dataset:SpecificationForDataset'][this.identifier];
-		const datasetspec: any = catalog[specid];
-		datasetspec[this.annoinfo['dataset:DatasetObjectType'][this.identifier]] = $event.dataset;
-		console.log(JSON.stringify(datasetspec));
-		this.spec.setData(datasetspec);
+		catalog[this.annoinfo['dataset:DatasetObjectType'][this.identifier]] = $event.dataset;
+		this.spec.setData(catalog);
 
 	}
 
@@ -189,10 +182,8 @@ export class DatasetrepositoryfileComponent implements OnInit {
 	}
 
 	setFileFormat(format: string): void {
-		console.log('setFileFormat: ' + format);	
 		this.fileformat = format;
 		const catalogtype = this.format.getCatalogTypeForFormat(format);
-		console.log('setFileFormat: ' + JSON.stringify(catalogtype));
 		this.infoform.get('FileSourceFormat')?.setValue(catalogtype);
 		this.selectionPicked(catalogtype);
 	}

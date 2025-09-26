@@ -1,5 +1,7 @@
 package info.esblurock.reaction.core.ontology.base.rdfs;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -60,10 +62,21 @@ public class FindRDFInClass {
 	public static ListOfRDFInformation find(String classname) {
 		ListOfRDFInformation lst = new ListOfRDFInformation();
 		List<String> elements = OntologyUtilityRoutines.exactlyOnePropertyMultiple(classname, OntologyObjectLabels.mappingRelation);
+		//System.out.println("Find RDF in Class: " + classname + " with " + elements.size() + " RDF classes");
+		//System.out.println("Find RDF in Class: " + elements.toString());
 		Iterator<String> iter = elements.iterator();
 		while(iter.hasNext()) {
-			createBaseRDFInformation(classname, iter.next(), lst);
+			String rdfclass = iter.next();
+			createBaseRDFInformation(classname, rdfclass, lst);
+			//System.out.println("Find RDF in Class: " +  classname + ": " + rdfclass + "  " + lst.getList().size() + " RDF classes");
 		}
+		/*
+		if (classname.equals("dataset:JThermodynamicsSymmetryStructureDefinitionDataSet")) {
+			System.out.println("dataset:JThermodynamicsSymmetryStructureDefinitionDataSet  " + lst.getList().size() + " RDF classes");
+			System.out.println("Find RDF in Class: " + classname + ": " + elements.size() + " RDF classes");
+			System.out.println("Find RDF in Class: " + classname + ": " + lst.toString());
+		}
+		*/
 		return lst;
 	}
 	
@@ -88,18 +101,51 @@ public class FindRDFInClass {
 		Iterator<RDFInformation> iter = lst.getList().iterator();
 		while(iter.hasNext() ) {
 			RDFInformation info = iter.next();
+			//System.out.println("fillInValues: " + info.getClassname());
+			/*
+			if (info.getClassname().equals("dataset:JThermodynamicsSymmetryStructureDefinitionDataSet")) {
+				System.out.println("--------------------------------------------------------------");
+				System.out.println("fillInValues: dataset:JThermodynamicsSymmetryStructureDefinitionDataSet");
+				System.out.println("fillInValues: " + info.toString());
+				System.out.println("-------------------------");
+			}
+			*/
 			ListOfRDFInformation current = new ListOfRDFInformation();
 			current.addRDFInformation(info);
 
 			Set<String> subject = info.getSubjectClass().keySet();
+			/*
+			if (info.getClassname().equals("dataset:JThermodynamicsSymmetryStructureDefinitionDataSet")) {
+				System.out.println("fillInValues: subject: " + subject.toString());
+				System.out.println("-------------------------");
+			}
+			*/
 			for(String subcls : subject) {
-				current = FindRDFInClass.fillWithValues(current,obj,subcls,true);
+				if(current != null) {
+					current = FindRDFInClass.fillWithValues(current,obj,subcls,true);
+				}
 			}
 			
 			Set<String> object = info.getObjectClass().keySet();
-			for(String objcls : object) {
-				current = FindRDFInClass.fillWithValues(current,obj,objcls,false);
+			/*
+			if (info.getClassname().equals("dataset:JThermodynamicsSymmetryStructureDefinitionDataSet")) {
+				System.out.println("fillInValues: object: " + object.toString());
+				System.out.println("-------------------------");
 			}
+			*/
+			for(String objcls : object) {
+				if(current != null) {
+				current = FindRDFInClass.fillWithValues(current,obj,objcls,false);
+				}
+			}
+			/*
+			if (info.getClassname().equals("dataset:JThermodynamicsSymmetryStructureDefinitionDataSet")) {
+				System.out.println("-------------------------");
+				System.out.println("fillInValues: " + current.toString());
+				System.out.println("fillInValues: dataset:RDFJThermodynamicsSymmetryInfoDataset");
+				System.out.println("--------------------------------------------------------------");
+			}
+			*/
 			completed.addRDFInformation(current);
 		}
 		return completed;
@@ -122,8 +168,17 @@ public class FindRDFInClass {
 	public static ListOfRDFInformation fillWithValues(ListOfRDFInformation rdfs, JsonObject obj, String id, boolean subject) {
 		ListOfRDFInformation finalrdfsInformation = new ListOfRDFInformation();
 		JsonArray arr = JsonObjectUtilities.getValueUsingIdentifierMultiple(obj, id);
+		if (arr.size() == 0) {
+			System.out.println("Ontology Error: fillWithValues: No values for id: " + id + "RDF: " + rdfs.getList().get(0).getPredicateClass());
+			//System.out.println("Ontology Error: fillWithValues: Object: " + JsonObjectUtilities.toString(obj));
+			//System.out.println("Ontology Error: fillWithValues: RDFInformation: " + JsonObjectUtilities.toString(rdfs.getList().get(0).toJsonObject()));
+			finalrdfsInformation = null;
+		}
 		List<RDFInformation> rdflist = rdfs.getList();
 		for(RDFInformation rdf: rdflist) {
+			//if (rdf.getClassname().equals("dataset:JThermodynamicsSymmetryStructureDefinitionDataSet")) {
+			//	System.out.println("fillWithValues: "+ id + subject + " " + JsonObjectUtilities.toString(arr));
+			//}
 			for (JsonElement val : arr) {
 				String valueString = "";
 				if(val.isJsonObject()) {
@@ -134,11 +189,18 @@ public class FindRDFInClass {
 					valueString = val.getAsString();
 				}
 				RDFInformation newRDF = new RDFInformation(rdf);
+				//if (rdf.getClassname().equals("dataset:JThermodynamicsSymmetryStructureDefinitionDataSet")) {
+				//	System.out.println("fillWithValues: dataset:JThermodynamicsSymmetryStructureDefinitionDataSet: '" + valueString + "'");
+				//}
+				
 				if(subject) {
 					newRDF.addSubjectValue(id,valueString);
 				} else {
 					newRDF.addObjectValue(id,valueString);
 				}
+				//if (rdf.getClassname().equals("dataset:JThermodynamicsSymmetryStructureDefinitionDataSet")) {
+				//	System.out.println("fillWithValues: " + newRDF.toString());
+				//}
 				finalrdfsInformation.addRDFInformation(newRDF);				
 			}
 		}
@@ -170,7 +232,7 @@ public class FindRDFInClass {
 			String id = DatasetOntologyParseBase.getIDFromAnnotation(subject);
 			subjectids.put(id, "");
 		}
-		RDFInformation rdfInformation = new RDFInformation(rdfclass, subjectids,rdfclass, objids);
+		RDFInformation rdfInformation = new RDFInformation(classname, subjectids,rdfclass, objids);
 		lst.addRDFInformation(rdfInformation);
 	}
 	

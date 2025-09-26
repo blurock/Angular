@@ -16,8 +16,8 @@ public class testCatalogObjectsFromUniqueGenericLabel {
 	public void test() {
 		JsonObject input = new JsonObject();
 		input.addProperty(ClassLabelConstants.CatalogObjectOwner, "Administrator");
-		input.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, "SmallTableA1CarbonBensonRules");
-		input.addProperty(ClassLabelConstants.DatabaseObjectType, "dataset:ThermodynamicBensonRuleDefinitionDataSet");
+		input.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, "MetaAtomsForBensonAtoms");
+		input.addProperty(ClassLabelConstants.DatabaseObjectType, "dataset:JThermodynamicsMetaAtomDefinitionDataSet");
 		JsonObject responseJsonObject = RDFQuestionsUtilities.CatalogObjectsFromUniqueGenericLabel(input);
 		JsonObjectUtilities.printResponse(responseJsonObject);
 	}

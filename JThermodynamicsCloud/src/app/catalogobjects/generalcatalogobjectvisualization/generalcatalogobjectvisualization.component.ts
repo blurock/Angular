@@ -1,8 +1,11 @@
-import { Component, OnInit, ViewChild,ComponentRef} from '@angular/core';
-import { LoadChildDirective } from '../../directives/load-child.directive';
+import { Component, OnInit, ViewChild,ComponentRef, ViewContainerRef} from '@angular/core';
 import { CatalogbaseComponent } from '../../primitives/catalogbase/catalogbase.component';
 import { MatCardModule } from '@angular/material/card';
-//import { DatasetrepositoryfilestagingComponent } from '../repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
+import { DatasetrepositoryfilestagingComponent } from '../repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
+import { LoadchildDirective } from '../catalogbaseobjects/loadchild.directive';
+import { Ontologyconstants } from '../../const/ontologyconstants';
+import { OntologycatalogService } from '../../services/ontologycatalog.service';
+import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
 //import { RepositoryparsedtofixedblocksizeComponent } from '../repository/partition/repositoryparsedtofixedblocksize/repositoryparsedtofixedblocksize.component';
 //import { JthermodynamicdisassociationenergyComponent } from '../thermodynamics/jthermodynamicdisassociationenergy/jthermodynamicdisassociationenergy.component';
 //import { JthermodynamicsvibrationalstructureComponent } from '../thermodynamics/jthermodynamicsvibrationalstructure/jthermodynamicsvibrationalstructure.component';
@@ -23,27 +26,42 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class GeneralcatalogobjectvisualizationComponent implements OnInit {
 
-	@ViewChild(LoadChildDirective, { static: true })
-	dynamicChild!: LoadChildDirective;
-
+	//@ViewChild(LoadChildDirective, { static: true }) dynamicChild!: LoadChildDirective;
+	@ViewChild('dynamicChild', { read: ViewContainerRef })  dynamicChild!: ViewContainerRef;
+	
+	message = 'Initializing...';
+	
+	annoinfo: any;
+	
 	catalogtype = 'No object';
 	isNotSetUp = true;
 	componentRef!: ComponentRef<CatalogbaseComponent>;
-	constructor() { }
+	constructor(
+		private constants: UserinterfaceconstantsService,
+		private annotations: OntologycatalogService,
+		//private viewContainerRef: ViewContainerRef 
+	) { }
 
 	ngOnInit(): void {
-
+		console.log("ngOnInit GeneralcatalogobjectvisualizationComponent");
+		//this.dynamicChild.viewContainerRef = this.viewContainerRef; 
 	}
 
 	public setChild(catalogtype: string): void {
 		this.catalogtype = catalogtype;
-		/*
+		this.dynamicChild.clear();
 		if (catalogtype === 'dataset:RepositoryFileStaging') {
 			if (this.isNotSetUp) {
-				this.componentRef = this.dynamicChild.viewContainerRef.createComponent(DatasetrepositoryfilestagingComponent);
+				console.log("Creating DatasetrepositoryfilestagingComponent");
+				this.componentRef = this.dynamicChild.createComponent(DatasetrepositoryfilestagingComponent);
+				this.componentRef.instance.getCatalogAnnoations();
+				console.log("Creating DatasetrepositoryfilestagingComponent after getCatalogAnnoations()");
+				//this.componentRef = this.dynamicChild.viewContainerRef.createComponent(DatasetrepositoryfilestagingComponent);
 				this.isNotSetUp = false;
 			}
-		} else if (catalogtype === 'dataset:RepositoryParsedToFixedBlockSize') {
+		} 
+		/*
+		else if (catalogtype === 'dataset:RepositoryParsedToFixedBlockSize') {
 			alert("dataset:RepositoryParsedToFixedBlockSize");
 			if (this.isNotSetUp) {
 				this.componentRef = this.dynamicChild.viewContainerRef.createComponent(RepositoryparsedtofixedblocksizeComponent);
@@ -125,6 +143,28 @@ export class GeneralcatalogobjectvisualizationComponent implements OnInit {
 		} else {
 			alert('catalog object not found');
 		}
+	}
+	public getCatalogAnnoations(): void {
+		console.log("getCatalogAnnoations: " + this.catalogtype);
+		this.message = this.constants.waiting;
+		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
+			next: (responsedata: any) => {
+				if (responsedata) {
+				const response = responsedata;
+				this.message = response[Ontologyconstants.message];
+				if (response[Ontologyconstants.successful]) {
+					const catalog = response[Ontologyconstants.catalogobject];
+					this.annoinfo = catalog[Ontologyconstants.annotations];
+					console.log("getCatalogAnnoations: " + JSON.stringify(this.annoinfo));
+					this.componentRef.instance.annoinfo = this.annoinfo;
+					
+				} else {
+					this.message = responsedata;
+				}
+				}
+			},
+			error: (info: any) => { alert(this.constants.getannotationsfnotsuccessful + this.message); }
+		});
 	}
 
 

@@ -2,7 +2,7 @@
 	"prov:activity": "dataset:InitialReadInOfRepositoryFile",
 	"dataset:transreqobj": {},
 	"dataset:activityinfo": {
-		"descr-filestaging": {
+		"dataset:descrfilestaging": {
 			"dataset:purpose-filestaging": {
 				"dataset:purposekey-filestaging": "dataset:PurposeFileStaging",
 				"dataset:dataconcept-staging": "dataset:ConceptFileStaging"
@@ -19,11 +19,9 @@
 		"dcterms:title": "Internal Symmetry Rules for Carbon Atom: The source of these rules is an extropolation of TherGas rules for symmetry contributions as outlined in the Muller thesis",
 		"dataset:filesourcesubtype": "",
 		"dataset:collectionobjecttype": "dataset:JThermodynamicsSymmetryStructureDefinitionDatabase",
-		"dataset:specificationfordataset": {
-			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:uniquegenericname": "InternalSymmetryCarbonAtom",
-			"dataset:datasetobjecttype": "dataset:JThermodynamicsSymmetryStructureDefinitionDataSet"
-		},
+		"dataset:catalogobjectmaintainer": "Administrator",
+		"dataset:uniquegenericname": "InternalSymmetryCarbonAtom",
+		"dataset:datasetobjecttype": "dataset:JThermodynamicsSymmetryStructureDefinitionDataSet",
 		"dcterms:identifier": "initialrepositorylocal",
 		"dcterms:BibliographicResource": [
 			{

@@ -2,10 +2,11 @@
 {{anno[annoref][rdfscomment]}}
 <div>
 <mat-divider></mat-divider>
-      <button mat-menu-item color="primary" [matMenuTriggerFor]="menu.childMenu">
+      <button mat-menu-item color="primary" [matMenuTriggerFor]="menu">
         <span>{{anno[annoref][rdfslabel]}}</span>
       </button>
-<app-menu-item #menu [items]="items" ></app-menu-item>
+	  <mat-menu #menu="matMenu">
+<app-menu-item #menu [items]="items" (selectionEvent)='selection($event)'></app-menu-item>
 <div>
 Choose from this pull-down menu
 <div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewContainerRef, ComponentRef, ViewChild, Input, Output, EventEmitter, ElementRef} from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewContainerRef, ComponentRef, ViewChild, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { CommonModule } from '@angular/common';
@@ -16,7 +16,7 @@ import { ActivityrepositorypartitiontocatalogComponent } from '../../activity/re
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { MatIconModule } from '@angular/material/icon';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
 import { TransactionresultheaderComponent } from '../transactionresultheader/transactionresultheader.component';
 import { TransactioneventobjectComponent } from '../transactioneventobject/transactioneventobject.component';
 import { ActivityinformationinterpretbensonruledataComponent } from '../../activity/repository/activityinformationinterpretthermodynamicblock/activityinformationinterpretbensonruledata/activityinformationinterpretbensonruledata.component';
@@ -67,9 +67,9 @@ export class ManagedatasettransactioneventobjectComponent implements OnInit, Aft
 	parseprerequisitetype: string = '';
 	activityfileroot = '';
 	parsefiletitle = '';
-	
+
 	showTransaction: boolean = true;
-    showActivity: boolean = true;
+	showActivity: boolean = true;
 
 	activitytype: string = '';
 	@Input() transaction: string = '';
@@ -78,7 +78,7 @@ export class ManagedatasettransactioneventobjectComponent implements OnInit, Aft
 	@Input() setPrerequisiteData?: (prerequisite: any) => void;
 	@Output() transactionSuccess = new EventEmitter<any>();
 	@Output() annoReady = new EventEmitter<void>();
-	
+
 	@Input() transactiontitle: string = 'Transaction';
 	@Input() activitytitle: string = 'Activity';
 
@@ -86,7 +86,7 @@ export class ManagedatasettransactioneventobjectComponent implements OnInit, Aft
 	@ViewChild('transactionevent') transactionevent?: TransactioneventobjectComponent;
 	@ViewChild('infoheader') infoheader?: TransactionobjectheaderComponent;
 	@ViewChild('outputContainer', { static: false }) outputContainer?: ElementRef;
-	
+
 	componentRef!: ComponentRef<CatalogactivitybaseComponent>;
 	key = 'dataset:PartiionSetWithinRepositoryFile';
 	componentMap: { [key: string]: ComponentType<any> } = {
@@ -99,7 +99,7 @@ export class ManagedatasettransactioneventobjectComponent implements OnInit, Aft
 		[Ontologyconstants.ActivityInformationInterpretSymmetryInformation]: ActivityinformationinterpretsymmetryinformationComponent,
 		[Ontologyconstants.ActivityInformationInterpretVibrationalMode]: ActivityinformationinterpretvibrationalmodeComponent,
 		[Ontologyconstants.ActivityInformationInterpretMetaAtom]: ActivityinformationinterpretmetaatomComponent
-		
+
 	}
 	constructor(
 		constants: UserinterfaceconstantsService,
@@ -120,25 +120,25 @@ export class ManagedatasettransactioneventobjectComponent implements OnInit, Aft
 
 	ngOnInit(): void {
 	}
-	
+
 	ngAfterViewInit(): void {
 	}
-	
+
 	setActivityType(activitytype: string) {
 		this.activitytype = activitytype;
 	}
-	
+
 	createComponent(activitytype: string) {
 		this.activitytype = activitytype;
-		if(this.activitytype) {
+		if (this.activitytype) {
 			const componentType = this.componentMap[this.activitytype];
-			if(!this.componentRef) {
-			this.componentRef = this.dynamicChild.createComponent(componentType);
-			this.componentRef.instance.getCatalogAnnoations();
-			this.componentRef.instance.annoReady.subscribe(() => {
-				this.annoinfo = this.componentRef.instance.annoinfo;
-				this.annoReady.emit();
-			});
+			if (!this.componentRef) {
+				this.componentRef = this.dynamicChild.createComponent(componentType);
+				this.componentRef.instance.getCatalogAnnoations();
+				this.componentRef.instance.annoReady.subscribe(() => {
+					this.annoinfo = this.componentRef.instance.annoinfo;
+					this.annoReady.emit();
+				});
 			}
 		}
 	}
@@ -159,15 +159,12 @@ export class ManagedatasettransactioneventobjectComponent implements OnInit, Aft
 		this.componentRef.instance.getData(catalog);
 	}
 	setActivityPrerequisiteData(prerequisite: any): void {
-		console.log("setActivityPrerequisiteData 1");
-		if(this.setPrerequisiteData) {
+		if (this.setPrerequisiteData) {
 			this.setPrerequisiteData(prerequisite);
 		} else {
 			console.log("setPrerequisiteData doesn't exist");
 		}
-		console.log("setActivityPrerequisiteData 2");
-	    this.infoheader!.setPrerequisiteValue(prerequisite);
-console.log("setActivityPrerequisiteData 3");		
+		this.infoheader!.setPrerequisiteValue(prerequisite);
 		this.componentRef.instance.setPrerequisiteData(prerequisite);
 	}
 	transactionEvent($event: any): void {
@@ -188,16 +185,16 @@ console.log("setActivityPrerequisiteData 3");
 		}
 	}
 	transitionAnnoReady() {
-		
+
 	}
-    responseOutput($event: SafeHtml) {
+	responseOutput($event: SafeHtml) {
 		this.safeHtml = $event;
 	}
-scrollToBottom(): void {
-    try {
-		if(this.outputContainer) {
-			      this.outputContainer.nativeElement.scrollTop = this.outputContainer.nativeElement.scrollHeight;
-		}
-    } catch (err) { }
-  }
+	scrollToBottom(): void {
+		try {
+			if (this.outputContainer) {
+				this.outputContainer.nativeElement.scrollTop = this.outputContainer.nativeElement.scrollHeight;
+			}
+		} catch (err) { }
+	}
 }

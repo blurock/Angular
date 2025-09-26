@@ -16,27 +16,27 @@ import { OntologycatalogService } from '../../../../services/ontologycatalog.ser
 import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
 
 @Component({
-  selector: 'app-activityinformationinterpretsymmetryinformation',
-  standalone: true,
-  imports: [
+	selector: 'app-activityinformationinterpretsymmetryinformation',
+	standalone: true,
+	imports: [
 		CommonModule,
 		MatCardModule,
-	MatGridListModule,
-	ReactiveFormsModule,
-	MatFormFieldModule,
-	MatInputModule,
-	MatMenuModule,
+		MatGridListModule,
+		ReactiveFormsModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatMenuModule,
 		SpecificationfordatasetComponent
-  ],
-  templateUrl: './activityinformationinterpretsymmetryinformation.component.html',
-  styleUrls: ['./activityinformationinterpretsymmetryinformation.component.scss']
+	],
+	templateUrl: './activityinformationinterpretsymmetryinformation.component.html',
+	styleUrls: ['./activityinformationinterpretsymmetryinformation.component.scss']
 })
 export class ActivityinformationinterpretsymmetryinformationComponent extends CatalogactivitybaseComponent implements OnInit {
 
 	display = false;
 	objectform: FormGroup;
 
-specsubtitle: string = 'Dataset Specification for Symmetry Group';
+	specsubtitle: string = 'Dataset Specification for Symmetry Group';
 	fileformat = 'dataset:JThermodynamicsSymmetryDefinitionFormat';
 
 	fileformatdata: any;
@@ -52,62 +52,65 @@ specsubtitle: string = 'Dataset Specification for Symmetry Group';
 		private formBuilder: FormBuilder,
 		private fileservice: FileformatmanagerService
 	) {
-super(constants, annotations, cd);
+		super(constants, annotations, cd);
 		this.objectform = this.formBuilder.group({
 			DescriptionTitle: ['', Validators.required],
 			BlockInterpretationMethod: ['', Validators.required],
 			FileSourceFormat: ['File Format', Validators.required]
 
 		});
-
-	}
-
-	ngOnInit(): void {
 		this.fileservice.getFormatClassification().subscribe({
 			next: (data: any) => {
 				this.fileformatdata = data;
 				const freqformat = data[this.fileformat];
 				this.objectform.get('FileSourceFormat')!.setValue(this.fileformat);
 				const block = freqformat['dataset:interpretMethod'];
-				this.objectform.get('BlockInterpretationMethod')!.setValue(block); 
+				this.objectform.get('BlockInterpretationMethod')!.setValue(block);
 				this.display = true;
 			}
 		});
+		this.catalogtype = "dataset:ActivityInformationInterpretSymmetryInformation";
+		this.getCatalogAnnoations();
 	}
-	
+
+	ngOnInit(): void {
+	}
+
 	invalid(): boolean {
-    	return this.objectform.invalid;
-  }
+		return this.objectform.invalid;
+	}
 
 	override annotationsFound(response: any): void {
 		super.annotationsFound(response);
 	}
-	
+
 	override setPrerequisiteData(prerequisite: any) {
+		if(this.annoinfo != null ) {
 		const actinfo = prerequisite['dataset:activityinfo'];
-		const titleid = this.annoinfo['dataset:DescriptionTitle'][this.identifier];
+		const shortdescr = prerequisite[Ontologyconstants.ShortTransactionDescription];
+		const activity = shortdescr[Ontologyconstants.TransactionEventType];
+		var titleid = '';
+		titleid = this.annoinfo['dataset:DescriptionTitle'][this.identifier];
 		const formatid = this.annoinfo['dataset:FileSourceFormat'][this.identifier];
 		this.objectform.get('DescriptionTitle')!.setValue(actinfo[titleid]);
 		this.objectform.get('FileSourceFormat')!.setValue(actinfo[formatid]);
-		const specid = this.annoinfo['dataset:DatasetTransactionSpecificationForCollection'][this.identifier];
-		const specdata = actinfo[specid];
-		this.spec.setData(specdata);
+		this.spec.setData(actinfo);
+		}
 	}
 
 
 	override getData(a: any): void {
 		super.getData(a);
-		this.catalog[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod')?.value ?? '';
-		this.catalog[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.objectform.get('FileSourceFormat')?.value ?? '';
-		this.catalog[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle')?.value ?? '';
-		this.spec.getData(this.catalog);
+		a[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod')?.value ?? '';
+		a[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.objectform.get('FileSourceFormat')?.value ?? '';
+		a[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle')?.value ?? '';
+		this.spec.getData(a);
 	}
 	override setData(activity: any): void {
 		this.objectform.get('BlockInterpretationMethod')!.setValue(activity[this.annoinfo['dataset:BlockInterpretationMethod']]);
 		this.objectform.get('FileSourceFormat')!.setValue(activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]]);
 		this.objectform.get('DescriptionTitle')!.setValue(activity[this.annoinfo['dataset:DescriptionTitle']]);
-		const specdata = activity[this.annoinfo['dataset:SpecificationForDataset'][this.identifier]];
-		this.spec.setData(specdata);
+		this.spec.setData(activity);
 	}
 
 }

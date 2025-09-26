@@ -22,7 +22,9 @@ public class ListOfRDFInformation extends BaseObjectJSONInterface {
 		lst.add(info);
 	}
 	public void addRDFInformation(ListOfRDFInformation more) {
-		lst.addAll(more.getList());
+		if(more != null) {
+			lst.addAll(more.getList());
+		}
 	}
 	
 	public List<RDFInformation> getList() {

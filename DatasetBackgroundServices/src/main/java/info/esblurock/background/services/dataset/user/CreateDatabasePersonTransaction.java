@@ -12,6 +12,7 @@ import info.esblurock.reaction.core.StandardResponse;
 import info.esblurock.reaction.core.ontology.base.constants.AnnotationObjectsLabels;
 import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseCatalogData;
+import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import info.esblurock.reaction.core.ontology.base.utilities.SubstituteJsonValues;
 
@@ -57,8 +58,23 @@ public class CreateDatabasePersonTransaction {
 		System.out.println("CreateDatabasePersonTransaction: catalog: " + JsonObjectUtilities.toString(catalog));
 		
 		JsonObject descr = source.get(ClassLabelConstants.DataDescriptionPerson).getAsJsonObject();
-		String title = descr.get(ClassLabelConstants.DescriptionTitlePerson).getAsString();
-		catalog.addProperty(ClassLabelConstants.PersonFullName, title);
+		JsonObject personnameJsonObject = catalog.get(ClassLabelConstants.PersonalDescription).getAsJsonObject();
+		JsonObject personname = personnameJsonObject.get(ClassLabelConstants.NameOfPerson).getAsJsonObject();
+		String firstname = personname.get(ClassLabelConstants.givenName).getAsString();
+		String lastname = personname.get(ClassLabelConstants.familyName).getAsString();
+		String fullname = firstname + " " + lastname;
+		
+		JsonObject contact = CreateDocumentTemplate.createTemplate("dataset:ContactInfoData");
+		String infoemail = source.get(ClassLabelConstants.Email).getAsString();
+		
+		contact.addProperty(ClassLabelConstants.ContactKey, infoemail);
+		contact.addProperty(ClassLabelConstants.ContactType, "dataset:EmailContactType");
+		JsonArray contactArray = catalog.get(ClassLabelConstants.ContactInfoData).getAsJsonArray();
+		contactArray.add(contact);
+		String useraccountrole = source.get(ClassLabelConstants.UserAccountRole).getAsString();
+		descr.addProperty(ClassLabelConstants.DescriptionKeywordPerson,useraccountrole);
+		personname.addProperty(ClassLabelConstants.PersonFullName, fullname);
+		catalog.addProperty(ClassLabelConstants.ShortDescription, fullname);
 		catalog.addProperty(AnnotationObjectsLabels.identifier, identifier);
 		JsonObject transfirestoreID = event.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
 		catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction, transfirestoreID.deepCopy());

@@ -40,23 +40,23 @@ import info.esblurock.reaction.core.ontology.base.utilities.JsonObjectUtilities;
 import info.esblurock.reaction.core.ontology.base.utilities.SubstituteJsonValues;
 
 public enum ServiceCollectionFirestoreCatalogAccess {
-    ListOfUserAccountNames {
+	ListOfUserAccountNames {
 
-        @Override
-        public JsonObject process(JsonObject json) {
-            return UserAccountLists.getListOfUserAccountNames();
-       }
-        
-    },
-    
-    GetUserAccountAndDatabasePerson {
+		@Override
+		public JsonObject process(JsonObject json) {
+			return UserAccountLists.getListOfUserAccountNames();
+		}
 
-        @Override
-        public JsonObject process(JsonObject json) {
-            return GetUserAccountAndDatabasePersonProcess.get(json);
-        }
-    },
-    
+	},
+
+	GetUserAccountAndDatabasePerson {
+
+		@Override
+		public JsonObject process(JsonObject json) {
+			return GetUserAccountAndDatabasePersonProcess.get(json);
+		}
+	},
+
 	SubstituteAndWriteDatabasePerson {
 		/*
 		 * SubstituteAndWriteDatabasePerson
@@ -85,8 +85,8 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 			catalog.addProperty(AnnotationObjectsLabels.identifier, identifier);
 			String message = WriteFirestoreCatalogObject.writeCatalogObject(catalog);
 			body.addElement("pre").addText(message);
-			response = StandardResponse.standardServiceResponse(document,
-					"Success: SubstituteAndWriteDatabasePerson", catalog);
+			response = StandardResponse.standardServiceResponse(document, "Success: SubstituteAndWriteDatabasePerson",
+					catalog);
 			return response;
 		}
 
@@ -101,8 +101,8 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 			JsonObject catalog = json.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonObject();
 			String message = WriteFirestoreCatalogObject.writeCatalogObject(catalog);
 			body.addElement("pre").addText(message);
-			response = StandardResponse.standardServiceResponse(document,
-					"Sucess: FirestoreServiceWriteCatalogObject", null);
+			response = StandardResponse.standardServiceResponse(document, "Sucess: FirestoreServiceWriteCatalogObject",
+					null);
 			return response;
 		}
 
@@ -163,16 +163,17 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 
 	},
 	ReadSpecificCatalogObjectInDataset {
-	    
-	    @Override
-        public JsonObject process(JsonObject json) {
-	    String id = json.get(ClassLabelConstants.CatalogObjectKey).getAsString();
-	    String classname = json.get(ClassLabelConstants.DatabaseObjectType).getAsString();
-	    JsonObject datasetid = json.get(ClassLabelConstants.DatasetSpecificationForCollectionSet).getAsJsonObject();
-	            
-        JsonObject response = ReadFirestoreInformation.readFromDatasetSpecificationForCollectionSet(classname, datasetid, id);
-	    return response;
-	    }
+
+		@Override
+		public JsonObject process(JsonObject json) {
+			String id = json.get(ClassLabelConstants.CatalogObjectKey).getAsString();
+			String classname = json.get(ClassLabelConstants.DatabaseObjectType).getAsString();
+			JsonObject datasetid = json.get(ClassLabelConstants.DatasetSpecificationForCollectionSet).getAsJsonObject();
+
+			JsonObject response = ReadFirestoreInformation.readFromDatasetSpecificationForCollectionSet(classname,
+					datasetid, id);
+			return response;
+		}
 	},
 	FindTransactionsOfType {
 
@@ -191,7 +192,7 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 			JsonObject response = FindTransactions.FindTransactionFromOwnerAndType(json);
 			return response;
 		}
-		
+
 	},
 	FindTransactionChoicesOfTypeAndKey {
 
@@ -203,38 +204,60 @@ public enum ServiceCollectionFirestoreCatalogAccess {
 			return response;
 		}
 
-	}, FindSpecificTransactionInDataset {
-	    @Override
-	    public JsonObject process(JsonObject json) {
-	        JsonObject response = null;
-	    JsonObject info = json.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
-	    String type = json.get(ClassLabelConstants.TransactionEventType).getAsString();
-	    String transactionID = json.get(ClassLabelConstants.TransactionID).getAsString();
-	    try {
-	    response = FindTransactions.findSpecificDatasetTransaction(info, type, transactionID);
-	    } catch(Exception ex) {
-	        response = new JsonObject();
-            response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);
-            response.addProperty(ClassLabelConstants.ServiceResponseMessage,
-                    "Error in reading Transaction:\n" + ex.toString());
-            response.add(ClassLabelConstants.SimpleCatalogObject, null);	        
-	    }
-	    return response;
-	}
-	}, ReadCatalogTransactionObjectHierarchy {
+	},
+	FindTransactionFromTransactionID {
+		@Override
+		public JsonObject process(JsonObject json) {
+			JsonObject response = null;
+			JsonObject info = json.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
+			String type = json.get(ClassLabelConstants.TransactionEventType).getAsString();
+			String transactionID = json.get(ClassLabelConstants.TransactionID).getAsString();
+			try {
+				response = FindTransactions.findSpecificDatasetTransaction(info, type, transactionID);
+			} catch (Exception ex) {
+				response = new JsonObject();
+				response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);
+				response.addProperty(ClassLabelConstants.ServiceResponseMessage,
+						"Error in reading Transaction:\n" + ex.toString());
+				response.add(ClassLabelConstants.SimpleCatalogObject, null);
+			}
+			return response;
+		}
+	},
+	FindSpecificTransactionInDataset {
+		@Override
+		public JsonObject process(JsonObject json) {
+			JsonObject response = null;
+			JsonObject info = json.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
+			String type = json.get(ClassLabelConstants.TransactionEventType).getAsString();
+			String transactionID = json.get(ClassLabelConstants.TransactionID).getAsString();
+			try {
+				response = FindTransactions.findSpecificDatasetTransaction(info, type, transactionID);
+			} catch (Exception ex) {
+				response = new JsonObject();
+				response.addProperty(ClassLabelConstants.ServiceProcessSuccessful, false);
+				response.addProperty(ClassLabelConstants.ServiceResponseMessage,
+						"Error in reading Transaction:\n" + ex.toString());
+				response.add(ClassLabelConstants.SimpleCatalogObject, null);
+			}
+			return response;
+		}
+	},
+	ReadCatalogTransactionObjectHierarchy {
 
-        @Override
-        public JsonObject process(JsonObject json) {
-            return FindTransactions.readCatalogTransactionObjectHierarchy(json);
-        }
-        
-    }, ReadCatalogObjectWithFirestoreAddress {
-	    @Override
-	    public JsonObject process(JsonObject json) {
-	        JsonObject firestoreid = json.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
-	        JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(firestoreid);
-	        return response;
-	    }
+		@Override
+		public JsonObject process(JsonObject json) {
+			return FindTransactions.readCatalogTransactionObjectHierarchy(json);
+		}
+
+	},
+	ReadCatalogObjectWithFirestoreAddress {
+		@Override
+		public JsonObject process(JsonObject json) {
+			JsonObject firestoreid = json.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+			JsonObject response = ReadFirestoreInformation.readFirestoreCatalogObject(firestoreid);
+			return response;
+		}
 	};
 
 	public abstract JsonObject process(JsonObject json);

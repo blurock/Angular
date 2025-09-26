@@ -154,11 +154,13 @@ public enum InterpretTextBlock {
 				metaatom.add(ClassLabelConstants.JThermodynamics2DSpeciesStructure, moleculestruct);
 				metaatom.addProperty(ClassLabelConstants.JThermodynamicsMetaAtomLabel, metaatomname);
 				metaatom.addProperty(ClassLabelConstants.JThermodynamicsMetaAtomType, metaatomtype);
-				metaatom.addProperty(ClassLabelConstants.JThermodynamicsStructureName, elementname);
+				//metaatom.addProperty(ClassLabelConstants.JThermodynamicsStructureName, elementname);
 				catalog.addProperty(ClassLabelConstants.JThermodynamics2DSpeciesLabel, elementname);
 				catalog.addProperty(ClassLabelConstants.JThermodynamicsStructureSpecification, nancy);
 				catalog.addProperty(ClassLabelConstants.JThermodynamicsSpeciesSpecificationType,
 						"dataset:SpeciesSpecificationNancyLinearForm");
+				String descriptionString = metaatomtype + " " + metaatomname + " " + elementname;
+				catalog.addProperty(ClassLabelConstants.ShortDescription, descriptionString);
 				Element row = table.addElement("tr");
 				row.addElement("td").addText(position);
 				row.addElement("td").addText(line);

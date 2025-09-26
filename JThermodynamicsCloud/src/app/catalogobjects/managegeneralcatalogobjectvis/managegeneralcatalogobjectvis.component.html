@@ -1,20 +1,20 @@
 <mat-card appearance="outlined">
 	<mat-card-header>
 		<mat-card-title>
-		{{choice}}
+			{{choice}}
 		</mat-card-title>
 	</mat-card-header>
 	<mat-card-content>
 		<mat-grid-list cols="6" rowHeight="100px">
-		<mat-grid-tile [colspan]="6">
-					<mat-form-field appearance="fill" class="display-btn">
-				<mat-select [(value)]="choice" (valueChange)="setDatabaseObject(choice)">
-					<mat-option *ngFor="let choice of choices" [value]="choice" background="lightgray">
-						{{choice}}
-					</mat-option>
-				</mat-select>
-			</mat-form-field>
-		</mat-grid-tile>
+			<mat-grid-tile [colspan]="6">
+				<mat-form-field appearance="fill" class="display-btn">
+					<mat-select [(value)]="choice" (valueChange)="setDatabaseObject(choice)">
+						<mat-option *ngFor="let choice of choices" [value]="choice" background="lightgray">
+							{{choice}}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</mat-grid-tile>
 
 			<mat-grid-tile [colspan]="2">
 				<button mat-mini-fab color="primary" class="display-btn" matTooltip="{{displaydescbutton}}"

@@ -57,6 +57,7 @@ export class CatalogbaseComponent  implements BaseCatalogInterface {
 	}
   
   	public getCatalogAnnoations(): void {
+		console.log("getCatalogAnnoations for " + this.catalogtype);
 		this.message = this.constants.waiting;
 		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
 			next: (responsedata: any) => {
@@ -66,6 +67,7 @@ export class CatalogbaseComponent  implements BaseCatalogInterface {
 				if (response[Ontologyconstants.successful]) {
 					const catalog = response[Ontologyconstants.catalogobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];
+					console.log("getCatalogAnnoations for " + JSON.stringify(this.annoinfo['dataset:DescriptionTitle']));
 					this.annotationsFound(response);
 				} else {
 					this.message = responsedata;

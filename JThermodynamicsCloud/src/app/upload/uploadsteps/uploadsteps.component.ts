@@ -177,7 +177,6 @@ export class UploadstepsComponent implements OnInit, AfterViewInit {
 	setParsePrerequisiteData(prerequisite: any) {
 		const activity = prerequisite[Ontologyconstants.ActivityInfo];
 		const format = activity['dataset:filesourceformat'];
-		console.log("setTranslatePrerequisiteData(prerequisite: " + format);
 		this.setFormat(format);
 		if(this.translatedatatransaction) {
 			this.translatedatatransaction.setActivityPrerequisiteData(prerequisite);
@@ -187,7 +186,6 @@ export class UploadstepsComponent implements OnInit, AfterViewInit {
 	setTranslatePrerequisiteData(prerequisite: any) {
 		const activity = prerequisite[Ontologyconstants.ActivityInfo];
 		const format = activity['dataset:filesourceformat'];
-		console.log("setTranslatePrerequisiteData(prerequisite: " + format);
 		this.setFormat(format);
 	}
 
@@ -217,9 +215,12 @@ export class UploadstepsComponent implements OnInit, AfterViewInit {
 
 	setFormat(formattype: string) {
 		const activitytype = this.format.setFileFormat(formattype);
+		
 		if (this.translatedatatransaction) {
 			this.translatedatatransaction.setActivityType(activitytype);
 			this.translatedatatransaction.createComponent(activitytype);
+		} else {
+			console.log("uploadsteps:setFormat: error  this.translatedatatransaction is null  "+ activitytype);
 		}
 	}
 	uploadTransactionEvent(event: any): void {

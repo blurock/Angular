@@ -214,7 +214,6 @@ public enum TransactionProcess {
 					JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 					if (arr.size() > 0) {
 						JsonObject catalog = arr.get(0).getAsJsonObject();
-						
 						JsonObject filededescription = info.get(ClassLabelConstants.DataDescriptionFileStaging)
 								.getAsJsonObject();
 						catalog.add(ClassLabelConstants.DataDescriptionFileStaging, filededescription);
@@ -697,8 +696,15 @@ public enum TransactionProcess {
 		shortdescr.addProperty(ClassLabelConstants.TransactionEventType, transaction);
 		shortdescr.addProperty(ClassLabelConstants.TransactionKey, transactionID);
 		shortdescr.addProperty(ClassLabelConstants.DescriptionTitleTransaction, title);
-
 		event.add(ClassLabelConstants.ActivityInformationRecord, info);
+		String shorttitleString = "";
+		if(info.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel) != null) {
+			shorttitleString = info.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString() + ":  " + title;
+		} else {
+			shorttitleString = title;
+		}
+		
+		event.addProperty(ClassLabelConstants.ShortDescription, shorttitleString);
 		JsonObject response = process.process(event, prerequisites, info);
 		if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 			if (!response.get(ClassLabelConstants.SimpleCatalogObject).isJsonNull()) {
@@ -718,8 +724,8 @@ public enum TransactionProcess {
 					String message = response.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
 					MessageConstructor.combineBodyIntoDocument(document, message);
 					response.add(ClassLabelConstants.TransactionEventObject, event);
-					boolean noerror = createRDFFromObjectArray(arr, document);
-					boolean noeventrdferror = createRDFFromObject(event, document);
+					boolean noerror = CreateRDFs.createRDFFromObjectArray(arr, document);
+					boolean noeventrdferror = CreateRDFs.createRDFFromObject(event, document);
 					if (!noerror || !noeventrdferror) {
 						Element body = MessageConstructor.isolateBody(document);
 						body.addElement("div").addText("Error in RDF generation: ");
@@ -767,30 +773,7 @@ public enum TransactionProcess {
 		}
 	}
 
-	public static boolean createRDFFromObjectArray(JsonArray arr, Document document) {
-		Element body = MessageConstructor.isolateBody(document);
-		boolean noerror = true;
-		for (int i = 0; i < arr.size(); i++) {
-			JsonObject catalog = arr.get(i).getAsJsonObject();
-			noerror = noerror && createRDFFromObject(catalog, document);
-		}
-		return noerror;
-	}
 
-	public static boolean createRDFFromObject(JsonObject catalog, Document document) {
-		Element body = MessageConstructor.isolateBody(document);
-		boolean noerror = true;
-		JsonObject responseJsonObject = CreateRDFs.createRDFFromCatalogObject(catalog, document);
-		if (responseJsonObject.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
-		} else {
-			noerror = false;
-			String message = responseJsonObject.get(ClassLabelConstants.ServiceResponseMessage).getAsString();
-			body.addElement("div").addText("Error in RDF generation: Object ID:"
-					+ catalog.get(ClassLabelConstants.CatalogObjectID).getAsString());
-			body.addElement("div").addText("Error in RDF generation: " + message);
-		}
-		return noerror;
-	}
 
 	/**
 	 * @param json The TransactionEventWithPrerequisites object from the post

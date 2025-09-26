@@ -77,7 +77,8 @@ public class CreateUserAccountTransaction {
             catalog.addProperty(ClassLabelConstants.Email, infoemail);
             catalog.addProperty(ClassLabelConstants.UserAccountRole, inforole);
             catalog.addProperty(ClassLabelConstants.username, username);
-
+            String shortdescription = "UserAccount for " + username + ": " + inforole + " (" + uid + ")";
+            catalog.addProperty(ClassLabelConstants.ShortDescription, shortdescription);
             JsonObject transfirestoreID = event.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
             catalog.add(ClassLabelConstants.FirestoreCatalogIDForTransaction, transfirestoreID.deepCopy());
             BaseCatalogData.insertStandardBaseInformation(catalog, owner, transactionID, "false", false);

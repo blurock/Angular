@@ -44,7 +44,6 @@ export class ActivityrepositorypartitiontocatalogComponent extends Catalogactivi
 	descrtitleid = '';
 	formatid = '';
 	methodid = '';
-	specid = '';
     collectionid = '';
 
 
@@ -102,7 +101,6 @@ export class ActivityrepositorypartitiontocatalogComponent extends Catalogactivi
 		this.descrtitleid = this.annoinfo['dataset:DescriptionTitle'][this.identifier];
 		this.formatid = this.annoinfo['dataset:FileSourceFormat'][this.identifier];
 		this.methodid = this.annoinfo['dataset:FilePartitionMethod'][this.identifier];
-		this.specid = this.annoinfo['dataset:SpecificationForDataset'][this.identifier];
 		this.collectionid = this.annoinfo['dataset:DatasetCollectionObjectType'][this.identifier];
 	}
 
@@ -120,7 +118,7 @@ export class ActivityrepositorypartitiontocatalogComponent extends Catalogactivi
 		this.parseinfoform.get('FileSourceFormat')?.setValue(this.catalog[this.formatid]);
 		this.parseinfoform.get('FilePartitionMethod')?.setValue(this.catalog[this.methodid]);
 		this.parseinfoform.get('DatasetCollectionObjectType')?.setValue(this.catalog[this.collectionid]);
-		this.spec.setData(this.catalog[this.specid]);
+		this.spec.setData(this.catalog);
 	}
 	override getData(activity: any): void {
 		this.setIDs();
@@ -141,8 +139,7 @@ export class ActivityrepositorypartitiontocatalogComponent extends Catalogactivi
 		this.parseinfoform.get('FileSourceFormat')?.setValue(format);
         this.parseinfoform.get('DatasetCollectionObjectType')?.setValue(activity[this.collectionid]);
 
-		const specdata = activity[this.specid];
-		this.spec.setData(specdata);
+		this.spec.setData(activity);
 	}
 
 	selectFileFormat($event: any): void {

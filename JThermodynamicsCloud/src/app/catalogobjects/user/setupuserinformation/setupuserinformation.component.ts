@@ -16,6 +16,7 @@ import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import {MenuItemComponent} from '../../../primitives/menu-item/menu-item.component';
 import { CommonModule} from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
+import {IdentifiersService} from '../../../const/identifiers.service';
 
 @Component({
 	selector: 'app-setupuserinformation',
@@ -228,9 +229,11 @@ export class SetupuserinformationComponent implements OnInit {
 				    const arr = result[Ontologyconstants.catalogobject];
 				    const setofobjects = arr[0];
 					this.session.setLoginStatus('dataset:LoginRegistration');
-					const person = setofobjects[Ontologyconstants.DatabasePerson];
+					const person = this.findobject(arr, Ontologyconstants.DatabasePerson);
+					//const person = setofobjects[Ontologyconstants.DatabasePerson];
 					this.session.setDatabasePerson(person);
-					const useraccount = setofobjects[Ontologyconstants.UserAccount];
+					const useraccount = this.findobject(arr, Ontologyconstants.UserAccount);
+					//const useraccount = setofobjects[Ontologyconstants.UserAccount];
 					this.session.setUserAccount(useraccount);
 					this.tocreate = false;
 				} else {
@@ -240,6 +243,19 @@ export class SetupuserinformationComponent implements OnInit {
 				this.resultHtml = this.failedsubmission;
 			}
 		});
+	}
+	
+	findobject(arr: any, id: string) {
+		var person = null;
+		for (let i = 0; i < arr.length; i++) {
+            const obj = arr[i];
+			console.log('findobject:' +  obj[this.identifier] + ', ' + id);
+            if (obj[this.identifier] === id) {
+                person = obj;
+                break;
+            }
+        }
+		return person;
 	}
 
 }

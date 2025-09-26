@@ -3,11 +3,17 @@ package info.esblurock.reaction.core.ontology.base.utilities;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.vocabulary.ReasonerVocabulary;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import info.esblurock.reaction.core.ontology.base.OntologyBase;
+import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
+import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate;
 
 
 
@@ -132,6 +138,5 @@ public class OntologyUtilityRoutines {
 		}
 		return ans;
 	}
-
 
 }

@@ -23,7 +23,7 @@ export interface Fruit {
     ReactiveFormsModule,
     MatIconModule,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy
 })
 export class KeywordlistprimitiveComponent {
   readonly reactiveKeywords = signal(['keyword']);

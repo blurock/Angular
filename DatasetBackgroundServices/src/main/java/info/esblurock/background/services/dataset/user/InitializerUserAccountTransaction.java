@@ -55,6 +55,8 @@ public class InitializerUserAccountTransaction {
                     initializedaccount.add(ClassLabelConstants.FirestoreCatalogIDForTransaction,
                             transfirestoreID.deepCopy());
                     initializedaccount.addProperty(ClassLabelConstants.LoginStage, "dataset:LoginRegistration");
+                    String shortdescription = "New User Account for: " + username + " (" + uid + ")";
+                    initializedaccount.addProperty(ClassLabelConstants.ShortDescription, shortdescription);
                     BaseCatalogData.insertStandardBaseInformation(initializedaccount, uid, transactionID, "false",
                             false);
                     JsonObject firestoreID = BaseCatalogData.insertFirestoreAddress(initializedaccount);
@@ -69,14 +71,18 @@ public class InitializerUserAccountTransaction {
                                 .writeCatalogObjectWithException(initializedaccount);
                         body.addElement("div").addText(message);
                         JsonArray catalogarr = new JsonArray();
-                        JsonObject responseoutput = new JsonObject();
-                        responseoutput.add(ClassLabelConstants.NewUserAccount, initializedaccount);
-                        responseoutput.add(ClassLabelConstants.DatabasePerson, databaseperson);
-                        responseoutput.add(ClassLabelConstants.UserAccount, useraccount);
-                        responseoutput.addProperty(ClassLabelConstants.UID, uid);
-                        JsonObject firebaseid = initializedaccount.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
-                        responseoutput.add(ClassLabelConstants.FirestoreCatalogID,firebaseid);
-                        catalogarr.add(responseoutput);
+                        catalogarr.add(initializedaccount);
+                        catalogarr.add(databaseperson);
+                        catalogarr.add(useraccount);
+                        //JsonObject responseoutput = new JsonObject();
+                        
+                        //responseoutput.add(ClassLabelConstants.NewUserAccount, initializedaccount);
+                        //responseoutput.add(ClassLabelConstants.DatabasePerson, databaseperson);
+                        //responseoutput.add(ClassLabelConstants.UserAccount, useraccount);
+                        //responseoutput.addProperty(ClassLabelConstants.UID, uid);
+                        //JsonObject firebaseid = initializedaccount.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
+                        //responseoutput.add(ClassLabelConstants.FirestoreCatalogID,firebaseid);
+                        //catalogarr.add(responseoutput);
                         String success = "Success in creating a new UserAccount: " + uid;
                         response = StandardResponse.standardServiceResponse(document, success, catalogarr);
                     } catch (Exception e) {

@@ -4,6 +4,8 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.List;
 
+import javax.xml.catalog.Catalog;
+
 import org.openscience.cdk.AtomContainer;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtomContainer;
@@ -54,12 +56,16 @@ public class InterpretSymmetryBlock {
 		String symmetryfactor = symmetry.get(ClassLabelConstants.SymmetryFactorOfStructure).getAsString();
 		String symname = symmetry.get(ClassLabelConstants.JThermodynamicSymmetryDefinitionLabel).getAsString();
 		String symtype = symmetry.get(ClassLabelConstants.StructureSymmetryType).getAsString();
+		String label = symmetry.get(ClassLabelConstants.JThermodynamicSymmetryDefinitionLabel).getAsString();
 		table.addElement("td").addText(symname);
 		table.addElement("td").addText(symtype);
 		JsonObject speciesstructure = interpretStructure(root,table);
+		String structname = speciesstructure.get(ClassLabelConstants.JThermodynamicsStructureName).getAsString();
+		String shortdescriptionString = label + ": " + symmetryfactor + " (" + structname +")";
 		table.addElement("td").addText(symmetryfactor);
 		JsonObject catalog = CreateDocumentTemplate
 				.createTemplate("dataset:JThermodynamicsSymmetryStructureDefinitionDataSet");
+		catalog.addProperty(ClassLabelConstants.ShortDescription, shortdescriptionString);
 		catalog.add(ClassLabelConstants.JThermodynamicsSymmetryDefinition, symmetry);
 		catalog.add(ClassLabelConstants.JThermodynamics2DSpeciesStructure, speciesstructure);
 		return catalog;
