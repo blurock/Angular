@@ -1,6 +1,6 @@
 export interface NavItem {
   displayName: string;
   disabled?: boolean;
-  value?: string;
+  value?: any;
   children?: NavItem[];
 }

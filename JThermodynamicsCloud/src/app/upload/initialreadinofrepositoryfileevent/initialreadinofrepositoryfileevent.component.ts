@@ -4,7 +4,6 @@ import { FindspecifictransactionindatasetComponent } from '../../dialog/findspec
 import { MatDialog } from '@angular/material/dialog';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
 import { DatasettransactioneventobjectComponent } from '../../catalogobjects/transaction/datasettransactioneventobject/datasettransactioneventobject.component';
-import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { RuntransactiondialogComponent } from '../../dialog/runtransactiondialog/runtransactiondialog.component';
 import { IdentifiersService } from '../../const/identifiers.service';
@@ -18,7 +17,7 @@ import { OntologycatalogService } from '../../services/ontologycatalog.service';
 	styleUrls: ['./initialreadinofrepositoryfileevent.component.scss'],
 	standalone: true,
 	imports: [DatasetrepositoryfilestagingComponent, FindspecifictransactionindatasetComponent, 
-		DatasettransactioneventobjectComponent, FetchcatalogobjectComponent, 
+		DatasettransactioneventobjectComponent, 
 		RuntransactiondialogComponent, FindintermediatettransactionComponent]
 })
 export class InitialreadinofrepositoryfileeventComponent implements OnInit {

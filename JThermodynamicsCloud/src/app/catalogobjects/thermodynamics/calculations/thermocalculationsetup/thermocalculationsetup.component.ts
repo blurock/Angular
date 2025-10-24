@@ -18,7 +18,7 @@ import {IdentifiersService} from '../../../../const/identifiers.service';
 export class ThermocalculationsetupComponent implements OnInit {
 
 	title = 'Parameters for Calculation';
-	molarenthalpyparameter = 'dataset:ParameterSpecificationEnthaply';
+	molarenthalpyparameter = 'dataset:ParameterSpecificationEnthalpy';
 	molarentropyarameter = 'dataset:ParameterSpecificationEntropy';
 	molarheatcapacityparameter = 'dataset:ParameterSpecificationHeatCapacity';
 	rdfslabel = Ontologyconstants.rdfslabel;
@@ -141,7 +141,7 @@ export class ThermocalculationsetupComponent implements OnInit {
 		activity[this.annoinfo['dataset:DatabaseCollectionRecordID'][this.identifier]] = catrecordid;
 		const enthalpyvalue = {};
 		this.enthalpy.getData(enthalpyvalue);
-		activity[this.annoinfo['dataset:ParameterSpecificationEnthaply'][this.identifier]] = enthalpyvalue;
+		activity[this.annoinfo['dataset:ParameterSpecificationEnthalpy'][this.identifier]] = enthalpyvalue;
 		const entropyvalue = {};
 		this.entropy.getData(entropyvalue);
 		activity[this.annoinfo['dataset:ParameterSpecificationEntropy'][this.identifier]] = entropyvalue;

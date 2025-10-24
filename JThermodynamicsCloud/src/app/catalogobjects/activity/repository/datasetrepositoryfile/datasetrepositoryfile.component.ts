@@ -17,6 +17,9 @@ import { MatInputModule } from '@angular/material/input';
 import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
 import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
 import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
+import { MenuItemComponent } from '../../../../primitives/menu-item/menu-item.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 
 @Component({
 	selector: 'app-datasetrepositoryfile',
@@ -34,7 +37,9 @@ import { FileformatmanagerService } from '../../../../services/fileformatmanager
 		CommonModule,
 		MatSelectModule,
 		MatInputModule,
-		SpecificationfordatasetComponent
+		SpecificationfordatasetComponent,
+		MenuItemComponent,
+		MatMenuModule
 	]
 })
 export class DatasetrepositoryfileComponent implements OnInit {
@@ -64,7 +69,8 @@ export class DatasetrepositoryfileComponent implements OnInit {
 
 	constructor(constants: UserinterfaceconstantsService,
 		private formBuilder: UntypedFormBuilder,
-		private format: FileformatmanagerService
+		private format: FileformatmanagerService,
+		private menusetup: MenutreeserviceService
 	) {
 		this.message = constants.waiting;
 		this.errorcatalogtypes = constants.errorcatalogtypes;
@@ -86,6 +92,9 @@ export class DatasetrepositoryfileComponent implements OnInit {
 		});
 	}
 	ngOnInit(): void {
+		this.format.getTherGasCatalogTypes().subscribe(result => {
+					this.items = result;
+				});
 	}
 
 	invalid(): boolean {
@@ -134,8 +143,13 @@ export class DatasetrepositoryfileComponent implements OnInit {
 			this.infoform.get('DescriptionTitleFileStaging')?.setValue(catalog[this.annoinfo['dataset:DescriptionTitleFileStaging'][this.identifier]]);
 			this.infoform.get('DescriptionAbstractFileStaging')?.setValue(catalog[this.annoinfo['dataset:DescriptionAbstractFileStaging'][this.identifier]]);
 			this.fileformat = catalog[this.annoinfo['dataset:FileSourceFormat'][this.identifier]];
-			this.setFileFormat(this.fileformat);
-			this.infoform.get('DatasetCollectionObjectType')?.setValue(catalog[this.annoinfo['dataset:DatasetCollectionObjectType'][this.identifier]]);
+			console.log("DatasetrepositoryfileComponent: this.fileformat= " + this.fileformat);
+			this.catalogtype = catalog[this.annoinfo['dataset:DatasetCollectionObjectType'][this.identifier]];
+			this.catalogtype = this.format.getCatalogTypeForFormat(this.fileformat);
+			//this.infoform.get('FileSourceFormat')?.setValue(this.fileformat);
+			//this.infoform.get('DatasetCollectionObjectType')?.setValue(this.catalogtype);
+			console.log("DatasetrepositoryfileComponent: " + this.catalogtype);
+			this.setFileFormat(this.catalogtype);
 			this.spec.setData(catalog);
 			const descr = catalog[this.annoinfo['dataset:DataDescriptionFileStaging'][this.identifier]];
 			if (descr != null) {
@@ -181,11 +195,12 @@ export class DatasetrepositoryfileComponent implements OnInit {
 		}
 	}
 
-	setFileFormat(format: string): void {
-		this.fileformat = format;
-		const catalogtype = this.format.getCatalogTypeForFormat(format);
-		this.infoform.get('FileSourceFormat')?.setValue(catalogtype);
-		this.selectionPicked(catalogtype);
+	setFileFormat($event: any): void {
+		this.catalogtype = $event;
+		this.fileformat = this.catalogtype['format'];
+		//const catalogtype = info.catalog;
+		this.infoform.get('FileSourceFormat')?.setValue(this.fileformat);
+		this.selectionPicked(this.catalogtype);
 	}
 
 

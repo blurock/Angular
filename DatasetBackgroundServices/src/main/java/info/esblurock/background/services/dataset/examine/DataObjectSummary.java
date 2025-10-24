@@ -152,7 +152,7 @@ public enum DataObjectSummary {
             arr.add(name);
 
             JsonObject parameter = obj.get(ClassLabelConstants.JThermodynamicDisassociationEnergy).getAsJsonObject();
-            JsonObject disassociationspec = info.get(ClassLabelConstants.ParameterSpecificationEnthaply).getAsJsonObject();
+            JsonObject disassociationspec = info.get(ClassLabelConstants.ParameterSpecificationEnthalpy).getAsJsonObject();
             String value = ParameterUtilities.changeParameterToNewSpecification(parameter.get(ClassLabelConstants.ValueAsString).getAsString(),
                     parameter.get(ClassLabelConstants.ParameterSpecification).getAsJsonObject(), disassociationspec);
             arr.add(value);
@@ -353,7 +353,7 @@ public enum DataObjectSummary {
         String heatcap300 = find300HeatCapacity(heatcaps);
         String enthalpyS = ParameterUtilities.changeParameterToNewSpecification(enthalpy.get(ClassLabelConstants.ValueAsString).getAsString(), 
                 enthalpy.get(ClassLabelConstants.ParameterSpecification).getAsJsonObject(), 
-                info.get(ClassLabelConstants.ParameterSpecificationEnthaply).getAsJsonObject());
+                info.get(ClassLabelConstants.ParameterSpecificationEnthalpy).getAsJsonObject());
         arr.add(enthalpyS);
 
         String entropyS = ParameterUtilities.changeParameterToNewSpecification(entropy.get(ClassLabelConstants.ValueAsString).getAsString(), 

@@ -1,0 +1,12 @@
+<ng-container>
+		<mat-grid-list cols="9" rowHeight="2rem" class="line">
+			<mat-grid-tile [colspan]="7" matTooltip="{{databasetype}}">
+				{{shortdescription}}
+			</mat-grid-tile>
+			<mat-grid-tile [colspan]="2">
+				<button mat-button  class="button" (click)="showcatalog()" matTooltip="{{displayobjectinoutputtab}}">
+					<mat-icon>visibility</mat-icon>
+				</button>
+			</mat-grid-tile>
+		</mat-grid-list>
+</ng-container>

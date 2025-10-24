@@ -45,7 +45,7 @@ export class OntologycatalogService {
 			'skos:prefLabel': 'MolarEnergy',
 			'qudt:Unit': ['unit:KiloCAL-PER-MOL', 'unit:KiloJ-PER-MOL', 'dataset:CAL-PER-MOL', 'unit:J-PER-MOL']
 		},
-		'dataset:ParameterSpecificationEnthaply': {
+		'dataset:ParameterSpecificationEnthalpy': {
 			'qudt:QuantityKind': 'quantitykind:MolarEnergy',
 			'dataset:dynamicType': 'FixedParameter',
 			'skos:prefLabel': 'MolarEnergy',

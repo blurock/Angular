@@ -63,6 +63,10 @@ siteitems: NavItem[] = [];
 		this.siteitems = this.menusetup.findChoices(this.anno,this.siteclass);
   }
   
+  openLink() {
+	window.open(this.objectform.get('HTTPAddress')?.value, '_blank');
+  }
+  
   	deleteLink() {
 		this.deleteEvent.emit(this.objectform.get('index')?.value ?? 'not defined');
 	}

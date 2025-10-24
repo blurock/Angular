@@ -1,12 +1,28 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { JthermodynamicsatomcountsetComponent } from '../jthermodynamicsatomcountset/jthermodynamicsatomcountset.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { NgIf } from '@angular/common';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.component';
 
 @Component({
 	selector: 'app-jthermodynamics2dspeciesstructure',
 	templateUrl: './jthermodynamics2dspeciesstructure.component.html',
-	styleUrls: ['./jthermodynamics2dspeciesstructure.component.scss']
+	styleUrls: ['./jthermodynamics2dspeciesstructure.component.scss'],
+	standalone: true,
+	imports: [
+		JthermodynamicsatomcountsetComponent,
+		MatCardModule, 
+		MatFormFieldModule, 
+		MatInputModule, 
+		ReactiveFormsModule, 
+		NgIf, 
+		MatGridListModule
+	]
 })
 export class Jthermodynamics2dspeciesstructureComponent implements OnInit {
 
@@ -20,7 +36,7 @@ export class Jthermodynamics2dspeciesstructureComponent implements OnInit {
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
 
-	@ViewChild('counts') counts: JthermodynamicsatomcountsetComponent;
+	@ViewChild('counts') counts!: JthermodynamicsatomcountsetComponent;
 
 	constructor(
 		private formBuilder: UntypedFormBuilder
@@ -37,9 +53,9 @@ export class Jthermodynamics2dspeciesstructureComponent implements OnInit {
 	}
 
 	getData(structure: any): void {
-		structure[this.annoinfo['dataset:JThermodynamicsStructureAsCMLString'][this.identifier]] = this.objectform.get('JThermodynamicsStructureAsCMLString').value;
-		structure[this.annoinfo['dataset:JThermodynamicsStructureIsomerName'][this.identifier]] = this.objectform.get('JThermodynamicsStructureIsomerName').value;
-		structure[this.annoinfo['dataset:JThermodynamicsStructureName'][this.identifier]] = this.objectform.get('JThermodynamicsStructureName').value;
+		structure[this.annoinfo['dataset:JThermodynamicsStructureAsCMLString'][this.identifier]] = this.objectform.get('JThermodynamicsStructureAsCMLString')?.value ?? '';
+		structure[this.annoinfo['dataset:JThermodynamicsStructureIsomerName'][this.identifier]] = this.objectform.get('JThermodynamicsStructureIsomerName')?.value ?? '';
+		structure[this.annoinfo['dataset:JThermodynamicsStructureName'][this.identifier]] = this.objectform.get('JThermodynamicsStructureName')?.value ?? '';
 		const structurecounts = {};
 		structure[this.annoinfo['dataset:JThermodynamicsAtomCountSet'][this.identifier]] = structurecounts;
 		this.counts.getData(structurecounts);
@@ -47,13 +63,13 @@ export class Jthermodynamics2dspeciesstructureComponent implements OnInit {
 	
 	setData(structure: any): void {
 		const cmlstring = structure[this.annoinfo['dataset:JThermodynamicsStructureAsCMLString'][this.identifier]];
-		this.objectform.get('JThermodynamicsStructureAsCMLString').setValue(cmlstring);
+		this.objectform.get('JThermodynamicsStructureAsCMLString')!.setValue(cmlstring);
 		
 		const name = structure[this.annoinfo['dataset:JThermodynamicsStructureIsomerName'][this.identifier]];
-		this.objectform.get('JThermodynamicsStructureIsomerName').setValue(name);
+		this.objectform.get('JThermodynamicsStructureIsomerName')!.setValue(name);
 		
 		const structurename = structure[this.annoinfo['dataset:JThermodynamicsStructureName'][this.identifier]];
-		this.objectform.get('JThermodynamicsStructureName').setValue(structurename);
+		this.objectform.get('JThermodynamicsStructureName')!.setValue(structurename);
 		
         const structurecounts = structure[this.annoinfo['dataset:JThermodynamicsAtomCountSet'][this.identifier]]
         this.counts.setData(structurecounts);

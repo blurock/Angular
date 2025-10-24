@@ -1,91 +1,68 @@
-import { Component, OnInit, ViewChild, EventEmitter, Input } from '@angular/core';
-import { SavecatalogdataobjectComponent } from '../../../../dialog/savecatalogdataobject/savecatalogdataobject.component';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, Input, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
 import { IdentifiersService } from '../../../../const/identifiers.service';
 import { RepositorydatapartitionblockComponent } from '../../repositorydatapartitionblock/repositorydatapartitionblock.component';
-import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import {RepositorythermopartitionblockComponent} from '../repositorythermopartitionblock/repositorythermopartitionblock.component';
+import { CatalogbaseComponent } from '../../../../primitives/catalogbase/catalogbase.component';
+import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
+import { MatCardModule } from '@angular/material/card';
+import { NgIf } from '@angular/common';
 
 @Component({
 	selector: 'app-repositorythergasthermodynamicsblock',
+	standalone: true,
+	imports: [
+		MatCardModule,
+		NgIf,
+		RepositorythermopartitionblockComponent,
+		RepositorydatapartitionblockComponent
+	],
 	templateUrl: './repositorythergasthermodynamicsblock.component.html',
 	styleUrls: ['./repositorythergasthermodynamicsblock.component.scss']
 })
-export class RepositorythergasthermodynamicsblockComponent extends SavecatalogdataobjectComponent implements OnInit {
-
-	catalogtype: string;
-	objectform: UntypedFormGroup;
+export class RepositorythergasthermodynamicsblockComponent extends CatalogbaseComponent implements AfterViewInit {
 	catalogobj: any;
-	public annoinfo: any;
-	annoReady = new EventEmitter<any>();
-
-	message = 'Initial';
 	title = 'TherGas Thermodynamic Block';
-
-
-	rdfslabel = Ontologyconstants.rdfslabel;
-	rdfscomment = Ontologyconstants.rdfscomment;
-	identifier = Ontologyconstants.dctermsidentifier;
-
-	display = false;
 	
 	@Input() cataloginfo: any;
 
-	@ViewChild('thermo') thermo: RepositorythermopartitionblockComponent;
-	@ViewChild('partition') partition: RepositorydatapartitionblockComponent;
+	@ViewChild('thermo') thermo!: RepositorythermopartitionblockComponent;
+	@ViewChild('partition') partition!: RepositorydatapartitionblockComponent;
 
 	constructor(
-		private menusetup: MenutreeserviceService,
+		constants: UserinterfaceconstantsService,
 		public dialog: MatDialog,
-		private formBuilder: UntypedFormBuilder,
-		public annotations: OntologycatalogService,
-		public identifiers: IdentifiersService) {
-		super(dialog, annotations, identifiers,
-		);
+		annotations: OntologycatalogService,
+		public identifiers: IdentifiersService,
+		cdRef: ChangeDetectorRef) {
+		super(constants, annotations, cdRef);
 
 		this.catalogtype = 'RepositoryTherGasThermodynamicsBlock';
-		this.getCatalogAnnoations();
-
-
 	}
 
-	ngOnInit(): void {
-	}
-	
-	public getCatalogAnnoations(): void {
-		this.message = 'Waiting for Info call';
-		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
-			next: (responsedata: any) => {
-				this.message = 'got response';
-				this.message = responsedata;
-				const response = responsedata;
-				this.message = 'response JSON';
-				this.message = response[Ontologyconstants.message];
-				if (response[Ontologyconstants.successful]) {
-					const catalog = response[Ontologyconstants.catalogobject];
-					this.catalogobj = catalog[Ontologyconstants.outputobject];
-					this.annoinfo = catalog[Ontologyconstants.annotations];
-					this.display = true;
-					this.annoReady.emit(this.annoinfo);
-					this.partition.setDataFormat(this.cataloginfo);
-				} else {
-					this.message = responsedata;
-				}
-			},
-			error: (info: any) => { alert('Get Annotations failed:' + this.message); }
-		});
-
-	}
-
-	public setData(catalog: any) {
-		this.partition.setData(catalog);
-		this.thermo.setData(catalog);
+	ngAfterViewInit(): void {
+			if(this.cataloginfo) {
+				this.setData(this.cataloginfo);
+			}
 	}
 	
-	public getData(catalog: any) {
+
+	public override setData(catalog: any) {
+		super.setData(catalog);
+		this.cataloginfo = catalog;
+		if (this.annoinfo != null ) {
+			if(this.partition) {
+			  this.partition.setData(catalog);
+			}
+			if(this.thermo) {
+				this.thermo.setData(catalog);
+			}
+			
+		}
+	}
+	
+	public override getData(catalog: any) {
 		this.thermo.getData(catalog);
 		this.partition.getData(catalog);
 	}

@@ -85,9 +85,9 @@ export class DatasetrepositoryfilestagingComponent extends CatalogbaseComponent 
 			const olinks = this.catalog[this.identifiers.DataObjectLink];
 			this.objectlinks.setData(olinks);
 			const wlinks = this.catalog[this.identifiers.ObjectSiteReference];
-			this.objectlinks.setData(wlinks);
+			this.weblinks.setData(wlinks);
 			const rtitle = this.catalog[this.identifiers.DescriptionTitle];
-			const descr = this.catalog['descrfilestaging'];
+			const descr = this.catalog['dataset:descrfilestaging'];
 			this.description.setData(descr);
 			const title = this.catalog[this.identifiers.DescriptionTitle];
 			if (title != null) {

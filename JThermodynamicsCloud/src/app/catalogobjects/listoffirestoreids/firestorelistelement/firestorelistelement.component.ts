@@ -1,11 +1,12 @@
-import { Component, OnInit, Input, Output, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, EventEmitter, AfterViewInit } from '@angular/core';
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
 import { RunserviceprocessService } from '../../../services/runserviceprocess.service';
-//import { GeneralcatalogobjectvisualizationComponent } from '../../generalcatalogobjectvisualization/generalcatalogobjectvisualization.component';
+import { GeneralcatalogobjectvisualizationComponent } from '../../generalcatalogobjectvisualization/generalcatalogobjectvisualization.component';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import { Ontologyconstants } from '../../../const/ontologyconstants';
 
 @Component({
 	selector: 'app-firestorelistelement',
@@ -14,14 +15,13 @@ import { MatTabsModule } from '@angular/material/tabs';
 	MatCardModule,
 	MatIconModule,
 	MatTabsModule,
-		FiresytorecatalogidComponent
-		//,
-	//GeneralcatalogobjectvisualizationComponent
+		FiresytorecatalogidComponent,
+	GeneralcatalogobjectvisualizationComponent
 	],
 	templateUrl: './firestorelistelement.component.html',
 	styleUrls: ['./firestorelistelement.component.scss']
 })
-export class FirestorelistelementComponent implements OnInit {
+export class FirestorelistelementComponent implements AfterViewInit {
 
 
 	@Input() anno: any;
@@ -38,7 +38,7 @@ export class FirestorelistelementComponent implements OnInit {
 	serviceid = 'service';
 
 	@ViewChild('firestoreid') firestoreid!: FiresytorecatalogidComponent;
-	//@ViewChild('catalogview') catalogview!: GeneralcatalogobjectvisualizationComponent;
+	@ViewChild('catalogview') catalogview!: GeneralcatalogobjectvisualizationComponent;
 
 	constructor(
 		private runservice: RunserviceprocessService
@@ -46,12 +46,19 @@ export class FirestorelistelementComponent implements OnInit {
 		this.title = 'Firestore Object';
 	}
 
-	ngOnInit(): void {
+	ngAfterViewInit(): void {
+		if (this.firestoreid && this.catalogobject) {
+			this.firestoreid.setData(this.catalogobject);
+		}
 	}
 
 
 	setData(catalogID: any): void {
-		this.firestoreid.setData(catalogID);
+		this.catalogobject = catalogID;
+		if(this.firestoreid)  {
+			this.firestoreid.setData(catalogID);
+		}
+		
 	}
 	
 	getData(catalog: any): void {
@@ -79,7 +86,7 @@ export class FirestorelistelementComponent implements OnInit {
 					this.catalogobject = responsedata['dataset:simpcatobj'];
 					alert("getCatalogObject() " + JSON.stringify(this.catalogobject));
 					if (responsedata != null) {
-						//this.catalogview.setData(this.catalogobject);
+						this.catalogview.setData(this.catalogobject);
 					} else {
 						alert('Result null');
 					}

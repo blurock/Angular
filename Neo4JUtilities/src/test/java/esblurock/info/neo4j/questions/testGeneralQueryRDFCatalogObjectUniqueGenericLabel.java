@@ -17,9 +17,9 @@ public class testGeneralQueryRDFCatalogObjectUniqueGenericLabel {
 	public void test() {
 		JsonObject inputJsonObject = new JsonObject();
 		
-		inputJsonObject.addProperty(ClassLabelConstants.RDFRelationClassName, "dataset:RepositoryFileStaging");
 		inputJsonObject.addProperty(ClassLabelConstants.RDFRelationClassName, "dataset:RDFCatalogObjectUniqueGenericLabel");
-		inputJsonObject.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, "ExternalSymmetryCarbonAtomSmall");
+		inputJsonObject.addProperty(ClassLabelConstants.DatabaseObjectType, "dataset:RepositoryFileStaging");
+		//inputJsonObject.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, "ExternalSymmetryCarbonAtomSmall");
 		inputJsonObject.addProperty(ClassLabelConstants.CatalogObjectOwner, "UOqk0KtFtaXma5TGsi8Seh9RMbx1");
 		try {
 		JsonObject responseJsonObject = RDFQuestionsUtilities.RDFGeneralQueryWithJson(inputJsonObject);
@@ -47,7 +47,7 @@ public class testGeneralQueryRDFCatalogObjectUniqueGenericLabel {
 			JsonArray row = prop.get(ClassLabelConstants.ShortStringKey).getAsJsonArray(); 
 			System.out.println("Row " + i + "---------------------------------");
 			for (int j = 0; j < row.size(); j++) {
-				System.out.println(" Column " + i .get(j).getAsString());
+				System.out.println(" Column " + j + "   " + row.get(j).getAsString());
 			}
 		}
 	} catch (Exception ex) {

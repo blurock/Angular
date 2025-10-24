@@ -3,11 +3,11 @@
 		{{title}}
 	</mat-card-header>
 	<mat-card-content>
-		<ng-container *ngIf='display; else loading'>
+		<ng-container *ngIf='annoinfo; else loading'>
 
-			<app-jthermodynamicsbensonrulestructure #bensonstructure [(annoinfo)]="annoinfo">
+			<app-jthermodynamicsbensonrulestructure #bensonstructure [annoinfo]="annoinfo">
 			</app-jthermodynamicsbensonrulestructure>
-			<app-jthermodynamicstandardthermodynamics #thermo [(annoinfo)]="annoinfo">
+			<app-jthermodynamicstandardthermodynamics #thermo [annoinfo]="annoinfo">
 			</app-jthermodynamicstandardthermodynamics>
 			<!--
 			<app-chemconnectthermodynamicsdatabase #base [(annoinfo)]="annoinfo" [(catalogtype)]="catalogtype">

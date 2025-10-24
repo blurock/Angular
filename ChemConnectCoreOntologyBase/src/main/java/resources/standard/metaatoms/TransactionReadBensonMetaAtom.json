@@ -6,9 +6,9 @@
 				"dataset:purposekey-filestaging": "dataset:PurposeFileStaging",
 				"dataset:dataconcept-staging": "dataset:ConceptFileStaging"
 			},
-			"dataset:keyword-filestaging": [],
-			"dataset:title-staging": "Read in a Benson Meta atom set",
-			"dataset:abstract-staging": "Read in a Benson Meta atom set. The set of substructures",
+			"dataset:keywordfilestaging": [],
+			"dataset:titlestaging": "Read in a Benson Meta atom set",
+			"dataset:abstractstaging": "Read in a Benson Meta atom set. The set of substructures",
 			"dcterms:created": "today"
 		},
 		"dataset:catalogobjectmaintainer": "Administrator",
@@ -20,7 +20,7 @@
 		"dataset:uploadsrc": "dataset:ResourceFileSystem",
 		"dataset:filemediatype": "dataset:FileTypeText",
 		"dataset:filesourcesubtype": "",
-		"dataset:filesourceformat": "dataset:JThermodynamicsMetaAtoms",
+		"dataset:filesourceformat": "dataset:JThermodynamicsMetaAtomFormat",
 		"dcterms:title": "Benson Meta atom set",
 		"dcterms:identifier": "initialrepositorylocal",
 		"dcterms:BibliographicResource": [

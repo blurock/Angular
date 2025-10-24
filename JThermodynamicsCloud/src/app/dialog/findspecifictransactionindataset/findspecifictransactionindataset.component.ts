@@ -94,7 +94,7 @@ export class FindspecifictransactionindatasetComponent implements OnInit {
 	
 	fetchFromDatabaseObject(): void {
 			const json: Record<string,unknown>  = {};
-			json[this.serviceid] = 'FindTransactionFromOwnerAndType';
+			json[Ontologyconstants.service] = 'FindTransactionFromOwnerAndType';
 			json[this.annoinfo['dataset:CatalogObjectOwner'][this.identifier]] = this.idForm.get('CatalogObjectOwner')!.value;
 			json[this.annoinfo['dataset:TransactionEventType'][this.identifier]] = this.idForm.get('TransactionEventType')!.value;
 			const activity: Record<string,unknown> = {};

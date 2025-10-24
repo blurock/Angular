@@ -64,7 +64,7 @@ export class ExaminedatabaseelementsComponent implements OnInit {
 	failedsubmission = 'Failed Submission';
 	failedresponse = 'Error in finding object';
 
-	molarenthalpyparameter = 'dataset:ParameterSpecificationEnthaply';
+	molarenthalpyparameter = 'dataset:ParameterSpecificationEnthalpy';
 	molarentropyarameter = 'dataset:ParameterSpecificationEntropy';
 	molarheatcapacityparameter = 'dataset:ParameterSpecificationHeatCapacity';
 	molarenthalpy: any;
@@ -219,7 +219,7 @@ export class ExaminedatabaseelementsComponent implements OnInit {
 
 		const enthalpyvalue = {};
 		this.enthalpy.getData(enthalpyvalue);
-		activity[this.cataloganno['dataset:ParameterSpecificationEnthaply'][this.identifier]] = enthalpyvalue;
+		activity[this.cataloganno['dataset:ParameterSpecificationEnthalpy'][this.identifier]] = enthalpyvalue;
 		const entropyvalue = {};
 		this.entropy.getData(entropyvalue);
 		activity[this.cataloganno['dataset:ParameterSpecificationEntropy'][this.identifier]] = entropyvalue;

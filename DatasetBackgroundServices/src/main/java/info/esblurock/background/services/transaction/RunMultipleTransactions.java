@@ -41,6 +41,7 @@ public class RunMultipleTransactions {
 				}
 				if(content != null) {
 				JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
+				
 				response = TransactionProcess.processFromTransaction(json, owner);
 				if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 					if(printresults) {

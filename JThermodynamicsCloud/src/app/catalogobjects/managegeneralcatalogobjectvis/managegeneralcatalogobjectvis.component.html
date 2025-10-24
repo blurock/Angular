@@ -5,36 +5,75 @@
 		</mat-card-title>
 	</mat-card-header>
 	<mat-card-content>
-		<mat-grid-list cols="6" rowHeight="100px">
-			<mat-grid-tile [colspan]="6">
-				<mat-form-field appearance="fill" class="display-btn">
-					<mat-select [(value)]="choice" (valueChange)="setDatabaseObject(choice)">
-						<mat-option *ngFor="let choice of choices" [value]="choice" background="lightgray">
-							{{choice}}
-						</mat-option>
-					</mat-select>
-				</mat-form-field>
-			</mat-grid-tile>
+		<mat-tab-group>
+			[selectedIndex]="selectedTabIndex"
+			(selectedIndexChange)="selectedTabIndex = $event">
+			<mat-tab label="Catalog">
+				<mat-grid-list cols="6" rowHeight="100px">
+					<mat-grid-tile [colspan]="6">
+						<mat-form-field appearance="fill" class="display-btn">
+							<mat-select [(value)]="choice" (valueChange)="setDatabaseObject(choice)">
+								<mat-option *ngFor="let choice of choices" [value]="choice" background="lightgray">
+									{{choice}}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</mat-grid-tile>
 
-			<mat-grid-tile [colspan]="2">
-				<button mat-mini-fab color="primary" class="display-btn" matTooltip="{{displaydescbutton}}"
-					(click)="displayCatalogInfo()">{{displaybutton}}</button>
-			</mat-grid-tile>
-			<mat-grid-tile [colspan]="2">
-				<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchInformation()"
-					matTooltip="{{loadfromdatabase}}">
-					{{fetch}}
-				</button>
-			</mat-grid-tile>
-			<mat-grid-tile [colspan]="2">
-				<button mat-mini-fab color="primary" class="rbutton" matTooltip="{{savedescr}}"
-					(click)="saveCatalog()">{{savebutton}}</button>
-			</mat-grid-tile>
-		</mat-grid-list>
+					<mat-grid-tile [colspan]="2">
+						<button mat-mini-fab color="primary" class="display-btn" matTooltip="{{displaydescbutton}}"
+							(click)="displayCatalogInfo()">{{displaybutton}}</button>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="2">
+						<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchInformation()"
+							matTooltip="{{loadfromdatabase}}">
+							{{fetch}}
+						</button>
+					</mat-grid-tile>
+					<mat-grid-tile [colspan]="2">
+						<button mat-mini-fab color="primary" class="rbutton" matTooltip="{{savedescr}}"
+							(click)="saveCatalog()">{{savebutton}}</button>
+					</mat-grid-tile>
+				</mat-grid-list>
 
 
-		<app-generalcatalogobjectvisualization #catalogvis></app-generalcatalogobjectvisualization>
+				<app-generalcatalogobjectvisualization #catalogvis (transactionReady)="transactionReady($event)"
+					(annoReady)="annoReady($event)" 
+					(messageReady)="messageReady($event)" 
+					(showCatalogObject)="addNewCatalogTab($event)">
+				</app-generalcatalogobjectvisualization>
+			</mat-tab>
+			<mat-tab label="Transaction Objects">
+				<mat-card appearance="outlined" class="cardbase">
+					<mat-card-header>
+						<mat-card-title>
+							{{transactioncatalogobjects}}
+						</mat-card-title>
+					</mat-card-header>
 
+					<mat-card-content>
+						<app-managerdfcatalogidelelements 
+							#transactionobjects
+							(anno)="annoinfo"
+							(showCatalogObject)="addNewCatalogTab($event)"></app-managerdfcatalogidelelements>
+						<app-managerequiredtransactions 
+						#requiredtransactions 
+						(firestoreAddress)="addNewCatalogTab($event)">
+						</app-managerequiredtransactions>
+					</mat-card-content>
+				</mat-card>
+			</mat-tab>
+			<!--
+			<mat-tab *ngFor="let tab of dynamicTabs" [label]="tab.label">
+			    <ng-container *ngComponentOutlet="tab.component; 
+			                                      inputs: { data: tab.data }">
+			    </ng-container>
+			</mat-tab>
+			-->
+			<mat-tab label="Output">
+				<ng-template #container></ng-template>
+			</mat-tab>
+		  		</mat-tab-group>
 	</mat-card-content>
 </mat-card>
 <mat-card appearance="outlined">

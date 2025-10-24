@@ -19,15 +19,15 @@ import { SpecificationfordatasetComponent } from '../../../specificationfordatas
 	selector: 'app-activityinformationinterpretmetaatom',
 	standalone: true,
 	imports: [
-	CommonModule,
-	MatCardModule,
-	MatGridListModule,
-	ReactiveFormsModule,
-	MatFormFieldModule,
-	MatInputModule,
-	MatMenuModule,
-	MenuItemComponent,
-	SpecificationfordatasetComponent
+		CommonModule,
+		MatCardModule,
+		MatGridListModule,
+		ReactiveFormsModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatMenuModule,
+		MenuItemComponent,
+		SpecificationfordatasetComponent
 	],
 	templateUrl: './activityinformationinterpretmetaatom.component.html',
 	styleUrls: ['./activityinformationinterpretmetaatom.component.scss']
@@ -43,7 +43,7 @@ export class ActivityinformationinterpretmetaatomComponent extends Catalogactivi
 
 	fileformatdata: any;
 	items: NavItem[] = [];
-	
+
 	specsubtitle: string = 'Meta Atom Location Specification';
 
 	title = 'This is the Activity Information for Interpreting Meta Atoms';
@@ -58,7 +58,7 @@ export class ActivityinformationinterpretmetaatomComponent extends Catalogactivi
 		private menusetup: MenutreeserviceService,
 		private fileservice: FileformatmanagerService
 	) {
-       super(constants, annotations, cd);
+		super(constants, annotations, cd);
 		this.objectform = this.formBuilder.group({
 			DescriptionTitle: ['', Validators.required],
 			BlockInterpretationMethod: ['', Validators.required],
@@ -66,6 +66,7 @@ export class ActivityinformationinterpretmetaatomComponent extends Catalogactivi
 			JThermodynamicsSpeciesSpecificationType: [this.speciesspecification, Validators.required]
 		});
 		this.objectform.get('JThermodynamicsSpeciesSpecificationType')!.setValue(this.speciesspecification);
+		this.catalogtype = "dataset:ActivityInformationInterpretMetaAtom";
 	}
 
 	ngOnInit(): void {
@@ -75,44 +76,56 @@ export class ActivityinformationinterpretmetaatomComponent extends Catalogactivi
 				this.display = true;
 			}
 		});
-		this.items = this.menusetup.findChoices(this.annoinfo, this.speciesspec);
+		if (this.annoinfo) {
+			this.items = this.menusetup.findChoices(this.annoinfo, this.speciesspec);
+		}
+
 	}
-	
+
 	invalid(): boolean {
 		return this.objectform.invalid;
 	}
 
 	override annotationsFound(response: any): void {
 		super.annotationsFound(response);
+		console.log("ActivityinformationinterpretmetaatomComponent  annotationsFound" + JSON.stringify(this.annoinfo['dataset:DescriptionTitle']));
 	}
-	
+
 	override setPrerequisiteData(prerequisite: any): void {
 		const activityinfo = prerequisite['dataset:activityinfo'];
 		this.setData(activityinfo);
-		}
+	}
 
 	override getData(activity: any): void {
+		console.log("ActivityinformationinterpretmetaatomComponent: getData: ")
+
 		activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod')?.value ?? '';
 		activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.objectform.get('FileSourceFormat')?.value ?? '';
 		activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle')?.value ?? '';
 		activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]] = this.objectform.get('JThermodynamicsSpeciesSpecificationType')?.value ?? '';
 		this.spec.getData(activity);
+
+		console.log("ActivityinformationinterpretmetaatomComponent: getData: " + JSON.stringify(activity));
 	}
 	override setData(a: any): void {
 		super.setData(a);
-		this.objectform.get('FileSourceFormat')!.setValue(this.fileformat);
-		const formatdata = this.fileformatdata[this.fileformat];
-		const block = formatdata['dataset:interpretMethod'];
-		this.objectform.get('BlockInterpretationMethod')!.setValue(block);
+		if (this.annoinfo) {
+			this.objectform.get('FileSourceFormat')!.setValue(this.fileformat);
+			if (this.fileformatdata) {
+				const formatdata = this.fileformatdata[this.fileformat];
+				const block = formatdata['dataset:interpretMethod'];
+				this.objectform.get('BlockInterpretationMethod')!.setValue(block);
+			}
 
-		this.objectform.get('DescriptionTitle')!.setValue(this.catalog[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
-		if (this.catalog[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]] != null) {
-			this.objectform.get('JThermodynamicsSpeciesSpecificationType')!.setValue(this.catalog[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]]);
-		} else {
-			this.objectform.get('JThermodynamicsSpeciesSpecificationType')!.setValue(this.speciesspecification);
+			this.objectform.get('DescriptionTitle')!.setValue(this.catalog[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
+			if (this.catalog[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]] != null) {
+				this.objectform.get('JThermodynamicsSpeciesSpecificationType')!.setValue(this.catalog[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]]);
+			} else {
+				this.objectform.get('JThermodynamicsSpeciesSpecificationType')!.setValue(this.speciesspecification);
+			}
+			this.spec.setData(this.catalog);
+
 		}
-		const specid = this.annoinfo['dataset:SpecificationForDataset'][this.identifier];
-		this.spec.setData(this.catalog[specid]);
 	}
 
 	setSpeciesSpec($event: String): void {

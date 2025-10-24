@@ -1,0 +1,14 @@
+<mat-card appearance="outlined" class="cardbase">
+	<mat-card-header>
+		<mat-card-title-group class="addlink">
+			<mat-card-title>{{title}}</mat-card-title>
+			<button mat-button class="deletelinkbutton" (click)="getCatalogObject()">
+				<mat-icon>visibility</mat-icon>
+			</button>
+		</mat-card-title-group>
+	</mat-card-header>
+
+	<mat-card-content>
+		<app-requiredtransactioninformation #requiredinfoobject [annoinfo]="anno"></app-requiredtransactioninformation>		
+	</mat-card-content>
+</mat-card>

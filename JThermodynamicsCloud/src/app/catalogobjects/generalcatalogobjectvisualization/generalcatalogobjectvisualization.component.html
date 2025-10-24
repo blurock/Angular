@@ -1,9 +1,19 @@
 <mat-card appearance="outlined" class="cardbase">
 	<mat-card-header>
-	{{catalogtype}}
+	<button mat-icon-button 
+	        (click)="toggleDisplay()" 
+	        [attr.aria-label]="display ? 'Hide content' : 'Show content'">
+	    
+		<mat-icon *ngIf="display">visibility</mat-icon>
+		<mat-icon *ngIf="!display">visibility_off</mat-icon>
+	</button>
+<div><h3>{{title}}</h3></div>
 	</mat-card-header>
-	<mat-card-content>		
-		<ng-template #dynamicChild></ng-template>
+	<mat-card-content>
+		<div [hidden]="!display">
+		    <ng-template #dynamicChild></ng-template>
+		</div>
+
 			<!-- ng-template appLoadChild=""></ng-template -->
 	</mat-card-content>
 </mat-card>

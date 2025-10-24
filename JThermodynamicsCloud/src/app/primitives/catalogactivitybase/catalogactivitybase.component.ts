@@ -62,11 +62,13 @@ export class CatalogactivitybaseComponent implements BaseActivityInterface {
 	}
 
 	annotationsFound(response: any): void {
+		console.log("CatalogactivitybaseComponent  annotationsFound" + JSON.stringify(this.annoinfo['dataset:DescriptionTitle']));
 		this.annoReady.emit();
 		this.cdRef.detectChanges();
 	}
 
 	public getCatalogAnnoations(): void {
+		console.log("CatalogactivitybaseComponent: getCatalogAnnoations()" + this.catalogtype);
 		this.message = this.constants.waiting;
 		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
 			next: (responsedata: any) => {

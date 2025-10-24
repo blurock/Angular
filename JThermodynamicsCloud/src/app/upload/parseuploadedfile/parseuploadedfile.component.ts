@@ -5,14 +5,12 @@ import { Ontologyconstants } from '../../const/ontologyconstants';
 import { UploadfileinformationComponent } from '../uploadfileinformation/uploadfileinformation.component';
 import { UploadmenuserviceService } from '../../services/uploadmenuservice.service';
 import { OntologycatalogService } from '../../services/ontologycatalog.service';
-import { SubmitfileandinformatioonComponent } from '../submitfileandinformatioon/submitfileandinformatioon.component';
 import { DatasetrepositoryfilestagingComponent } from '../../catalogobjects/repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
 import { DatasetreferenceComponent } from '../../catalogobjects/datasetreference/datasetreference.component';
 import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IdentifiersService } from '../../const/identifiers.service';
 import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
-import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
 import { ActivityrepositorypartitiontocatalogComponent } from '../../catalogobjects/activity/repository/activityrepositorypartitiontocatalog/activityrepositorypartitiontocatalog.component';
 import { RuntransactiondialogComponent } from '../../dialog/runtransactiondialog/runtransactiondialog.component';
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, ViewContainerRef, ComponentRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ViewContainerRef, ComponentRef, AfterViewInit } from '@angular/core';
 import { LoadChildDirective } from '../../directives/load-child.directive';
 import { IdentifiersService } from '../../const/identifiers.service';
 import {FirestorelistelementComponent} from './firestorelistelement/firestorelistelement.component';
@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 	templateUrl: './listoffirestoreids.component.html',
 	styleUrls: ['./listoffirestoreids.component.scss']
 })
-export class ListoffirestoreidsComponent implements OnInit {
+export class ListoffirestoreidsComponent  {
 
 	
 
@@ -34,6 +34,7 @@ export class ListoffirestoreidsComponent implements OnInit {
 		this.componentRef.instance.anno = this.annoinfo;
 		this.componentRef.instance.catalogID = firestoreid;
 		this.componentRef.instance.setIndex(this.listofids.length);
+		this.componentRef.instance.setData(firestoreid);
 		this.componentRef.instance.deleteEvent.subscribe((index) => {
 			this.listofids.splice(index,1);
 			this.componentRef.destroy();
@@ -47,8 +48,6 @@ export class ListoffirestoreidsComponent implements OnInit {
 		public identifiers: IdentifiersService
 	) { }
 
-	ngOnInit(): void {
-	}
 
 	addEmptyObjectLink(): void {
 		const firestoreid: Record<string,unknown> = {};

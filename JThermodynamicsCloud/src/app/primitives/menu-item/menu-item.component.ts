@@ -17,7 +17,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 })
 export class MenuItemComponent implements OnInit {
   @Input() items: NavItem[] = [];
-  @Output() selectionEvent: EventEmitter<String> = new EventEmitter();
+  @Output() selectionEvent: EventEmitter<any> = new EventEmitter();
   @ViewChild('topmenu') topmenu!: MatMenu;
 
 onItemClick(item: NavItem): void {

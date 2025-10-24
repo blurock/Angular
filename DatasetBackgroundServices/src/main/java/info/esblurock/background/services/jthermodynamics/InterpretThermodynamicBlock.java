@@ -140,6 +140,9 @@ public class InterpretThermodynamicBlock {
 		} catch (ThermodynamicComputeException e) {
 			row.addElement("td").addText("Error in parse");
 			e.printStackTrace();
+		} catch(Exception e) {
+			System.out.println("interpretMoleculeStructure: exception" + e.getMessage());
+			e.printStackTrace();
 		}
 		return species2dstructure;
 
@@ -211,7 +214,7 @@ public class InterpretThermodynamicBlock {
 		// Enthalpy
 		JsonObject enthalpyobject = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicStandardEnthalpy");
 		bensonrulethermo.add(ClassLabelConstants.ThermodynamicStandardEnthalpy, enthalpyobject);
-		JsonObject enthalpyspec = info.get(ClassLabelConstants.ParameterSpecificationEnthaply).getAsJsonObject();
+		JsonObject enthalpyspec = info.get(ClassLabelConstants.ParameterSpecificationEnthalpy).getAsJsonObject();
 		double standardEnthalpy = thermodynamics.getStandardEnthalpy();
 		String enthalpyS = Double.toString(standardEnthalpy);
 		enthalpyobject.add(ClassLabelConstants.ParameterSpecification, enthalpyspec);

@@ -1,4 +1,4 @@
-import { Input, Component, OnInit, ViewChild, AfterViewInit, SimpleChanges, ElementRef, AfterViewChecked } from '@angular/core';
+import { Input, Component, OnInit, ViewChild, AfterViewInit, SimpleChanges, ElementRef, AfterViewChecked, OnChanges } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { IdentifiersService } from '../../const/identifiers.service';
 import { Ontologyconstants } from '../../const/ontologyconstants';
@@ -26,7 +26,7 @@ import { MatIconModule } from '@angular/material/icon';
 		FiresytorecatalogidComponent,
 		MatIconModule]
 })
-export class SimpledatabaseobjectstructureComponent implements AfterViewInit {
+export class SimpledatabaseobjectstructureComponent implements AfterViewInit, OnChanges{
 
 	cataloginfotitle: string;
 	objectpositiontitle: string;
@@ -45,7 +45,7 @@ export class SimpledatabaseobjectstructureComponent implements AfterViewInit {
 
 	@ViewChild('transaction') set transaction(element: FiresytorecatalogidComponent) {
 		this.objectelement = element;
-		if (this.objectelement) {
+		if (this.objectelement && this.transactionelement) {
 			if (this.simpledata) {
 				this.setData(this.simpledata);
 			}
@@ -54,7 +54,7 @@ export class SimpledatabaseobjectstructureComponent implements AfterViewInit {
 
 	@ViewChild('firestoreidtrans') set firestoreidtrans(element: FiresytorecatalogidComponent) {
 		this.transactionelement = element;
-		if (this.transactionelement) {
+		if (this.transactionelement && this.objectelement) {
 			if (this.simpledata) {
 				this.setData(this.simpledata);
 			}
@@ -117,13 +117,11 @@ export class SimpledatabaseobjectstructureComponent implements AfterViewInit {
 			this.objectform.get('CatalogObjectKey')?.setValue(catalog[this.identifiers.CatalogObjectKey]);
 			this.objectform.get('CatalogObjectAccessModify')?.setValue(catalog[this.identifiers.CatalogObjectAccessModify]);
 			this.objectform.get('TransactionID')?.setValue(catalog[this.identifiers.TransactionID]);
-			console.log("SimpledatabaseobjectstructureComponent setData() istransaction= " + this.istransaction);;
 			if (!this.istransaction) {
 				const transactionvalues = catalog[this.anno['dataset:FirestoreCatalogIDForTransaction'][this.identifier]];
 				this.transactionelement.setData(transactionvalues);
 			}
 			const firestoreidtransaction = catalog[this.anno['dataset:FirestoreCatalogID'][this.identifier]];
-			console.log("SimpledatabaseobjectstructureComponent firestore id= " + JSON.stringify(firestoreidtransaction));
 			this.objectelement.setData(firestoreidtransaction);
 		}
 	}

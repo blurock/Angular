@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, OnChanges } from '@angular/core';
 import { OntologycatalogService } from '../../services/ontologycatalog.service';
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
@@ -12,7 +12,7 @@ import { BaseCatalogInterface } from '../basecatalog.interface';
   templateUrl: './catalogbase.component.html',
   styleUrl: './catalogbase.component.scss'
 })
-export class CatalogbaseComponent  implements BaseCatalogInterface {
+export class CatalogbaseComponent  implements BaseCatalogInterface, OnChanges {
 	
 	rdfslabel: string = Ontologyconstants.rdfslabel;
 	rdfscomment: string = Ontologyconstants.rdfscomment;
@@ -23,8 +23,12 @@ export class CatalogbaseComponent  implements BaseCatalogInterface {
 	annoinfo: any = null;	
 	showData: boolean = true;
 	message: string = '';
+	catalogdataset = false;
 	
-	@Output() annoReady = new EventEmitter<void>();
+	@Output() annoReady = new EventEmitter<any>();
+	@Output() transactionReady = new EventEmitter<any>();
+	@Output() showCatalogObject = new EventEmitter<any>();
+	
 	
 	constructor(
 		private constants: UserinterfaceconstantsService,
@@ -34,15 +38,29 @@ export class CatalogbaseComponent  implements BaseCatalogInterface {
 	
 	
 	setData(catalog: any): void {
-		
+		this.catalog = catalog;
+		this.transactionReady.emit(this.catalog[Ontologyconstants.TransactionID]);
+		this.cdRef.detectChanges();
 	}
 	getData(catalog: any): void {
 	
+	}
+	
+	ngOnChanges(): void {
+		if (this.catalog != null) {
+			this.setData(this.catalog);
+		}
+		this.cdRef.detectChanges();
 	}
 
 	toggleShowData() {
     	this.showData = !this.showData;
   }
+  
+  showCatalogFromFirestore(firestoreid: any) {
+	this.showCatalogObject.emit(firestoreid);
+  }
+  
 	
   messageToJSON(responsedata: any):  any {
     const data: string = responsedata.message;
@@ -52,12 +70,15 @@ export class CatalogbaseComponent  implements BaseCatalogInterface {
   }
   
   	annotationsFound(response: any): void {
-		this.annoReady.emit();
+		console.log("CatalogbaseComponent annotationsFound")
+		if(this.catalog) {
+			this.setData(this.catalog);
+		}
+		this.annoReady.emit(this.annoinfo);
 		this.cdRef.detectChanges();
 	}
   
   	public getCatalogAnnoations(): void {
-		console.log("getCatalogAnnoations for " + this.catalogtype);
 		this.message = this.constants.waiting;
 		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
 			next: (responsedata: any) => {
@@ -67,8 +88,10 @@ export class CatalogbaseComponent  implements BaseCatalogInterface {
 				if (response[Ontologyconstants.successful]) {
 					const catalog = response[Ontologyconstants.catalogobject];
 					this.annoinfo = catalog[Ontologyconstants.annotations];
-					console.log("getCatalogAnnoations for " + JSON.stringify(this.annoinfo['dataset:DescriptionTitle']));
 					this.annotationsFound(response);
+					if(this.catalog) {
+						this.setData(this.catalog);
+					}
 				} else {
 					this.message = responsedata;
 				}

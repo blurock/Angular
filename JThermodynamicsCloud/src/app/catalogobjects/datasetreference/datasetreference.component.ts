@@ -10,6 +10,9 @@ import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInput } from '@angular/material/input';
 import { CatalogrecordbaseComponent } from '../../primitives/catalogrecordbase/catalogrecordbase.component';
+import { MenutreeserviceService } from '../../services/menutreeservice.service';
+import { NavItem } from '../../primitives/nav-item';
+import { MenuItemComponent } from '../../primitives/menu-item/menu-item.component';
 
 @Component({
 	selector: 'app-datasetreference',
@@ -17,7 +20,7 @@ import { CatalogrecordbaseComponent } from '../../primitives/catalogrecordbase/c
 	styleUrls: ['./datasetreference.component.scss'],
 	standalone: true,
 	imports: [MatFormFieldModule, MatCardModule, MatIconModule,
-		CommonModule, ReactiveFormsModule, MatMenuModule, MatSelectModule, MatInput]
+		CommonModule, ReactiveFormsModule, MatMenuModule, MatSelectModule, MatInput,MenuItemComponent]
 })
 export class DatasetreferenceComponent extends CatalogrecordbaseComponent implements OnInit {
 
@@ -28,18 +31,25 @@ export class DatasetreferenceComponent extends CatalogrecordbaseComponent implem
 	referencedata: any[] = [];
 
 	addreference = "Add Reference";
+	nametitleclass = 'dataset:AuthorNameTitle';
 	filled = false;
 	title = 'Title';
+	
+	titleitems: NavItem[] = [];
 
 	constructor(
 		private formBuilder: FormBuilder,
-		public identifiers: IdentifiersService) {
+		public identifiers: IdentifiersService,
+		public menusetup: MenutreeserviceService) {
 			super();
 		this.referencesForm = this.newReferenceSet();
+		
+		
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
 		if (changes['anno'] && changes['anno'].currentValue) {
+			this.titleitems = this.menusetup.findChoices(this.annoinfo,this.nametitleclass);
 			if (this.referencedata)
 				this.setData(this.referencedata);
 		}
@@ -48,7 +58,7 @@ export class DatasetreferenceComponent extends CatalogrecordbaseComponent implem
 
 	ngOnInit(): void {
 		this.findChoices('dataset:AuthorNameTitle');
-
+		this.titleitems = this.menusetup.findChoices(this.annoinfo,this.nametitleclass);
 	}
 
 	newReferenceSet(): FormGroup {
@@ -173,6 +183,12 @@ export class DatasetreferenceComponent extends CatalogrecordbaseComponent implem
 	getAuthorInformationControls(authorInformation: AbstractControl<any, any>): AbstractControl<any, any>[] {
 		return this.isFormArray(authorInformation) ? authorInformation.controls : this.formBuilder.array([]).controls;
 	}
+	
+	setTitleSelection($event: any, refindex: number, index: number): void {
+		const authors = this.referenceAuthors(refindex); 
+		const author = authors.at(index) as UntypedFormGroup;
+			author.get('AuthorNameTitle')!.setValue($event);
+		}
 
 
 	isFormArray(control: AbstractControl | null): control is FormArray {

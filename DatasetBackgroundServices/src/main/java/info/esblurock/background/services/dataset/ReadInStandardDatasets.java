@@ -11,9 +11,9 @@ public class ReadInStandardDatasets {
 		
 		String paths = 
 				
-				//"/resources/standard/bensonrules/TransactionReadTableA1CarbonBensonSmallTest.json\n"
-			    //+ "/resources/standard/bensonrules/TransactionParseTableA1CarbonBensonSmallTest.json\n"
-				//+ "/resources/standard/bensonrules/TransactionCreateTableA1CarbonBensonSmallTest.json\n"
+				"/resources/standard/bensonrules/TransactionReadTableA1CarbonBensonSmallTest.json\n"
+			    + "/resources/standard/bensonrules/TransactionParseTableA1CarbonBensonSmallTest.json\n"
+				+ "/resources/standard/bensonrules/TransactionCreateTableA1CarbonBensonSmallTest.json\n"
 
 				//+ "/resources/standard/metaatoms/TransactionReadBensonMetaAtom.json\n"
 				//+ "/resources/standard/metaatoms/TransactionParseBensonMetaAtom.json\n"
@@ -23,9 +23,9 @@ public class ReadInStandardDatasets {
 				//+"/resources/standard/symmetry/external/TransactionParseExternalSymmetryCarbonAtom.json\n"
 			    //+"/resources/standard/symmetry/external/TransactionCreateExternalSymmetryCarbonAtom.json\n"
 
-				"/resources/standard/symmetry/external/TransactionReadExternalSymmetryCarbonAtomSmall.json\n"
-				+"/resources/standard/symmetry/external/TransactionParseExternalSymmetryCarbonAtomSmall.json\n"
-			    +"/resources/standard/symmetry/external/TransactionCreateExternalSymmetryCarbonAtomSmall.json\n"
+				//"/resources/standard/symmetry/external/TransactionReadExternalSymmetryCarbonAtomSmall.json\n"
+				//+"/resources/standard/symmetry/external/TransactionParseExternalSymmetryCarbonAtomSmall.json\n"
+			    //+"/resources/standard/symmetry/external/TransactionCreateExternalSymmetryCarbonAtomSmall.json\n"
 
 				//+ "/resources/standard/symmetry/internal/TransactionReadInternalSymmetryCarbonAtom.json\n"
 				//+ "/resources/standard/symmetry/internal/TransactionParseInternalSymmetryCarbonAtom.json\n"
@@ -101,7 +101,7 @@ public class ReadInStandardDatasets {
 				//+ "/resources/standard/hbi/burke/TransactionCreateHBIBurke2015.json\n"
 ;
 		try {
-		JsonObject response = RunMultipleTransactions.runMultipleFromListOfFiles(paths,"Administrator", true, false);
+		JsonObject response = RunMultipleTransactions.runMultipleFromListOfFiles(paths,"UOqk0KtFtaXma5TGsi8Seh9RMbx1", true, false);
 		if(response != null) {
 			JsonObjectUtilities.printResponse(response);
 			System.out.println("Success!!!!");

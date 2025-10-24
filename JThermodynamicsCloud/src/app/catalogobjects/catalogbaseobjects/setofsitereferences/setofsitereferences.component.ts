@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { LoadchildDirective } from '../loadchild.directive';
-import { RdftripleComponent } from '../rdftriple/rdftriple.component'
 import { ObjectsitereferenceComponent } from '../objectsitereference/objectsitereference.component';
-import { Directive, ViewContainerRef, ComponentRef, ChangeDetectorRef } from '@angular/core';
+import { ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { IdentifiersService } from '../../../const/identifiers.service';
 import {MatCardModule} from '@angular/material/card'; 
 import {MatIconModule} from '@angular/material/icon'; 
@@ -63,6 +62,7 @@ export class SetofsitereferencesComponent implements OnInit,AfterViewInit  {
 
 
 	public setData(links: any[]): void {
+		this.linkarray = [];
 		for (let link of links) {
 			this.addObjectLink(link);
 		}

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { FormGroup} from '@angular/forms';
 import { Ontologyconstants } from '../const/ontologyconstants';
+import { NavItem } from '../primitives/nav-item';
 
 @Injectable({
   providedIn: 'root'
@@ -210,8 +211,21 @@ export class FileformatmanagerService {
 		}
 		return ans;
 	}
-  public getTherGasCatalogTypes(): Observable<any> {
-    return of(this.catalogtypes);
+  public getTherGasCatalogTypes(): Observable<NavItem[]> {
+	const items: NavItem[] = [];
+	  for (let i = 0; i < this.catalogtypes.length; i++) {
+		  const choice = this.catalogtypes[i];
+		  const type = choice['format'];
+		  const children: NavItem[] = [];
+		  const celement: NavItem = {
+			  displayName: type,
+			  disabled: false,
+			  value: choice,
+			  children: children
+		  };
+		  items.push(celement);
+	  }
+    return of(items);
     }
     
     public dataFormatInformation(format: string): Observable<any> {

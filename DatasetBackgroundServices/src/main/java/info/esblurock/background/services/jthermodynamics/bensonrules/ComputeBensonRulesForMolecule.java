@@ -112,7 +112,7 @@ public class ComputeBensonRulesForMolecule {
 
         JsonObject enthalpy = thermo.get(ClassLabelConstants.ThermodynamicStandardEnthalpy).getAsJsonObject();
         ParameterUtilities.changeParameterToNewSpecification(enthalpy, info,
-                ClassLabelConstants.ParameterSpecificationEnthaply);
+                ClassLabelConstants.ParameterSpecificationEnthalpy);
         contribution.add(ClassLabelConstants.ThermodynamicStandardEnthalpy, enthalpy);
         
         row.addElement("td").addText(enthalpy.get(ClassLabelConstants.ValueAsString).getAsString());

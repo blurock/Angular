@@ -183,8 +183,8 @@ public class ParameterUtilities {
     public static JsonObject emptyThermodynamicContributions(String name, JsonObject info) {
         JsonObject contribution = CreateDocumentTemplate.createTemplate("dataset:ThermodynamicContributions");
         JsonObject enthalpySpec = null;
-        if (info.get(ClassLabelConstants.ParameterSpecificationEnthaply) != null) {
-            enthalpySpec = info.get(ClassLabelConstants.ParameterSpecificationEnthaply).getAsJsonObject();
+        if (info.get(ClassLabelConstants.ParameterSpecificationEnthalpy) != null) {
+            enthalpySpec = info.get(ClassLabelConstants.ParameterSpecificationEnthalpy).getAsJsonObject();
         }
         JsonObject entropySpec = null;
         if (info.get(ClassLabelConstants.ParameterSpecificationEntropy) != null) {

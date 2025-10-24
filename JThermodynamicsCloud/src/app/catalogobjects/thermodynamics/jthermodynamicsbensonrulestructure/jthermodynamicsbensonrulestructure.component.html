@@ -27,12 +27,7 @@
 
 				<ng-container formArrayName="atomcounts">
 					<ng-container *ngFor="let count of atomcounts.controls; let countIndex=index">
-
-
-
-						<div class="count-form-row" [formGroup]="count">
-
-
+						<div class="count-form-row" [formGroup]="$any(count)">
 							<mat-grid-list cols="13" rowHeight="100px">
 								<mat-grid-tile [colspan]="6">
 									<mat-form-field class="label">

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input,ViewContainerRef, AfterViewInit  } from '@angular/core';
+import { Component, OnInit, ViewChild, Input,ViewContainerRef, AfterViewInit, EventEmitter, Output  } from '@angular/core';
 import { LoadChildDirective } from '../../../directives/load-child.directive';
 import { DataobjectlinkComponent } from '../dataobjectlink/dataobjectlink.component';
 import { IdentifiersService } from '../../../const/identifiers.service';
@@ -22,6 +22,7 @@ export class SetofdataobjectlinksComponent implements OnInit {
 	message = 'Initializing';
 
 	@Input() anno: any;
+	@Output() showObject = new EventEmitter<any>();
 
 	constructor(
 		//private cdRef: ChangeDetectorRef,
@@ -61,10 +62,13 @@ export class SetofdataobjectlinksComponent implements OnInit {
 			componentRef.destroy();
 			this.resetLinkArray();
 		})
+		componentRef.instance.firestoreAddress.subscribe((firestoreid: any) => {
+			this.showObject.emit(firestoreid);
+		})
+			
 
 		componentRef.instance.setIndex(this.linkarray.length);
 		this.linkarray.push(componentRef.instance);
-		
 		componentRef.instance.setData(link);
 		
 		
@@ -86,6 +90,7 @@ export class SetofdataobjectlinksComponent implements OnInit {
 	}
 
 	public setData(links: any[]): void {
+		this.linkarray = [];
 		for (let link of links) {
 			this.addObjectLink(link);
 		}

@@ -3,11 +3,30 @@ import { OntologycatalogService } from '../../../services/ontologycatalog.servic
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { ParametervalueComponent } from '../../parametervalue/parametervalue.component';
 import { ParameterspecificationComponent } from '../../parameterspecification/parameterspecification.component';
-import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormArray } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormArray, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { NgFor, NgIf } from '@angular/common';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
 	selector: 'app-jthermodynamicstandardthermodynamics',
+	standalone: true,
+	imports: [
+		ParametervalueComponent,
+		ParameterspecificationComponent,
+		MatCardModule, 
+		MatFormFieldModule, 
+		MatInputModule, 
+		ReactiveFormsModule, 
+		NgIf,NgFor,
+		MatGridListModule,
+		MatIconModule,
+		FormsModule,
+	],
 	templateUrl: './jthermodynamicstandardthermodynamics.component.html',
 	styleUrls: ['./jthermodynamicstandardthermodynamics.component.scss']
 })
@@ -24,18 +43,15 @@ export class JthermodynamicstandardthermodynamicsComponent implements OnInit {
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
-
-	pair = this.formBuilder.group({
-		ThermodynamicHeatCapacityValue: ['', Validators.required],
-		ThermodynamicTemperature: ['', Validators.required],
-		ValueUncertainty: ['', Validators.required]
-	});
+	
+	pair: UntypedFormGroup;
+	pairs: UntypedFormArray;
 
 	@Input() annoinfo: any;
 
-	pairs: UntypedFormArray;
+	
 
-	enthalpyid = 'dataset:ParameterSpecificationEnthaply';
+	enthalpyid = 'dataset:ParameterSpecificationEnthalpy';
 	entropyid = 'dataset:ParameterSpecificationEntropy';
 	heatcapacityid = 'dataset:ParameterSpecificationHeatCapacity';
 	temperatureid = 'dataset:ParameterSpecificationTemperature';
@@ -47,17 +63,23 @@ export class JthermodynamicstandardthermodynamicsComponent implements OnInit {
 	heatcapacityspec: any;
 	temperaturespec: any;
 
-	@ViewChild('enthalpyobj') enthalpyobj: ParametervalueComponent;
-	@ViewChild('entropyobj') entropyobj: ParametervalueComponent;
-	@ViewChild('heatcapacityspecobj') heatcapacityspecobj: ParameterspecificationComponent;
-	@ViewChild('temperaturespecobj') temperaturespecobj: ParameterspecificationComponent;
+	@ViewChild('enthalpyobj') enthalpyobj!: ParametervalueComponent;
+	@ViewChild('entropyobj') entropyobj!: ParametervalueComponent;
+	@ViewChild('heatcapacityspecobj') heatcapacityspecobj!: ParameterspecificationComponent;
+	@ViewChild('temperaturespecobj') temperaturespecobj!: ParameterspecificationComponent;
 
 
 	constructor(
 		public annotations: OntologycatalogService,
 		private formBuilder: UntypedFormBuilder
 	) {
-		this.pairs = this.formBuilder.array([]);
+		this.pair = this.formBuilder.group({
+			ThermodynamicHeatCapacityValue: ['', Validators.required],
+			ThermodynamicTemperature: ['', Validators.required],
+			ValueUncertainty: ['', Validators.required]
+		});
+
+	this.pairs = this.formBuilder.array([]);
 
 		const set = [];
 		set.push(this.enthalpyid);
@@ -103,10 +125,10 @@ export class JthermodynamicstandardthermodynamicsComponent implements OnInit {
 
 	getDataPairs(pairarray: any) {
 		for (const pair of this.pairs.controls) {
-			const pairelement = {};
-			pairelement[this.annoinfo['dataset:ThermodynamicHeatCapacityValue'][this.identifier]] = pair.get('ThermodynamicHeatCapacityValue').value;
-			pairelement[this.annoinfo['dataset:ThermodynamicTemperature'][this.identifier]] = pair.get('ThermodynamicTemperature').value;
-			pairelement[this.annoinfo['dataset:ValueUncertainty'][this.identifier]] = pair.get('ValueUncertainty').value;
+			const pairelement: Record<string, any> = {};
+			pairelement[this.annoinfo['dataset:ThermodynamicHeatCapacityValue'][this.identifier]] = pair.get('ThermodynamicHeatCapacityValue')!.value;
+			pairelement[this.annoinfo['dataset:ThermodynamicTemperature'][this.identifier]] = pair.get('ThermodynamicTemperature')!.value;
+			pairelement[this.annoinfo['dataset:ValueUncertainty'][this.identifier]] = pair.get('ValueUncertainty')!.value;
 			pairarray.push(pairelement);
 		}
 	}
@@ -116,9 +138,9 @@ export class JthermodynamicstandardthermodynamicsComponent implements OnInit {
 		this.pairs.clear();
 		for (const pair of pairarray) {
 			const pairform = this.newPair();
-			pairform.get('ThermodynamicHeatCapacityValue').setValue(pair[this.annoinfo['dataset:ThermodynamicHeatCapacityValue'][this.identifier]]);
-			pairform.get('ThermodynamicTemperature').setValue(pair[this.annoinfo['dataset:ThermodynamicTemperature'][this.identifier]]);
-			pairform.get('ValueUncertainty').setValue(pair[this.annoinfo['dataset:ValueUncertainty'][this.identifier]]);
+			pairform.get('ThermodynamicHeatCapacityValue')!.setValue(pair[this.annoinfo['dataset:ThermodynamicHeatCapacityValue'][this.identifier]]);
+			pairform.get('ThermodynamicTemperature')!.setValue(pair[this.annoinfo['dataset:ThermodynamicTemperature'][this.identifier]]);
+			pairform.get('ValueUncertainty')!.setValue(pair[this.annoinfo['dataset:ValueUncertainty'][this.identifier]]);
 			this.pairs.push(pairform);
 		}
 	}
@@ -136,7 +158,7 @@ export class JthermodynamicstandardthermodynamicsComponent implements OnInit {
 		this.pairs.push(countform);
 	}
 
-	deletePair(countIndex): void {
+	deletePair(countIndex: number): void {
 		this.pairs.removeAt(countIndex);
 	}
 

@@ -131,8 +131,8 @@ public class JThermodynamicsFindSubstructure {
         JsonObject thermo = structure.get(ClassLabelConstants.JThermodynamicStandardThermodynamics).getAsJsonObject();
         
         JsonObject enthalpyparameter = thermo.get(ClassLabelConstants.ThermodynamicStandardEnthalpy).getAsJsonObject().deepCopy();
-        ParameterUtilities.changeParameterToNewSpecification(enthalpyparameter, info, ClassLabelConstants.ParameterSpecificationEnthaply);
-        JsonObject enthalpyspec = info.get(ClassLabelConstants.ParameterSpecificationEnthaply).getAsJsonObject();
+        ParameterUtilities.changeParameterToNewSpecification(enthalpyparameter, info, ClassLabelConstants.ParameterSpecificationEnthalpy);
+        JsonObject enthalpyspec = info.get(ClassLabelConstants.ParameterSpecificationEnthalpy).getAsJsonObject();
         enthalpyparameter.add(ClassLabelConstants.ParameterSpecification, enthalpyspec);
         
         JsonObject entropyparameter = thermo.get(ClassLabelConstants.ThermodynamicStandardEntropy).getAsJsonObject().deepCopy();

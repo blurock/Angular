@@ -60,9 +60,6 @@ export class DatadatadescriptionComponent implements AfterViewInit,OnChanges {
 	
 	setupAnno() {
 		this.setLabels(this.descriptionsuffix);
-		console.log('setupAnno DataDataDescription', this.description);
-		console.log(Object.keys(this.annoinfo));
-		console.log('setupAnno DataDataDescription anno', JSON.stringify(this.annoinfo[this.description]));
 		this.header = this.annoinfo[this.description][this.rdfslabel];
 		this.abstrlabel = this.annoinfo[this.abst][this.rdfslabel];
 		this.abstrhint = this.annoinfo[this.abst][this.rdfscomment];
@@ -71,9 +68,7 @@ export class DatadatadescriptionComponent implements AfterViewInit,OnChanges {
 		
 	}
 	ngOnChanges(changes: SimpleChanges) {
-		console.log('Changes in DataDataDescription', changes);
 		if (changes['annoinfo'] && changes['annoinfo'].currentValue) { // Check if annoinfo has a value
-			console.log('Changes in DataDataDescription anno', changes);
 			this.setupAnno();
 			if (this.datadescription) {
 				this.setData(this.datadescription);
@@ -82,9 +77,6 @@ export class DatadatadescriptionComponent implements AfterViewInit,OnChanges {
 	}
 
 	ngAfterViewInit(): void {
-		console.log('ngOnInit DataDataDescription');
-		console.log('ngOnInit DataDataDescription anno', this.annoinfo);
-		console.log('ngOnInit DataDataDescription anno', this.descriptionsuffix);
 		if (this.annoinfo != null) {
 			this.setupAnno();
 		}
@@ -93,7 +85,6 @@ export class DatadatadescriptionComponent implements AfterViewInit,OnChanges {
 
 
 	setLabels(suffix: string): void {
-		console.log('setLabels DataDataDescription', suffix);
 		if (suffix.length == 0) {
 			this.description = 'dataset:DataDescription';
 			this.abst = 'dataset:DescriptionAbstract';

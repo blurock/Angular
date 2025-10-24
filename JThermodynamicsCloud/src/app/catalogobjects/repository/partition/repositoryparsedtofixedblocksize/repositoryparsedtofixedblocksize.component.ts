@@ -1,15 +1,15 @@
-import { Component, OnInit, ViewChild, EventEmitter, Input } from '@angular/core';
-import { FormGroup, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Component, ViewChild, Input, ChangeDetectorRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
 import { IdentifiersService } from '../../../../const/identifiers.service';
 import { RepositorydatapartitionblockComponent } from '../../repositorydatapartitionblock/repositorydatapartitionblock.component';
-import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgIf } from '@angular/common';
+import { CatalogbaseComponent } from '../../../../primitives/catalogbase/catalogbase.component';
+import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
 
 @Component({
 	selector: 'app-repositoryparsedtofixedblocksize',
@@ -17,22 +17,14 @@ import { NgIf } from '@angular/common';
 	styleUrls: ['./repositoryparsedtofixedblocksize.component.scss'],
 	standalone: true,
 	imports: [RepositorydatapartitionblockComponent,
-		MatCardModule,MatFormFieldModule,MatInputModule,ReactiveFormsModule,NgIf
+		MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, NgIf
 	]
 })
-export class RepositoryparsedtofixedblocksizeComponent implements OnInit {
+export class RepositoryparsedtofixedblocksizeComponent extends CatalogbaseComponent implements AfterViewInit {
 
-	catalogtype: string;
 	objectform: UntypedFormGroup = new UntypedFormGroup({});
-	catalogobj: any;
-	public annoinfo: any;
-	annoReady = new EventEmitter<any>();
 
 
-	rdfslabel = Ontologyconstants.rdfslabel;
-	rdfscomment = Ontologyconstants.rdfscomment;
-	identifier = Ontologyconstants.dctermsidentifier;
-	message = 'Initial';
 	title = 'Fixed Number of Lines Block';
 
 	display = false;
@@ -42,29 +34,31 @@ export class RepositoryparsedtofixedblocksizeComponent implements OnInit {
 	@ViewChild('partition') partition?: RepositorydatapartitionblockComponent;
 
 	constructor(
-		private menusetup: MenutreeserviceService,
 		public dialog: MatDialog,
 		private formBuilder: UntypedFormBuilder,
-		public annotations: OntologycatalogService,
-		public identifiers: IdentifiersService) {
-
+		annotations: OntologycatalogService,
+		public identifiers: IdentifiersService,
+		cdRef: ChangeDetectorRef,
+		constants: UserinterfaceconstantsService
+	) {
+		super(constants, annotations, cdRef);
 		this.objectform = this.formBuilder.group({
 			BlockLineCount: [1, Validators.required],
 			ParsedLine: ['Line 1', Validators.required]
 		});
 
 		this.catalogtype = 'dataset:RepositoryParsedToFixedBlockSize';
-		this.getCatalogAnnoations();
-
 	}
+	
+	ngAfterViewInit(): void {
+		if(this.cataloginfo) {
+			this.setData(this.cataloginfo);
+		}
+}
 
-	ngOnInit(): void {
-	}
-
-	public setData(catalog: any) {
-		this.cataloginfo = catalog;
-		alert("RepositoryparsedtofixedblocksizeComponent setData: " + JSON.stringify(this.cataloginfo));
-		if (this.annoinfo != null) {
+	public override  setData(catalog: any) {
+		super.setData(catalog);
+		if (this.annoinfo != null ) {
 			const cntid = this.annoinfo['dataset:BlockLineCount'][this.identifier];
 			this.objectform.get('BlockLineCount')?.setValue(catalog[cntid]) ?? '';
 			const lnsid = this.annoinfo['dataset:ParsedLine'][this.identifier];
@@ -75,11 +69,12 @@ export class RepositoryparsedtofixedblocksizeComponent implements OnInit {
 			}
 			this.objectform.get('ParsedLine')?.setValue(text) ?? '';;
 			this.partition?.setData(catalog);
+			this.display = true;
 		} else {
-			alert("annotations not ready... wait");
+			
 		}
 	}
-	public getData(catalog: any) {
+	public override  getData(catalog: any) {
 		const cntid = this.annoinfo['dataset:BlockLineCount'][this.identifier];
 		catalog[cntid] = this.objectform.get('BlockLineCount')?.value ?? '';
 		const lnsid = this.annoinfo['dataset:ParsedLine'][this.identifier];
@@ -93,35 +88,13 @@ export class RepositoryparsedtofixedblocksizeComponent implements OnInit {
 		this.partition?.getData(catalog);
 	}
 
-	public getCatalogAnnoations(): void {
-		this.message = 'Waiting for Info call';
-		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
-			next: (responsedata: any) => {
-				this.message = 'got response';
-				this.message = responsedata;
-				const response = responsedata;
-				this.message = 'response JSON';
-				this.message = response[Ontologyconstants.message];
-				if (response[Ontologyconstants.successful]) {
-					const catalog = response[Ontologyconstants.catalogobject];
-					alert("getCatalogAnnoations(): " + JSON.stringify(Object.keys(catalog)));
-					this.catalogobj = catalog[Ontologyconstants.outputobject];
-					this.annoinfo = catalog[Ontologyconstants.annotations];
-					alert("getCatalogAnnoations(): " + JSON.stringify(this.annoinfo));
-					this.display = true;
-					this.annoReady.emit(this.annoinfo);
-					if (this.cataloginfo != null) {
-						this.setData(this.cataloginfo);
-						this.partition?.setDataFormat(this.cataloginfo);
-					}
-					this.objectform.get('BlockLineCount')?.setValue(this.cataloginfo['BlockLineCount'])
-				} else {
-					this.message = responsedata;
-				}
-			},
-			error: (info: any) => { alert('Get Annotations failed:' + this.message); }
-		});
+	override annotationsFound(response: any) {
+		this.annoReady.emit(this.annoinfo);
+		if(this.cataloginfo) {
+			this.setData(this.cataloginfo);
+		}
 	}
+
 	public setFormat(cataloginfo: any) {
 		this.partition?.setDataFormat(cataloginfo);
 	}

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, Input, AfterViewInit } from '@angular/core';
 import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
@@ -30,7 +30,7 @@ import { OntologycatalogService } from '../../../../services/ontologycatalog.ser
 	CommonModule,
 	DatasetrepositoryfileComponent]
 })
-export class ActivityrepositoryinitialreadlocalfileComponent extends CatalogactivitybaseComponent {
+export class ActivityrepositoryinitialreadlocalfileComponent extends CatalogactivitybaseComponent implements AfterViewInit {
 	uploadfnotsuccessful = 'Upload of local file not successful';
     title = 'Read Local File Activity Informaton for Transaction';
 
@@ -66,6 +66,13 @@ export class ActivityrepositoryinitialreadlocalfileComponent extends Catalogacti
 		this.getCatalogAnnoations();
 
 	}
+	
+	ngAfterViewInit(): void {
+		if(this.catalog && this.reposfile) {
+			this.reposfile.setData(this.catalog);
+		}
+    }
+	
 
 	
 	invalid(): boolean {
@@ -124,7 +131,9 @@ export class ActivityrepositoryinitialreadlocalfileComponent extends Catalogacti
 	override setData(c: any) {
 		super.setData(c);
 		const filesrcid = this.infoform.get('FileSourceIdentifier')?.value ?? '';
-		this.reposfile.setData(this.catalog);
+		if(this.reposfile) {
+			this.reposfile.setData(this.catalog);
+		}
 	}
 
 }

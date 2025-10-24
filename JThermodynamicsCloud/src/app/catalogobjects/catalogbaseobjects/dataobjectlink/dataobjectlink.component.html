@@ -20,22 +20,30 @@
 				<app-menu-item #conceptmenu [items]="conceptitems" (selectionEvent)="setDataTypeConcept($event)">
 				</app-menu-item>
 				</mat-menu>
-					<button mat-button class="deletebutton" (click)="deleteLink()">
-						<mat-icon>delete</mat-icon>
-					</button>
+				<button mat-button class="button" 
+					(click)="fetchObject()" 
+					matTooltip={{displayobjectinoutputtab}}
+					matTooltipPosition="above" >
+					<mat-icon>visibility</mat-icon>
+				</button>
+			<button mat-button class="button" 
+			(click)="deleteLink()"
+			matTooltip={{deletelink}}>
+				<mat-icon>delete</mat-icon>
+			</button>
+		<button mat-button class="button" 
+		(click)="showaddress()"
+		matTooltip={{showaddressbutton}}>
+			<mat-icon>map</mat-icon>
+		</button>
 		</form>
 		<div>
-		<ng-container *ngIf='display; else loading'>
+		<ng-container *ngIf='display;'>
 		
 			<app-firesytorecatalogid #firestoreid  [catalogID]="firestoreidvalues"   
 			     [anno]="anno" [allowchange]="allowchange"></app-firesytorecatalogid>
 		
 		</ng-container>
-		<ng-template #loading>
-	<div>
-		No Firestore ID
-	</div>
-		</ng-template>
 		</div>
 	</mat-card-content>
 </mat-card>

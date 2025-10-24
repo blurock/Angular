@@ -91,6 +91,21 @@ export class Ontologyconstants {
 	public static CatalogObjectUniqueGenericLabel = 'dataset:uniquegenericname';
 	public static TransactionID = 'dataset:transactionid';
 	
+	public static RDFRelationClassName = 'dataset:relationclassname';
+	public static DatabaseObjectType = 'dataset:objectype';
+	public static CatalogObjectOwner = 'dcterms:creator';
+	public static FirestoreID = 'dataset:firestorecatalog';
+	public static RelatedCatalogObjectIDAndType = 'skos:related';
+	public static DatabaseObjectTypeLink = 'dataset:objecttypeforlink';
 	
-
+	public static RequiredTransactionIDAndType = 'dataset:requiredtransitionfirestoreid';
+	public static ShortDescription = 'dataset:shortdescription';
+	public static CatalogObjectID = 'dataset:catobjid';
+	
+	public static CatalogObjectPrerequisiteTreeNode = 'dataset:catobjprerequisitetreenode';
+	public static DescriptionTitleRequiredTransaction = 'dataset:descrtitlerequiredtransaction';
+	public static RequiredTransactionInformation = 'dataset:requiredtransactioninfo';
+	public static RequiredTransactionType = 'dataset:requiredtransactiontype';
+	public static RequiredTransactionKey = 'dataset:requiredtransactionkey'
+	
 }

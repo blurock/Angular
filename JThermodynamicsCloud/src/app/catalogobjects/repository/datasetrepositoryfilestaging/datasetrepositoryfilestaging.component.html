@@ -15,7 +15,7 @@
 					</mat-form-field>
 				</form>
 			</div>
-			</ng-container>
+			
 			<app-datadatadescription #description [annoinfo]="annoinfo" [descriptionsuffix]="descriptionsuffix">
 			</app-datadatadescription>
 			
@@ -25,7 +25,7 @@
 			<app-datasetreference #references [annoinfo]="annoinfo"></app-datasetreference>
 			<app-firesytorecatalogid #firestoreid [anno]="annoinfo"></app-firesytorecatalogid>
 			<app-simpledatabaseobjectstructure #simpledata [anno]="annoinfo"></app-simpledatabaseobjectstructure>
-		
+			</ng-container>
 		<ng-template #loading>
 		    {{message}}
 			<mat-spinner></mat-spinner>

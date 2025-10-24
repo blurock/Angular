@@ -12,6 +12,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.component';
 import { MatInputModule } from '@angular/material/input';
+import { FileformatmanagerService } from '../../../services/fileformatmanager.service';
 
 @Component({
 	selector: 'app-gcsblobfileinformationstaging',
@@ -39,7 +40,8 @@ export class GcsblobfileinformationstagingComponent implements AfterViewInit {
 	constructor(
 		private formBuilder: UntypedFormBuilder,
 		public identifiers: IdentifiersService,
-		private menusetup: MenutreeserviceService) {
+		private menusetup: MenutreeserviceService,
+		private formatservice: FileformatmanagerService) {
 					this.objectform = this.formBuilder.group({
 			DescriptionAbstract: ['', Validators.required],
 			FileSourceFormat: ['', Validators.required],
@@ -50,7 +52,9 @@ export class GcsblobfileinformationstagingComponent implements AfterViewInit {
 		 }
 
 	ngAfterViewInit(): void {
-		this.items = this.menusetup.findChoices(this.anno, this.formatmenulabel);
+		this.formatservice.getTherGasCatalogTypes().subscribe(result => {
+			this.items = result;
+		});
 	}
 
 	setData(catalog: any): void {
@@ -68,8 +72,9 @@ export class GcsblobfileinformationstagingComponent implements AfterViewInit {
 		gcsinfo[this.identifiers.GCSFileName] = this.objectform.get('GCSFileName')?.value ?? '';
 		gcsinfo[this.identifiers.GCSFilePath] = this.objectform.get('GCSFilePath')?.value ?? '';
 	}
-	setFileFormat($event: String): void {
-		this.objectform.get('FileSourceFormat')?.setValue($event);
+	setFileFormat($event: any): void {
+		const format = $event['format'];
+		this.objectform.get('FileSourceFormat')?.setValue(format);
 	}
 
 }

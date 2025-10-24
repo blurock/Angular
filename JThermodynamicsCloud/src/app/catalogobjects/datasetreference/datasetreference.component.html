@@ -1,4 +1,3 @@
-
 <mat-card appearance="outlined" class="setofreferences">
 	<mat-card-header>
 		<mat-card-title-group class="addreference">
@@ -8,85 +7,85 @@
 			</button>
 		</mat-card-title-group>
 	</mat-card-header>
-	
+
 	<mat-card-content>
 		<div [formGroup]="referencesForm">
 			<div formArrayName="references">
-			<div *ngFor="let reference of referenceset.controls; let empIndex=index" [formGroupName]="empIndex">
-				<mat-card appearance="outlined" class="bibliocard">
-					<mat-card-content>
-						<mat-form-field class="bibliotitle">
-							<mat-label>{{annoinfo['dataset:ReferenceTitle'][rdfslabel]}}</mat-label>
-							<input matInput formControlName="ReferenceTitle" placeholder="Manuscript Title">
-							<mat-hint>{{annoinfo['dataset:ReferenceTitle'][rdfscomment]}}</mat-hint>
-						</mat-form-field>
-						<button mat-button color="primary" (click)="deleteReference(empIndex)">
-							<mat-icon>delete</mat-icon>
-						</button>
-						<mat-form-field class="biblioreference">
-							<mat-label>{{annoinfo['dataset:ReferenceString'][rdfslabel]}}</mat-label>
-							<input matInput formControlName="ReferenceString"
-								placeholder="Rocket J. Squirrel, J. of Irreproducible Res., vol. 666, pg. 2000-2001 (1984)">
-							<mat-hint>{{annoinfo['dataset:ReferenceString'][rdfscomment]}}</mat-hint>
-						</mat-form-field>
-						<mat-form-field class="biblioreference">
-							<mat-label>{{annoinfo['dataset:DOI'][rdfslabel]}}</mat-label>
-							<input matInput formControlName="DOI"
-								placeholder="https://doi.org/10.1016/j.jir.2020.01.01">
-							<mat-hint>{{annoinfo['dataset:DOI'][rdfscomment]}}</mat-hint>
-						</mat-form-field>
-					
-						<div class="author" formArrayName="AuthorInformation">
-							<div class="title">
-								<mat-label class="addauthor">Authors</mat-label>
-								<button mat-button class="addauthorbutton" (click)="addNewAuthor(reference)">
-									<mat-icon>add</mat-icon>
-								</button>
-							</div>
+				<div *ngFor="let reference of referenceset.controls; let empIndex=index" [formGroupName]="empIndex">
+					<mat-card appearance="outlined" class="bibliocard">
+						<mat-card-content>
+							<mat-form-field class="bibliotitle">
+								<mat-label>{{annoinfo['dataset:ReferenceTitle'][rdfslabel]}}</mat-label>
+								<input matInput formControlName="ReferenceTitle" placeholder="Manuscript Title">
+								<mat-hint>{{annoinfo['dataset:ReferenceTitle'][rdfscomment]}}</mat-hint>
+							</mat-form-field>
+							<button mat-button color="primary" (click)="deleteReference(empIndex)">
+								<mat-icon>delete</mat-icon>
+							</button>
+							<mat-form-field class="biblioreference">
+								<mat-label>{{annoinfo['dataset:ReferenceString'][rdfslabel]}}</mat-label>
+								<input matInput formControlName="ReferenceString"
+									placeholder="Rocket J. Squirrel, J. of Irreproducible Res., vol. 666, pg. 2000-2001 (1984)">
+								<mat-hint>{{annoinfo['dataset:ReferenceString'][rdfscomment]}}</mat-hint>
+							</mat-form-field>
+							<mat-form-field class="biblioreference">
+								<mat-label>{{annoinfo['dataset:DOI'][rdfslabel]}}</mat-label>
+								<input matInput formControlName="DOI"
+									placeholder="https://doi.org/10.1016/j.jir.2020.01.01">
+								<mat-hint>{{annoinfo['dataset:DOI'][rdfscomment]}}</mat-hint>
+							</mat-form-field>
 
-							<div >
-								<ng-container *ngIf="reference.get('AuthorInformation') as authorInformation">
-									<div *ngIf="getAuthorInformationControls(authorInformation) as authorInformationControls">
-											<div *ngFor="let author of authorInformationControls; let authorIndex = index" [formGroupName]="authorIndex">
-											<mat-form-field class="familyreference">
-												<mat-label>{{annoinfo['dataset:AuthorFamilyName'][rdfslabel]}}</mat-label>
-												<input matInput formControlName="AuthorFamilyName">
-												<mat-hint>{{annoinfo['dataset:AuthorFamilyName'][rdfscomment]}}</mat-hint>
-											</mat-form-field>
-											<mat-form-field class="givenreference">
-												<mat-label>{{annoinfo['dataset:AuthorGivenName'][rdfslabel]}}</mat-label>
-												<input matInput formControlName="AuthorGivenName">
+							<div class="author" formArrayName="AuthorInformation">
+								<div class="title">
+									<mat-label class="addauthor">Authors</mat-label>
+									<button mat-button class="addauthorbutton" (click)="addNewAuthor(reference)">
+										<mat-icon>add</mat-icon>
+									</button>
+								</div>
 
-												<mat-hint>{{annoinfo['dataset:AuthorGivenName'][rdfscomment]}}</mat-hint>
-											</mat-form-field>
-											<mat-form-field class="titlereference">
-												<mat-label>{{annoinfo['dataset:AuthorNameTitle'][rdfslabel]}}</mat-label>
-												<mat-select formControlName="AuthorNameTitle">
-													<mat-option *ngFor="let choice of titleinformation"
-														[value]="choice['dc:type']">{{choice[rdfslabel]}}</mat-option>
-												</mat-select>
+								<div>
+									<ng-container *ngIf="reference.get('AuthorInformation') as authorInformation">
+										<div
+											*ngIf="getAuthorInformationControls(authorInformation) as authorInformationControls">
+											<div *ngFor="let author of authorInformationControls; let authorIndex = index"
+												[formGroupName]="authorIndex">
+												<mat-form-field class="familyreference">
+													<mat-label>{{annoinfo['dataset:AuthorFamilyName'][rdfslabel]}}</mat-label>
+													<input matInput formControlName="AuthorFamilyName">
+													<mat-hint>{{annoinfo['dataset:AuthorFamilyName'][rdfscomment]}}</mat-hint>
+												</mat-form-field>
+												<mat-form-field class="givenreference">
+													<mat-label>{{annoinfo['dataset:AuthorGivenName'][rdfslabel]}}</mat-label>
+													<input matInput formControlName="AuthorGivenName">
 
+													<mat-hint>{{annoinfo['dataset:AuthorGivenName'][rdfscomment]}}</mat-hint>
+												</mat-form-field>
+
+
+												<mat-form-field class="titlereference">
+													<mat-label>{{annoinfo['dataset:AuthorNameTitle'][rdfslabel]}}</mat-label>
+												<input matInput formControlName="AuthorNameTitle"
+													[matMenuTriggerFor]="titlemenu">
 												<mat-hint>{{annoinfo['dataset:AuthorNameTitle'][rdfscomment]}}</mat-hint>
-								              </mat-form-field>
-<!--
-											<button mat-button color="primary"
-												(click)="deleteAuthor(authorInformation, author)">
-												<mat-icon>delete</mat-icon>
-											</button>
-											-->
-									  </div>
-									</div>	
-								</ng-container>
-								
+												</mat-form-field>
+												<mat-menu #titlemenu="matMenu">
+													<app-menu-item #titles [items]="titleitems"
+														(selectionEvent)="setTitleSelection($event,empIndex,authorIndex)">
+													</app-menu-item>
+												</mat-menu>
+											</div>
+										</div>
+									</ng-container>
+
+								</div>
 							</div>
-						</div>
 
 
-					</mat-card-content>
-				</mat-card>
-			</div>
+						</mat-card-content>
+					</mat-card>
+				</div>
 			</div>
 		</div>
-	
+
 	</mat-card-content>
 </mat-card>

@@ -61,6 +61,9 @@ public class GeneralRDFQueryDefinition {
 		List<String> subjects = OntologyUtilityRoutines.exactlyOnePropertyMultiple(relationNameString, OntologyObjectLabels.subject);
 		subjectDefinitions = new LisOfRDFDefinitions(subjects);
 		
+		System.out.println("Subject Definitions: " + subjectDefinitions.keySet());
+		System.out.println("Object Definitions: " + objectDefinitions.keySet());
+		
 		subjectpropsDefinitions = subjectDefinitions.propertiesInDefinitions(this.propertiesRdfDefinitions);
 		objectspropsDefinitions = objectDefinitions.propertiesInDefinitions(this.propertiesRdfDefinitions);
 		subjectpropsNotInDefinitions = subjectDefinitions.propertiesNotInDefinitions(this.propertiesRdfDefinitions);
@@ -176,10 +179,15 @@ public class GeneralRDFQueryDefinition {
 		
 		String subjectPropertyString = propertyString(subjectpropsDefinitions);
 		String objectPropertyString = propertyString(objectspropsDefinitions);
+		
+		
 		String subjectOutput = outputRETURNString(subjectpropsNotInDefinitions,true);
 		
 		String objectOutput = outputRETURNString(objectpropsNotInDefinitions,false);
 		
+		System.out.println("Subject out Property String: " + subjectOutput);
+		System.out.println("Object out Property String: " + objectOutput);
+
 		String relationString = relationNameString.substring(8);
 		
 		totalQueryString.append("MATCH ");
@@ -189,7 +197,7 @@ public class GeneralRDFQueryDefinition {
 		totalQueryString.append(relationString);
 		totalQueryString.append("]->(object ");
 		totalQueryString.append(objectPropertyString);
-		totalQueryString.append(") RETURN DISTINCT ");
+		totalQueryString.append(") RETURN ");
 		totalQueryString.append(subjectOutput);
 		if(subjectOutput.length() > 0) {
 			totalQueryString.append(", ");

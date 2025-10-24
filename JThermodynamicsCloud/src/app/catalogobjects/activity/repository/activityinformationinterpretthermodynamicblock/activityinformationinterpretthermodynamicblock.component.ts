@@ -45,7 +45,7 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 	identifier: string = Ontologyconstants.dctermsidentifier;
 
 
-	molarenthalpyparameter = 'dataset:ParameterSpecificationEnthaply';
+	molarenthalpyparameter = 'dataset:ParameterSpecificationEnthalpy';
 	molarentropyarameter = 'dataset:ParameterSpecificationEntropy';
 	molarheatcapacityparameter = 'dataset:ParameterSpecificationHeatCapacity';
 	specsubtitle = 'Datasaet Specification';
@@ -73,6 +73,7 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 	@ViewChild('entropy') entropy!: ParameterspecificationComponent;
 	@ViewChild('heatcapacity') heatcapacity!: ParameterspecificationComponent;
 	@ViewChild('keywords') keywords!: KeywordlistprimitiveComponent;
+	@ViewChild('temperatures') temperatures!: KeywordlistprimitiveComponent;
 
 	private spec: SpecificationfordatasetComponent | undefined;
 	@ViewChild('spec')
@@ -142,11 +143,8 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 		const block = Hdisformat['dataset:interpretMethod'];
 		this.objectform.get('BlockInterpretationMethod')!.setValue(block);
 		this.objectform.get('DescriptionTitle')!.setValue(activityinfo[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
-
-		const specid = this.annoinfo['dataset:SpecificationForDataset'][this.identifier];
-		const specdata = activityinfo[specid];
 		if (this.spec) {
-			this.spec.setData(specdata);
+			this.spec.setData(activityinfo);
 		}
 	}
 
@@ -163,7 +161,7 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 		this.spec!.getData(activity);
 		const enthalpyvalue = {};
 		this.enthalpy.getData(enthalpyvalue);
-		activity[this.annoinfo['dataset:ParameterSpecificationEnthaply'][this.identifier]] = enthalpyvalue;
+		activity[this.annoinfo['dataset:ParameterSpecificationEnthalpy'][this.identifier]] = enthalpyvalue;
 		const entropyvalue = {};
 		this.entropy.getData(entropyvalue);
 		activity[this.annoinfo['dataset:ParameterSpecificationEntropy'][this.identifier]] = entropyvalue;
@@ -186,30 +184,45 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 		tempparam[parametertypeid] = 'dataset:FixedParameter';
 		const uncertaintyid = this.annoinfo['dataset:DataPointUncertainty'][this.identifier];
 		tempparam[uncertaintyid] = 'dataset:ImpliedDigitsUncertainty';
+		this.getTemperatures();
 		activity[this.annoinfo['dataset:JThermodynamicBensonTemperatures'][this.identifier]] = this.temperaturelist;
 	}
 	setData(activity: any): void {
-		if (this.annoinfo) {
+		if (this.annoinfo && activity) {
 			this.objectform.get('FileSourceFormat')!.setValue(activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]]);
 			this.objectform.get('DescriptionTitle')!.setValue(activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
-			const specid = this.annoinfo['dataset:SpecificationForDataset'][this.identifier];
 			if (this.spec) {
-				this.spec!.setData(activity[specid]);
+				this.spec!.setData(activity);
 			}
-			if(this.entropy) {
-			const entropyvalue = activity[this.annoinfo['dataset:ParameterSpecificationEntropy'][this.identifier]];
-			this.entropy.setData(entropyvalue);
+			if (this.entropy) {
+				const entropyvalue = activity[this.annoinfo['dataset:ParameterSpecificationEntropy'][this.identifier]];
+				console.log("Entropy: " + JSON.stringify(entropyvalue));
+				this.entropy.setData(entropyvalue);
 			}
-			if(this.heatcapacity) {
-			const heatcapacityvalue = activity[this.annoinfo['dataset:ParameterSpecificationHeatCapacity'][this.identifier]];
-			this.heatcapacity.setData(heatcapacityvalue);				
+			if (this.heatcapacity) {
+				const heatcapacityvalue = activity[this.annoinfo['dataset:ParameterSpecificationHeatCapacity'][this.identifier]];
+				this.heatcapacity.setData(heatcapacityvalue);
 			}
-			this.temperaturelist = activity[this.annoinfo['dataset:JThermodynamicBensonTemperatures'][this.identifier]];
-			if(this.enthalpy) {
-			const enthalpyvalue = activity[this.annoinfo['dataset:ParameterSpecificationEnthalpy'][this.identifier]];
-			this.enthalpy.setData(enthalpyvalue);				
+			
+			const templist = activity[this.annoinfo['dataset:JThermodynamicBensonTemperatures'][this.identifier]];
+			if(templist){
+				this.temperaturelist = templist;
+			}
+			this.setTemperatures();
+			if (this.enthalpy) {
+				const enthalpyvalue = activity[this.annoinfo['dataset:ParameterSpecificationEnthalpy'][this.identifier]];
+				this.enthalpy.setData(enthalpyvalue);
 			}
 		}
+	}
+
+	setTemperatures() {
+		const stringArray: string[] = this.temperaturelist.map((num: number) => String(num));
+		this.temperatures.setKeys(stringArray);
+	}
+	getTemperatures() {
+		const stringArray = this.temperatures.getKeys();
+		this.temperaturelist = stringArray.map((numS: string) => Number(numS));
 	}
 
 	add(event: MatChipInputEvent): void {

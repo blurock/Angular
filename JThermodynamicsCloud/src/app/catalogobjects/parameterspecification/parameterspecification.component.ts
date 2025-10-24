@@ -100,6 +100,7 @@ export class ParameterspecificationComponent implements OnInit {
 	}
 
 	getData(specification: any) {
+		if(specification && this.annoinfo) {
 		this.setIDs();
 		specification[this.parameterlabeltid] = this.paramspecform.get('ParameterLabel')?.value ?? ''
 		const unitvalue: Record<string,unknown> = {};
@@ -108,9 +109,11 @@ export class ParameterspecificationComponent implements OnInit {
 		unitvalue[this.unitsofvalueid] = this.paramspecform.get('UnitsOfValue')?.value ?? ''
 		specification[this.parametertypeid] = this.paramspecform.get('ParameterTypeSpecification')?.value ?? ''
 		specification[this.uncertaintyid] = this.paramspecform.get('DataPointUncertainty')?.value ?? ''
+		}
 	}
 
 	setData(specification: any) {
+		if(specification && this.annoinfo) {
 		this.setIDs();
 		this.paramspecform.get('ParameterLabel')?.setValue(specification[this.parameterlabeltid]);
 		const valueunits = specification[this.unitsid]
@@ -118,6 +121,7 @@ export class ParameterspecificationComponent implements OnInit {
 		this.paramspecform.get('UnitsOfValue')?.setValue(valueunits[this.unitsofvalueid]);
 		this.paramspecform.get('ParameterTypeSpecification')?.setValue(specification[this.parametertypeid]);
 		this.paramspecform.get('DataPointUncertainty')?.setValue(specification[this.uncertaintyid]);
+		}
 	}
 	
 

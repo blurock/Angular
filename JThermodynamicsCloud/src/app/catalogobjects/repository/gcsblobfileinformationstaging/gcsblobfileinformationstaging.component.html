@@ -29,8 +29,9 @@
 							<input matInput formControlName="FileSourceFormat" [matMenuTriggerFor]="menu">
 							<mat-hint>{{anno['dataset:FileSourceFormat'][rdfscomment]}}</mat-hint>
 						</mat-form-field>
-						<mat-menu #menu="matMenu"/>
+						<mat-menu #menu="matMenu">
 						<app-menu-item #menu [items]="items" (selectionEvent)="setFileFormat($event)"></app-menu-item>
+						</mat-menu>
 					</mat-grid-tile>
 				</mat-grid-list>
 			</div>

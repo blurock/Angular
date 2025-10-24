@@ -38,7 +38,7 @@ export class ThermodynamiccontributionsComponent implements OnInit {
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
-	molarenthalpyparameter = 'dataset:ParameterSpecificationEnthaply';
+	molarenthalpyparameter = 'dataset:ParameterSpecificationEnthalpy';
 	molarentropyarameter = 'dataset:ParameterSpecificationEntropy';
 	molarheatcapacityparameter = 'dataset:ParameterSpecificationHeatCapacity';
 	molarenthalpy: any;

@@ -5,22 +5,22 @@
 		</mat-card-title-group>
 	</mat-card-header>
 	<mat-card-content>
-		<ng-container *ngIf='annoinfo != null; else loading'>
-			<ng-container *ngIf='specdisplay; else specloading'>
-				<app-parametervalue #enthalpyobj [(annoinfo)]="annoinfo" [(parameterinfo)]="enthalpyspec"
-					[(title)]="enthalpytitle"></app-parametervalue>
-				<app-parametervalue #entropyobj [(annoinfo)]="annoinfo" [(parameterinfo)]="entropyspec"
-					[(title)]="entropytitle"></app-parametervalue>
-				<app-parameterspecification #heatcapacityspecobj [(annoinfo)]="annoinfo"
-					[(parameterinfo)]="heatcapacityspec"></app-parameterspecification>
-				<app-parameterspecification #temperaturespecobj [(annoinfo)]="annoinfo"
-					[(parameterinfo)]="temperaturespec"></app-parameterspecification>
+		<ng-container *ngIf='annoinfo != null; else loading'>	
+				<ng-container *ngIf='specdisplay; else specloading'>
+				<app-parametervalue #enthalpyobj [annoinfo]="annoinfo" [parameterinfo]="enthalpyspec"
+					[title]="enthalpytitle"></app-parametervalue>
+				<app-parametervalue #entropyobj [annoinfo]="annoinfo" [parameterinfo]="entropyspec"
+					[title]="entropytitle"></app-parametervalue>
+				<app-parameterspecification #heatcapacityspecobj [annoinfo]="annoinfo"
+					[parameterinfo]="heatcapacityspec"></app-parameterspecification>
+				<app-parameterspecification #temperaturespecobj [annoinfo]="annoinfo"
+					[parameterinfo]="temperaturespec"></app-parameterspecification>
 					
-					
+			
 				<button mat-button color="primary" class="addbutton" (click)="addPair()">{{addpair}}</button>
 				
 					<ng-container *ngFor="let pair of pairs.controls; let countIndex=index">
-						<div class="count-form-row" [formGroup]="pair">
+						<div class="count-form-row" [formGroup]="$any(pair)">
 							<mat-grid-list cols="13" rowHeight="100px">
 								<mat-grid-tile [colspan]="4">
 									<mat-form-field class="label">
@@ -56,10 +56,8 @@
 						</div>
 					</ng-container>
 					
-								
-
 			</ng-container>
-			<ng-template #loading>
+			<ng-template #specloading>
 				<div>
 					Specification being loaded
 				</div>

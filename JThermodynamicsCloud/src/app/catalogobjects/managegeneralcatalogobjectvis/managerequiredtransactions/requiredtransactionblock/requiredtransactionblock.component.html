@@ -1,0 +1,27 @@
+<mat-card appearance="outlined" class="cardbase">
+	<mat-card-header>
+		<mat-card-title-group class="addlink">
+			<mat-card-subtitle>{{requiredtransactiontitle}}</mat-card-subtitle>
+		</mat-card-title-group>
+	</mat-card-header>
+
+	<mat-card-content>
+		<ng-container *ngIf='catalogtype; '>
+			<mat-grid-list cols="10" rowHeight="2rem" class="line">
+				<mat-grid-tile [colspan]="4">
+					{{catalogtype}}
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="4">
+					{{catalogkey}}
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="2">
+					<button mat-button class="button" 
+						(click)="showTransaction()">
+						<mat-icon>visibility</mat-icon>
+					</button>
+				</mat-grid-tile>
+			</mat-grid-list>
+		</ng-container>
+		<ng-template #requiredtransactions appLoadChild=""></ng-template>
+	</mat-card-content>
+</mat-card>
