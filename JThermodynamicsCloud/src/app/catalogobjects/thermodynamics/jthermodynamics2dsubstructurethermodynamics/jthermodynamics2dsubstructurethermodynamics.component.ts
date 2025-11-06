@@ -1,79 +1,73 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { ChemconnectthermodynamicsdatabaseComponent } from '../chemconnectthermodynamicsdatabase/chemconnectthermodynamicsdatabase.component';
 import { Jthermodynamics2dspeciesstructureComponent } from '../jthermodynamics2dspeciesstructure/jthermodynamics2dspeciesstructure.component';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { MenutreeserviceService } from '../../../services/menutreeservice.service';
+import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NavItem } from '../../../primitives/nav-item';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
+import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.component';
+import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
+import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
+import { NgIf } from '@angular/common';
 
 @Component({
 	selector: 'app-jthermodynamics2dsubstructurethermodynamics',
+	standalone: true,
+	imports: [
+		MatCardModule,
+		ReactiveFormsModule,
+		MatInputModule,
+		MatMenuModule,
+		MenuItemComponent,
+		ChemconnectthermodynamicsdatabaseComponent,
+		Jthermodynamics2dspeciesstructureComponent,
+		NgIf
+	],
 	templateUrl: './jthermodynamics2dsubstructurethermodynamics.component.html',
 	styleUrls: ['./jthermodynamics2dsubstructurethermodynamics.component.scss']
 })
-export class Jthermodynamics2dsubstructurethermodynamicsComponent implements OnInit {
+export class Jthermodynamics2dsubstructurethermodynamicsComponent extends CatalogbaseComponent implements AfterViewInit {
 
 	title = 'Temperature Dependent Thermodynamics of Species';
 
-	message = 'Still loading';
-	annoinfo: any;
 	catalogobj: any;
 	display = false;
 	specdisplay = false;
-	rdfslabel = Ontologyconstants.rdfslabel;
-	rdfscomment = Ontologyconstants.rdfscomment;
-	identifier = Ontologyconstants.dctermsidentifier;
-	items: NavItem[];
+	items: NavItem[] = [];
 	typeloc = 'dataset:JThermodynamicsSubstructureType';
 
+	objectform: UntypedFormGroup = new UntypedFormGroup({});
 
-	objectform = this.formBuilder.group({
-		JThermodynamicsSubstructureType: ['', Validators.required]
-	});
-
-	@Output() annoReady = new EventEmitter<any>();
-
-	catalogtype = 'dataset:JThermodynamics2DSubstructureThermodynamics';
-
-	@ViewChild('base') base: ChemconnectthermodynamicsdatabaseComponent;
-	@ViewChild('structure') structure: Jthermodynamics2dspeciesstructureComponent;
+	@ViewChild('base') base!: ChemconnectthermodynamicsdatabaseComponent;
+	@ViewChild('structure') structure!: Jthermodynamics2dspeciesstructureComponent;
 
 	constructor(
-		public annotations: OntologycatalogService,
 		private formBuilder: UntypedFormBuilder,
-		private menusetup: MenutreeserviceService
-
+		annotations: OntologycatalogService,
+		constants: UserinterfaceconstantsService,
+		cdRef: ChangeDetectorRef
 	) {
-		this.getCatalogAnnoations();
-	}
-
-	ngOnInit(): void {
-	}
-
-	public getCatalogAnnoations(): void {
-		this.message = 'Waiting for Info call';
-		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
-			next: (responsedata: any) => {
-				const response = responsedata;
-				this.message = response[Ontologyconstants.message];
-				if (response[Ontologyconstants.successful]) {
-					const catalog = response[Ontologyconstants.catalogobject];
-					this.catalogobj = catalog[Ontologyconstants.outputobject];
-					this.annoinfo = catalog[Ontologyconstants.annotations];
-					this.items = this.menusetup.findChoices(this.annoinfo, this.typeloc);
-					this.display = true;
-					this.annoReady.emit(this.annoinfo);
-				} else {
-					this.message = responsedata;
-				}
-			},
-			error: (info: any) => { alert('Get Annotations failed:' + this.message); }
+		super(constants, annotations, cdRef);
+		this.objectform = this.formBuilder.group({
+			JThermodynamicsSubstructureType: ['', Validators.required]
 		});
 	}
-	getData(catalog: any): void {
+
+	ngAfterViewInit(): void {
+		if (this.catalog != null) {
+			this.setData(this.catalog);
+		}
+	}
+	override annotationsFound(response: any): void {
+		super.annotationsFound(response);
+	}
+
+
+	override getData(catalog: any): void {
 		const id = this.annoinfo['dataset:JThermodynamicsSubstructureType'][this.identifier];
-		catalog[id] = this.objectform.get('JThermodynamicsSubstructureType').value;
+		catalog[id] = this.objectform.get('JThermodynamicsSubstructureType')!.value;
 
 		this.base.getData(catalog);
 		const struct = {};
@@ -81,17 +75,19 @@ export class Jthermodynamics2dsubstructurethermodynamicsComponent implements OnI
 		catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]] = struct;
 
 	}
-	setData(catalog: any): void {
-		const value = catalog[this.annoinfo['dataset:JThermodynamicsSubstructureType'][this.identifier]];
-		this.objectform.get('JThermodynamicsSubstructureType').setValue(value);
-		const struct = catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
-		this.structure.setData(struct);
-		this.base.setData(catalog);
+	override setData(catalog: any): void {
+		super.setData(catalog);
+		if (this.annoinfo) {
+			const value = catalog[this.annoinfo['dataset:JThermodynamicsSubstructureType'][this.identifier]];
+			this.objectform.get('JThermodynamicsSubstructureType')!.setValue(value);
+			const struct = catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
+			this.structure.setData(struct);
+			this.base.setData(catalog);
+		}
 	}
 
-	setType($event) {
-
-		this.objectform.get('JThermodynamicsSubstructureType').setValue($event);
+	setType($event: any) {
+		this.objectform.get('JThermodynamicsSubstructureType')!.setValue($event);
 	}
 
 }

@@ -17,6 +17,7 @@ import { NgIf } from '@angular/common';
 import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { SpecificationfordatasetComponent } from '../../specificationfordataset/specificationfordataset.component';
+import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
 
 
 @Component({
@@ -51,16 +52,20 @@ export class ChemconnectthermodynamicsdatabaseComponent implements OnInit {
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
 	specsubtitle = 'Collection Specification';
-
+ 	
+	istransaction: boolean = false;
+	transactionpositiontitle: string;
 
 	@ViewChild('databasespec') databasespec!: SpecificationfordatasetComponent;
 	@ViewChild('datasetspec') datasetspec!: DatasettransactionspecificationforcollectionComponent;
 	@ViewChild('firestoreid') firestoreid!: FiresytorecatalogidComponent;
+	@ViewChild('firestoreidtrans') firestoreidtrans!: FiresytorecatalogidComponent;
 	@ViewChild('references') references!: DatasetreferenceComponent;
 	@ViewChild('objectlinks') objectlinks!: SetofdataobjectlinksComponent;
 	@ViewChild('weblinks') weblinks!: SetofsitereferencesComponent;
 
 	constructor(
+		public interfaceconst: UserinterfaceconstantsService,
 		private manageuser: ManageuserserviceService,
 		private formBuilder: UntypedFormBuilder,
 		private menusetup: MenutreeserviceService
@@ -73,7 +78,7 @@ export class ChemconnectthermodynamicsdatabaseComponent implements OnInit {
 			CatalogObjectAccessModify: ['', Validators.required],
 			CatalogObjectAccessRead: ['', Validators.required]
 		});
-
+		this.transactionpositiontitle = interfaceconst.transactionpositiontitle;
 
 	}
 
@@ -102,8 +107,7 @@ export class ChemconnectthermodynamicsdatabaseComponent implements OnInit {
 	}
 
 	public setData(catalog: any): void {
-		const firestoreidvalues = catalog[this.annoinfo['dataset:FirestoreCatalogID'][this.identifier]];
-		this.firestoreid.setData(firestoreidvalues);
+		
 
 		this.objectform.get('DatabaseObjectType')!.setValue(catalog[this.annoinfo['dataset:DatabaseObjectType'][this.identifier]]);
 		this.objectform.get('CatalogObjectOwner')!.setValue(catalog[this.annoinfo['dataset:CatalogObjectOwner'][this.identifier]]);
@@ -115,7 +119,13 @@ export class ChemconnectthermodynamicsdatabaseComponent implements OnInit {
 			this.datasetspec.setData(catalog);
 		}  else {
 			this.databasespec.setData(catalog);
-		}		
+		}
+		if(!this.istransaction) {
+			if(catalog[Ontologyconstants.FirestoreCatalogIDForTransaction]) {
+			 	this.firestoreidtrans.setData(catalog[Ontologyconstants.FirestoreCatalogIDForTransaction]);
+			}
+		}
+		this.firestoreid.setData(catalog[Ontologyconstants.FirestoreCatalogID]);
 		const refs = catalog[this.annoinfo['dataset:DataSetReference'][this.identifier]];
 		this.references.setData(refs);
 		const olinks = catalog[this.annoinfo['dataset:DataObjectLink'][this.identifier]];
@@ -134,8 +144,12 @@ export class ChemconnectthermodynamicsdatabaseComponent implements OnInit {
 		this.references.getData(catalog);
 		this.weblinks.getData(catalog);
 		this.objectlinks.getData(catalog);
+		if(!this.istransaction) {
+			this.firestoreidtrans.getData(catalog);
+			catalog[Ontologyconstants.FirestoreCatalogIDForTransaction] = catalog[Ontologyconstants.FirestoreCatalogID];
+		}
 		this.firestoreid.getData(catalog);
-	if(this.dataset) {
+		if(this.dataset) {
 		this.datasetspec.getData(catalog);
 	}  else {
 		this.databasespec.getData(catalog);

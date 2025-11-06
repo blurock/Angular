@@ -60,6 +60,15 @@ export class ActivityinformationinterpretsubstructurethermodynamicsComponent ext
 		this.catalogtype = 'dataset:ActivityInformationInterpretSubstructureThermodynamics';
 		this.getCatalogAnnoations();
 	}
+	
+	override invalid(): boolean {
+    	const valid = !this.objectform.invalid;
+		var thermovalid = false;
+		if(this.thermo) {
+			thermovalid = !this.thermo.invalid();
+		}
+		return !(valid || thermovalid);
+	}
 
 	setJThermodynamicsSpeciesSpecificationType($event: String) {
 		this.objectform.get('JThermodynamicsSpeciesSpecificationType')!.setValue($event);

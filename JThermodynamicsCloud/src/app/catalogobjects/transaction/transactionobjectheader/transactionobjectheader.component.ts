@@ -102,9 +102,8 @@ export class TransactionobjectheaderComponent {
 		this.getCatalogAnnoations();
 	}
 
-	invalid() {
-
-	}
+	
+	@Input() invalid?: () => boolean;
 	@Input() prerequisiteid: string = '';
 	@Input() setData?: (catalog: any) => void;
 	@Input() getData?: (catalog: any) => void;
@@ -152,6 +151,14 @@ export class TransactionobjectheaderComponent {
 				});
 			}
 		}
+	}
+	
+	headerInValid(): boolean {
+		var ans: boolean = true;
+		if(this.invalid) {
+			ans = this.invalid();
+		}
+		return ans;
 	}
 
 	displayActivity(): void {

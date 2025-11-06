@@ -9,7 +9,7 @@ import { RepositoryparsedtofixedblocksizeComponent } from '../repository/partiti
 //import { JthermodynamicdisassociationenergyComponent } from '../thermodynamics/jthermodynamicdisassociationenergy/jthermodynamicdisassociationenergy.component';
 //import { JthermodynamicsvibrationalstructureComponent } from '../thermodynamics/jthermodynamicsvibrationalstructure/jthermodynamicsvibrationalstructure.component';
 //import { Jthermodynamics2dmoleculethermodynamicsComponent } from '../thermodynamics/jthermodynamics2dmoleculethermodynamics/jthermodynamics2dmoleculethermodynamics.component';
-//import { Jthermodynamics2dsubstructurethermodynamicsComponent } from '../thermodynamics/jthermodynamics2dsubstructurethermodynamics/jthermodynamics2dsubstructurethermodynamics.component';
+import { Jthermodynamics2dsubstructurethermodynamicsComponent } from '../thermodynamics/jthermodynamics2dsubstructurethermodynamics/jthermodynamics2dsubstructurethermodynamics.component';
 import { ThermodynamicbensonruledefinitionComponent } from '../thermodynamics/thermodynamicbensonruledefinition/thermodynamicbensonruledefinition.component';
 import { JthermodynamicssymmetrystructuredefinitionComponent } from '../thermodynamics/jthermodynamicssymmetrystructuredefinition/jthermodynamicssymmetrystructuredefinition.component';
 import { NgIf } from '@angular/common';
@@ -68,9 +68,8 @@ export class GeneralcatalogobjectvisualizationComponent implements AfterViewInit
 	public setChild(catalogtype: string): void {
 		this.catalogtype = catalogtype;
 		this.title = this.catalogtype;
-		this.dynamicChild.clear();
 		if (this.dynamicChild) {
-			
+			this.dynamicChild.clear();
 			this.isNotSetUp = false;
 			if (catalogtype === 'dataset:RepositoryFileStaging') {
 				this.componentRef = this.dynamicChild.createComponent(DatasetrepositoryfilestagingComponent);
@@ -97,17 +96,27 @@ export class GeneralcatalogobjectvisualizationComponent implements AfterViewInit
 			} else if (catalogtype === 'dataset:JThermodynamicsMetaAtomDefinitionDatabase') {
 				this.componentRef = this.dynamicChild.createComponent(JthermodynamicsmetaatomdefinitionComponent);
 				this.componentRef.instance.catalogtype = 'dataset:JThermodynamicsMetaAtomDefinitionDatabase';
-			} else if (catalogtype === 'dataset:JThermodynamicsMetaAtomDefinitionDataSet') {
-				this.componentRef = this.dynamicChild.createComponent(JthermodynamicsmetaatomdefinitionComponent);
-				this.componentRef.instance.catalogtype = 'dataset:JThermodynamicsMetaAtomDefinitionDataSet';
+			} else if (catalogtype === 'dataset:JThermodynamics2DSubstructureThermodynamicsDataSet') {
+				this.componentRef = this.dynamicChild.createComponent(Jthermodynamics2dsubstructurethermodynamicsComponent);
+				this.componentRef.instance.catalogtype = 'dataset:JThermodynamics2DSubstructureThermodynamicsDataSet';
+			} else if (catalogtype === 'dataset:JThermodynamics2DSubstructureThermodynamicsDatabase') {
+				this.componentRef = this.dynamicChild.createComponent(Jthermodynamics2dsubstructurethermodynamicsComponent);
+				this.componentRef.instance.catalogtype = 'dataset:JThermodynamics2DSubstructureThermodynamicsDatabase';
+			} else if (catalogtype === 'dataset:JThermodynamicsVibrationalStructureDataSet') {
+				this.componentRef = this.dynamicChild.createComponent(Jthermodynamics2dsubstructurethermodynamicsComponent);
+				this.componentRef.instance.catalogtype = 'dataset:JThermodynamicsVibrationalStructureDataSet';
+			} else if (catalogtype === 'dataset:JThermodynamicsVibrationalStructureDatabase') {
+				this.componentRef = this.dynamicChild.createComponent(Jthermodynamics2dsubstructurethermodynamicsComponent);
+				this.componentRef.instance.catalogtype = 'dataset:JThermodynamicsVibrationalStructureDatabase';
 			} else {
 				//this.componentRef.instance.getCatalogAnnoations();
 				this.isNotSetUp = true;
 				alert('GeneralcatalogobjectvisualizationComponent catalog object not found: "' + catalogtype + '""');
 			}
 
-
 			/*
+			JThermodynamicsVibrationalStructureDataSet
+			
 		} else if (catalogtype === 'dataset:JThermodynamicsDisassociationEnergyOfStructure') {
 			if (this.isNotSetUp) {
 				this.componentRef = this.dynamicChild.viewContainerRef.createComponent(JthermodynamicdisassociationenergyComponent);

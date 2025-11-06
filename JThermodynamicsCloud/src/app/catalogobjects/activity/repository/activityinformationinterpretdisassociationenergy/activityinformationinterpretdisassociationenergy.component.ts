@@ -85,7 +85,7 @@ export class ActivityinformationinterpretdisassociationenergyComponent extends C
 		this.objectform.get('JThermodynamicsSpeciesSpecificationType')!.setValue(this.speciesspecification);
 
 	}
-	invalid(): boolean {
+	override invalid(): boolean {
 		var ans = this.objectform.invalid;
 		return ans;
 	}

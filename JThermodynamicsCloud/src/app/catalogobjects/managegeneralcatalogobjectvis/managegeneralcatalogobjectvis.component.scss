@@ -8,3 +8,19 @@
 	float: right;
 	width: 100%;
 }
+.transactionbutton {
+	float: right;
+}
+.scroll-container {
+  /* Set a fixed height or max-height */
+  max-height: 200px; 
+  /* or a fixed height: height: 300px; */
+  
+  /* Key property: enables vertical scrolling */
+  overflow-y: auto; 
+  
+  /* Optional: Adds a border to make the scrollable area visible */
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+

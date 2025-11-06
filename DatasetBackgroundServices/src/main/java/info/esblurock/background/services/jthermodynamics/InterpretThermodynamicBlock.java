@@ -95,12 +95,19 @@ public class InterpretThermodynamicBlock {
 			point.parse(line1, line1a, line2, line3, line1aB, group, group);
 			phase = "Interpret Molecule";
 			JsonObject molstructure = interpretMoleculeStructure(point, row, info);
+			String molnameString = molstructure.get(ClassLabelConstants.JThermodynamicsStructureName).getAsString();
 			molthermo.add(ClassLabelConstants.JThermodynamics2DSpeciesStructure, molstructure);
 			phase = "Get";
 			JsonObject molthermodynamics = molthermo.get(ClassLabelConstants.JThermodynamicStandardThermodynamics)
 					.getAsJsonObject();
 			phase = "Interpret Thermodynamics";
 			interpretStandardThermodynamics(point, molthermodynamics, info, row);
+			JsonObject enthalpyObject = molthermodynamics.get(ClassLabelConstants.ThermodynamicStandardEnthalpy).getAsJsonObject();
+			String enthalpyValue = enthalpyObject.get(ClassLabelConstants.ValueAsString).getAsString();
+			JsonObject entropyObject = molthermodynamics.get(ClassLabelConstants.ThermodynamicStandardEntropy).getAsJsonObject();
+			String entropyValue = entropyObject.get(ClassLabelConstants.ValueAsString).getAsString();
+			String descriptionString = molnameString + ":\tEnthalpy=" + enthalpyValue + "\tEntropy=" + entropyValue;
+			molthermo.addProperty(ClassLabelConstants.ShortDescription, descriptionString);
 			phase = "complete";
 		} catch (JThergasReadException e) {
 			noerror = false;

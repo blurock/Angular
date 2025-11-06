@@ -17,6 +17,9 @@ import { RunserviceprocessService } from '../../services/runserviceprocess.servi
 import { Ontologyconstants } from '../../const/ontologyconstants';
 import { ManagerdfcatalogidelelementsComponent } from './managerdfcatalogidelelements/managerdfcatalogidelelements.component';
 import { ManagerequiredtransactionsComponent } from './managerequiredtransactions/managerequiredtransactions.component';
+import { MatIconModule } from '@angular/material/icon';
+import { DeletetransactionService } from '../../services/deletetransaction.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 
 
@@ -30,7 +33,9 @@ import { ManagerequiredtransactionsComponent } from './managerequiredtransaction
 		ManagerequiredtransactionsComponent,
 		MatDialogModule, MatCardModule, MatButtonModule,
 		MatGridListModule, MatFormFieldModule, MatTabsModule,
-		MatSelectModule, MatTooltipModule, 
+		MatSelectModule,
+		MatTooltipModule,
+		MatIconModule,
 		NgFor
 	]
 })
@@ -44,7 +49,8 @@ export class ManagegeneralcatalogobjectvisComponent {
 		'dataset:RepositoryParsedToFixedBlockSize',
 		'dataset:RepositoryTherGasThermodynamicsBlock',
 		'dataset:JThermodynamicsDisassociationEnergyOfStructure',
-		'dataset:JThermodynamicsVibrationalStructure',
+		'dataset:dataset:JThermodynamicsVibrationalStructureDataSet',
+		'dataset:dataset:JThermodynamicsVibrationalStructureDatabase',
 		'dataset:JThermodynamics2DSpeciesStructure',
 		'dataset:JThermodynamics2DSubstructureThermodynamics',
 		'dataset:ThermodynamicBensonRuleDefinitionDataSet',
@@ -53,7 +59,10 @@ export class ManagegeneralcatalogobjectvisComponent {
 		'dataset:JThermodynamicsMetaAtomDefinitionDatabase',
 		'dataset:JThermodynamicsSymmetryStructureDefinitionDataSet',
 		'dataset:JThermodynamicsSymmetryStructureDefinitionDatabase',
-		'dataset:ThermodynamicsDatasetCollectionIDsSet'];
+		'dataset:JThermodynamics2DSubstructureThermodynamicsDataSet',
+		'dataset:JThermodynamics2DSubstructureThermodynamicsDatabase',
+		'dataset:ThermodynamicsDatasetCollectionIDsSet'
+	];
 
 	choice = 'Choose Catalog Object';
 
@@ -68,7 +77,9 @@ export class ManagegeneralcatalogobjectvisComponent {
 
 	annoinfo: any;
 	maintainer: any;
-	resultHtml: string = '';
+	resultString: string = ""
+	resultHtml: SafeHtml = '';
+	transactionresultHtml: SafeHtml = '';
 
 	message: string = '';
 	catalogobj: any;
@@ -78,7 +89,8 @@ export class ManagegeneralcatalogobjectvisComponent {
 	catalogtype: string = '';
 	transactioncatalogobjects: string;
 	
-	
+	parser = new DOMParser();
+	resultDocument: Document;
 	
 
 	@ViewChild('catalogvis') catalogvis?: GeneralcatalogobjectvisualizationComponent;
@@ -87,6 +99,8 @@ export class ManagegeneralcatalogobjectvisComponent {
 	@ViewChild('container', { read: ViewContainerRef }) container!: ViewContainerRef;
 	componentRef!: ComponentRef<GeneralcatalogobjectvisualizationComponent>;
 	constructor(
+		private sanitizer: DomSanitizer,
+		public deletetransaction: DeletetransactionService,
 		private componentFactoryResolver: ComponentFactoryResolver,
 		public dialog: MatDialog,
 		manageuser: ManageuserserviceService,
@@ -101,29 +115,33 @@ export class ManagegeneralcatalogobjectvisComponent {
 			}
 		});
 		this.transactioncatalogobjects = 'Transaction';
+		
+		this.resultDocument = this.parser.parseFromString('', 'text/html');
 	}
-	transactionReady(transactonID: any): void {
+	transactionReady(transactionID: any): void {
+		/*
 		const json: Record<string, unknown> = {};
-		json[Ontologyconstants.service] = 'transactonID';
+		json[Ontologyconstants.service] = 'RDFTransactionID';
 		this.runservice.run(json).subscribe({
 			next: (responsedata: any) => {
 				const success = responsedata[Ontologyconstants.successful];
+				this.addMessage(responsedata[Ontologyconstants.message]);
 				if (success == 'true') {
 					const array = responsedata[Ontologyconstants.catalogobject];
-
+					
 				} else {
 
 				}
 			}
 		});
-
-
+		*/
 	}
+
 	annoReady(annoinfo: any): void {
 		this.cdRef.detectChanges();
 	}
 	messageReady($event: string): void {
-		this.resultHtml = $event;
+		this.addMessage($event);
 	}
 
 	fetchInformation() {
@@ -138,7 +156,8 @@ export class ManagegeneralcatalogobjectvisComponent {
 		dialogRef.afterClosed().subscribe(result => {
 			if (result != null) {
 				const success = result[Ontologyconstants.successful];
-				this.resultHtml = result[Ontologyconstants.message];
+				this.addMessage(result[Ontologyconstants.message]);
+				console.log("fetchInformation()\n" + result[Ontologyconstants.message]);
 				if (success == 'true') {
 					if (result != null) {
 						const catalog = result[Ontologyconstants.catalogobject];
@@ -153,7 +172,7 @@ export class ManagegeneralcatalogobjectvisComponent {
 					alert('Error in reading: ' + JSON.stringify(result));
 				}
 			} else {
-				this.resultHtml = this.readinfailed;
+				this.addMessage(this.readinfailed);
 			}
 
 		});
@@ -178,6 +197,14 @@ export class ManagegeneralcatalogobjectvisComponent {
 		myDialogRef.afterClosed().subscribe(result => {
 		});
 	}
+	public deleteTransaction(): void {
+		const catalog:any = {};
+		this.catalogvis?.getData(catalog);
+		console.log("deleteTransaction(): " + Object.keys(catalog));
+		const firestoreid = catalog[Ontologyconstants.FirestoreCatalogIDForTransaction];
+		this.deletetransaction.deleteTransaction(firestoreid,this.transactionresultHtml);
+	}
+	
 	public saveCatalog(): void {
 		const catalog = {};
 		this.catalogvis?.getData(catalog);
@@ -207,6 +234,7 @@ export class ManagegeneralcatalogobjectvisComponent {
 		json[Ontologyconstants.FirestoreID] = firestoreid;
 		this.runservice.run(json).subscribe({
 			next: (responsedata: any) => {
+				this.addMessage(responsedata[Ontologyconstants.message]);
 				if(responsedata[Ontologyconstants.successful]) {
 				const catalog = responsedata[Ontologyconstants.catalogobject];
 				this.componentRef = this.container.createComponent(GeneralcatalogobjectvisualizationComponent);
@@ -222,4 +250,27 @@ export class ManagegeneralcatalogobjectvisComponent {
 		
 		
 	    }
+		
+		
+	addMessage(message:string) {
+		console.log("addMessage:\n" + message);
+		const doc: Document = this.parser.parseFromString(message, 'text/html');
+		if(doc.body) {
+			this.mergeDocumentBodies(this.resultDocument,doc);
+			const rawHtmlString = this.resultDocument.body.innerHTML;
+			this.resultHtml = this.sanitizer.bypassSecurityTrustHtml(rawHtmlString);
+		}
+	}
+	
+	private mergeDocumentBodies(targetDoc: Document, sourceDoc: Document): void {
+	    const targetBody = targetDoc.body;
+	    const sourceBody = sourceDoc.body;
+
+	    if (targetBody && sourceBody) {
+	      while (sourceBody.firstChild) {
+	        targetBody.appendChild(sourceBody.firstChild);
+	      }
+	    }
+	  }
+	
 }

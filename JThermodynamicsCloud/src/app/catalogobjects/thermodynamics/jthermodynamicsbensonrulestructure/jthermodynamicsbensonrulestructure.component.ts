@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, Input, AfterViewInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormArray, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { MatCardModule } from '@angular/material/card';

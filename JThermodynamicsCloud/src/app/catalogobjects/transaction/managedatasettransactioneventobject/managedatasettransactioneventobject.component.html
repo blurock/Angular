@@ -16,6 +16,7 @@
 		<mat-card-content>
 			<app-transactionobjectheader #infoheader 
 			    [prerequisiteid]="prerequisiteid"
+				[invalid]="invalid.bind(this)"
 				[setData]="setActivityData.bind(this)" 
 				[getData]="getActivityData.bind(this)"
 				[setPrerequisiteData]="setActivityPrerequisiteData.bind(this)" 

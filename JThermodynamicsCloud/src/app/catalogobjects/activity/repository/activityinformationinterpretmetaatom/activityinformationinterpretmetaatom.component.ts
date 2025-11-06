@@ -82,7 +82,7 @@ export class ActivityinformationinterpretmetaatomComponent extends Catalogactivi
 
 	}
 
-	invalid(): boolean {
+	override invalid(): boolean {
 		return this.objectform.invalid;
 	}
 

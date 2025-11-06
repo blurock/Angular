@@ -53,7 +53,7 @@ public enum DeleteTransactionCatalogObjects {
 				throws InterruptedException, ExecutionException {
 			body.addElement("div","Deleting blob: ");
 			JsonObject catalog = ReadFirestoreInformation.readUsingDocumentReference(firestoreid, docref);
-			JsonObject response = DatasetObjectLabelListManipulation.deleteElementsFromLabelSets(transaction,catalog, body);
+			//JsonObject response = DatasetObjectLabelListManipulation.deleteElementsFromLabelSets(transaction,catalog, body);
 		}
 		
 	};

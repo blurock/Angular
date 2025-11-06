@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { ParametervalueComponent } from '../../parametervalue/parametervalue.component';

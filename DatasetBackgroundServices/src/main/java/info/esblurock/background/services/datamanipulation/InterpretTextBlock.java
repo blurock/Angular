@@ -433,7 +433,7 @@ public enum InterpretTextBlock {
                     CreateLinksInStandardCatalogInformation.linkCatalogObjects(parsed,
                             "dataset:ConceptLinkRepositoryPartitionToInterpretation", catalog);
                     catalogset.add(catalog);
-                    DatasetObjectLabelListManipulation.addToChemConnectDatabaseObjectsForLabel(event, catalog);
+                    //DatasetObjectLabelListManipulation.addToChemConnectDatabaseObjectsForLabel(event, catalog);
      
                 } else {
                     errors.add(parsed);

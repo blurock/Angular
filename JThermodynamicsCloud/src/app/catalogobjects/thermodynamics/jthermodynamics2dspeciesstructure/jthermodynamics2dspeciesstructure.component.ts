@@ -7,7 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgIf } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.component';
 
 @Component({
 	selector: 'app-jthermodynamics2dspeciesstructure',

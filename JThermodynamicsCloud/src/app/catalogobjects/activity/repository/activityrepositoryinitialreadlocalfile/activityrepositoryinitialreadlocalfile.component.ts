@@ -75,7 +75,7 @@ export class ActivityrepositoryinitialreadlocalfileComponent extends Catalogacti
 	
 
 	
-	invalid(): boolean {
+	override invalid(): boolean {
 	     let ans = true;
 	     if(this.reposfile != null) {
 			 ans = this.reposfile.invalid() || this.infoform.invalid;

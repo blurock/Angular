@@ -10,14 +10,16 @@
 				<mat-form-field class="type">
 					<mat-label>{{annoinfo['dataset:JThermodynamicsSubstructureType'][rdfslabel]}}</mat-label>
 					<input matInput formControlName="JThermodynamicsSubstructureType"
-						[matMenuTriggerFor]="menu.childMenu">
+						[matMenuTriggerFor]="menu">
 					<mat-hint>{{annoinfo['dataset:JThermodynamicsSubstructureType'][rdfscomment]}}</mat-hint>
 				</mat-form-field>
+				<mat-menu #menu="matMenu">
 				<app-menu-item #menu [items]="items" (selectionEvent)="setType($event)"></app-menu-item>
+				</mat-menu>
 			</form>
-			<app-jthermodynamics2dspeciesstructure #structure [(annoinfo)]="annoinfo">
+			<app-jthermodynamics2dspeciesstructure #structure [annoinfo]="annoinfo">
 			</app-jthermodynamics2dspeciesstructure>
-			<app-chemconnectthermodynamicsdatabase #base [(annoinfo)]="annoinfo" [(catalogtype)]="catalogtype">
+			<app-chemconnectthermodynamicsdatabase #base [annoinfo]="annoinfo" [catalogtype]="catalogtype">
 			</app-chemconnectthermodynamicsdatabase>
 
 		</ng-container>

@@ -91,7 +91,7 @@ export class ActivityrepositorypartitiontocatalogComponent extends Catalogactivi
 	ngOnInit(): void {
 	}
 
-	invalid(): boolean {
+	override invalid(): boolean {
 		return this.parseinfoform.invalid
 			|| this.spec.invalid();
 	}

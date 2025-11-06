@@ -9,6 +9,7 @@ import com.google.cloud.firestore.DocumentReference;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import esblurock.info.neo4j.rdf.RDFDelete;
 import info.esblurock.background.services.firestore.DeleteCatalogDataObject;
 import info.esblurock.background.services.firestore.ReadFirestoreInformation;
 import info.esblurock.background.services.firestore.SetUpDocumentReference;
@@ -102,10 +103,9 @@ public class DeleteTransaction extends DeleteCatalogDataObject {
 		String message1 = "Deleted objects: " + Integer.toString(deleted);
 		body.addElement("div").addText(message1);
 		String transactionid = transaction.get(ClassLabelConstants.TransactionID).getAsString();
-		int rdfdeleted = DeleteRDFs.deleteRDFs(transactionid);
-		String message2 = "Deleted RDFs: " + Integer.toString(rdfdeleted);
-		body.addElement("div").addText(message2);
-		deleted += rdfdeleted;
+		
+		JsonObject deleteresponseJsonObject = RDFDelete.deleteRDFsWithTransactionID(transactionid);
+		MessageConstructor.combineBodyIntoDocument(document, deleteresponseJsonObject.get(ClassLabelConstants.ServiceResponseMessage).getAsString());
 
 		JsonObject transid = transaction.get(ClassLabelConstants.FirestoreCatalogID).getAsJsonObject();
 		DocumentReference docref = SetUpDocumentReference.setup(db, transid);

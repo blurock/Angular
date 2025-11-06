@@ -70,7 +70,6 @@ export class CatalogbaseComponent  implements BaseCatalogInterface, OnChanges {
   }
   
   	annotationsFound(response: any): void {
-		console.log("CatalogbaseComponent annotationsFound")
 		if(this.catalog) {
 			this.setData(this.catalog);
 		}

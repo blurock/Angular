@@ -76,7 +76,7 @@ export class ActivityinformationinterpretsymmetryinformationComponent extends Ca
 	ngOnInit(): void {
 	}
 
-	invalid(): boolean {
+	override invalid(): boolean {
 		return this.objectform.invalid;
 	}
 

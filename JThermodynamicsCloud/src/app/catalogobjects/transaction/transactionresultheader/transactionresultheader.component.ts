@@ -140,9 +140,8 @@ export class TransactionresultheaderComponent implements AfterViewInit {
 				this.safeHtml = this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(this.failedsubmission);;
 			}
 		});
-
-
 	}
+	
 		public getCatalogAnnoations(): void {
 		this.annotations.getNewCatalogObject(this.catalogtype).subscribe({
 			next: (responsedata: any) => {

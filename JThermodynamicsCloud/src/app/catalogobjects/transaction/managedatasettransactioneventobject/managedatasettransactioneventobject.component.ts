@@ -117,6 +117,17 @@ export class ManagedatasettransactioneventobjectComponent implements OnInit, Aft
 		});
 
 	}
+	
+	invalid(): boolean {
+		var ans: boolean = true;
+		if(this.componentRef) {
+			
+		if(this.componentRef.instance) {
+			ans = this.componentRef.instance.invalid();
+		}
+		}
+		return ans
+	}
 
 	ngOnInit(): void {
 	}

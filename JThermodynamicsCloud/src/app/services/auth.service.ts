@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, Injector, NgZone, runInInjectionContext } from '@angular/core';
 import { signInWithPopup, GithubAuthProvider, GoogleAuthProvider, FacebookAuthProvider } from "@angular/fire/auth";
 import { Auth, onAuthStateChanged, User, idToken } from '@angular/fire/auth';
 import { ServiceUtilityRoutines } from './serviceutilityroutines';
@@ -27,7 +27,8 @@ export class AuthService {
 		public auth: Auth,
 		public router: Router,
 		public ngZone: NgZone, // NgZone service to remove outside scope warning
-		private httpClient: HttpClient
+		private httpClient: HttpClient,
+		private injector: Injector // Inject the Angular Injector
 	) {
         setLogLevel(LogLevel.VERBOSE);
 		this.isLoggedIn$ = this.user$.pipe(map(user => !!user))
@@ -128,7 +129,7 @@ export class AuthService {
 			console.error("Error getting ID token:", error);
 		}
 	}
-
+/*
 getToken(): Observable<string | null> {
     const tk = idToken(this.auth);
     return from(tk).pipe(
@@ -138,7 +139,23 @@ getToken(): Observable<string | null> {
       })
     );
   }
-  
+  */
+  getToken(): Observable<string | null> {
+      
+      // 1. Define the asynchronous operation using runInInjectionContext
+      const tokenPromise = runInInjectionContext(this.injector, () => {
+          // The idToken function is called within a valid injection context here.
+          return idToken(this.auth); 
+      });
+      
+      // 2. Convert the resulting Promise to an Observable and handle errors
+      return from(tokenPromise).pipe(
+        catchError((error) => {
+          console.error('Error getting ID token:', error);
+          return of(null); // Return an Observable of null in case of error
+        })
+      );
+  }
   postData(httpaddr: string, data: any): Observable<any> {
         return this.getToken().pipe( // Use getToken() as an Observable
             switchMap((token) => {

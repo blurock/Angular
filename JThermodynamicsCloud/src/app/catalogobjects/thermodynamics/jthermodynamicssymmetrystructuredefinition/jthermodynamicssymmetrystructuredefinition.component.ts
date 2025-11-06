@@ -1,10 +1,7 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { ChemconnectthermodynamicsdatabaseComponent } from '../chemconnectthermodynamicsdatabase/chemconnectthermodynamicsdatabase.component';
 import { Jthermodynamics2dspeciesstructureComponent } from '../jthermodynamics2dspeciesstructure/jthermodynamics2dspeciesstructure.component';
-import { UntypedFormBuilder, Validators, UntypedFormArray, UntypedFormGroup, ReactiveFormsModule, FormsModule, FormGroup } from '@angular/forms';
-import { MenutreeserviceService } from '../../../services/menutreeservice.service';
 import { NavItem } from '../../../primitives/nav-item';
 import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
@@ -17,6 +14,7 @@ import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.compo
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
+import { FormsModule, ReactiveFormsModule, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
 	selector: 'app-jthermodynamicssymmetrystructuredefinition',
@@ -39,7 +37,7 @@ import { MatSelectModule } from '@angular/material/select';
 		MatSelectModule, MatInput
 	]
 })
-export class JthermodynamicssymmetrystructuredefinitionComponent extends CatalogbaseComponent {
+export class JthermodynamicssymmetrystructuredefinitionComponent extends CatalogbaseComponent implements AfterViewInit{
 
 	dataset = false;
 	title = 'Symmetry Structure Information';
@@ -54,9 +52,7 @@ export class JthermodynamicssymmetrystructuredefinitionComponent extends Catalog
 	nodetypeloc = 'dataset:JThermodynamicsSymmetryDefinitionNodeType';
 
 
-	objectform: UntypedFormGroup = new UntypedFormGroup({});
-
-
+	objectform: UntypedFormGroup;
 
 	@ViewChild('base') base!: ChemconnectthermodynamicsdatabaseComponent;
 	@ViewChild('structure') structure!: Jthermodynamics2dspeciesstructureComponent;
@@ -79,6 +75,11 @@ export class JthermodynamicssymmetrystructuredefinitionComponent extends Catalog
 	}
 
 
+	ngAfterViewInit(): void {
+		if (this.catalog != null) {
+			this.setData(this.catalog);
+		}
+	}
 	override annotationsFound(response: any): void {
 		super.annotationsFound(response);
 	}

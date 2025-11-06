@@ -13,7 +13,6 @@ import { MatCardModule } from '@angular/material/card';
 import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
-import { MenuItemComponent } from '../../../../primitives/menu-item/menu-item.component';
 import { KeywordlistprimitiveComponent } from '../../../../primitives/keywordlistprimitive/keywordlistprimitive.component';
 
 @Component({
@@ -122,14 +121,13 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 
 
 	invalid(): boolean {
-		return this.objectform.invalid;
+		const paramvalid = !this.enthalpy.invalid() && !this.entropy.invalid() &&!this.heatcapacity.invalid();
+		return !(!this.objectform.invalid && paramvalid);
 	}
 
 	setPrerequisiteData(prerequisite: any): void {
 		this.prerequisite = prerequisite;
 		const activityinfo = prerequisite[Ontologyconstants.ActivityInfo];
-		console.log("setPrerequisiteData: " + Object.keys(activityinfo));
-		console.log("setPrerequisiteData: " + JSON.stringify(activityinfo));
 		this.fileformat = activityinfo['dataset:filesourceformat']
 		this.objectform.get('FileSourceFormat')!.setValue(this.fileformat);
 		if (this.annoinfo) {
@@ -196,7 +194,6 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 			}
 			if (this.entropy) {
 				const entropyvalue = activity[this.annoinfo['dataset:ParameterSpecificationEntropy'][this.identifier]];
-				console.log("Entropy: " + JSON.stringify(entropyvalue));
 				this.entropy.setData(entropyvalue);
 			}
 			if (this.heatcapacity) {
@@ -217,8 +214,10 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 	}
 
 	setTemperatures() {
-		const stringArray: string[] = this.temperaturelist.map((num: number) => String(num));
-		this.temperatures.setKeys(stringArray);
+		if(this.temperatures) {
+			const stringArray: string[] = this.temperaturelist.map((num: number) => String(num));
+			this.temperatures.setKeys(stringArray);
+		}
 	}
 	getTemperatures() {
 		const stringArray = this.temperatures.getKeys();

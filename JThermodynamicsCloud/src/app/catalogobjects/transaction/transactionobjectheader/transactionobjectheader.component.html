@@ -15,7 +15,7 @@
 	</mat-grid-tile>
 	<mat-grid-tile [colspan]="2">
 		<button mat-mini-fab color="primary" class="submit-btn" matTooltip="{{submitdescr}}" (click)="submit()"
-			[disabled]="invalid()">{{submitbutton}}</button>
+			[disabled]="headerInValid()">{{submitbutton}}</button>
 	</mat-grid-tile>
 <mat-divider></mat-divider>
 </mat-grid-list>

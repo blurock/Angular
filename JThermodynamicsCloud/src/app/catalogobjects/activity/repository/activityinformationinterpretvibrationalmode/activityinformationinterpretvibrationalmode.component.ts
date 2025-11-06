@@ -83,7 +83,7 @@ export class ActivityinformationinterpretvibrationalmodeComponent extends Catalo
 		});
 
 	}
-    invalid(): boolean {
+    override invalid(): boolean {
 		return this.objectform.invalid;
 	}
 	ngOnInit(): void {

@@ -338,6 +338,7 @@ public enum TransactionProcess {
 		}
 
 	},
+	/*
 	GenerateChemConnectDatabaseUniqueGenericLabelSetEvent {
 
 		@Override
@@ -360,6 +361,7 @@ public enum TransactionProcess {
 		}
 
 	},
+	
 	ModifyChemConnectDatabaseUniqueGenericLabelSetEvent {
 
 		@Override
@@ -383,6 +385,7 @@ public enum TransactionProcess {
 		}
 
 	},
+	*/
 	TransferDatasetObjectCollectionToDatabase {
 
 		@Override

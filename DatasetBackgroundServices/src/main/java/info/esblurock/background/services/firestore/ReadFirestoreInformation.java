@@ -65,7 +65,10 @@ public class ReadFirestoreInformation {
             DocumentReference docref = SetUpDocumentReference.setup(db, firestoreid);
             JsonObject catalog = readUsingDocumentReference(firestoreid,docref);
             if(catalog != null) {
-            	response = StandardResponse.standardServiceResponse(docmessage, "Success: ReadFirestoreInformation",
+            	String keyString = catalog.get(ClassLabelConstants.CatalogObjectKey).getAsString();
+            	String idString = catalog.get(ClassLabelConstants.CatalogObjectID).getAsString();
+            	String messageString = "Success: ReadFirestoreInformation: " + keyString + " (" + idString + ")";
+            	response = StandardResponse.standardServiceResponse(docmessage, messageString,
                     catalog);
             } else {
                 String message = "Document not found: ";

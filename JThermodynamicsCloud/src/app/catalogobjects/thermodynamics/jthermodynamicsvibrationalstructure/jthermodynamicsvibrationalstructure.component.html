@@ -27,15 +27,15 @@
 				</mat-grid-list>
 		</form>
 			<ng-container *ngIf='specdisplay; else specloading'>
-				<app-parametervalue #freqobject [(annoinfo)]="annoinfo" [(parameterinfo)]="frequency" [(title)]="frequencytitle"></app-parametervalue>
+				<app-parametervalue #freqobject [annoinfo]="annoinfo" [parameterinfo]="frequency" [title]="frequencytitle"></app-parametervalue>
 			</ng-container>
-			<ng-template #loading>
+			<ng-template #specloading>
 				<div>
 					Specification being loaded
 				</div>
 			</ng-template>
-			<app-jthermodynamics2dspeciesstructure #structure [(annoinfo)]="annoinfo"></app-jthermodynamics2dspeciesstructure>
-			<app-chemconnectthermodynamicsdatabase #base [(annoinfo)]="annoinfo" [(catalogtype)]="catalogtype">
+			<app-jthermodynamics2dspeciesstructure #structure [annoinfo]="annoinfo"></app-jthermodynamics2dspeciesstructure>
+			<app-chemconnectthermodynamicsdatabase #base [annoinfo]="annoinfo" [catalogtype]="catalogtype">
 			</app-chemconnectthermodynamicsdatabase>
 
 		</ng-container>
