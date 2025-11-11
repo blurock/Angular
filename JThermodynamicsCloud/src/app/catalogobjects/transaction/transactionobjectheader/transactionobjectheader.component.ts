@@ -45,6 +45,7 @@ export class TransactionobjectheaderComponent {
 	noprerequisite: string;
 	needrepositoryfile: string;
 	norerequisitesetup: string;
+	fetchactivitytitle: string;
 
 	displayinfo: string;
 	catalogtype = 'dataset:ServiceEventFindTransactionFromOwnerAndType';
@@ -87,6 +88,7 @@ export class TransactionobjectheaderComponent {
 		this.noprerequisite = constants.noprerequisite;
 		this.needrepositoryfile = constants.needrepositoryfile;
 		this.norerequisitesetup = constants.norerequisitesetup;
+		this.fetchactivitytitle = constants.fetchactivtytitle;
 
 		this.hasprerequisite = this.prerequisiteid.length > 0;
 
@@ -176,7 +178,7 @@ export class TransactionobjectheaderComponent {
 	}
 	fetchActivity(): void {
 		const dialogRef = this.dialog.open(UploadcatalogobjectComponent, {
-			data: { title: this.title }
+			data: { title: this.fetchactivitytitle }
 		});
 		dialogRef.afterClosed().subscribe(result => {
 			if (result) {

@@ -108,4 +108,8 @@ export class Ontologyconstants {
 	public static RequiredTransactionType = 'dataset:requiredtransactiontype';
 	public static RequiredTransactionKey = 'dataset:requiredtransactionkey'
 	
+	public static ParameterSpecificationTemperature = 'dataset:thermotemperature';
+	public static ParameterSpecificationHeatCapacity = 'dataset:paramspecheatcapacity';
+	public static JThermodynamics2DSubstructureThermodynamicsDataSet = 'dataset:2dsubstructurethermodataset';
+	
 }

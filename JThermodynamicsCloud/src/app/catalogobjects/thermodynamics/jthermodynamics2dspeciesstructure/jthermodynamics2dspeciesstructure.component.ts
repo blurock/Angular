@@ -52,6 +52,7 @@ export class Jthermodynamics2dspeciesstructureComponent implements OnInit {
 	}
 
 	getData(structure: any): void {
+		structure[Ontologyconstants.dctermsidentifier] = this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier];
 		structure[this.annoinfo['dataset:JThermodynamicsStructureAsCMLString'][this.identifier]] = this.objectform.get('JThermodynamicsStructureAsCMLString')?.value ?? '';
 		structure[this.annoinfo['dataset:JThermodynamicsStructureIsomerName'][this.identifier]] = this.objectform.get('JThermodynamicsStructureIsomerName')?.value ?? '';
 		structure[this.annoinfo['dataset:JThermodynamicsStructureName'][this.identifier]] = this.objectform.get('JThermodynamicsStructureName')?.value ?? '';

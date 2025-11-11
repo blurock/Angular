@@ -93,6 +93,9 @@ export class GeneralcatalogobjectvisualizationComponent implements AfterViewInit
 			} else if (catalogtype === 'dataset:RepositoryTherGasThermodynamicsBlock') {
 				this.componentRef = this.dynamicChild.createComponent(RepositorythergasthermodynamicsblockComponent);
 				this.componentRef.instance.catalogtype = 'dataset:RepositoryTherGasThermodynamicsBlock';
+			} else if (catalogtype === 'dataset:JThermodynamicsMetaAtomDefinitionDataSet') {
+				this.componentRef = this.dynamicChild.createComponent(JthermodynamicsmetaatomdefinitionComponent);
+				this.componentRef.instance.catalogtype = 'dataset:JThermodynamicsMetaAtomDefinitionDataSet';
 			} else if (catalogtype === 'dataset:JThermodynamicsMetaAtomDefinitionDatabase') {
 				this.componentRef = this.dynamicChild.createComponent(JthermodynamicsmetaatomdefinitionComponent);
 				this.componentRef.instance.catalogtype = 'dataset:JThermodynamicsMetaAtomDefinitionDatabase';
@@ -200,6 +203,10 @@ export class GeneralcatalogobjectvisualizationComponent implements AfterViewInit
 			this.messageReady.emit(this.componentRef.instance.message);
 		}
 
+	}
+	
+	public getNonModifiedData() {
+		return  this.componentRef.instance.catalog;
 	}
 
 	public getData(catalog: any): void {

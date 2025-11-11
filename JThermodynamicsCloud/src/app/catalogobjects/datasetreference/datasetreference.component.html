@@ -9,11 +9,33 @@
 	</mat-card-header>
 
 	<mat-card-content>
+		<ng-container *ngFor="let reference of displayarray">
+			<ng-container *ngIf="reference['publicationDOI']">
+				<app-citationdisplay [currentDoi]="reference['link']"></app-citationdisplay>
+			</ng-container>
+			<ng-container *ngIf="reference['ISBN']">
+				<app-isbndisplay [currentISBN]="reference['link']"></app-isbndisplay>
+			</ng-container>
+			<ng-container *ngIf="reference['dataDOI']">
+				<app-citationdisplay [currentDoi]="reference['link']"></app-citationdisplay>
+			</ng-container>
+			<ng-container *ngIf="reference['sitereference']">
+			<p class="citation">Data Site Reference: {{ reference['link'] }}</p>
+			</ng-container>
+		</ng-container>
+		<!--
 		<div [formGroup]="referencesForm">
 			<div formArrayName="references">
 				<div *ngFor="let reference of referenceset.controls; let empIndex=index" [formGroupName]="empIndex">
 					<mat-card appearance="outlined" class="bibliocard">
 						<mat-card-content>
+							<ng-container *ngIf="currentDoi">
+								<app-citationdisplay [currentDoi]="reference.get('DOI')?.value"></app-citationdisplay>
+							</ng-container>
+							<ng-container *ngIf="currentISBN">
+								<app-isbndisplay [currentISBN]="reference.get('DOI')?.value"></app-isbndisplay>
+							</ng-container>
+							
 							<mat-form-field class="bibliotitle">
 								<mat-label>{{annoinfo['dataset:ReferenceTitle'][rdfslabel]}}</mat-label>
 								<input matInput formControlName="ReferenceTitle" placeholder="Manuscript Title">
@@ -80,12 +102,12 @@
 								</div>
 							</div>
 
-
+							
 						</mat-card-content>
 					</mat-card>
 				</div>
 			</div>
 		</div>
-
+		-->
 	</mat-card-content>
 </mat-card>

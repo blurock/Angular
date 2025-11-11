@@ -91,11 +91,8 @@ export class RepositorydatapartitionblockComponent implements OnInit, AfterViewI
 			FileSourceFormat: ['File Format', Validators.required],
 			Position: ['', Validators.required]
 		});
-	console.log("RepositorydatapartitionblockComponent constructore")
 	this.annoReady.subscribe(result => {
 		this.annoinfo = result;
-		console.log("RepositorydatapartitionblockComponent constructore  subscribe")
-
 		this.items = this.menusetup.findChoices(this.annoinfo, this.formatmenulabel);
 		this.partitionitems = this.menusetup.findChoices(this.annoinfo, this.partitionmenulabel);
 		this.display = true;

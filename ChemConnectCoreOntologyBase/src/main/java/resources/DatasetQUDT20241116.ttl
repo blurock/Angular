@@ -2467,6 +2467,32 @@ xsd:date rdf:type rdfs:Datatype .
              owl:disjointWith :NASAPolynomialSet .
 
 
+###  http://www.esblurock.info/dataset#BibliographicLink
+:BibliographicLink rdf:type owl:Class ;
+                   rdfs:subClassOf :DOI ;
+                   <http://purl.org/dc/elements/1.1/type> :BibliographicLink ;
+                   <http://purl.org/dc/terms/identifier> "dataset:bibliographiclink" ;
+                   rdfs:comment "This link to bibilographic information such as DOI, ISBN and web link." ;
+                   rdfs:label "Bibliographic Link" ;
+                   <http://www.w3.org/2004/02/skos/core#altLabel> "bibliographiclink" .
+
+
+###  http://www.esblurock.info/dataset#BibliographicLinkType
+:BibliographicLinkType rdf:type owl:Class ;
+                       rdfs:subClassOf :Classification ;
+                       <http://purl.org/dc/elements/1.1/type> :BibliographicLinkType ;
+                       <http://purl.org/dc/terms/identifier> "dataset:bibliographiclinktype" ;
+                       rdfs:comment "The type of Bibliographic Link" ;
+                       rdfs:isDefinedBy :BibliographicLinkTypes ;
+                       rdfs:label "Bibliographic Link Type" ;
+                       <http://www.w3.org/2004/02/skos/core#altLabel> "bibliographiclinktype" .
+
+
+###  http://www.esblurock.info/dataset#BibliographicLinkTypes
+:BibliographicLinkTypes rdf:type owl:Class ;
+                        rdfs:subClassOf :ChemConnectClassifications .
+
+
 ###  http://www.esblurock.info/dataset#BibliographicReferenceElement
 :BibliographicReferenceElement rdf:type owl:Class ;
                                rdfs:subClassOf :CatalogObjectElements ,
@@ -2485,6 +2511,26 @@ xsd:date rdf:type rdfs:Datatype .
                                rdf:comment "This is a element with a bibliographic reference. There is only one reference per DOI identifier. This is to ensure consistency and to ensure that all references come to a common point." ;
                                rdfs:label "Bibliographic Reference Element" ;
                                <http://www.w3.org/2004/02/skos/core#altLabel> "bibliographicreferenceelement" .
+
+
+###  http://www.esblurock.info/dataset#BibliographicReferenceLink
+:BibliographicReferenceLink rdf:type owl:Class ;
+                            rdfs:subClassOf :ChemConnectCompoundBase ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :BibliographicLink
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://purl.org/dc/terms/hasPart> ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass :BibliographicLinkType
+                                            ] ;
+                            <http://purl.org/dc/elements/1.1/type> :BibliographicReferenceElement ;
+                            <http://purl.org/dc/terms/identifier> "dataset:bibliographicreferencelink" ;
+                            rdf:comment "The bibliographic reference link for the data object" ;
+                            rdfs:label "Bibliographic Reference" ;
+                            <http://www.w3.org/2004/02/skos/core#altLabel> "bibliographicreferencelink" .
 
 
 ###  http://www.esblurock.info/dataset#BlockInterpretationMethod
@@ -2593,16 +2639,16 @@ xsd:date rdf:type rdfs:Datatype .
 ###  http://www.esblurock.info/dataset#BurnerPlateObservationInterpretationMethodology
 :BurnerPlateObservationInterpretationMethodology rdf:type owl:Class ;
                                                  rdfs:subClassOf :DataInterpretationProtocol ,
-                                                                 _:genid115 ,
-                                                                 _:genid117 ;
+                                                                 _:genid117 ,
+                                                                 _:genid119 ;
                                                  rdfs:comment "Burner Plate Observation Interpretation Protocol" .
 
-_:genid115 rdf:type owl:Restriction ;
+_:genid117 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :BurnerPlateObservations .
 
-_:genid117 rdf:type owl:Restriction ;
+_:genid119 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :FlameVelocityParabolicParameterPlot .
@@ -2610,14 +2656,14 @@ _:genid117 rdf:type owl:Restriction ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :BurnerPlateObservationInterpretationMethodology ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid115 ;
+   owl:annotatedTarget _:genid117 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasInput>
  ] .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :BurnerPlateObservationInterpretationMethodology ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid117 ;
+   owl:annotatedTarget _:genid119 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
  ] .
 
@@ -2659,28 +2705,28 @@ _:genid117 rdf:type owl:Restriction ;
                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                        owl:onClass :FundamentalExperimentalMeasurement
                                                      ] ,
-                                                     _:genid123 ,
                                                      _:genid125 ,
                                                      _:genid127 ,
-                                                     _:genid129 ;
+                                                     _:genid129 ,
+                                                     _:genid131 ;
                                      rdfs:comment "Burner Plate Thermocouple Measurements" .
-
-_:genid123 rdf:type owl:Restriction ;
-            owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass :BurnerPlateObservations .
 
 _:genid125 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass :EnvironmentConditionParameters .
+            owl:onClass :BurnerPlateObservations .
 
 _:genid127 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass :EquivalenceRatioObservable .
+            owl:onClass :EnvironmentConditionParameters .
 
 _:genid129 rdf:type owl:Restriction ;
+            owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass :EquivalenceRatioObservable .
+
+_:genid131 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :FlameVelocityObservable .
@@ -2688,15 +2734,8 @@ _:genid129 rdf:type owl:Restriction ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :BurnerPlateThermocoupleMeasurements ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid123 ;
-   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
- ] .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :BurnerPlateThermocoupleMeasurements ;
-   owl:annotatedProperty rdfs:subClassOf ;
    owl:annotatedTarget _:genid125 ;
-   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasInput>
+   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
  ] .
 
 [ rdf:type owl:Axiom ;
@@ -2710,6 +2749,13 @@ _:genid129 rdf:type owl:Restriction ;
    owl:annotatedSource :BurnerPlateThermocoupleMeasurements ;
    owl:annotatedProperty rdfs:subClassOf ;
    owl:annotatedTarget _:genid129 ;
+   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasInput>
+ ] .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource :BurnerPlateThermocoupleMeasurements ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid131 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasInput>
  ] .
 
@@ -4687,11 +4733,11 @@ This transaction is in combination with another transaction responsible for crea
                           rdfs:subClassOf :SimpleDatabaseObjectStructure ,
                                           [ rdf:type owl:Restriction ;
                                             owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                            owl:someValuesFrom :DataObjectLink
+                                            owl:someValuesFrom :BibliographicReferenceLink
                                           ] ,
                                           [ rdf:type owl:Restriction ;
                                             owl:onProperty <http://www.w3.org/ns/dcat#record> ;
-                                            owl:someValuesFrom :DataSetReference
+                                            owl:someValuesFrom :DataObjectLink
                                           ] ,
                                           [ rdf:type owl:Restriction ;
                                             owl:onProperty <http://www.w3.org/ns/dcat#record> ;
@@ -7100,6 +7146,13 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                         <http://www.w3.org/2004/02/skos/core#altLabel> "createnewcollectiontransaction" .
 
 
+###  http://www.esblurock.info/dataset#DataDOILink
+:DataDOILink rdf:type owl:Class ;
+             rdfs:subClassOf :BibliographicLinkTypes ;
+             rdfs:comment "DOI Link to a related data (may not have all author, title, etc meta data)" ;
+             rdfs:label "DOI Data Link" .
+
+
 ###  http://www.esblurock.info/dataset#DataDescriptionCatalogHierarchy
 :DataDescriptionCatalogHierarchy rdf:type owl:Class ;
                                  rdfs:subClassOf :DescriptionDataData ,
@@ -7484,6 +7537,13 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                     owl:onClass :RDFDOIToTitle
                                   ] .
+
+
+###  http://www.esblurock.info/dataset#DataSiteLink
+:DataSiteLink rdf:type owl:Class ;
+              rdfs:subClassOf :BibliographicLinkTypes ;
+              rdfs:comment "Site of data source (not necessarily with structured author, title, etc data" ;
+              rdfs:label "Data Site Link" .
 
 
 ###  http://www.esblurock.info/dataset#DataSourceFromGUI
@@ -9631,9 +9691,9 @@ Under the general type of is the actual data object referenced by the ChemConnec
                                         owl:onProperty :hasComponent ;
                                         owl:someValuesFrom :EvaporationComponent
                                       ] ,
-                                      _:genid505 .
+                                      _:genid507 .
 
-_:genid505 rdf:type owl:Restriction ;
+_:genid507 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :SingleMassFlowControllerObservable .
@@ -9641,7 +9701,7 @@ _:genid505 rdf:type owl:Restriction ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :EvaporationSubSystem ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid505 ;
+   owl:annotatedTarget _:genid507 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
  ] .
 
@@ -10832,43 +10892,36 @@ Output:
 ###  http://www.esblurock.info/dataset#FlowMixingSubSystem
 :FlowMixingSubSystem rdf:type owl:Class ;
                      rdfs:subClassOf :MixingSubSystems ,
-                                     _:genid569 ,
                                      _:genid571 ,
                                      _:genid573 ,
                                      _:genid575 ,
-                                     _:genid577 .
-
-_:genid569 rdf:type owl:Restriction ;
-            owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass :DilutionCompositionMolarPercentage .
+                                     _:genid577 ,
+                                     _:genid579 .
 
 _:genid571 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass :EquivalenceRatioObservable .
+            owl:onClass :DilutionCompositionMolarPercentage .
 
 _:genid573 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass :FuelCompositionMolarPercentage .
+            owl:onClass :EquivalenceRatioObservable .
 
 _:genid575 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass :MolarConcentrationObservable .
+            owl:onClass :FuelCompositionMolarPercentage .
 
 _:genid577 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass :OxidizerCompositionMolarPercentage .
+            owl:onClass :MolarConcentrationObservable .
 
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :FlowMixingSubSystem ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid569 ;
-   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
- ] .
+_:genid579 rdf:type owl:Restriction ;
+            owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass :OxidizerCompositionMolarPercentage .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :FlowMixingSubSystem ;
@@ -10895,6 +10948,13 @@ _:genid577 rdf:type owl:Restriction ;
    owl:annotatedSource :FlowMixingSubSystem ;
    owl:annotatedProperty rdfs:subClassOf ;
    owl:annotatedTarget _:genid577 ;
+   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
+ ] .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource :FlowMixingSubSystem ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid579 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
  ] .
 
@@ -11205,9 +11265,9 @@ _:genid577 rdf:type owl:Restriction ;
 ###  http://www.esblurock.info/dataset#GasFlowSubSystem
 :GasFlowSubSystem rdf:type owl:Class ;
                   rdfs:subClassOf :MassFlowSubsystems ,
-                                  _:genid597 .
+                                  _:genid599 .
 
-_:genid597 rdf:type owl:Restriction ;
+_:genid599 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :SetOfMassFlowControllerObservables .
@@ -11215,7 +11275,7 @@ _:genid597 rdf:type owl:Restriction ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :GasFlowSubSystem ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid597 ;
+   owl:annotatedTarget _:genid599 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
  ] .
 
@@ -11248,25 +11308,18 @@ _:genid597 rdf:type owl:Restriction ;
                                          owl:onProperty :hasComponent ;
                                          owl:someValuesFrom :GasMassFlowControllerComponent
                                        ] ,
-                                       _:genid601 ,
-                                       _:genid603 .
-
-_:genid601 rdf:type owl:Restriction ;
-            owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass :MassFlowControllerCalibration .
+                                       _:genid603 ,
+                                       _:genid605 .
 
 _:genid603 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass :SingleMassFlowControllerObservable .
+            owl:onClass :MassFlowControllerCalibration .
 
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :GasMassFlowController ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid601 ;
-   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
- ] .
+_:genid605 rdf:type owl:Restriction ;
+            owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass :SingleMassFlowControllerObservable .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :GasMassFlowController ;
@@ -11275,14 +11328,21 @@ _:genid603 rdf:type owl:Restriction ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
  ] .
 
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource :GasMassFlowController ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid605 ;
+   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
+ ] .
+
 
 ###  http://www.esblurock.info/dataset#GasMassFlowControllerComponent
 :GasMassFlowControllerComponent rdf:type owl:Class ;
                                 rdfs:subClassOf :MassFlowController ,
-                                                _:genid605 ;
+                                                _:genid607 ;
                                 rdfs:label "Gas Mass Flow Controller" .
 
-_:genid605 rdf:type owl:Restriction ;
+_:genid607 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :SingleMassFlowControllerObservable .
@@ -11290,7 +11350,7 @@ _:genid605 rdf:type owl:Restriction ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :GasMassFlowControllerComponent ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid605 ;
+   owl:annotatedTarget _:genid607 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
  ] .
 
@@ -11554,14 +11614,14 @@ _:genid605 rdf:type owl:Restriction ;
 ###  http://www.esblurock.info/dataset#HeatFluxBurnerBurnerPlate
 :HeatFluxBurnerBurnerPlate rdf:type owl:Class ;
                            rdfs:subClassOf :HeatFluxBurnerSubSystems ,
-                                           _:genid633 ,
+                                           _:genid635 ,
                                            [ rdf:type owl:Restriction ;
                                              owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                              owl:onClass :HeatFluxBurnerThermocouple
                                            ] .
 
-_:genid633 rdf:type owl:Restriction ;
+_:genid635 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :BurnerPlateObservations .
@@ -11569,7 +11629,7 @@ _:genid633 rdf:type owl:Restriction ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :HeatFluxBurnerBurnerPlate ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid633 ;
+   owl:annotatedTarget _:genid635 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
  ] .
 
@@ -11587,10 +11647,10 @@ _:genid633 rdf:type owl:Restriction ;
 ###  http://www.esblurock.info/dataset#HeatFluxBurnerCoolingBath
 :HeatFluxBurnerCoolingBath rdf:type owl:Class ;
                            rdfs:subClassOf :WaterBathComponent ,
-                                           _:genid636 ;
+                                           _:genid638 ;
                            rdfs:label "Heat Flux Burner Cooling Bath" .
 
-_:genid636 rdf:type owl:Restriction ;
+_:genid638 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :HeatFluxBurnerCoolingSystemObservations .
@@ -11598,7 +11658,7 @@ _:genid636 rdf:type owl:Restriction ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :HeatFluxBurnerCoolingBath ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid636 ;
+   owl:annotatedTarget _:genid638 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
  ] .
 
@@ -11611,9 +11671,9 @@ _:genid636 rdf:type owl:Restriction ;
                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                owl:onClass :CoolingDownGases
                                              ] ,
-                                             _:genid639 .
+                                             _:genid641 .
 
-_:genid639 rdf:type owl:Restriction ;
+_:genid641 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :HeatFluxBurnerCoolingSystemObservations .
@@ -11621,7 +11681,7 @@ _:genid639 rdf:type owl:Restriction ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :HeatFluxBurnerCoolingJacket ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid639 ;
+   owl:annotatedTarget _:genid641 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
  ] .
 
@@ -11639,9 +11699,9 @@ _:genid639 rdf:type owl:Restriction ;
                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                   owl:onClass :TemperatureRegulation
                                                 ] ,
-                                                _:genid643 .
+                                                _:genid645 .
 
-_:genid643 rdf:type owl:Restriction ;
+_:genid645 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :HeatFluxBurnerCoolingSystemObservations .
@@ -11649,7 +11709,7 @@ _:genid643 rdf:type owl:Restriction ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :HeatFluxBurnerCoolingSubSystem ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid643 ;
+   owl:annotatedTarget _:genid645 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
  ] .
 
@@ -11687,9 +11747,9 @@ _:genid643 rdf:type owl:Restriction ;
 ###  http://www.esblurock.info/dataset#HeatFluxBurnerFuelPreparation
 :HeatFluxBurnerFuelPreparation rdf:type owl:Class ;
                                rdfs:subClassOf :PremixedFlames ,
-                                               _:genid645 .
+                                               _:genid647 .
 
-_:genid645 rdf:type owl:Restriction ;
+_:genid647 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :HeatFluxBurnerHeatingTube .
@@ -11697,7 +11757,7 @@ _:genid645 rdf:type owl:Restriction ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :HeatFluxBurnerFuelPreparation ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid645 ;
+   owl:annotatedTarget _:genid647 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
  ] .
 
@@ -11718,10 +11778,10 @@ _:genid645 rdf:type owl:Restriction ;
 ###  http://www.esblurock.info/dataset#HeatFluxBurnerHeatingBath
 :HeatFluxBurnerHeatingBath rdf:type owl:Class ;
                            rdfs:subClassOf :WaterBathComponent ,
-                                           _:genid648 ;
+                                           _:genid650 ;
                            rdfs:label "Heat Flux Burner Heating Bath" .
 
-_:genid648 rdf:type owl:Restriction ;
+_:genid650 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :HeatFluxBurnerHeatingSystemObservations .
@@ -11729,7 +11789,7 @@ _:genid648 rdf:type owl:Restriction ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :HeatFluxBurnerHeatingBath ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid648 ;
+   owl:annotatedTarget _:genid650 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
  ] .
 
@@ -11742,9 +11802,9 @@ _:genid648 rdf:type owl:Restriction ;
                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                owl:onClass :RegulateFlameTemperature
                                              ] ,
-                                             _:genid651 .
+                                             _:genid653 .
 
-_:genid651 rdf:type owl:Restriction ;
+_:genid653 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :HeatFluxBurnerHeatingSystemObservations .
@@ -11752,7 +11812,7 @@ _:genid651 rdf:type owl:Restriction ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :HeatFluxBurnerHeatingJacket ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid651 ;
+   owl:annotatedTarget _:genid653 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
  ] .
 
@@ -11770,9 +11830,9 @@ _:genid651 rdf:type owl:Restriction ;
                                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                   owl:onClass :TemperatureRegulation
                                                 ] ,
-                                                _:genid655 .
+                                                _:genid657 .
 
-_:genid655 rdf:type owl:Restriction ;
+_:genid657 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :HeatFluxBurnerTemperatureObservations .
@@ -11780,7 +11840,7 @@ _:genid655 rdf:type owl:Restriction ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :HeatFluxBurnerHeatingSubSystem ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid655 ;
+   owl:annotatedTarget _:genid657 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
  ] .
 
@@ -11919,31 +11979,24 @@ _:genid655 rdf:type owl:Restriction ;
 ###  http://www.esblurock.info/dataset#HeatFluxBurnerThermalConditioning
 :HeatFluxBurnerThermalConditioning rdf:type owl:Class ;
                                    rdfs:subClassOf :HeatFluxBurnerSubSystems ,
-                                                   _:genid667 ,
                                                    _:genid669 ,
-                                                   _:genid671 .
-
-_:genid667 rdf:type owl:Restriction ;
-            owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass :HeatFluxBurnerCoolingSubSystem .
+                                                   _:genid671 ,
+                                                   _:genid673 .
 
 _:genid669 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass :HeatFluxBurnerHeatingSubSystem .
+            owl:onClass :HeatFluxBurnerCoolingSubSystem .
 
 _:genid671 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass :HeatFluxBurnerTemperatureObservations .
+            owl:onClass :HeatFluxBurnerHeatingSubSystem .
 
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :HeatFluxBurnerThermalConditioning ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid667 ;
-   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
- ] .
+_:genid673 rdf:type owl:Restriction ;
+            owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass :HeatFluxBurnerTemperatureObservations .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :HeatFluxBurnerThermalConditioning ;
@@ -11956,6 +12009,13 @@ _:genid671 rdf:type owl:Restriction ;
    owl:annotatedSource :HeatFluxBurnerThermalConditioning ;
    owl:annotatedProperty rdfs:subClassOf ;
    owl:annotatedTarget _:genid671 ;
+   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
+ ] .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource :HeatFluxBurnerThermalConditioning ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid673 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
  ] .
 
@@ -11968,10 +12028,10 @@ _:genid671 rdf:type owl:Restriction ;
 ###  http://www.esblurock.info/dataset#HeatFluxBurnerThermocouple
 :HeatFluxBurnerThermocouple rdf:type owl:Class ;
                             rdfs:subClassOf :Thermocouple ,
-                                            _:genid673 ;
+                                            _:genid675 ;
                             rdfs:label "Heat Flux Burner Thermocouple" .
 
-_:genid673 rdf:type owl:Restriction ;
+_:genid675 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :HeatFluxBurnerThermocoupleObservations .
@@ -11979,7 +12039,7 @@ _:genid673 rdf:type owl:Restriction ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :HeatFluxBurnerThermocouple ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid673 ;
+   owl:annotatedTarget _:genid675 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
  ] .
 
@@ -12065,6 +12125,13 @@ _:genid673 rdf:type owl:Restriction ;
                 rdfs:subClassOf :Spectrometer ;
                 rdfs:comment "Infared Spectrometer" ;
                 rdfs:label "IR Spectrometer" .
+
+
+###  http://www.esblurock.info/dataset#ISBNPublicationLink
+:ISBNPublicationLink rdf:type owl:Class ;
+                     rdfs:subClassOf :BibliographicLinkTypes ;
+                     rdfs:comment "ISBN Link to a related book publication" ;
+                     rdfs:label "ISBN Link" .
 
 
 ###  http://www.esblurock.info/dataset#IdentificationOfComponent
@@ -14206,26 +14273,7 @@ _:genid673 rdf:type owl:Restriction ;
                                             owl:onProperty :hasComponent ;
                                             owl:someValuesFrom :LiquidMassFlowControllerComponent
                                           ] ,
-                                          _:genid865 .
-
-_:genid865 rdf:type owl:Restriction ;
-            owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass :SingleMassFlowControllerObservable .
-
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :LiquidMassFlowController ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid865 ;
-   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
- ] .
-
-
-###  http://www.esblurock.info/dataset#LiquidMassFlowControllerComponent
-:LiquidMassFlowControllerComponent rdf:type owl:Class ;
-                                   rdfs:subClassOf :MassFlowController ,
-                                                   _:genid867 ;
-                                   rdfs:label "Liquid Mass Flow Component" .
+                                          _:genid867 .
 
 _:genid867 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
@@ -14233,9 +14281,28 @@ _:genid867 rdf:type owl:Restriction ;
             owl:onClass :SingleMassFlowControllerObservable .
 
 [ rdf:type owl:Axiom ;
-   owl:annotatedSource :LiquidMassFlowControllerComponent ;
+   owl:annotatedSource :LiquidMassFlowController ;
    owl:annotatedProperty rdfs:subClassOf ;
    owl:annotatedTarget _:genid867 ;
+   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasOutput>
+ ] .
+
+
+###  http://www.esblurock.info/dataset#LiquidMassFlowControllerComponent
+:LiquidMassFlowControllerComponent rdf:type owl:Class ;
+                                   rdfs:subClassOf :MassFlowController ,
+                                                   _:genid869 ;
+                                   rdfs:label "Liquid Mass Flow Component" .
+
+_:genid869 rdf:type owl:Restriction ;
+            owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass :SingleMassFlowControllerObservable .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource :LiquidMassFlowControllerComponent ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid869 ;
    rdfs:comment <http://www.w3.org/ns/ssn/hasOutput>
  ] .
 
@@ -14538,15 +14605,15 @@ _:genid867 rdf:type owl:Restriction ;
 ###  http://www.esblurock.info/dataset#MSMBFlameProbeSubsystem
 :MSMBFlameProbeSubsystem rdf:type owl:Class ;
                          rdfs:subClassOf :SamplingProbe ,
-                                         _:genid892 ,
-                                         _:genid894 .
+                                         _:genid894 ,
+                                         _:genid896 .
 
-_:genid892 rdf:type owl:Restriction ;
+_:genid894 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :FirstStageExpansionWithSkimmer .
 
-_:genid894 rdf:type owl:Restriction ;
+_:genid896 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :SecondStageExpansion .
@@ -14554,14 +14621,14 @@ _:genid894 rdf:type owl:Restriction ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :MSMBFlameProbeSubsystem ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid892 ;
+   owl:annotatedTarget _:genid894 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
  ] .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :MSMBFlameProbeSubsystem ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid894 ;
+   owl:annotatedTarget _:genid896 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
  ] .
 
@@ -14583,32 +14650,25 @@ _:genid894 rdf:type owl:Restriction ;
 ###  http://www.esblurock.info/dataset#MSMBPremixedFlameBurner
 :MSMBPremixedFlameBurner rdf:type owl:Class ;
                          rdfs:subClassOf :FlameBurner ,
-                                         _:genid896 ,
                                          _:genid898 ,
-                                         _:genid900 ;
+                                         _:genid900 ,
+                                         _:genid902 ;
                          rdfs:comment "Mass Spectroscopy Molecule Beam Flame Burner" ;
                          rdfs:label "MSMB Premixed Flame Burner" .
 
-_:genid896 rdf:type owl:Restriction ;
-            owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
-            owl:someValuesFrom :MassSpectrometryMolecularBeam .
-
 _:genid898 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
-            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass :MSMBFlameProbeSubsystem .
+            owl:someValuesFrom :MassSpectrometryMolecularBeam .
 
 _:genid900 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onClass :PremixedFlameFuelPreparation .
+            owl:onClass :MSMBFlameProbeSubsystem .
 
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :MSMBPremixedFlameBurner ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid896 ;
-   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
- ] .
+_:genid902 rdf:type owl:Restriction ;
+            owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass :PremixedFlameFuelPreparation .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :MSMBPremixedFlameBurner ;
@@ -14624,13 +14684,20 @@ _:genid900 rdf:type owl:Restriction ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
  ] .
 
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource :MSMBPremixedFlameBurner ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid902 ;
+   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
+ ] .
+
 
 ###  http://www.esblurock.info/dataset#MSMBSpeciesDetectionSubsystem
 :MSMBSpeciesDetectionSubsystem rdf:type owl:Class ;
                                rdfs:subClassOf :FlameSpeciesDetection ,
-                                               _:genid902 .
+                                               _:genid904 .
 
-_:genid902 rdf:type owl:Restriction ;
+_:genid904 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
             owl:onClass :MassSpectrometryMolecularBeam .
@@ -14638,7 +14705,7 @@ _:genid902 rdf:type owl:Restriction ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :MSMBSpeciesDetectionSubsystem ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid902 ;
+   owl:annotatedTarget _:genid904 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
  ] .
 
@@ -15352,28 +15419,28 @@ _:genid902 rdf:type owl:Restriction ;
 ###  http://www.esblurock.info/dataset#MolecularBeamSamplingProbe
 :MolecularBeamSamplingProbe rdf:type owl:Class ;
                             rdfs:subClassOf :SamplingProbe ,
-                                            _:genid933 ,
-                                            _:genid935 .
+                                            _:genid935 ,
+                                            _:genid937 .
 
-_:genid933 rdf:type owl:Restriction ;
+_:genid935 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:someValuesFrom :NickelSkimmer .
 
-_:genid935 rdf:type owl:Restriction ;
+_:genid937 rdf:type owl:Restriction ;
             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
             owl:someValuesFrom :SamplingCone .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :MolecularBeamSamplingProbe ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid933 ;
+   owl:annotatedTarget _:genid935 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
  ] .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :MolecularBeamSamplingProbe ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid935 ;
+   owl:annotatedTarget _:genid937 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
  ] .
 
@@ -16521,31 +16588,24 @@ _:genid935 rdf:type owl:Restriction ;
 ###  http://www.esblurock.info/dataset#PremixedFlames
 :PremixedFlames rdf:type owl:Class ;
                 rdfs:subClassOf :FlameSubsystems ,
-                                _:genid1007 ,
                                 _:genid1009 ,
-                                _:genid1011 .
-
-_:genid1007 rdf:type owl:Restriction ;
-             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
-             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-             owl:onClass :EvaporationSubSystem .
+                                _:genid1011 ,
+                                _:genid1013 .
 
 _:genid1009 rdf:type owl:Restriction ;
              owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-             owl:onClass :FlowMixingSubSystem .
+             owl:onClass :EvaporationSubSystem .
 
 _:genid1011 rdf:type owl:Restriction ;
              owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-             owl:onClass :GasFlowSubSystem .
+             owl:onClass :FlowMixingSubSystem .
 
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :PremixedFlames ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid1007 ;
-   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
- ] .
+_:genid1013 rdf:type owl:Restriction ;
+             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
+             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+             owl:onClass :GasFlowSubSystem .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :PremixedFlames ;
@@ -16558,6 +16618,13 @@ _:genid1011 rdf:type owl:Restriction ;
    owl:annotatedSource :PremixedFlames ;
    owl:annotatedProperty rdfs:subClassOf ;
    owl:annotatedTarget _:genid1011 ;
+   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
+ ] .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource :PremixedFlames ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid1013 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
  ] .
 
@@ -16772,6 +16839,13 @@ _:genid1011 rdf:type owl:Restriction ;
                            rdfs:comment "The base protocol observation source" ;
                            rdfs:label "ProtocolObservationSource" ;
                            <http://www.w3.org/2004/02/skos/core#altLabel> "protocolobs" .
+
+
+###  http://www.esblurock.info/dataset#PublicationDOILink
+:PublicationDOILink rdf:type owl:Class ;
+                    rdfs:subClassOf :BibliographicLinkTypes ;
+                    rdfs:comment "DOI Link to a related publication" ;
+                    rdfs:label "DOI Publication Link" .
 
 
 ###  http://www.esblurock.info/dataset#PublishedResultsCatagory
@@ -17744,43 +17818,36 @@ _:genid1011 rdf:type owl:Restriction ;
 ###  http://www.esblurock.info/dataset#RCMReactorPistonSystem
 :RCMReactorPistonSystem rdf:type owl:Class ;
                         rdfs:subClassOf :RapidCompressionMachineSubsystems ,
-                                        _:genid1058 ,
                                         _:genid1060 ,
+                                        _:genid1062 ,
                                         [ rdf:type owl:Restriction ;
                                           owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
                                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                           owl:onClass :RCMReactorChamberPiston
                                         ] ,
-                                        _:genid1063 ,
-                                        _:genid1065 ;
+                                        _:genid1065 ,
+                                        _:genid1067 ;
                         <http://purl.org/dc/elements/1.1/type> "RapidCompressionMachinePiston" .
-
-_:genid1058 rdf:type owl:Restriction ;
-             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
-             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-             owl:onClass :PressureSensor .
 
 _:genid1060 rdf:type owl:Restriction ;
              owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-             owl:onClass :RCMReactorChamberGasPort .
+             owl:onClass :PressureSensor .
 
-_:genid1063 rdf:type owl:Restriction ;
+_:genid1062 rdf:type owl:Restriction ;
              owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-             owl:onClass :RCMReactorChamberViewPort .
+             owl:onClass :RCMReactorChamberGasPort .
 
 _:genid1065 rdf:type owl:Restriction ;
              owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-             owl:onClass :Thermocouple .
+             owl:onClass :RCMReactorChamberViewPort .
 
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :RCMReactorPistonSystem ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid1058 ;
-   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
- ] .
+_:genid1067 rdf:type owl:Restriction ;
+             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
+             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+             owl:onClass :Thermocouple .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :RCMReactorPistonSystem ;
@@ -17792,7 +17859,7 @@ _:genid1065 rdf:type owl:Restriction ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :RCMReactorPistonSystem ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid1063 ;
+   owl:annotatedTarget _:genid1062 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
  ] .
 
@@ -17800,6 +17867,13 @@ _:genid1065 rdf:type owl:Restriction ;
    owl:annotatedSource :RCMReactorPistonSystem ;
    owl:annotatedProperty rdfs:subClassOf ;
    owl:annotatedTarget _:genid1065 ;
+   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
+ ] .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource :RCMReactorPistonSystem ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid1067 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
  ] .
 
@@ -19509,39 +19583,32 @@ returns a type 'object'.""" ;
 ###  http://www.esblurock.info/dataset#RapidCompressionMachine
 :RapidCompressionMachine rdf:type owl:Class ;
                          rdfs:subClassOf :CombustionInstrument ,
-                                         _:genid1219 ,
                                          _:genid1221 ,
                                          _:genid1223 ,
-                                         _:genid1225 ;
+                                         _:genid1225 ,
+                                         _:genid1227 ;
                          rdfs:comment "Rapid Compression Machine" ;
                          rdfs:label "Rapid Compression Machine" .
-
-_:genid1219 rdf:type owl:Restriction ;
-             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
-             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-             owl:onClass :RCMHydraulicDriverSubSystem .
 
 _:genid1221 rdf:type owl:Restriction ;
              owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-             owl:onClass :RCMMixingChamber .
+             owl:onClass :RCMHydraulicDriverSubSystem .
 
 _:genid1223 rdf:type owl:Restriction ;
              owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-             owl:onClass :RCMReactorPistonSystem .
+             owl:onClass :RCMMixingChamber .
 
 _:genid1225 rdf:type owl:Restriction ;
              owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-             owl:onClass :RCMSpeciesSupply .
+             owl:onClass :RCMReactorPistonSystem .
 
-[ rdf:type owl:Axiom ;
-   owl:annotatedSource :RapidCompressionMachine ;
-   owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid1219 ;
-   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
- ] .
+_:genid1227 rdf:type owl:Restriction ;
+             owl:onProperty <http://www.w3.org/2004/02/skos/core#related> ;
+             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+             owl:onClass :RCMSpeciesSupply .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :RapidCompressionMachine ;
@@ -19561,6 +19628,13 @@ _:genid1225 rdf:type owl:Restriction ;
    owl:annotatedSource :RapidCompressionMachine ;
    owl:annotatedProperty rdfs:subClassOf ;
    owl:annotatedTarget _:genid1225 ;
+   <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
+ ] .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource :RapidCompressionMachine ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid1227 ;
    <http://purl.org/dc/elements/1.1/type> <http://www.w3.org/ns/ssn/hasSubSystem>
  ] .
 

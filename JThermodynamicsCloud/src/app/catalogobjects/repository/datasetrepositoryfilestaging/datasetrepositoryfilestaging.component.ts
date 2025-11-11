@@ -78,7 +78,7 @@ export class DatasetrepositoryfilestagingComponent extends CatalogbaseComponent 
 			this.simpledata.setData(this.catalog);
 			const firestoreidvalues = this.catalog[this.identifiers.FirestoreCatalogID];
 			this.firestoreid.setData(firestoreidvalues);
-			const refs = this.catalog[this.identifiers.DataSetReference];
+			const refs = this.catalog[this.identifiers.BibliographicReferenceLink];
 			this.references.setData(refs);
 			const gcs = this.catalog[this.identifiers.GCSBlobFileInformationStaging];
 			this.gcs.setData(gcs);

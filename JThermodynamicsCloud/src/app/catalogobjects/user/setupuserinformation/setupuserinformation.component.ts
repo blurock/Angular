@@ -249,7 +249,6 @@ export class SetupuserinformationComponent implements OnInit {
 		var person = null;
 		for (let i = 0; i < arr.length; i++) {
             const obj = arr[i];
-			console.log('findobject:' +  obj[this.identifier] + ', ' + id);
             if (obj[this.identifier] === id) {
                 person = obj;
                 break;

@@ -18,7 +18,7 @@
 				</mat-form-field  -->
 	</ng-template>
 	<div [ngSwitch]="recordtype">
-		<div *ngSwitchCase="'DataSetReference'">
+		<div *ngSwitchCase="'BibliographicReferenceLink'">
 			<cdk-virtual-scroll-viewport [itemSize]="18 * 7" class="masterviewport">
 				<div class="multbox">
 					<div *ngFor="let ref of refinfo">

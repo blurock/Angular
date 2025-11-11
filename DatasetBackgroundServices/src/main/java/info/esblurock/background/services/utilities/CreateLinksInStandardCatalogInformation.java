@@ -36,7 +36,7 @@ public class CreateLinksInStandardCatalogInformation {
 	 * 
 	 */
 	public static void transfer(JsonObject source, JsonObject destinationCatalog) {
-		transferType(ClassLabelConstants.DataSetReference, source, destinationCatalog);
+		transferType(ClassLabelConstants.BibliographicReferenceLink, source, destinationCatalog);
 		//transferType(ClassLabelConstants.DataObjectLink, source, destinationCatalog);
 		transferType(ClassLabelConstants.ObjectSiteReference, source, destinationCatalog);
 	}

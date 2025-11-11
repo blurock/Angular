@@ -1,17 +1,17 @@
-import { Input, Component, OnInit,ViewChild, Output,EventEmitter,AfterViewChecked, OnChanges, SimpleChanges } from '@angular/core';
+import { Input, Component, OnInit, ViewChild, Output, EventEmitter, AfterViewChecked, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { IdentifiersService } from '../../../const/identifiers.service';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
 import { NavItem } from '../../../primitives/nav-item';
-import {MatFormFieldModule} from '@angular/material/form-field'; 
-import {ReactiveFormsModule} from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
-import {MatCardModule} from '@angular/material/card'; 
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import {MenuItemComponent} from '../../../primitives/menu-item/menu-item.component';
+import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.component';
 import { MatInputModule } from '@angular/material/input';
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -21,13 +21,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 	selector: 'app-dataobjectlink',
 	templateUrl: './dataobjectlink.component.html',
 	styleUrls: ['./dataobjectlink.component.scss'],
-	standalone: true, 
-	imports: [MatCardModule,ReactiveFormsModule,MatFormFieldModule,MatInputModule,
-	MenuItemComponent,MatIconModule,MatMenuTrigger,MatMenuModule,
-	FiresytorecatalogidComponent,CommonModule,
-	MatTooltipModule]
+	standalone: true,
+	imports: [MatCardModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule,
+		MenuItemComponent, MatIconModule, MatMenuTrigger, MatMenuModule,
+		FiresytorecatalogidComponent, CommonModule,
+		MatTooltipModule]
 })
-export class DataobjectlinkComponent implements OnInit, OnChanges {
+export class DataobjectlinkComponent implements OnInit, OnChanges, AfterViewInit {
 	linkform: UntypedFormGroup;
 	display = false;
 	conceptmenulabel = 'dataset:DataTypeConcept';
@@ -35,7 +35,7 @@ export class DataobjectlinkComponent implements OnInit, OnChanges {
 	formatmenulabel = 'dataset:DatabaseObjectType';
 	items: NavItem[] = [];
 	firestoreidvalues: any;
-	
+
 
 	@Input() anno: any;
 	@Input() catalog: any;
@@ -45,7 +45,7 @@ export class DataobjectlinkComponent implements OnInit, OnChanges {
 
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = 'rdfs:comment';
-	
+
 	displayobjectinoutputtab = '';
 	deletelink = '';
 	showaddressbutton: string;
@@ -57,7 +57,7 @@ export class DataobjectlinkComponent implements OnInit, OnChanges {
 		private formBuilder: UntypedFormBuilder,
 		public identifiers: IdentifiersService,
 		private menusetup: MenutreeserviceService) {
-			
+
 		this.linkform = this.objectlinkform();
 		this.showaddressbutton = constants.showaddressbutton;
 		this.displayobjectinoutputtab = constants.displayobjectinoutputtab;
@@ -70,15 +70,20 @@ export class DataobjectlinkComponent implements OnInit, OnChanges {
 		this.conceptitems = this.menusetup.findChoices(this.anno, this.conceptmenulabel);
 	}
 	ngOnChanges(changes: SimpleChanges): void {
-		if(this.catalog) {
+		if (this.catalog) {
 			this.setData(this.catalog);
 		}
-}
+	}
+	ngAfterViewInit(): void {
+		if (this.catalog) {
+			this.setData(this.catalog);
+		}
+	}
 
 	fetchObject() {
 		this.firestoreAddress.emit(this.firestoreidvalues);
 	}
-	
+
 	objectlinkform(): UntypedFormGroup {
 		const objectform = this.formBuilder.group({
 			index: [''],
@@ -87,7 +92,7 @@ export class DataobjectlinkComponent implements OnInit, OnChanges {
 		});
 		return objectform;
 	}
-  	deleteLink() {
+	deleteLink() {
 		this.deleteEvent.emit(this.linkform.get('index')?.value ?? 'not defined');
 	}
 	showaddress() {
@@ -109,20 +114,24 @@ export class DataobjectlinkComponent implements OnInit, OnChanges {
 			if (this.firestoreid != null) {
 				this.firestoreid.setData(this.firestoreidvalues);
 			} else {
-				
+
 			}
-			
+
 		}
 
 	}
 
 	getData(catalog: any): void {
 		if (catalog != null) {
-			catalog[this.identifiers.DatabaseObjectType] = this.linkform.get('DatabaseObjectType')?.value ?? 'not defined';
+			catalog[Ontologyconstants.DatabaseObjectTypeLink] = this.linkform.get('DatabaseObjectType')?.value ?? 'not defined';
 			catalog[this.identifiers.DataTypeConcept] = this.linkform.get('DataTypeConcept')?.value ?? 'not defined';
 			if (this.firestoreid != null) {
-				this.firestoreid.getData(catalog);
+				const dummy:Record<string,any> = {};
+				this.firestoreid.getData(dummy);
+				console.log('Firestore ID data retrieved:', dummy);
+				catalog[Ontologyconstants.RelatedCatalogObjectIDAndType] = dummy[Ontologyconstants.FirestoreCatalogID];
 			} else {
+				catalog[Ontologyconstants.RelatedCatalogObjectIDAndType] = this.catalog[Ontologyconstants.RelatedCatalogObjectIDAndType];
 			}
 		}
 	}

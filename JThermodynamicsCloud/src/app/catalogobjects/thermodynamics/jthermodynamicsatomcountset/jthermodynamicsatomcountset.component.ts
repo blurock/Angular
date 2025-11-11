@@ -50,6 +50,7 @@ export class JthermodynamicsatomcountsetComponent implements OnInit {
 	}
 
 	getData(counts: any) {
+		counts[Ontologyconstants.dctermsidentifier] = this.annoinfo['dataset:JThermodynamicsAtomCountSet'][this.identifier];
 		counts[this.annoinfo['dataset:CarbonAtomCount'][this.identifier]] = this.countform.get('CarbonAtomCount')?.value ?? '';
 		counts[this.annoinfo['dataset:HydrogenAtomCount'][this.identifier]] = this.countform.get('HydrogenAtomCount')?.value ?? '';
 		counts[this.annoinfo['dataset:OxygenAtomCount'][this.identifier]] = this.countform.get('OxygenAtomCount')?.value ?? '';
@@ -57,6 +58,7 @@ export class JthermodynamicsatomcountsetComponent implements OnInit {
 		counts[this.annoinfo['dataset:JThermodynamicsAtomCount'][this.identifier]] = countarray;
 		for (const atomcount of this.atomcounts.controls) {
 			const countelement: Record<string,any> = {};
+			countelement[Ontologyconstants.dctermsidentifier] = this.annoinfo['dataset:JThermodynamicsAtomCount'][this.identifier];
 			countelement[this.annoinfo['dataset:AtomTypeCount'][this.identifier]] = atomcount.get('AtomTypeCount')?.value ?? '';
 			countelement[this.annoinfo['dataset:JThermodynamics2DSpeciesLabel'][this.identifier]] = atomcount.get('JThermodynamics2DSpeciesLabel')?.value ?? '';
 			countarray.push(countelement);

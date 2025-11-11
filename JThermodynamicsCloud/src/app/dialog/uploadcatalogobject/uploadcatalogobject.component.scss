@@ -1,3 +1,35 @@
 .upload-btn {
-  margin-right: 10px;
+  margin-left: 10px;
+ position: center;
+  // Nest pseudo-classes
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+.label {
+	font-size: 12px;
+		font-weight: 500;
+		color: blue;
+		text-align: center;
+}
+.matcard {
+	margin: 50px;
+	width: 200px;
+	
+}
+.uploadform {
+	width: 100%;
+}
+.file-upload-container {
+	display: flex;
+	text-align: center;
+		margin-top: 20px;
+}
+.file-upload-wrapper {
+	width: 0.1px;
+	  height: 0.1px;
+	  opacity: 0;
+	  overflow: hidden;
+	  position: absolute;
+	  z-index: -1;
 }

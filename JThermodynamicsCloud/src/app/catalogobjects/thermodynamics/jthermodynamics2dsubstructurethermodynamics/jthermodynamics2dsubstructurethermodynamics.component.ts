@@ -11,6 +11,8 @@ import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.compo
 import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
 import { NgIf } from '@angular/common';
+import { JthermodynamicstandardthermodynamicsComponent } from '../jthermodynamicstandardthermodynamics/jthermodynamicstandardthermodynamics.component';
+import { Ontologyconstants } from '../../../const/ontologyconstants';
 
 @Component({
 	selector: 'app-jthermodynamics2dsubstructurethermodynamics',
@@ -23,6 +25,7 @@ import { NgIf } from '@angular/common';
 		MenuItemComponent,
 		ChemconnectthermodynamicsdatabaseComponent,
 		Jthermodynamics2dspeciesstructureComponent,
+		JthermodynamicstandardthermodynamicsComponent,
 		NgIf
 	],
 	templateUrl: './jthermodynamics2dsubstructurethermodynamics.component.html',
@@ -42,6 +45,7 @@ export class Jthermodynamics2dsubstructurethermodynamicsComponent extends Catalo
 
 	@ViewChild('base') base!: ChemconnectthermodynamicsdatabaseComponent;
 	@ViewChild('structure') structure!: Jthermodynamics2dspeciesstructureComponent;
+	@ViewChild('thermo') thermo!: JthermodynamicstandardthermodynamicsComponent;
 
 	constructor(
 		private formBuilder: UntypedFormBuilder,
@@ -66,22 +70,26 @@ export class Jthermodynamics2dsubstructurethermodynamicsComponent extends Catalo
 
 
 	override getData(catalog: any): void {
+		catalog[Ontologyconstants.dctermsidentifier] = Ontologyconstants.JThermodynamics2DSubstructureThermodynamicsDataSet;
 		const id = this.annoinfo['dataset:JThermodynamicsSubstructureType'][this.identifier];
 		catalog[id] = this.objectform.get('JThermodynamicsSubstructureType')!.value;
-
-		this.base.getData(catalog);
+		catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]] = {};
 		const struct = {};
-		this.structure.getData(struct);
 		catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]] = struct;
-
+		this.structure.getData(struct);
+		this.base.getData(catalog);
+		const thermodata = {};
+		this.thermo.getData(thermodata);
+		catalog[this.annoinfo['dataset:JThermodynamicStandardThermodynamics'][this.identifier]] = thermodata;
 	}
 	override setData(catalog: any): void {
 		super.setData(catalog);
 		if (this.annoinfo) {
 			const value = catalog[this.annoinfo['dataset:JThermodynamicsSubstructureType'][this.identifier]];
 			this.objectform.get('JThermodynamicsSubstructureType')!.setValue(value);
-			const struct = catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
-			this.structure.setData(struct);
+			const thermodata = catalog[this.annoinfo['dataset:JThermodynamicStandardThermodynamics'][this.identifier]];
+			this.thermo.setData(thermodata);
+			this.structure.setData(catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]]);
 			this.base.setData(catalog);
 		}
 	}

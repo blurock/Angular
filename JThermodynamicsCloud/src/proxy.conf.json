@@ -7,5 +7,23 @@
         "pathRewrite": {
         "^/localapi": ""
       }
-    }
+    },
+	"/doi-proxy": {
+	    "target": "https://doi.org",
+	    "secure": true,
+	    "changeOrigin": true,
+	    "pathRewrite": {
+	      "^/doi-proxy": "" 
+	    },
+	    "logLevel": "debug"
+	  }	,
+      "/isbn-proxy": {
+		    "target": "https://openlibrary.org/api/books",
+		    "secure": true,
+		    "changeOrigin": true,
+		    "pathRewrite": {
+		      "^/isbn-proxy": "" 
+		    },
+		    "logLevel": "debug"
+		  }
 }

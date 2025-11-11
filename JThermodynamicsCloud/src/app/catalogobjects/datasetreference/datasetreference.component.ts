@@ -8,19 +8,27 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
-import { MatInput } from '@angular/material/input';
 import { CatalogrecordbaseComponent } from '../../primitives/catalogrecordbase/catalogrecordbase.component';
 import { MenutreeserviceService } from '../../services/menutreeservice.service';
 import { NavItem } from '../../primitives/nav-item';
-import { MenuItemComponent } from '../../primitives/menu-item/menu-item.component';
+import { IsbndisplayComponent } from '../../layout/references/isbndisplay/isbndisplay.component';
+import { CitationdisplayComponent } from '../../layout/references/citationdisplay/citationdisplay.component';
 
 @Component({
 	selector: 'app-datasetreference',
 	templateUrl: './datasetreference.component.html',
 	styleUrls: ['./datasetreference.component.scss'],
 	standalone: true,
-	imports: [MatFormFieldModule, MatCardModule, MatIconModule,
-		CommonModule, ReactiveFormsModule, MatMenuModule, MatSelectModule, MatInput,MenuItemComponent]
+	imports: [MatFormFieldModule, 
+		MatCardModule, 
+		MatIconModule,
+		CommonModule, 
+		ReactiveFormsModule, 
+		MatMenuModule, 
+		MatSelectModule,
+		IsbndisplayComponent,
+		CitationdisplayComponent
+	]
 })
 export class DatasetreferenceComponent extends CatalogrecordbaseComponent implements OnInit {
 
@@ -29,6 +37,7 @@ export class DatasetreferenceComponent extends CatalogrecordbaseComponent implem
 
 	referencesForm: FormGroup;
 	referencedata: any[] = [];
+	displayarray: Record<string, any>[] = [];
 
 	addreference = "Add Reference";
 	nametitleclass = 'dataset:AuthorNameTitle';
@@ -57,8 +66,8 @@ export class DatasetreferenceComponent extends CatalogrecordbaseComponent implem
 
 
 	ngOnInit(): void {
-		this.findChoices('dataset:AuthorNameTitle');
-		this.titleitems = this.menusetup.findChoices(this.annoinfo,this.nametitleclass);
+		//this.findChoices('dataset:AuthorNameTitle');
+		//this.titleitems = this.menusetup.findChoices(this.annoinfo,this.nametitleclass);
 	}
 
 	newReferenceSet(): FormGroup {
@@ -97,6 +106,29 @@ export class DatasetreferenceComponent extends CatalogrecordbaseComponent implem
 
 	override setData(refs: any[]): void {
 		this.referencedata = refs;
+		this.displayarray = [];
+		for(const ref of refs) {
+			const linktype = ref[this.identifiers.BibliographicLinkType];
+			const reference = {
+				link: ref[this.identifiers.BibliographicLink],
+				ISBN: false,
+				publicationDOI: false,
+				dataDOI: false,
+				sitereference: false,
+			}
+			if(linktype == 'dataset:DataDOILink') {
+				reference.dataDOI = true;
+			} else if(linktype == 'dataset:DataSiteLink') {
+				reference.sitereference = true;
+			} else if(linktype == 'dataset:ISBNPublicationLink') {
+				reference.ISBN = true;
+			} else if(linktype == 'dataset:PublicationDOILink') {
+				reference.publicationDOI = true;
+			}
+			this.displayarray.push(reference);
+			}
+		/*
+		this.referencedata = refs;
 		this.referencesForm = this.newReferenceSet();
 		for(const ref of refs) {
 			this.addreferencegroup();
@@ -122,7 +154,7 @@ export class DatasetreferenceComponent extends CatalogrecordbaseComponent implem
 			}
 			index++;
 		}
-		
+		*/
 	}
 
 	referenceAuthors(empIndex: number): UntypedFormArray {
@@ -154,8 +186,12 @@ export class DatasetreferenceComponent extends CatalogrecordbaseComponent implem
 	}
 
 	override getData(catalog: any): void {
-		const refs: any[] = [];
-		catalog[this.identifiers.DataSetReference] = refs;
+		if(this.referencedata) {
+			catalog[this.identifiers.BibliographicReferenceLink] = this.referencedata;
+		} else {
+			catalog[this.identifiers.BibliographicReferenceLink] = [];
+		}
+		/*
 		for (let i = 0; i < this.referenceset.length; i++) {
 			const referenceform = this.referenceset.at(i) as UntypedFormGroup;
 			const ref: Record<string, any> = {};
@@ -175,6 +211,7 @@ export class DatasetreferenceComponent extends CatalogrecordbaseComponent implem
 				auth[this.identifiers.AuthorNameTitle] = a.get('AuthorNameTitle')?.value ?? '';
 			}
 		}
+		*/
 	}
 	deleteReference(empIndex: number): void {
 		this.referenceset.removeAt(empIndex);
@@ -194,6 +231,7 @@ export class DatasetreferenceComponent extends CatalogrecordbaseComponent implem
 	isFormArray(control: AbstractControl | null): control is FormArray {
 		return control instanceof FormArray;
 	}
+	/*
 	findChoices(annoref: string): void {
 		if(this.annoinfo) {
 		if (!this.filled) {
@@ -229,5 +267,5 @@ export class DatasetreferenceComponent extends CatalogrecordbaseComponent implem
 		}
 		}
 	}
-
+*/
 }

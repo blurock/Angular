@@ -1,0 +1,45 @@
+<div class="citation-container">
+      <h2>Citation Details</h2>
+
+      <div class="input-section">
+        <label for="styleSelect">Select Style:</label>
+        <select id="styleSelect" [(ngModel)]="currentStyle">
+          <option value="apa">APA</option>
+          <option value="ieee">IEEE</option>
+          <option value="mla">MLA</option>
+          <option value="chicago-fullnote-bibliography">Chicago</option>
+          <option value="bibtex">BibTeX</option>
+        </select>
+        <button (click)="fetchCitation()" [disabled]="isLoading || !currentDoi">
+          {{ isLoading ? 'Loading...' : 'Fetch Citation' }}
+        </button>
+      </div>
+
+      <div *ngIf="citationData" class="output-section">
+        <hr>
+        <p class="citation-title">{{ citationData.title }}</p>
+
+        <p class="citation-reference">{{ citationData.formattedReference }}</p>
+
+        <p class="citation-doi">DOI: <a [href]="'https://doi.org/' + citationData.reference" target="_blank">{{ citationData.reference }}</a></p>
+
+        <div class="citation-authors">
+          <h4>Authors:</h4>
+          <ul>
+            <li *ngFor="let author of citationData.authors">
+              {{ author.name }}
+              <span *ngIf="author.affiliation"> ({{ author.affiliation }})</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div *ngIf="!citationData && !isLoading" class="no-data-message">
+        <p>Enter a DOI and click 'Fetch Citation' to see results.</p>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        <p>Error: {{ errorMessage }}</p>
+      </div>
+    </div>
+	

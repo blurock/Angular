@@ -49,7 +49,7 @@ objanno: any;
       if (this.refinfo == null) {
         this.refinfo = [];
       }
-      if (this.recordtype == 'DataSetReference') {
+      if (this.recordtype == 'BibliographicReferenceLink') {
         const element: Record<string,any> = {};
         element[Ontologyconstants.datacitePrimaryResourceIdentifier] = 'DOI';
         element[Ontologyconstants.dctermstitle] = 'title';

@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit } from '@angular/core';
+import { Component, Input, AfterViewInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormArray, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Ontologyconstants } from '../../../const/ontologyconstants';
 import { MatCardModule } from '@angular/material/card';
@@ -7,6 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { NgFor, NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
+import { ChemconnectthermodynamicsdatabaseComponent } from '../chemconnectthermodynamicsdatabase/chemconnectthermodynamicsdatabase.component';
+import { Jthermodynamics2dspeciesstructureComponent } from '../jthermodynamics2dspeciesstructure/jthermodynamics2dspeciesstructure.component';
 
 @Component({
   selector: 'app-jthermodynamicsbensonrulestructure',
@@ -36,6 +38,7 @@ export class JthermodynamicsbensonrulestructureComponent implements AfterViewIni
 
 	title = 'Benson Atom Structure Data';
 	countform: UntypedFormGroup = new UntypedFormGroup({});
+	
 
 	constructor(
 		private formBuilder: UntypedFormBuilder
@@ -70,7 +73,9 @@ export class JthermodynamicsbensonrulestructureComponent implements AfterViewIni
 	setData(counts:any) {
     this.countform.get('BensonRuleDatabaseReference')!.setValue(counts[this.annoinfo['dataset:BensonRuleDatabaseReference'][this.identifier]]);
     this.countform.get('JThermodynamicsBensonCenterAtom')!.setValue(counts[this.annoinfo['dataset:JThermodynamicsBensonCenterAtom'][this.identifier]]);
-    this.setAtomCountData(counts[this.annoinfo['dataset:JThermodynamicsBensonConnectionWithMultiplicity'][this.identifier]])
+    this.setAtomCountData(counts[this.annoinfo['dataset:JThermodynamicsBensonConnectionWithMultiplicity'][this.identifier]]);
+	
+	
   }
 
 	setAtomCountData(atomcounts: []): void {

@@ -80,13 +80,11 @@ export class SetofdataobjectlinksComponent implements OnInit {
 	}
 	
 	resetLinkArray(): void {
-		/*
 		let index = 0;
 		for (let linkform of this.linkarray) {
 			linkform.setIndex(index);
 			index++;
 			}
-			*/
 	}
 
 	public setData(links: any[]): void {
@@ -99,13 +97,11 @@ export class SetofdataobjectlinksComponent implements OnInit {
 		if (catalog != null) {
 			const links: any[] = [];
 			catalog[this.identifiers.DataObjectLink] = links;
-			/*
 			for (let linkform of this.linkarray) {
 				const link = {};
 				linkform.getData(link);
 				links.push(link);
 			}
-			*/
 		}
 	}
 }

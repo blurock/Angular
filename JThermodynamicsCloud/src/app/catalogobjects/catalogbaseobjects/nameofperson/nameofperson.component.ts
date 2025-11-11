@@ -66,8 +66,6 @@ export class NameofpersonComponent implements OnInit, OnChanges {
 
 	setData(name: any): void {
 		this.nameofperson = name;
-		
-		console.log('Setting data in NameofpersonComponent:', JSON.stringify(name));
 		if (this.annoinfo) {
 			this.nameGroup.get('familyName')!.setValue(name[this.annoinfo['dataset:familyName'][this.identifier]]);
 			this.nameGroup.get('givenName')!.setValue(name[this.annoinfo['dataset:givenName'][this.identifier]]);

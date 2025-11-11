@@ -25,7 +25,6 @@ export class IdentifiersService {
 	public DatasetDocumentID = 'dataset:documentid';
 	public DatasetIDLevel = 'dataset:idlevel';
 	
-	public DataSetReference = 'dcterms:BibliographicResource';
 	public DOI = 'datacite:PrimaryResourceIdentifier';
 	public ReferenceString = 'dataset:referencestring';
 	public ReferenceTitle = 'dataset:referencetitle';
@@ -74,6 +73,10 @@ export class IdentifiersService {
 	public BlockLineCount = 'dataset:blocklinecount';
 	public FilePartitionMethod = 'dataset:filepartitionmethod';
 	public Position = 'qb:order';
+	
+	public BibliographicReferenceLink =                    'dataset:bibliographicreferencelink';
+	public BibliographicLink =                             'dataset:bibliographiclink';
+	public BibliographicLinkType =                         'dataset:bibliographiclinktype';
 	
 	
 	constructor() { }

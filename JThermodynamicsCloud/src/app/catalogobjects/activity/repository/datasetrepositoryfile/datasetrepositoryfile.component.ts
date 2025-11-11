@@ -20,6 +20,7 @@ import { FileformatmanagerService } from '../../../../services/fileformatmanager
 import { MenuItemComponent } from '../../../../primitives/menu-item/menu-item.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
+import { IdentifiersService } from '../../../../const/identifiers.service';
 
 @Component({
 	selector: 'app-datasetrepositoryfile',
@@ -67,7 +68,9 @@ export class DatasetrepositoryfileComponent implements OnInit {
 	@ViewChild('weblinks') weblinks!: SetofsitereferencesComponent;
 	@ViewChild('keywords') keywords!: KeywordlistprimitiveComponent;
 
-	constructor(constants: UserinterfaceconstantsService,
+	constructor(
+		private identifiers: IdentifiersService,
+		constants: UserinterfaceconstantsService,
 		private formBuilder: UntypedFormBuilder,
 		private format: FileformatmanagerService,
 		private menusetup: MenutreeserviceService
@@ -143,12 +146,8 @@ export class DatasetrepositoryfileComponent implements OnInit {
 			this.infoform.get('DescriptionTitleFileStaging')?.setValue(catalog[this.annoinfo['dataset:DescriptionTitleFileStaging'][this.identifier]]);
 			this.infoform.get('DescriptionAbstractFileStaging')?.setValue(catalog[this.annoinfo['dataset:DescriptionAbstractFileStaging'][this.identifier]]);
 			this.fileformat = catalog[this.annoinfo['dataset:FileSourceFormat'][this.identifier]];
-			console.log("DatasetrepositoryfileComponent: this.fileformat= " + this.fileformat);
 			this.catalogtype = catalog[this.annoinfo['dataset:DatasetCollectionObjectType'][this.identifier]];
 			this.catalogtype = this.format.getCatalogTypeForFormat(this.fileformat);
-			//this.infoform.get('FileSourceFormat')?.setValue(this.fileformat);
-			//this.infoform.get('DatasetCollectionObjectType')?.setValue(this.catalogtype);
-			console.log("DatasetrepositoryfileComponent: " + this.catalogtype);
 			this.setFileFormat(this.catalogtype);
 			this.spec.setData(catalog);
 			const descr = catalog[this.annoinfo['dataset:DataDescriptionFileStaging'][this.identifier]];
@@ -181,15 +180,15 @@ export class DatasetrepositoryfileComponent implements OnInit {
 	}
 
 	public setSetOfReferencesAndLinks(activity: any): void {
-		const refs = activity['dcterms:BibliographicResource'];
+		const refs = activity[this.identifiers.BibliographicReferenceLink];
 		if (refs != null) {
 			this.references.setData(refs);
 		}
-		const web = activity['foaf:page'];
+		const web = activity[this.identifiers.ObjectSiteReference];
 		if (web != null) {
 			this.weblinks.setData(web);
 		}
-		const obj = activity['skos:mappingRelation'];
+		const obj = activity[this.identifiers.DataObjectLink];
 		if (obj != null) {
 			this.objectlinks.setData(obj);
 		}

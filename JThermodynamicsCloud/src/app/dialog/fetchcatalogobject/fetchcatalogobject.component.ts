@@ -198,7 +198,6 @@ export class FetchcatalogobjectComponent implements OnInit {
 		this.runservice.run(json).subscribe({
 			next: (responsedata: any) => {
 				const success = responsedata['dataset:servicesuccessful'];
-				console.log('Fetch from database: ' + responsedata['dataset:serviceresponsemessage']);
 				if (success == 'true') {
 					this.dialogRef.close(responsedata);
 				} else {

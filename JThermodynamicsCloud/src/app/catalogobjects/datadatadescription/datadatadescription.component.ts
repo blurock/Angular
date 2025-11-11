@@ -141,8 +141,6 @@ export class DatadatadescriptionComponent implements AfterViewInit,OnChanges {
 		}
 	}
 	handleChangeAfterMutation(newValue: any): void {
-	      // This is the function that runs your logic, replacing ngOnChanges.
-	      console.log('Setter called, processing (possibly mutated) value:', newValue);
 	  }
 
 }

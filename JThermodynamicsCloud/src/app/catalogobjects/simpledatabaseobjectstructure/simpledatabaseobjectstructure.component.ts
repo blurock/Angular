@@ -140,13 +140,13 @@ export class SimpledatabaseobjectstructureComponent implements AfterViewInit, On
 				const transaction = catalog[this.anno['dataset:FirestoreCatalogID'][this.identifier]];
 				catalog[this.anno['dataset:FirestoreCatalogIDForTransaction'][this.identifier]] = transaction;
 			} else {
-				console.log("SimpledatabaseobjectstructureComponent getData transactionelement not defined")
+				//console.log("SimpledatabaseobjectstructureComponent getData transactionelement not defined")
 			}
 		}
 		if (this.objectelement) {
 			this.objectelement.getData(catalog);
 		} else {
-			console.log("SimpledatabaseobjectstructureComponent getData objectelement not defined")
+			//console.log("SimpledatabaseobjectstructureComponent getData objectelement not defined")
 		}
 
 	}

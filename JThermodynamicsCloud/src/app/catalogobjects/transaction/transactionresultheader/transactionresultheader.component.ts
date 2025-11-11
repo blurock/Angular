@@ -116,13 +116,10 @@ export class TransactionresultheaderComponent implements AfterViewInit {
 		if (this.getData) {
 			this.getData(transactionobject);
 		}
-		console.log(JSON.stringify(transactionobject));
-		console.log(Object.keys(transactionobject));
 		const fireid = Ontologyconstants.FirestoreCatalogID;
 		const firestore: any = transactionobject[fireid];
 		activityinfo[fireid] = firestore;
 		transaction['dataset:activityinfo'] = activityinfo;
-		console.log(JSON.stringify(transaction));
 		const dialogRef = this.dialog.open(RuntransactiondialogComponent, {
 			data: transaction
 		});

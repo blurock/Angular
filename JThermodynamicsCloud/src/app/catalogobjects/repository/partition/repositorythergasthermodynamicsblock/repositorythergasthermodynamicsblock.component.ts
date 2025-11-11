@@ -14,7 +14,6 @@ import { NgIf } from '@angular/common';
 	standalone: true,
 	imports: [
 		MatCardModule,
-		NgIf,
 		RepositorythermopartitionblockComponent,
 		RepositorydatapartitionblockComponent
 	],

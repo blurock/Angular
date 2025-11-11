@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Type, ViewChild,ComponentFactoryResolver, ViewContainerRef, ComponentRef } from '@angular/core';
+import { ChangeDetectorRef, Component, Type, ViewChild, ComponentFactoryResolver, ViewContainerRef, ComponentRef } from '@angular/core';
 import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
 import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
@@ -20,6 +20,7 @@ import { ManagerequiredtransactionsComponent } from './managerequiredtransaction
 import { MatIconModule } from '@angular/material/icon';
 import { DeletetransactionService } from '../../services/deletetransaction.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 
 
@@ -88,10 +89,10 @@ export class ManagegeneralcatalogobjectvisComponent {
 
 	catalogtype: string = '';
 	transactioncatalogobjects: string;
-	
+
 	parser = new DOMParser();
 	resultDocument: Document;
-	
+
 
 	@ViewChild('catalogvis') catalogvis?: GeneralcatalogobjectvisualizationComponent;
 	@ViewChild('transactionobjects') transactionobjects?: ManagerdfcatalogidelelementsComponent;
@@ -105,7 +106,8 @@ export class ManagegeneralcatalogobjectvisComponent {
 		public dialog: MatDialog,
 		manageuser: ManageuserserviceService,
 		private runservice: RunserviceprocessService,
-		private cdRef: ChangeDetectorRef
+		private cdRef: ChangeDetectorRef,
+		public router: Router
 	) {
 		manageuser.determineMaintainer().subscribe(result => {
 			if (result != null) {
@@ -115,7 +117,7 @@ export class ManagegeneralcatalogobjectvisComponent {
 			}
 		});
 		this.transactioncatalogobjects = 'Transaction';
-		
+
 		this.resultDocument = this.parser.parseFromString('', 'text/html');
 	}
 	transactionReady(transactionID: any): void {
@@ -157,7 +159,6 @@ export class ManagegeneralcatalogobjectvisComponent {
 			if (result != null) {
 				const success = result[Ontologyconstants.successful];
 				this.addMessage(result[Ontologyconstants.message]);
-				console.log("fetchInformation()\n" + result[Ontologyconstants.message]);
 				if (success == 'true') {
 					if (result != null) {
 						const catalog = result[Ontologyconstants.catalogobject];
@@ -198,22 +199,49 @@ export class ManagegeneralcatalogobjectvisComponent {
 		});
 	}
 	public deleteTransaction(): void {
-		const catalog:any = {};
+		const catalog: any = {};
 		this.catalogvis?.getData(catalog);
-		console.log("deleteTransaction(): " + Object.keys(catalog));
 		const firestoreid = catalog[Ontologyconstants.FirestoreCatalogIDForTransaction];
-		this.deletetransaction.deleteTransaction(firestoreid,this.transactionresultHtml);
+		this.callDeleteTransaction(firestoreid);
 	}
-	
+
+	async callDeleteTransaction(firestoreid: any) {
+		try {
+			const result = await this.deletetransaction.deleteTransaction(firestoreid);
+
+			// Update the SafeHtml variable for display
+			this.transactionresultHtml = result.resultHtml;
+
+			if (result.success) {
+				// Call the desired function upon successful deletion
+				this.gotoTopWindow();
+			} else {
+				// Handle unsuccessful deletion
+				console.error("Transaction failed or was dismissed.");
+			}
+		} catch (error) {
+			// Handle network errors or exceptions during the promise execution
+			console.error("Error during transaction process:", error);
+			// Optionally set a general error message
+			this.transactionresultHtml = this.sanitizer.bypassSecurityTrustHtml("An unexpected error occurred.");
+		}
+	};
+
+
+	gotoTopWindow(): void {
+		this.router.navigateByUrl('/toppage');
+	}
+
+
 	public saveCatalog(): void {
 		const catalog = {};
 		this.catalogvis?.getData(catalog);
-		this.openDialog(catalog);
+		this.openDialog(catalog, this.catalogvis?.getNonModifiedData());
 	}
 
-	public openDialog(catalog: any): void {
+	public openDialog(newcatalog: any, original: any): void {
 		const dialogRef = this.dialog.open(SavecatalogdataobjectdialogComponent, {
-			data: { catalog: catalog, annotations: this.annoinfo }
+			data: { catalog: original, newcatalog: newcatalog, annotations: this.annoinfo, transactiontype: 'dataset:CatalogModificationEvent' }
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
@@ -226,19 +254,19 @@ export class ManagegeneralcatalogobjectvisComponent {
 		this.catalogvis?.setChild(catalog);
 	}
 	getFixedTabCount(): number {
-	      return 2; 
-	  }
+		return 2;
+	}
 	addNewCatalogTab(firestoreid: any): void {
-		const json:Record<string,unknown> = {};
+		const json: Record<string, unknown> = {};
 		json[Ontologyconstants.service] = 'ReadCatalogObjectWithFirestoreAddress';
 		json[Ontologyconstants.FirestoreID] = firestoreid;
 		this.runservice.run(json).subscribe({
 			next: (responsedata: any) => {
 				this.addMessage(responsedata[Ontologyconstants.message]);
-				if(responsedata[Ontologyconstants.successful]) {
-				const catalog = responsedata[Ontologyconstants.catalogobject];
-				this.componentRef = this.container.createComponent(GeneralcatalogobjectvisualizationComponent);
-				this.componentRef.instance.setData(catalog);
+				if (responsedata[Ontologyconstants.successful]) {
+					const catalog = responsedata[Ontologyconstants.catalogobject];
+					this.componentRef = this.container.createComponent(GeneralcatalogobjectvisualizationComponent);
+					this.componentRef.instance.setData(catalog);
 					this.componentRef.instance.showCatalogObject.subscribe((firestoreid) => {
 						this.addNewCatalogTab(firestoreid);
 					});
@@ -247,30 +275,29 @@ export class ManagegeneralcatalogobjectvisComponent {
 				}
 			}
 		});
-		
-		
-	    }
-		
-		
-	addMessage(message:string) {
-		console.log("addMessage:\n" + message);
+
+
+	}
+
+
+	addMessage(message: string) {
 		const doc: Document = this.parser.parseFromString(message, 'text/html');
-		if(doc.body) {
-			this.mergeDocumentBodies(this.resultDocument,doc);
+		if (doc.body) {
+			this.mergeDocumentBodies(this.resultDocument, doc);
 			const rawHtmlString = this.resultDocument.body.innerHTML;
 			this.resultHtml = this.sanitizer.bypassSecurityTrustHtml(rawHtmlString);
 		}
 	}
-	
-	private mergeDocumentBodies(targetDoc: Document, sourceDoc: Document): void {
-	    const targetBody = targetDoc.body;
-	    const sourceBody = sourceDoc.body;
 
-	    if (targetBody && sourceBody) {
-	      while (sourceBody.firstChild) {
-	        targetBody.appendChild(sourceBody.firstChild);
-	      }
-	    }
-	  }
-	
+	private mergeDocumentBodies(targetDoc: Document, sourceDoc: Document): void {
+		const targetBody = targetDoc.body;
+		const sourceBody = sourceDoc.body;
+
+		if (targetBody && sourceBody) {
+			while (sourceBody.firstChild) {
+				targetBody.appendChild(sourceBody.firstChild);
+			}
+		}
+	}
+
 }

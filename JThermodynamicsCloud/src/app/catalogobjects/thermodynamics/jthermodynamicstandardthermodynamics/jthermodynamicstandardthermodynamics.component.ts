@@ -108,17 +108,27 @@ export class JthermodynamicstandardthermodynamicsComponent implements OnInit {
 		this.entropyobj.setData(entropy);
 		const cpTpairs = thermodynamics[this.annoinfo['dataset:ThermodynamicCpAtTemperature'][this.identifier]];
 		this.setDataPairs(cpTpairs);
+		this.heatcapacityspecobj.setData(thermodynamics[this.annoinfo['dataset:ParameterSpecificationHeatCapacity'][this.identifier]]);
+		this.temperaturespecobj.setData(thermodynamics[this.annoinfo['dataset:ParameterSpecificationTemperature'][this.identifier]]);
 	}
 	getData(thermodynamics: any): void {
-		const enthalpy = {};
+		const enthalpy:Record<string,any> = {};
 		this.enthalpyobj.getData(enthalpy);
+		enthalpy[Ontologyconstants.dctermsidentifier] = this.annoinfo['dataset:ThermodynamicStandardEnthalpy'][this.identifier];
 		thermodynamics[this.annoinfo['dataset:ThermodynamicStandardEnthalpy'][this.identifier]] = enthalpy;
-		const entropy = {};
+		const entropy:Record<string,any> = {};
+		entropy[Ontologyconstants.dctermsidentifier] = this.annoinfo['dataset:ThermodynamicStandardEntropy'][this.identifier];
 		this.entropyobj.getData(entropy);
 		thermodynamics[this.annoinfo['dataset:ThermodynamicStandardEntropy'][this.identifier]] = entropy;
-		const cpTpairs = {};
+		const cpTpairs: any[] = [];
 		this.getDataPairs(cpTpairs);
 		thermodynamics[this.annoinfo['dataset:ThermodynamicCpAtTemperature'][this.identifier]] = cpTpairs;
+		const cphspec:Record<string,any> =  {};
+		thermodynamics[this.annoinfo['dataset:ParameterSpecificationHeatCapacity'][this.identifier]] = cphspec;
+		this.heatcapacityspecobj.getData(cphspec);
+		const tempspec:Record<string,any> = {};
+		thermodynamics[this.annoinfo['dataset:ParameterSpecificationTemperature'][this.identifier]] = tempspec;
+		this.temperaturespecobj.getData(tempspec);
 	}
 
 
@@ -126,6 +136,7 @@ export class JthermodynamicstandardthermodynamicsComponent implements OnInit {
 	getDataPairs(pairarray: any) {
 		for (const pair of this.pairs.controls) {
 			const pairelement: Record<string, any> = {};
+			pairelement[Ontologyconstants.dctermsidentifier] = this.annoinfo['dataset:ThermodynamicCpAtTemperature'][this.identifier];
 			pairelement[this.annoinfo['dataset:ThermodynamicHeatCapacityValue'][this.identifier]] = pair.get('ThermodynamicHeatCapacityValue')!.value;
 			pairelement[this.annoinfo['dataset:ThermodynamicTemperature'][this.identifier]] = pair.get('ThermodynamicTemperature')!.value;
 			pairelement[this.annoinfo['dataset:ValueUncertainty'][this.identifier]] = pair.get('ValueUncertainty')!.value;

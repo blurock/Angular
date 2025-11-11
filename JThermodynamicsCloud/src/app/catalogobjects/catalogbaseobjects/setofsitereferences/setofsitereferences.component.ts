@@ -35,7 +35,6 @@ export class SetofsitereferencesComponent implements OnInit,AfterViewInit  {
 		const link: Record<string,unknown> = {};
 		link[this.identifiers.HTTPAddress] = '';
 		link[this.identifiers.HttpAddressInformationType] = '';
-		console.log("SetofsitereferencesComponent" + JSON.stringify(link));
 		this.addObjectLink(link);
 	}
 	public addObjectLink(link: any): void {

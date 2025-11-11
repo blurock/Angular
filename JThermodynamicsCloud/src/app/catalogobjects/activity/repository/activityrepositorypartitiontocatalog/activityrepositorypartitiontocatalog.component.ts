@@ -121,7 +121,6 @@ export class ActivityrepositorypartitiontocatalogComponent extends Catalogactivi
 		this.spec.setData(this.catalog);
 	}
 	override getData(activity: any): void {
-		console.log("ActivityrepositorypartitiontocatalogComponent getData")
 		this.setIDs();
 		activity[this.blkcntid] = this.parseinfoform.get('BlockLineCount')?.value ?? '';
 		activity[this.descrtitleid] = this.parseinfoform.get('DescriptionTitle')?.value ?? '';
@@ -129,7 +128,6 @@ export class ActivityrepositorypartitiontocatalogComponent extends Catalogactivi
 		activity[this.methodid] = this.parseinfoform.get('FilePartitionMethod')?.value ?? '';
 		activity[this.collectionid] = this.parseinfoform.get('DatasetCollectionObjectType')?.value ?? '';
 		this.spec.getData(activity);
-	console.log("ActivityrepositorypartitiontocatalogComponent getData" + JSON.stringify(activity));
 	}
 
 	override setPrerequisiteData(prerequisite: any): void {

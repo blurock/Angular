@@ -1,0 +1,38 @@
+<div class="citation-container">
+      <h2>ISBN Book Details</h2>
+
+      <div class="input-section">
+        <label for="isbnInput">Enter ISBN:</label>
+        <input id="isbnInput" [(ngModel)]="currentISBN" placeholder="e.g., 9780321765723">
+        <button (click)="fetchCitation()" [disabled]="isLoading || !currentISBN">
+          {{ isLoading ? 'Loading...' : 'Fetch Book Data' }}
+        </button>
+      </div>
+
+      <div *ngIf="citationData" class="output-section">
+        <hr>
+        
+<p class="citation-title">{{ citationData.title }}</p>
+
+        
+<p class="citation-reference">{{ citationData.formattedReference }}</p>
+
+        
+<p class="citation-isbn">ISBN: {{ citationData.reference }}</p>
+
+        
+<div class="citation-authors">
+          <h4>Authors:</h4>
+          <ul>
+            <li *ngFor="let author of citationData.authors">
+              {{ author.name }}
+              <span *ngIf="author.affiliation"> ({{ author.affiliation }})</span> 
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        <p>Error: {{ errorMessage }}</p>
+      </div>
+    </div>

@@ -46,8 +46,11 @@ export class UploadcatalogobjectComponent {
 		@Inject(MAT_DIALOG_DATA) public data: any
 	) {
 		this.title = data.title;
+			if(this.title.length == 0) {
+			    this.title =this.constants.fetchobjectbutton;
+		}
 		this.filenamehint = this.constants.filenamehint;
-		this.filesourceidentifierlabel = this.constants.filesourceidentifierlabel;
+		this.filesourceidentifierlabel = this.constants.uploadfileinfo;
 		
 		
 		this.uploadForm = this.fb.group({

@@ -31,7 +31,8 @@ export class UserinterfaceconstantsService {
 	displaybutton = 'Display';
 	displaydescbutton = 'Display JSON of current object';
 	loadfromfile = 'Load Catalog object from file';
-	fetchobjectbutton = 'Fetch';
+	fetchobjectbutton = 'Fetch File';
+	fetchactivtytitle = 'Fetch Input Information';
 	cataloginfotitle = 'Catalog Object Information';
 	catalogaddresstitle = 'Catalog Address';
 	transactionpositiontitle = 'Transaction Address';
@@ -67,6 +68,7 @@ export class UserinterfaceconstantsService {
 	submittransactionbutton: string = 'Submit Transaction';
 
 	uploadfiletitle = 'Upload File Information';
+	uploadfileinfo = 'Upload Activity Information';
 
 	initializing = 'Initializing...';
 

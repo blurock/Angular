@@ -55,6 +55,8 @@ export class ChemconnectthermodynamicsdatabaseComponent implements OnInit {
  	
 	istransaction: boolean = false;
 	transactionpositiontitle: string;
+	
+	catalogbase:Record<string,any> = {};
 
 	@ViewChild('databasespec') databasespec!: SpecificationfordatasetComponent;
 	@ViewChild('datasetspec') datasetspec!: DatasettransactionspecificationforcollectionComponent;
@@ -76,7 +78,8 @@ export class ChemconnectthermodynamicsdatabaseComponent implements OnInit {
 			CatalogObjectKey: ['', Validators.required],
 			TransactionID: ['', Validators.required],
 			CatalogObjectAccessModify: ['', Validators.required],
-			CatalogObjectAccessRead: ['', Validators.required]
+			CatalogObjectAccessRead: ['', Validators.required],
+			ShortDescription: ['', Validators.required]
 		});
 		this.transactionpositiontitle = interfaceconst.transactionpositiontitle;
 
@@ -107,7 +110,7 @@ export class ChemconnectthermodynamicsdatabaseComponent implements OnInit {
 	}
 
 	public setData(catalog: any): void {
-		
+		this.catalogbase = catalog;
 
 		this.objectform.get('DatabaseObjectType')!.setValue(catalog[this.annoinfo['dataset:DatabaseObjectType'][this.identifier]]);
 		this.objectform.get('CatalogObjectOwner')!.setValue(catalog[this.annoinfo['dataset:CatalogObjectOwner'][this.identifier]]);
@@ -115,6 +118,7 @@ export class ChemconnectthermodynamicsdatabaseComponent implements OnInit {
 		this.objectform.get('TransactionID')!.setValue(catalog[this.annoinfo['dataset:TransactionID'][this.identifier]]);
 		this.objectform.get('CatalogObjectAccessModify')!.setValue(catalog[this.annoinfo['dataset:CatalogObjectAccessModify'][this.identifier]]);
 		this.objectform.get('CatalogObjectAccessRead')!.setValue(catalog[this.annoinfo['dataset:CatalogObjectAccessRead'][this.identifier]]);
+		this.objectform.get('ShortDescription')!.setValue(catalog[this.annoinfo['dataset:ShortDescription'][this.identifier]]);
 		if(this.dataset) {
 			this.datasetspec.setData(catalog);
 		}  else {
@@ -126,7 +130,7 @@ export class ChemconnectthermodynamicsdatabaseComponent implements OnInit {
 			}
 		}
 		this.firestoreid.setData(catalog[Ontologyconstants.FirestoreCatalogID]);
-		const refs = catalog[this.annoinfo['dataset:DataSetReference'][this.identifier]];
+		const refs = catalog[this.annoinfo['dataset:BibliographicReferenceLink'][this.identifier]];
 		this.references.setData(refs);
 		const olinks = catalog[this.annoinfo['dataset:DataObjectLink'][this.identifier]];
 		this.objectlinks.setData(olinks);
@@ -135,12 +139,15 @@ export class ChemconnectthermodynamicsdatabaseComponent implements OnInit {
 
 	}
 	public getData(catalog: any): void {
+		catalog[this.annoinfo['dataset:CatalogObjectID'][this.identifier]] = this.catalogbase[this.annoinfo['dataset:CatalogObjectID'][this.identifier]]
+		
 		catalog[this.annoinfo['dataset:DatabaseObjectType'][this.identifier]] = this.objectform.get('DatabaseObjectType')?.value ?? '';
 		catalog[this.annoinfo['dataset:CatalogObjectOwner'][this.identifier]] = this.objectform.get('CatalogObjectOwner')?.value ?? '';
 		catalog[this.annoinfo['dataset:CatalogObjectKey'][this.identifier]] = this.objectform.get('CatalogObjectKey')?.value ?? '';
 		catalog[this.annoinfo['dataset:TransactionID'][this.identifier]] = this.objectform.get('TransactionID')?.value ?? '';
 		catalog[this.annoinfo['dataset:CatalogObjectAccessModify'][this.identifier]] = this.objectform.get('CatalogObjectAccessModify')?.value ?? '';
 		catalog[this.annoinfo['dataset:CatalogObjectAccessRead'][this.identifier]] = this.objectform.get('CatalogObjectAccessRead')?.value ?? '';
+		catalog[this.annoinfo['dataset:ShortDescription'][this.identifier]] = this.objectform.get('ShortDescription')?.value ?? '';
 		this.references.getData(catalog);
 		this.weblinks.getData(catalog);
 		this.objectlinks.getData(catalog);

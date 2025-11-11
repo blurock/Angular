@@ -40,9 +40,7 @@ export class RepositorythermopartitionblockComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.annoReady?.subscribe(result => {
-			console.log('Repositorty Thermo Partition Block Annotations Ready');
 			this.annoinfo = result;
-			console.log("" + JSON.stringify(this.annoinfo['dataset:RepositoryThermoPartitionBlock']));
 			this.display = true;
 		});
 		this.objectform = this.formBuilder.group({

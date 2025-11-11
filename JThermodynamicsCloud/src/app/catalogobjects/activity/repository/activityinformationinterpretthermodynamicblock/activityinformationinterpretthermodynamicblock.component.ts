@@ -143,6 +143,7 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 		this.objectform.get('DescriptionTitle')!.setValue(activityinfo[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
 		if (this.spec) {
 			this.spec.setData(activityinfo);
+			this.setTemperatures();
 		}
 	}
 
@@ -203,7 +204,9 @@ export class ActivityinformationinterpretthermodynamicblockComponent implements 
 			
 			const templist = activity[this.annoinfo['dataset:JThermodynamicBensonTemperatures'][this.identifier]];
 			if(templist){
-				this.temperaturelist = templist;
+				if(templist.length>0) {
+					this.temperaturelist = templist;
+				}
 			}
 			this.setTemperatures();
 			if (this.enthalpy) {

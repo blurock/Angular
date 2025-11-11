@@ -8,7 +8,7 @@
 				"dataset:dataconceptstaging": "dataset:ConceptFileStaging"
 			},
 			"dataset:keywordfilestaging": [],
-			"dataset:titlestaging": "Test: Read in standard Carbon-Hydrogen atom benson rules from table A.1 from Benson Thermochemical Kinetics",
+			"dataset:titlestaging": "Standard Carbon-Hydrogen atom benson rules from table A.1 from Benson Thermochemical Kinetics",
 			"dataset:abstractstaging": "A small test to read the standard Carbon-Hydrogen atom benson rules. This is Table A.1 from Benson Thermochemical Kinetics.",
 			"dcterms:created": "today"
 		},
@@ -23,19 +23,15 @@
 		"dataset:uniquegenericname": "SmallTableA1CarbonBensonRules",
 		"dataset:datasetobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDataSet",
 		"dcterms:identifier": "initialrepositorylocal",
-		"dcterms:BibliographicResource": [
+		"dataset:bibliographicreferencelink": [
 			{
-				"datacite:PrimaryResourceIdentifier": "ISBN-13: 9780471067818",
-				"dataset:referencestring": "Benson, Sidney W. (1976). Thermochemical Kinetics: Methods for the Estimation of Thermochemical Data and Rate Parameters, 2nd Ed.",
-				"dataset:referencetitle": "Thermochemical Kinetics: Methods for the Estimation of Thermochemical Data and Rate Parameters",
-				"dc:creator": [
-					{
-						"dataset:authorfamilyname": "Benson",
-						"dataset:authorgivenname": "Sidney W.",
-						"dataset:authortitle": "dataset:Professor"
-					}
-				]
-			}
+				"dataset:bibliographiclinktype": "dataset:ISBNPublicationLink",
+				"dataset:bibliographiclink": "9780471067818"
+			},
+		{
+			"dataset:bibliographiclinktype": "dataset:PublicationDOILink",
+			"dataset:bibliographiclink": "10.1016/j.cscee.2024.101001"
+		}
 		]
 	}
 }

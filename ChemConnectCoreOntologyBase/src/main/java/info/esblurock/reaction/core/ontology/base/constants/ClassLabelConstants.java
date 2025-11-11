@@ -115,7 +115,6 @@ public static String DataDescriptionFileSource =                     "dataset:de
 public static String DataDescriptionFileStaging =                    "dataset:descrfilestaging";
 public static String DataDescriptionCatalogHierarchy =               "dataset:descrhier";
 public static String DatasetObjectSummaryTableDescriptors =          "dataset:summarytabledescriptors";
-public static String DataSetReference =                              "dcterms:BibliographicResource";
 public static String DataObjectLink =                                "skos:mappingRelation";
 public static String ClassificationInfo =                            "dataset:classificationinfo";
 public static String ContactLocationInformation =                    "vcard:Location";
@@ -673,6 +672,9 @@ public static String RDFGeneralQueryResult   =                       "dataset:ge
 public static String RDFGeneralQueryResultRow   =                    "dataset:generalqueryresultrow";
 public static String RDFRelationClassName   =                        "dataset:relationclassname";
 public static String RDFPropertyDefinition   =                       "dataset:rdfpropertydefinition";
+public static String BibliographicReferenceLink =                    "dataset:bibliographicreferencelink";
+public static String BibliographicLink =                             "dataset:bibliographiclink";
+public static String BibliographicLinkType =                         "dataset:bibliographiclinktype";
 
 }
 

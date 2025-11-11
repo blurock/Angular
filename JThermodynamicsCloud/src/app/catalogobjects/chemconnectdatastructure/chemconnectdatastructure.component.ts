@@ -40,7 +40,7 @@ export class ChemconnectdatastructureComponent extends CatalogrecordbaseComponen
 	override setData(catalog: any): void {
 		super.setData(catalog);
 		this.simpledata.setData(catalog);
-		const refs = catalog[this.annoinfo['dataset:DataSetReference'][this.identifier]];
+		const refs = catalog[this.annoinfo['dataset:BibliographicReferenceLink'][this.identifier]];
 		this.references.setData(refs);
 		const olinks = catalog[this.annoinfo['dataset:DataObjectLink'][this.identifier]];
 		this.objectlinks.setData(olinks);
@@ -53,7 +53,7 @@ export class ChemconnectdatastructureComponent extends CatalogrecordbaseComponen
 	override getData(catalog: any): void {
 		this.simpledata.getData(catalog);
 		const refs = this.references.getData(catalog);
-		catalog[this.annoinfo['dataset:DataSetReference'][this.identifier]] = refs;
+		catalog[this.annoinfo['dataset:BibliographicReferenceLink'][this.identifier]] = refs;
 		const olinks = this.objectlinks.getData(catalog);
 		catalog[this.annoinfo['dataset:DataObjectLink'][this.identifier]] = olinks;
 		const wlinks = this.weblinks.getData(catalog);

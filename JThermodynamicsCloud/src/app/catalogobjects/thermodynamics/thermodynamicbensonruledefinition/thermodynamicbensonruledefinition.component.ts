@@ -1,4 +1,4 @@
-import { Component, ViewChild, Output, EventEmitter, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { ChemconnectthermodynamicsdatabaseComponent } from '../chemconnectthermodynamicsdatabase/chemconnectthermodynamicsdatabase.component';
 import { JthermodynamicsbensonrulestructureComponent } from '../jthermodynamicsbensonrulestructure/jthermodynamicsbensonrulestructure.component';
@@ -14,6 +14,7 @@ import { NgIf } from '@angular/common';
 		MatCardModule,
 		JthermodynamicsbensonrulestructureComponent,
 		JthermodynamicstandardthermodynamicsComponent,
+		ChemconnectthermodynamicsdatabaseComponent,
 		NgIf
 	],
 	templateUrl: './thermodynamicbensonruledefinition.component.html',
@@ -55,17 +56,20 @@ export class ThermodynamicbensonruledefinitionComponent extends CatalogbaseCompo
 		const benson = {};
 		this.bensonstructure.getData(benson);
 		catalog[this.annoinfo['dataset:JThermodynamicsBensonRuleStructure'][this.identifier]] = benson;
+		this.base.getData(catalog);
+		const thermodata = {};
+		this.thermo.getData(thermodata);
+		catalog[this.annoinfo['dataset:JThermodynamicStandardThermodynamics'][this.identifier]] = thermodata;
 	}
 	override setData(catalog: any): void {
 		super.setData(catalog);
 		if (this.annoinfo != null) {
-			console.log("ThermodynamicbensonruledefinitionComponent: setData: thermo:" + this.thermo);
-
 			if (this.thermo != null) {
 				const thermodata = catalog[this.annoinfo['dataset:JThermodynamicStandardThermodynamics'][this.identifier]];
 				this.thermo.setData(thermodata);
 				const benson = catalog[this.annoinfo['dataset:JThermodynamicsBensonRuleStructure'][this.identifier]];
 				this.bensonstructure.setData(benson);
+				this.base.setData(catalog);
 			} else {
 				alert('Refresh data if not shown');
 			}
