@@ -107,6 +107,7 @@ export class ManagedatasettransactioneventobjectComponent implements OnInit, Aft
 		public dialog: MatDialog,
 		manageuser: ManageuserserviceService
 	) {
+		
 
 		manageuser.determineMaintainer().subscribe(result => {
 			if (result != null) {
@@ -133,6 +134,8 @@ export class ManagedatasettransactioneventobjectComponent implements OnInit, Aft
 	}
 
 	ngAfterViewInit(): void {
+	console.log('Constructing ManagedatasettransactioneventobjectComponent ID: ' + this.prerequisiteid);
+	console.log('Constructing ManagedatasettransactioneventobjectComponent Type: ' + this.prerequisitetype);
 	}
 
 	setActivityType(activitytype: string) {

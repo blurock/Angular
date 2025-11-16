@@ -45,7 +45,7 @@ public enum UploadFileToGCS {
 				if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 					JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 					JsonObject gcsstaging = arr.get(0).getAsJsonObject();
-					gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType,
+					gcsstaging.addProperty(ClassLabelConstants.InitialReadTypeClass,
 							"dataset:InitialReadInLocalStorageSystem");
 				}
 			} catch (IOException e) {
@@ -74,7 +74,7 @@ public enum UploadFileToGCS {
 				if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 					JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 					JsonObject gcsstaging = arr.get(0).getAsJsonObject();
-					gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType,
+					gcsstaging.addProperty(ClassLabelConstants.InitialReadTypeClass,
 							"dataset:InitialReadInLocalStorageSystem");
 				}
 			} catch (IOException e) {
@@ -103,7 +103,7 @@ public enum UploadFileToGCS {
 				if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 					JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 					JsonObject gcsstaging = arr.get(0).getAsJsonObject();
-					gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType, "dataset:InitialReadFromWebLocation");
+					gcsstaging.addProperty(ClassLabelConstants.InitialReadTypeClass, "dataset:InitialReadFromWebLocation");
 				}
 			} catch (MalformedURLException e) {
 				response = StandardResponse.standardErrorResponse(document,
@@ -139,7 +139,7 @@ public enum UploadFileToGCS {
 				if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 					JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 					JsonObject gcsstaging = arr.get(0).getAsJsonObject();
-					gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType,
+					gcsstaging.addProperty(ClassLabelConstants.InitialReadTypeClass,
 							"dataset:InitialReadFromUserInterface");
 				}
 			} catch (UnsupportedEncodingException e) {
@@ -188,15 +188,10 @@ public enum UploadFileToGCS {
 			if (response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {
 				JsonArray arr = response.get(ClassLabelConstants.SimpleCatalogObject).getAsJsonArray();
 				JsonObject gcsstaging = arr.get(0).getAsJsonObject();
-				gcsstaging.addProperty(ClassLabelConstants.CatalogObjectType,
-						"dataset:InitialReadInLocalStorageSystem");
+				gcsstaging.addProperty(ClassLabelConstants.InitialReadTypeClass,
+						info.get(ClassLabelConstants.InitialReadTypeClass).getAsString());
 				gcsstaging.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 				gcsstaging.addProperty(ClassLabelConstants.CatalogObjectUniqueGenericLabel, genericname);
-				JsonObject stagingblob = gcsstaging.get(ClassLabelConstants.GCSBlobFileInformationStaging)
-						.getAsJsonObject();
-				String description = info.get(ClassLabelConstants.DescriptionTitle).getAsString();
-				stagingblob.addProperty(ClassLabelConstants.DescriptionAbstract, description);
-				stagingblob.addProperty(ClassLabelConstants.DescriptionTitle, description);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();

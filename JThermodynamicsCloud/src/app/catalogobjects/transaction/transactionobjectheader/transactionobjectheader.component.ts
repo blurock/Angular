@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -29,7 +29,7 @@ import { ManageuserserviceService } from '../../../services/manageuserservice.se
 	templateUrl: './transactionobjectheader.component.html',
 	styleUrl: './transactionobjectheader.component.scss'
 })
-export class TransactionobjectheaderComponent {
+export class TransactionobjectheaderComponent implements OnInit {
 	prereqdescbutton: string;
 	prereqbutton: string;
 	displaydescbutton: string;
@@ -102,8 +102,13 @@ export class TransactionobjectheaderComponent {
 		});
 
 		this.getCatalogAnnoations();
+
 	}
 
+	ngOnInit(): void {
+	console.log('Constructing TransactionobjectheaderComponent ID: ' + this.prerequisiteid);
+	console.log('TransactionobjectheaderComponent Type: ' + this.prerequisitetype);
+	}
 	
 	@Input() invalid?: () => boolean;
 	@Input() prerequisiteid: string = '';
@@ -121,6 +126,8 @@ export class TransactionobjectheaderComponent {
 	@Output() transactionSuccess = new EventEmitter();
 
 	activitysetup(): void {
+		console.log('Constructing TransactionobjectheaderComponent ID activitysetup(): ' + this.prerequisiteid);
+		console.log('TransactionobjectheaderComponent Type activitysetup(): ' + this.prerequisitetype);
 		if (this.prerequisiteid.length > 0) {
 			if (this.prerequisite != null) {
 				if (this.setPrerequisiteData) {
@@ -131,6 +138,8 @@ export class TransactionobjectheaderComponent {
 				datainfo[this.annoinfoid] = this.fetchanno;
 				datainfo[this.maintainerid] = this.maintainer;
 				datainfo[this.transactionid] = this.prerequisitetype;
+				console.log("Prerequisite type: " + this.prerequisitetype);
+				console.log("Prerequisite type: " + JSON.stringify(datainfo));
 				const dialogRef = this.dialog.open(FindspecifictransactionindatasetComponent, {
 					data: datainfo
 				});

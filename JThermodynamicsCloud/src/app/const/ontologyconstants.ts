@@ -66,9 +66,10 @@ export class Ontologyconstants {
 	
 	public static FirestoreCatalogID = 'dataset:firestorecatalog';
 	
-	public static RepositoryFileStaging = 'dataset:initreposfile';
+	public static RepositoryFileStaging = 'dataset:RepositoryFileStaging';
 	public static InitialReadInOfRepositoryFile = 'dataset:initreposfile';
-	public static InitialReadInOfRepositoryFileTransaction = 'dataset:InitialReadInOfRepositoryFile';
+	public static InitialReadInOfRepositoryFileTransactionParse = 'dataset:InitialReadInOfRepositoryFile';
+	public static InitialReadInOfRepositoryFileTransaction = 'dataset:InitialReadInLocalStorageSystem';
 	public static InitialReadInOfRepositoryFileActivity = 'dataset:InitialReadInOfRepositoryFileActivity';
 	
 	public static RepositoryDataPartitionBlock = 'dataset:RepositoryDataFilePartition';
@@ -111,5 +112,6 @@ export class Ontologyconstants {
 	public static ParameterSpecificationTemperature = 'dataset:thermotemperature';
 	public static ParameterSpecificationHeatCapacity = 'dataset:paramspecheatcapacity';
 	public static JThermodynamics2DSubstructureThermodynamicsDataSet = 'dataset:2dsubstructurethermodataset';
-	
+	public static ThermodynamicBensonRuleDefinitionDataSet = 'dataset:bensonruledataset';
+	public static RepositoryTherGasThermodynamicsBlock = 'dataset:thergasthermoblock';
 }

@@ -39,7 +39,7 @@ public class TestNeo4JDriver {
 	}
 	@Test
 	public void testCreateRelationship() {
-		Driver  driver = Neo4JInitialization.initDriver();
+		Driver  driver = Neo4JInitialization.getDriver();
 		
 		String cypherQuery = """
 	            CREATE (charlie:Person:Actor {name: 'Charlie Sheen'})

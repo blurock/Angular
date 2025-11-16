@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.checkerframework.common.returnsreceiver.qual.This;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.neo4j.driver.Driver;
@@ -51,15 +52,7 @@ public class RDFQuestionsUtilities {
  		totalList.add("dataset:CatalogObjectOwner");
  		JsonObjectUtilities.replaceIdentifiersWithPropertyValuePairs(input, totalList);
  		JsonObject propertiesJsonObject = input.get(ClassLabelConstants.SetOfPropertyValueQueryPairs).getAsJsonObject();
- 		
- 		System.out.println("RDFGeneralQueryWithJson------------------------------------------");
- 		System.out.println("RDFGeneralQueryWithJson: " + JsonObjectUtilities.toString(input));
- 		System.out.println("RDFGeneralQueryWithJson------------------------------------------");
- 		System.out.println("RDFGeneralQueryWithJson: " + JsonObjectUtilities.toString(propertiesJsonObject));
- 		System.out.println("RDFGeneralQueryWithJson------------------------------------------");
- 		
- 		JsonObject responseJsonObject = rdfquery.searchWithProperties(propertiesJsonObject);
-		
+		JsonObject responseJsonObject = rdfquery.searchWithProperties(propertiesJsonObject);
 		return responseJsonObject;
 	}
 	
@@ -113,8 +106,7 @@ public class RDFQuestionsUtilities {
 
 		JsonObject object = new JsonObject();
 
-		Driver driver = Neo4JInitialization.initDriver();
-		try (Session session = driver.session()) {
+		try (Session session = Neo4JInitialization.getDriver().session()) {
 			Result result = session.run(query, properties);
 			JsonArray resultarray = new JsonArray();
 			while (result.hasNext()) {
@@ -184,10 +176,7 @@ public class RDFQuestionsUtilities {
 			propertiesfound = false;
 		}
 		if (propertiesfound) {
-			Driver driver = Neo4JInitialization.initDriver();
-
-			try (Session session = driver.session()) {
-
+			try (Session session = Neo4JInitialization.getDriver().session()) {
 				String queryString = "MATCH (s {uniquegenericname: $uniquename, creator: $owner})"
 						+ "-[r:RDFCatalogObjectUniqueGenericLabel]->(o) " + "WHERE o.objecttype = $type " + "RETURN o";
 				body.addElement("pre").addText("Query: " + queryString);
@@ -200,7 +189,6 @@ public class RDFQuestionsUtilities {
 					var record = result.next();
 					Node node = record.get("o").asNode();
 					Map<String, Object> map = node.asMap();
-					System.out.println("-----------------------------------------\n" + map);
 					JsonObject infoObject = CreateDocumentTemplate.createTemplate("dataset:CatalogObjectInformation");
 					String shortdescription = (String) map.get("shortdescription");
 					String catobjid = (String) map.get("catobjid");
@@ -216,9 +204,9 @@ public class RDFQuestionsUtilities {
 					lstArray.add(infoObject);
 				}
 			} catch (Exception e) {
-				System.out.println("No session");
+				System.err.println("No session");
 				e.printStackTrace();
-				System.out.println(e);
+				System.err.println(e);
 			}
 			String titleString = "Success: " + count + " catalog objects found with label and type";
 			JsonArray catalogArray = new JsonArray();
@@ -310,9 +298,10 @@ public class RDFQuestionsUtilities {
 			query = querywithowner;
 		}
 		properties.put("transactionid", transactionid);
-		Driver driver = Neo4JInitialization.initDriver();
+		//Driver driver = Neo4JInitialization.initDriver();
 
-		try (Session session = driver.session()) {
+		try (Session session = Neo4JInitialization.getDriver().session();
+				) {
 			Result result = session.run(query, properties);
 			while (result.hasNext()) {
 				var record = result.next();
@@ -323,9 +312,9 @@ public class RDFQuestionsUtilities {
 				prerequisitesArray.add(prerequisiteJsonObject);
 			}
 		} catch (Exception e) {
-			System.out.println("No session");
+			System.err.println("No session");
 			e.printStackTrace();
-			System.out.println(e);
+			System.err.println(e);
 			prerequisitesArray = null;
 		}
 		return prerequisitesArray;
@@ -388,15 +377,12 @@ public class RDFQuestionsUtilities {
 					+ "MATCH (s2  {uniquegenericname: $uniquegenericname})-[:RDFCatalogObjectUniqueGenericLabel]->(o2) where o2.catobjid = id " + "RETURN id, descr,"
 					+ "s2.uniquegenericname as name," + "o2.firestorecatalog as address";
 	    }
-
-		Driver driver = Neo4JInitialization.initDriver();
-		
 		ArrayList<String> headerList = new ArrayList<String>();
 		headerList.add("Catalog ID");
 		headerList.add("Unique Label");
 		headerList.add("Benson Rule");
 		Element tbody = CreateDocumentTableUtilities.createTableWithHeader(body, headerList);
-		try (Session session = driver.session()) {
+		try (Session session = Neo4JInitialization.getDriver().session()) {
 			Result result = session.run(queryString, properties);
 			while (result.hasNext()) {
 				var record = result.next();

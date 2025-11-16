@@ -23,6 +23,8 @@ export class RepositorythermopartitionblockComponent implements OnInit {
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	identifier = Ontologyconstants.dctermsidentifier;
+	
+	block: Record<string,any> = {};
 
 
 	objectform: UntypedFormGroup = new UntypedFormGroup({});
@@ -49,12 +51,12 @@ export class RepositorythermopartitionblockComponent implements OnInit {
 	}
 
 	public setData(catalog: any) {
+		this.block = catalog;
 		const cntid1 = this.annoinfo['dataset:ThermodynamicsTherGasLine1'][this.identifier];
 		const cntid1a = this.annoinfo['dataset:ThermodynamicsTherGasLine1a'][this.identifier];
 		const cntid2 = this.annoinfo['dataset:ThermodynamicsTherGasLine2'][this.identifier];
 		const cntid3 = this.annoinfo['dataset:ThermodynamicsTherGasLine3'][this.identifier];
 		const thermoid = this.annoinfo['dataset:RepositoryThermoPartitionBlock'][this.identifier];
-
         const thermo = catalog[thermoid];
 		let linesS = thermo[cntid1];
 		linesS = linesS.concat('\n');
@@ -65,7 +67,6 @@ export class RepositorythermopartitionblockComponent implements OnInit {
 		linesS = linesS = linesS.concat(thermo[cntid2]);
 		linesS = linesS.concat('\n');
 		linesS = linesS.concat(thermo[cntid3]);
-		linesS = linesS.concat('\n');
 		this.objectform?.get('ThermoBlock')?.setValue(linesS);
 	}
 	public getData(catalog: any) {
@@ -77,7 +78,8 @@ export class RepositorythermopartitionblockComponent implements OnInit {
 		const cntid1a = this.annoinfo['dataset:ThermodynamicsTherGasLine1a'][this.identifier];
 		const cntid2 = this.annoinfo['dataset:ThermodynamicsTherGasLine2'][this.identifier];
 		const cntid3 = this.annoinfo['dataset:ThermodynamicsTherGasLine3'][this.identifier];
-
+		const orderid = this.annoinfo['dataset:IntegerOrder'][this.identifier];
+		thermo[orderid] = this.block[orderid];
 		const lineS = block.split('\n');
 		if (lineS.length == 3) {
 			thermo[cntid1] = lineS[0];

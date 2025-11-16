@@ -11,6 +11,14 @@
 
 					<mat-grid-list cols="12" rowHeight="100px">
 						<ng-container *ngIf='anno; else loading'>
+							<mat-grid-tile [colspan]="12">
+								<mat-form-field class="namefield">
+									<mat-label>{{anno['dataset:ShortDescription'][rdfslabel]}}</mat-label>
+									<input matInput formControlName="ShortDescription" class="namefield"
+										[readonly]="!allowchange">
+									<mat-hint>{{anno['dataset:ShortDescription'][rdfscomment]}}</mat-hint>
+								</mat-form-field>
+							</mat-grid-tile>
 							<mat-grid-tile [colspan]="4">
 								<mat-form-field class="namefield">
 									<mat-label>{{anno['dataset:DatabaseObjectType'][rdfslabel]}}</mat-label>
@@ -68,10 +76,6 @@
 					</mat-grid-list>
 				</form>
 			</mat-card-content>
-			
-			<app-firesytorecatalogid #transaction 
-			      [anno]="anno" 
-				  [title]="objectpositiontitle"></app-firesytorecatalogid>
 			<ng-container *ngIf="!istransaction">
 				<app-firesytorecatalogid #firestoreidtrans 
 			      [anno]="anno"

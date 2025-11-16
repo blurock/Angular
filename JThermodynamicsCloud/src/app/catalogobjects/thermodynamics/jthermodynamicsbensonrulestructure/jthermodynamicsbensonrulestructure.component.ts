@@ -64,6 +64,7 @@ export class JthermodynamicsbensonrulestructureComponent implements AfterViewIni
 		counts[this.annoinfo['dataset:JThermodynamicsBensonConnectionWithMultiplicity'][this.identifier]] = countarray;
 		for (const atomcount of this.atomcounts.controls) {
 			const countelement: Record<string, any> = {};
+			countelement[Ontologyconstants.dctermsidentifier] = this.annoinfo['dataset:JThermodynamicsBensonConnectionWithMultiplicity'][this.identifier];
 			countelement[this.annoinfo['dataset:JThermodynamicsBensonConnectingAtom'][this.identifier]] = atomcount.get('JThermodynamicsBensonConnectingAtom')!.value;
 			countelement[this.annoinfo['dataset:ThermodynamicBensonMultiplicity'][this.identifier]] = atomcount.get('ThermodynamicBensonMultiplicity')!.value;
 			countarray.push(countelement);

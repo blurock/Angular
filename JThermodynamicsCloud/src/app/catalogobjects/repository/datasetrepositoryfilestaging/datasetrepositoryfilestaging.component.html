@@ -13,6 +13,14 @@
 						<mat-label>{{annoinfo['dataset:DescriptionTitle'][rdfslabel]}}</mat-label>
 						<input matInput formControlName="DescriptionTitle" class="namefield">
 					</mat-form-field>
+				<mat-form-field class="namefield">
+					<mat-label>{{annoinfo['dataset:InitialReadTypeClass'][rdfslabel]}}</mat-label>
+					<input matInput formControlName="InitialReadTypeClass" class="namefield"  [matMenuTriggerFor]="typemenu">
+				<mat-menu #typemenu="matMenu">
+					<app-menu-item #menu [items]="objecttypeitems"
+						(selectionEvent)="setInputTypes($event)"></app-menu-item>
+				</mat-menu>
+				</mat-form-field>
 				</form>
 			</div>
 			
@@ -24,7 +32,11 @@
 			<app-setofdataobjectlinks #objectlinks [anno]="annoinfo"></app-setofdataobjectlinks>
 			<app-datasetreference #references [annoinfo]="annoinfo"></app-datasetreference>
 			<app-firesytorecatalogid #firestoreid [anno]="annoinfo"></app-firesytorecatalogid>
-			<app-simpledatabaseobjectstructure #simpledata [anno]="annoinfo"></app-simpledatabaseobjectstructure>
+			<app-chemconnectthermodynamicsdatabase #base 
+			        [annoinfo]="annoinfo" 
+					[catalogtype]="catalogtype"
+					[dataset]="true">
+			</app-chemconnectthermodynamicsdatabase>
 			</ng-container>
 		<ng-template #loading>
 		    {{message}}

@@ -675,6 +675,6 @@ public static String RDFPropertyDefinition   =                       "dataset:rd
 public static String BibliographicReferenceLink =                    "dataset:bibliographicreferencelink";
 public static String BibliographicLink =                             "dataset:bibliographiclink";
 public static String BibliographicLinkType =                         "dataset:bibliographiclinktype";
-
+public static String InitialReadTypeClass =                          "dataset:initialreadtype";
 }
 

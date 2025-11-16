@@ -32,8 +32,7 @@ public class CreateRDFs {
 	public static boolean createRDFFromObjectArray(JsonArray arr, Document document) {
 		Element body = MessageConstructor.isolateBody(document);
 		boolean noerror = true;
-		Driver driver = Neo4JInitialization.initDriver();
-		try (Session session = driver.session()) {
+		try (Session session = Neo4JInitialization.getDriver().session()) {
 			Transaction transaction = session.beginTransaction();
 
 			for (int i = 0; i < arr.size(); i++) {
@@ -44,8 +43,6 @@ public class CreateRDFs {
 		} catch (Exception e) {
 			body.addElement("div").addText("Error in creating RDFs for an array of catalog objects: " + e.toString());
 			e.printStackTrace();
-		} finally {
-			driver.close();
 		}
 		return noerror;
 	}
@@ -53,16 +50,13 @@ public class CreateRDFs {
 	public static boolean createRDFFromObject(JsonObject catalog, Document document) {
 		Element body = MessageConstructor.isolateBody(document);
 		boolean noerror = true;
-		Driver driver = Neo4JInitialization.initDriver();
-		try (Session session = driver.session()) {
+		try (Session session = Neo4JInitialization.getDriver().session()) {
 			Transaction transaction = session.beginTransaction();
 			noerror = CreateRDFs.createRDFFromObject(transaction, catalog, document);
 			transaction.commit();
 		} catch (Exception e) {
 			body.addElement("div").addText("Error in creating RDFs for single catalog object: " + e.toString());
 			e.printStackTrace();
-		} finally {
-			driver.close();
 		}
 		return noerror;
 	}
@@ -86,8 +80,7 @@ public class CreateRDFs {
 		JsonObject responseJson = null;
 		Document docmessage = MessageConstructor.startDocument("Create RDFs From CatalogObject");
 		Element body = MessageConstructor.isolateBody(docmessage);
-		Driver driver = Neo4JInitialization.initDriver();
-		try (Session session = driver.session()) {
+		try (Session session = Neo4JInitialization.getDriver().session()) {
 		
 		Transaction transaction = session.beginTransaction();
 		responseJson = createRDFFromCatalogObject(transaction, obj, docmessage); 
@@ -95,8 +88,6 @@ public class CreateRDFs {
 		} catch (Exception e) {
 			body.addElement("div").addText("Error in creating RDFs in standalone catalog object: " + e.toString());
 			e.printStackTrace();
-		} finally {
-			driver.close();
 		}
 		return responseJson;
 	}
@@ -110,12 +101,6 @@ public class CreateRDFs {
 		Element body = MessageConstructor.isolateBody(docmessage);
 		JsonObject response = null;
 		String rdfpredicateString = ClassLabelConstants.RDFPredicate;
-		System.out.println("CreateRDFs:: TransactionID: ------------------------------------------------");
-		System.out.println("CreateRDFs:: TransactionID: " + JsonObjectUtilities.toString(obj));
-		System.out.println("CreateRDFs:: TransactionID: ------------------------------------------------");
-		System.out.println("CreateRDFs:: TransactionID: " + obj.keySet().toString());
-		System.out.println("CreateRDFs:: TransactionID: " + ClassLabelConstants.TransactionID);
-		System.out.println("CreateRDFs:: TransactionID: " + obj.get(ClassLabelConstants.TransactionID).getAsString());
 		body.addElement("h3").addText("Create RDFs From CatalogObject using RDF TransactionID: "
 				+ obj.get(ClassLabelConstants.TransactionID).getAsString());
 		MapOfQueryAndProperties cypherquery = JsonToCypherUtilities.createSimpleRelation(obj);

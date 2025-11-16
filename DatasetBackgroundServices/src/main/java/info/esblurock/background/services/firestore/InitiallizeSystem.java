@@ -11,12 +11,16 @@ import com.google.firebase.FirebaseOptions;
 public class InitiallizeSystem {
 
 	static FirebaseOptions options = null;
+	private static volatile boolean initialized = false; 
 
 	public static void initialize() {
 		intializeFirebase();
 	}
 
 	private static void intializeFirebase() {
+		if (initialized) {
+			return;
+		}
 		if (FirebaseApp.getApps().isEmpty()) {
 		if (options == null) {
 			
@@ -42,13 +46,13 @@ public class InitiallizeSystem {
 				}
 
 				FirebaseApp.initializeApp(options);
+				initialized = true;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} else {
 		}
 	} else {
-		System.out.println("In 'InitiallizeSystem' FirebaseApp already initialized");
 	}
 	}
 }

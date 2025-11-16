@@ -61,9 +61,6 @@ public class GeneralRDFQueryDefinition {
 		List<String> subjects = OntologyUtilityRoutines.exactlyOnePropertyMultiple(relationNameString, OntologyObjectLabels.subject);
 		subjectDefinitions = new LisOfRDFDefinitions(subjects);
 		
-		System.out.println("Subject Definitions: " + subjectDefinitions.keySet());
-		System.out.println("Object Definitions: " + objectDefinitions.keySet());
-		
 		subjectpropsDefinitions = subjectDefinitions.propertiesInDefinitions(this.propertiesRdfDefinitions);
 		objectspropsDefinitions = objectDefinitions.propertiesInDefinitions(this.propertiesRdfDefinitions);
 		subjectpropsNotInDefinitions = subjectDefinitions.propertiesNotInDefinitions(this.propertiesRdfDefinitions);
@@ -107,9 +104,6 @@ public class GeneralRDFQueryDefinition {
 	public JsonObject runQuery(Document docmessage) {
 		JsonObject responseJsonObject = null;
 		String queryString = queryTemplate(this.propertiesRdfDefinitions);
-		
-		Driver driver = Neo4JInitialization.initDriver();
-		
 		Element body = MessageConstructor.isolateBody(docmessage);
 		LisOfRDFDefinitions resultsdefDefinitions = new LisOfRDFDefinitions();
 		resultsdefDefinitions.addAll(subjectpropsNotInDefinitions);
@@ -118,7 +112,7 @@ public class GeneralRDFQueryDefinition {
 		
 		Element tbodyElement = resultTable(body,resultsdefDefinitions);
 
-		try (Session session = driver.session()) {
+		try (Session session = Neo4JInitialization.getDriver().session()) {
 			Result result = session.run(queryString , this.propertiesMap);
 			JsonObject resultJsonObject = CreateDocumentTemplate.createTemplate("dataset:RDFGeneralQueryResult");
 			resultJsonObject.addProperty(ClassLabelConstants.RDFRelationClassName, this.relationNameString);
@@ -185,9 +179,6 @@ public class GeneralRDFQueryDefinition {
 		
 		String objectOutput = outputRETURNString(objectpropsNotInDefinitions,false);
 		
-		System.out.println("Subject out Property String: " + subjectOutput);
-		System.out.println("Object out Property String: " + objectOutput);
-
 		String relationString = relationNameString.substring(8);
 		
 		totalQueryString.append("MATCH ");

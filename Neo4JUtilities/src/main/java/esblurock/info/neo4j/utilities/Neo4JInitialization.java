@@ -7,17 +7,21 @@ import org.neo4j.driver.Driver;
 import org.neo4j.driver.GraphDatabase;
 
 
-public class Neo4JInitialization {
-
+public class Neo4JInitialization{
+	public static Driver driver = null;
 
     // tag::initDriver[]
-    public static Driver initDriver() {
+    public static Driver getDriver()  throws Exception {
     AuthToken auth = AuthTokens.basic(getNeo4jUsername(), getNeo4jPassword());
-    Driver driver = GraphDatabase.driver(getNeo4jUri(), auth);
-    driver.verifyConnectivity();
-    return driver;
+    if(Neo4JInitialization.driver == null) {
+    	Neo4JInitialization.driver = GraphDatabase.driver(getNeo4jUri(), auth);
     }
-    // end::initDriver[]
+    
+    Neo4JInitialization.driver.verifyConnectivity();
+
+    return Neo4JInitialization.driver;
+    }
+    
 
     static int getServerPort() {
         return Integer.parseInt(System.getProperty("APP_PORT", "3000"));

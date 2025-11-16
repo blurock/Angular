@@ -77,7 +77,9 @@ export class IdentifiersService {
 	public BibliographicReferenceLink =                    'dataset:bibliographicreferencelink';
 	public BibliographicLink =                             'dataset:bibliographiclink';
 	public BibliographicLinkType =                         'dataset:bibliographiclinktype';
-	
+	public ShortDescription =                              'dataset:shortdescription';
+	public CatalogObjectID =                               'dataset:catobjid';
+	public GCSFullPathWithName =                           'dataset:gcsfullpathwithname';
 	
 	constructor() { }
 }

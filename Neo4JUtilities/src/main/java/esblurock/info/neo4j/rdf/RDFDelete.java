@@ -30,8 +30,7 @@ public class RDFDelete {
 		String altlabel = DatasetOntologyParseBase.getAltLabelFromAnnotation("dataset:TransactionIDinRDF");
 		String cypherqueryString = "MATCH (n {" + altlabel + ": \"" + transactionid + "\"}) DETACH DELETE n";
 		body.addElement("pre").addText("Query: " + cypherqueryString);
-		Driver driver = Neo4JInitialization.initDriver();
-		try (Session session = driver.session()) {
+		try (Session session = Neo4JInitialization.getDriver().session()) {
 			Transaction transaction = session.beginTransaction();
 			Result result = transaction.run(cypherqueryString);
 			ResultSummary summary = result.consume();
@@ -47,8 +46,6 @@ public class RDFDelete {
 		String mtitle = "Deletion failed: " + e.getMessage();
 		body.addElement("pre").addText(mtitle);		
 		response = StandardResponse.standardServiceResponse(docmessage, mtitle, null);
-    } finally {
-        driver.close();
     }
 		return response;
 	}

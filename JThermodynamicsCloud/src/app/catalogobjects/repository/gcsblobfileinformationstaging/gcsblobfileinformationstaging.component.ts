@@ -20,7 +20,7 @@ import { FileformatmanagerService } from '../../../services/fileformatmanager.se
 	styleUrls: ['./gcsblobfileinformationstaging.component.scss'],
 	standalone: true,
 	imports: [MatCardModule, MatFormFieldModule, ReactiveFormsModule, MatSelectModule, CommonModule,
-		MatGridListModule,MatMenuModule,MenuItemComponent,MatGridListModule, MatInputModule, NgIf
+		MatGridListModule, MatMenuModule, MenuItemComponent, MatGridListModule, MatInputModule, NgIf
 	]
 })
 export class GcsblobfileinformationstagingComponent implements AfterViewInit {
@@ -34,22 +34,26 @@ export class GcsblobfileinformationstagingComponent implements AfterViewInit {
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = Ontologyconstants.rdfscomment;
 	formatmenulabel = 'dataset:FileSourceFormat';
-	
+
+	gcsdata: any = {};
+
 	message = 'GCS Blob initialization information';
 
 	constructor(
 		private formBuilder: UntypedFormBuilder,
 		public identifiers: IdentifiersService,
-		private menusetup: MenutreeserviceService,
 		private formatservice: FileformatmanagerService) {
-					this.objectform = this.formBuilder.group({
-			DescriptionAbstract: ['', Validators.required],
+		this.objectform = this.formBuilder.group({
 			FileSourceFormat: ['', Validators.required],
 			GCSFileName: ['', Validators.required],
 			GCSFilePath: ['', Validators.required],
+			GCSFullPathWithName: ['', Validators.required],
+			FileSourceMediaSubType: ['', Validators.required],
+			FileSourceMediaType: ['', Validators.required],
+			UploadFileSource: ['', Validators.required],
 		});
 
-		 }
+	}
 
 	ngAfterViewInit(): void {
 		this.formatservice.getTherGasCatalogTypes().subscribe(result => {
@@ -58,19 +62,25 @@ export class GcsblobfileinformationstagingComponent implements AfterViewInit {
 	}
 
 	setData(catalog: any): void {
-		this.objectform.get('DescriptionAbstract')?.setValue(catalog[this.identifiers.DescriptionAbstract]);
+		this.gcsdata = catalog;
 		this.objectform.get('FileSourceFormat')?.setValue(catalog[this.identifiers.FileSourceFormat]);
 		this.objectform.get('GCSFileName')?.setValue(catalog[this.identifiers.GCSFileName]);
 		this.objectform.get('GCSFilePath')?.setValue(catalog[this.identifiers.GCSFilePath]);
+		this.objectform.get('FileSourceMediaType')?.setValue(catalog[this.identifiers.FileSourceMediaType]);
+		this.objectform.get('FileSourceMediaSubType')?.setValue(catalog[this.identifiers.FileSourceMediaSubType]);
+		this.objectform.get('UploadFileSource')?.setValue(catalog[this.identifiers.UploadFileSource]);
 	}
 
 	getData(catalog: any): void {
-		const gcsinfo: Record<string,any> = {};
+		const gcsinfo: Record<string, any> = {};
 		catalog[this.identifiers.GCSBlobFileInformationStaging] = gcsinfo;
-		gcsinfo[this.identifiers.DescriptionAbstract] = this.objectform.get('DescriptionAbstract')?.value ?? '';
+		gcsinfo[this.identifiers.GCSFullPathWithName] = this.gcsdata[this.identifiers.GCSFullPathWithName];
+		gcsinfo[this.identifiers.FileSourceMediaType] = this.objectform.get('FileSourceMediaType')?.value ?? '';
+		gcsinfo[this.identifiers.FileSourceMediaSubType] = this.objectform.get('FileSourceMediaSubType')?.value ?? '';
 		gcsinfo[this.identifiers.FileSourceFormat] = this.objectform.get('FileSourceFormat')?.value ?? '';
 		gcsinfo[this.identifiers.GCSFileName] = this.objectform.get('GCSFileName')?.value ?? '';
 		gcsinfo[this.identifiers.GCSFilePath] = this.objectform.get('GCSFilePath')?.value ?? '';
+		gcsinfo[this.identifiers.UploadFileSource] = this.objectform.get('UploadFileSource')?.value ?? '';
 	}
 	setFileFormat($event: any): void {
 		const format = $event['format'];

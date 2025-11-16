@@ -72,7 +72,7 @@ export class UploadstepsComponent implements OnInit, AfterViewInit {
 	parsetransactiontitle: string;
 	parsetransaction: string = Ontologyconstants.PartiionSetWithinRepositoryFileTransaction;
 	parseactivitytype: string = Ontologyconstants.PartiionSetWithinRepositoryFileActivity;
-	parseprerequisitetype: string = Ontologyconstants.InitialReadInOfRepositoryFileTransaction;
+	parseprerequisitetype: string = Ontologyconstants.InitialReadInOfRepositoryFileTransactionParse;
 	parsefiletitle: string;
 	parseactivitytitle: string;
 

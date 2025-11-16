@@ -26,40 +26,36 @@ import { MatIconModule } from '@angular/material/icon';
 		FiresytorecatalogidComponent,
 		MatIconModule]
 })
-export class SimpledatabaseobjectstructureComponent implements AfterViewInit, OnChanges{
+export class SimpledatabaseobjectstructureComponent implements AfterViewInit, OnChanges {
 
 	cataloginfotitle: string;
 	objectpositiontitle: string;
 	transactionpositiontitle: string;
-	showobject: boolean = true;
+	showobject: boolean = false;
 
 	objectform: UntypedFormGroup;
 	identifier = Ontologyconstants.dctermsidentifier;
 	simpledata: any | null = null;
-	transactionelement!: FiresytorecatalogidComponent;
 	objectelement!: FiresytorecatalogidComponent;
 
 	@Input() anno: any;
 	@Input() allowchange: boolean = false;
 	@Input() istransaction: boolean = false;
 
-	@ViewChild('transaction') set transaction(element: FiresytorecatalogidComponent) {
-		this.objectelement = element;
-		if (this.objectelement && this.transactionelement) {
-			if (this.simpledata) {
-				this.setData(this.simpledata);
-			}
+	firestoreidtrans!: FiresytorecatalogidComponent;
+@ViewChild('firestoreidtrans') 
+   set setcontent(content: FiresytorecatalogidComponent | undefined) {
+	    this.firestoreidtrans = content!;
+		if(content && !this.istransaction && this.simpledata && this.anno) {
+			const transactionvalues = this.simpledata[this.anno['dataset:FirestoreCatalogIDForTransaction'][this.identifier]];
+			this.firestoreidtrans.setData(transactionvalues);
 		}
+	}
+	
+	get setcontent(): FiresytorecatalogidComponent | undefined {
+	    return this.firestoreidtrans;
 	}
 
-	@ViewChild('firestoreidtrans') set firestoreidtrans(element: FiresytorecatalogidComponent) {
-		this.transactionelement = element;
-		if (this.transactionelement && this.objectelement) {
-			if (this.simpledata) {
-				this.setData(this.simpledata);
-			}
-		}
-	}
 
 	rdfslabel = Ontologyconstants.rdfslabel;
 	rdfscomment = 'rdfs:comment';
@@ -80,6 +76,7 @@ export class SimpledatabaseobjectstructureComponent implements AfterViewInit, On
 			CatalogObjectAccessModify: [''],
 			TransactionID: [''],
 			DateCreated: [''],
+			ShortDescription: ['']
 		});
 
 	}
@@ -97,10 +94,8 @@ export class SimpledatabaseobjectstructureComponent implements AfterViewInit, On
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
-		if (changes['anno'] && changes['anno'].currentValue) {
-			if (this.simpledata) {
+		if (this.simpledata) {
 				this.setData(this.simpledata);
-			}
 		}
 	}
 
@@ -108,25 +103,29 @@ export class SimpledatabaseobjectstructureComponent implements AfterViewInit, On
 
 	public setData(catalog: any): void {
 		this.simpledata = catalog;
-		if (this.anno && this.objectelement) {
+		if (this.anno) {
 			this.objectform.patchValue({
 				DatabaseObjectType: catalog[this.identifiers.DatabaseObjectType]
 			});
+			this.objectform.get('ShortDescription')?.setValue(catalog[this.identifiers.ShortDescription]);
 			this.objectform.get('CatalogObjectAccessRead')?.setValue(catalog[this.identifiers.CatalogObjectAccessRead]);
 			this.objectform.get('CatalogObjectOwner')?.setValue(catalog[this.identifiers.CatalogObjectOwner]);
 			this.objectform.get('CatalogObjectKey')?.setValue(catalog[this.identifiers.CatalogObjectKey]);
 			this.objectform.get('CatalogObjectAccessModify')?.setValue(catalog[this.identifiers.CatalogObjectAccessModify]);
 			this.objectform.get('TransactionID')?.setValue(catalog[this.identifiers.TransactionID]);
-			if (!this.istransaction) {
+			if (!this.istransaction && this.firestoreidtrans) {
 				const transactionvalues = catalog[this.anno['dataset:FirestoreCatalogIDForTransaction'][this.identifier]];
-				this.transactionelement.setData(transactionvalues);
+				this.firestoreidtrans.setData(transactionvalues);
 			}
-			const firestoreidtransaction = catalog[this.anno['dataset:FirestoreCatalogID'][this.identifier]];
-			this.objectelement.setData(firestoreidtransaction);
 		}
 	}
 	public getData(catalog: any): void {
 		this.showobject = true;
+		catalog[this.anno['dataset:CatalogObjectID'][this.identifier]] = this.simpledata[this.anno['dataset:CatalogObjectID'][this.identifier]];
+		catalog[this.anno['dataset:ShortDescription'][this.identifier]] = this.simpledata[this.anno['dataset:ShortDescription'][this.identifier]];
+		catalog[this.anno['dataset:DatasetObjectType'][this.identifier]] = this.simpledata[this.anno['dataset:DatasetObjectType'][this.identifier]];
+		catalog[this.anno['dataset:CatalogObjectID'][this.identifier]] = this.simpledata[this.anno['dataset:CatalogObjectID'][this.identifier]];
+		catalog[this.identifiers.ShortDescription] = this.objectform.get('ShortDescription')?.value;
 		catalog[this.identifiers.DatabaseObjectType] = this.objectform.get('DatabaseObjectType')?.value;
 		catalog[this.identifiers.CatalogObjectAccessRead] = this.objectform.get('CatalogObjectAccessRead')?.value;
 		catalog[this.identifiers.CatalogObjectOwner] = this.objectform.get('CatalogObjectOwner')?.value;
@@ -135,20 +134,10 @@ export class SimpledatabaseobjectstructureComponent implements AfterViewInit, On
 		catalog[this.identifiers.CatalogObjectAccessRead] = this.objectform.get('CatalogObjectAccessRead')?.value;
 		catalog[this.identifiers.TransactionID] = this.objectform.get('TransactionID')?.value;
 		if (!this.istransaction) {
-			if (this.transactionelement) {
-				this.transactionelement.getData(catalog);
-				const transaction = catalog[this.anno['dataset:FirestoreCatalogID'][this.identifier]];
-				catalog[this.anno['dataset:FirestoreCatalogIDForTransaction'][this.identifier]] = transaction;
-			} else {
-				//console.log("SimpledatabaseobjectstructureComponent getData transactionelement not defined")
-			}
+			const dummy: Record<string,any> = {};
+			this.firestoreidtrans.getData(dummy);
+			catalog[this.anno['dataset:FirestoreCatalogIDForTransaction'][this.identifier]] = dummy[this.anno['dataset:FirestoreCatalogID'][this.identifier]];
 		}
-		if (this.objectelement) {
-			this.objectelement.getData(catalog);
-		} else {
-			//console.log("SimpledatabaseobjectstructureComponent getData objectelement not defined")
-		}
-
 	}
 
 }

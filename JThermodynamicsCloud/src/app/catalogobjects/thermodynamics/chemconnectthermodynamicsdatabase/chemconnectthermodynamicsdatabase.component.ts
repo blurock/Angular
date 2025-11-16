@@ -26,7 +26,10 @@ import { UserinterfaceconstantsService } from '../../../const/userinterfaceconst
 	styleUrls: ['./chemconnectthermodynamicsdatabase.component.scss'],
 	standalone: true,
 	imports: [
-			MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, NgIf, MatGridListModule,
+			MatCardModule, 
+			MatFormFieldModule, 
+			MatInputModule, 
+			ReactiveFormsModule, NgIf, MatGridListModule,
 			MenuItemComponent,
 			MatMenuModule,
 			SetofsitereferencesComponent,
@@ -157,10 +160,10 @@ export class ChemconnectthermodynamicsdatabaseComponent implements OnInit {
 		}
 		this.firestoreid.getData(catalog);
 		if(this.dataset) {
-		this.datasetspec.getData(catalog);
-	}  else {
-		this.databasespec.getData(catalog);
-	}
+			this.datasetspec.getData(catalog);
+		}  else {
+			this.databasespec.getData(catalog);
+		}
 	}
 
 }

@@ -13,12 +13,8 @@ import info.esblurock.reaction.core.ontology.base.dataset.CreateDocumentTemplate
 import jnr.ffi.Struct.int16_t;
 
 public enum CreateCatalogObjectElements {
-	
+	/*
 	DataSetReference {
-		/* CreateBibliographicReferenceElement
-		 * 		 *reference: DataSetReference
-		 *
-		 */
 		@Override
 		public JsonObject execute(JsonObject reference) {
 			JsonObject element = CreateDocumentTemplate.createTemplate("dataset:BibliographicReferenceElement");
@@ -26,14 +22,12 @@ public enum CreateCatalogObjectElements {
 			element.addProperty(ClassLabelConstants.DOIElementReference, reference.get(ClassLabelConstants.DOI).getAsString());
 			return element;
 		}
-		/*
-		 * This extracts the DataSetReference from the catalog object.
-		 */
 		public JsonArray extractArrayOfObjects(JsonObject source) {
 			return source.get(ClassLabelConstants.DataSetReference).getAsJsonArray();
 
 		}
 	},
+*/
 	ObjectSiteReference {
 		@Override
 		public JsonObject execute(JsonObject source) {

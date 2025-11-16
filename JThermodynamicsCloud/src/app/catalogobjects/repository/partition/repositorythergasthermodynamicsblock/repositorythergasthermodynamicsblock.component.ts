@@ -8,6 +8,7 @@ import { CatalogbaseComponent } from '../../../../primitives/catalogbase/catalog
 import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
 import { MatCardModule } from '@angular/material/card';
 import { NgIf } from '@angular/common';
+import { Ontologyconstants } from '../../../../const/ontologyconstants';
 
 @Component({
 	selector: 'app-repositorythergasthermodynamicsblock',
@@ -62,6 +63,7 @@ export class RepositorythergasthermodynamicsblockComponent extends CatalogbaseCo
 	}
 	
 	public override getData(catalog: any) {
+		catalog[Ontologyconstants.dctermsidentifier] = Ontologyconstants.RepositoryTherGasThermodynamicsBlock;
 		this.thermo.getData(catalog);
 		this.partition.getData(catalog);
 	}

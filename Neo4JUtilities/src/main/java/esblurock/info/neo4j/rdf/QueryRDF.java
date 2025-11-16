@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
-import org.neo4j.driver.Driver;
 import org.neo4j.driver.Result;
 import org.neo4j.driver.Session;
 import org.neo4j.driver.Value;
@@ -15,9 +14,10 @@ import org.neo4j.driver.exceptions.NoSuchRecordException;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import esblurock.info.neo4j.utilities.Neo4JInitialization;
+
 import org.neo4j.driver.Record;
 
-import esblurock.info.neo4j.utilities.Neo4JInitialization;
 import info.esblurock.reaction.core.MessageConstructor;
 import info.esblurock.reaction.core.StandardResponse;
 
@@ -78,8 +78,7 @@ public class QueryRDF {
         body.addElement("pre").addText("Query: " + query);
 		JsonObject response = null;
 		JsonArray resultarray = new JsonArray();
-		Driver driver = Neo4JInitialization.initDriver();
-		try (Session session = driver.session()) {
+		try (Session session = Neo4JInitialization.getDriver().session()) {
 			Result result = session.run(query,properties);
 			
 			
@@ -109,8 +108,9 @@ public class QueryRDF {
 		} catch (NoSuchRecordException e) {
 			String mtitle = "No records found for the given query.";
 			response = StandardResponse.standardServiceResponse(docmessage, mtitle, null);
-		} finally {
-			driver.close();
+		} catch (Exception e) {
+			body.addElement("div").addText("Error opening driver: " + e.toString());
+			e.printStackTrace();
 		}
 
 		return response;

@@ -144,6 +144,7 @@ public enum TransactionProcess {
 			TransactionProcess process = TransactionProcess.valueOf("InitialReadInOfRepositoryFile");
 			JsonObject simpledescr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
 			simpledescr.addProperty(ClassLabelConstants.TransactionEventType, "dataset:InitialReadInOfRepositoryFile");
+			info.addProperty(ClassLabelConstants.InitialReadTypeClass, "dataset:InitialReadFromUserInterface");
 			return process.process(event, prerequisites, info);
 		}
 
@@ -165,6 +166,7 @@ public enum TransactionProcess {
 			TransactionProcess process = TransactionProcess.valueOf("InitialReadInOfRepositoryFile");
 			JsonObject simpledescr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
 			simpledescr.addProperty(ClassLabelConstants.TransactionEventType, "dataset:InitialReadInOfRepositoryFile");
+			info.addProperty(ClassLabelConstants.InitialReadTypeClass, "dataset:InitialReadFromWebLocation");
 			return process.process(event, prerequisites, info);
 		}
 
@@ -187,6 +189,7 @@ public enum TransactionProcess {
 			TransactionProcess process = TransactionProcess.valueOf("InitialReadInOfRepositoryFile");
 			JsonObject simpledescr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
 			simpledescr.addProperty(ClassLabelConstants.TransactionEventType, "dataset:InitialReadInOfRepositoryFile");
+			info.addProperty(ClassLabelConstants.InitialReadTypeClass, "dataset:InitialReadInLocalStorageSystem");
 			return process.process(event, prerequisites, info);
 		}
 
