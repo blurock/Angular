@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Ontologyconstants } from '../../../const/ontologyconstants';
 
 @Component({
 	selector: 'app-jthermodynamicssymmetrystructuredefinition',
@@ -108,6 +109,7 @@ export class JthermodynamicssymmetrystructuredefinitionComponent extends Catalog
 
 	override getData(catalog: any): void {
 		const symm: Record<string, any> = {};
+		catalog[Ontologyconstants.dctermsidentifier] = Ontologyconstants.JThermodynamicsSymmetryStructureDefinitionDataSet;
 		const id11 = this.annoinfo['dataset:JThermodynamicSymmetryDefinitionLabel'][this.identifier];
 		symm[id11] = this.objectform.get('JThermodynamicSymmetryDefinitionLabel')!.value;
 		const id12 = this.annoinfo['dataset:StructureSymmetryType'][this.identifier];

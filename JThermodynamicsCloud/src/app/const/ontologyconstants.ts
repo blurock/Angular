@@ -114,4 +114,5 @@ export class Ontologyconstants {
 	public static JThermodynamics2DSubstructureThermodynamicsDataSet = 'dataset:2dsubstructurethermodataset';
 	public static ThermodynamicBensonRuleDefinitionDataSet = 'dataset:bensonruledataset';
 	public static RepositoryTherGasThermodynamicsBlock = 'dataset:thergasthermoblock';
+	public static JThermodynamicsSymmetryStructureDefinitionDataSet = 'dataset:symmetrystructuredefinitiondataset';
 }
