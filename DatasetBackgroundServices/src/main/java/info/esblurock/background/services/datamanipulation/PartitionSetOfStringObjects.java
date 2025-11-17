@@ -86,7 +86,7 @@ public enum PartitionSetOfStringObjects {
 							"dataset:RepositoryParsedToFixedBlockSize", owner, transactionID, "false");
 					block.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 					block.add(ClassLabelConstants.ParsedLine, linearr);
-					block.addProperty(ClassLabelConstants.ElementCount, sze);
+					block.addProperty(ClassLabelConstants.BlockLineCount, sze);
 					block.addProperty(ClassLabelConstants.Position, position);
 					block.addProperty(ClassLabelConstants.ShortDescription, linearr.get(0).getAsString());
 					partitionarr.add(block);
@@ -119,7 +119,7 @@ public enum PartitionSetOfStringObjects {
 							"dataset:RepositoryParsedToFixedBlockSize", owner, transactionID, "false");
 					block.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, maintainer);
 					block.add(ClassLabelConstants.ParsedLine, linearr);
-					block.addProperty(ClassLabelConstants.ElementCount, portion.length());
+					block.addProperty(ClassLabelConstants.BlockLineCount, portion.length());
 					block.addProperty(ClassLabelConstants.Position, position);
 					
 					block.addProperty(ClassLabelConstants.ShortDescription, "XML Portion " + position);

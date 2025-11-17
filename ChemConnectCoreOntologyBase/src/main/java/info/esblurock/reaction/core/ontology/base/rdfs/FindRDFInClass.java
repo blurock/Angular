@@ -169,7 +169,7 @@ public class FindRDFInClass {
 		ListOfRDFInformation finalrdfsInformation = new ListOfRDFInformation();
 		JsonArray arr = JsonObjectUtilities.getValueUsingIdentifierMultiple(obj, id);
 		if (arr.size() == 0) {
-			System.out.println("Ontology Error: fillWithValues: No values for id: " + id + "RDF: " + rdfs.getList().get(0).getPredicateClass());
+			//System.out.println("Ontology Error: fillWithValues: No values for id: " + id + "RDF: " + rdfs.getList().get(0).getPredicateClass());
 			//System.out.println("Ontology Error: fillWithValues: Object: " + JsonObjectUtilities.toString(obj));
 			//System.out.println("Ontology Error: fillWithValues: RDFInformation: " + JsonObjectUtilities.toString(rdfs.getList().get(0).toJsonObject()));
 			finalrdfsInformation = null;

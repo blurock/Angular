@@ -10,14 +10,20 @@ import { MatInputModule } from '@angular/material/input';
 import { NgIf } from '@angular/common';
 import { CatalogbaseComponent } from '../../../../primitives/catalogbase/catalogbase.component';
 import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
+import { Ontologyconstants } from '../../../../const/ontologyconstants';
 
 @Component({
 	selector: 'app-repositoryparsedtofixedblocksize',
 	templateUrl: './repositoryparsedtofixedblocksize.component.html',
 	styleUrls: ['./repositoryparsedtofixedblocksize.component.scss'],
 	standalone: true,
-	imports: [RepositorydatapartitionblockComponent,
-		MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, NgIf
+	imports: [
+		RepositorydatapartitionblockComponent,
+		MatCardModule, 
+		MatFormFieldModule, 
+		MatInputModule, 
+		ReactiveFormsModule, 
+		NgIf
 	]
 })
 export class RepositoryparsedtofixedblocksizeComponent extends CatalogbaseComponent implements AfterViewInit {
@@ -28,7 +34,11 @@ export class RepositoryparsedtofixedblocksizeComponent extends CatalogbaseCompon
 	title = 'Fixed Number of Lines Block';
 
 	display = false;
-
+	parsedlines = '';
+	blocklinecount = 1;
+	minrows = 4;
+	maxcount = 15;
+	
 	@Input() cataloginfo: any;
 
 	@ViewChild('partition') partition?: RepositorydatapartitionblockComponent;
@@ -43,7 +53,7 @@ export class RepositoryparsedtofixedblocksizeComponent extends CatalogbaseCompon
 	) {
 		super(constants, annotations, cdRef);
 		this.objectform = this.formBuilder.group({
-			BlockLineCount: [1, Validators.required],
+			//BlockLineCount: [1, Validators.required],
 			ParsedLine: ['Line 1', Validators.required]
 		});
 
@@ -60,12 +70,20 @@ export class RepositoryparsedtofixedblocksizeComponent extends CatalogbaseCompon
 		super.setData(catalog);
 		if (this.annoinfo != null ) {
 			const cntid = this.annoinfo['dataset:BlockLineCount'][this.identifier];
-			this.objectform.get('BlockLineCount')?.setValue(catalog[cntid]) ?? '';
+			//this.objectform.get('BlockLineCount')?.setValue(catalog[cntid]) ?? '';
+			this.blocklinecount = catalog[cntid];
 			const lnsid = this.annoinfo['dataset:ParsedLine'][this.identifier];
-			const lines = catalog[lnsid];
+			this.parsedlines = catalog[lnsid];
 			let text = "";
-			for (let line of lines) {
+			var count = 0;
+			for (let line of this.parsedlines) {
+				count = count + line.split('\n').length;
 				text = text.concat(line).concat('\n');
+			}
+			if(count > this.maxcount) {
+				this.minrows = this.maxcount;
+			} else {
+				this.minrows = count;
 			}
 			this.objectform.get('ParsedLine')?.setValue(text) ?? '';;
 			this.partition?.setData(catalog);
@@ -75,16 +93,11 @@ export class RepositoryparsedtofixedblocksizeComponent extends CatalogbaseCompon
 		}
 	}
 	public override  getData(catalog: any) {
+		catalog[Ontologyconstants.dctermsidentifier] = Ontologyconstants.RepositoryParsedToFixedBlockSize;
 		const cntid = this.annoinfo['dataset:BlockLineCount'][this.identifier];
-		catalog[cntid] = this.objectform.get('BlockLineCount')?.value ?? '';
+		catalog[cntid] = this.blocklinecount;
 		const lnsid = this.annoinfo['dataset:ParsedLine'][this.identifier];
-		const text = this.objectform.get('ParsedLine')?.value ?? '';
-		const lineS = text.split('\n');
-		let lines = [];
-		for (let line of lineS) {
-			lines.push(line);
-		}
-		catalog[lnsid] = lines;
+		catalog[lnsid] = this.parsedlines;
 		this.partition?.getData(catalog);
 	}
 

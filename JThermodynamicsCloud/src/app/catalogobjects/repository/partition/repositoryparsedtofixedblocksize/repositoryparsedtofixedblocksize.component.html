@@ -8,15 +8,15 @@
 		<ng-container *ngIf='display;'>
 			<div>
 				<form [formGroup]="objectform">
-					<mat-form-field class="countfield">
+					<!-- mat-form-field class="countfield">
 						<mat-label>{{annoinfo['dataset:BlockLineCount'][rdfslabel]}}</mat-label>
-						<input matInput formControlName="BlockLineCount"  [readonly]="true">
+						<input matInput formControlName="BlockLineCount"  readonly>
 						<mat-hint>{{annoinfo['dataset:BlockLineCount'][rdfscomment]}}</mat-hint>
-					</mat-form-field>
+					</mat-form-field -->
 					<mat-form-field class="parsedlines">
 						<mat-label>{{annoinfo['dataset:ParsedLine'][rdfslabel]}}</mat-label>
 						<textarea matInput formControlName="ParsedLine" cdkTextareaAutosize
-							#autosize="cdkTextareaAutosize" cdkAutosizeMinRows="3" cdkAutosizeMaxRows="5"></textarea>
+							#autosize="cdkTextareaAutosize" cdkAutosizeMinRows="{{minrows}}" cdkAutosizeMaxRows="{{maxcount}}" readonly></textarea>
 						<mat-hint>{{annoinfo['dataset:ParsedLine'][rdfscomment]}}</mat-hint>
 					</mat-form-field>
 				</form>
