@@ -12,6 +12,7 @@ import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbas
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
 import { NgIf } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
+import { Ontologyconstants } from '../../../const/ontologyconstants';
 
 @Component({
 	selector: 'app-jthermodynamicsmetaatomdefinition',
@@ -74,6 +75,8 @@ export class JthermodynamicsmetaatomdefinitionComponent extends CatalogbaseCompo
 
 
 	override getData(catalog: any): void {
+		catalog[Ontologyconstants.dctermsidentifier] = Ontologyconstants.JThermodynamicsMetaAtomDefinitionDataSet;
+
 		const id1 = this.annoinfo['dataset:JThermodynamics2DSpeciesLabel'][this.identifier];
 		catalog[id1] = this.objectform.get('JThermodynamics2DSpeciesLabel')!.value;
 		const id2 = this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier];
@@ -85,8 +88,8 @@ export class JthermodynamicsmetaatomdefinitionComponent extends CatalogbaseCompo
 		meta[id4] = this.objectform.get('JThermodynamicsMetaAtomLabel')!.value;
 		const id5 = this.annoinfo['dataset:JThermodynamicsMetaAtomType'][this.identifier];
 		meta[id5] = this.objectform.get('JThermodynamicsMetaAtomType')!.value;
-		const id6 = this.annoinfo['dataset:JThermodynamicsStructureName'][this.identifier];
-		meta[id6] = this.objectform.get('JThermodynamicsStructureName')!.value;
+		//const id6 = this.annoinfo['dataset:JThermodynamicsStructureName'][this.identifier];
+		//meta[id6] = this.objectform.get('JThermodynamicsStructureName')!.value;
 		const id7 = this.annoinfo['dataset:JThermodynamicsMetaAtomInfo'][this.identifier];
 		catalog[id7] = meta;
 

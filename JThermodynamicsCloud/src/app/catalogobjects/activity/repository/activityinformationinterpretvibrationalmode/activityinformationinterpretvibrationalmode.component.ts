@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
@@ -36,7 +36,7 @@ import { FileformatmanagerService } from '../../../../services/fileformatmanager
 	templateUrl: './activityinformationinterpretvibrationalmode.component.html',
 	styleUrls: ['./activityinformationinterpretvibrationalmode.component.scss']
 })
-export class ActivityinformationinterpretvibrationalmodeComponent extends CatalogactivitybaseComponent implements OnInit {
+export class ActivityinformationinterpretvibrationalmodeComponent extends CatalogactivitybaseComponent implements AfterViewInit {
 
 	frequency: any;
 	display = false;
@@ -53,7 +53,7 @@ export class ActivityinformationinterpretvibrationalmodeComponent extends Catalo
 	specsubtitle: string = 'Dataset Specification';
 	
 
-	@ViewChild('paramspec') paramspec!: SpecificationfordatasetComponent;
+	@ViewChild('spec') spec!: SpecificationfordatasetComponent;
 	@ViewChild('frequencyspec') frequencyspec!: ParameterspecificationComponent;
 
 	constructor(
@@ -81,12 +81,13 @@ export class ActivityinformationinterpretvibrationalmodeComponent extends Catalo
 			FileSourceFormat: ['File Format', Validators.required],
             JThermodynamicsSpeciesSpecificationType: ['dataset:SpeciesSpecificationNancyLinearForm', Validators.required]
 		});
-
+		this.catalogtype = 'dataset:ActivityInformationInterpretVibrationalMode';
 	}
     override invalid(): boolean {
 		return this.objectform.invalid;
 	}
-	ngOnInit(): void {
+	
+	ngAfterViewInit(): void {
 		this.fileservice.getFormatClassification().subscribe({
 			next: (data: any) => {
 				this.fileformatdata = data;
@@ -96,21 +97,31 @@ export class ActivityinformationinterpretvibrationalmodeComponent extends Catalo
 				this.objectform.get('BlockInterpretationMethod')!.setValue(block);
 			}
 		});
-		this.items = this.menusetup.findChoices(this.annoinfo, this.structurespecification);
+		if(this.prerequisite) {
+			this.setPrerequisiteData(this.prerequisite);		
+		}
+		
 	}
 	
 	override annotationsFound(response: any): void {
 		super.annotationsFound(response);
+		this.items = this.menusetup.findChoices(this.annoinfo, this.structurespecification);
+		if(this.prerequisite) {
+			this.setPrerequisiteData(this.prerequisite);		
+		}
 	}
 	
 	override setPrerequisiteData(prerequisite: any) {
-		const actinfo = prerequisite['dataset:activityinfo'];
-		const titleid = this.annoinfo['dataset:DescriptionTitle'][this.identifier];
-		this.objectform.get('DescriptionTitle')!.setValue(actinfo[titleid]);
-
-		const specid = this.annoinfo['dataset:SpecificationForDataset'][this.identifier];
-		const specdata = actinfo[specid];
-		this.paramspec.setData(specdata);
+		super.setPrerequisiteData(prerequisite);
+		if (this.annoinfo) {
+			const actinfo = prerequisite['dataset:activityinfo'];
+			const titleid = this.annoinfo['dataset:DescriptionTitle'][this.identifier];
+			this.objectform.get('DescriptionTitle')!.setValue(actinfo[titleid]);
+			if(this.spec) {
+				this.spec.setData(actinfo);
+			}
+			
+		}
 	}
 
 	override getData(activity: any): void {
@@ -118,7 +129,7 @@ export class ActivityinformationinterpretvibrationalmodeComponent extends Catalo
 		activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod')?.value ?? '';
 		activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.objectform.get('FileSourceFormat')?.value ?? '';
 		activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle')?.value ?? '';
-		this.paramspec.getData(activity);
+		this.spec.getData(activity);
 		const freqspecvalue = {};
 		this.frequencyspec.getData(freqspecvalue);
 		activity[this.annoinfo['dataset:ParameterSpecificationStructureVibrationFrequency'][this.identifier]] = freqspecvalue;
@@ -129,7 +140,7 @@ export class ActivityinformationinterpretvibrationalmodeComponent extends Catalo
 		this.objectform.get('BlockInterpretationMethod')!.setValue(this.catalog[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]]);
 		this.objectform.get('FileSourceFormat')!.setValue(this.catalog[this.annoinfo['dataset:FileSourceFormat'][this.identifier]]);
 		this.objectform.get('DescriptionTitle')!.setValue(this.catalog[this.annoinfo['dataset:DescriptionTitle'][this.identifier]]);
-		this.paramspec.setData(this.catalog);
+		this.spec.setData(this.catalog);
 		const freq = this.catalog[this.annoinfo['dataset:ParameterSpecificationStructureVibrationFrequency'][this.identifier]];
 		this.frequencyspec.setData(freq);
 	}

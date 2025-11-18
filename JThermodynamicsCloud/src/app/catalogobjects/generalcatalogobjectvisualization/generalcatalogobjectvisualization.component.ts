@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TransactioneventobjectComponent } from '../transaction/transactioneventobject/transactioneventobject.component';
 import { RepositorythergasthermodynamicsblockComponent } from '../repository/partition/repositorythergasthermodynamicsblock/repositorythergasthermodynamicsblock.component';
 import { JthermodynamicsmetaatomdefinitionComponent } from '../thermodynamics/jthermodynamicsmetaatomdefinition/jthermodynamicsmetaatomdefinition.component';
+import { JthermodynamicsvibrationalstructureComponent } from '../thermodynamics/jthermodynamicsvibrationalstructure/jthermodynamicsvibrationalstructure.component';
 //import { RepositorythergasthermodynamicsblockComponent } from '../repository/partition/repositorythergasthermodynamicsblock/repositorythergasthermodynamicsblock.component';
 //import { ThermodynamicsdatasetcollectionidssetComponent } from '../datasetcollection/thermodynamicsdatasetcollectionidsset/thermodynamicsdatasetcollectionidsset.component';
 
@@ -106,10 +107,10 @@ export class GeneralcatalogobjectvisualizationComponent implements AfterViewInit
 				this.componentRef = this.dynamicChild.createComponent(Jthermodynamics2dsubstructurethermodynamicsComponent);
 				this.componentRef.instance.catalogtype = 'dataset:JThermodynamics2DSubstructureThermodynamicsDatabase';
 			} else if (catalogtype === 'dataset:JThermodynamicsVibrationalStructureDataSet') {
-				this.componentRef = this.dynamicChild.createComponent(Jthermodynamics2dsubstructurethermodynamicsComponent);
+				this.componentRef = this.dynamicChild.createComponent(JthermodynamicsvibrationalstructureComponent);
 				this.componentRef.instance.catalogtype = 'dataset:JThermodynamicsVibrationalStructureDataSet';
 			} else if (catalogtype === 'dataset:JThermodynamicsVibrationalStructureDatabase') {
-				this.componentRef = this.dynamicChild.createComponent(Jthermodynamics2dsubstructurethermodynamicsComponent);
+				this.componentRef = this.dynamicChild.createComponent(JthermodynamicsvibrationalstructureComponent);
 				this.componentRef.instance.catalogtype = 'dataset:JThermodynamicsVibrationalStructureDatabase';
 			} else {
 				//this.componentRef.instance.getCatalogAnnoations();

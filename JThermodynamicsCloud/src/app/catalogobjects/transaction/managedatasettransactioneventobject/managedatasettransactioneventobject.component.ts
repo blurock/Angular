@@ -134,8 +134,6 @@ export class ManagedatasettransactioneventobjectComponent implements OnInit, Aft
 	}
 
 	ngAfterViewInit(): void {
-	console.log('Constructing ManagedatasettransactioneventobjectComponent ID: ' + this.prerequisiteid);
-	console.log('Constructing ManagedatasettransactioneventobjectComponent Type: ' + this.prerequisitetype);
 	}
 
 	setActivityType(activitytype: string) {
@@ -176,7 +174,7 @@ export class ManagedatasettransactioneventobjectComponent implements OnInit, Aft
 		if (this.setPrerequisiteData) {
 			this.setPrerequisiteData(prerequisite);
 		} else {
-			console.log("setPrerequisiteData doesn't exist");
+			
 		}
 		this.infoheader!.setPrerequisiteValue(prerequisite);
 		this.componentRef.instance.setPrerequisiteData(prerequisite);

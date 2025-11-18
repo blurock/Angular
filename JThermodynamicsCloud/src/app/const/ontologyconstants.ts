@@ -116,4 +116,7 @@ export class Ontologyconstants {
 	public static RepositoryTherGasThermodynamicsBlock = 'dataset:thergasthermoblock';
 	public static JThermodynamicsSymmetryStructureDefinitionDataSet = 'dataset:symmetrystructuredefinitiondataset';
 	public static RepositoryParsedToFixedBlockSize = 'dataset:parsetofixsize';
+	public static JThermodynamicsMetaAtomDefinitionDataSet = 'dataset:metaatomdefinitiondataset';
+	public static JThermodynamicsVibrationalStructureDataSet = 'dataset:vibrationstructuredataset';
+	public static StructureVibrationalFrequency = 'dataset:vibrationalfrequency';
 }

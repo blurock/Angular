@@ -88,7 +88,6 @@ export class ActivityinformationinterpretmetaatomComponent extends Catalogactivi
 
 	override annotationsFound(response: any): void {
 		super.annotationsFound(response);
-		console.log("ActivityinformationinterpretmetaatomComponent  annotationsFound" + JSON.stringify(this.annoinfo['dataset:DescriptionTitle']));
 	}
 
 	override setPrerequisiteData(prerequisite: any): void {
@@ -97,15 +96,11 @@ export class ActivityinformationinterpretmetaatomComponent extends Catalogactivi
 	}
 
 	override getData(activity: any): void {
-		console.log("ActivityinformationinterpretmetaatomComponent: getData: ")
-
 		activity[this.annoinfo['dataset:BlockInterpretationMethod'][this.identifier]] = this.objectform.get('BlockInterpretationMethod')?.value ?? '';
 		activity[this.annoinfo['dataset:FileSourceFormat'][this.identifier]] = this.objectform.get('FileSourceFormat')?.value ?? '';
 		activity[this.annoinfo['dataset:DescriptionTitle'][this.identifier]] = this.objectform.get('DescriptionTitle')?.value ?? '';
 		activity[this.annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][this.identifier]] = this.objectform.get('JThermodynamicsSpeciesSpecificationType')?.value ?? '';
 		this.spec.getData(activity);
-
-		console.log("ActivityinformationinterpretmetaatomComponent: getData: " + JSON.stringify(activity));
 	}
 	override setData(a: any): void {
 		super.setData(a);

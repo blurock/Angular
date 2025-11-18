@@ -76,6 +76,8 @@ public enum InterpretTextBlock {
 					catalog.addProperty(ClassLabelConstants.JThermodynamicsVibrationalModeLabel, modename);
 					StringToAtomContainer stringtoatom = new StringToAtomContainer(new HashSet<MetaAtomInfo>());
 					IAtomContainer molecule;
+					String descriptionString = structurename + " (" + multiplicity + ") " + frequency;
+					catalog.addProperty(ClassLabelConstants.ShortDescription, descriptionString);
 					try {
 						// Interpret Structure
 						molecule = stringtoatom.stringToAtomContainer(form, structure);

@@ -106,8 +106,6 @@ export class TransactionobjectheaderComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-	console.log('Constructing TransactionobjectheaderComponent ID: ' + this.prerequisiteid);
-	console.log('TransactionobjectheaderComponent Type: ' + this.prerequisitetype);
 	}
 	
 	@Input() invalid?: () => boolean;
@@ -126,8 +124,6 @@ export class TransactionobjectheaderComponent implements OnInit {
 	@Output() transactionSuccess = new EventEmitter();
 
 	activitysetup(): void {
-		console.log('Constructing TransactionobjectheaderComponent ID activitysetup(): ' + this.prerequisiteid);
-		console.log('TransactionobjectheaderComponent Type activitysetup(): ' + this.prerequisitetype);
 		if (this.prerequisiteid.length > 0) {
 			if (this.prerequisite != null) {
 				if (this.setPrerequisiteData) {
@@ -138,8 +134,6 @@ export class TransactionobjectheaderComponent implements OnInit {
 				datainfo[this.annoinfoid] = this.fetchanno;
 				datainfo[this.maintainerid] = this.maintainer;
 				datainfo[this.transactionid] = this.prerequisitetype;
-				console.log("Prerequisite type: " + this.prerequisitetype);
-				console.log("Prerequisite type: " + JSON.stringify(datainfo));
 				const dialogRef = this.dialog.open(FindspecifictransactionindatasetComponent, {
 					data: datainfo
 				});
