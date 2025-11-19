@@ -80,8 +80,7 @@ export class ThermodynamicbensonruledefinitionComponent extends CatalogbaseCompo
 				const benson = catalog[this.annoinfo['dataset:JThermodynamicsBensonRuleStructure'][this.identifier]];
 				this.bensonstructure.setData(benson);
 				this.base.setData(catalog);
-			} else {
-				alert('Refresh data if not shown');
+				this.catalogdataset = true;
 			}
 		} else {
 		}

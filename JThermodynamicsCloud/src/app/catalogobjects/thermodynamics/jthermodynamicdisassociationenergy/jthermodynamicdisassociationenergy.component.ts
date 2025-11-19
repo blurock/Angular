@@ -90,6 +90,7 @@ export class JthermodynamicdisassociationenergyComponent extends CatalogbaseComp
 		catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]] = struct;
 	}
 	override setData(catalog: any): void {
+		if (!this.catalogdataset) {
 		super.setData(catalog);
 		if (this.base && this.structure && this.energy) {
 			
@@ -98,7 +99,9 @@ export class JthermodynamicdisassociationenergyComponent extends CatalogbaseComp
 			this.energy.setData(energyvalue);
 			const struct = catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
 			this.structure.setData(struct);
+			this.catalogdataset = true;
 		}
+	}
 	}
 
 }

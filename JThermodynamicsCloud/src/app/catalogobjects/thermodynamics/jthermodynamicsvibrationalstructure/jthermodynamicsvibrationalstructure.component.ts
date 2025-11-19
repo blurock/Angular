@@ -119,6 +119,7 @@ export class JthermodynamicsvibrationalstructureComponent extends CatalogbaseCom
 			const struct = catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
 			this.structure.setData(struct);
 			this.base.setData(catalog);
+			this.catalogdataset = true;
 		}
 	}
 }

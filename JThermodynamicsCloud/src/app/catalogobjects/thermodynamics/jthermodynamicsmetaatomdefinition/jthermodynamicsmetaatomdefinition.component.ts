@@ -123,6 +123,7 @@ export class JthermodynamicsmetaatomdefinitionComponent extends CatalogbaseCompo
 		this.base.setData(catalog);
 		const struct = meta[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
 		this.structure.setData(struct);
+		this.catalogdataset = true;
 		}
 	}
 	}

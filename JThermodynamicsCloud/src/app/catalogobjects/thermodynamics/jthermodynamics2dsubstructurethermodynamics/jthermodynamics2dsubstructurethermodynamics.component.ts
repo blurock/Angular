@@ -100,6 +100,7 @@ export class Jthermodynamics2dsubstructurethermodynamicsComponent extends Catalo
 				this.thermo.setData(thermodata);
 				this.structure.setData(catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]]);
 				this.base.setData(catalog);
+				this.catalogdataset = true;
 			}
 		}
 	}

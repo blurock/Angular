@@ -183,6 +183,7 @@ export class JthermodynamicssymmetrystructuredefinitionComponent extends Catalog
 				this.base.setData(catalog);
 				const struct = catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
 				this.structure.setData(struct);
+				this.catalogdataset = true;
 			}
 		}
 		}
