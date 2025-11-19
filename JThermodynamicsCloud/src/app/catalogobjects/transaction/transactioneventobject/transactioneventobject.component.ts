@@ -56,7 +56,6 @@ export class TransactioneventobjectComponent extends CatalogbaseComponent {
 
 	override annotationsFound(response: any): void {
 		super.annotationsFound(response);
-		console.log("annotations found in transaction event object" + this.catalog);
 		if(this.catalog) {
 			this.setData(this.catalog);
 			}
@@ -64,7 +63,6 @@ export class TransactioneventobjectComponent extends CatalogbaseComponent {
 	override setData(catalog: any): void {
 		if(!this.catalogdataset) {
 		super.setData(catalog);
-		console.log("set data called for transaction event object");
 		if (this.annoinfo) {
 			if(this.outputobjects && this.requiredobjects && this.simpledata) {
 			const outputids = catalog[this.annoinfo['dataset:DatabaseObjectIDOutputTransaction'][this.identifier]];
@@ -72,8 +70,7 @@ export class TransactioneventobjectComponent extends CatalogbaseComponent {
 			const requiredids = catalog[this.annoinfo['dataset:RequiredTransactionInformation'][this.identifier]];
 			this.simpledata.setData(catalog);
 			this.requiredobjects.setData(requiredids);
-			} else {
-				console.log("viewchild components not yet set in transaction event object" + this.outputobjects + " " + this.requiredobjects + " " + this.simpledata);
+			this.catalogdataset = true;
 			}
 		}
 }

@@ -38,7 +38,6 @@ export class CatalogbaseComponent  implements BaseCatalogInterface, OnChanges {
 	
 	
 	setData(catalog: any): void {
-		this.catalogdataset = true;
 		this.catalog = catalog;
 		this.transactionReady.emit(this.catalog[Ontologyconstants.TransactionID]);
 		this.cdRef.detectChanges();

@@ -107,7 +107,6 @@ export class SimpledatabaseobjectstructureComponent implements AfterViewInit, On
 			this.objectform.patchValue({
 				DatabaseObjectType: catalog[this.identifiers.DatabaseObjectType]
 			});
-			this.objectform.get('ShortDescription')?.setValue(catalog[this.identifiers.ShortDescription]);
 			this.objectform.get('CatalogObjectAccessRead')?.setValue(catalog[this.identifiers.CatalogObjectAccessRead]);
 			this.objectform.get('CatalogObjectOwner')?.setValue(catalog[this.identifiers.CatalogObjectOwner]);
 			this.objectform.get('CatalogObjectKey')?.setValue(catalog[this.identifiers.CatalogObjectKey]);
@@ -117,6 +116,15 @@ export class SimpledatabaseobjectstructureComponent implements AfterViewInit, On
 				const transactionvalues = catalog[this.anno['dataset:FirestoreCatalogIDForTransaction'][this.identifier]];
 				this.firestoreidtrans.setData(transactionvalues);
 			}
+			if(this.istransaction) {
+				const short = catalog[this.anno['dataset:ShortTransactionDescription'][this.identifier]];
+				this.objectform.get('ShortDescription')?.setValue(short[this.identifiers.ShortDescription]);
+			} else {
+				this.objectform.get('ShortDescription')?.setValue(catalog[this.identifiers.ShortDescription]);
+				
+			}
+		} else  {
+			console.log("annotations not yet set in simple database object structure");
 		}
 	}
 	public getData(catalog: any): void {
