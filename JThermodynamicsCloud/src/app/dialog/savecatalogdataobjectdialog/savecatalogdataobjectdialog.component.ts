@@ -74,8 +74,7 @@ export class SavecatalogdataobjectdialogComponent implements AfterViewInit {
 		this.newdataobject = this.inputdata['newcatalog'];
 		this.anno = this.inputdata['annotations'];
 		this.transactiontype = this.inputdata['transactiontype'];
-
-
+	
 		this.objectform = this.formBuilder.group({
 			CatalogObjectModificationType: ['', Validators.required],
 			DescriptionTitle: ['', Validators.required],

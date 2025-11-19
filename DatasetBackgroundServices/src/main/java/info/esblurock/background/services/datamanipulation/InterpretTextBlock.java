@@ -246,6 +246,8 @@ public enum InterpretTextBlock {
 						value.addProperty(ClassLabelConstants.ValueUncertainty, errorD.toString());
 						value.addProperty(ClassLabelConstants.ValueAsString, energyD.toString());
 						catalog.add(ClassLabelConstants.JThermodynamics2DSpeciesStructure, structure);
+						String titleString = structure.get(ClassLabelConstants.JThermodynamicsStructureName).getAsString() + " HDisassociation=" +  energyD.toString();
+						catalog.addProperty(ClassLabelConstants.ShortDescription, titleString);
 						row.addElement("td").addText(position);
 						row.addElement("td").addText(nancy);
 						row.addElement("td").addText(energyD.toString());

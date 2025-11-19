@@ -49,7 +49,6 @@ export class ManagegeneralcatalogobjectvisComponent {
 	choices = ['dataset:RepositoryFileStaging',
 		'dataset:RepositoryParsedToFixedBlockSize',
 		'dataset:RepositoryTherGasThermodynamicsBlock',
-		'dataset:JThermodynamicsDisassociationEnergyOfStructure',
 		'dataset:JThermodynamicsVibrationalStructureDataSet',
 		'dataset:JThermodynamicsVibrationalStructureDatabase',
 		'dataset:JThermodynamics2DSpeciesStructure',
@@ -61,6 +60,8 @@ export class ManagegeneralcatalogobjectvisComponent {
 		'dataset:JThermodynamicsSymmetryStructureDefinitionDataSet',
 		'dataset:JThermodynamicsSymmetryStructureDefinitionDatabase',
 		'dataset:JThermodynamics2DSubstructureThermodynamicsDataSet',
+		'dataset:JThermodynamicsDisassociationEnergyOfStructureDataSet',
+		'dataset:JThermodynamicsDisassociationEnergyOfStructureDatabase',
 		'dataset:JThermodynamics2DSubstructureThermodynamicsDatabase',
 		'dataset:ThermodynamicsDatasetCollectionIDsSet'
 	];
@@ -234,6 +235,7 @@ export class ManagegeneralcatalogobjectvisComponent {
 
 
 	public saveCatalog(): void {
+		
 		const catalog = {};
 		this.catalogvis?.getData(catalog);
 		this.openDialog(catalog, this.catalogvis?.getNonModifiedData());

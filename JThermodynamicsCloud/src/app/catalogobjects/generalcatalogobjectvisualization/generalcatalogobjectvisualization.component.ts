@@ -18,6 +18,7 @@ import { TransactioneventobjectComponent } from '../transaction/transactionevent
 import { RepositorythergasthermodynamicsblockComponent } from '../repository/partition/repositorythergasthermodynamicsblock/repositorythergasthermodynamicsblock.component';
 import { JthermodynamicsmetaatomdefinitionComponent } from '../thermodynamics/jthermodynamicsmetaatomdefinition/jthermodynamicsmetaatomdefinition.component';
 import { JthermodynamicsvibrationalstructureComponent } from '../thermodynamics/jthermodynamicsvibrationalstructure/jthermodynamicsvibrationalstructure.component';
+import { JthermodynamicdisassociationenergyComponent } from '../thermodynamics/jthermodynamicdisassociationenergy/jthermodynamicdisassociationenergy.component';
 //import { RepositorythergasthermodynamicsblockComponent } from '../repository/partition/repositorythergasthermodynamicsblock/repositorythergasthermodynamicsblock.component';
 //import { ThermodynamicsdatasetcollectionidssetComponent } from '../datasetcollection/thermodynamicsdatasetcollectionidsset/thermodynamicsdatasetcollectionidsset.component';
 
@@ -112,6 +113,12 @@ export class GeneralcatalogobjectvisualizationComponent implements AfterViewInit
 			} else if (catalogtype === 'dataset:JThermodynamicsVibrationalStructureDatabase') {
 				this.componentRef = this.dynamicChild.createComponent(JthermodynamicsvibrationalstructureComponent);
 				this.componentRef.instance.catalogtype = 'dataset:JThermodynamicsVibrationalStructureDatabase';
+			} else if (catalogtype === 'dataset:JThermodynamicsDisassociationEnergyOfStructureDataSet') {
+				this.componentRef = this.dynamicChild.createComponent(JthermodynamicdisassociationenergyComponent);
+			    this.componentRef.instance.catalogtype = 'dataset:JThermodynamicsDisassociationEnergyOfStructureDataSet';
+			} else if (catalogtype === 'dataset:JThermodynamicsDisassociationEnergyOfStructureDatabase') {
+				this.componentRef = this.dynamicChild.createComponent(JthermodynamicdisassociationenergyComponent);
+				this.componentRef.instance.catalogtype = 'dataset:JThermodynamicsDisassociationEnergyOfStructureDatabase';
 			} else {
 				//this.componentRef.instance.getCatalogAnnoations();
 				this.isNotSetUp = true;

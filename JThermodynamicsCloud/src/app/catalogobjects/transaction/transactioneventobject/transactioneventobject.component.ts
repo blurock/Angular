@@ -30,10 +30,20 @@ export class TransactioneventobjectComponent extends CatalogbaseComponent {
 	@ViewChild('outputobjects') outputobjects!: ListoffirestoreidsComponent;
 	@ViewChild('requiredobjects') requiredobjects!: ListofrequiredtransactioninformationComponent;
 	@ViewChild('simpledata') simpledata!: SimpledatabaseobjectstructureComponent;
-
+	/*
+	private simpledata: SimpledatabaseobjectstructureComponent | undefined;	@ViewChild('base')
+	set paramSpecComponent(component: SimpledatabaseobjectstructureComponent | undefined) {
+		this.simpledata = component;
+		if (component) {
+			if (this.catalog) {
+				this.setData(this.catalog);
+			}
+		}
+	}
+*/
 	constructor(constants: UserinterfaceconstantsService,
 		annotations: OntologycatalogService,
-		cdRef:  ChangeDetectorRef) {
+		cdRef: ChangeDetectorRef) {
 		super(constants, annotations, cdRef);
 		this.catalogtype = 'dataset:TransactionEventObject';
 
@@ -46,18 +56,28 @@ export class TransactioneventobjectComponent extends CatalogbaseComponent {
 
 	override annotationsFound(response: any): void {
 		super.annotationsFound(response);
+		console.log("annotations found in transaction event object" + this.catalog);
+		if(this.catalog) {
+			this.setData(this.catalog);
+			}
 	}
 	override setData(catalog: any): void {
-		if(this.annoinfo) {
+		if(!this.catalogdataset) {
 		super.setData(catalog);
+		console.log("set data called for transaction event object");
+		if (this.annoinfo) {
+			if(this.outputobjects && this.requiredobjects && this.simpledata) {
 			const outputids = catalog[this.annoinfo['dataset:DatabaseObjectIDOutputTransaction'][this.identifier]];
-					this.outputobjects.setData(outputids);
-					const requiredids = catalog[this.annoinfo['dataset:RequiredTransactionInformation'][this.identifier]];
-					this.simpledata.setData(catalog);
-					this.requiredobjects.setData(requiredids);
+			this.outputobjects.setData(outputids);
+			const requiredids = catalog[this.annoinfo['dataset:RequiredTransactionInformation'][this.identifier]];
+			this.simpledata.setData(catalog);
+			this.requiredobjects.setData(requiredids);
+			} else {
+				console.log("viewchild components not yet set in transaction event object" + this.outputobjects + " " + this.requiredobjects + " " + this.simpledata);
+			}
 		}
-		
-	
+}
+
 	}
 	override getData(catalog: any): void {
 		const outids: Record<string, unknown>[] = [];
@@ -66,7 +86,7 @@ export class TransactioneventobjectComponent extends CatalogbaseComponent {
 		const requiredids: Record<string, unknown>[] = [];
 		catalog[this.annoinfo['dataset:RequiredTransactionIDAndType'][this.identifier]] = requiredids;
 		this.requiredobjects.getData(requiredids);
-		this.simpledata.getData(catalog);
+		this.simpledata?.getData(catalog);
 
 	}
 }

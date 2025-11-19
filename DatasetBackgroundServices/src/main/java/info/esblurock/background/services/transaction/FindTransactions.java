@@ -192,9 +192,9 @@ public class FindTransactions {
 	 *         ShortTransactionDescription which holds:
 	 *         <ul>
 	 *         <li>TransactionEventType: This is the type searched for
-	 *         <li>DescriptionTitleTransaction: This is a short description
+	 *         <li>ShortDescription: This is a short description
 	 *         <ul>
-	 *         The DescriptionTitleTransaction can be used in helping the user
+	 *         The ShortDescription can be used in helping the user
 	 *         choose the right transaction.
 	 * 
 	 *         Complexity: This does one firestore access

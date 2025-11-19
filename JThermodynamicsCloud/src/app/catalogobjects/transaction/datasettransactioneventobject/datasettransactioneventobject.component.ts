@@ -26,6 +26,7 @@ export class DatasettransactioneventobjectComponent implements OnInit {
 	message: string = '';
 	annoinfo: any = {};
 	transanno: any = {};
+	transaction: any = {};
 
 	items: NavItem[] = [];
 
@@ -61,10 +62,19 @@ export class DatasettransactioneventobjectComponent implements OnInit {
 
 
 	@ViewChild('firestoreid') firestoreid?: FiresytorecatalogidComponent;
-	@ViewChild('spec') spec?: DatasettransactionspecificationforcollectionComponent;
 	@ViewChild('activity') activity?: ActivityinformationComponent;
 	@ViewChild('outputobjects') outputobjects?: ListoffirestoreidsComponent;
 	@ViewChild('requiredobjects') requiredobjects?: ListoffirestoreidsComponent;
+	//@ViewChild('spec') spec?: DatasettransactionspecificationforcollectionComponent;
+	private spec: DatasettransactionspecificationforcollectionComponent | undefined;	@ViewChild('base')
+	set paramSpecComponent(component: DatasettransactionspecificationforcollectionComponent | undefined) {
+		this.spec = component;
+		if (component) {
+			if (this.transaction) {
+				this.setData(this.transaction);
+			}
+		}
+	}
 
 
 	constructor(
@@ -200,6 +210,8 @@ export class DatasettransactioneventobjectComponent implements OnInit {
 	}
 
 	public setData(catalog: any): void {
+		console.log('set data called');
+		this.transaction = catalog;
 		this.setIDs();
 
 		this.objectform.get('DatabaseObjectType')?.setValue(catalog[this.objtypeid]);

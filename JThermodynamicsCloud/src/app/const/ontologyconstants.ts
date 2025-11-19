@@ -119,4 +119,6 @@ export class Ontologyconstants {
 	public static JThermodynamicsMetaAtomDefinitionDataSet = 'dataset:metaatomdefinitiondataset';
 	public static JThermodynamicsVibrationalStructureDataSet = 'dataset:vibrationstructuredataset';
 	public static StructureVibrationalFrequency = 'dataset:vibrationalfrequency';
+	public static JThermodynamicsDisassociationEnergyOfStructureDataSet = 'dataset:disassociationdataset';
+	public static JThermodynamicDisassociationEnergy = 'dataset:disassociationenergyparameter';
 }

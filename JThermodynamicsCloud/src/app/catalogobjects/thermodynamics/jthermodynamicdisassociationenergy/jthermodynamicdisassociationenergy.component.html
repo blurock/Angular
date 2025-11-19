@@ -6,7 +6,7 @@
 	</mat-card-header>
 	<mat-card-content>
 		<ng-container *ngIf='display; else loading'>
-			<ng-container *ngIf='specdisplay; else specloading'>
+			<ng-container *ngIf='specdisplay; else loading'>
 				<app-parametervalue #energy [annoinfo]="annoinfo" [parameterinfo]="molarenergy" [title]="energytitle"></app-parametervalue>
 			</ng-container>
 			<ng-template #loading>

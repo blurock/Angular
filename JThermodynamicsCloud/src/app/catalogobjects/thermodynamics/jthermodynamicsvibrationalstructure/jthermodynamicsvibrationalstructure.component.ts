@@ -42,9 +42,17 @@ export class JthermodynamicsvibrationalstructureComponent extends CatalogbaseCom
 
 	title = 'Frequency Contribution to Thermodynamics';
 
-	@ViewChild('base') base!: ChemconnectthermodynamicsdatabaseComponent;
 	@ViewChild('freqobject') freqobject!: ParametervalueComponent;
 	@ViewChild('structure') structure!: Jthermodynamics2dspeciesstructureComponent;
+	private base: ChemconnectthermodynamicsdatabaseComponent | undefined;	@ViewChild('base')
+	set paramSpecComponent(component: ChemconnectthermodynamicsdatabaseComponent | undefined) {
+		this.base = component;
+		if (component) {
+			if (this.catalog) {
+				this.setData(this.catalog);
+			}
+		}
+	}
 
 	constructor(
 		public fb: UntypedFormBuilder,
@@ -85,7 +93,7 @@ export class JthermodynamicsvibrationalstructureComponent extends CatalogbaseCom
 		super.getData(catalog);
 		catalog[Ontologyconstants.dctermsidentifier] = Ontologyconstants.JThermodynamicsVibrationalStructureDataSet;
 
-		this.base.getData(catalog);
+		this.base?.getData(catalog);
 		catalog[this.annoinfo['dataset:JThermodynamicsVibrationalModeLabel'][this.identifier]] = this.idForm.get('JThermodynamicsVibrationalModeLabel')!.value;
 		catalog[this.annoinfo['dataset:StructureVibrationalFrequencySymmetry'][this.identifier]] = this.idForm.get('StructureVibrationalFrequencySymmetry')!.value;
 
@@ -99,26 +107,19 @@ export class JthermodynamicsvibrationalstructureComponent extends CatalogbaseCom
 		catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]] = struct;
 	}
 	override setData(catalog: any): void {
+		if(!this.catalogdataset) {
 		super.setData(catalog);
-		if (this.annoinfo != null) {
+		if (this.annoinfo && this.base && this.freqobject && this.structure) {
 			const name = catalog[this.annoinfo['dataset:JThermodynamicsVibrationalModeLabel'][this.identifier]];
 			this.idForm.get('JThermodynamicsVibrationalModeLabel')!.setValue(name);
 			const symmetry = catalog[this.annoinfo['dataset:StructureVibrationalFrequencySymmetry'][this.identifier]];
 			this.idForm.get('StructureVibrationalFrequencySymmetry')!.setValue(symmetry);
-
-
 			const value = catalog[this.annoinfo['dataset:StructureVibrationalFrequency'][this.identifier]];
-			if (this.freqobject) {
-				this.freqobject.setData(value);
-			}
+			this.freqobject.setData(value);
 			const struct = catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
-			if (this.structure) {
-				this.structure.setData(struct);
-			}
-			if (this.base) {
-				this.base.setData(catalog);
-			}
+			this.structure.setData(struct);
+			this.base.setData(catalog);
 		}
 	}
-
+}
 }

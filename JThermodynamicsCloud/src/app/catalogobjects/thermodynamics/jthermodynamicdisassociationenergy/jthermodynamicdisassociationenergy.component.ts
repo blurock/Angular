@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { NgIf } from '@angular/common';
 import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
+import { Ontologyconstants } from '../../../const/ontologyconstants';
 
 @Component({
 	selector: 'app-jthermodynamicdisassociationenergy',
@@ -21,7 +22,7 @@ import { UserinterfaceconstantsService } from '../../../const/userinterfaceconst
 	templateUrl: './jthermodynamicdisassociationenergy.component.html',
 	styleUrls: ['./jthermodynamicdisassociationenergy.component.scss']
 })
-export class JthermodynamicdisassociationenergyComponent extends CatalogbaseComponent  implements AfterViewInit {
+export class JthermodynamicdisassociationenergyComponent extends CatalogbaseComponent implements AfterViewInit {
 
 	display = false;
 	specdisplay = false;
@@ -32,16 +33,26 @@ export class JthermodynamicdisassociationenergyComponent extends CatalogbaseComp
 
 	title = 'H Disassociation Energy of Structure';
 
-	@ViewChild('base') base!: ChemconnectthermodynamicsdatabaseComponent;
 	@ViewChild('energy') energy!: ParametervalueComponent;
 	@ViewChild('structure') structure!: Jthermodynamics2dspeciesstructureComponent;
 
+	private base: ChemconnectthermodynamicsdatabaseComponent | undefined;
+	@ViewChild('base')
+	set paramSpecComponent(component: ChemconnectthermodynamicsdatabaseComponent | undefined) {
+		this.base = component;
+		if (component) {
+			if (this.catalog) {
+				this.setData(this.catalog);
+			}
+		}
+	}
+
 	constructor(
-			annotations: OntologycatalogService,
-			constants: UserinterfaceconstantsService,
-			cdRef: ChangeDetectorRef
-		) {
-			super(constants, annotations, cdRef);
+		annotations: OntologycatalogService,
+		constants: UserinterfaceconstantsService,
+		cdRef: ChangeDetectorRef
+	) {
+		super(constants, annotations, cdRef);
 		const set = [];
 		set.push(this.molarenergyparameter);
 		annotations.getParameterSet(set).subscribe({
@@ -59,25 +70,35 @@ export class JthermodynamicdisassociationenergyComponent extends CatalogbaseComp
 	}
 	override annotationsFound(response: any): void {
 		super.annotationsFound(response);
+		this.display = true;
+		if (this.catalog != null) {
+			this.setData(this.catalog);
+		}
 	}
 
 
 	override getData(catalog: any): void {
-		this.base.getData(catalog);
-		const energyvalue = {};
+		catalog[Ontologyconstants.dctermsidentifier] = Ontologyconstants.JThermodynamicsDisassociationEnergyOfStructureDataSet;
+		super.getData(catalog);
+		this.base?.getData(catalog);
+		const energyvalue: Record<string, any> = {};
 		this.energy.getData(energyvalue);
+		energyvalue[Ontologyconstants.dctermsidentifier] = Ontologyconstants.JThermodynamicDisassociationEnergy;
 		catalog[this.annoinfo['dataset:JThermodynamicDisassociationEnergy'][this.identifier]] = energyvalue;
 		const struct = {};
 		this.structure.getData(struct);
 		catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]] = struct;
-
 	}
 	override setData(catalog: any): void {
-		this.base.setData(catalog);
-		const energyvalue = catalog.get('dataset:JThermodynamicDisassociationEnergy').value;
-		this.energy.setData(energyvalue);
-		const struct = catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
-		this.structure.setData(struct);
+		super.setData(catalog);
+		if (this.base && this.structure && this.energy) {
+			
+			this.base.setData(catalog);
+			const energyvalue = catalog[this.annoinfo['dataset:JThermodynamicDisassociationEnergy'][this.identifier]];
+			this.energy.setData(energyvalue);
+			const struct = catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
+			this.structure.setData(struct);
+		}
 	}
 
 }

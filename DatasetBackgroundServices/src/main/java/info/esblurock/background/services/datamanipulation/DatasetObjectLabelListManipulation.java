@@ -160,7 +160,7 @@ public class DatasetObjectLabelListManipulation extends DeleteCatalogDataObject 
 		if (genericset != null) {
 			String uniquelabelString = info.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel).getAsString();
 			JsonObject descr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
-			String title = descr.get(ClassLabelConstants.DescriptionTitleTransaction).getAsString();
+			String title = descr.get(ClassLabelConstants.ShortDescription).getAsString();
 			addGenericLabel(genericset, title, uniquelabelString);
 
 			String message = WriteFirestoreCatalogObject.writeCatalogObject(genericset);

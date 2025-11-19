@@ -2,14 +2,14 @@
 	"prov:activity": "dataset:InitialReadInOfRepositoryFile",
 	"dataset:transreqobj": {},
 	"dataset:activityinfo": {
-		"descr-filestaging": {
-			"dataset:purpose-filestaging": {
-				"dataset:purposekey-filestaging": "dataset:PurposeFileStaging",
-				"dataset:dataconcept-staging": "dataset:ConceptFileStaging"
+		"dataset:descrfilestaging": {
+			"dataset:purposefilestaging": {
+				"dataset:purposekeyfilestaging": "dataset:PurposeFileStaging",
+				"dataset:dataconceptstaging": "dataset:ConceptFileStaging"
 			},
-			"dataset:keyword-filestaging": [],
-			"dataset:title-staging": "Read in standard disassociation energy for Alkanes: Table 2 from McMillen, D F; Golden, D M (1982)",
-			"dataset:abstract-staging": "Read the standard disassociation energy set. The set of substructures with disassociation energy",
+			"dataset:keywordfilestaging": [],
+			"dataset:titlestaging": "Read in standard disassociation energy for Alkanes: Table 2 from McMillen, D F; Golden, D M (1982)",
+			"dataset:abstractstaging": "Read the standard disassociation energy set. The set of substructures with disassociation energy",
 			"dcterms:created": "today"
 		},
 		"dataset:uploadsrc": "dataset:ResourceFileSystem",
@@ -19,11 +19,9 @@
 		"dcterms:title": "Disassociation Energy set",
 		"dataset:filesourcesubtype": "",
 		"dataset:collectionobjecttype": "dataset:JThermodynamicsDisassociationEnergyOfStructureDatabase",
-		"dataset:specificationfordataset": {
-			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:uniquegenericname": "DisassociationEnergyAlkanes",
-			"dataset:datasetobjecttype": "dataset:JThermodynamicsDisassociationEnergyOfStructureDataSet"
-		},
+		"dataset:catalogobjectmaintainer": "Administrator",
+		"dataset:uniquegenericname": "DisassociationEnergyAlkanes",
+		"dataset:datasetobjecttype": "dataset:JThermodynamicsDisassociationEnergyOfStructureDataSet",
 		"dcterms:identifier": "initialrepositorylocal",
 		"dcterms:BibliographicResource": [
 			{

@@ -55,8 +55,16 @@ export class JthermodynamicssymmetrystructuredefinitionComponent extends Catalog
 
 	objectform: UntypedFormGroup;
 
-	@ViewChild('base') base!: ChemconnectthermodynamicsdatabaseComponent;
 	@ViewChild('structure') structure!: Jthermodynamics2dspeciesstructureComponent;
+	private base: ChemconnectthermodynamicsdatabaseComponent | undefined;	@ViewChild('base')
+	set paramSpecComponent(component: ChemconnectthermodynamicsdatabaseComponent | undefined) {
+		this.base = component;
+		if (component) {
+			if (this.catalog) {
+				this.setData(this.catalog);
+			}
+		}
+	}
 
 
 	constructor(
@@ -133,7 +141,7 @@ export class JthermodynamicssymmetrystructuredefinitionComponent extends Catalog
 			symmarray.push(element);
 		}
 
-		this.base.getData(catalog);
+		this.base?.getData(catalog);
 		const struct = {};
 		this.structure.getData(struct);
 		catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]] = struct;
@@ -141,6 +149,7 @@ export class JthermodynamicssymmetrystructuredefinitionComponent extends Catalog
 	}
 
 	override setData(catalog: any): void {
+		if(!this.catalogdataset) {
 		super.setData(catalog);
 		if (this.annoinfo && this.base && this.structure) {
 			if (!this.catalogdataset) {
@@ -175,6 +184,7 @@ export class JthermodynamicssymmetrystructuredefinitionComponent extends Catalog
 				const struct = catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
 				this.structure.setData(struct);
 			}
+		}
 		}
 	}
 

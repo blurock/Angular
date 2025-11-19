@@ -31,7 +31,15 @@ export class ThermodynamicbensonruledefinitionComponent extends CatalogbaseCompo
 
 	@ViewChild('bensonstructure') bensonstructure!: JthermodynamicsbensonrulestructureComponent;
 	@ViewChild('thermo') thermo!: JthermodynamicstandardthermodynamicsComponent;
-	@ViewChild('base') base!: ChemconnectthermodynamicsdatabaseComponent;
+	private base: ChemconnectthermodynamicsdatabaseComponent | undefined;	@ViewChild('base')
+	set paramSpecComponent(component: ChemconnectthermodynamicsdatabaseComponent | undefined) {
+		this.base = component;
+		if (component) {
+			if (this.catalog) {
+				this.setData(this.catalog);
+			}
+		}
+	}
 
 	constructor(
 		annotations: OntologycatalogService,
@@ -54,19 +62,19 @@ export class ThermodynamicbensonruledefinitionComponent extends CatalogbaseCompo
 
 	override getData(catalog: any): void {
 		catalog[Ontologyconstants.dctermsidentifier] = Ontologyconstants.ThermodynamicBensonRuleDefinitionDataSet;
-		this.base.getData(catalog);
 		const benson = {};
 		this.bensonstructure.getData(benson);
 		catalog[this.annoinfo['dataset:JThermodynamicsBensonRuleStructure'][this.identifier]] = benson;
-		this.base.getData(catalog);
+		this.base?.getData(catalog);
 		const thermodata = {};
 		this.thermo.getData(thermodata);
 		catalog[this.annoinfo['dataset:JThermodynamicStandardThermodynamics'][this.identifier]] = thermodata;
 	}
 	override setData(catalog: any): void {
+		if(!this.catalogdataset) {
 		super.setData(catalog);
 		if (this.annoinfo != null) {
-			if (this.thermo != null) {
+			if (this.thermo && this.base && this.bensonstructure) {
 				const thermodata = catalog[this.annoinfo['dataset:JThermodynamicStandardThermodynamics'][this.identifier]];
 				this.thermo.setData(thermodata);
 				const benson = catalog[this.annoinfo['dataset:JThermodynamicsBensonRuleStructure'][this.identifier]];
@@ -77,6 +85,7 @@ export class ThermodynamicbensonruledefinitionComponent extends CatalogbaseCompo
 			}
 		} else {
 		}
+	}
 	}
 
 }

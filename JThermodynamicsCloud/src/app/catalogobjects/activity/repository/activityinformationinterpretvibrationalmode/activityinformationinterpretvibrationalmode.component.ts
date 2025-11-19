@@ -22,14 +22,14 @@ import { FileformatmanagerService } from '../../../../services/fileformatmanager
 	selector: 'app-activityinformationinterpretvibrationalmode',
 	standalone: true,
 	imports: [
-				CommonModule,
+		CommonModule,
 		MatCardModule,
-	MatGridListModule,
-	ReactiveFormsModule,
-	MatFormFieldModule,
-	MatInputModule,
-	MatMenuModule,
-	MenuItemComponent,
+		MatGridListModule,
+		ReactiveFormsModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatMenuModule,
+		MenuItemComponent,
 		SpecificationfordatasetComponent,
 		ParameterspecificationComponent
 	],
@@ -51,7 +51,7 @@ export class ActivityinformationinterpretvibrationalmodeComponent extends Catalo
 	frequencyparameter = 'dataset:ParameterSpecificationStructureVibrationFrequency';
 	title = 'This is the Activity Information for Interpreting Vibrational Contributions';
 	specsubtitle: string = 'Dataset Specification';
-	
+
 
 	@ViewChild('spec') spec!: SpecificationfordatasetComponent;
 	@ViewChild('frequencyspec') frequencyspec!: ParameterspecificationComponent;
@@ -79,14 +79,14 @@ export class ActivityinformationinterpretvibrationalmodeComponent extends Catalo
 			DescriptionTitle: ['', Validators.required],
 			BlockInterpretationMethod: ['', Validators.required],
 			FileSourceFormat: ['File Format', Validators.required],
-            JThermodynamicsSpeciesSpecificationType: ['dataset:SpeciesSpecificationNancyLinearForm', Validators.required]
+			JThermodynamicsSpeciesSpecificationType: ['dataset:SpeciesSpecificationNancyLinearForm', Validators.required]
 		});
 		this.catalogtype = 'dataset:ActivityInformationInterpretVibrationalMode';
 	}
-    override invalid(): boolean {
+	override invalid(): boolean {
 		return this.objectform.invalid;
 	}
-	
+
 	ngAfterViewInit(): void {
 		this.fileservice.getFormatClassification().subscribe({
 			next: (data: any) => {
@@ -97,30 +97,30 @@ export class ActivityinformationinterpretvibrationalmodeComponent extends Catalo
 				this.objectform.get('BlockInterpretationMethod')!.setValue(block);
 			}
 		});
-		if(this.prerequisite) {
-			this.setPrerequisiteData(this.prerequisite);		
+		if (this.prerequisite) {
+			this.setPrerequisiteData(this.prerequisite);
 		}
-		
+
 	}
-	
+
 	override annotationsFound(response: any): void {
 		super.annotationsFound(response);
 		this.items = this.menusetup.findChoices(this.annoinfo, this.structurespecification);
-		if(this.prerequisite) {
-			this.setPrerequisiteData(this.prerequisite);		
+		if (this.prerequisite) {
+			this.setPrerequisiteData(this.prerequisite);
 		}
 	}
-	
+
 	override setPrerequisiteData(prerequisite: any) {
 		super.setPrerequisiteData(prerequisite);
 		if (this.annoinfo) {
 			const actinfo = prerequisite['dataset:activityinfo'];
 			const titleid = this.annoinfo['dataset:DescriptionTitle'][this.identifier];
 			this.objectform.get('DescriptionTitle')!.setValue(actinfo[titleid]);
-			if(this.spec) {
+			if (this.spec) {
 				this.spec.setData(actinfo);
 			}
-			
+
 		}
 	}
 
@@ -145,7 +145,7 @@ export class ActivityinformationinterpretvibrationalmodeComponent extends Catalo
 		this.frequencyspec.setData(freq);
 	}
 	setJThermodynamicsSpeciesSpecificationType($event: String) {
-	    this.objectform.get('JThermodynamicsSpeciesSpecificationType')!.setValue($event);
-   }
+		this.objectform.get('JThermodynamicsSpeciesSpecificationType')!.setValue($event);
+	}
 
 }

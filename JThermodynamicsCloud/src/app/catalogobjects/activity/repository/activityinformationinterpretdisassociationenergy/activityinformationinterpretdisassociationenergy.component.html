@@ -5,7 +5,7 @@
 		</mat-card-title-group>
 	</mat-card-header>
 	<mat-card-content>
-		<ng-container *ngIf='annoinfo != null; else loading'>
+		<ng-container *ngIf='display; else loading'>
 			<form [formGroup]="objectform" class="infoform">
 				<mat-grid-list cols="6" rowHeight="100px">
 
@@ -17,17 +17,18 @@
 						</mat-form-field>
 					</mat-grid-tile>
 
-		<mat-grid-tile [colspan]="2" background="lightgray">
-			<mat-form-field class="label">
-				<mat-label>{{annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][rdfslabel]}}</mat-label>
-											<input matInput formControlName="JThermodynamicsSpeciesSpecificationType"
+					<mat-grid-tile [colspan]="2" background="lightgray">
+						<mat-form-field class="label">
+							<mat-label>{{annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="JThermodynamicsSpeciesSpecificationType"
 								[matMenuTriggerFor]="menu">
-				<mat-hint>{{annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][rdfscomment]}}</mat-hint>
-				<mat-menu #menu="matMenu">
-          <app-menu-item #menuitems [items]="items" (selectionEvent)="setJThermodynamicsSpeciesSpecificationType($event)"></app-menu-item>
-		  </mat-menu>
-			</mat-form-field>
-		</mat-grid-tile>
+							<mat-hint>{{annoinfo['dataset:JThermodynamicsSpeciesSpecificationType'][rdfscomment]}}</mat-hint>
+							<mat-menu #menu="matMenu">
+								<app-menu-item #menuitems [items]="items"
+									(selectionEvent)="setJThermodynamicsSpeciesSpecificationType($event)"></app-menu-item>
+							</mat-menu>
+						</mat-form-field>
+					</mat-grid-tile>
 					<mat-grid-tile [colspan]="2">
 						<mat-form-field class="title">
 							<mat-label>{{annoinfo['dataset:FileSourceFormat'][rdfslabel]}}</mat-label>
@@ -46,20 +47,11 @@
 
 				</mat-grid-list>
 			</form>
+			<app-parameterspecification #paramspec [annoinfo]="annoinfo" [parameterinfo]="molarenergy">
+			</app-parameterspecification>
 
-			<ng-container *ngIf='display; else specdisplayoff'>
-
-				<app-parameterspecification #paramspec [annoinfo]="annoinfo" [parameterinfo]="molarenergy">
-				</app-parameterspecification>
-
-				<app-specificationfordataset #spec [annoinfo]="annoinfo" [subtitle]="specsubtitle">
-				</app-specificationfordataset>
-			</ng-container>
-			<ng-template #specdisplayoff>
-				<div>
-					Specifification display disabled
-				</div>
-			</ng-template>
+			<app-specificationfordataset #spec [annoinfo]="annoinfo" [subtitle]="specsubtitle">
+			</app-specificationfordataset>
 
 		</ng-container>
 		<ng-template #loading>

@@ -230,7 +230,7 @@ public enum TransactionProcess {
 						JsonObject shortdescr = event.get(ClassLabelConstants.ShortTransactionDescription)
 								.getAsJsonObject();
 						shortdescr.addProperty(ClassLabelConstants.TransactionKey, "Read-" + genericnameString);
-						shortdescr.addProperty(ClassLabelConstants.DescriptionTitleTransaction, description);
+						shortdescr.addProperty(ClassLabelConstants.ShortDescription, description);
 						BaseCatalogData.insertFirestoreAddress(catalog);
 						CreateLinksInStandardCatalogInformation.addPrerequisitesToDataObjectLink(catalog,
 								prerequisites);
@@ -701,7 +701,7 @@ public enum TransactionProcess {
 		JsonObject shortdescr = event.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
 		shortdescr.addProperty(ClassLabelConstants.TransactionEventType, transaction);
 		shortdescr.addProperty(ClassLabelConstants.TransactionKey, transactionID);
-		shortdescr.addProperty(ClassLabelConstants.DescriptionTitleTransaction, title);
+		shortdescr.addProperty(ClassLabelConstants.ShortDescription, title);
 		event.add(ClassLabelConstants.ActivityInformationRecord, info);
 		String shorttitleString = "";
 		if(info.get(ClassLabelConstants.CatalogObjectUniqueGenericLabel) != null) {
@@ -768,7 +768,7 @@ public enum TransactionProcess {
 			infoJsonObject.addProperty(ClassLabelConstants.RequiredTransactionID, transactionID);
 			
 			JsonObject descr = requiredtransaction.get(ClassLabelConstants.ShortTransactionDescription).getAsJsonObject();
-			String titleString = descr.get(ClassLabelConstants.DescriptionTitleTransaction).getAsString();
+			String titleString = descr.get(ClassLabelConstants.ShortDescription).getAsString();
 			String typeString = descr.get(ClassLabelConstants.TransactionEventType).getAsString();
 			infoJsonObject.addProperty(ClassLabelConstants.RequiredTransactionType, typeString);
 			infoJsonObject.addProperty(ClassLabelConstants.DescriptionTitleRequiredTransaction, titleString);

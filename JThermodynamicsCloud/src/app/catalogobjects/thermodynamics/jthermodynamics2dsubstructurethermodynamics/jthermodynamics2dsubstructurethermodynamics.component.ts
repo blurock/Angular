@@ -43,9 +43,17 @@ export class Jthermodynamics2dsubstructurethermodynamicsComponent extends Catalo
 
 	objectform: UntypedFormGroup = new UntypedFormGroup({});
 
-	@ViewChild('base') base!: ChemconnectthermodynamicsdatabaseComponent;
 	@ViewChild('structure') structure!: Jthermodynamics2dspeciesstructureComponent;
 	@ViewChild('thermo') thermo!: JthermodynamicstandardthermodynamicsComponent;
+	private base: ChemconnectthermodynamicsdatabaseComponent | undefined; @ViewChild('base')
+	set paramSpecComponent(component: ChemconnectthermodynamicsdatabaseComponent | undefined) {
+		this.base = component;
+		if (component) {
+			if (this.catalog) {
+				this.setData(this.catalog);
+			}
+		}
+	}
 
 	constructor(
 		private formBuilder: UntypedFormBuilder,
@@ -77,20 +85,22 @@ export class Jthermodynamics2dsubstructurethermodynamicsComponent extends Catalo
 		const struct = {};
 		catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]] = struct;
 		this.structure.getData(struct);
-		this.base.getData(catalog);
+		this.base?.getData(catalog);
 		const thermodata = {};
 		this.thermo.getData(thermodata);
 		catalog[this.annoinfo['dataset:JThermodynamicStandardThermodynamics'][this.identifier]] = thermodata;
 	}
 	override setData(catalog: any): void {
-		super.setData(catalog);
-		if (this.annoinfo) {
-			const value = catalog[this.annoinfo['dataset:JThermodynamicsSubstructureType'][this.identifier]];
-			this.objectform.get('JThermodynamicsSubstructureType')!.setValue(value);
-			const thermodata = catalog[this.annoinfo['dataset:JThermodynamicStandardThermodynamics'][this.identifier]];
-			this.thermo.setData(thermodata);
-			this.structure.setData(catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]]);
-			this.base.setData(catalog);
+		if (!this.catalogdataset) {
+			super.setData(catalog);
+			if (this.annoinfo && this.thermo && this.base && this.structure) {
+				const value = catalog[this.annoinfo['dataset:JThermodynamicsSubstructureType'][this.identifier]];
+				this.objectform.get('JThermodynamicsSubstructureType')!.setValue(value);
+				const thermodata = catalog[this.annoinfo['dataset:JThermodynamicStandardThermodynamics'][this.identifier]];
+				this.thermo.setData(thermodata);
+				this.structure.setData(catalog[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]]);
+				this.base.setData(catalog);
+			}
 		}
 	}
 

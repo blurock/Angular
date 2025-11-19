@@ -100,6 +100,7 @@ export class JthermodynamicsmetaatomdefinitionComponent extends CatalogbaseCompo
 
 	}
 	override setData(catalog: any): void {
+		if(!this.catalogdataset) {
 		super.setData(catalog);
 		if(this.annoinfo) {
 		const id1 = this.annoinfo['dataset:JThermodynamics2DSpeciesLabel'][this.identifier];
@@ -123,6 +124,7 @@ export class JthermodynamicsmetaatomdefinitionComponent extends CatalogbaseCompo
 		const struct = meta[this.annoinfo['dataset:JThermodynamics2DSpeciesStructure'][this.identifier]];
 		this.structure.setData(struct);
 		}
+	}
 	}
 
 	setType($event: string): void {
