@@ -1,15 +1,15 @@
 {
-	"prov:activity": "dataset:InitialReadInOfRepositoryFile",
+	"prov:activity": "dataset:InitialReadInLocalStorageSystem",
 	"dataset:transreqobj": {},
 	"dataset:activityinfo": {
-		"descr-filestaging": {
-			"dataset:purpose-filestaging": {
-				"dataset:purposekey-filestaging": "dataset:PurposeFileStaging",
-				"dataset:dataconcept-staging": "dataset:ConceptFileStaging"
+		"descrfilestaging": {
+			"dataset:purposefilestaging": {
+				"dataset:purposekeyfilestaging": "dataset:PurposeFileStaging",
+				"dataset:dataconceptstaging": "dataset:ConceptFileStaging"
 			},
-			"dataset:keyword-filestaging": [],
-			"dataset:title-staging": "Read in rings strain thermodynamics from Benson Thermochemical Kinetics",
-			"dataset:abstract-staging": "A set of temperature dependent ring strain thermodynamics for cycles substructures in Benson thermodynamic form. This from Table A.1 in Benson Thermochemical Kinetics.",
+			"dataset:keywordfilestaging": [],
+			"dataset:titlestaging": "Read in rings strain thermodynamics from Benson Thermochemical Kinetics",
+			"dataset:abstractstaging": "A set of temperature dependent ring strain thermodynamics for cycles substructures in Benson thermodynamic form. This from Table A.1 in Benson Thermochemical Kinetics.",
 			"dcterms:created": "today"
 		},
 		"dataset:uploadsrc": "dataset:ResourceFileSystem",
@@ -19,24 +19,14 @@
 		"dcterms:title": "Ring Strain Correction Thermodynamics ",
 		"dataset:filesourcesubtype": "",
 		"dataset:collectionobjecttype": "dataset:JThermodynamics2DSubstructureThermodynamicsDatabase",
-		"dataset:specificationfordataset": {
 			"dataset:catalogobjectmaintainer": "Administrator",
 			"dataset:uniquegenericname": "SubstructthermoCyclesThermodynamics",
-			"dataset:datasetobjecttype": "dataset:JThermodynamics2DSubstructureThermodynamicsDataSet"
-		},
+			"dataset:datasetobjecttype": "dataset:JThermodynamics2DSubstructureThermodynamicsDataSet",
 		"dcterms:identifier": "initialrepositorylocal",
 		"dcterms:BibliographicResource": [
 			{
 				"datacite:PrimaryResourceIdentifier": "ISBN-13: 9780471067818",
-				"dataset:referencestring": "Benson, Sidney W. (1976). Thermochemical Kinetics: Methods for the Estimation of Thermochemical Data and Rate Parameters, 2nd Ed.",
-				"dataset:referencetitle": "Thermochemical Kinetics: Methods for the Estimation of Thermochemical Data and Rate Parameters",
-				"dc:creator": [
-					{
-						"dataset:authorfamilyname": "Benson",
-						"dataset:authorgivenname": "Sidney W.",
-						"dataset:authortitle": "dataset:Professor"
-					}
-				]
+				"dataset:bibliographiclinktype": "dataset:ISBNPublicationLink"
 			}
 		]
 	}

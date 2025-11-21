@@ -1,5 +1,5 @@
 {
-	"prov:activity": "dataset:InitialReadInOfRepositoryFile",
+	"prov:activity": "dataset:InitialReadInLocalStorageSystem",
 	"dataset:transreqobj": {},
 	"dataset:activityinfo": {
 		"dataset:uploadsrc": "dataset:ResourceFileSystem",
@@ -27,25 +27,7 @@
 		"dcterms:BibliographicResource": [
 			{
 				"datacite:PrimaryResourceIdentifier": "https:/doi.org/10.1063/1.4902535",
-				"dataset:referencestring": "Journal of Physical and Chemical Reference Data 44, 013101 (2015)",
-				"dataset:referencetitle": "Critical Evaluation of Thermochemical Properties of C1–C4 Species:  Updated Group-Contributions to Estimate Thermochemical Properties",
-				"dc:creator": [
-					{
-						"dataset:authorfamilyname": "Burke",
-						"dataset:authorgivenname": "S. M.",
-						"dataset:authortitle": "dataset:Professor"
-					},
-					{
-						"dataset:authorfamilyname": "Simmie",
-						"dataset:authorgivenname": "John M.",
-						"dataset:authortitle": "dataset:Professor"
-					},
-					{
-						"dataset:authorfamilyname": "Curran",
-						"dataset:authorgivenname": "Henry J.",
-						"dataset:authortitle": ""
-					}
-				]
+				"dataset:bibliographiclinktype": "dataset:PublicationDOILink"
 			}
 		],
 		"foaf:page": [],

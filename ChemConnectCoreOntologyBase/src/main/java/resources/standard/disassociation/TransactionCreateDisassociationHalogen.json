@@ -2,11 +2,9 @@
 	"prov:activity": "dataset:TransactionInterpretTextBlock",
 	"dataset:activityinfo": {
 		"dataset:collectionobjecttype": "dataset:JThermodynamicsDisassociationEnergyOfStructureDatabase",
-		"dataset:specificationfordataset": {
 			"dataset:catalogobjectmaintainer": "Administrator",
 			"dataset:uniquegenericname": "DisassociationEnergyHalogens",
-			"dataset:datasetobjecttype": "dataset:JThermodynamicsDisassociationEnergyOfStructureDataSet"
-		},
+			"dataset:datasetobjecttype": "dataset:JThermodynamicsDisassociationEnergyOfStructureDataSet",
 		"dataset:filesourceformat": "dataset:JThermodynamicsDisassociationEnergy",
 		"dataset:blockinterpretationmethod": "dataset:ParseLinesJThermodynamicsDisassociationEnergy",
 		"dcterms:title": "Create standard disassociation energy for Halogens: Table 7 from McMillen, D F; Golden, D M (1982)",

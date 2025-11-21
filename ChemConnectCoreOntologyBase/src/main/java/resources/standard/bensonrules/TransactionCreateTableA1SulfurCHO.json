@@ -1,11 +1,9 @@
 {
 	"prov:activity": "dataset:TransactionInterpretTextBlock",
 	"dataset:activityinfo": {
-		"dataset:specificationfordataset": {
 			"dataset:catalogobjectmaintainer": "Administrator",
 			"dataset:uniquegenericname": "TableA1SulfurCHORules",
-			"dataset:datasetobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDataSet"
-		},
+			"dataset:datasetobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDataSet",
 		"dataset:filesourceformat": "dataset:TherGasBensonRules",
 		"dataset:blockinterpretationmethod": "dataset:ParseLinesJThermodynamicsBensonRules",
 		"dcterms:title": "Create the standard Sulfur atom benson rules. This is group 5 of the original THERGAS file.",

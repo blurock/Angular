@@ -1,11 +1,11 @@
 {
-  "descr-filestaging": {
-    "dataset:purpose-filestaging": {
-      "dataset:purposekey-filestaging": "dataset:PurposeFileStaging",
-      "dataset:dataconcept-staging": "dataset:ConceptFileStaging"
+  "descrfilestaging": {
+    "dataset:purposefilestaging": {
+      "dataset:purposekeyfilestaging": "dataset:PurposeFileStaging",
+      "dataset:dataconceptstaging": "dataset:ConceptFileStaging"
     },
-    "dataset:keyword-filestaging": [],
-    "dataset:title-staging": "Linear Meta-Atom Substructures",
+    "dataset:keywordfilestaging": [],
+    "dataset:titlestaging": "Linear Meta-Atom Substructures",
     "dataset:abstract-staging": "The set of meta-atoms defining linear structures within a molecule. These are used in determining the symmetry of an molecule. ",
     "dcterms:created": "today"
   },

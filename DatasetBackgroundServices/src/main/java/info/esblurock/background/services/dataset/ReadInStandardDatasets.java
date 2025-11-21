@@ -11,22 +11,30 @@ public class ReadInStandardDatasets {
 		
 		String paths = 
 				
-				"/resources/standard/bensonrules/TransactionReadTableA1CarbonBensonSmallTest.json\n"
-			    + "/resources/standard/bensonrules/TransactionParseTableA1CarbonBensonSmallTest.json\n"
-				+ "/resources/standard/bensonrules/TransactionCreateTableA1CarbonBensonSmallTest.json\n"
-
-				//+ "/resources/standard/metaatoms/TransactionReadBensonMetaAtom.json\n"
-				//+ "/resources/standard/metaatoms/TransactionParseBensonMetaAtom.json\n"
-				//+ "/resources/standard/metaatoms/TransactionCreateBensonMetaAtom.json\n"
-				
-				//+"/resources/standard/symmetry/external/TransactionReadExternalSymmetryCarbonAtom.json\n"
-				//+"/resources/standard/symmetry/external/TransactionParseExternalSymmetryCarbonAtom.json\n"
-			    //+"/resources/standard/symmetry/external/TransactionCreateExternalSymmetryCarbonAtom.json\n"
+				//"/resources/standard/bensonrules/TransactionReadTableA1CarbonBensonSmallTest.json\n"
+			    //+ "/resources/standard/bensonrules/TransactionParseTableA1CarbonBensonSmallTest.json\n"
+				//+ "/resources/standard/bensonrules/TransactionCreateTableA1CarbonBensonSmallTest.json\n"
 
 				//"/resources/standard/symmetry/external/TransactionReadExternalSymmetryCarbonAtomSmall.json\n"
 				//+"/resources/standard/symmetry/external/TransactionParseExternalSymmetryCarbonAtomSmall.json\n"
 			    //+"/resources/standard/symmetry/external/TransactionCreateExternalSymmetryCarbonAtomSmall.json\n"
 
+				//"/resources/standard/bensonrules/TransactionReadTableA1CarbonBensonRules.json\n"
+			    //+ "/resources/standard/bensonrules/TransactionParseTableA1CarbonBensonRules.json\n"
+				//+ "/resources/standard/bensonrules/TransactionCreateTableA1CarbonBensonRules.json\n"
+
+				//"/resources/standard/metaatoms/TransactionReadBensonMetaAtom.json\n"
+				//+ "/resources/standard/metaatoms/TransactionParseBensonMetaAtom.json\n"
+				//+ "/resources/standard/metaatoms/TransactionCreateBensonMetaAtom.json\n"
+				
+				//"/resources/standard/symmetry/external/TransactionReadExternalSymmetryCarbonAtom.json\n"
+				//+"/resources/standard/symmetry/external/TransactionParseExternalSymmetryCarbonAtom.json\n"
+			    //+"/resources/standard/symmetry/external/TransactionCreateExternalSymmetryCarbonAtom.json\n"
+
+				"/resources/standard/disassociation/TransactionReadDisassociationAlkane.json\n"
+				+ "/resources/standard/disassociation/TransactionParseDissassociationAlkane.json\n"
+				+ "/resources/standard/disassociation/TransactionCreateDisassociationAlkane.json\n"
+				
 				//+ "/resources/standard/symmetry/internal/TransactionReadInternalSymmetryCarbonAtom.json\n"
 				//+ "/resources/standard/symmetry/internal/TransactionParseInternalSymmetryCarbonAtom.json\n"
 				//+ "/resources/standard/symmetry/internal/TransactionCreateInternalSymmetryCarbonAtom.json\n"
@@ -35,9 +43,6 @@ public class ReadInStandardDatasets {
 				//+ "/resources/standard/symmetry/optical/TransactionParseOpticalSymmetry.json\n"
 				//+ "/resources/standard/symmetry/optical/TransactionCreateOpticalSymmetry.json\n"
 				
-				//"/resources/standard/bensonrules/TransactionReadTableA1CarbonBensonRules.json\n"
-			    //+ "/resources/standard/bensonrules/TransactionParseTableA1CarbonBensonRules.json\n"
-				//+ "/resources/standard/bensonrules/TransactionCreateTableA1CarbonBensonRules.json\n"
 
 				//+"/resources/standard/bensonrules/TransactionReadTableA1CarbonOxygenBensonRules.json\n"
 				//+ "/resources/standard/bensonrules/TransactionParseTableA1CarbonOxygenBensonRules.json\n"
@@ -67,10 +72,6 @@ public class ReadInStandardDatasets {
 				//+ "/resources/standard/metaatoms/TransactionReadLinearMetaAtom.json\n"
 				//+ "/resources/standard/metaatoms/TransactionParseLinearMetaAtom.json\n"
 				//+ "/resources/standard/metaatoms/TransactionCreateLinearMetaAtom.json\n"
-				
-				//+ "/resources/standard/disassociation/TransactionReadDisassociationAlkane.json\n"
-				//+ "/resources/standard/disassociation/TransactionParseDissassociationAlkane.json\n"
-				//+ "/resources/standard/disassociation/TransactionCreateDisassociationAlkane.json\n"
 				
 				//+ "/resources/standard/disassociation/TransactionReadDisassociationCHO.json\n"
 				//+ "/resources/standard/disassociation/TransactionParseDissassociationCHO.json\n"

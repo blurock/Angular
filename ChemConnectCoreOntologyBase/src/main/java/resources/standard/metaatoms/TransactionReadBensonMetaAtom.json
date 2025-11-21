@@ -1,10 +1,10 @@
 {
-	"prov:activity": "dataset:InitialReadInOfRepositoryFile",
+	"prov:activity": "dataset:InitialReadInLocalStorageSystem",
 	"dataset:activityinfo": {
 		"dataset:descrfilestaging": {
 			"dataset:purposefilestaging": {
-				"dataset:purposekey-filestaging": "dataset:PurposeFileStaging",
-				"dataset:dataconcept-staging": "dataset:ConceptFileStaging"
+				"dataset:purposekeyfilestaging": "dataset:PurposeFileStaging",
+				"dataset:dataconceptstaging": "dataset:ConceptFileStaging"
 			},
 			"dataset:keywordfilestaging": [],
 			"dataset:titlestaging": "Read in a Benson Meta atom set",
@@ -26,15 +26,7 @@
 		"dcterms:BibliographicResource": [
 			{
 				"datacite:PrimaryResourceIdentifier": "ISBN-13: 9780471067818",
-				"dataset:referencestring": "Benson, Sidney W. (1976). Thermochemical Kinetics: Methods for the Estimation of Thermochemical Data and Rate Parameters, 2nd Ed.",
-				"dataset:referencetitle": "Thermochemical Kinetics: Methods for the Estimation of Thermochemical Data and Rate Parameters",
-				"dc:creator": [
-					{
-						"dataset:authorfamilyname": "Benson",
-						"dataset:authorgivenname": "Sidney W.",
-						"dataset:authortitle": "dataset:Professor"
-					}
-				]
+				"dataset:bibliographiclinktype": "dataset:PublicationDOILink"
 			}
 		]
 	}

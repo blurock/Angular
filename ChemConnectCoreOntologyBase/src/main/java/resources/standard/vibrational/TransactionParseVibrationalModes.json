@@ -2,11 +2,9 @@
 	"prov:activity": "dataset:PartiionSetWithinRepositoryFile",
 	"dataset:activityinfo": {
 		"dataset:collectionobjecttype": "dataset:JThermodynamicsVibrationalStructureDatabase",
-		"dataset:specificationfordataset": {
 			"dataset:catalogobjectmaintainer": "Administrator",
 			"dataset:uniquegenericname": "BensonVibrationalModesStandard",
-			"dataset:datasetobjecttype": "dataset:JThermodynamicsVibrationalStructureDataSet"
-		},
+			"dataset:datasetobjecttype": "dataset:JThermodynamicsVibrationalStructureDataSet",
 		"dataset:filepartitionmethod": "dataset:PartitionToLineSet",
 		"dataset:blocklinecount": "1",
 		"dataset:filesourceformat": "dataset:JThermodynamicsVibrationalModes",

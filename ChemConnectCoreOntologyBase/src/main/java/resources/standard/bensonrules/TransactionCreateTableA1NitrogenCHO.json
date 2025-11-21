@@ -1,11 +1,9 @@
 {
 	"prov:activity": "dataset:TransactionInterpretTextBlock",
 	"dataset:activityinfo": {
-		"dataset:specificationfordataset": {
 			"dataset:catalogobjectmaintainer": "Administrator",
 			"dataset:uniquegenericname": "TableA1NitrogenCHO",
-			"dataset:datasetobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDataSet"
-		},
+			"dataset:datasetobjecttype": "dataset:ThermodynamicBensonRuleDefinitionDataSet",
 		"dataset:filesourceformat": "dataset:TherGasBensonRules",
 		"dataset:blockinterpretationmethod": "dataset:ParseLinesJThermodynamicsBensonRules",
 		"dcterms:title": "Create the standard Nitrogen atom benson rules. This is group 3 of the original THERGAS file.",

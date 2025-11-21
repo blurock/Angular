@@ -1,11 +1,9 @@
 {
 	"prov:activity": "dataset:TransactionInterpretTextBlock",
 	"dataset:activityinfo": {
-		"dataset:specificationfordataset": {
 			"dataset:catalogobjectmaintainer": "Administrator",
 			"dataset:uniquegenericname": "SubstructthermoCyclesThermodynamics",
-			"dataset:datasetobjecttype": "dataset:JThermodynamics2DSubstructureThermodynamicsDataSet"
-		},
+			"dataset:datasetobjecttype": "dataset:JThermodynamics2DSubstructureThermodynamicsDataSet",
 		"dataset:filesourceformat": "dataset:ThergasSpeciesThermodynamics",
 		"dataset:blockinterpretationmethod": "dataset:ParseLinesJThermodynamicsSubstructures",
 		"dcterms:title": "A set of ring strain thermodynamics from Benson Thermochemical Kinetics",

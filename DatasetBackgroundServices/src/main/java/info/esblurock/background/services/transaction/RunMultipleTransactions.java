@@ -34,13 +34,17 @@ public class RunMultipleTransactions {
 						System.out.println("Resource not found: '" + srcpath + "'");
 					} else {
 						content = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
-						System.out.println(content);
+						//System.out.println(content);
 					}
 				} else {
 					content = Files.readString(Paths.get(srcpath));
 				}
 				if(content != null) {
 				JsonObject json = JsonObjectUtilities.jsonObjectFromString(content);
+				JsonObject activity = json.get(ClassLabelConstants.ActivityInformationRecord).getAsJsonObject();
+				if (activity.get(ClassLabelConstants.CatalogDataObjectMaintainer) != null) {
+					activity.addProperty(ClassLabelConstants.CatalogDataObjectMaintainer, owner);
+				}
 				
 				response = TransactionProcess.processFromTransaction(json, owner);
 				if(response.get(ClassLabelConstants.ServiceProcessSuccessful).getAsBoolean()) {

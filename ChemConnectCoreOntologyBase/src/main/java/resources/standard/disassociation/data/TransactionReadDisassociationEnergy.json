@@ -28,20 +28,7 @@
 		"dcterms:BibliographicResource": [
 			{
 				"datacite:PrimaryResourceIdentifier": "doi:10.1146/annurev.pc.33.100182.002425",
-				"dataset:referencestring": "McMillen, D F; Golden, D M (1982). Hydrocarbon Bond Dissociation Energies. Annual Review of Physical Chemistry, 33(1), 493–532",
-				"dataset:referencetitle": "Hydrocarbon Bond Dissociation Energies",
-				"dc:creator": [
-					{
-						"dataset:authorfamilyname": "McMillen",
-						"dataset:authorgivenname": "Donald F.",
-						"dataset:authortitle": "dataset:Professor"
-					},
-					{
-						"dataset:authorfamilyname": "Golden",
-						"dataset:authorgivenname": "David M.",
-						"dataset:authortitle": "dataset:Professor"
-					}
-				]
+				"dataset:bibliographiclinktype": "dataset:PublicationDOILink"
 			}
 		],
 		"foaf:page": [
