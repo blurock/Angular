@@ -8,7 +8,7 @@
 				"dataset:dataconceptstaging": "dataset:ConceptFileStaging"
 			},
 			"dataset:keywordfilestaging": [],
-			"dataset:titlestaging": "Read in some Carbon-Hydrogen-Oxygen species thermodynamics from Benson Thermochemical Kinetics",
+			"dataset:titlestaging": "Carbon-Hydrogen-Oxygen species thermodynamics from Benson Thermochemical Kinetics",
 			"dataset:abstractstaging": "A set of Carbon-Hydrogen-Oxygen species temperature dependent thermodynamics in Benson thermodynamic form. This from Benson Thermochemical Kinetics.",
 			"dcterms:created": "today"
 		},

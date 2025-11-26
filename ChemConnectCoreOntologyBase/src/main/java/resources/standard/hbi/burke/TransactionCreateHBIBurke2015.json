@@ -6,7 +6,7 @@
 			"dataset:datasetobjecttype": "dataset:JThermodynamics2DSubstructureThermodynamicsDataSet",
 		"dataset:filesourceformat": "dataset:ThergasSpeciesThermodynamics",
 		"dataset:blockinterpretationmethod": "dataset:ParseLinesJThermodynamicsSubstructures",
-		"dcterms:title": "A set of ring strain thermodynamics from Benson Thermochemical Kinetics",
+		"dcterms:title": "HBI Rules from Burke et. al 2015",
 		"dataset:dataobjstatus": "CatalogObjectStatusCurrent",
 		"dataset:speciespectype": "dataset:SpeciesSpecificationNancyLinearForm",
 		"dataset:substructurecorrectiontype": "dataset:HBISubstructure",

@@ -2,7 +2,7 @@
 	"prov:activity": "dataset:InitialReadInLocalStorageSystem",
 	"dataset:transreqobj": {},
 	"dataset:activityinfo": {
-		"descrfilestaging": {
+		"dataset:descrfilestaging": {
 			"dataset:purposefilestaging": {
 				"dataset:purposekeyfilestaging": "dataset:PurposeFileStaging",
 				"dataset:dataconceptstaging": "dataset:ConceptFileStaging"
@@ -19,9 +19,9 @@
 		"dcterms:title": "Ring Strain Correction Thermodynamics ",
 		"dataset:filesourcesubtype": "",
 		"dataset:collectionobjecttype": "dataset:JThermodynamics2DSubstructureThermodynamicsDatabase",
-			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:uniquegenericname": "SubstructthermoCyclesThermodynamics",
-			"dataset:datasetobjecttype": "dataset:JThermodynamics2DSubstructureThermodynamicsDataSet",
+		"dataset:catalogobjectmaintainer": "Administrator",
+		"dataset:uniquegenericname": "SubstructthermoCyclesThermodynamics",
+		"dataset:datasetobjecttype": "dataset:JThermodynamics2DSubstructureThermodynamicsDataSet",
 		"dcterms:identifier": "initialrepositorylocal",
 		"dcterms:BibliographicResource": [
 			{

@@ -1,5 +1,6 @@
 {
 	"prov:activity": "dataset:InitialReadInLocalStorageSystem",
+	"dataset:transreqobj": {},
 	"dataset:activityinfo": {
 		"dataset:descrfilestaging": {
 			"dataset:purposefilestaging": {
@@ -7,14 +8,14 @@
 				"dataset:dataconceptstaging": "dataset:ConceptFileStaging"
 			},
 			"dataset:keywordfilestaging": [],
-			"dataset:titlestaging": "Read in a Linear Meta atom set",
-			"dataset:abstractstaging": "Read in a Linear Meta atom set definitions. The set of substructures",
+			"dataset:titlestaging": "Linear Meta atom set",
+			"dataset:abstractstaging": "Linear Meta atom set definitions. The set of substructures",
 			"dcterms:created": "today"
 		},
 		"dataset:collectionobjecttype": "dataset:JThermodynamicsMetaAtomDefinitionDatabase",
-			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:uniquegenericname": "MetaAtomsForLinearAtoms",
-			"dataset:datasetobjecttype": "dataset:JThermodynamicsMetaAtomDefinitionDataSet",
+		"dataset:catalogobjectmaintainer": "Administrator",
+		"dataset:uniquegenericname": "MetaAtomsForLinearAtoms",
+		"dataset:datasetobjecttype": "dataset:JThermodynamicsMetaAtomDefinitionDataSet",
 		"dataset:uploadsrc": "dataset:ResourceFileSystem",
 		"dataset:filesourceformat": "dataset:JThermodynamicsMetaAtoms",
 		"dataset:fileidentifier": "/resources/standard/metaatoms/data/MetaAtomLinearAtom.txt",

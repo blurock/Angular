@@ -5,8 +5,8 @@
 		"dataset:blockinterpretationmethod": "dataset:ParseLinesJThermodynamicsMetaAtoms",
 		"dcterms:title": "The standard set of Linear Meta atoms",
 		"dataset:collectionobjecttype": "dataset:JThermodynamicsMetaAtomDefinitionDatabase",
-			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:uniquegenericname": "MetaAtomsForLinearAtoms",
-			"dataset:datasetobjecttype": "dataset:JThermodynamicsMetaAtomDefinitionDataSet"
+		"dataset:catalogobjectmaintainer": "Administrator",
+		"dataset:uniquegenericname": "MetaAtomsForLinearAtoms",
+		"dataset:datasetobjecttype": "dataset:JThermodynamicsMetaAtomDefinitionDataSet"
 	}
 }

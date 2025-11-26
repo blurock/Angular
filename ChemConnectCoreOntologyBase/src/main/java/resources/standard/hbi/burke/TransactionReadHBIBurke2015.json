@@ -21,9 +21,9 @@
 			"dcterms:created": "2023-03-01T12:45:29.261Z"
 		},
 		"dataset:collectionobjecttype": "dataset:JThermodynamics2DSubstructureThermodynamicsDatabase",
-			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:uniquegenericname": "HBIBurke2015",
-			"dataset:datasetobjecttype": "dataset:JThermodynamics2DSubstructureThermodynamicsDataSet",
+		"dataset:catalogobjectmaintainer": "Administrator",
+		"dataset:uniquegenericname": "HBIBurke2015",
+		"dataset:datasetobjecttype": "dataset:JThermodynamics2DSubstructureThermodynamicsDataSet",
 		"dcterms:BibliographicResource": [
 			{
 				"datacite:PrimaryResourceIdentifier": "https:/doi.org/10.1063/1.4902535",

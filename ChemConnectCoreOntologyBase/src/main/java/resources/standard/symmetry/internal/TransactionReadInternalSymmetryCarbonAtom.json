@@ -27,11 +27,11 @@
 			{
 				"datacite:PrimaryResourceIdentifier": "https://doi.org/10.1016/j.energy.2012.01.072",
 				"dataset:bibliographiclinktype": "dataset:PublicationDOILink"
-					},
-						{
-						"datacite:PrimaryResourceIdentifier": "https://theses.fr/1995INPL010N",
-						"dataset:bibliographiclinktype": "dataset:DataSiteLink"
-					}
+			},
+			{
+				"datacite:PrimaryResourceIdentifier": "https://theses.fr/1995INPL010N",
+				"dataset:bibliographiclinktype": "dataset:DataSiteLink"
+			}
 		]
 	}
 }

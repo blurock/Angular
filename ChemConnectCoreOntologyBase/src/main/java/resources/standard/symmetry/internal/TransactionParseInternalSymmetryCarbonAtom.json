@@ -1,6 +1,6 @@
 {
 	"prov:activity": "dataset:PartiionSetWithinRepositoryFile",
-		"dataset:activityinfo": {
+	"dataset:activityinfo": {
 		"dataset:collectionobjecttype": "dataset:JThermodynamicsSymmetryStructureDefinitionDatabase",
 		"dataset:catalogobjectmaintainer": "Administrator",
 		"dataset:uniquegenericname": "InternalSymmetryCarbonAtom",

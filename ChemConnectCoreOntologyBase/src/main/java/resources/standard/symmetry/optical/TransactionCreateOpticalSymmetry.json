@@ -2,9 +2,9 @@
 	"prov:activity": "dataset:TransactionInterpretTextBlock",
 	"dataset:activityinfo": {
 		"dataset:collectionobjecttype": "dataset:JThermodynamicsSymmetryStructureDefinitionDatabase",
-			"dataset:catalogobjectmaintainer": "Administrator",
-			"dataset:uniquegenericname": "OpticalIsomerSymmetry",
-			"dataset:datasetobjecttype": "dataset:JThermodynamicsSymmetryStructureDefinitionDataSet",
+		"dataset:catalogobjectmaintainer": "Administrator",
+		"dataset:uniquegenericname": "OpticalIsomerSymmetry",
+		"dataset:datasetobjecttype": "dataset:JThermodynamicsSymmetryStructureDefinitionDataSet",
 		"dataset:filesourceformat": "dataset:JThermodynamicsSymmetryDefinitionFormat",
 		"dataset:blockinterpretationmethod": "dataset:ParseLinesJThermodynamicsSymmetryDefinition",
 		"dcterms:title": "Optical Isomer Symmetry Rules: extropolation of TherGas rules for symmetry contributions as outlined in the Muller thesis",

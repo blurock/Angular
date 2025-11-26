@@ -1,8 +1,8 @@
 {
-	"prov:activity": "dataset:InitialReadInOfRepositoryFile",
+	"prov:activity": "dataset:InitialReadInLocalStorageSystem",
 	"dataset:transreqobj": {},
 	"dataset:activityinfo": {
-		"descrfilestaging": {
+		"dataset:descrfilestaging": {
 			"dataset:purposefilestaging": {
 				"dataset:purposekeyfilestaging": "dataset:PurposeFileStaging",
 				"dataset:dataconceptstaging": "dataset:ConceptFileStaging"
