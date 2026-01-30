@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, ViewChild, Output, Input } from '@angu
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
 import { DatasettransactionspecificationforcollectionComponent } from '../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
 import { Router, ActivatedRoute } from '@angular/router';

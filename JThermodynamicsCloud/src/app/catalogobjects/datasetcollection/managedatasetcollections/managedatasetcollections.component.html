@@ -15,42 +15,43 @@
     A single dataset collection
     specifies which combination of fundamental data should be used for the calculations. For each type of fundamental data, 
     the datset name and version is given.
+	   
     <p>
     With the dataset collection management interface, a collection set is defined, referenced by a unique name, 
     by giving which sets of fundamental data should be used. The fundamental datasets are uploaded and referenced by a unique name and a version indicator.
     These are the parameters that are specified for the collection set.
+    
   </div>
 
   <div>
     In creating or modifying a dataset corrections, the <i>DatasetName</i> and the <i>Dataset Version</i> is given for each of the 
     types of fundamental data:
   <ul>
-    <li> <b>Benson Rules</b>: These are the atom corrections due to the method of Benson.
+    <li> <b>Benson Rules</b>: These are the atom corrections due to the method of Benson.</li>
     <li> <b>2D Substructure Thermodynamics</b> These are thermodynamic corrections due to 2D-graphical structures. These include 
     <i>HBI structures</i> for radical correction in the THERM computations, the <i>steric corrections</i> (nearest neighbor) and <i>ring strain 
-    energies</i>.
+    energies</i>.</li>
     <li> <b>Symmetry Structures</b> These are the structures and contributions describing 
-    the <i>internal</i>, <i>external</i> and <i>optical</i> symmetries
+    the <i>internal</i>, <i>external</i> and <i>optical</i> symmetries</li>
     <li> <b>Vibrational Energy Structures</b>: In the JTHERGAS computations, these are the corrections used for losses of vibrational
-    modes due to the radical.
+    modes due to the radical.</li>
     <li> <b>Disassociation Energy</b>: In the JTHERGAS computations, these are the estimations of the hydrogen bond disassociation
-    due to the radical. 
+    due to the radical. </li>
     <li> <b>Meta Atom Definition</b> These are definitions of functional groups which are treated as a single entity or atom. Meta 
-    atoms can be benson rule structures, function groups, such as <i>co</i> and <i>co2</i>, used in definition 
+    atoms can be benson rule structures, function groups, such as <i>co</i> and <i>co2</i>, used in definition </li>
     </ul>
   </div>
   </mat-card-content>
 </mat-card>
-
-
 </mat-tab>
   <mat-tab label="Visualize">
-  <app-visualizedatasetcollectionids #visualcollection (newCollectionV)="newCollectionV($event)" [(annoinfo)]="cataloganno" [(maintainer)]="maintainer" [(annoinfo)]="cataloganno"> </app-visualizedatasetcollectionids>
+  <app-visualizedatasetcollectionids #visualcollection (newCollectionV)="newCollectionV($event)" [annoinfo]="cataloganno" [maintainer]="maintainer"> 
+  </app-visualizedatasetcollectionids>
   </mat-tab>
   <mat-tab label="Create">
-  <app-createnewdatasetcollection #createcollection [(maintainer)]="maintainer" (newCollectionC)="newCollectionC($event)" [(annoinfo)]="cataloganno"></app-createnewdatasetcollection>
+  <app-createnewdatasetcollection #createcollection [maintainer]="maintainer" (newCollectionC)="newCollectionC($event)" [annoinfo]="cataloganno"></app-createnewdatasetcollection>
   </mat-tab>
-  <mat-tab label="Modify">
-  <app-modifydatasetcollectionids #modifycollection [(maintainer)]="maintainer" [(annoinfo)]="cataloganno" (newCollectionM)="newCollectionM($event)" ></app-modifydatasetcollectionids>
+ <mat-tab label="Modify">
+  <app-modifydatasetcollectionids #modifycollection [maintainer]="maintainer" [annoinfo]="cataloganno" (newCollectionM)="newCollectionM($event)" ></app-modifydatasetcollectionids>
   </mat-tab>
 </mat-tab-group>

@@ -1,0 +1,24 @@
+const { onRequest } = require("firebase-functions/v2/https");
+const logger = require("firebase-functions/logger");
+const axios = require("axios"); // Remove this line if using built-in fetch
+
+exports.getActivityCatalog = onRequest(async (req, res) => {
+  // Define the local URL
+  const targetUrl = "http://localhost:8080/cataloginfo?catalogname=dataset:ActivityThermoCalculationSetup";
+
+  try {
+    logger.info("Fetching activity catalog data...");
+    
+    // Using axios (or use fetch() if on Node 18+)
+    const response = await axios.get(targetUrl);
+    
+    // Send the data back to the user
+    res.status(200).send(response.data);
+  } catch (error) {
+    logger.error("Error communicating with local service:", error.message);
+    res.status(500).send({ 
+        error: "Failed to fetch catalog info", 
+        details: error.message 
+    });
+  }
+});

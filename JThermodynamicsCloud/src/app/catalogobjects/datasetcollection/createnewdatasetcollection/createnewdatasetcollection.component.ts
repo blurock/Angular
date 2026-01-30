@@ -1,12 +1,27 @@
 import { Component, OnInit, ViewChild, EventEmitter, Input, Output } from '@angular/core';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { ActivityinformationdatasetcollectionsetcreationComponent } from '../../activity/collectionset/activityinformationdatasetcollectionsetcreation/activityinformationdatasetcollectionsetcreation.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDividerModule } from '@angular/material/divider';
+import { NgIf } from '@angular/common';
 
 @Component({
+	standalone: true,
+	imports: [
+		MatCardModule,
+		MatGridListModule,
+		MatTooltipModule,
+		FiresytorecatalogidComponent,
+		MatDividerModule,
+		ActivityinformationdatasetcollectionsetcreationComponent,
+		NgIf
+	],
 	selector: 'app-createnewdatasetcollection',
 	templateUrl: './createnewdatasetcollection.component.html',
 	styleUrls: ['./createnewdatasetcollection.component.scss']
@@ -14,7 +29,7 @@ import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcata
 export class CreatenewdatasetcollectionComponent implements OnInit {
 
 	@Output() newCollectionC = new EventEmitter<any>();
-	@Input() maintainer: string;
+	@Input() maintainer: string = '';
     @Input() annoinfo: any;
 
 
@@ -31,15 +46,15 @@ export class CreatenewdatasetcollectionComponent implements OnInit {
 
 	identifier = Ontologyconstants.dctermsidentifier;
 
-	resultHtml: string;
+	resultHtml: string = '';
 	catalog: any;
 	transfirestoreid: any;
 	viewcollectionset = false;
 	viewtransactionid = true;
 
 
-	@ViewChild('activity') activity: ActivityinformationdatasetcollectionsetcreationComponent;
-	@ViewChild('tranactionfirestoreid') tranactionfirestoreid: FiresytorecatalogidComponent;
+	@ViewChild('activity') activity!: ActivityinformationdatasetcollectionsetcreationComponent;
+	//@ViewChild('tranactionfirestoreid') tranactionfirestoreid!: FiresytorecatalogidComponent;
 
 	constructor(
 		public dialog: MatDialog
@@ -58,12 +73,12 @@ export class CreatenewdatasetcollectionComponent implements OnInit {
 		return ans;
 	}
 
-	public setTransaction(catalog) {
+	public setTransaction(catalog: any): void {
 		this.catalog = catalog;
 		this.transfirestoreid = this.catalog['dataset:transactionforobject'];
 		if (this.transfirestoreid != null) {
 			this.viewtransactionid = true;
-			this.tranactionfirestoreid.setData(this.transfirestoreid);
+			//this.tranactionfirestoreid.setData(this.transfirestoreid);
 		}
 	}
 
@@ -80,7 +95,7 @@ export class CreatenewdatasetcollectionComponent implements OnInit {
 	}
 
 	submitInformation(): void {
-		const catalog = {};
+		const catalog:Record<string,any> = {};
 		this.getData(catalog);
 		catalog['prov:activity'] = 'dataset:DatasetCollectionSetCreationEvent';
 
@@ -100,7 +115,7 @@ export class CreatenewdatasetcollectionComponent implements OnInit {
 						this.transfirestoreid = this.catalog['dataset:transactionforobject'];
 						if (this.transfirestoreid != null) {
 							this.viewtransactionid = true;
-							this.tranactionfirestoreid.setData(this.transfirestoreid);
+							//this.tranactionfirestoreid.setData(this.transfirestoreid);
 						}
 					}
 				} else {
@@ -132,11 +147,11 @@ export class CreatenewdatasetcollectionComponent implements OnInit {
 
 
 	deleteTransaction(): void {
-		const transaction = {};
+		const transaction: Record<string,any> = {};
 		transaction['prov:activity'] = 'dataset:DatabaseDeleteTransaction';
 		transaction['dcterms:creator'] = this.maintainer;
 		transaction[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.maintainer;
-		const activityinfo = {};
+		const activityinfo:Record<string,any> = {};
 		const transtitle = 'Delection Collection: ' + ' this.maintainer' + '   ';
 		activityinfo['dcterms:title'] = transtitle;
 

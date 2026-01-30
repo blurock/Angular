@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NavItem } from '../primitives/nav-item';
-import { Ontologyconstants } from '../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 
 
 @Injectable({

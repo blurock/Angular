@@ -4,7 +4,7 @@ import { UserinterfaceconstantsService } from '../../../../../const/userinterfac
 import { OntologycatalogService } from '../../../../../services/ontologycatalog.service';
 import { ActivityinformationinterpretthermodynamicblockComponent } from '../activityinformationinterpretthermodynamicblock.component';
 import { CommonModule } from '@angular/common';
-import { Ontologyconstants } from '../../../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 
 @Component({
 	selector: 'app-activityinformationinterpretbensonruledata',

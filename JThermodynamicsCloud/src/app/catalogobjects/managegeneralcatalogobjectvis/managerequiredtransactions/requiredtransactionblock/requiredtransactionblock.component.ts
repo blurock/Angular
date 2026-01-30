@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ComponentRef, EventEmitter, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { Ontologyconstants } from '../../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';

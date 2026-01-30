@@ -31,11 +31,6 @@ export class RuntransactionService {
   	private standardHttpCall(httpaddr: string, data: any): Observable<any> {
        const uid = this.session.getUID();
       data['uid'] = uid;
-      /*
-		const token = this.session.getToken();
-		const headerdata = ServiceUtilityRoutines.setupHeader(token);
-  		return this.httpClient.post(httpaddr,data, { 'headers': headerdata })
-  		*/
 		return this.authService.postData(httpaddr,data)
 			.pipe(
 				catchError(error => {

@@ -5,7 +5,7 @@ import { CatalogbasedataComponent } from '../../catalogbasedata/catalogbasedata.
 import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
 import { CatalogidComponent } from '../../catalogid/catalogid.component';
 import { BaseCatalogInterface } from 'src/app/primitives/basecataloginterface';
-import {Ontologyconstants} from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 @Component({
 	selector: 'app-repositorydatafile',
 	templateUrl: './repositorydatafile.component.html',

@@ -5,7 +5,7 @@ import { SetofdataobjectlinksComponent } from '../../../catalogbaseobjects/setof
 import { SetofsitereferencesComponent } from '../../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
 import { DatasetreferenceComponent } from '../../../datasetreference/datasetreference.component';
 import { KeywordlistprimitiveComponent } from '../../../../primitives/keywordlistprimitive/keywordlistprimitive.component';
-import { Ontologyconstants } from '../../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { NavItem } from '../../../../primitives/nav-item';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';

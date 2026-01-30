@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
 import {MatCardModule} from '@angular/material/card';

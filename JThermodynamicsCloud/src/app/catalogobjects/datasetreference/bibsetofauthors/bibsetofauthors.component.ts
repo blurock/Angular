@@ -3,7 +3,7 @@ import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators, For
 import { IdentifiersService } from '../../../const/identifiers.service';
 import { OntologycatalogService } from 'src/app/services/ontologycatalog.service';
 import {UploadmenuserviceService} from 'src/app/services/uploadmenuservice.service';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 
 @Component({
 	selector: 'app-bibsetofauthors',

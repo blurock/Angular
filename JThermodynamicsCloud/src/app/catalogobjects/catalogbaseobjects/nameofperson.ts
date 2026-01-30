@@ -1,4 +1,4 @@
-import { Ontologyconstants } from 'src/app/const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 
 export class NameOfPerson {
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, SimpleChanges, OnChanges, AfterViewInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { CatalogconceptpurposeComponent } from '../../catalogobjects/catalogconceptpurpose/catalogconceptpurpose.component';
 import { KeywordlistprimitiveComponent } from '../../primitives/keywordlistprimitive/keywordlistprimitive.component';
 import { MatCardModule } from '@angular/material/card';

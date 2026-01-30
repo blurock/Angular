@@ -2,7 +2,7 @@ import { Component, Input, ChangeDetectorRef, AfterViewInit, ViewChild } from '@
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
-import { Ontologyconstants } from '../../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';

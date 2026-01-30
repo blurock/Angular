@@ -8,7 +8,7 @@ import { CatalogbaseComponent } from '../../../../primitives/catalogbase/catalog
 import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
 import { MatCardModule } from '@angular/material/card';
 import { NgIf } from '@angular/common';
-import { Ontologyconstants } from '../../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 
 @Component({
 	selector: 'app-repositorythergasthermodynamicsblock',

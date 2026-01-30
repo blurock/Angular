@@ -1,7 +1,7 @@
 import { Component, ComponentRef, EventEmitter, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { RunserviceprocessService } from '../../../services/runserviceprocess.service';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { RequiredtransactionblockComponent } from './requiredtransactionblock/requiredtransactionblock.component';

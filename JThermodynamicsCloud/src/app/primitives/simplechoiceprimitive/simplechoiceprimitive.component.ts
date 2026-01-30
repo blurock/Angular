@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import { Ontologyconstants } from 'src/app/const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 
 interface choiceelement {
   ontobject: string;

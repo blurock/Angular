@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormArray, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { MenutreeserviceService } from '../../services/menutreeservice.service';
 import { NavItem } from '../../primitives/nav-item';
 import { CommonModule } from '@angular/common';

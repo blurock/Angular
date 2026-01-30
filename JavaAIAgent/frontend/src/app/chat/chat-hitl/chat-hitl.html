@@ -1,0 +1,31 @@
+<mat-card class="chat-container">
+	<mat-card-header>
+		<mat-card-title>Simple LLM Physics Agent</mat-card-title>
+		<span class="spacer"></span>
+		<button mat-icon-button (click)="agentService.clearChat()">
+			<mat-icon>delete_sweep</mat-icon>
+		</button>
+	</mat-card-header>
+
+	<mat-card-content #scrollContainer class="message-area">
+		<div *ngFor="let msg of agentService.messages()">
+			<div [ngClass]="msg.role + '-bubble'">
+				{{ msg.text }}
+			</div>
+		</div>
+		<ng-container *ngIf='showparameterinput'>
+			<app-hitl2-parameters (parameters)="getParameters($event)"></app-hitl2-parameters>
+		</ng-container>
+	</mat-card-content>
+	<mat-card-actions class="input-area">
+		<mat-form-field appearance="outline" class="full-width">
+			<mat-label>Ask a question...</mat-label>
+			<input matInput [(ngModel)]="userInput" (keyup.enter)="getPrompt()">
+
+			<button mat-icon-button matSuffix (click)="getPrompt()">
+				<mat-icon>send</mat-icon>
+			</button>
+		</mat-form-field>
+	</mat-card-actions>
+
+</mat-card>

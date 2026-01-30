@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 import { Login } from '../const/routes.const';
 import { SessiondatamanagementService } from '../services/sessiondatamanagement.service';
 import { Router } from '@angular/router';
-import { Ontologyconstants } from '../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { __assign } from 'tslib';
 import { Observable, BehaviorSubject, map, from,catchError, of,switchMap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';

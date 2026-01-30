@@ -1,0 +1,35 @@
+{
+	"dictionaaryName": "simpleExample",
+	"sourceType": "DirectInput",
+	"source": "Edwardd Blurock",
+	"terms": [
+		{
+			"term": "TransactionInterpretDisassociationEnergy",
+			"definition": "Interpret a parsed file with disassociation text blocks to dataset objects. For each definition the structure in short text format, a structure name and the disassociate energy value."
+		},
+		{
+			"term": "TransactionInterpretMetaAtom",
+			"definition": "Interpret a parsed file of single line definiitions of Meta Atom dataset objects. Each line has a Meta Atom name and a short text line structure, structure name, meta atom name and meta atom type."
+		},
+		{
+			"term": "TransactionInterpretSymmetryInformation",
+			"definition": "Interpret a parsed file of symmetry definitions in JThermodynamics XML structure to dataset objects. The symmetry object has a molfile structure and assignments to symmetry."
+		},
+		{
+			"term": "TransactionInterpretThermodynamicBlockLines",
+			"definition": "From a single (3 or 4 line) block of the thermodynamic specification, the thermodynamics and structure are isolated out and interpreted from a parsed file. The format originates from the TherGas format for defining thermodynamics.."
+		},
+		{
+			"term": "TransactionInterpretVibrationalMode",
+			"definition": "Interpret a parsed file of one line vibrational definitions to dataset objects.  Each line has the vibrational structure in short text form, vibrational name, structure name, vibrational value and symmetry factor."
+		},
+		{
+			"term": "PartiionSetWithinRepositoryFile",
+			"definition": "The repository file represents the set of inputs for a set of catalog objects. This separates out the individual blocks of the file. The purpose of this is that when changes are to be made to the text, they can be done on individual pieces"
+		},
+		{
+			"term": "InitialReadInLocalStorageSystem",
+			"definition": "Read in text file from the local file system of the client to the staging area."
+		}
+	]
+}

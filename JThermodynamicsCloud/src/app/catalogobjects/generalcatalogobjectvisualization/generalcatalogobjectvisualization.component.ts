@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ComponentRef, ViewContainerRef, Output, E
 import { CatalogbaseComponent } from '../../primitives/catalogbase/catalogbase.component';
 import { MatCardModule } from '@angular/material/card';
 import { DatasetrepositoryfilestagingComponent } from '../repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { OntologycatalogService } from '../../services/ontologycatalog.service';
 import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
 import { RepositoryparsedtofixedblocksizeComponent } from '../repository/partition/repositoryparsedtofixedblocksize/repositoryparsedtofixedblocksize.component';

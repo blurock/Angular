@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, ViewChild, Output } from '@angu
 import { ParseuploadedfileComponent } from '../parseuploadedfile/parseuploadedfile.component';
 import { DatasettransactioneventobjectComponent } from '../../catalogobjects/transaction/datasettransactioneventobject/datasettransactioneventobject.component';
 import { FindspecifictransactionindatasetComponent } from '../../dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { MatDialog } from '@angular/material/dialog';
 import { UploadmenuserviceService } from '../../services/uploadmenuservice.service';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';

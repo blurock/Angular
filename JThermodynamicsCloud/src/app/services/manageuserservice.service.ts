@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { SessiondatamanagementService } from '../services/sessiondatamanagement.service';
 import { RunserviceprocessService } from '../services/runserviceprocess.service';
-import { Ontologyconstants } from '../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 
 @Injectable({
 	providedIn: 'root'

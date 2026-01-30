@@ -14,7 +14,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { ActivityrepositoryinitialreadlocalfileComponent } from '../../activity/repository/activityrepositoryinitialreadlocalfile/activityrepositoryinitialreadlocalfile.component';
 import { ActivityrepositorypartitiontocatalogComponent } from '../../activity/repository/activityrepositorypartitiontocatalog/activityrepositorypartitiontocatalog.component';
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { TransactionresultheaderComponent } from '../transactionresultheader/transactionresultheader.component';

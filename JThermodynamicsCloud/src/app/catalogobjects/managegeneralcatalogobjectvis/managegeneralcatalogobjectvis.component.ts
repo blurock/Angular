@@ -14,7 +14,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgFor } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RunserviceprocessService } from '../../services/runserviceprocess.service';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { ManagerdfcatalogidelelementsComponent } from './managerdfcatalogidelelements/managerdfcatalogidelelements.component';
 import { ManagerequiredtransactionsComponent } from './managerequiredtransactions/managerequiredtransactions.component';
 import { MatIconModule } from '@angular/material/icon';

@@ -10,7 +10,7 @@ import { MatInput} from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import {UserinterfaceconstantsService} from '../../const/userinterfaceconstants.service';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({

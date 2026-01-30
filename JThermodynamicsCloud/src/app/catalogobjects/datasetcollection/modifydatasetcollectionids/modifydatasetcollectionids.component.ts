@@ -1,14 +1,35 @@
 import { Component, OnInit, ViewChild, EventEmitter, Input, Output } from '@angular/core';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import {ActivityinformationdatasetcollectionsetadddatasetComponent} from '../../activity/collectionset/activityinformationdatasetcollectionsetadddataset/activityinformationdatasetcollectionsetadddataset.component';
+import { ActivityinformationdatasetcollectionsetadddatasetComponent } from '../../activity/collectionset/activityinformationdatasetcollectionsetadddataset/activityinformationdatasetcollectionsetadddataset.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSpinner } from '@angular/material/progress-spinner';
+import { CommonModule, NgIf } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
+	standalone: true,
+	imports: [
+		MatInputModule,
+		CommonModule,
+		ReactiveFormsModule,
+		NgIf,
+		ActivityinformationdatasetcollectionsetadddatasetComponent,
+		FiresytorecatalogidComponent,
+		MatCardModule,
+		MatGridListModule,
+		MatTooltipModule,
+		MatDividerModule
+	],
 	selector: 'app-modifydatasetcollectionids',
 	templateUrl: './modifydatasetcollectionids.component.html',
 	styleUrls: ['./modifydatasetcollectionids.component.scss']
@@ -17,10 +38,10 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 
 
 	@Output() newCollectionM = new EventEmitter<any>();
-	@Input() maintainer: string;
+	@Input() maintainer!: string;
 	@Input() annoinfo: any;
 
-	resultHtml: string;
+	resultHtml: string = '';
 	transfirestoreid: any;
 	catalog: any;
 	prerequisite: any;
@@ -51,8 +72,8 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 	catalogtype = 'dataset:ThermodynamicsDatasetCollectionIDsSet';
 	catannoinfo: any;
 
-	@ViewChild('activity') activity: ActivityinformationdatasetcollectionsetadddatasetComponent;
-	@ViewChild('tranactionfirestoreid') tranactionfirestoreid: FiresytorecatalogidComponent;
+	@ViewChild('activity') activity!: ActivityinformationdatasetcollectionsetadddatasetComponent;
+	@ViewChild('tranactionfirestoreid') tranactionfirestoreid!: FiresytorecatalogidComponent;
 
 
 	constructor(
@@ -63,6 +84,7 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 		this.objectform = this.formBuilder.group({
 			DatasetCollectionsSetLabel: ['', Validators.required]
 		});
+		console.log('Modify Dataset Collection Component setup: ' + this.activitytype);
 		this.getCatalogAnnoations(this.activitytype);
 		this.getCatalogAnnoations(this.catalogtype);
 	}
@@ -71,19 +93,19 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 	}
 
 	invalid(): boolean {
-        let ans = false;
-        if(this.activity != null) {
+		let ans = false;
+		if (this.activity != null) {
 			ans = this.activity.invalid() || this.objectform.invalid;
 		}
 		return ans;
 	}
 
-	setPrerequisite(catalog) {
+	setPrerequisite(catalog: any): void {
 		this.original = true;
 		this.prerequisite = catalog[this.catannoinfo['dataset:FirestoreCatalogIDForTransaction'][this.identifier]];
 		const originalcollectionname = catalog[this.catannoinfo['dataset:DatasetCollectionsSetLabel'][this.identifier]]
 		//this.objectform.get('DatasetCollectionsSetLabel').setValue(originalcollectionname);
-		this.activity.setDatasetCollectionsSetLabel(originalcollectionname);
+		this.activity.setCatalogObjectUniqueGenericLabel(originalcollectionname);
 	}
 
 	public getCatalogAnnoations(type: string): void {
@@ -95,12 +117,13 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 				this.waitmessage = response[Ontologyconstants.message];
 				if (response[Ontologyconstants.successful]) {
 					const catalog = response[Ontologyconstants.catalogobject];
-					if(type == this.activitytype) {
+					console.log('Got Annotations for type: ' + type);
+					if (type == this.activitytype) {
 						this.actannoinfo = catalog[Ontologyconstants.annotations];
-					} else if(type == this.catalogtype) {
+					} else if (type == this.catalogtype) {
 						this.catannoinfo = catalog[Ontologyconstants.annotations];
 					}
-					
+
 				} else {
 					this.waitmessage = responsedata;
 				}
@@ -111,7 +134,7 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 
 	getData(transaction: any): void {
 		transaction['prov:activity'] = 'dataset:DatasetCollectionSetAddDatasetEvent';
-		const prerequisiteset = {};
+		const prerequisiteset: Record<string, any> = {};
 		prerequisiteset['dataset:datasetcollectionsetcreationevent'] = this.prerequisite;
 		transaction['dataset:transreqobj'] = prerequisiteset;
 		transaction['dcterms:creator'] = this.maintainer;
@@ -173,11 +196,11 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 	}
 
 	deleteTransaction(): void {
-		const transaction = {};
+		const transaction: Record<string, any> = {};
 		transaction['prov:activity'] = 'dataset:DatabaseDeleteTransaction';
 		transaction['dcterms:creator'] = this.maintainer;
 		transaction[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.maintainer;
-		const activityinfo = {};
+		const activityinfo: Record<string, any> = {};
 		const transtitle = 'Delection Collection: ' + ' this.maintainer' + '   ';
 		activityinfo['dcterms:title'] = transtitle;
 
@@ -193,7 +216,7 @@ export class ModifydatasetcollectionidsComponent implements OnInit {
 				this.resultHtml = result['dataset:serviceresponsemessage'];
 				if (success == 'true') {
 					this.viewtransactionid = false;
-					
+
 				} else {
 				}
 			} else {

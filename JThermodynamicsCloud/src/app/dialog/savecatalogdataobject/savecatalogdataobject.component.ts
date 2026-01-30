@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { SavecatalogdataobjectdialogComponent } from '../savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
 import { OntologycatalogService } from '../../services/ontologycatalog.service';
 import { IdentifiersService } from '../../const/identifiers.service';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 @Component({
 	selector: 'app-savecatalogdataobject',
 	templateUrl: './savecatalogdataobject.component.html',

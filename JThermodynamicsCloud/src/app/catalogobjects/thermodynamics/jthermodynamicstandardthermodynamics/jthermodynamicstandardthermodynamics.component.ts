@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { ParametervalueComponent } from '../../parametervalue/parametervalue.component';
 import { ParameterspecificationComponent } from '../../parameterspecification/parameterspecification.component';
 import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormArray, ReactiveFormsModule, FormsModule } from '@angular/forms';

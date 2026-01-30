@@ -1,5 +1,5 @@
 import { NameOfPerson } from './nameofperson';
-import { Ontologyconstants } from 'src/app/const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 
 
 export class reference {

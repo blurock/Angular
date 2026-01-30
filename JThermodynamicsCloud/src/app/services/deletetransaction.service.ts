@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Ontologyconstants } from '../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { RuntransactiondialogComponent } from '../dialog/runtransactiondialog/runtransactiondialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';

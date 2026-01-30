@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, ViewChild, AfterViewInit } from
 import { RequiredtransactioninformationComponent } from '../../transaction/requiredtransactioninformation/requiredtransactioninformation.component';
 import { RunserviceprocessService } from '../../../services/runserviceprocess.service';
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';

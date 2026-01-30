@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { ServiceUtilityRoutines } from './serviceutilityroutines';
 import { Service } from '../const/routes.const';
 import { SessiondatamanagementService } from '../services/sessiondatamanagement.service';
-import { Ontologyconstants } from '../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 

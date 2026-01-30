@@ -1,7 +1,7 @@
 import { Input, Output, Component, OnInit, EventEmitter,SimpleChanges } from '@angular/core';
 import { FormArray, UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms';
 import { IdentifiersService } from '../../../const/identifiers.service';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
 import { NavItem } from '../../../primitives/nav-item';
 import {MatCardModule} from '@angular/material/card'; 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, ViewChild, Output } from '@angular/core';
 import { FindspecifictransactionindatasetComponent } from '../../dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { MatDialog } from '@angular/material/dialog';
 import { UploadmenuserviceService } from '../../services/uploadmenuservice.service';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';

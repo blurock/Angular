@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
 import { NgIf } from '@angular/common';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 @Component({
 	selector: 'app-thermodynamicbensonruledefinition',
 	standalone: true,

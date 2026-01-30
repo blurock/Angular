@@ -3,10 +3,24 @@ import { ThermodynamicsdatasetcollectionidssetComponent } from '../../datasetcol
 import { FetchcollectiondatasetidsComponent } from '../../../dialog/fetchcollectiondatasetids/fetchcollectiondatasetids.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTabsModule } from '@angular/material/tabs';
+import { CommonModule } from '@angular/common';
 
 @Component({
+	standalone: true,
+	imports: [
+		MatCardModule,
+		MatGridListModule,
+		MatTooltipModule,
+		MatTabsModule,
+		ThermodynamicsdatasetcollectionidssetComponent,
+		CommonModule
+		],
 	selector: 'app-visualizedatasetcollectionids',
 	templateUrl: './visualizedatasetcollectionids.component.html',
 	styleUrls: ['./visualizedatasetcollectionids.component.scss']
@@ -14,7 +28,7 @@ import { OntologycatalogService } from '../../../services/ontologycatalog.servic
 export class VisualizedatasetcollectionidsComponent implements OnInit {
 
 	@Output() newCollectionV = new EventEmitter<any>();
-	@Input() maintainer: string;
+	@Input() maintainer: string='';
 	@Input() annoinfo: any;
 
 		waitmessage = 'Waiting for Initialization';
@@ -29,11 +43,11 @@ export class VisualizedatasetcollectionidsComponent implements OnInit {
 	
 	rdfslabel = Ontologyconstants.rdfslabel;
 	
-	resultHtml: string;
+	resultHtml: string = '';
 	catalog: any;
 	
 
-	@ViewChild('thermocollectionset') thermocollectionset: ThermodynamicsdatasetcollectionidssetComponent;
+	@ViewChild('thermocollectionset') thermocollectionset!: ThermodynamicsdatasetcollectionidssetComponent;
 
 
 	constructor(

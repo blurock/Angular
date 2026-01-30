@@ -12,7 +12,7 @@ import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbas
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
 import { NgIf } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 
 @Component({
 	selector: 'app-jthermodynamicsmetaatomdefinition',

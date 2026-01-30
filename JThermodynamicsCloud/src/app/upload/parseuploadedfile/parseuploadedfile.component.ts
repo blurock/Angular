@@ -1,7 +1,7 @@
 import { Input, Output, Component, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
 import { FormArray, UntypedFormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UploadinterfaceconstantsService } from '../uploadinterfaceconstants.service'
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { UploadfileinformationComponent } from '../uploadfileinformation/uploadfileinformation.component';
 import { UploadmenuserviceService } from '../../services/uploadmenuservice.service';
 import { OntologycatalogService } from '../../services/ontologycatalog.service';

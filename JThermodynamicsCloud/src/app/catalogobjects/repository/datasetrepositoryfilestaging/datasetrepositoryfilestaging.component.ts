@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
 import { MatInputModule } from '@angular/material/input';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { ChemconnectthermodynamicsdatabaseComponent } from '../../thermodynamics/chemconnectthermodynamicsdatabase/chemconnectthermodynamicsdatabase.component';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
 import { NavItem } from '../../../primitives/nav-item';

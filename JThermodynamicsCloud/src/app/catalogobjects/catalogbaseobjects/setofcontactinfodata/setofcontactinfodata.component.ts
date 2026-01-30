@@ -7,7 +7,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
 import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.component';
 import {FormsModule,FormBuilder,FormGroup,Validators,FormArray} from '@angular/forms';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import {MenutreeserviceService} from '../../../services/menutreeservice.service';

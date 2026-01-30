@@ -10,6 +10,8 @@ import info.esblurock.reaction.core.ontology.base.constants.ClassLabelConstants;
 import info.esblurock.reaction.core.ontology.base.dataset.BaseObjectJSONInterface;
 
 public class RDFInformation extends BaseObjectJSONInterface {
+	String subjectNodeNameString;
+	String objectNodeNameString;
 	String classname;
 	String predicateClass;
 	Map<String,Object> subjectClass;
@@ -30,6 +32,23 @@ public class RDFInformation extends BaseObjectJSONInterface {
 		this.objectClass =  new HashMap<String,Object>(rdf.objectClass);
 		
 	}
+
+	public String getSubjectNodeNameString() {
+		return subjectNodeNameString;
+	}
+
+	public void setSubjectNodeNameString(String subjectNodeNameString) {
+		this.subjectNodeNameString = subjectNodeNameString;
+	}
+
+	public String getObjectNodeNameString() {
+		return objectNodeNameString;
+	}
+
+	public void setObjectNodeNameString(String objectNodeNameString) {
+		this.objectNodeNameString = objectNodeNameString;
+	}
+	
 	public String getClassname() {
 		return classname;
 	}

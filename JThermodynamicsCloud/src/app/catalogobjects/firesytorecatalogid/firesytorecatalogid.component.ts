@@ -1,7 +1,7 @@
 import { Component, Input, AfterViewInit, OnInit, OnChanges, ChangeDetectionStrategy,ChangeDetectorRef  } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IdentifiersService } from '../../const/identifiers.service';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 //import {MenuItemComponent} from '../../primitives/menu-item/menu-item.component';

@@ -1,25 +1,40 @@
 import { Component, OnInit, Input, EventEmitter, ViewChild } from '@angular/core';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { DatasetspecificationforcollectionsetComponent } from '../datasetspecificationforcollectionset/datasetspecificationforcollectionset.component';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import {ChemconnectdatasetcollectionidssetComponent} from '../chemconnectdatasetcollectionidsset/chemconnectdatasetcollectionidsset.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSpinner } from '@angular/material/progress-spinner';
+import { MatDividerModule } from '@angular/material/divider';
+import { CommonModule} from '@angular/common';
 
 @Component({
+	standalone: true,
+	imports: [
+		MatCardModule,
+		MatGridListModule,
+		MatTooltipModule,
+		MatDividerModule,
+		DatasetspecificationforcollectionsetComponent,
+		ChemconnectdatasetcollectionidssetComponent,
+		CommonModule
+		],
   selector: 'app-thermodynamicsdatasetcollectionidsset',
   templateUrl: './thermodynamicsdatasetcollectionidsset.component.html',
   styleUrls: ['./thermodynamicsdatasetcollectionidsset.component.scss']
 })
 export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 
-    @ViewChild('collectionid') collectionid: ChemconnectdatasetcollectionidssetComponent;
-    
-	@ViewChild('benson') benson: DatasetspecificationforcollectionsetComponent;
-	@ViewChild('disassociation') disassociation: DatasetspecificationforcollectionsetComponent;
-	@ViewChild('metaatom') metaatom: DatasetspecificationforcollectionsetComponent;
-	@ViewChild('symmetry') symmetry: DatasetspecificationforcollectionsetComponent;
-	@ViewChild('vibrational') vibrational: DatasetspecificationforcollectionsetComponent;
-	@ViewChild('substructure') substructure: DatasetspecificationforcollectionsetComponent;
+    @ViewChild('collectionid') collectionid!: ChemconnectdatasetcollectionidssetComponent;
+	@ViewChild('benson') benson!: DatasetspecificationforcollectionsetComponent;
+	@ViewChild('disassociation') disassociation!: DatasetspecificationforcollectionsetComponent;
+	@ViewChild('metaatom') metaatom!: DatasetspecificationforcollectionsetComponent;
+	@ViewChild('symmetry') symmetry!: DatasetspecificationforcollectionsetComponent;
+	@ViewChild('vibrational') vibrational!: DatasetspecificationforcollectionsetComponent;
+	@ViewChild('substructure') substructure!: DatasetspecificationforcollectionsetComponent;
 
 	transspec: any;
 
@@ -39,14 +54,16 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 	symmetrytitle = 'Symmetry Structures';
 	vibrationaltitle = 'Vibrational Energy Structures';
     substructuretitle = '2D Substructure Thermodynamics';
-	maintainer = "Public";
 	waiting = 'waiting for annotations ';
 
-
+	@Input() maintainer: string='';
+	
 	constructor(
+		
 		public annotations: OntologycatalogService,
 		private manageuser: ManageuserserviceService
 	) {
+		/*
 		this.manageuser.determineMaintainer().subscribe(result => {
 			if (result != null) {
 				this.maintainer = result;
@@ -55,6 +72,7 @@ export class ThermodynamicsdatasetcollectionidssetComponent implements OnInit {
 				alert(manageuser.errormaintainer);
 			}
 		});
+		*/
 		this.getCatalogAnnoations();
 	}
 

@@ -1,10 +1,30 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { RunserviceprocessService } from '../../services/runserviceprocess.service';
 import { NavItem } from '..//nav-item';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { CommonModule, JsonPipe, NgIf } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatMenuModule } from '@angular/material/menu';
+import { MenuItemComponent } from '../menu-item/menu-item.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
+	standalone: true,
+	imports: [
+		MenuItemComponent,
+		MatMenuModule,
+		MatCardModule,
+		MatGridListModule,
+		MatTooltipModule,
+		MatFormFieldModule,
+		ReactiveFormsModule,
+		MatInputModule,
+		CommonModule
+		],
 	selector: 'app-finddatasetcollectionidsets',
 	templateUrl: './finddatasetcollectionidsets.component.html',
 	styleUrls: ['./finddatasetcollectionidsets.component.scss']
@@ -12,9 +32,9 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 export class FinddatasetcollectionidsetsComponent implements OnInit {
 
 	@Input() annoinfo: any;
-	@Input() maintainer: string;
-	@Input() label: string;
-	@Input() hint: string;
+	@Input() maintainer!: string;
+	@Input() label!: string;
+	@Input() hint!: string;
 	@Output() chosen = new EventEmitter<any>();
 
 	objectform: UntypedFormGroup;
@@ -45,14 +65,14 @@ export class FinddatasetcollectionidsetsComponent implements OnInit {
 		this.findCollectionSets();
 	}
 
-	setCollectionSet($event): void {
+	setCollectionSet($event:any): void {
 		const label = $event[this.annoinfo['dataset:DatasetCollectionsSetLabel'][this.identifier]];
-		this.objectform.get('DatasetCollectionName').setValue(label);
+		this.objectform.get('DatasetCollectionName')!.setValue(label);
 		this.chosen.emit($event);
 	}
 
 	findCollectionSets(): void {
-		const servicedata = {};
+		const servicedata:Record<string,any> = {};
 		servicedata['service'] = 'FindAllDatasetCollectionSets';
 		servicedata[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.maintainer;
 		this.runservice.run(servicedata).subscribe({

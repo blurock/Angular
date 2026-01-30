@@ -8,7 +8,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ViewandlocalfilesavecatalogobjectService } from '../../services/data/viewandlocalfilesavecatalogobject.service';
 import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
 import { SavecatalogdataobjectdialogComponent } from '../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
 import { OntologycatalogService } from '../../services/ontologycatalog.service';
 import { NavItem } from '../../primitives/nav-item';

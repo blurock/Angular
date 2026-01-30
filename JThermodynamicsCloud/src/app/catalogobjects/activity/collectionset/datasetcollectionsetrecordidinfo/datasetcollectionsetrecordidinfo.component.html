@@ -11,12 +11,11 @@
 
 					<mat-grid-tile [colspan]="3">
 						<mat-form-field class="label">
-							<mat-label>{{annoinfo['dataset:DatasetCollectionsSetLabel'][rdfslabel]}}</mat-label>
-							<input matInput formControlName="DatasetCollectionsSetLabel" [readonly]="collectionidfixed">
-							<mat-hint>{{annoinfo['dataset:DatasetCollectionsSetLabel'][rdfscomment]}}</mat-hint>
+							<mat-label>{{annoinfo['dataset:CatalogObjectUniqueGenericLabel'][rdfslabel]}}</mat-label>
+							<input matInput formControlName="CatalogObjectUniqueGenericLabel" [readonly]="collectionidfixed">
+							<mat-hint>{{annoinfo['dataset:CatalogObjectUniqueGenericLabel'][rdfscomment]}}</mat-hint>
 						</mat-form-field>
 					</mat-grid-tile>
-
 					<mat-grid-tile [colspan]="3">
 						<mat-form-field class="label">
 							<mat-label>{{annoinfo['dataset:CatalogDataObjectMaintainer'][rdfslabel]}}</mat-label>
@@ -24,13 +23,8 @@
 							<mat-hint>{{annoinfo['dataset:CatalogDataObjectMaintainer'][rdfscomment]}}</mat-hint>
 						</mat-form-field>
 					</mat-grid-tile>
-
-
 				</mat-grid-list>
-
-
 			</form>
-
 		</ng-container>
 		<ng-template #loading>
 			<div>

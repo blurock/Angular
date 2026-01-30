@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { UntypedFormBuilder, Validators, FormsModule } from '@angular/forms';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';

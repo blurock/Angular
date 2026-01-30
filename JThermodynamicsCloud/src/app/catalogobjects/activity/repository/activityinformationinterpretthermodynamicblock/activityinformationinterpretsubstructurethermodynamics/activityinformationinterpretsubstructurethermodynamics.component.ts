@@ -12,7 +12,7 @@ import { UserinterfaceconstantsService } from '../../../../../const/userinterfac
 import { OntologycatalogService } from '../../../../../services/ontologycatalog.service';
 import { NavItem } from '../../../../../primitives/nav-item';
 import { MenutreeserviceService } from '../../../../../services/menutreeservice.service';
-import { Ontologyconstants } from '../../../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 
 @Component({
 	selector: 'app-activityinformationinterpretsubstructurethermodynamics',

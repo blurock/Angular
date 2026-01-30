@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges} from '@angular/core';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { NavItem } from '../../primitives/nav-item';
 import { UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 import { MenutreeserviceService } from '../../services/menutreeservice.service';

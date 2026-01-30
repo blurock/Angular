@@ -1,0 +1,33 @@
+<mat-card-header>
+	<mat-card-title-group class="title-group">
+		<mat-card-title>Input Parameters</mat-card-title>
+	</mat-card-title-group>
+</mat-card-header>
+<mat-card-content>
+		<form [formGroup]="objectform" class="infoform">
+			<mat-grid-list cols="2" rowHeight="100px">
+
+				<mat-grid-tile [colspan]="1">
+					<mat-form-field class="parameter">
+						<mat-label>Parameter1</mat-label>
+						<input matInput formControlName="parameter1">
+						<mat-hint>The first parameter</mat-hint>
+					</mat-form-field>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="1">
+					<mat-form-field class="parameter">
+						<mat-label>Parameter2</mat-label>
+						<input matInput formControlName="parameter2">
+						<mat-hint>The second parameter</mat-hint>
+					</mat-form-field>
+				</mat-grid-tile>
+				<mat-grid-tile [colspan]="2">
+					<ng-container *ngIf='!invalid()'>
+					<button mat-raised-button color="primary" (click)="submit()" class="submit">Submit</button>
+					</ng-container>
+					
+				</mat-grid-tile>
+			</mat-grid-list>
+			
+		</form>
+</mat-card-content>

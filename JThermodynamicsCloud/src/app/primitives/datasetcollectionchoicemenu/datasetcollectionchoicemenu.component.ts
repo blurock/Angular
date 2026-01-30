@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RunserviceprocessService } from '../../services/runserviceprocess.service';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { NavItem } from '../../primitives/nav-item';
 

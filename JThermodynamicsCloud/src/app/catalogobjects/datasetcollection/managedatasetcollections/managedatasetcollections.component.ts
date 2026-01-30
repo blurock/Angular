@@ -1,12 +1,26 @@
 import { Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { CreatenewdatasetcollectionComponent } from '../createnewdatasetcollection/createnewdatasetcollection.component';
 import { ModifydatasetcollectionidsComponent } from '../modifydatasetcollectionids/modifydatasetcollectionids.component';
 import { VisualizedatasetcollectionidsComponent } from '../visualizedatasetcollectionids/visualizedatasetcollectionids.component';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
+	standalone: true,
+	imports: [
+		MatCardModule,
+		MatGridListModule,
+		MatTooltipModule,
+		MatTabsModule,
+		CreatenewdatasetcollectionComponent,
+		ModifydatasetcollectionidsComponent,
+		VisualizedatasetcollectionidsComponent
+	],
 	selector: 'app-managedatasetcollections',
 	templateUrl: './managedatasetcollections.component.html',
 	styleUrls: ['./managedatasetcollections.component.scss']
@@ -18,13 +32,13 @@ export class ManagedatasetcollectionsComponent implements OnInit {
 
 	catalogobj: any;
 	cataloganno: any;
-	maintainer: string;
+	maintainer: string = '';
 
 	catalogtype = "dataset:ActivityInformationDatasetCollectionSetCreation";
 
-	@ViewChild('createcollection') createcollection: CreatenewdatasetcollectionComponent;
-	@ViewChild('modifycollection') modifycollection: ModifydatasetcollectionidsComponent;
-	@ViewChild('visualcollection') visualcollection: VisualizedatasetcollectionidsComponent;
+	@ViewChild('createcollection') createcollection!: CreatenewdatasetcollectionComponent;
+	@ViewChild('modifycollection') modifycollection!: ModifydatasetcollectionidsComponent;
+	@ViewChild('visualcollection') visualcollection!: VisualizedatasetcollectionidsComponent;
 
 	constructor(
 		public annotations: OntologycatalogService,
@@ -51,13 +65,13 @@ export class ManagedatasetcollectionsComponent implements OnInit {
 		this.visualcollection.setData(collectionids);
 	}
 
-	newCollectionV($event) {
+	newCollectionV($event: any): void {
 		this.setData($event);
 	};
-	newCollectionM($event) {
+	newCollectionM($event: any): void {
 		this.setData($event);
 	}
-	newCollectionC($event) {
+	newCollectionC($event: any): void {
 		this.setData($event);
 	}
 

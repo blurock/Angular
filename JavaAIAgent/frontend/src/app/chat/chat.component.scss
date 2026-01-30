@@ -1,0 +1,98 @@
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 85vh; /* Or whatever height you prefer */
+}
+  .chat-window {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .message-area {
+    height: 400px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+  }
+  
+  .input-area {
+    padding: 0 16px 16px 16px;
+    display: block; /* Ensures the form-field takes full width */
+  }
+
+  .full-width {
+    width: 100%;
+  }
+  
+  .bubble {
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+  }
+
+  .user-msg {
+    display: flex;
+    justify-content: flex-end;
+    .bubble { background: #3f51b5; color: white; }
+  }
+
+  .agent-msg {
+    display: flex;
+    justify-content: flex-start;
+    .bubble { background: white; border: 1px solid #ddd; }
+  }
+
+  .full-width { width: 100%; }
+
+.chat-container {
+  max-width: 800px;
+  margin: 20px auto;
+  height: 80vh; /* Give the card a fixed height */
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.spacer { flex: 1 1 auto; }
+
+.full-width { width: 100%; }
+
+.message-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+/* User on the right, blueish */
+.user-bubble {
+  align-self: flex-end;
+  background-color: #e3f2fd;
+  padding: 8px 12px;
+  border-radius: 15px 15px 0 15px;
+  margin-bottom: 8px;
+  max-width: 80%;
+}
+
+/* Agent on the left, greyish */
+.agent-bubble {
+  align-self: flex-start;
+  background-color: #f1f0f0;
+  color: #333;
+  padding: 10px 15px;
+  border-radius: 15px 15px 15px 0;
+  max-width: 70%;
+}
+.assistant-bubble {
+  align-self: flex-start;
+  background-color: #f5f5f5;
+  padding: 8px 12px;
+  border-radius: 15px 15px 15px 0;
+  margin-bottom: 8px;
+  max-width: 80%;
+}

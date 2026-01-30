@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
-import { Ontologyconstants } from '../../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';

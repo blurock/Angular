@@ -3,7 +3,7 @@ import { OntologycatalogService } from '../../../../services/ontologycatalog.ser
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
 import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
-import { Ontologyconstants } from '../../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 import { NavItem } from '../../../../primitives/nav-item';
 import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';

@@ -1,10 +1,12 @@
-
 <ng-container *ngIf='collectionmenu != null; else loading'>
 	<form [formGroup]="objectform">
 		<mat-form-field class="parameter">
-		<mat-label>{{label}}</mat-label>
-			<input matInput formControlName="DatasetCollectionName" [matMenuTriggerFor]="menu.childMenu">
-<app-menu-item #menu [items]="collectionmenu" (selectionEvent)="setCollectionSet($event)"></app-menu-item>
+			<mat-label>{{label}}</mat-label>
+			<input matInput formControlName="DatasetCollectionName" [matMenuTriggerFor]="menu">
+			<mat-menu #menu="matMenu">
+				<app-menu-item #menu [items]="collectionmenu"
+					(selectionEvent)="setCollectionSet($event)"></app-menu-item>
+			</mat-menu>
 			<mat-hint>{{hint}}</mat-hint>
 		</mat-form-field>
 	</form>

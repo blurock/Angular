@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { NgIf } from '@angular/common';
 import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 
 @Component({
 	selector: 'app-jthermodynamicdisassociationenergy',

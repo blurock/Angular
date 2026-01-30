@@ -1,7 +1,7 @@
 import { Input, Component, AfterViewInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { IdentifiersService } from '../../../const/identifiers.service';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { NavItem } from '../../../primitives/nav-item';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
 import { MatCardModule } from '@angular/material/card';

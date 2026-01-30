@@ -1,5 +1,7 @@
 package esblurock.info.neo4j.rdf;
 
+import static org.hamcrest.CoreMatchers.containsString;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,20 +34,23 @@ public class JsonToCypherUtilities {
 			Map<String, Object> proplst = new HashMap<String, Object>();
 			String predicate = rdf.getPredicateClass();
 			QueryAndProperties queryprops = null;
-			String subjectnodeString = createNodeWithProperties(predicate, rdf.getSubjectClass(), transactionID, owner, catalogid,
+			
+			String subjectnodeString = nodeCreate("subject", rdf.getSubjectNodeNameString(), rdf.getSubjectClass(), owner,
 					true, proplst, true);
-			String objectnodeString = createNodeWithProperties(predicate, rdf.getObjectClass(), transactionID, owner, catalogid,
+			String objectnodeString = nodeCreate("object", rdf.getObjectNodeNameString(), rdf.getObjectClass(), owner,
 					false, proplst, true);
-			String predicateString = createpPredicate(predicate, null, null, owner, catalogid, proplst);
+			String relationString = createRelation(predicate, null, null, owner, proplst);
+			
 			if (!queryandproperties.containsQuery(predicate)) {
 				StringBuffer buffer = new StringBuffer();
-				buffer.append("CREATE ");
+				
 				buffer.append(subjectnodeString);
-				buffer.append("-");
-				buffer.append(predicateString);
-				buffer.append("->");
+				buffer.append(" ");
 				buffer.append(objectnodeString);
-				buffer.append(" RETURN subject." + transactionaltlabel + " AS " + transactionaltlabel);
+				buffer.append(" (noderelation)<-(");
+				buffer.append(relationString);
+				buffer.append(") RETURN noderelation,subject,object ");
+
 				queryprops = queryandproperties.initialQuery(predicate, buffer.toString());
 
 			} else {
@@ -55,12 +60,26 @@ public class JsonToCypherUtilities {
 		}
 		return queryandproperties;
 	}
+	
+	public static String nodeCreate(String nodenameString, String classname, Map<String, Object> values, String owner, boolean subject, Map<String, Object> proplst, boolean create) {
 
-	public static String createpPredicate(String predicateClass, Map<String, Object> values, String transactionID,
-			String owner, String catalogid, Map<String, Object> proplst) {
+		StringBuffer createString = new StringBuffer();
+		String nodeString = createNodeWithProperties(classname, values, owner, true, proplst, true);
+		createString.append("MERGE ");
+		createString.append(nodeString);
+		createString.append(" ON CREATE SET " + nodenameString + ".createdAt = datetime()");
+		createString.append(" MERGE (transx:Transaction {id: $" + transactionaltlabel + "})");
+		createString.append(" CREATE (" + nodenameString + ")<-[:SUPPORTS]-(support:Support)-[:FROM_TX]->(transx)");
+		
+		return createString.toString();
+	}
+	
+	public static String createRelation(String predicateClass, Map<String, Object> values, String transactionID,
+			String owner, Map<String, Object> proplst) {
 		StringBuffer buffer = new StringBuffer();
-		String properties = generatePropertiesForNode(values, transactionID, owner, catalogid, proplst);
-		buffer.append("[");
+		String properties = generatePropertiesForNode(values, owner, proplst);
+		
+		buffer.append("(subject)-[");
 		buffer.append("relation");
 		if (predicateClass != null) {
 			buffer.append(":");
@@ -69,14 +88,15 @@ public class JsonToCypherUtilities {
 		}
 		buffer.append(" ");
 		buffer.append(properties);
-		buffer.append("]");
+		buffer.append("]->(object)");
+		
 		return buffer.toString();
 	}
 
-	public static String createNodeWithProperties(String classname, Map<String, Object> values, String transactionID,
-			String owner, String catalogid, boolean subject, Map<String, Object> proplst, boolean create) {
+	public static String createNodeWithProperties(String classname, Map<String, Object> values,
+			String owner, boolean subject, Map<String, Object> proplst, boolean create) {
 
-		String subjectproperties = generatePropertiesForNode(values, transactionID, owner, catalogid, proplst);
+		String subjectproperties = generatePropertiesForNode(values, owner, proplst);
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("(");
 
@@ -89,12 +109,6 @@ public class JsonToCypherUtilities {
 			buffer.append(":");
 			String nodename = classname.substring(8);
 			buffer.append(nodename);
-
-			if (subject) {
-				buffer.append("SUBJECT");
-			} else {
-				buffer.append("OBJECT");
-			}
 		}
 		buffer.append(" ");
 		buffer.append(subjectproperties);
@@ -102,7 +116,7 @@ public class JsonToCypherUtilities {
 		return buffer.toString();
 	}
 
-	public static String generatePropertiesForNode(Map<String, Object> values, String transactionID, String owner, String catalogid,
+	public static String generatePropertiesForNode(Map<String, Object> values, String owner,
 			Map<String, Object> propertymap) {
 		StringBuffer properties = new StringBuffer();
 		properties.append("{");
@@ -126,14 +140,6 @@ public class JsonToCypherUtilities {
 		}
 		addProperty(owneraltlabel, properties);
 		propertymap.put(owneraltlabel, owner);
-		properties.append(", ");
-		addProperty(catalogidabel, properties);
-		propertymap.put(catalogidabel, catalogid);
-		if (transactionID != null) {
-			properties.append(", ");
-			addProperty(transactionaltlabel, properties);
-			propertymap.put(transactionaltlabel, transactionID);
-		}
 		properties.append("}");
 		return properties.toString();
 	}

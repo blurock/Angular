@@ -12,7 +12,7 @@ import { NavItem } from '../../../../../primitives/nav-item';
 import { UserinterfaceconstantsService } from '../../../../../const/userinterfaceconstants.service';
 import { OntologycatalogService } from '../../../../../services/ontologycatalog.service';
 import { MenutreeserviceService } from '../../../../../services/menutreeservice.service';
-import { Ontologyconstants } from '../../../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 
 @Component({
   selector: 'app-activityinformationmolecularthermodynamics',

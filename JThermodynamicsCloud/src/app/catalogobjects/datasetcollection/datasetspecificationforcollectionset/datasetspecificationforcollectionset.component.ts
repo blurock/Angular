@@ -1,11 +1,26 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Ontologyconstants } from '../../../const/ontologyconstants';
-import { ManageuserserviceService } from '../../../services/manageuserservice.service';
+import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Ontologyconstants } from 'systemconstants';
 import { MenutreeserviceService } from '../../../services/menutreeservice.service';
-import { NavItem } from '../../../primitives/nav-item';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
 
-@Component({
+@Component({standalone: true,
+	imports: [
+		MatCardModule,
+		MatGridListModule,
+		MatTooltipModule,
+		MatFormFieldModule,
+		ReactiveFormsModule,
+		MatInputModule,
+		MatProgressSpinnerModule,
+		CommonModule
+		],
 	selector: 'app-datasetspecificationforcollectionset',
 	templateUrl: './datasetspecificationforcollectionset.component.html',
 	styleUrls: ['./datasetspecificationforcollectionset.component.scss']
@@ -14,8 +29,8 @@ export class DatasetspecificationforcollectionsetComponent implements OnInit {
 
 
 	@Input() annoinfo: any;
-	@Input() maintainer: string;
-	@Input() subtitle: string;
+	@Input() maintainer: string='';
+	@Input() subtitle: string='';
 	transspec: any;
 
 	rdfslabel = Ontologyconstants.rdfslabel;
@@ -34,7 +49,7 @@ export class DatasetspecificationforcollectionsetComponent implements OnInit {
 		this.idForm = this.fb.group({
 			CatalogDataObjectStatus: ['Standard', Validators.required],
 			CatalogDataObjectMaintainer: ['Standard', Validators.required],
-			DatasetName: ['StandardData', Validators.required],
+			CollectionName: ['StandardData', Validators.required],
 			DatasetVersion: ['1.0', Validators.required],
 		});
 	}
@@ -55,17 +70,17 @@ export class DatasetspecificationforcollectionsetComponent implements OnInit {
 	
 	getData(catalog: any): void {
 		catalog[this.annoinfo['dataset:CatalogDataObjectStatus'][this.identifier]] = this.status;
-		catalog[this.annoinfo['dataset:DatasetName'][this.identifier]] = this.idForm.get('DatasetName').value;
-		catalog[this.annoinfo['dataset:DatasetVersion'][this.identifier]] = this.idForm.get('DatasetVersion').value;
+		catalog[this.annoinfo['dataset:CollectionName'][this.identifier]] = this.idForm.get('CollectionName')!.value;
+		catalog[this.annoinfo['dataset:DatasetVersion'][this.identifier]] = this.idForm.get('DatasetVersion')!.value;
 		catalog[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.maintainer;
 	}
 
 	public setData(jsontransspec: any): void {
-		this.idForm.get('CatalogDataObjectStatus').setValue(this.status);
-		const datasetname = jsontransspec[this.annoinfo['dataset:DatasetName'][this.identifier]];
-		this.idForm.get('DatasetName').setValue(datasetname);
+		this.idForm.get('CatalogDataObjectStatus')!.setValue(this.status);
+		const datasetname = jsontransspec[this.annoinfo['dataset:CollectionName'][this.identifier]];
+		this.idForm.get('CollectionName')!.setValue(datasetname);
 		const version = jsontransspec[this.annoinfo['dataset:DatasetVersion'][this.identifier]];
-		this.idForm.get('DatasetVersion').setValue(version);
+		this.idForm.get('DatasetVersion')!.setValue(version);
 		this.transspec = jsontransspec;
 }
 

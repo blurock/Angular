@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RunserviceprocessService } from '../../../services/runserviceprocess.service'
-import { Ontologyconstants } from '../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import {UseraccountComponent} from '../useraccount/useraccount.component';
 import {DatabasepersonComponent} from '../databaseperson/databaseperson.component';
 

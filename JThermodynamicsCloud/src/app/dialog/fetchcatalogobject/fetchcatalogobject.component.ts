@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { NavItem } from '../../primitives/nav-item';
 import { MenutreeserviceService } from '../../services/menutreeservice.service';
 import { RunserviceprocessService } from '../../services/runserviceprocess.service';

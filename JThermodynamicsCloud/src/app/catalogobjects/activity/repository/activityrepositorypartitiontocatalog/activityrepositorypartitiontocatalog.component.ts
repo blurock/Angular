@@ -10,7 +10,7 @@ import { CatalogactivitybaseComponent } from '../../../../primitives/catalogacti
 import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
 import { MatInputModule } from '@angular/material/input';
 import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
-import { Ontologyconstants } from '../../../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
 
 

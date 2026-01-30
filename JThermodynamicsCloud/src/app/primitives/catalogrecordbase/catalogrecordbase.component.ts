@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { BaseInterface } from '../../primitives/basecatalog.interface';
 
 @Component({

@@ -1,10 +1,33 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Ontologyconstants } from '../../const/ontologyconstants';
+import { Ontologyconstants } from 'systemconstants';
 import { RunserviceprocessService } from '../../services/runserviceprocess.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { JsonPipe, NgIf } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { FinddatasetcollectionidsetsComponent } from '../../primitives/finddatasetcollectionidsets/finddatasetcollectionidsets.component';
 
 @Component({
+	standalone: true,
+	imports: [
+		MatCardModule,
+		MatGridListModule,
+		MatTooltipModule,
+		MatDividerModule,
+		ReactiveFormsModule,
+		MatFormField,
+		MatInputModule,
+		MatIconModule,
+		NgIf,
+		JsonPipe,
+		FinddatasetcollectionidsetsComponent
+	],
 	selector: 'app-fetchcollectiondatasetids',
 	templateUrl: './fetchcollectiondatasetids.component.html',
 	styleUrls: ['./fetchcollectiondatasetids.component.scss']
@@ -13,8 +36,8 @@ export class FetchcollectiondatasetidsComponent implements OnInit {
 	filenamehint = 'Can be changed from upload name';
 	filesourceidentifierlabel = 'File Source Identifier'
 
-	imageURL: string;
-	message: string;
+	imageURL: string = '';
+	message: string = '';
 	uploadForm: UntypedFormGroup;
 	idForm: UntypedFormGroup;
 	dataimage = 'text';
@@ -58,16 +81,16 @@ export class FetchcollectiondatasetidsComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.dataimage = 'texxxxxt';
-		this.idForm.get('CatalogDataObjectMaintainer').setValue(this.maintainer);
+		this.idForm.get('CatalogDataObjectMaintainer')!.setValue(this.maintainer);
 	}
 	public setMaintainer(maintainer: string): void {
-		this.idForm.get('CatalogDataObjectMaintainer').setValue(maintainer);
+		this.idForm.get('CatalogDataObjectMaintainer')!.setValue(maintainer);
 	}
 
-	chosen($event): void {
+	chosen($event: any): void {
 		this.collectionset = $event;
 		const label = $event[this.annoinfo['dataset:DatasetCollectionsSetLabel'][this.identifier]];
-		this.idForm.get('DatasetCollectionsSetLabel').setValue(label);
+		this.idForm.get('DatasetCollectionsSetLabel')!.setValue(label);
 	}
 
 	onNoClick(): void {
@@ -75,13 +98,13 @@ export class FetchcollectiondatasetidsComponent implements OnInit {
 	}
 	fetchFromDatabase() {
 		if (this.collectionset == null) {
-			let json = {};
+			let json: Record<string, any> = {};
 			json['service'] = 'GetListOfDatasetCollectionIDsSet';
 			json['dcterms:creator'] = this.maintainer;
-			const recordid = {};
+			const recordid: Record<string, any> = {};
 			json['dataset:collectionsetrecordidinfo'] = recordid;
-			recordid[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.idForm.get('CatalogDataObjectMaintainer').value;
-			recordid[this.annoinfo['dataset:DatasetCollectionsSetLabel'][this.identifier]] = this.idForm.get('DatasetCollectionsSetLabel').value;
+			recordid[this.annoinfo['dataset:CatalogDataObjectMaintainer'][this.identifier]] = this.idForm.get('CatalogDataObjectMaintainer')!.value;
+			recordid[this.annoinfo['dataset:DatasetCollectionsSetLabel'][this.identifier]] = this.idForm.get('DatasetCollectionsSetLabel')!.value;
 			this.runservice.run(json).subscribe({
 				next: (responsedata: any) => {
 					const success = responsedata['dataset:servicesuccessful'];
@@ -97,9 +120,9 @@ export class FetchcollectiondatasetidsComponent implements OnInit {
 			})
 
 		} else {
-			const responsedata = {};
-				responsedata['dataset:servicesuccessful'] = 'true';
-            responsedata['dataset:serviceresponsemessage'] = 'Retrieved from database selection';
+			const responsedata: Record<string, any> = {};
+			responsedata['dataset:servicesuccessful'] = 'true';
+			responsedata['dataset:serviceresponsemessage'] = 'Retrieved from database selection';
 			responsedata[Ontologyconstants.catalogobject] = this.collectionset;
 			this.dialogRef.close(responsedata);
 		}
@@ -107,7 +130,7 @@ export class FetchcollectiondatasetidsComponent implements OnInit {
 
 	setDataFromFile(): void {
 		if (this.catalog != null) {
-			const response = {};
+			const response: Record<string, any> = {};
 			response['dataset:servicesuccessful'] = 'true';
 			response['dataset:serviceresponsemessage'] = 'Catalog interpreted from file';
 			response['dataset:simpcatobj'] = this.catalog;
@@ -115,18 +138,24 @@ export class FetchcollectiondatasetidsComponent implements OnInit {
 		}
 	}
 	uploadFileEvt(imgFile: any): void {
-		if (imgFile.target.files && imgFile.target.files[0]) {
-			const file = (imgFile.target as HTMLInputElement).files[0];
-			this.uploadForm.patchValue({
-				FileSourceIdentifier: file.name
-			});
-			const reader = new FileReader();
-			reader.onload = (e: any) => {
-				this.dataimage = e.target.result;
-				this.catalog = this.getCatalogObject();
-				this.setDataFromFile();
-			};
-			reader.readAsText(imgFile.target.files[0]);
+		if (imgFile.target && imgFile.target.files && imgFile.target.files[0]) {
+			const target = imgFile.target as HTMLInputElement;
+			if (target) {
+				const files = target.files;
+				if (files) {
+					const file = files[0];
+					this.uploadForm.patchValue({
+						FileSourceIdentifier: file.name
+					});
+					const reader = new FileReader();
+					reader.onload = (e: any) => {
+						this.dataimage = e.target.result;
+						this.catalog = this.getCatalogObject();
+						this.setDataFromFile();
+					};
+					reader.readAsText(imgFile.target.files[0]);
+				}
+			}
 		} else {
 
 		}

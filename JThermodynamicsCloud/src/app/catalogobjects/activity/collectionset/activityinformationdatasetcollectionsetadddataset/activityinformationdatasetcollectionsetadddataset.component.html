@@ -6,8 +6,6 @@
 	</mat-card-header>
 	<mat-card-content>
 		<ng-container *ngIf='annoinfo != null; else loading'>
-			<app-datasetcollectionsetrecordidinfo #record [(annoinfo)]="annoinfo">
-			</app-datasetcollectionsetrecordidinfo>
 			<form [formGroup]="objectform" class="infoform">
 				<mat-grid-list cols="6" rowHeight="100px">
 
@@ -23,21 +21,25 @@
 						<mat-form-field class="label">
 							<mat-label>{{annoinfo['dataset:DatasetCollectionType'][rdfslabel]}}
 							</mat-label>
-							<input matInput formControlName="DatasetCollectionType" [matMenuTriggerFor]="menu.childMenu">
+							<input matInput formControlName="DatasetCollectionType" [matMenuTriggerFor]="menu">
 							<mat-hint>{{annoinfo['dataset:DatasetCollectionType'][rdfscomment]}}
 							</mat-hint>
+							<mat-menu #menu="matMenu">
 							<app-menu-item #menu [items]="items" (selectionEvent)="setObjectType($event)">
 							</app-menu-item>
+							</mat-menu>
 						</mat-form-field>
 					</mat-grid-tile>
 				</mat-grid-list>
 
 
 			</form>
+			<app-datasetcollectionsetrecordidinfo #record [annoinfo]="annoinfo">
+			</app-datasetcollectionsetrecordidinfo>
 
 			<ng-container *ngIf='display; else specdisplayoff'>
 
-				<app-datasetspecificationforcollectionset #spec [(annoinfo)]="annoinfo" [(maintainer)]="maintainer" [(subtitle)]="subtitle">
+				<app-datasetspecificationforcollectionset #spec [annoinfo]="annoinfo" [maintainer]="maintainer" [subtitle]="subtitle">
 				</app-datasetspecificationforcollectionset>
 
 			</ng-container>

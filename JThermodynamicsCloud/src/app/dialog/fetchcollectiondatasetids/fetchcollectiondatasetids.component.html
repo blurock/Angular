@@ -49,9 +49,10 @@
 						</mat-grid-tile>
 						<div>Here</div>
 						<mat-grid-tile [colspan]="6">
-								<app-finddatasetcollectionidsets   [(annoinfo)]="annoinfo" [(maintainer)]="maintainer" (chosen)="chosen($event)"
-								[(label)]="annoinfo['dataset:DatasetCollectionsSetLabel'][rdfslabel]"
-								[(hint)]="annoinfo['dataset:DatasetCollectionsSetLabel'][rdfscomment]" class="label"></app-finddatasetcollectionidsets>
+								<app-finddatasetcollectionidsets   [annoinfo]="annoinfo" [maintainer]="maintainer" (chosen)="chosen($event)"
+								[label]="annoinfo['dataset:DatasetCollectionsSetLabel'][rdfslabel]"
+								[hint]="annoinfo['dataset:DatasetCollectionsSetLabel'][rdfscomment]" class="label">
+							</app-finddatasetcollectionidsets>
 						</mat-grid-tile>
 						<mat-grid-tile [colspan]="6">
 							<button mat-mini-fab color="primary" class="submit-btn" (click)="fetchFromDatabase()"

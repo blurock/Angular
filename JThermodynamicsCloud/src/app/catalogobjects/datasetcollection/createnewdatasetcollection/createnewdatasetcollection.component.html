@@ -27,9 +27,9 @@
 		</mat-grid-list>
 
 		<ng-container *ngIf='annoinfo != null; else waiting'>
-			<app-activityinformationdatasetcollectionsetcreation #activity [(annoinfo)]="annoinfo">
+			<app-activityinformationdatasetcollectionsetcreation #activity [annoinfo]="annoinfo">
 			</app-activityinformationdatasetcollectionsetcreation>
-			<ng-container *ngIf='cataloganno != null && viewtransactionid; else noviewtransactionid'>
+			<ng-container *ngIf='annoinfo != null && viewtransactionid; else noviewtransactionid'>
 				<mat-grid-list cols="6" rowHeight="100px">
 					<mat-grid-tile [colspan]="4">
 						{{transfirestoretitle}}
@@ -39,8 +39,10 @@
 							(click)="deleteTransaction()">{{deltransbutton}}</button>
 					</mat-grid-tile>
 				</mat-grid-list>
-				<app-firesytorecatalogid #tranactionfirestoreid [(anno)]="cataloganno" [(catalogID)]="transfirestoreid">
+				<!--
+				<app-firesytorecatalogid #tranactionfirestoreid [anno]="annoinfo" [catalogID]="transfirestoreid">
 				</app-firesytorecatalogid>
+				-->
 			</ng-container>
 			<ng-template #noviewtransactionid>
 				No Transaction
