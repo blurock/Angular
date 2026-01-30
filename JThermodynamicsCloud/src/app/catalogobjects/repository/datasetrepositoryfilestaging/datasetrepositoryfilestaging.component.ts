@@ -18,9 +18,9 @@ import { UserinterfaceconstantsService } from '../../../const/userinterfaceconst
 import { MatInputModule } from '@angular/material/input';
 import { Ontologyconstants } from 'systemconstants';
 import { ChemconnectthermodynamicsdatabaseComponent } from '../../thermodynamics/chemconnectthermodynamicsdatabase/chemconnectthermodynamicsdatabase.component';
-import { MenutreeserviceService } from '../../../services/menutreeservice.service';
-import { NavItem } from '../../../primitives/nav-item';
-import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.component';
+import { MenutreeserviceService } from 'systemprimitives';
+import { NavItem } from 'systemprimitives';
+import { MenuItemComponent } from 'systemprimitives';
 import { MatMenuModule } from '@angular/material/menu';
 
 @Component({

@@ -3,11 +3,11 @@ import { OntologycatalogService } from '../../../services/ontologycatalog.servic
 import { ChemconnectthermodynamicsdatabaseComponent } from '../chemconnectthermodynamicsdatabase/chemconnectthermodynamicsdatabase.component';
 import { Jthermodynamics2dspeciesstructureComponent } from '../jthermodynamics2dspeciesstructure/jthermodynamics2dspeciesstructure.component';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { NavItem } from '../../../primitives/nav-item';
+import { NavItem } from 'systemprimitives';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.component';
+import { MenuItemComponent } from 'systemprimitives';
 import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
 import { NgIf } from '@angular/common';

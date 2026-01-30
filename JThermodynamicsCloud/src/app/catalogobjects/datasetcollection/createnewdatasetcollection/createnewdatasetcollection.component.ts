@@ -17,7 +17,6 @@ import { NgIf } from '@angular/common';
 		MatCardModule,
 		MatGridListModule,
 		MatTooltipModule,
-		FiresytorecatalogidComponent,
 		MatDividerModule,
 		ActivityinformationdatasetcollectionsetcreationComponent,
 		NgIf

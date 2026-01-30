@@ -9,8 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { CatalogrecordbaseComponent } from '../../primitives/catalogrecordbase/catalogrecordbase.component';
-import { MenutreeserviceService } from '../../services/menutreeservice.service';
-import { NavItem } from '../../primitives/nav-item';
+import { MenutreeserviceService } from 'systemprimitives';
+import { NavItem } from 'systemprimitives';
 import { IsbndisplayComponent } from '../../layout/references/isbndisplay/isbndisplay.component';
 import { CitationdisplayComponent } from '../../layout/references/citationdisplay/citationdisplay.component';
 

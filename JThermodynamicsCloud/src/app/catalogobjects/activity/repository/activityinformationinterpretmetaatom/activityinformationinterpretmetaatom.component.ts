@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
-import { NavItem } from '../../../../primitives/nav-item';
+import { MenutreeserviceService } from 'systemprimitives';
+import { NavItem } from 'systemprimitives';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import { MenuItemComponent } from '../../../../primitives/menu-item/menu-item.component';
+import { MenuItemComponent } from 'systemprimitives';
 import { CatalogactivitybaseComponent } from '../../../../primitives/catalogactivitybase/catalogactivitybase.component';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
 import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';

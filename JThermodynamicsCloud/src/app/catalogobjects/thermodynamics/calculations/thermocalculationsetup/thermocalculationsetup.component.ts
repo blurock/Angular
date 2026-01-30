@@ -3,8 +3,8 @@ import { ParameterspecificationComponent } from '../../../parameterspecification
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from 'systemconstants';
 import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
-import { NavItem } from '../../../../primitives/nav-item';
-import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
+import { NavItem } from 'systemprimitives';
+import { MenutreeserviceService } from 'systemprimitives';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import {IdentifiersService} from '../../../../const/identifiers.service';

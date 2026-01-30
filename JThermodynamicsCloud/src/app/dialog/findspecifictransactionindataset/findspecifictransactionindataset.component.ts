@@ -11,9 +11,9 @@ import { MatInput } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MenutreeserviceService } from '../../services/menutreeservice.service';
-import { MenuItemComponent } from '../../primitives/menu-item/menu-item.component';
-import { NavItem } from '../../primitives/nav-item';
+import { MenutreeserviceService } from 'systemprimitives';
+import { MenuItemComponent } from 'systemprimitives';
+import { NavItem } from 'systemprimitives';
 
 @Component({
 	selector: 'app-findspecifictransactionindataset',

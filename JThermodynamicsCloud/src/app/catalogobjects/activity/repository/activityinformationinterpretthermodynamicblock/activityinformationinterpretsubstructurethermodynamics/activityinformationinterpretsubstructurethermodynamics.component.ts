@@ -6,12 +6,12 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import { MenuItemComponent } from '../../../../../primitives/menu-item/menu-item.component';
+import { MenuItemComponent } from 'systemprimitives';
 import { CatalogactivitybaseComponent } from '../../../../../primitives/catalogactivitybase/catalogactivitybase.component';
 import { UserinterfaceconstantsService } from '../../../../../const/userinterfaceconstants.service';
 import { OntologycatalogService } from '../../../../../services/ontologycatalog.service';
-import { NavItem } from '../../../../../primitives/nav-item';
-import { MenutreeserviceService } from '../../../../../services/menutreeservice.service';
+import { NavItem } from 'systemprimitives';
+import { MenutreeserviceService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 
 @Component({

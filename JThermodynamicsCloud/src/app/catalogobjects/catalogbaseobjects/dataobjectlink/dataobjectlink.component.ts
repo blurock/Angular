@@ -3,15 +3,15 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { IdentifiersService } from '../../../const/identifiers.service';
 import { Ontologyconstants } from 'systemconstants';
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
-import { MenutreeserviceService } from '../../../services/menutreeservice.service';
-import { NavItem } from '../../../primitives/nav-item';
+import { MenutreeserviceService } from 'systemprimitives';
+import { NavItem } from 'systemprimitives';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.component';
+import { MenuItemComponent } from 'systemprimitives';
 import { MatInputModule } from '@angular/material/input';
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
 import { MatTooltipModule } from '@angular/material/tooltip';

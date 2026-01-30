@@ -5,13 +5,13 @@ import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
-import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.component';
+import { MenuItemComponent } from 'systemprimitives';
 import {FormsModule,FormBuilder,FormGroup,Validators,FormArray} from '@angular/forms';
 import { Ontologyconstants } from 'systemconstants';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import {MenutreeserviceService} from '../../../services/menutreeservice.service';
-import {NavItem} from '../../../primitives/nav-item';
+import {MenutreeserviceService} from 'systemprimitives';
+import {NavItem} from 'systemprimitives';
 @Component({
   selector: 'app-setofcontactinfodata',
   standalone: true,

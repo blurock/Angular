@@ -2,13 +2,13 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from 'systemconstants';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
-import { MenutreeserviceService } from '../../services/menutreeservice.service';
-import { NavItem } from '../../primitives/nav-item';
+import { MenutreeserviceService } from 'systemprimitives';
+import { NavItem } from 'systemprimitives';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MenuItemComponent } from '../../primitives/menu-item/menu-item.component';
+import { MenuItemComponent } from 'systemprimitives';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 

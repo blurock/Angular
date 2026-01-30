@@ -13,7 +13,7 @@ import { UploadcatalogobjectComponent } from '../../../dialog/uploadcatalogobjec
 import { Ontologyconstants } from 'systemconstants';
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { FindspecifictransactionindatasetComponent } from '../../../dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
-import { MenutreeserviceService } from '../../../services/menutreeservice.service';
+import { MenutreeserviceService } from 'systemprimitives';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 
 @Component({

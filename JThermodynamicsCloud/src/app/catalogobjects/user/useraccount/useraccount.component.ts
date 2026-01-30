@@ -4,7 +4,7 @@ import { Ontologyconstants } from 'systemconstants';
 import { UntypedFormBuilder, Validators, FormsModule } from '@angular/forms';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
-import { NavItem } from '../../../primitives/nav-item';
+import { NavItem } from 'systemprimitives';
 import { SimpledatabaseobjectstructureComponent } from '../../simpledatabaseobjectstructure/simpledatabaseobjectstructure.component';
 import { __assign } from 'tslib';
 import { MatCardModule } from '@angular/material/card';
@@ -12,10 +12,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
-import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.component';
+import { MenuItemComponent } from 'systemprimitives';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
-import { MenutreeserviceService } from '../../../services/menutreeservice.service';
+import { MenutreeserviceService } from 'systemprimitives';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 

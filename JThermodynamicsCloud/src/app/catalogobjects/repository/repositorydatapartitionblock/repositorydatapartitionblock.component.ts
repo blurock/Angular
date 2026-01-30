@@ -1,25 +1,17 @@
 import { Component, OnInit, ViewChild, AfterViewInit, EventEmitter, Input, Output } from '@angular/core';
 import { Ontologyconstants } from 'systemconstants';
-import { SimpledatabaseobjectstructureComponent } from '../../simpledatabaseobjectstructure/simpledatabaseobjectstructure.component';
-import { DatasetreferenceComponent } from '../../datasetreference/datasetreference.component';
-import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
 import { IdentifiersService } from '../../../const/identifiers.service';
-import { SetofdataobjectlinksComponent } from '../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
-import { SetofsitereferencesComponent } from '../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
-import { UntypedFormBuilder, FormGroup, Validators, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { NavItem } from '../../../primitives/nav-item';
-import { MenutreeserviceService } from '../../../services/menutreeservice.service';
+import { NavItem } from 'systemprimitives';
+import { MenutreeserviceService } from 'systemprimitives';
 import { FileformatmanagerService } from '../../../services/fileformatmanager.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
-import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
-import { GcsblobfileinformationstagingComponent } from '../gcsblobfileinformationstaging/gcsblobfileinformationstaging.component';
-import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.component';
+import { MenuItemComponent } from 'systemprimitives';
 import { MatMenuModule } from '@angular/material/menu';
 import { ChemconnectthermodynamicsdatabaseComponent } from '../../thermodynamics/chemconnectthermodynamicsdatabase/chemconnectthermodynamicsdatabase.component';
+import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
 	selector: 'app-repositorydatapartitionblock',

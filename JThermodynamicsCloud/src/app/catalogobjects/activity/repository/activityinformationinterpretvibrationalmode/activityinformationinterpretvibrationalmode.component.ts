@@ -4,10 +4,10 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
 import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
 import { Ontologyconstants } from 'systemconstants';
-import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
-import { NavItem } from '../../../../primitives/nav-item';
+import { MenutreeserviceService } from 'systemprimitives';
+import { NavItem } from 'systemprimitives';
 import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
-import { MenuItemComponent } from '../../../../primitives/menu-item/menu-item.component';
+import { MenuItemComponent } from 'systemprimitives';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';

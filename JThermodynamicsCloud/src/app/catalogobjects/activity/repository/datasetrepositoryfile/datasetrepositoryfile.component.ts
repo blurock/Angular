@@ -6,7 +6,7 @@ import { SetofsitereferencesComponent } from '../../../catalogbaseobjects/setofs
 import { DatasetreferenceComponent } from '../../../datasetreference/datasetreference.component';
 import { KeywordlistprimitiveComponent } from '../../../../primitives/keywordlistprimitive/keywordlistprimitive.component';
 import { Ontologyconstants } from 'systemconstants';
-import { NavItem } from '../../../../primitives/nav-item';
+import { NavItem } from 'systemprimitives';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -17,9 +17,9 @@ import { MatInputModule } from '@angular/material/input';
 import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
 import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
 import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
-import { MenuItemComponent } from '../../../../primitives/menu-item/menu-item.component';
+import { MenuItemComponent } from 'systemprimitives';
 import { MatMenuModule } from '@angular/material/menu';
-import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
+import { MenutreeserviceService } from 'systemprimitives';
 import { IdentifiersService } from '../../../../const/identifiers.service';
 
 @Component({

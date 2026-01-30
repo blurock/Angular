@@ -3,12 +3,12 @@ import { OntologycatalogService } from '../../../services/ontologycatalog.servic
 import { NameofpersonComponent } from '../../catalogbaseobjects/nameofperson/nameofperson.component';
 import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
 import { FormBuilder, Validators, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { NavItem } from '../../../primitives/nav-item';
-import { MenutreeserviceService } from '../../../services/menutreeservice.service';
+import { NavItem } from 'systemprimitives';
+import { MenutreeserviceService } from 'systemprimitives';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.component';
+import { MenuItemComponent } from 'systemprimitives';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';

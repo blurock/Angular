@@ -11,8 +11,8 @@ import { SavecatalogdataobjectdialogComponent } from '../../dialog/savecatalogda
 import { Ontologyconstants } from 'systemconstants';
 import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
 import { OntologycatalogService } from '../../services/ontologycatalog.service';
-import { NavItem } from '../../primitives/nav-item';
-import { MenutreeserviceService } from '../../services/menutreeservice.service';
+import { NavItem } from 'systemprimitives';
+import { MenutreeserviceService } from 'systemprimitives';
 
 @Component({
 	selector: 'app-catalogobjectheader',

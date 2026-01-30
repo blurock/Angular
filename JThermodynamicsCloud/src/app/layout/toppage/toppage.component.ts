@@ -62,11 +62,8 @@ export class ToppageComponent implements AfterViewInit {
 
 	constructor(
 		private constants: UserinterfaceconstantsService,
-		//private menusetup: MenutreeserviceService,
 		public session: SessiondatamanagementService,
 		private cdRef: ChangeDetectorRef,
-		//public dialog: MatDialog,
-		//public annotations: OntologycatalogService,
 	) {
 		this.refresh = this.constants.refresh;
 		this.fetchinfo = this.constants.fetchinfo;

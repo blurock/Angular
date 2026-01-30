@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, SimpleChanges} from '@angular/core';
 import { Ontologyconstants } from 'systemconstants';
-import { NavItem } from '../../primitives/nav-item';
+import { NavItem } from 'systemprimitives';
 import { UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
-import { MenutreeserviceService } from '../../services/menutreeservice.service';
+import { MenutreeserviceService } from 'systemprimitives';
 import {MatCardModule} from '@angular/material/card'; 
-import {MenuItemComponent} from '../../primitives/menu-item/menu-item.component';
+import {MenuItemComponent} from 'systemprimitives';
 import {MatFormFieldModule} from '@angular/material/form-field'; 
 import {ReactiveFormsModule,FormsModule} from '@angular/forms';
 import { MatMenuTrigger } from '@angular/material/menu';

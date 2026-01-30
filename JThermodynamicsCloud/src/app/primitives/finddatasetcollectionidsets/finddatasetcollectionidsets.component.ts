@@ -1,12 +1,12 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { Ontologyconstants } from 'systemconstants';
 import { RunserviceprocessService } from '../../services/runserviceprocess.service';
-import { NavItem } from '..//nav-item';
+import { NavItem } from 'systemprimitives';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CommonModule, JsonPipe, NgIf } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
-import { MenuItemComponent } from '../menu-item/menu-item.component';
+import { MenuItemComponent } from 'systemprimitives';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatGridListModule } from '@angular/material/grid-list';

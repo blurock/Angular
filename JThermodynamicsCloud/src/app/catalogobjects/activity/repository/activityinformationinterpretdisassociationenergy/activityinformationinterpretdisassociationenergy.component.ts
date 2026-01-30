@@ -5,8 +5,8 @@ import { UploadmenuserviceService } from '../../../../services/uploadmenuservice
 import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
 //import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { Ontologyconstants } from 'systemconstants';
-import { NavItem } from '../../../../primitives/nav-item';
-import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
+import { NavItem } from 'systemprimitives';
+import { MenutreeserviceService } from 'systemprimitives';
 import { CatalogactivitybaseComponent } from '../../../../primitives/catalogactivitybase/catalogactivitybase.component';
 import { CommonModule } from '@angular/common';
 import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
@@ -16,7 +16,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import { MenuItemComponent } from '../../../../primitives/menu-item/menu-item.component';
+import { MenuItemComponent } from 'systemprimitives';
 import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
 
 @Component({

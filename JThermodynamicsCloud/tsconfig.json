@@ -19,6 +19,9 @@
     "paths": {
       "systemconstants": [
         "./dist/systemconstants"
+      ],
+      "systemprimitives": [
+        "./dist/systemprimitives"
       ]
     },
     "module": "ES2022"

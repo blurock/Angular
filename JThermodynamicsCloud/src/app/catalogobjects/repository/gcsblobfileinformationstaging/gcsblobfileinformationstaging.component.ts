@@ -2,15 +2,15 @@ import { Input, Component, AfterViewInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { IdentifiersService } from '../../../const/identifiers.service';
 import { Ontologyconstants } from 'systemconstants';
-import { NavItem } from '../../../primitives/nav-item';
-import { MenutreeserviceService } from '../../../services/menutreeservice.service';
+import { NavItem } from 'systemprimitives';
+import { MenutreeserviceService } from 'systemprimitives';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule, NgIf } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
-import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.component';
+import { MenuItemComponent } from 'systemprimitives';
 import { MatInputModule } from '@angular/material/input';
 import { FileformatmanagerService } from '../../../services/fileformatmanager.service';
 

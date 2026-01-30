@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { NavItem } from '../../primitives/nav-item';
+import { NavItem } from '../nav-item';
 import { Ontologyconstants } from 'systemconstants';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import {MenutreeserviceService} from '../../services/menutreeservice.service';
+import {MenutreeserviceService} from '../services/menutreeservice.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuItem, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';

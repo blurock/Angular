@@ -2,7 +2,7 @@ import { Component, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular
 import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 import { ChemconnectthermodynamicsdatabaseComponent } from '../chemconnectthermodynamicsdatabase/chemconnectthermodynamicsdatabase.component';
 import { Jthermodynamics2dspeciesstructureComponent } from '../jthermodynamics2dspeciesstructure/jthermodynamics2dspeciesstructure.component';
-import { NavItem } from '../../../primitives/nav-item';
+import { NavItem } from 'systemprimitives';
 import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
 import { MatCardModule } from '@angular/material/card';
@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { NgFor, NgIf } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MenuItemComponent } from '../../../primitives/menu-item/menu-item.component';
+import { MenuItemComponent } from 'systemprimitives';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
