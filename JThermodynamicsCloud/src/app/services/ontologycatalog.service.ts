@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '../../environments/environment';
-import { CatalogInfo, CatalogAnnotation, ClassificationHiearchy } from '../const/routes.const';
-import { ServiceUtilityRoutines } from './serviceutilityroutines';
+import { CatalogInfo, CatalogAnnotation, ClassificationHiearchy } from 'systemconstants';
+import { ServiceUtilityRoutines } from 'systemprimitives';
 import {SessiondatamanagementService} from '../services/sessiondatamanagement.service';
-import * as express from 'express';
-import { createProxyMiddleware, Filter, Options, RequestHandler } from 'http-proxy-middleware';
 import { AuthService } from './auth.service';
 
 interface ParameterDefinition {
@@ -31,9 +27,7 @@ export class OntologycatalogService {
 
 	constructor(
 		public authService: AuthService,
-		private readonly snackBar: MatSnackBar,
-		public session: SessiondatamanagementService,
-		private httpClient: HttpClient) {
+		public session: SessiondatamanagementService) {
 	}
 	
 

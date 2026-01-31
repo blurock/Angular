@@ -1,9 +1,8 @@
 import { Injectable, Injector, NgZone, runInInjectionContext } from '@angular/core';
 import { signInWithPopup, GithubAuthProvider, GoogleAuthProvider, FacebookAuthProvider } from "@angular/fire/auth";
 import { Auth, onAuthStateChanged, User, idToken } from '@angular/fire/auth';
-import { ServiceUtilityRoutines } from './serviceutilityroutines';
 import { environment } from '../../environments/environment';
-import { Login } from '../const/routes.const';
+import { Login } from 'systemconstants';
 import { SessiondatamanagementService } from '../services/sessiondatamanagement.service';
 import { Router } from '@angular/router';
 import { Ontologyconstants } from 'systemconstants';

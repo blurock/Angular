@@ -34,16 +34,4 @@ export class ServiceUtilityRoutines {
 			.set('Access-Control-Allow-Origin', '*');
 		return headerdata;
     }
-    /*
-    public static setupHeader(): HttpHeaders {
-         const userS = sessionStorage.getItem('user');
-         const user = JSON.parse(userS);
-         const token = user['token'];
-         const headerdata = new HttpHeaders()
-			.set('content-type', 'application/json')
-			.set('Access-Control-Allow-Origin', '*')
-			.set('Authorization', ' AccessToken ' + token);
-		return headerdata;
-    }
-    */
-}
+ }
