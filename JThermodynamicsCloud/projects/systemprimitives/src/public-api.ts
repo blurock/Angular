@@ -10,5 +10,6 @@ export * from './lib/nav-item'
 export * from './lib/services/menutreeservice.service'
 export * from './lib/services/serviceutilityroutines'
 export * from './lib/services/sessiondatamanagement.service'
+export * from './lib/services/auth.service'
 export * from './lib/tokens'
 

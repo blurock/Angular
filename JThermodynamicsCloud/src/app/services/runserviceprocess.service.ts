@@ -6,7 +6,7 @@ import { Service } from 'systemconstants';
 import { SessiondatamanagementService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { Router } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AuthService } from 'systemprimitives';
 import {API_CONFIG} from 'systemprimitives';
 
 @Injectable({

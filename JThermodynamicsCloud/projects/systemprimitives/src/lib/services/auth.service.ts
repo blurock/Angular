@@ -1,15 +1,15 @@
-import { Injectable, Injector, NgZone, runInInjectionContext } from '@angular/core';
+import { Inject, Injectable, Injector, NgZone, runInInjectionContext } from '@angular/core';
 import { signInWithPopup, GithubAuthProvider, GoogleAuthProvider, FacebookAuthProvider } from "@angular/fire/auth";
 import { Auth, onAuthStateChanged, User, idToken } from '@angular/fire/auth';
-import { Login } from 'systemconstants';
-import { SessiondatamanagementService } from 'systemprimitives';
 import { Router } from '@angular/router';
-import { Ontologyconstants } from 'systemconstants';
 import { __assign } from 'tslib';
 import { Observable, BehaviorSubject, map, from,catchError, of,switchMap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { setLogLevel, LogLevel } from "@angular/fire";
-import {API_CONFIG} from 'systemprimitives';
+import {API_CONFIG} from '../tokens';
+import { SessiondatamanagementService } from './sessiondatamanagement.service';
+import { Login } from 'systemconstants';
+import { Ontologyconstants } from 'systemconstants';
 
 @Injectable({
 	providedIn: 'root'
@@ -27,7 +27,8 @@ export class AuthService {
 		public router: Router,
 		public ngZone: NgZone, // NgZone service to remove outside scope warning
 		private httpClient: HttpClient,
-		private injector: Injector // Inject the Angular Injector
+		private injector: Injector, // Inject the Angular Injector
+		@Inject(API_CONFIG) private apiUrl: string
 	) {
         setLogLevel(LogLevel.VERBOSE);
 		this.isLoggedIn$ = this.user$.pipe(map(user => !!user))
@@ -195,7 +196,7 @@ getToken(): Observable<string | null> {
 		//window.alert("getUserInformationFromServer: '" + JSON.stringify(logintransaction) + "'");
 		this.httpClient.post(httpaddr, logintransaction, { headers: headerdata })
 		*/
-		const httpaddr = API_CONFIG + '/' + Login;
+		const httpaddr = this.apiUrl + '/' + Login;
 		this.postData(httpaddr,logintransaction)
 			.subscribe({
 

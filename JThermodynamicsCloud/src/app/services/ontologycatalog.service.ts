@@ -4,7 +4,7 @@ import { of, Observable } from 'rxjs';
 import { CatalogInfo, CatalogAnnotation, ClassificationHiearchy } from 'systemconstants';
 import { ServiceUtilityRoutines } from 'systemprimitives';
 import {SessiondatamanagementService} from 'systemprimitives';
-import { AuthService } from './auth.service';
+import { AuthService } from 'systemprimitives';
 import {API_CONFIG} from 'systemprimitives';
 
 interface ParameterDefinition {

@@ -2,7 +2,7 @@ import { take } from 'rxjs/operators';
 import { Component} from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from 'systemprimitives';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon'; // Import MatIconModule
 import {ProfileCardComponent} from '../profile-card/profile-card.component';
