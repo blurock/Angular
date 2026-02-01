@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
-import {SessiondatamanagementService} from '../../services/sessiondatamanagement.service';
+import {SessiondatamanagementService} from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import {MatGridListModule} from '@angular/material/grid-list'; 
 import {MatCardModule} from '@angular/material/card'; 

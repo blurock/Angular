@@ -4,7 +4,7 @@ import { of, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ServiceUtilityRoutines } from 'systemprimitives';
 import { Service } from 'systemconstants';
-import { SessiondatamanagementService } from '../services/sessiondatamanagement.service';
+import { SessiondatamanagementService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';

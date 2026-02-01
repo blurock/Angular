@@ -1,15 +1,15 @@
 import { Injectable, Injector, NgZone, runInInjectionContext } from '@angular/core';
 import { signInWithPopup, GithubAuthProvider, GoogleAuthProvider, FacebookAuthProvider } from "@angular/fire/auth";
 import { Auth, onAuthStateChanged, User, idToken } from '@angular/fire/auth';
-import { environment } from '../../environments/environment';
 import { Login } from 'systemconstants';
-import { SessiondatamanagementService } from '../services/sessiondatamanagement.service';
+import { SessiondatamanagementService } from 'systemprimitives';
 import { Router } from '@angular/router';
 import { Ontologyconstants } from 'systemconstants';
 import { __assign } from 'tslib';
 import { Observable, BehaviorSubject, map, from,catchError, of,switchMap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { setLogLevel, LogLevel } from "@angular/fire";
+import {API_CONFIG} from 'systemprimitives';
 
 @Injectable({
 	providedIn: 'root'
@@ -195,7 +195,7 @@ getToken(): Observable<string | null> {
 		//window.alert("getUserInformationFromServer: '" + JSON.stringify(logintransaction) + "'");
 		this.httpClient.post(httpaddr, logintransaction, { headers: headerdata })
 		*/
-		const httpaddr = environment.apiURL + '/' + Login;
+		const httpaddr = API_CONFIG + '/' + Login;
 		this.postData(httpaddr,logintransaction)
 			.subscribe({
 

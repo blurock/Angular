@@ -11,7 +11,7 @@ import { AuthService } from './services/auth.service';
 import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { API_CONFIG } from 'systemprimitives';
 
 const firebaseconst = environment.firebase;
 
@@ -28,7 +28,7 @@ export const appConfig: ApplicationConfig = {
       provideFirebaseApp(() => initializeApp(environment.firebase)),
       provideAuth(() => getAuth()),
       {provide: AuthService, useClass: AuthService},
-      provideFirestore(() => getFirestore())
-
+      provideFirestore(() => getFirestore()),
+	  { provide: API_CONFIG, useValue: environment.apiURL }
     ]
 };

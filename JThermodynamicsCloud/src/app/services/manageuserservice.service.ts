@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
-import { SessiondatamanagementService } from '../services/sessiondatamanagement.service';
+import { SessiondatamanagementService } from 'systemprimitives';
 import { RunserviceprocessService } from '../services/runserviceprocess.service';
 import { Ontologyconstants } from 'systemconstants';
 

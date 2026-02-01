@@ -4,7 +4,7 @@ import { of, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { CatalogInfo, CatalogAnnotation, ClassificationHiearchy } from 'systemconstants';
 import { ServiceUtilityRoutines } from 'systemprimitives';
-import {SessiondatamanagementService} from '../services/sessiondatamanagement.service';
+import {SessiondatamanagementService} from 'systemprimitives';
 import { AuthService } from './auth.service';
 
 interface ParameterDefinition {

@@ -6,7 +6,7 @@ import { NavItem } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
 import { MatDialog } from '@angular/material/dialog';
 import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
-import {SessiondatamanagementService} from '../../../services/sessiondatamanagement.service';
+import {SessiondatamanagementService} from 'systemprimitives';
 import { Router } from '@angular/router';
 import {MatStepperModule} from '@angular/material/stepper'
 import {MatFormFieldModule} from '@angular/material/form-field'; 

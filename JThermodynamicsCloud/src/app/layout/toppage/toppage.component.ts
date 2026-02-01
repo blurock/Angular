@@ -2,7 +2,7 @@ import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular
 import { CommonModule } from '@angular/common';
 import { UseraccountComponent } from '../../catalogobjects/user/useraccount/useraccount.component';
 import { DatabasepersonComponent } from '../../catalogobjects/user/databaseperson/databaseperson.component';
-import { SessiondatamanagementService } from '../../services/sessiondatamanagement.service';
+import { SessiondatamanagementService } from 'systemprimitives';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ApplicationcardsComponent } from '../applicationcards/applicationcards.component';
 import { MatDividerModule } from '@angular/material/divider';
