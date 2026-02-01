@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
 import { ServiceUtilityRoutines } from 'systemprimitives';
 import {Transaction} from 'systemconstants';
 import {SessiondatamanagementService} from 'systemprimitives';
 import { AuthService } from './auth.service';
+import {API_CONFIG} from 'systemprimitives';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +17,12 @@ export class RuntransactionService {
   constructor(
 	public authService: AuthService,
     private session: SessiondatamanagementService,
-    
+	@Inject(API_CONFIG) private apiUrl: string
   ) { }
   
   
   public run(transactiondata: any): Observable<any> {
-    const transactionhttp = environment.apiURL + '/' + Transaction;
+    const transactionhttp = this.apiUrl + '/' + Transaction;
     return this.standardHttpCall(transactionhttp, transactiondata)
   }
   

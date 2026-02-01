@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
 import { ServiceUtilityRoutines } from 'systemprimitives';
 import { Service } from 'systemconstants';
 import { SessiondatamanagementService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import {API_CONFIG} from 'systemprimitives';
 
 @Injectable({
 	providedIn: 'root'
@@ -21,12 +21,13 @@ export class RunserviceprocessService {
 		public authService: AuthService,
 		private session: SessiondatamanagementService,
 		public router: Router,
-		private afAuth: AuthService
+		private afAuth: AuthService,
+		@Inject(API_CONFIG) private apiUrl: string
 	) { }
 
 
 	public run(servicedata: any): Observable<any> {
-		const servicehttp = environment.apiURL + '/' + Service;
+		const servicehttp = this.apiUrl + '/' + Service;
 		return this.standardHttpCall(servicehttp, servicedata)
 	}
 	

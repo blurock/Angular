@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
 import { CatalogInfo, CatalogAnnotation, ClassificationHiearchy } from 'systemconstants';
 import { ServiceUtilityRoutines } from 'systemprimitives';
 import {SessiondatamanagementService} from 'systemprimitives';
 import { AuthService } from './auth.service';
+import {API_CONFIG} from 'systemprimitives';
 
 interface ParameterDefinition {
   "qudt:QuantityKind": string; // Or a more specific type if you have one
@@ -27,7 +27,8 @@ export class OntologycatalogService {
 
 	constructor(
 		public authService: AuthService,
-		public session: SessiondatamanagementService) {
+		public session: SessiondatamanagementService,
+	@Inject(API_CONFIG) private apiUrl: string) {
 	}
 	
 
@@ -81,12 +82,12 @@ export class OntologycatalogService {
 
 
 	public getAnnotationsFromID(id: string): Observable<any> {
-		const annotationshttp = environment.apiURL + '/' + CatalogAnnotation + '?catalogname=' + id;
+		const annotationshttp = this.apiUrl + '/' + CatalogAnnotation + '?catalogname=' + id;
 		return this.standardHttpCall(annotationshttp);
 	}
 
 	public getNewCatalogObject(id: string): Observable<any> {
-		const cataloginfoshttp = environment.apiURL + '/' + CatalogInfo + '?catalogname=' + id;
+		const cataloginfoshttp = this.apiUrl + '/' + CatalogInfo + '?catalogname=' + id;
 /*		
 		//const cataloginfoshttp = environment.apiURL+ '/' + CatalogInfo;
 		//const params = new HttpParams().set('catalogname',id);
@@ -115,7 +116,7 @@ export class OntologycatalogService {
 		return this.standardHttpCall(cataloginfoshttp);
 	}
 	public getClassificationHierarchy(id: string): Observable<any> {
-		const classificationhttp = environment.apiURL + '/' + ClassificationHiearchy + '?catalogname=' + id;
+		const classificationhttp = this.apiUrl + '/' + ClassificationHiearchy + '?catalogname=' + id;
 		return this.standardHttpCall(classificationhttp);
 	}
 
