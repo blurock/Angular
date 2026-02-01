@@ -4,7 +4,7 @@ import { FormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@
 import { Ontologyconstants } from 'systemconstants';
 import { NavItem } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
-import { RunserviceprocessService } from '../../services/runserviceprocess.service';
+import { RunserviceprocessService } from 'systemprimitives'
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';

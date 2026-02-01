@@ -7,9 +7,9 @@ import { DatasettransactioneventobjectComponent } from '../../catalogobjects/tra
 import { Ontologyconstants } from 'systemconstants';
 import { RuntransactiondialogComponent } from '../../dialog/runtransactiondialog/runtransactiondialog.component';
 import { IdentifiersService } from '../../const/identifiers.service';
-import {RunserviceprocessService} from '../../services/runserviceprocess.service';
+import {RunserviceprocessService} from 'systemprimitives'
 import {FindintermediatettransactionComponent} from '../../dialog/findintermediatettransaction/findintermediatettransaction.component';
-import { OntologycatalogService } from '../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 
 @Component({
 	selector: 'app-initialreadinofrepositoryfileevent',

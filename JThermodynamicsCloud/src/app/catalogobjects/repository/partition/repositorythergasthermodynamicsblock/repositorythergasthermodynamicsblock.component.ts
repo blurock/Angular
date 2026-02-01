@@ -1,13 +1,12 @@
-import { Component, OnInit, ViewChild, Input, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, Input, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { IdentifiersService } from '../../../../const/identifiers.service';
 import { RepositorydatapartitionblockComponent } from '../../repositorydatapartitionblock/repositorydatapartitionblock.component';
 import {RepositorythermopartitionblockComponent} from '../repositorythermopartitionblock/repositorythermopartitionblock.component';
 import { CatalogbaseComponent } from '../../../../primitives/catalogbase/catalogbase.component';
 import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
 import { MatCardModule } from '@angular/material/card';
-import { NgIf } from '@angular/common';
 import { Ontologyconstants } from 'systemconstants';
 
 @Component({

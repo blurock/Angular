@@ -4,7 +4,7 @@ import { UserinterfaceconstantsService } from '../../../../const/userinterfaceco
 import { Ontologyconstants } from 'systemconstants';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { FetchcatalogobjectComponent } from '../../../../dialog/fetchcatalogobject/fetchcatalogobject.component';
 //import { MenutreeserviceService } from '../../../../services/menutreeservice.service';

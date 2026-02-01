@@ -1,6 +1,6 @@
 import { Component, OnInit,ViewChild} from '@angular/core';
 import { UntypedFormBuilder, Validators, FormGroup, FormsModule } from '@angular/forms';
-import { OntologycatalogService } from '../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { NavItem } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';

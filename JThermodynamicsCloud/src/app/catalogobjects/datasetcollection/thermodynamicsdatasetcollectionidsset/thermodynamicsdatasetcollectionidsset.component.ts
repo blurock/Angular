@@ -1,13 +1,12 @@
-import { Component, OnInit, Input, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Ontologyconstants } from 'systemconstants';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { DatasetspecificationforcollectionsetComponent } from '../datasetspecificationforcollectionset/datasetspecificationforcollectionset.component';
-import { OntologycatalogService } from '../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import {ChemconnectdatasetcollectionidssetComponent} from '../chemconnectdatasetcollectionidsset/chemconnectdatasetcollectionidsset.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSpinner } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule} from '@angular/common';
 

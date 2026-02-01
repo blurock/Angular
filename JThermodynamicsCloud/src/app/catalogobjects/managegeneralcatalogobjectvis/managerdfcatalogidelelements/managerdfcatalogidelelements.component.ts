@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ComponentRef, EventEmitter, Input, Output
 import { MatCardModule } from '@angular/material/card';
 import { Ontologyconstants } from 'systemconstants';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
-import { RunserviceprocessService } from '../../../services/runserviceprocess.service';
+import { RunserviceprocessService } from 'systemprimitives'
 import { TransactioncatalogobjectlistComponent } from '../../transaction/transactioncatalogobjectlist/transactioncatalogobjectlist.component';
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
 

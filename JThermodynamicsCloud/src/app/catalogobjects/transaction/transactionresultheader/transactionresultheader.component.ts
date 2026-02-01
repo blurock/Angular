@@ -12,7 +12,7 @@ import { Ontologyconstants } from 'systemconstants';
 import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { FindspecifictransactionindatasetComponent } from '../../../dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
-import { OntologycatalogService } from '../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 
 @Component({
 	selector: 'app-transactionresultheader',

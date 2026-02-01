@@ -4,7 +4,7 @@ import { FetchcollectiondatasetidsComponent } from '../../../dialog/fetchcollect
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { Ontologyconstants } from 'systemconstants';
-import { OntologycatalogService } from '../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';

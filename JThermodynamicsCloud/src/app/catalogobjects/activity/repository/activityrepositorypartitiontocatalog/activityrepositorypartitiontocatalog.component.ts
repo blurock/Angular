@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
-import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';

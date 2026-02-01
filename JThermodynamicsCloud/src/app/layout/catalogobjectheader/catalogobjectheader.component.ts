@@ -10,7 +10,7 @@ import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fet
 import { SavecatalogdataobjectdialogComponent } from '../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
 import { Ontologyconstants } from 'systemconstants';
 import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
-import { OntologycatalogService } from '../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { NavItem } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
 

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from 'systemconstants';
-import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { NavItem } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';

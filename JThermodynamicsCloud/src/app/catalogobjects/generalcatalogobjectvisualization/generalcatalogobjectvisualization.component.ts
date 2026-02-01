@@ -3,7 +3,7 @@ import { CatalogbaseComponent } from '../../primitives/catalogbase/catalogbase.c
 import { MatCardModule } from '@angular/material/card';
 import { DatasetrepositoryfilestagingComponent } from '../repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
 import { Ontologyconstants } from 'systemconstants';
-import { OntologycatalogService } from '../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
 import { RepositoryparsedtofixedblocksizeComponent } from '../repository/partition/repositoryparsedtofixedblocksize/repositoryparsedtofixedblocksize.component';
 //import { JthermodynamicdisassociationenergyComponent } from '../thermodynamics/jthermodynamicdisassociationenergy/jthermodynamicdisassociationenergy.component';

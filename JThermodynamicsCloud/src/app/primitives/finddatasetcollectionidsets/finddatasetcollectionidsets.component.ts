@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { Ontologyconstants } from 'systemconstants';
-import { RunserviceprocessService } from '../../services/runserviceprocess.service';
+import { RunserviceprocessService } from 'systemprimitives'
 import { NavItem } from 'systemprimitives';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CommonModule, JsonPipe, NgIf } from '@angular/common';

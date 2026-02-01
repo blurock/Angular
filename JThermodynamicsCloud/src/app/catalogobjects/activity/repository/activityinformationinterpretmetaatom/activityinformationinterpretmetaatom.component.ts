@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MenuItemComponent } from 'systemprimitives';
 import { CatalogactivitybaseComponent } from '../../../../primitives/catalogactivitybase/catalogactivitybase.component';
-import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
 import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
 import { MatCardModule } from '@angular/material/card';

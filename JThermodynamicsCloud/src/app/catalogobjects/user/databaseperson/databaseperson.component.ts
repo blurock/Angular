@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { OntologycatalogService } from '../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { NameofpersonComponent } from '../../catalogbaseobjects/nameofperson/nameofperson.component';
 import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
 import { FormBuilder, Validators, FormGroup, ReactiveFormsModule } from '@angular/forms';

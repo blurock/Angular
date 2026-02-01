@@ -4,8 +4,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { LiistelementrequiredinformationComponent } from './liistelementrequiredinformation/liistelementrequiredinformation.component';
 import { IdentifiersService } from '../../const/identifiers.service';
 import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
-import { CatalogbaseComponent } from '../../primitives/catalogbase/catalogbase.component';
-import { OntologycatalogService } from '../../services/ontologycatalog.service';
 
 @Component({
   selector: 'app-listofrequiredtransactioninformation',

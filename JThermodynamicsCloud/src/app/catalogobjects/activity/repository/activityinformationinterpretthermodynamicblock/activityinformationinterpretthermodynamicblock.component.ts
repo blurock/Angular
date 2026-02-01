@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectorRef, AfterViewInit, ViewChild } from '@angular/core';
-import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
 import { Ontologyconstants } from 'systemconstants';

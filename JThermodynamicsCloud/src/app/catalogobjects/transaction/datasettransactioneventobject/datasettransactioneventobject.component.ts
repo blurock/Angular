@@ -1,15 +1,15 @@
 import { Component, OnInit, EventEmitter, ViewChild, Output, Input } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
-import { OntologycatalogService } from '../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
 import { DatasettransactionspecificationforcollectionComponent } from '../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ActivityinformationComponent } from '../activityinformation/activityinformation.component';
-import { MenutreeserviceService } from '../../../services/menutreeservice.service';
-import { NavItem } from '../../../primitives/nav-item';
-import { RunserviceprocessService } from '../../../services/runserviceprocess.service';
+import { MenutreeserviceService } from 'systemprimitives';
+import { NavItem } from 'systemprimitives';
+import { RunserviceprocessService } from 'systemprimitives'
 import {ListoffirestoreidsComponent} from '../../listoffirestoreids/listoffirestoreids.component';
 @Component({
 	selector: 'app-datasettransactioneventobject',

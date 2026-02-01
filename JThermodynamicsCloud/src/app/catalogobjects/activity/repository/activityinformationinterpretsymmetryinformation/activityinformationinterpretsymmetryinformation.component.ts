@@ -1,7 +1,5 @@
-import { Component, OnInit, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DatasettransactionspecificationforcollectionComponent } from '../../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
-import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
 import { Ontologyconstants } from 'systemconstants';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -12,7 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
 import { CatalogactivitybaseComponent } from '../../../../primitives/catalogactivitybase/catalogactivitybase.component';
 import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
-import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
 
 @Component({

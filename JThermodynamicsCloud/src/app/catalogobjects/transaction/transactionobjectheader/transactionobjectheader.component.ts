@@ -11,7 +11,7 @@ import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondia
 import { MatDividerModule } from '@angular/material/divider';
 import { UploadcatalogobjectComponent } from '../../../dialog/uploadcatalogobject/uploadcatalogobject.component';
 import { Ontologyconstants } from 'systemconstants';
-import { OntologycatalogService } from '../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { FindspecifictransactionindatasetComponent } from '../../../dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
 import { MenutreeserviceService } from 'systemprimitives';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';

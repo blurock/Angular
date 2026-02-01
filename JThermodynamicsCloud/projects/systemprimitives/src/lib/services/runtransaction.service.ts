@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
-import { ServiceUtilityRoutines } from 'systemprimitives';
+import { ServiceUtilityRoutines } from './serviceutilityroutines';
 import {Transaction} from 'systemconstants';
-import {SessiondatamanagementService} from 'systemprimitives';
-import { AuthService } from 'systemprimitives';
-import {API_CONFIG} from 'systemprimitives';
+import {SessiondatamanagementService} from './sessiondatamanagement.service';
+import { AuthService } from './auth.service';
+import {API_CONFIG} from '../tokens';
 
 @Injectable({
   providedIn: 'root'

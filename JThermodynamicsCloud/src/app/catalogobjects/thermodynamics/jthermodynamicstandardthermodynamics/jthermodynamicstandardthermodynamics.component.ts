@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { OntologycatalogService } from '../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { ParametervalueComponent } from '../../parametervalue/parametervalue.component';
 import { ParameterspecificationComponent } from '../../parameterspecification/parameterspecification.component';

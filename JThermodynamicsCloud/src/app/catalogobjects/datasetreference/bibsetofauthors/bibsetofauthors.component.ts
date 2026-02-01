@@ -1,8 +1,8 @@
 import { Input, Output, Component, OnInit, EventEmitter } from '@angular/core';
 import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms';
 import { IdentifiersService } from '../../../const/identifiers.service';
-import { OntologycatalogService } from 'src/app/services/ontologycatalog.service';
-import {UploadmenuserviceService} from 'src/app/services/uploadmenuservice.service';
+import { OntologycatalogService } from 'systemprimitives';
+import {UploadmenuserviceService} from '../../../services/uploadmenuservice.service';
 import { Ontologyconstants } from 'systemconstants';
 
 @Component({

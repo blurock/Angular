@@ -1,5 +1,5 @@
 import { Output, EventEmitter, Component, OnInit, ViewChild, NgModule } from '@angular/core';
-import { OntologycatalogService } from '../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';

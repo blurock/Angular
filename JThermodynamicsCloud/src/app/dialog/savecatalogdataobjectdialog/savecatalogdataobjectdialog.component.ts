@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MenuItemComponent } from 'systemprimitives';
 import { MatMenuModule } from '@angular/material/menu';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { RuntransactionService } from '../../services/runtransaction.service';
+import { RuntransactionService } from 'systemprimitives';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 
 @Component({

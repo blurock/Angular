@@ -1,6 +1,6 @@
 
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, OnChanges } from '@angular/core';
-import { OntologycatalogService } from '../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
 import { BaseCatalogInterface } from '../basecatalog.interface';

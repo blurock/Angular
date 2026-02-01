@@ -8,7 +8,7 @@ import { UploadmenuserviceService } from '../../services/uploadmenuservice.servi
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
 import { RuntransactiondialogComponent } from '../../dialog/runtransactiondialog/runtransactiondialog.component';
 import { ListoffirestoreidsComponent } from '../../catalogobjects/listoffirestoreids/listoffirestoreids.component';
-import { OntologycatalogService } from '../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import {FindintermediatettransactionComponent} from '../../dialog/findintermediatettransaction/findintermediatettransaction.component';
 import {IdentifiersService} from '../../const/identifiers.service';
 @Component({

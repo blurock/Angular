@@ -14,7 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CatalogactivitybaseComponent } from '../../../../primitives/catalogactivitybase/catalogactivitybase.component';
 import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
-import { OntologycatalogService } from '../../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 
 @Component({
 	selector: 'app-activityrepositoryinitialreadlocalfile',

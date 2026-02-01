@@ -11,5 +11,8 @@ export * from './lib/services/menutreeservice.service'
 export * from './lib/services/serviceutilityroutines'
 export * from './lib/services/sessiondatamanagement.service'
 export * from './lib/services/auth.service'
+export * from './lib/services/ontologycatalog.service'
+export * from './lib/services/runtransaction.service'
+export * from './lib/services/runserviceprocess.service'
 export * from './lib/tokens'
 

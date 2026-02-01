@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, ViewChild, EventEmitter, AfterViewInit } from '@angular/core';
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
-import { RunserviceprocessService } from '../../../services/runserviceprocess.service';
+import { RunserviceprocessService } from 'systemprimitives'
 import { GeneralcatalogobjectvisualizationComponent } from '../../generalcatalogobjectvisualization/generalcatalogobjectvisualization.component';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';

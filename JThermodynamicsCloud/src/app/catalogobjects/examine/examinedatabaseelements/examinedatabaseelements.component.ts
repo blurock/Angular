@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { RunserviceprocessService } from '../../../services/runserviceprocess.service'
+import { RunserviceprocessService } from 'systemprimitives'
 import { Ontologyconstants } from 'systemconstants';
-import { OntologycatalogService } from '../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';

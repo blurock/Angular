@@ -10,7 +10,7 @@ import { MenuItemComponent } from 'systemprimitives';
 import { CatalogactivitybaseComponent } from '../../../../../primitives/catalogactivitybase/catalogactivitybase.component';
 import { NavItem } from 'systemprimitives';
 import { UserinterfaceconstantsService } from '../../../../../const/userinterfaceconstants.service';
-import { OntologycatalogService } from '../../../../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 

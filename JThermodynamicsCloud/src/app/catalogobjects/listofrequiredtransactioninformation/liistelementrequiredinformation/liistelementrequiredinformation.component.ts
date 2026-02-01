@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
 import { RequiredtransactioninformationComponent } from '../../transaction/requiredtransactioninformation/requiredtransactioninformation.component';
-import { RunserviceprocessService } from '../../../services/runserviceprocess.service';
+import { RunserviceprocessService } from 'systemprimitives'
 import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
 import { Ontologyconstants } from 'systemconstants';
 import { CommonModule } from '@angular/common';

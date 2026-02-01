@@ -2,10 +2,10 @@ import { Inject, Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 import { CatalogInfo, CatalogAnnotation, ClassificationHiearchy } from 'systemconstants';
-import { ServiceUtilityRoutines } from 'systemprimitives';
-import {SessiondatamanagementService} from 'systemprimitives';
-import { AuthService } from 'systemprimitives';
-import {API_CONFIG} from 'systemprimitives';
+import { ServiceUtilityRoutines } from './serviceutilityroutines';
+import {SessiondatamanagementService} from './sessiondatamanagement.service';
+import { AuthService } from './auth.service';
+import {API_CONFIG} from '../tokens';
 
 interface ParameterDefinition {
   "qudt:QuantityKind": string; // Or a more specific type if you have one

@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Ontologyconstants } from 'systemconstants';
-import { RunserviceprocessService } from '../../services/runserviceprocess.service';
+import { RunserviceprocessService } from 'systemprimitives'
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';

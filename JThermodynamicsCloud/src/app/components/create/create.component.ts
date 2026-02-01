@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { OntologycatalogService } from 'src/app/services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { Observable } from 'rxjs';
 @Component({
   selector: 'app-create',

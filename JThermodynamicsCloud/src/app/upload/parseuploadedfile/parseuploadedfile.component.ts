@@ -4,7 +4,7 @@ import { UploadinterfaceconstantsService } from '../uploadinterfaceconstants.ser
 import { Ontologyconstants } from 'systemconstants';
 import { UploadfileinformationComponent } from '../uploadfileinformation/uploadfileinformation.component';
 import { UploadmenuserviceService } from '../../services/uploadmenuservice.service';
-import { OntologycatalogService } from '../../services/ontologycatalog.service';
+import { OntologycatalogService } from 'systemprimitives';
 import { DatasetrepositoryfilestagingComponent } from '../../catalogobjects/repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
 import { DatasetreferenceComponent } from '../../catalogobjects/datasetreference/datasetreference.component';
 import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -25,8 +25,8 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 
 	repositorystaging: any;
 	annoinfo: any;
-	maintainer: string;
-	title: string;
+	maintainer: string = '';
+	title: string = 'Parse';
 	fileformatdata: any;
 
 	identifier = Ontologyconstants.dctermsidentifier;
@@ -42,7 +42,7 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 	failedresponse = 'Partitioning gave error';
 	resultHtml = 'Initializing';
 
-	@ViewChild('partition') partition: ActivityrepositorypartitiontocatalogComponent;
+	@ViewChild('partition') partition!: ActivityrepositorypartitiontocatalogComponent;
 
 
 	constructor(
