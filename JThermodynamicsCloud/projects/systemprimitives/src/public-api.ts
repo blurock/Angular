@@ -22,3 +22,6 @@ export * from './lib/basecomponents/firesytorecatalogid/firesytorecatalogid.comp
 export * from './lib/services/createdateservice.service'
 export * from './lib/dialog/savecatalogdataobject/savecatalogdataobject.component'
 export * from './lib/dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component'
+export * from './lib/dialog/visualizefile/visualizefile.component' 
+export * from  './lib/basecomponents/catalogactivitybase/catalogactivitybase.component'
+export * from './lib/basecomponents/basecatalog.interface'

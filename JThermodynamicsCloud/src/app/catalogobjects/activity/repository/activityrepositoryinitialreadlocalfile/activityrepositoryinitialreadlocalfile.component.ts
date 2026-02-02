@@ -3,7 +3,7 @@ import { Ontologyconstants } from 'systemconstants';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { VisualizefileComponent } from '../../../../dialog/visualizefile/visualizefile.component';
+import { VisualizefileComponent } from 'systemprimitives';
 import { DatasetrepositoryfileComponent } from '../datasetrepositoryfile/datasetrepositoryfile.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
@@ -12,7 +12,7 @@ import {MatInputModule} from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { CatalogactivitybaseComponent } from '../../../../primitives/catalogactivitybase/catalogactivitybase.component';
+import { CatalogactivitybaseComponent } from 'systemprimitives';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { OntologycatalogService } from 'systemprimitives';
 

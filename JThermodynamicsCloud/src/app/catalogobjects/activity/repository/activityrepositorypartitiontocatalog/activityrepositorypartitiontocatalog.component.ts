@@ -6,7 +6,7 @@ import { UploadmenuserviceService } from '../../../../services/uploadmenuservice
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { CatalogactivitybaseComponent } from '../../../../primitives/catalogactivitybase/catalogactivitybase.component';
+import { CatalogactivitybaseComponent } from 'systemprimitives';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { MatInputModule } from '@angular/material/input';
 import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';

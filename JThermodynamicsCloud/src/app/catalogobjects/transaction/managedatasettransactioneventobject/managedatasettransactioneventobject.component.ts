@@ -9,7 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TransactionobjectheaderComponent } from '../transactionobjectheader/transactionobjectheader.component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { CatalogactivitybaseComponent } from '../../../primitives/catalogactivitybase/catalogactivitybase.component';
+import { CatalogactivitybaseComponent } from 'systemprimitives';
 import { ComponentType } from '@angular/cdk/portal';
 import { ActivityrepositoryinitialreadlocalfileComponent } from '../../activity/repository/activityrepositoryinitialreadlocalfile/activityrepositoryinitialreadlocalfile.component';
 import { ActivityrepositorypartitiontocatalogComponent } from '../../activity/repository/activityrepositorypartitiontocatalog/activityrepositorypartitiontocatalog.component';

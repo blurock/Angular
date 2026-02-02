@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Ontologyconstants } from 'systemconstants';
-import { BaseInterface } from '../../primitives/basecatalog.interface';
+import { BaseInterface } from 'systemprimitives';
 
 @Component({
 	selector: 'app-catalogrecordbase',

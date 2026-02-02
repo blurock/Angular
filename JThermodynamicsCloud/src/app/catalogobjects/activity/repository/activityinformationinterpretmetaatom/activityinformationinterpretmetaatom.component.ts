@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MenuItemComponent } from 'systemprimitives';
-import { CatalogactivitybaseComponent } from '../../../../primitives/catalogactivitybase/catalogactivitybase.component';
+import { CatalogactivitybaseComponent } from 'systemprimitives';
 import { OntologycatalogService } from 'systemprimitives';
 import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
 import { UserinterfaceconstantsService } from 'systemconstants';

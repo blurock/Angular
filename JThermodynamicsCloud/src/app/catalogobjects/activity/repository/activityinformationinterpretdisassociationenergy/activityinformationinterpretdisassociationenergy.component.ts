@@ -7,7 +7,7 @@ import { ParameterspecificationComponent } from '../../../parameterspecification
 import { Ontologyconstants } from 'systemconstants';
 import { NavItem } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
-import { CatalogactivitybaseComponent } from '../../../../primitives/catalogactivitybase/catalogactivitybase.component';
+import { CatalogactivitybaseComponent } from 'systemprimitives';
 import { CommonModule } from '@angular/common';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';

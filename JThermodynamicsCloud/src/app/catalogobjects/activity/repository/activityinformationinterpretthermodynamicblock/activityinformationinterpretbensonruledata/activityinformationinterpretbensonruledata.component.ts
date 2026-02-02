@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import { CatalogactivitybaseComponent } from '../../../../../primitives/catalogactivitybase/catalogactivitybase.component';
+import { CatalogactivitybaseComponent } from 'systemprimitives';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { OntologycatalogService } from 'systemprimitives';
 import { ActivityinformationinterpretthermodynamicblockComponent } from '../activityinformationinterpretthermodynamicblock.component';

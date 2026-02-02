@@ -3,7 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, OnCh
 import { OntologycatalogService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { UserinterfaceconstantsService } from 'systemconstants';
-import { BaseCatalogInterface } from '../basecatalog.interface';
+import { BaseCatalogInterface } from 'systemprimitives';
 
 @Component({
   selector: 'app-catalogbase',
