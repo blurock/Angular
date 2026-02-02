@@ -7,7 +7,7 @@ import { NavItem } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
 import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
 import { MatChipInputEvent } from '@angular/material/chips';
-import {IdentifiersService} from '../../../../const/identifiers.service';
+import {IdentifiersService} from 'systemconstants';
 
 
 @Component({

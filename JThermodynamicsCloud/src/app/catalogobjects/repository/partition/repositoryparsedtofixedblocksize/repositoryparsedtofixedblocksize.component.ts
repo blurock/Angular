@@ -2,7 +2,7 @@ import { Component, ViewChild, Input, ChangeDetectorRef, AfterViewInit, Output, 
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { OntologycatalogService } from 'systemprimitives';
-import { IdentifiersService } from '../../../../const/identifiers.service';
+import { IdentifiersService } from 'systemconstants';
 import { RepositorydatapartitionblockComponent } from '../../repositorydatapartitionblock/repositorydatapartitionblock.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';

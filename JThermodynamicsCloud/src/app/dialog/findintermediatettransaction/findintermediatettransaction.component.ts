@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IdentifiersService } from '../../const/identifiers.service';
+import { IdentifiersService } from 'systemconstants';
 import { Ontologyconstants } from 'systemconstants';
 import { RunserviceprocessService } from 'systemprimitives'
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';

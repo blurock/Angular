@@ -1,11 +1,6 @@
 import { Component, OnInit,ViewChild} from '@angular/core';
 import { UntypedFormBuilder, Validators, FormGroup, FormsModule } from '@angular/forms';
-import { OntologycatalogService } from 'systemprimitives';
-import { Ontologyconstants } from 'systemconstants';
-import { NavItem } from 'systemprimitives';
-import { MenutreeserviceService } from 'systemprimitives';
 import { MatDialog } from '@angular/material/dialog';
-import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
 import {SessiondatamanagementService} from 'systemprimitives';
 import { Router } from '@angular/router';
 import {MatStepperModule} from '@angular/material/stepper'
@@ -13,10 +8,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatGridListModule} from '@angular/material/grid-list'; 
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
-import {MenuItemComponent} from 'systemprimitives';
 import { CommonModule} from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
-import {IdentifiersService} from '../../../const/identifiers.service';
+import {IdentifiersService} from 'systemconstants';
+import { OntologycatalogService } from 'systemprimitives';
+import { Ontologyconstants } from 'systemconstants';
+import { NavItem } from 'systemprimitives';
+import { MenutreeserviceService } from 'systemprimitives';
+import {MenuItemComponent} from 'systemprimitives';
+import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
 
 @Component({
 	selector: 'app-setupuserinformation',

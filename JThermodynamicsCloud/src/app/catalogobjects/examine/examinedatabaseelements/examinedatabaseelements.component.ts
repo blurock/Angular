@@ -6,7 +6,7 @@ import { ManageuserserviceService } from '../../../services/manageuserservice.se
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NavItem } from 'systemprimitives';
-import { IdentifiersService } from '../../../const/identifiers.service';
+import { IdentifiersService } from 'systemconstants';
 import { MenutreeserviceService } from 'systemprimitives';
 import { RundatabaseserviceComponent } from '../../../dialog/rundatabaseservice/rundatabaseservice.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';

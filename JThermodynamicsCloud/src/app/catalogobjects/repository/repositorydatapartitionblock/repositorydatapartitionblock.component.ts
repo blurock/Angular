@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, EventEmitter, Input, Output } from '@angular/core';
 import { Ontologyconstants } from 'systemconstants';
-import { IdentifiersService } from '../../../const/identifiers.service';
+import { IdentifiersService } from 'systemconstants';
 import { NavItem } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
 import { FileformatmanagerService } from '../../../services/fileformatmanager.service';

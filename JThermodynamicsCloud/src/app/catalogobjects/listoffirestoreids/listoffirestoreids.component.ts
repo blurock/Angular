@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input, ViewContainerRef, ComponentRef, AfterViewInit } from '@angular/core';
 import { LoadChildDirective } from '../../directives/load-child.directive';
-import { IdentifiersService } from '../../const/identifiers.service';
+import { IdentifiersService } from 'systemconstants';
 import {FirestorelistelementComponent} from './firestorelistelement/firestorelistelement.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';

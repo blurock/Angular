@@ -1,7 +1,7 @@
 import { Component, ViewChild, Input, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { OntologycatalogService } from 'systemprimitives';
-import { IdentifiersService } from '../../../../const/identifiers.service';
+import { IdentifiersService } from 'systemconstants';
 import { RepositorydatapartitionblockComponent } from '../../repositorydatapartitionblock/repositorydatapartitionblock.component';
 import {RepositorythermopartitionblockComponent} from '../repositorythermopartitionblock/repositorythermopartitionblock.component';
 import { CatalogbaseComponent } from '../../../../primitives/catalogbase/catalogbase.component';

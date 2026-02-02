@@ -8,7 +8,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NavItem } from 'systemprimitives';
-import {IdentifiersService} from '../../../const/identifiers.service';
+import {IdentifiersService} from 'systemconstants';
 
 
 @Component({

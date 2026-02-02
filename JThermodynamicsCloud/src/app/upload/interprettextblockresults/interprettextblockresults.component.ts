@@ -8,7 +8,7 @@ import { RuntransactiondialogComponent } from '../../dialog/runtransactiondialog
 import { ListoffirestoreidsComponent } from '../../catalogobjects/listoffirestoreids/listoffirestoreids.component';
 import { OntologycatalogService } from 'systemprimitives';
 import {FindintermediatettransactionComponent} from '../../dialog/findintermediatettransaction/findintermediatettransaction.component';
-import {IdentifiersService} from '../../const/identifiers.service';
+import {IdentifiersService} from 'systemconstants';
 
 @Component({
   selector: 'app-interprettextblockresults',

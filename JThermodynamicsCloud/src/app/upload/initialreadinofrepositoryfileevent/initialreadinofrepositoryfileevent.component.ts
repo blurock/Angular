@@ -6,7 +6,7 @@ import { ManageuserserviceService } from '../../services/manageuserservice.servi
 import { DatasettransactioneventobjectComponent } from '../../catalogobjects/transaction/datasettransactioneventobject/datasettransactioneventobject.component';
 import { Ontologyconstants } from 'systemconstants';
 import { RuntransactiondialogComponent } from '../../dialog/runtransactiondialog/runtransactiondialog.component';
-import { IdentifiersService } from '../../const/identifiers.service';
+import { IdentifiersService } from 'systemconstants';
 import {RunserviceprocessService} from 'systemprimitives'
 import {FindintermediatettransactionComponent} from '../../dialog/findintermediatettransaction/findintermediatettransaction.component';
 import { OntologycatalogService } from 'systemprimitives';

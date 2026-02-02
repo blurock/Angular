@@ -2,7 +2,7 @@ import { Component, Inject, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SavecatalogdataobjectComponent } from '../savecatalogdataobject/savecatalogdataobject.component';
 import { FiresytorecatalogidComponent } from '../../catalogobjects/firesytorecatalogid/firesytorecatalogid.component';
-import { IdentifiersService } from '../../const/identifiers.service';
+import { IdentifiersService } from 'systemconstants';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTabsModule } from '@angular/material/tabs';

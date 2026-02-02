@@ -1,6 +1,6 @@
 import { Component, Input, AfterViewInit, OnInit, OnChanges, ChangeDetectionStrategy,ChangeDetectorRef  } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IdentifiersService } from '../../const/identifiers.service';
+import { IdentifiersService } from 'systemconstants';
 import { Ontologyconstants } from 'systemconstants';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';

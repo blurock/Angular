@@ -1,6 +1,6 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { UntypedFormArray, UntypedFormGroup, FormGroup, Validators } from '@angular/forms';
-import { IdentifiersService } from '../../const/identifiers.service';
+import { IdentifiersService } from 'systemconstants';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule, AbstractControl, FormBuilder, FormArray } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';

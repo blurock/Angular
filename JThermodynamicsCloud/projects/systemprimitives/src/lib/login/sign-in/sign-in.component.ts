@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'systemprimitives';
+import { AuthService } from '../../services/auth.service';
 import { UntypedFormControl, Validators} from '@angular/forms';
 //import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';

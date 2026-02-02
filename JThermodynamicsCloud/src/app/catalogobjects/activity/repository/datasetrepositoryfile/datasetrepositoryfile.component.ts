@@ -20,7 +20,7 @@ import { FileformatmanagerService } from '../../../../services/fileformatmanager
 import { MenuItemComponent } from 'systemprimitives';
 import { MatMenuModule } from '@angular/material/menu';
 import { MenutreeserviceService } from 'systemprimitives';
-import { IdentifiersService } from '../../../../const/identifiers.service';
+import { IdentifiersService } from 'systemconstants';
 
 @Component({
 	selector: 'app-datasetrepositoryfile',

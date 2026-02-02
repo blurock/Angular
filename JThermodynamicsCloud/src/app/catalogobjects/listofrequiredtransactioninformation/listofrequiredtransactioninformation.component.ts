@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ComponentRef, Input, ViewChild, ViewConta
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { LiistelementrequiredinformationComponent } from './liistelementrequiredinformation/liistelementrequiredinformation.component';
-import { IdentifiersService } from '../../const/identifiers.service';
+import { IdentifiersService } from 'systemconstants';
 import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
 
 @Component({

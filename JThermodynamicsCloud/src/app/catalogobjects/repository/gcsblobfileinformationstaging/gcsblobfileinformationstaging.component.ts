@@ -1,6 +1,6 @@
 import { Input, Component, AfterViewInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { IdentifiersService } from '../../../const/identifiers.service';
+import { IdentifiersService } from 'systemconstants';
 import { Ontologyconstants } from 'systemconstants';
 import { NavItem } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';

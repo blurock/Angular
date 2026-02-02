@@ -3,7 +3,7 @@ import { OntologycatalogService } from 'systemprimitives';
 import { SimpledatabaseobjectstructureComponent } from '../../simpledatabaseobjectstructure/simpledatabaseobjectstructure.component';
 import { DatasetreferenceComponent } from '../../datasetreference/datasetreference.component';
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
-import { IdentifiersService } from '../../../const/identifiers.service';
+import { IdentifiersService } from 'systemconstants';
 import { SetofdataobjectlinksComponent } from '../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
 import { SetofsitereferencesComponent } from '../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';

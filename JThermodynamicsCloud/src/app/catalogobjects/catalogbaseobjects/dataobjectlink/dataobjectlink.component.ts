@@ -1,6 +1,6 @@
 import { Input, Component, OnInit, ViewChild, Output, EventEmitter, AfterViewChecked, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { IdentifiersService } from '../../../const/identifiers.service';
+import { IdentifiersService } from 'systemconstants';
 import { Ontologyconstants } from 'systemconstants';
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
 import { MenutreeserviceService } from 'systemprimitives';

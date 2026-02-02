@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Input, AfterViewInit } from '@angular/cor
 import { LoadchildDirective } from '../loadchild.directive';
 import { ObjectsitereferenceComponent } from '../objectsitereference/objectsitereference.component';
 import { ViewContainerRef, ChangeDetectorRef } from '@angular/core';
-import { IdentifiersService } from '../../../const/identifiers.service';
+import { IdentifiersService } from 'systemconstants';
 import {MatCardModule} from '@angular/material/card'; 
 import {MatIconModule} from '@angular/material/icon'; 
 

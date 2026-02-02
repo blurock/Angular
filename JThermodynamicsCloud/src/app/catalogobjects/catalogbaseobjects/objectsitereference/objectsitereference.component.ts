@@ -1,6 +1,6 @@
 import { Input, Output, Component, OnInit, EventEmitter,SimpleChanges } from '@angular/core';
 import { FormArray, UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms';
-import { IdentifiersService } from '../../../const/identifiers.service';
+import { IdentifiersService } from 'systemconstants';
 import { Ontologyconstants } from 'systemconstants';
 import { MenutreeserviceService } from 'systemprimitives';
 import { NavItem }  from 'systemprimitives';
