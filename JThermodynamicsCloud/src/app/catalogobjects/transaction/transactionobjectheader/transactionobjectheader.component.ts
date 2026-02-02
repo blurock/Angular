@@ -14,7 +14,7 @@ import { Ontologyconstants } from 'systemconstants';
 import { OntologycatalogService } from 'systemprimitives';
 import { FindspecifictransactionindatasetComponent } from '../../../dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
 import { MenutreeserviceService } from 'systemprimitives';
-import { ManageuserserviceService } from '../../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 
 @Component({
 	selector: 'app-transactionobjectheader',

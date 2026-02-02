@@ -10,7 +10,7 @@ import { DatasetreferenceComponent } from '../../catalogobjects/datasetreference
 import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IdentifiersService } from 'systemconstants';
 import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
-import { ManageuserserviceService } from '../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { ActivityrepositorypartitiontocatalogComponent } from '../../catalogobjects/activity/repository/activityrepositorypartitiontocatalog/activityrepositorypartitiontocatalog.component';
 import { RuntransactiondialogComponent } from 'systemprimitives';
 

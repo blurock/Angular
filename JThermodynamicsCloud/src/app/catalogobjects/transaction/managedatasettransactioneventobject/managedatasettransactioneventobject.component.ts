@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewContainerRef, ComponentRef, ViewChild, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ManageuserserviceService } from '../../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';

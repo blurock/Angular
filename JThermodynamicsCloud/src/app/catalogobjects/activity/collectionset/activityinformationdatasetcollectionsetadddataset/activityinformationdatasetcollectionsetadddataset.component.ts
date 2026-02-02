@@ -4,7 +4,7 @@ import { Ontologyconstants } from 'systemconstants';
 import { MenutreeserviceService } from 'systemprimitives';
 import { NavItem } from 'systemprimitives';;
 import {DatasetcollectionsetrecordidinfoComponent} from '../datasetcollectionsetrecordidinfo/datasetcollectionsetrecordidinfo.component';
-import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import {DatasetspecificationforcollectionsetComponent} from '../../../datasetcollection/datasetspecificationforcollectionset/datasetspecificationforcollectionset.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';

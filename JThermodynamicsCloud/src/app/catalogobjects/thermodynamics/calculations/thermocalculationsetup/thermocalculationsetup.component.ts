@@ -5,7 +5,7 @@ import { Ontologyconstants } from 'systemconstants';
 import { OntologycatalogService } from 'systemprimitives';
 import { NavItem } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
-import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { MatChipInputEvent } from '@angular/material/chips';
 import {IdentifiersService} from 'systemconstants';
 

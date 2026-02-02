@@ -25,3 +25,4 @@ export * from './lib/dialog/savecatalogdataobjectdialog/savecatalogdataobjectdia
 export * from './lib/dialog/visualizefile/visualizefile.component' 
 export * from  './lib/basecomponents/catalogactivitybase/catalogactivitybase.component'
 export * from './lib/basecomponents/basecatalog.interface'
+export * from './lib/services/manageuserservice.service'

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from 'systemconstants';
 import {DatasetcollectionsetrecordidinfoComponent} from '../datasetcollectionsetrecordidinfo/datasetcollectionsetrecordidinfo.component';
-import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import {DatasetspecificationforcollectionsetComponent} from '../../../datasetcollection/datasetspecificationforcollectionset/datasetspecificationforcollectionset.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';

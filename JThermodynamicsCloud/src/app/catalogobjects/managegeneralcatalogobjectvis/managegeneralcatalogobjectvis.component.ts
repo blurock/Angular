@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Type, ViewChild, ComponentFactoryResolver, ViewContainerRef, ComponentRef } from '@angular/core';
 import { FetchcatalogobjectComponent } from 'systemprimitives';
 import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
-import { ManageuserserviceService } from '../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { SavecatalogdataobjectdialogComponent } from 'systemprimitives';
 import { GeneralcatalogobjectvisualizationComponent } from '../generalcatalogobjectvisualization/generalcatalogobjectvisualization.component'

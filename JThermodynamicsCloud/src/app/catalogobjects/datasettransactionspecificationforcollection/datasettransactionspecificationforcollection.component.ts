@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from 'systemconstants';
-import { ManageuserserviceService } from '../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
 import { NavItem } from 'systemprimitives';
 import { MatCardModule } from '@angular/material/card';

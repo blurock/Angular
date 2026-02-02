@@ -4,7 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FetchcatalogobjectComponent } from 'systemprimitives';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { SavecatalogdataobjectdialogComponent } from 'systemprimitives';
-import { ManageuserserviceService } from '../../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';

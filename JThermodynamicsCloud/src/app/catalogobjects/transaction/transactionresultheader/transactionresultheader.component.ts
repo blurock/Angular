@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { Ontologyconstants } from 'systemconstants';
 import { RuntransactiondialogComponent } from 'systemprimitives';
-import { ManageuserserviceService } from '../../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { FindspecifictransactionindatasetComponent } from '../../../dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
 import { OntologycatalogService } from 'systemprimitives';
 

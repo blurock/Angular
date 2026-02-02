@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
-import { SessiondatamanagementService } from 'systemprimitives';
-import { RunserviceprocessService } from 'systemprimitives'
+import { SessiondatamanagementService } from './sessiondatamanagement.service';
+import { RunserviceprocessService } from './runserviceprocess.service'
 import { Ontologyconstants } from 'systemconstants';
 
 @Injectable({

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from 'systemconstants';
-import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';

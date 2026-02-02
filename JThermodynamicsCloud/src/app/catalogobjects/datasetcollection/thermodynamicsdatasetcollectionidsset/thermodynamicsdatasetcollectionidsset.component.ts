@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Ontologyconstants } from 'systemconstants';
-import { ManageuserserviceService } from '../../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { DatasetspecificationforcollectionsetComponent } from '../datasetspecificationforcollectionset/datasetspecificationforcollectionset.component';
 import { OntologycatalogService } from 'systemprimitives';
 import {ChemconnectdatasetcollectionidssetComponent} from '../chemconnectdatasetcollectionidsset/chemconnectdatasetcollectionidsset.component';

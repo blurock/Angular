@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { Ontologyconstants } from 'systemconstants';
-import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { OntologycatalogService } from 'systemprimitives';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { RepositorydatapartitionblockComponent } from '../repositorydatapartitionblock/repositorydatapartitionblock.component';
 import { FetchcatalogobjectComponent } from 'systemprimitives';
 import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
-import { ManageuserserviceService } from '../../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { RepositoryparsedtofixedblocksizeComponent } from '../partition/repositoryparsedtofixedblocksize/repositoryparsedtofixedblocksize.component';
 import { RepositorythergasthermodynamicsblockComponent } from '../partition/repositorythergasthermodynamicsblock/repositorythergasthermodynamicsblock.component';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';

@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { OntologycatalogService } from 'systemprimitives';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ManageuserserviceService } from '../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { ActivityinformationComponent } from '../../catalogobjects/transaction/activityinformation/activityinformation.component';
 import { FetchcatalogobjectComponent } from 'systemprimitives';
 import { RuntransactiondialogComponent } from 'systemprimitives';

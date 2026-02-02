@@ -3,7 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { Ontologyconstants } from 'systemconstants';
 import { RunserviceprocessService } from 'systemprimitives'
-import { ManageuserserviceService } from '../../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { RequiredtransactionblockComponent } from './requiredtransactionblock/requiredtransactionblock.component';
 
 @Component({

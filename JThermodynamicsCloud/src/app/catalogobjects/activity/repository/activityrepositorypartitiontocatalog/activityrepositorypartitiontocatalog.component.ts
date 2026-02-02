@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ManageuserserviceService } from '../../../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { OntologycatalogService } from 'systemprimitives';
 import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
 import { CommonModule } from '@angular/common';

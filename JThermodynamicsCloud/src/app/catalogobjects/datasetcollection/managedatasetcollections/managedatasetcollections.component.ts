@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
 import { Ontologyconstants } from 'systemconstants';
-import { ManageuserserviceService } from '../../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { CreatenewdatasetcollectionComponent } from '../createnewdatasetcollection/createnewdatasetcollection.component';
 import { ModifydatasetcollectionidsComponent } from '../modifydatasetcollectionids/modifydatasetcollectionids.component';
 import { VisualizedatasetcollectionidsComponent } from '../visualizedatasetcollectionids/visualizedatasetcollectionids.component';

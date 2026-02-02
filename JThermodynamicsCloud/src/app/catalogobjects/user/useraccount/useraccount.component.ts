@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Output, EventEmitter, AfterViewInit, Chan
 import { OntologycatalogService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { UntypedFormBuilder, Validators, FormsModule } from '@angular/forms';
-import { ManageuserserviceService } from '../../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
 import { NavItem } from 'systemprimitives';
 import { SimpledatabaseobjectstructureComponent } from '../../simpledatabaseobjectstructure/simpledatabaseobjectstructure.component';

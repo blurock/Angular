@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { ManageuserserviceService } from '../../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
 import { NavItem } from 'systemprimitives';
 import { DatasetreferenceComponent } from '../../datasetreference/datasetreference.component';

@@ -5,7 +5,7 @@ import { FindspecifictransactionindatasetComponent } from '../../dialog/findspec
 import { Ontologyconstants } from 'systemconstants';
 import { MatDialog } from '@angular/material/dialog';
 import { UploadmenuserviceService } from '../../services/uploadmenuservice.service';
-import { ManageuserserviceService } from '../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { RuntransactiondialogComponent } from 'systemprimitives';
 import { ListoffirestoreidsComponent } from '../../catalogobjects/listoffirestoreids/listoffirestoreids.component';
 import { OntologycatalogService } from 'systemprimitives';

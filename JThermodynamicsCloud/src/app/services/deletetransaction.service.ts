@@ -4,7 +4,7 @@ import { RuntransactiondialogComponent } from 'systemprimitives';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { UserinterfaceconstantsService } from 'systemconstants';
-import { ManageuserserviceService } from './manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { Observable, firstValueFrom } from 'rxjs';
 
 @Injectable({
