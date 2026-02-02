@@ -3,7 +3,7 @@ import { Ontologyconstants } from 'systemconstants';
 import { IdentifiersService } from 'systemconstants';
 import { NavItem } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
-import { FileformatmanagerService } from '../../../services/fileformatmanager.service';
+import { FileformatmanagerService } from 'systemprimitives';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';

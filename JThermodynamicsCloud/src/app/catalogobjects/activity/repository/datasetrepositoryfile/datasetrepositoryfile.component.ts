@@ -1,12 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { SetofdataobjectlinksComponent } from '../../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
-import { SetofsitereferencesComponent } from '../../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
-import { DatasetreferenceComponent } from '../../../datasetreference/datasetreference.component';
-import { KeywordlistprimitiveComponent } from '../../../../primitives/keywordlistprimitive/keywordlistprimitive.component';
-import { Ontologyconstants } from 'systemconstants';
-import { NavItem } from 'systemprimitives';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -14,13 +8,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { UserinterfaceconstantsService } from 'systemconstants';
-import { SpecificationfordatasetComponent } from 'systemprimitives';
-import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
-import { MenuItemComponent } from 'systemprimitives';
 import { MatMenuModule } from '@angular/material/menu';
-import { MenutreeserviceService } from 'systemprimitives';
 import { IdentifiersService } from 'systemconstants';
+import { Ontologyconstants } from 'systemconstants';
+import { UserinterfaceconstantsService } from 'systemconstants';
+import { NavItem } from 'systemprimitives';
+import { MenuItemComponent } from 'systemprimitives';
+import { MenutreeserviceService } from 'systemprimitives';
+import { SpecificationfordatasetComponent } from 'systemprimitives';
+import { FileformatmanagerService } from 'systemprimitives';
+import { SetofdataobjectlinksComponent } from '../../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
+import { SetofsitereferencesComponent } from '../../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
+import { DatasetreferenceComponent } from '../../../datasetreference/datasetreference.component';
+import { KeywordlistprimitiveComponent } from '../../../../primitives/keywordlistprimitive/keywordlistprimitive.component';
 
 @Component({
 	selector: 'app-datasetrepositoryfile',

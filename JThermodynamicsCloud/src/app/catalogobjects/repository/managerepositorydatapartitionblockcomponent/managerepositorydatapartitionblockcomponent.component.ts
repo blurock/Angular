@@ -14,7 +14,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgIf } from '@angular/common';
-import { FileformatmanagerService } from '../../../services/fileformatmanager.service';
+import { FileformatmanagerService } from 'systemprimitives';
 
 @Component({
 	selector: 'app-managerepositorydatapartitionblockcomponent',

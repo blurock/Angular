@@ -12,7 +12,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MenuItemComponent } from 'systemprimitives';
 import { MatInputModule } from '@angular/material/input';
-import { FileformatmanagerService } from '../../../services/fileformatmanager.service';
+import { FileformatmanagerService } from 'systemprimitives';
 
 @Component({
 	selector: 'app-gcsblobfileinformationstaging',

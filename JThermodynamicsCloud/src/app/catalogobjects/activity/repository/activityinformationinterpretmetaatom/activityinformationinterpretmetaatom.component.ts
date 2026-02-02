@@ -10,7 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MenuItemComponent } from 'systemprimitives';
 import { CatalogactivitybaseComponent } from 'systemprimitives';
 import { OntologycatalogService } from 'systemprimitives';
-import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
+import { FileformatmanagerService } from 'systemprimitives';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { MatCardModule } from '@angular/material/card';
 import { SpecificationfordatasetComponent } from 'systemprimitives';

@@ -11,7 +11,7 @@ import { SpecificationfordatasetComponent } from 'systemprimitives';
 import { CatalogactivitybaseComponent } from 'systemprimitives';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { OntologycatalogService } from 'systemprimitives';
-import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
+import { FileformatmanagerService } from 'systemprimitives';
 
 @Component({
 	selector: 'app-activityinformationinterpretsymmetryinformation',

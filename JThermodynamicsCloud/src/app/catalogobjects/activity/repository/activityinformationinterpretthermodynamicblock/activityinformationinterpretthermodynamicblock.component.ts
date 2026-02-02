@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SpecificationfordatasetComponent } from 'systemprimitives';
 import { MatCardModule } from '@angular/material/card';
-import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
+import { FileformatmanagerService } from 'systemprimitives';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { KeywordlistprimitiveComponent } from '../../../../primitives/keywordlistprimitive/keywordlistprimitive.component';

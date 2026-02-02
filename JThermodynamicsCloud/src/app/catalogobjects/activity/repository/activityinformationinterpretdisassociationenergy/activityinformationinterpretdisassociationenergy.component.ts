@@ -10,7 +10,7 @@ import { MenutreeserviceService } from 'systemprimitives';
 import { CatalogactivitybaseComponent } from 'systemprimitives';
 import { CommonModule } from '@angular/common';
 import { UserinterfaceconstantsService } from 'systemconstants';
-import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
+import { FileformatmanagerService } from 'systemprimitives';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';

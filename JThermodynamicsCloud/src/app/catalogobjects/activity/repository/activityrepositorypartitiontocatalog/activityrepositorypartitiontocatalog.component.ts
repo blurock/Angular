@@ -11,7 +11,7 @@ import { UserinterfaceconstantsService } from 'systemconstants';
 import { MatInputModule } from '@angular/material/input';
 import { SpecificationfordatasetComponent } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
-import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
+import { FileformatmanagerService } from 'systemprimitives';
 
 
 @Component({

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { FormGroup} from '@angular/forms';
 import { Ontologyconstants } from 'systemconstants';
-import { NavItem } from 'systemprimitives';
+import { NavItem } from '../nav-item';
 
 @Injectable({
   providedIn: 'root'

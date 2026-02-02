@@ -27,3 +27,4 @@ export * from  './lib/basecomponents/catalogactivitybase/catalogactivitybase.com
 export * from './lib/basecomponents/basecatalog.interface'
 export * from './lib/services/manageuserservice.service'
 export * from './lib/catalogbase/specificationfordataset/specificationfordataset.component'  
+export * from './lib/services/fileformatmanager.service'

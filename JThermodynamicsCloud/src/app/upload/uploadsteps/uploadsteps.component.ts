@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { ManagedatasettransactioneventobjectComponent } from '../../catalogobjects/transaction/managedatasettransactioneventobject/managedatasettransactioneventobject.component';
 import { DomSanitizer } from '@angular/platform-browser';
-import { FileformatmanagerService } from '../../services/fileformatmanager.service';
+import { FileformatmanagerService } from 'systemprimitives';
 
 @Component({
 	selector: 'app-uploadsteps',
