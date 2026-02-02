@@ -2,7 +2,7 @@ import { Component, ChangeDetectorRef, AfterViewInit, ViewChild, OnChanges, Simp
 import { CommonModule } from '@angular/common';
 import { SimpledatabaseobjectstructureComponent } from '../../simpledatabaseobjectstructure/simpledatabaseobjectstructure.component';
 import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
-import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 import { OntologycatalogService } from 'systemprimitives';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { ListoffirestoreidsComponent } from '../../listoffirestoreids/listoffirestoreids.component';

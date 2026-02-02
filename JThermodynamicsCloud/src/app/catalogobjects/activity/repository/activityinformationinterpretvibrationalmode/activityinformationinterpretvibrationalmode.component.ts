@@ -15,7 +15,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { CatalogactivitybaseComponent } from '../../../../primitives/catalogactivitybase/catalogactivitybase.component';
-import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
 
 @Component({

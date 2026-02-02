@@ -9,7 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MenuItemComponent } from 'systemprimitives';
 import { CatalogactivitybaseComponent } from '../../../../../primitives/catalogactivitybase/catalogactivitybase.component';
 import { NavItem } from 'systemprimitives';
-import { UserinterfaceconstantsService } from '../../../../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 import { OntologycatalogService } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';

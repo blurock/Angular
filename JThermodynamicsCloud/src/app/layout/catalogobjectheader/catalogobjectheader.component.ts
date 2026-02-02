@@ -9,7 +9,7 @@ import { ViewandlocalfilesavecatalogobjectService } from '../../services/data/vi
 import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
 import { SavecatalogdataobjectdialogComponent } from '../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
 import { Ontologyconstants } from 'systemconstants';
-import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 import { OntologycatalogService } from 'systemprimitives';
 import { NavItem } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';

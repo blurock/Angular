@@ -16,7 +16,7 @@ import { ContactlocationinformationComponent } from '../../contactlocationinform
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import {ChemconnectdatastructureComponent} from '../../chemconnectdatastructure/chemconnectdatastructure.component';
 import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
-import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 
 @Component({
 	selector: 'app-databaseperson',

@@ -11,7 +11,7 @@ import { MenuItemComponent } from 'systemprimitives';
 import { CatalogactivitybaseComponent } from '../../../../primitives/catalogactivitybase/catalogactivitybase.component';
 import { OntologycatalogService } from 'systemprimitives';
 import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
-import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 import { MatCardModule } from '@angular/material/card';
 import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
 

@@ -4,7 +4,7 @@ import { ChemconnectthermodynamicsdatabaseComponent } from '../chemconnectthermo
 import { Jthermodynamics2dspeciesstructureComponent } from '../jthermodynamics2dspeciesstructure/jthermodynamics2dspeciesstructure.component';
 import { NavItem } from 'systemprimitives';
 import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
-import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';

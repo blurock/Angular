@@ -9,7 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { FiresytorecatalogidComponent } from '../firesytorecatalogid/firesytorecatalogid.component';
-import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({

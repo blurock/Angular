@@ -15,7 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { MenuItemComponent } from 'systemprimitives';
 import { MatIconModule } from '@angular/material/icon';
-import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 
 
 @Component({

@@ -8,7 +8,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatInput } from '@angular/material/input';
-import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 
 @Component({
 	selector: 'app-specificationfordataset',

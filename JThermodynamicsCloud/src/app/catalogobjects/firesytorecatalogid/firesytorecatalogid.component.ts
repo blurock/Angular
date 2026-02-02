@@ -10,7 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 
 interface addresspair {
 	DatasetCollectionID: string;

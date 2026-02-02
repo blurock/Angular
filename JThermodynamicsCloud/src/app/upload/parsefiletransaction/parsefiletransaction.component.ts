@@ -6,7 +6,7 @@ import { Ontologyconstants } from 'systemconstants';
 import { MatDialog } from '@angular/material/dialog';
 import { UploadmenuserviceService } from '../../services/uploadmenuservice.service';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
-import { RuntransactiondialogComponent } from '../../dialog/runtransactiondialog/runtransactiondialog.component';
+import { RuntransactiondialogComponent } from 'systemprimitives';
 import { ListoffirestoreidsComponent } from '../../catalogobjects/listoffirestoreids/listoffirestoreids.component';
 import { OntologycatalogService } from 'systemprimitives';
 import {FindintermediatettransactionComponent} from '../../dialog/findintermediatettransaction/findintermediatettransaction.component';

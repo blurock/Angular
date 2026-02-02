@@ -14,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
 import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
 import { MenuItemComponent } from 'systemprimitives';

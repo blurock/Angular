@@ -3,7 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { Ontologyconstants } from 'systemconstants';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
-import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 import { NgIf } from '@angular/common';
 
 @Component({

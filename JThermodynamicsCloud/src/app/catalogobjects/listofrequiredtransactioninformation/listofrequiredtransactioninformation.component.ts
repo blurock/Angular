@@ -3,7 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { LiistelementrequiredinformationComponent } from './liistelementrequiredinformation/liistelementrequiredinformation.component';
 import { IdentifiersService } from 'systemconstants';
-import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 
 @Component({
   selector: 'app-listofrequiredtransactioninformation',

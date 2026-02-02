@@ -6,7 +6,7 @@ import { Jthermodynamics2dspeciesstructureComponent } from '../jthermodynamics2d
 import { MatCardModule } from '@angular/material/card';
 import { NgIf } from '@angular/common';
 import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
-import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 import { Ontologyconstants } from 'systemconstants';
 
 @Component({

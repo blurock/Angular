@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Ontologyconstants } from 'systemconstants';
-import { RuntransactiondialogComponent } from '../dialog/runtransactiondialog/runtransactiondialog.component';
+import { RuntransactiondialogComponent } from 'systemprimitives';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { UserinterfaceconstantsService } from '../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 import { ManageuserserviceService } from './manageuserservice.service';
 import { Observable, firstValueFrom } from 'rxjs';
 

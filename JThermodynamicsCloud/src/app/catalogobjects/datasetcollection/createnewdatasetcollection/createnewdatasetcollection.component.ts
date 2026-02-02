@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, EventEmitter, Input, Output } from '@angu
 import { Ontologyconstants } from 'systemconstants';
 import { ActivityinformationdatasetcollectionsetcreationComponent } from '../../activity/collectionset/activityinformationdatasetcollectionsetcreation/activityinformationdatasetcollectionsetcreation.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
+import { RuntransactiondialogComponent } from 'systemprimitives';
 import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { MatCardModule } from '@angular/material/card';

@@ -4,7 +4,7 @@ import { Ontologyconstants } from 'systemconstants';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { RunserviceprocessService } from 'systemprimitives'
 import { TransactioncatalogobjectlistComponent } from '../../transaction/transactioncatalogobjectlist/transactioncatalogobjectlist.component';
-import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 
 @Component({
 	selector: 'app-managerdfcatalogidelelements',

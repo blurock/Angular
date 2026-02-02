@@ -5,7 +5,7 @@ import { IdentifiersService } from 'systemconstants';
 import { RepositorydatapartitionblockComponent } from '../../repositorydatapartitionblock/repositorydatapartitionblock.component';
 import {RepositorythermopartitionblockComponent} from '../repositorythermopartitionblock/repositorythermopartitionblock.component';
 import { CatalogbaseComponent } from '../../../../primitives/catalogbase/catalogbase.component';
-import { UserinterfaceconstantsService } from '../../../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 import { MatCardModule } from '@angular/material/card';
 import { Ontologyconstants } from 'systemconstants';
 

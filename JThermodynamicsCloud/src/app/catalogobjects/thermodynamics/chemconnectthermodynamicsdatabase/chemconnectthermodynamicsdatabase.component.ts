@@ -17,7 +17,7 @@ import { NgIf } from '@angular/common';
 import { MenuItemComponent } from 'systemprimitives';
 import { MatMenuModule } from '@angular/material/menu';
 import { SpecificationfordatasetComponent } from '../../specificationfordataset/specificationfordataset.component';
-import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 
 
 @Component({

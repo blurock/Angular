@@ -5,7 +5,7 @@ import { JthermodynamicsbensonrulestructureComponent } from '../jthermodynamicsb
 import { JthermodynamicstandardthermodynamicsComponent } from '../jthermodynamicstandardthermodynamics/jthermodynamicstandardthermodynamics.component';
 import { MatCardModule } from '@angular/material/card';
 import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
-import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 import { NgIf } from '@angular/common';
 import { Ontologyconstants } from 'systemconstants';
 @Component({

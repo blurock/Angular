@@ -16,7 +16,7 @@ import { Ontologyconstants } from 'systemconstants';
 import { NavItem } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
 import {MenuItemComponent} from 'systemprimitives';
-import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
+import { RuntransactiondialogComponent } from 'systemprimitives';
 
 @Component({
 	selector: 'app-setupuserinformation',

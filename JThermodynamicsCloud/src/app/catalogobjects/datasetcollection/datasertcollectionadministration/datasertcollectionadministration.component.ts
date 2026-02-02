@@ -5,7 +5,7 @@ import { OntologycatalogService } from 'systemprimitives';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { ThermodynamicsdatasetcollectionidssetComponent } from '../../datasetcollection/thermodynamicsdatasetcollectionidsset/thermodynamicsdatasetcollectionidsset.component';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
+import { RuntransactiondialogComponent } from 'systemprimitives';
 import { MatDialog } from '@angular/material/dialog';
 import { NavItem } from 'systemprimitives';
 import {IdentifiersService} from 'systemconstants';

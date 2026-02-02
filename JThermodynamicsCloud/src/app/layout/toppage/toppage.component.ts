@@ -6,7 +6,7 @@ import { SessiondatamanagementService } from 'systemprimitives';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ApplicationcardsComponent } from '../applicationcards/applicationcards.component';
 import { MatDividerModule } from '@angular/material/divider';
-import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 import {CatalogobjectheaderComponent} from '../catalogobjectheader/catalogobjectheader.component';
 
 @Component({

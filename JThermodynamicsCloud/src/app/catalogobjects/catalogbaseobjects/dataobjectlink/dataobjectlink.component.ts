@@ -13,7 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MenuItemComponent } from 'systemprimitives';
 import { MatInputModule } from '@angular/material/input';
-import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 

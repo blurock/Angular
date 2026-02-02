@@ -1,6 +1,6 @@
 import { Component, ComponentRef, EventEmitter, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { UserinterfaceconstantsService } from '../../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 import { Ontologyconstants } from 'systemconstants';
 import { RunserviceprocessService } from 'systemprimitives'
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';

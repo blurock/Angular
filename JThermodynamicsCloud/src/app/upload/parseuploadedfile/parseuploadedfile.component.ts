@@ -12,7 +12,7 @@ import { IdentifiersService } from 'systemconstants';
 import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
 import { ActivityrepositorypartitiontocatalogComponent } from '../../catalogobjects/activity/repository/activityrepositorypartitiontocatalog/activityrepositorypartitiontocatalog.component';
-import { RuntransactiondialogComponent } from '../../dialog/runtransactiondialog/runtransactiondialog.component';
+import { RuntransactiondialogComponent } from 'systemprimitives';
 
 @Component({
 	selector: 'app-parseuploadedfile',

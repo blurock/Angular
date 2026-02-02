@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
 import { DatasettransactioneventobjectComponent } from '../../catalogobjects/transaction/datasettransactioneventobject/datasettransactioneventobject.component';
 import { Ontologyconstants } from 'systemconstants';
-import { RuntransactiondialogComponent } from '../../dialog/runtransactiondialog/runtransactiondialog.component';
+import { RuntransactiondialogComponent } from 'systemprimitives';
 import { IdentifiersService } from 'systemconstants';
 import {RunserviceprocessService} from 'systemprimitives'
 import {FindintermediatettransactionComponent} from '../../dialog/findintermediatettransaction/findintermediatettransaction.component';

@@ -5,7 +5,7 @@ import { Ontologyconstants } from 'systemconstants';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { UserinterfaceconstantsService } from '../../const/userinterfaceconstants.service';
+import { UserinterfaceconstantsService } from 'systemconstants';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { ManagedatasettransactioneventobjectComponent } from '../../catalogobjects/transaction/managedatasettransactioneventobject/managedatasettransactioneventobject.component';
