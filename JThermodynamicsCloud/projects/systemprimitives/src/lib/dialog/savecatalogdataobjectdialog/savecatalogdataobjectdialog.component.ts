@@ -1,23 +1,23 @@
 import { Component, Inject, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SavecatalogdataobjectComponent } from '../savecatalogdataobject/savecatalogdataobject.component';
-import { FiresytorecatalogidComponent } from 'systemprimitives';
-import { IdentifiersService } from 'systemconstants';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { diff } from 'json-diff-ts';
-import { Ontologyconstants } from 'systemconstants';
-import { CreatedateserviceService } from 'systemprimitives';
-import { MenutreeserviceService } from 'systemprimitives';
-import { NavItem } from 'systemprimitives';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MenuItemComponent } from 'systemprimitives';
 import { MatMenuModule } from '@angular/material/menu';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { RuntransactionService } from 'systemprimitives';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
+import { IdentifiersService } from 'systemconstants';
+import { Ontologyconstants } from 'systemconstants';
+import { SavecatalogdataobjectComponent } from '../savecatalogdataobject/savecatalogdataobject.component';
+import { FiresytorecatalogidComponent } from '../../basecomponents/firesytorecatalogid/firesytorecatalogid.component';
+import { CreatedateserviceService } from '../../services/createdateservice.service';
+import { MenutreeserviceService } from '../../services/menutreeservice.service';
+import { NavItem } from '../../nav-item';
+import { MenuItemComponent } from '../../menu-item/menu-item.component';
+import { RuntransactionService } from '../../services/runtransaction.service';
 
 @Component({
 	selector: 'app-savecatalogdataobjectdialog',

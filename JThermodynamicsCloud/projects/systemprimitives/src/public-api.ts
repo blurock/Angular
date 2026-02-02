@@ -20,3 +20,5 @@ export * from './lib/tokens'
 export * from './lib/dialog/fetchcatalogobject/fetchcatalogobject.component'
 export * from './lib/basecomponents/firesytorecatalogid/firesytorecatalogid.component';
 export * from './lib/services/createdateservice.service'
+export * from './lib/dialog/savecatalogdataobject/savecatalogdataobject.component'
+export * from './lib/dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component'

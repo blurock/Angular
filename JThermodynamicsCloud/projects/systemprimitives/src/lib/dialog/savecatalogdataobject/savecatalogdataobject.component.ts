@@ -1,9 +1,10 @@
 import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SavecatalogdataobjectdialogComponent } from '../savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
-import { OntologycatalogService } from 'systemprimitives';
+import { MatDialog } from '@angular/material/dialog';
+import { OntologycatalogService } from '../../services/ontologycatalog.service';
 import { IdentifiersService } from 'systemconstants';
 import { Ontologyconstants } from 'systemconstants';
+import { SavecatalogdataobjectdialogComponent } from '../savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
+
 @Component({
 	selector: 'app-savecatalogdataobject',
 	templateUrl: './savecatalogdataobject.component.html',
