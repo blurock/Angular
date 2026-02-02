@@ -4,7 +4,7 @@ import { ManageuserserviceService } from '../../../services/manageuserservice.se
 import { MenutreeserviceService } from 'systemprimitives';
 import { NavItem } from 'systemprimitives';
 import { DatasetreferenceComponent } from '../../datasetreference/datasetreference.component';
-import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
+import { FiresytorecatalogidComponent } from 'systemprimitives';
 import { SetofdataobjectlinksComponent } from '../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
 import { SetofsitereferencesComponent } from '../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
 import { Ontologyconstants } from 'systemconstants';

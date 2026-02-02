@@ -65,7 +65,6 @@ export class UseraccountComponent implements OnInit, AfterViewInit {
 	@Output() annoReady = new EventEmitter<any>();
 
 	@ViewChild('description') description!: DatadatadescriptionComponent;
-	//@ViewChild('firestoreid') firestoreid!: FiresytorecatalogidComponent;
 	@ViewChild('simpledata') simpledata!: SimpledatabaseobjectstructureComponent;
 
 	setUserAccountRole($event: String) {

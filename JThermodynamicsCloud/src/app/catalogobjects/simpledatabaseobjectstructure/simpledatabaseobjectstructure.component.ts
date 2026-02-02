@@ -8,7 +8,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
-import { FiresytorecatalogidComponent } from '../firesytorecatalogid/firesytorecatalogid.component';
+import { FiresytorecatalogidComponent } from 'systemprimitives';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { MatIconModule } from '@angular/material/icon';
 

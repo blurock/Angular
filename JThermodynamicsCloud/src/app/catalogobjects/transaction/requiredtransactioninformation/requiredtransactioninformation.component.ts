@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormGroup, FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { Ontologyconstants } from 'systemconstants';
-import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
+import { FiresytorecatalogidComponent } from 'systemprimitives';
 import { NgIf } from '@angular/common';
 
 @Component({

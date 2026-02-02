@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { OntologycatalogService } from 'systemprimitives';
 import { SimpledatabaseobjectstructureComponent } from '../../simpledatabaseobjectstructure/simpledatabaseobjectstructure.component';
 import { DatasetreferenceComponent } from '../../datasetreference/datasetreference.component';
-import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
+import { FiresytorecatalogidComponent } from 'systemprimitives';
 import { IdentifiersService } from 'systemconstants';
 import { SetofdataobjectlinksComponent } from '../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
 import { SetofsitereferencesComponent } from '../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';

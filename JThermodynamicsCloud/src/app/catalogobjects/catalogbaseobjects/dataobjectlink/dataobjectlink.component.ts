@@ -2,7 +2,7 @@ import { Input, Component, OnInit, ViewChild, Output, EventEmitter, AfterViewChe
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { IdentifiersService } from 'systemconstants';
 import { Ontologyconstants } from 'systemconstants';
-import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
+import { FiresytorecatalogidComponent } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
 import { NavItem } from 'systemprimitives';
 import { MatFormFieldModule } from '@angular/material/form-field';

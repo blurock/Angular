@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, EventEmitter, Input, Output } from '@angu
 import { Ontologyconstants } from 'systemconstants';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { RuntransactiondialogComponent } from 'systemprimitives';
-import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
+import { FiresytorecatalogidComponent } from 'systemprimitives';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { OntologycatalogService } from 'systemprimitives';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';

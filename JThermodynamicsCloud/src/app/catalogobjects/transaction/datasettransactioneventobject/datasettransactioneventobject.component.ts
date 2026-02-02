@@ -3,7 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { OntologycatalogService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
-import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
+import { FiresytorecatalogidComponent } from 'systemprimitives';
 import { DatasettransactionspecificationforcollectionComponent } from '../../datasettransactionspecificationforcollection/datasettransactionspecificationforcollection.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ActivityinformationComponent } from '../activityinformation/activityinformation.component';

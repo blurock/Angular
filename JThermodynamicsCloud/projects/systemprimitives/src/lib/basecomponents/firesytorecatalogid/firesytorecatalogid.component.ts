@@ -1,23 +1,23 @@
-import { Component, Input, AfterViewInit, OnInit, OnChanges, ChangeDetectionStrategy,ChangeDetectorRef  } from '@angular/core';
+import { Component, Input, AfterViewInit, OnInit, ChangeDetectorRef  } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IdentifiersService } from 'systemconstants';
-import { Ontologyconstants } from 'systemconstants';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
-//import {MenuItemComponent} from '../../primitives/menu-item/menu-item.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { UserinterfaceconstantsService } from 'systemconstants';
+import { IdentifiersService } from 'systemconstants';
+import { Ontologyconstants } from 'systemconstants';
 
+/*
 interface addresspair {
 	DatasetCollectionID: string;
 	DatasetDocumentID: string;
 	DatasetIDLevel: string;
 }
-
+*/
 @Component({
 	selector: 'app-firesytorecatalogid',
 	templateUrl: './firesytorecatalogid.component.html',

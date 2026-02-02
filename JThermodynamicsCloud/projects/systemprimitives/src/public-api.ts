@@ -18,4 +18,5 @@ export * from './lib/login/sign-in/sign-in.component'
 export * from './lib/dialog/runtransactiondialog/runtransactiondialog.component'
 export * from './lib/tokens'
 export * from './lib/dialog/fetchcatalogobject/fetchcatalogobject.component'
+export * from './lib/basecomponents/firesytorecatalogid/firesytorecatalogid.component';
 
