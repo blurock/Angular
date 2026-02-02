@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { UserinterfaceconstantsService } from 'systemconstants';
-import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
+import { SpecificationfordatasetComponent } from 'systemprimitives';
 import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
 import { MenuItemComponent } from 'systemprimitives';
 import { MatMenuModule } from '@angular/material/menu';

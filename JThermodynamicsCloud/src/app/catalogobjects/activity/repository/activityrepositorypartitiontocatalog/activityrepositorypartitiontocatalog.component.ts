@@ -9,7 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CatalogactivitybaseComponent } from 'systemprimitives';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { MatInputModule } from '@angular/material/input';
-import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
+import { SpecificationfordatasetComponent } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
 

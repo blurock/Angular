@@ -7,7 +7,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
+import { SpecificationfordatasetComponent } from 'systemprimitives';
 import { CatalogactivitybaseComponent } from 'systemprimitives';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { OntologycatalogService } from 'systemprimitives';

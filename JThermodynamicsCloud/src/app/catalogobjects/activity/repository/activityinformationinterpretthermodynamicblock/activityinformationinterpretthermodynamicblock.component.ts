@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
+import { SpecificationfordatasetComponent } from 'systemprimitives';
 import { MatCardModule } from '@angular/material/card';
 import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
 import { MatSelectModule } from '@angular/material/select';

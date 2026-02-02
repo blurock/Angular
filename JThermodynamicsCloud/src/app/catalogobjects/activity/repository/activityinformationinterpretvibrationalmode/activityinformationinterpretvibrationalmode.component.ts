@@ -6,7 +6,7 @@ import { ParameterspecificationComponent } from '../../../parameterspecification
 import { Ontologyconstants } from 'systemconstants';
 import { MenutreeserviceService } from 'systemprimitives';
 import { NavItem } from 'systemprimitives';
-import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
+import { SpecificationfordatasetComponent } from 'systemprimitives';
 import { MenuItemComponent } from 'systemprimitives';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';

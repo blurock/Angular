@@ -13,7 +13,7 @@ import { OntologycatalogService } from 'systemprimitives';
 import { FileformatmanagerService } from '../../../../services/fileformatmanager.service';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { MatCardModule } from '@angular/material/card';
-import { SpecificationfordatasetComponent } from '../../../specificationfordataset/specificationfordataset.component';
+import { SpecificationfordatasetComponent } from 'systemprimitives';
 
 @Component({
 	selector: 'app-activityinformationinterpretmetaatom',

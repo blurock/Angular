@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Ontologyconstants } from 'systemconstants';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ManageuserserviceService } from 'systemprimitives';
 import {MatCardModule} from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -9,6 +7,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatInput } from '@angular/material/input';
 import { UserinterfaceconstantsService } from 'systemconstants';
+import { Ontologyconstants } from 'systemconstants';
+import { ManageuserserviceService } from '../../services/manageuserservice.service';
 
 @Component({
 	selector: 'app-specificationfordataset',
