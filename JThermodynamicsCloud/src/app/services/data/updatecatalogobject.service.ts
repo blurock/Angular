@@ -1,7 +1,7 @@
-import { Injectable,Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {diff} from 'json-diff-ts';
-import {Ontologyconstants} from '../../const/ontologyconstants';
-import {CreatedateserviceService} from '../createdateservice.service';
+import {CreatedateserviceService} from 'systemprimitives';
+import { Ontologyconstants } from 'systemconstants';
 //import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 //import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 

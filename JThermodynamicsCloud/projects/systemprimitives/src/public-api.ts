@@ -19,4 +19,4 @@ export * from './lib/dialog/runtransactiondialog/runtransactiondialog.component'
 export * from './lib/tokens'
 export * from './lib/dialog/fetchcatalogobject/fetchcatalogobject.component'
 export * from './lib/basecomponents/firesytorecatalogid/firesytorecatalogid.component';
-
+export * from './lib/services/createdateservice.service'
