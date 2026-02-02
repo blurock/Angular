@@ -2,7 +2,7 @@ import { Output, EventEmitter, Component, OnInit, ViewChild, NgModule } from '@a
 import { OntologycatalogService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
+import { FetchcatalogobjectComponent } from 'systemprimitives';
 import { ActivityrepositoryinitialreadlocalfileComponent } from '../../catalogobjects/activity/repository/activityrepositoryinitialreadlocalfile/activityrepositoryinitialreadlocalfile.component';
 import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { RuntransactiondialogComponent } from 'systemprimitives';

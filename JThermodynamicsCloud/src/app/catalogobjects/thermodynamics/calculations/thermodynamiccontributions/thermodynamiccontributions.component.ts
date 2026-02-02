@@ -6,7 +6,7 @@ import { ManageuserserviceService } from '../../../../services/manageuserservice
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { OntologycatalogService } from 'systemprimitives';
 import { ViewcatalogandsavetolocalfileComponent } from '../../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
-import { FetchcatalogobjectComponent } from '../../../../dialog/fetchcatalogobject/fetchcatalogobject.component';
+import { FetchcatalogobjectComponent } from 'systemprimitives';
 //import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
 import { GeneralcatalogobjectvisualizationComponent } from '../../../generalcatalogobjectvisualization/generalcatalogobjectvisualization.component';
 @Component({

@@ -1,10 +1,6 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Ontologyconstants } from 'systemconstants';
-import { NavItem } from 'systemprimitives';
-import { MenutreeserviceService } from 'systemprimitives';
-import { RunserviceprocessService } from 'systemprimitives'
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,9 +9,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
-import { MenuItemComponent } from 'systemprimitives';
 import { MatIconModule } from '@angular/material/icon';
 import { UserinterfaceconstantsService } from 'systemconstants';
+import { Ontologyconstants } from 'systemconstants';
+import { NavItem } from '../../nav-item';
+import { MenutreeserviceService } from '../../services/menutreeservice.service';
+import { RunserviceprocessService } from '../../services/runserviceprocess.service'
+import { MenuItemComponent } from '../../menu-item/menu-item.component';
 
 
 @Component({

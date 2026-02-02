@@ -6,7 +6,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatDividerModule } from '@angular/material/divider';
 
 import { ViewandlocalfilesavecatalogobjectService } from '../../services/data/viewandlocalfilesavecatalogobject.service';
-import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
+import { FetchcatalogobjectComponent } from 'systemprimitives';
 import { SavecatalogdataobjectdialogComponent } from '../../dialog/savecatalogdataobjectdialog/savecatalogdataobjectdialog.component';
 import { Ontologyconstants } from 'systemconstants';
 import { UserinterfaceconstantsService } from 'systemconstants';

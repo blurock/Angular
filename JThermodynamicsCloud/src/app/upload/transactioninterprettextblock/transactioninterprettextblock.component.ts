@@ -3,7 +3,7 @@ import { OntologycatalogService } from 'systemprimitives';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ManageuserserviceService } from '../../services/manageuserservice.service';
 import { ActivityinformationComponent } from '../../catalogobjects/transaction/activityinformation/activityinformation.component';
-import { FetchcatalogobjectComponent } from '../../dialog/fetchcatalogobject/fetchcatalogobject.component';
+import { FetchcatalogobjectComponent } from 'systemprimitives';
 import { RuntransactiondialogComponent } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RepositorydatapartitionblockComponent } from '../repositorydatapartitionblock/repositorydatapartitionblock.component';
-import { FetchcatalogobjectComponent } from '../../../dialog/fetchcatalogobject/fetchcatalogobject.component';
+import { FetchcatalogobjectComponent } from 'systemprimitives';
 import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
 import { ManageuserserviceService } from '../../../services/manageuserservice.service';
 import { RepositoryparsedtofixedblocksizeComponent } from '../partition/repositoryparsedtofixedblocksize/repositoryparsedtofixedblocksize.component';
