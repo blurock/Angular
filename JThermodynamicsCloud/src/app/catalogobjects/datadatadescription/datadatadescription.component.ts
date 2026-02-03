@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild, SimpleChanges, OnChanges, AfterVie
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from 'systemconstants';
 import { CatalogconceptpurposeComponent } from '../../catalogobjects/catalogconceptpurpose/catalogconceptpurpose.component';
-import { KeywordlistprimitiveComponent } from '../../primitives/keywordlistprimitive/keywordlistprimitive.component';
+import { KeywordlistprimitiveComponent } from 'systemprimitives';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';

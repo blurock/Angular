@@ -13,7 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { FileformatmanagerService } from 'systemprimitives';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
-import { KeywordlistprimitiveComponent } from '../../../../primitives/keywordlistprimitive/keywordlistprimitive.component';
+import { KeywordlistprimitiveComponent } from 'systemprimitives';
 
 @Component({
 	selector: 'app-activityinformationinterpretthermodynamicblock',

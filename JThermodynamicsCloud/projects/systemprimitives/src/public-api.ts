@@ -28,3 +28,4 @@ export * from './lib/basecomponents/basecatalog.interface'
 export * from './lib/services/manageuserservice.service'
 export * from './lib/catalogbase/specificationfordataset/specificationfordataset.component'  
 export * from './lib/services/fileformatmanager.service'
+export * from './lib/keywordlistprimitive/keywordlistprimitive.component';

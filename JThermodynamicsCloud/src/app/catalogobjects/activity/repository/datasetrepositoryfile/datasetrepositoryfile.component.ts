@@ -20,7 +20,7 @@ import { FileformatmanagerService } from 'systemprimitives';
 import { SetofdataobjectlinksComponent } from '../../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
 import { SetofsitereferencesComponent } from '../../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
 import { DatasetreferenceComponent } from '../../../datasetreference/datasetreference.component';
-import { KeywordlistprimitiveComponent } from '../../../../primitives/keywordlistprimitive/keywordlistprimitive.component';
+import { KeywordlistprimitiveComponent } from 'systemprimitives';
 
 @Component({
 	selector: 'app-datasetrepositoryfile',
