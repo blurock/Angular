@@ -3,7 +3,7 @@ import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators }
 import { ManageuserserviceService } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
 import { NavItem } from 'systemprimitives';
-import { DatasetreferenceComponent } from '../../datasetreference/datasetreference.component';
+import { DatasetreferenceComponent } from 'systemprimitives';
 import { FiresytorecatalogidComponent } from 'systemprimitives';
 import { SetofdataobjectlinksComponent } from '../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
 import { SetofsitereferencesComponent } from '../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';

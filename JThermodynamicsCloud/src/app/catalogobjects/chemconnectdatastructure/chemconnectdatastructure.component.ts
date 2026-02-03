@@ -2,10 +2,10 @@ import { Component, ViewChild, Input } from '@angular/core';
 import { SetofcontactinfodataComponent } from '../catalogbaseobjects/setofcontactinfodata/setofcontactinfodata.component';
 import { SetofdataobjectlinksComponent } from '../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
 import { SetofsitereferencesComponent } from '../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
-import { DatasetreferenceComponent } from '../datasetreference/datasetreference.component';
+import { DatasetreferenceComponent } from 'systemprimitives';
 import { SimpledatabaseobjectstructureComponent } from '../simpledatabaseobjectstructure/simpledatabaseobjectstructure.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CatalogrecordbaseComponent } from '../../primitives/catalogrecordbase/catalogrecordbase.component';
+import { CatalogrecordbaseComponent } from 'systemprimitives';
 import { CommonModule } from '@angular/common';
 
 @Component({

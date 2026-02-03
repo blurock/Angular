@@ -6,7 +6,7 @@ import { UploadfileinformationComponent } from '../uploadfileinformation/uploadf
 import { UploadmenuserviceService } from '../../services/uploadmenuservice.service';
 import { OntologycatalogService } from 'systemprimitives';
 import { DatasetrepositoryfilestagingComponent } from '../../catalogobjects/repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
-import { DatasetreferenceComponent } from '../../catalogobjects/datasetreference/datasetreference.component';
+import { DatasetreferenceComponent } from 'systemprimitives';
 import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IdentifiersService } from 'systemconstants';
 import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';

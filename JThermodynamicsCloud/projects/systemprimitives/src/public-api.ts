@@ -30,3 +30,7 @@ export * from './lib/catalogbase/specificationfordataset/specificationfordataset
 export * from './lib/services/fileformatmanager.service'
 export * from './lib/keywordlistprimitive/keywordlistprimitive.component';
 export * from './lib/basecomponents/parameterspecification/parameterspecification.component';
+export * from './lib/basecomponents/references/citationdisplay/citationdisplay.component';
+export * from './lib/basecomponents/references/datasetreference/datasetreference.component';
+export * from './lib/basecomponents/references/isbndisplay/isbndisplay.component';
+export * from './lib/basecomponents/catalogrecordbase/catalogrecordbase.component';

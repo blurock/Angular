@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Author, CitationData } from '../layout/references/citationdisplay/citation-data.model';
+import { Author, CitationData } from '../basecomponents/references/citationdisplay/citation-data.model';
 
 @Injectable({
   providedIn: 'root'
