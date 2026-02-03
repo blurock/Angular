@@ -1,7 +1,6 @@
 import { Component, Input, ChangeDetectorRef, AfterViewInit, ViewChild } from '@angular/core';
 import { OntologycatalogService } from 'systemprimitives';
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
 import { Ontologyconstants } from 'systemconstants';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
@@ -14,6 +13,7 @@ import { FileformatmanagerService } from 'systemprimitives';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { KeywordlistprimitiveComponent } from 'systemprimitives';
+import { ParameterspecificationComponent } from 'systemprimitives';
 
 @Component({
 	selector: 'app-activityinformationinterpretthermodynamicblock',

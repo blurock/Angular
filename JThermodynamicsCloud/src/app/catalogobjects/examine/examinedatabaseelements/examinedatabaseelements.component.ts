@@ -10,7 +10,7 @@ import { IdentifiersService } from 'systemconstants';
 import { MenutreeserviceService } from 'systemprimitives';
 import { RundatabaseserviceComponent } from '../../../dialog/rundatabaseservice/rundatabaseservice.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ParameterspecificationComponent } from '../../parameterspecification/parameterspecification.component';
+import { ParameterspecificationComponent } from 'systemprimitives';
 
 
 export interface PeriodicElement {

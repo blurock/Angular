@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
+import { ParameterspecificationComponent } from 'systemprimitives';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from 'systemconstants';
 import { OntologycatalogService } from 'systemprimitives';

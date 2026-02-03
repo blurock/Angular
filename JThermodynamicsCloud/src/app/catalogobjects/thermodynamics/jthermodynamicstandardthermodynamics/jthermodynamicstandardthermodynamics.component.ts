@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { OntologycatalogService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { ParametervalueComponent } from '../../parametervalue/parametervalue.component';
-import { ParameterspecificationComponent } from '../../parameterspecification/parameterspecification.component';
+import { ParameterspecificationComponent } from 'systemprimitives';
 import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormArray, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';

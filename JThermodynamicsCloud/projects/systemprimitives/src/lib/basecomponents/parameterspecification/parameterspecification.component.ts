@@ -1,8 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormArray, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Ontologyconstants } from 'systemconstants';
-import { MenutreeserviceService } from 'systemprimitives';
-import { NavItem } from 'systemprimitives';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -11,7 +8,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
-import { MenuItemComponent } from 'systemprimitives';
+import { Ontologyconstants } from 'systemconstants';
+import { MenuItemComponent } from '../../menu-item/menu-item.component';
+import { NavItem } from '../../nav-item';
+import { MenutreeserviceService } from '../../services/menutreeservice.service';
 
 @Component({
 	selector: 'app-parameterspecification',

@@ -2,7 +2,6 @@ import { Component, OnInit, Input, ViewChild, ChangeDetectorRef, AfterViewInit, 
 import { OntologycatalogService } from 'systemprimitives';
 import { FormBuilder, FormGroup, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
-import { ParameterspecificationComponent } from '../../../parameterspecification/parameterspecification.component';
 //import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { Ontologyconstants } from 'systemconstants';
 import { NavItem } from 'systemprimitives';
@@ -18,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MenuItemComponent } from 'systemprimitives';
 import { SpecificationfordatasetComponent } from 'systemprimitives';
+import { ParameterspecificationComponent } from 'systemprimitives';
 
 @Component({
 	selector: 'app-activityinformationinterpretdisassociationenergy',
