@@ -11,7 +11,7 @@ import { TransactionobjectheaderComponent } from '../transactionobjectheader/tra
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CatalogactivitybaseComponent } from 'systemprimitives';
 import { ComponentType } from '@angular/cdk/portal';
-import { ActivityrepositoryinitialreadlocalfileComponent } from '../../activity/repository/activityrepositoryinitialreadlocalfile/activityrepositoryinitialreadlocalfile.component';
+import { ActivityrepositoryinitialreadlocalfileComponent } from 'activitydata';
 import { ActivityrepositorypartitiontocatalogComponent } from '../../activity/repository/activityrepositorypartitiontocatalog/activityrepositorypartitiontocatalog.component';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { Ontologyconstants } from 'systemconstants';

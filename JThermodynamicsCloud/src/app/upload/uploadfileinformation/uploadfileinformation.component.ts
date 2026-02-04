@@ -3,7 +3,7 @@ import { OntologycatalogService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FetchcatalogobjectComponent } from 'systemprimitives';
-import { ActivityrepositoryinitialreadlocalfileComponent } from '../../catalogobjects/activity/repository/activityrepositoryinitialreadlocalfile/activityrepositoryinitialreadlocalfile.component';
+import { ActivityrepositoryinitialreadlocalfileComponent } from 'activitydata';
 import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { RuntransactiondialogComponent } from 'systemprimitives';
 import {MatCardModule} from '@angular/material/card';
