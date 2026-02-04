@@ -4,8 +4,8 @@ import { SimpledatabaseobjectstructureComponent } from '../../simpledatabaseobje
 import { DatasetreferenceComponent } from 'systemprimitives';
 import { FiresytorecatalogidComponent } from 'systemprimitives';
 import { IdentifiersService } from 'systemconstants';
-import { SetofdataobjectlinksComponent } from '../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
-import { SetofsitereferencesComponent } from '../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
+import { SetofdataobjectlinksComponent } from 'systemprimitives';
+import { SetofsitereferencesComponent } from 'systemprimitives';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
 import { GcsblobfileinformationstagingComponent } from '../gcsblobfileinformationstaging/gcsblobfileinformationstaging.component';

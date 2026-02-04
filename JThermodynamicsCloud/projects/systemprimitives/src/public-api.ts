@@ -34,3 +34,8 @@ export * from './lib/basecomponents/references/citationdisplay/citationdisplay.c
 export * from './lib/basecomponents/references/datasetreference/datasetreference.component';
 export * from './lib/basecomponents/references/isbndisplay/isbndisplay.component';
 export * from './lib/basecomponents/catalogrecordbase/catalogrecordbase.component';
+export * from './lib/basecomponents/dataobjectlink/dataobjectlink.component';
+export * from './lib/basecomponents/setofdataobjectlinks/setofdataobjectlinks.component';
+export * from './lib/directives/load-child.directive';
+export * from './lib/basecomponents/objectsitereference/objectsitereference.component';
+export * from './lib/basecomponents/setofsitereferences/setofsitereferences.component';

@@ -17,8 +17,8 @@ import { MenuItemComponent } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
 import { SpecificationfordatasetComponent } from 'systemprimitives';
 import { FileformatmanagerService } from 'systemprimitives';
-import { SetofdataobjectlinksComponent } from '../../../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
-import { SetofsitereferencesComponent } from '../../../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
+import { SetofdataobjectlinksComponent } from 'systemprimitives';
+import { SetofsitereferencesComponent } from 'systemprimitives';
 import { DatasetreferenceComponent } from 'systemprimitives';
 import { KeywordlistprimitiveComponent } from 'systemprimitives';
 

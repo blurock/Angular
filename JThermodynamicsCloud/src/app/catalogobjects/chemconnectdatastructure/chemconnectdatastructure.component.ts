@@ -1,7 +1,7 @@
 import { Component, ViewChild, Input } from '@angular/core';
 import { SetofcontactinfodataComponent } from '../catalogbaseobjects/setofcontactinfodata/setofcontactinfodata.component';
-import { SetofdataobjectlinksComponent } from '../catalogbaseobjects/setofdataobjectlinks/setofdataobjectlinks.component';
-import { SetofsitereferencesComponent } from '../catalogbaseobjects/setofsitereferences/setofsitereferences.component';
+import { SetofdataobjectlinksComponent } from 'systemprimitives';
+import { SetofsitereferencesComponent } from 'systemprimitives';
 import { DatasetreferenceComponent } from 'systemprimitives';
 import { SimpledatabaseobjectstructureComponent } from '../simpledatabaseobjectstructure/simpledatabaseobjectstructure.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';

@@ -1,20 +1,20 @@
 import { Input, Component, OnInit, ViewChild, Output, EventEmitter, AfterViewChecked, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { IdentifiersService } from 'systemconstants';
-import { Ontologyconstants } from 'systemconstants';
-import { FiresytorecatalogidComponent } from 'systemprimitives';
-import { MenutreeserviceService } from 'systemprimitives';
-import { NavItem } from 'systemprimitives';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MenuItemComponent } from 'systemprimitives';
 import { MatInputModule } from '@angular/material/input';
-import { UserinterfaceconstantsService } from 'systemconstants';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { IdentifiersService } from 'systemconstants';
+import { Ontologyconstants } from 'systemconstants';
+import { UserinterfaceconstantsService } from 'systemconstants';
+import { FiresytorecatalogidComponent } from '../firesytorecatalogid/firesytorecatalogid.component';
+import { MenutreeserviceService } from '../../services/menutreeservice.service';
+import { NavItem } from '../../nav-item';
+import { MenuItemComponent } from '../../menu-item/menu-item.component';
 
 
 @Component({

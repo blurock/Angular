@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild, Input,ViewContainerRef, AfterViewInit, EventEmitter, Output  } from '@angular/core';
-import { LoadChildDirective } from '../../../directives/load-child.directive';
-import { DataobjectlinkComponent } from '../dataobjectlink/dataobjectlink.component';
-import { IdentifiersService } from 'systemconstants';
+import { Component, OnInit, ViewChild, Input,ViewContainerRef, EventEmitter, Output  } from '@angular/core';
 import {MatCardModule} from '@angular/material/card'; 
 import {MatIconModule} from '@angular/material/icon'; 
+import { LoadChildDirective } from '../../directives/load-child.directive';
+import { IdentifiersService } from 'systemconstants';
+import { DataobjectlinkComponent } from '../dataobjectlink/dataobjectlink.component';
 
 @Component({
 	selector: 'app-setofdataobjectlinks',

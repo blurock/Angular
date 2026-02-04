@@ -1,21 +1,21 @@
 import { Component, OnInit, ViewChild, Input, AfterViewInit } from '@angular/core';
-import { LoadchildDirective } from '../loadchild.directive';
-import { ObjectsitereferenceComponent } from '../objectsitereference/objectsitereference.component';
 import { ViewContainerRef, ChangeDetectorRef } from '@angular/core';
-import { IdentifiersService } from 'systemconstants';
 import {MatCardModule} from '@angular/material/card'; 
 import {MatIconModule} from '@angular/material/icon'; 
+import { LoadChildDirective } from '../../directives/load-child.directive';
+import { ObjectsitereferenceComponent } from '../objectsitereference/objectsitereference.component';
+import { IdentifiersService } from 'systemconstants';
 
 @Component({
 	selector: 'app-setofsitereferences',
 	templateUrl: './setofsitereferences.component.html',
 	styleUrls: ['./setofsitereferences.component.scss'],
 	standalone: true,
-	imports: [MatCardModule,MatIconModule,LoadchildDirective]
+	imports: [MatCardModule,MatIconModule,LoadChildDirective]
 })
 export class SetofsitereferencesComponent implements OnInit,AfterViewInit  {
 
-	@ViewChild(LoadchildDirective, { static: false }) dynamicChild!: LoadchildDirective;
+	@ViewChild(LoadChildDirective, { static: false }) dynamicChild!: LoadChildDirective;
 	linkarray: ObjectsitereferenceComponent[] = [];
 
 	@Input() anno: any;
