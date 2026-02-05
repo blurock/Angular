@@ -11,21 +11,22 @@ import { TransactionobjectheaderComponent } from '../transactionobjectheader/tra
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CatalogactivitybaseComponent } from 'systemprimitives';
 import { ComponentType } from '@angular/cdk/portal';
-import { ActivityrepositoryinitialreadlocalfileComponent } from 'activitydata';
-import { ActivityrepositorypartitiontocatalogComponent } from '../../activity/repository/activityrepositorypartitiontocatalog/activityrepositorypartitiontocatalog.component';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { Ontologyconstants } from 'systemconstants';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { TransactionresultheaderComponent } from '../transactionresultheader/transactionresultheader.component';
 import { TransactioneventobjectComponent } from '../transactioneventobject/transactioneventobject.component';
-import { ActivityinformationinterpretbensonruledataComponent } from '../../activity/repository/activityinformationinterpretthermodynamicblock/activityinformationinterpretbensonruledata/activityinformationinterpretbensonruledata.component';
-import { ActivityinformationinterpretsubstructurethermodynamicsComponent } from '../../activity/repository/activityinformationinterpretthermodynamicblock/activityinformationinterpretsubstructurethermodynamics/activityinformationinterpretsubstructurethermodynamics.component';
-import { ActivityinformationmolecularthermodynamicsComponent } from '../../activity/repository/activityinformationinterpretthermodynamicblock/activityinformationmolecularthermodynamics/activityinformationmolecularthermodynamics.component';
-import { ActivityinformationinterpretdisassociationenergyComponent } from '../../activity/repository/activityinformationinterpretdisassociationenergy/activityinformationinterpretdisassociationenergy.component';
-import { ActivityinformationinterpretmetaatomComponent } from '../../activity/repository/activityinformationinterpretmetaatom/activityinformationinterpretmetaatom.component';
-import { ActivityinformationinterpretsymmetryinformationComponent } from '../../activity/repository/activityinformationinterpretsymmetryinformation/activityinformationinterpretsymmetryinformation.component';
-import { ActivityinformationinterpretvibrationalmodeComponent } from '../../activity/repository/activityinformationinterpretvibrationalmode/activityinformationinterpretvibrationalmode.component';
+
+import { ActivityinformationinterpretdisassociationenergyComponent } from 'activitydata';
+import { ActivityinformationinterpretmetaatomComponent } from 'activitydata';
+import { ActivityinformationinterpretsymmetryinformationComponent } from 'activitydata';
+import { ActivityinformationinterpretvibrationalmodeComponent } from 'activitydata';
+import { ActivityrepositoryinitialreadlocalfileComponent } from 'activitydata';
+import { ActivityrepositorypartitiontocatalogComponent } from 'activitydata';
+import { ActivityinformationinterpretbensonruledataComponent } from 'activitydata';
+import { ActivityinformationinterpretsubstructurethermodynamicsComponent } from 'activitydata';
+import { ActivityinformationmolecularthermodynamicsComponent } from 'activitydata';
 
 @Component({
 	selector: 'app-managedatasettransactioneventobject',

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { OntologycatalogService } from 'systemprimitives';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
+import { UploadmenuserviceService } from 'systemprimitives';
 import { ParameterspecificationComponent } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { MenutreeserviceService } from 'systemprimitives';

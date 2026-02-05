@@ -4,7 +4,7 @@ import { ActivityrepositorypartitiontocatalogComponent } from '../../activity/re
 import { Ontologyconstants } from 'systemconstants';
 import { OntologycatalogService } from 'systemprimitives';
 import { ActivityinformationinterpretdisassociationenergyComponent } from '../../activity/repository/activityinformationinterpretdisassociationenergy/activityinformationinterpretdisassociationenergy.component';
-import { ActivityinformationinterpretthermodynamicblockComponent } from '../../activity/repository/activityinformationinterpretthermodynamicblock/activityinformationinterpretthermodynamicblock.component';
+import { ActivityinformationinterpretthermodynamicblockComponent } from 'activitydata';
 import { ActivityinformationinterpretvibrationalmodeComponent } from '../../activity/repository/activityinformationinterpretvibrationalmode/activityinformationinterpretvibrationalmode.component';
 import { ActivityinformationinterpretsymmetryinformationComponent } from '../../activity/repository/activityinformationinterpretsymmetryinformation/activityinformationinterpretsymmetryinformation.component';
 import { ActivityinformationinterpretmetaatomComponent } from '../../activity/repository/activityinformationinterpretmetaatom/activityinformationinterpretmetaatom.component';

@@ -3,7 +3,7 @@ import { FormArray, UntypedFormBuilder, FormGroup, Validators, FormControl } fro
 import { UploadinterfaceconstantsService } from '../uploadinterfaceconstants.service'
 import { Ontologyconstants } from 'systemconstants';
 import { UploadfileinformationComponent } from '../uploadfileinformation/uploadfileinformation.component';
-import { UploadmenuserviceService } from '../../services/uploadmenuservice.service';
+import { FileformatmanagerService, UploadmenuserviceService } from 'systemprimitives';
 import { OntologycatalogService } from 'systemprimitives';
 import { DatasetrepositoryfilestagingComponent } from '../../catalogobjects/repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
 import { DatasetreferenceComponent } from 'systemprimitives';
@@ -11,7 +11,7 @@ import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angu
 import { IdentifiersService } from 'systemconstants';
 import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import { ManageuserserviceService } from 'systemprimitives';
-import { ActivityrepositorypartitiontocatalogComponent } from '../../catalogobjects/activity/repository/activityrepositorypartitiontocatalog/activityrepositorypartitiontocatalog.component';
+import { ActivityrepositorypartitiontocatalogComponent } from 'activitydata';
 import { RuntransactiondialogComponent } from 'systemprimitives';
 
 @Component({
@@ -50,10 +50,10 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 		public annotations: OntologycatalogService,
 		private _formBuilder: UntypedFormBuilder,
 		public labels: UploadinterfaceconstantsService,
-		private uploadService: UploadmenuserviceService,
+	    private uploadService: UploadmenuserviceService,
 		public identifiers: IdentifiersService,
 		public dialog: MatDialog,
-		private fileservice: UploadmenuserviceService
+		private fileservice: FileformatmanagerService
 	) {
 		manageuser.determineMaintainer().subscribe(result => {
 			if (result != null) {
@@ -87,7 +87,7 @@ export class ParseuploadedfileComponent implements AfterViewInit {
 			error: (info: any) => { alert('Get Annotations failed:' ); }
 		});
 
-		this.uploadService.getFormatClassification().subscribe((data) => {
+		this.fileservice.getFormatClassification().subscribe((data) => {
 			this.formatInformation = data;
 		}, (error) => {
 			console.log("An error accessing getFormatClassification Service");

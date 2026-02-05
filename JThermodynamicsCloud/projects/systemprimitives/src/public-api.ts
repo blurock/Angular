@@ -39,3 +39,4 @@ export * from './lib/basecomponents/setofdataobjectlinks/setofdataobjectlinks.co
 export * from './lib/directives/load-child.directive';
 export * from './lib/basecomponents/objectsitereference/objectsitereference.component';
 export * from './lib/basecomponents/setofsitereferences/setofsitereferences.component';
+export * from './lib/services/uploadmenuservice.service'

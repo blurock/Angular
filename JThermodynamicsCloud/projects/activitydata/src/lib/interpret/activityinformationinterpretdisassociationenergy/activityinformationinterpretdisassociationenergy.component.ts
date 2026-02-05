@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ChangeDetectorRef, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { OntologycatalogService } from 'systemprimitives';
 import { FormBuilder, FormGroup, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
+import { UploadmenuserviceService } from 'systemprimitives';
 //import { Ontologyconstants } from '../../../../const/ontologyconstants';
 import { Ontologyconstants } from 'systemconstants';
 import { NavItem } from 'systemprimitives';

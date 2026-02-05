@@ -2,8 +2,8 @@ import { Component, OnInit, Input, EventEmitter, ViewChild, Output } from '@angu
 import { FindspecifictransactionindatasetComponent } from '../../dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
 import { Ontologyconstants } from 'systemconstants';
 import { MatDialog } from '@angular/material/dialog';
-import { UploadmenuserviceService } from '../../services/uploadmenuservice.service';
-import { ManageuserserviceService } from '../../services/manageuserservice.service';
+import { UploadmenuserviceService } from 'systemprimitives';
+import { ManageuserserviceService } from 'systemprimitives';
 import { RuntransactiondialogComponent } from 'systemprimitives';
 import { ListoffirestoreidsComponent } from '../../catalogobjects/listoffirestoreids/listoffirestoreids.component';
 import { OntologycatalogService } from 'systemprimitives';

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ManageuserserviceService } from 'systemprimitives';
 import { OntologycatalogService } from 'systemprimitives';
-import { UploadmenuserviceService } from '../../../../services/uploadmenuservice.service';
+//import { UploadmenuserviceService } from 'systemprimitives';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -51,7 +51,7 @@ export class ActivityrepositorypartitiontocatalogComponent extends Catalogactivi
 
 
 	constructor(
-		uploadService: UploadmenuserviceService,
+		//uploadService: UploadmenuserviceService,
 		manageuser: ManageuserserviceService,
 		formBuilder: FormBuilder,
 		cd: ChangeDetectorRef,

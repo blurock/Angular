@@ -4,7 +4,7 @@ import { DatasettransactioneventobjectComponent } from '../../catalogobjects/tra
 import { FindspecifictransactionindatasetComponent } from '../../dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
 import { Ontologyconstants } from 'systemconstants';
 import { MatDialog } from '@angular/material/dialog';
-import { UploadmenuserviceService } from '../../services/uploadmenuservice.service';
+import { UploadmenuserviceService } from 'systemprimitives';
 import { ManageuserserviceService } from 'systemprimitives';
 import { RuntransactiondialogComponent } from 'systemprimitives';
 import { ListoffirestoreidsComponent } from '../../catalogobjects/listoffirestoreids/listoffirestoreids.component';

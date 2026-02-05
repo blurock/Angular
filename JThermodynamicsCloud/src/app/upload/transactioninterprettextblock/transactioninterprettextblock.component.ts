@@ -7,7 +7,7 @@ import { FetchcatalogobjectComponent } from 'systemprimitives';
 import { RuntransactiondialogComponent } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
-import { UploadmenuserviceService } from '../../services/uploadmenuservice.service';
+import { UploadmenuserviceService } from 'systemprimitives';
 
 @Component({
 	selector: 'app-transactioninterprettextblock',
