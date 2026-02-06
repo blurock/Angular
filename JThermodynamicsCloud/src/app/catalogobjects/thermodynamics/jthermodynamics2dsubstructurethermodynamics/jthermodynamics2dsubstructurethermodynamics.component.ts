@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MenuItemComponent } from 'systemprimitives';
-import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
+import { CatalogbaseComponent } from 'systemprimitives';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { NgIf } from '@angular/common';
 import { JthermodynamicstandardthermodynamicsComponent } from '../jthermodynamicstandardthermodynamics/jthermodynamicstandardthermodynamics.component';

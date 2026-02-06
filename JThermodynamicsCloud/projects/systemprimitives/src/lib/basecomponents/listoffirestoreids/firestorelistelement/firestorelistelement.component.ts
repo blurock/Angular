@@ -1,12 +1,11 @@
-import { Component, OnInit, Input, Output, ViewChild, EventEmitter, AfterViewInit } from '@angular/core';
-import { FiresytorecatalogidComponent } from 'systemprimitives';
-import { RunserviceprocessService } from 'systemprimitives'
-import { GeneralcatalogobjectvisualizationComponent } from '../../generalcatalogobjectvisualization/generalcatalogobjectvisualization.component';
+import { Component, Input, Output, ViewChild, EventEmitter, AfterViewInit } from '@angular/core';
+import { FiresytorecatalogidComponent } from '../../firesytorecatalogid/firesytorecatalogid.component';
+import { RunserviceprocessService } from '../../../services/runserviceprocess.service';
+import { GeneralcatalogobjectvisualizationComponent } from '../../../visualization/generalcatalogobjectvisualization/generalcatalogobjectvisualization.component';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
-import { Ontologyconstants } from 'systemconstants';
 
 @Component({
 	selector: 'app-firestorelistelement',

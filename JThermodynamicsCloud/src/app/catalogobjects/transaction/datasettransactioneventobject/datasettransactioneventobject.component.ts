@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, ViewChild, Output, Input } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { ManageuserserviceService } from '../../../services/manageuserservice.service';
+import { ManageuserserviceService } from 'systemprimitives';
 import { OntologycatalogService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { FiresytorecatalogidComponent } from 'systemprimitives';
@@ -10,7 +10,7 @@ import { ActivityinformationComponent } from '../activityinformation/activityinf
 import { MenutreeserviceService } from 'systemprimitives';
 import { NavItem } from 'systemprimitives';
 import { RunserviceprocessService } from 'systemprimitives'
-import {ListoffirestoreidsComponent} from '../../listoffirestoreids/listoffirestoreids.component';
+import {ListoffirestoreidsComponent} from 'systemprimitives';
 @Component({
 	selector: 'app-datasettransactioneventobject',
 	templateUrl: './datasettransactioneventobject.component.html',

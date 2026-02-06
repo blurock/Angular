@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatDividerModule } from '@angular/material/divider';
 
-import { ViewandlocalfilesavecatalogobjectService } from '../../services/data/viewandlocalfilesavecatalogobject.service';
+import { ViewandlocalfilesavecatalogobjectService } from 'systemprimitives';
 import { FetchcatalogobjectComponent } from 'systemprimitives';
 import { SavecatalogdataobjectdialogComponent } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';

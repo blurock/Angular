@@ -26,11 +26,6 @@ import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators }
 				MatInputModule,
 				MatMenuModule,
 				ChemconnectthermodynamicsdatabaseComponent,
-				//SimpledatabaseobjectstructureComponent,
-						//DatasetreferenceComponent,
-						//FiresytorecatalogidComponent,
-						//SetofdataobjectlinksComponent,
-						//SetofsitereferencesComponent,
 						MenuItemComponent
 				]
 })

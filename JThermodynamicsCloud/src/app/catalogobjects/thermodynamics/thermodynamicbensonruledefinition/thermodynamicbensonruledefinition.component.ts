@@ -4,7 +4,7 @@ import { ChemconnectthermodynamicsdatabaseComponent } from '../chemconnectthermo
 import { JthermodynamicsbensonrulestructureComponent } from '../jthermodynamicsbensonrulestructure/jthermodynamicsbensonrulestructure.component';
 import { JthermodynamicstandardthermodynamicsComponent } from '../jthermodynamicstandardthermodynamics/jthermodynamicstandardthermodynamics.component';
 import { MatCardModule } from '@angular/material/card';
-import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
+import { CatalogbaseComponent } from 'systemprimitives';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { NgIf } from '@angular/common';
 import { Ontologyconstants } from 'systemconstants';

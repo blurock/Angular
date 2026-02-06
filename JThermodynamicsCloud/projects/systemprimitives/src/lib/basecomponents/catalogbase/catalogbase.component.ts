@@ -1,9 +1,9 @@
 
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, OnChanges } from '@angular/core';
-import { OntologycatalogService } from 'systemprimitives';
+import { Component, Output, EventEmitter, ChangeDetectorRef, OnChanges } from '@angular/core';
+import { OntologycatalogService } from '../../services/ontologycatalog.service';
 import { Ontologyconstants } from 'systemconstants';
 import { UserinterfaceconstantsService } from 'systemconstants';
-import { BaseCatalogInterface } from 'systemprimitives';
+import { BaseCatalogInterface } from '../../basecomponents/basecatalog.interface';
 
 @Component({
   selector: 'app-catalogbase',

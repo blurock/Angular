@@ -3,7 +3,7 @@ import { SetofcontactinfodataComponent } from '../catalogbaseobjects/setofcontac
 import { SetofdataobjectlinksComponent } from 'systemprimitives';
 import { SetofsitereferencesComponent } from 'systemprimitives';
 import { DatasetreferenceComponent } from 'systemprimitives';
-import { SimpledatabaseobjectstructureComponent } from '../simpledatabaseobjectstructure/simpledatabaseobjectstructure.component';
+import { SimpledatabaseobjectstructureComponent } from 'systemprimitives';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CatalogrecordbaseComponent } from 'systemprimitives';
 import { CommonModule } from '@angular/common';

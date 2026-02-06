@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgIf } from '@angular/common';
-import { CatalogbaseComponent } from '../../../../primitives/catalogbase/catalogbase.component';
+import { CatalogbaseComponent } from 'systemprimitives';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { Ontologyconstants } from 'systemconstants';
 

@@ -5,7 +5,7 @@ import { UntypedFormBuilder, Validators, FormsModule } from '@angular/forms';
 import { ManageuserserviceService } from 'systemprimitives';
 import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
 import { NavItem } from 'systemprimitives';
-import { SimpledatabaseobjectstructureComponent } from '../../simpledatabaseobjectstructure/simpledatabaseobjectstructure.component';
+import { SimpledatabaseobjectstructureComponent } from 'systemprimitives';
 import { __assign } from 'tslib';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';

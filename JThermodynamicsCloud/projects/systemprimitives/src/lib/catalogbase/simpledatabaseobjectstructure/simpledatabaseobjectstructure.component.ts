@@ -1,16 +1,16 @@
 import { Input, Component, OnInit, ViewChild, AfterViewInit, SimpleChanges, ElementRef, AfterViewChecked, OnChanges } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { IdentifiersService } from 'systemconstants';
-import { Ontologyconstants } from 'systemconstants';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
-import { FiresytorecatalogidComponent } from 'systemprimitives';
-import { UserinterfaceconstantsService } from 'systemconstants';
 import { MatIconModule } from '@angular/material/icon';
+import { IdentifiersService } from 'systemconstants';
+import { Ontologyconstants } from 'systemconstants';
+import { UserinterfaceconstantsService } from 'systemconstants';
+import { FiresytorecatalogidComponent } from '../../basecomponents/firesytorecatalogid/firesytorecatalogid.component';
 
 @Component({
 	selector: 'app-simpledatabaseobjectstructure',

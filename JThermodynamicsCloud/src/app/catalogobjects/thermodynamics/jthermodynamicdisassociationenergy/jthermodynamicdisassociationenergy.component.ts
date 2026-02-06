@@ -5,7 +5,7 @@ import { ParametervalueComponent } from '../../parametervalue/parametervalue.com
 import { Jthermodynamics2dspeciesstructureComponent } from '../jthermodynamics2dspeciesstructure/jthermodynamics2dspeciesstructure.component';
 import { MatCardModule } from '@angular/material/card';
 import { NgIf } from '@angular/common';
-import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
+import { CatalogbaseComponent } from 'systemprimitives';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { Ontologyconstants } from 'systemconstants';
 

@@ -9,7 +9,7 @@ import { DatasetrepositoryfilestagingComponent } from '../../catalogobjects/repo
 import { DatasetreferenceComponent } from 'systemprimitives';
 import { MatDialog, MatDialogRef, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IdentifiersService } from 'systemconstants';
-import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { ViewcatalogandsavetolocalfileComponent } from 'systemprimitives';
 import { ManageuserserviceService } from 'systemprimitives';
 import { ActivityrepositorypartitiontocatalogComponent } from 'activitydata';
 import { RuntransactiondialogComponent } from 'systemprimitives';

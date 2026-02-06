@@ -4,7 +4,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UserinterfaceconstantsService } from 'systemconstants';
-import { ViewandlocalfilesavecatalogobjectService } from '../../../services/data/viewandlocalfilesavecatalogobject.service';
+import { ViewandlocalfilesavecatalogobjectService } from 'systemprimitives';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 import { RuntransactiondialogComponent } from 'systemprimitives';
@@ -12,7 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { UploadcatalogobjectComponent } from '../../../dialog/uploadcatalogobject/uploadcatalogobject.component';
 import { Ontologyconstants } from 'systemconstants';
 import { OntologycatalogService } from 'systemprimitives';
-import { FindspecifictransactionindatasetComponent } from '../../../dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
+import { FindspecifictransactionindatasetComponent } from 'systemprimitives';
 import { MenutreeserviceService } from 'systemprimitives';
 import { ManageuserserviceService } from 'systemprimitives';
 

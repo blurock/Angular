@@ -6,7 +6,7 @@ import { ActivityinformationComponent } from '../../catalogobjects/transaction/a
 import { FetchcatalogobjectComponent } from 'systemprimitives';
 import { RuntransactiondialogComponent } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
-import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { ViewcatalogandsavetolocalfileComponent } from 'systemprimitives';
 import { UploadmenuserviceService } from 'systemprimitives';
 
 @Component({

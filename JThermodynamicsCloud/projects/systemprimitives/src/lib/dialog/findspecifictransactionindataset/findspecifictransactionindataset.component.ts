@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Ontologyconstants } from 'systemconstants';
-import { RunserviceprocessService } from 'systemprimitives'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -11,9 +10,10 @@ import { MatInput } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MenutreeserviceService } from 'systemprimitives';
-import { MenuItemComponent } from 'systemprimitives';
-import { NavItem } from 'systemprimitives';
+import { MenutreeserviceService } from '../../services/menutreeservice.service';
+import { MenuItemComponent } from '../../menu-item/menu-item.component';
+import { NavItem } from '../../nav-item';
+import { RunserviceprocessService } from '../../services/runserviceprocess.service'
 
 @Component({
 	selector: 'app-findspecifictransactionindataset',

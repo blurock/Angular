@@ -5,7 +5,7 @@ import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/d
 import { ManageuserserviceService } from 'systemprimitives';
 import { RepositoryparsedtofixedblocksizeComponent } from '../partition/repositoryparsedtofixedblocksize/repositoryparsedtofixedblocksize.component';
 import { RepositorythergasthermodynamicsblockComponent } from '../partition/repositorythergasthermodynamicsblock/repositorythergasthermodynamicsblock.component';
-import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { ViewcatalogandsavetolocalfileComponent } from 'systemprimitives';
 import { SavecatalogdataobjectdialogComponent } from 'systemprimitives';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';

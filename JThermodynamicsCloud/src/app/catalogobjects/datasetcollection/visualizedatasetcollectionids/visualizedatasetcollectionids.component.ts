@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Input, Output, ViewChild } from '@angu
 import { ThermodynamicsdatasetcollectionidssetComponent } from '../../datasetcollection/thermodynamicsdatasetcollectionidsset/thermodynamicsdatasetcollectionidsset.component';
 import { FetchcollectiondatasetidsComponent } from '../../../dialog/fetchcollectiondatasetids/fetchcollectiondatasetids.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { ViewcatalogandsavetolocalfileComponent } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { OntologycatalogService } from 'systemprimitives';
 import { MatCardModule } from '@angular/material/card';

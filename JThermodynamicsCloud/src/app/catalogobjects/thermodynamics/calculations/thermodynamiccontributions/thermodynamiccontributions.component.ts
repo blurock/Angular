@@ -5,10 +5,10 @@ import { Ontologyconstants } from 'systemconstants';
 import { ManageuserserviceService } from 'systemprimitives';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { OntologycatalogService } from 'systemprimitives';
-import { ViewcatalogandsavetolocalfileComponent } from '../../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { ViewcatalogandsavetolocalfileComponent } from 'systemprimitives';
 import { FetchcatalogobjectComponent } from 'systemprimitives';
 //import { MenutreeserviceService } from '../../../../services/menutreeservice.service';
-import { GeneralcatalogobjectvisualizationComponent } from '../../../generalcatalogobjectvisualization/generalcatalogobjectvisualization.component';
+import { GeneralcatalogobjectvisualizationComponent } from 'systemprimitives';
 @Component({
 	selector: 'app-thermodynamiccontributions',
 	templateUrl: './thermodynamiccontributions.component.html',

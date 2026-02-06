@@ -8,7 +8,7 @@ import { Jthermodynamics2dspeciesstructureComponent } from '../jthermodynamics2d
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
+import { CatalogbaseComponent } from 'systemprimitives';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { NgIf } from '@angular/common';
 

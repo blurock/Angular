@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { ViewcatalogandsavetolocalfileComponent } from '../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
 import {diff} from 'json-diff-ts';
 
 @Injectable({

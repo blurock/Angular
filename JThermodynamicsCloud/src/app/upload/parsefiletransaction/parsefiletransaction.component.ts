@@ -1,13 +1,12 @@
 import { Component, OnInit, Input, EventEmitter, ViewChild, Output } from '@angular/core';
 import { ParseuploadedfileComponent } from '../parseuploadedfile/parseuploadedfile.component';
-import { DatasettransactioneventobjectComponent } from '../../catalogobjects/transaction/datasettransactioneventobject/datasettransactioneventobject.component';
-import { FindspecifictransactionindatasetComponent } from '../../dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
+import { FindspecifictransactionindatasetComponent } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { MatDialog } from '@angular/material/dialog';
 import { UploadmenuserviceService } from 'systemprimitives';
 import { ManageuserserviceService } from 'systemprimitives';
 import { RuntransactiondialogComponent } from 'systemprimitives';
-import { ListoffirestoreidsComponent } from '../../catalogobjects/listoffirestoreids/listoffirestoreids.component';
+import { ListoffirestoreidsComponent } from 'systemprimitives';
 import { OntologycatalogService } from 'systemprimitives';
 import {FindintermediatettransactionComponent} from '../../dialog/findintermediatettransaction/findintermediatettransaction.component';
 import {IdentifiersService} from 'systemconstants';

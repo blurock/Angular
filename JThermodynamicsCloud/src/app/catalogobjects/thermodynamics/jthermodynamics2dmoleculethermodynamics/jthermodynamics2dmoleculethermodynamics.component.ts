@@ -2,7 +2,7 @@ import { Component, ViewChild,ChangeDetectorRef, AfterViewInit } from '@angular/
 import { OntologycatalogService } from 'systemprimitives';
 import { ChemconnectthermodynamicsdatabaseComponent } from '../chemconnectthermodynamicsdatabase/chemconnectthermodynamicsdatabase.component';
 import { Jthermodynamics2dspeciesstructureComponent } from '../jthermodynamics2dspeciesstructure/jthermodynamics2dspeciesstructure.component';
-import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
+import { CatalogbaseComponent } from 'systemprimitives';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { MatCardModule } from '@angular/material/card';
 

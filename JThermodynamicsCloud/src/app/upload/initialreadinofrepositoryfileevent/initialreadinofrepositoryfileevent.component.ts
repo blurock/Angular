@@ -1,9 +1,7 @@
 import { Component, OnInit, EventEmitter, ViewChild, Output } from '@angular/core';
 import { DatasetrepositoryfilestagingComponent } from '../../catalogobjects/repository/datasetrepositoryfilestaging/datasetrepositoryfilestaging.component';
-import { FindspecifictransactionindatasetComponent } from '../../dialog/findspecifictransactionindataset/findspecifictransactionindataset.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ManageuserserviceService } from '../../services/manageuserservice.service';
-import { DatasettransactioneventobjectComponent } from '../../catalogobjects/transaction/datasettransactioneventobject/datasettransactioneventobject.component';
+import { ManageuserserviceService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
 import { RuntransactiondialogComponent } from 'systemprimitives';
 import { IdentifiersService } from 'systemconstants';
@@ -16,9 +14,9 @@ import { OntologycatalogService } from 'systemprimitives';
 	templateUrl: './initialreadinofrepositoryfileevent.component.html',
 	styleUrls: ['./initialreadinofrepositoryfileevent.component.scss'],
 	standalone: true,
-	imports: [DatasetrepositoryfilestagingComponent, FindspecifictransactionindatasetComponent, 
-		DatasettransactioneventobjectComponent, 
-		RuntransactiondialogComponent, FindintermediatettransactionComponent]
+	imports: [DatasetrepositoryfilestagingComponent
+		
+	]
 })
 export class InitialreadinofrepositoryfileeventComponent implements OnInit {
 

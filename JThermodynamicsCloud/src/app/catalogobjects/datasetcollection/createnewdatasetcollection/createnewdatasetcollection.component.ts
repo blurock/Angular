@@ -4,7 +4,7 @@ import { ActivityinformationdatasetcollectionsetcreationComponent } from '../../
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { RuntransactiondialogComponent } from 'systemprimitives';
 import { FiresytorecatalogidComponent } from 'systemprimitives';
-import { ViewcatalogandsavetolocalfileComponent } from '../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { ViewcatalogandsavetolocalfileComponent } from 'systemprimitives';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';

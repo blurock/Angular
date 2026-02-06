@@ -1,12 +1,12 @@
 import { Component, ChangeDetectorRef, AfterViewInit, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SimpledatabaseobjectstructureComponent } from '../../simpledatabaseobjectstructure/simpledatabaseobjectstructure.component';
-import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { OntologycatalogService } from 'systemprimitives';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { ListoffirestoreidsComponent } from '../../listoffirestoreids/listoffirestoreids.component';
+import { ListoffirestoreidsComponent } from 'systemprimitives';
 import { ListofrequiredtransactioninformationComponent } from '../../listofrequiredtransactioninformation/listofrequiredtransactioninformation.component';
+import { SimpledatabaseobjectstructureComponent } from 'systemprimitives';
+import { CatalogbaseComponent } from 'systemprimitives';
 
 @Component({
 	selector: 'app-transactioneventobject',

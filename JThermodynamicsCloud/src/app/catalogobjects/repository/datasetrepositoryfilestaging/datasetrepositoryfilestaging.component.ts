@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { OntologycatalogService } from 'systemprimitives';
-import { SimpledatabaseobjectstructureComponent } from '../../simpledatabaseobjectstructure/simpledatabaseobjectstructure.component';
+import { SimpledatabaseobjectstructureComponent } from 'systemprimitives';
 import { DatasetreferenceComponent } from 'systemprimitives';
 import { FiresytorecatalogidComponent } from 'systemprimitives';
 import { IdentifiersService } from 'systemconstants';
@@ -13,7 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
-import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
+import { CatalogbaseComponent } from 'systemprimitives';
 import { UserinterfaceconstantsService } from 'systemconstants';
 import { MatInputModule } from '@angular/material/input';
 import { Ontologyconstants } from 'systemconstants';

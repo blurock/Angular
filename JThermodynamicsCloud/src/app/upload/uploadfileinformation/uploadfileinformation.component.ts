@@ -4,7 +4,7 @@ import { Ontologyconstants } from 'systemconstants';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FetchcatalogobjectComponent } from 'systemprimitives';
 import { ActivityrepositoryinitialreadlocalfileComponent } from 'activitydata';
-import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { ViewcatalogandsavetolocalfileComponent } from 'systemprimitives';
 import { RuntransactiondialogComponent } from 'systemprimitives';
 import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';

@@ -2,9 +2,9 @@ import { ChangeDetectorRef, Component, Type, ViewChild, ComponentFactoryResolver
 import { FetchcatalogobjectComponent } from 'systemprimitives';
 import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
 import { ManageuserserviceService } from 'systemprimitives';
-import { ViewcatalogandsavetolocalfileComponent } from '../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { ViewcatalogandsavetolocalfileComponent } from 'systemprimitives';
 import { SavecatalogdataobjectdialogComponent } from 'systemprimitives';
-import { GeneralcatalogobjectvisualizationComponent } from '../generalcatalogobjectvisualization/generalcatalogobjectvisualization.component'
+import { GeneralcatalogobjectvisualizationComponent } from 'systemprimitives'
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';

@@ -3,7 +3,7 @@ import { Ontologyconstants } from 'systemconstants';
 import { OntologycatalogService } from 'systemprimitives';
 import { ThermocalculationsetupComponent } from '../thermocalculationsetup/thermocalculationsetup.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ViewcatalogandsavetolocalfileComponent } from '../../../../dialog/viewcatalogandsavetolocalfile/viewcatalogandsavetolocalfile.component';
+import { ViewcatalogandsavetolocalfileComponent } from 'systemprimitives';
 import { FetchcatalogobjectComponent } from 'systemprimitives';
 import { RundatabaseserviceComponent } from '../../../../dialog/rundatabaseservice/rundatabaseservice.component';
 import {ThermodynamiccontributionsComponent} from '../thermodynamiccontributions/thermodynamiccontributions.component';

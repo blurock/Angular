@@ -15,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ContactlocationinformationComponent } from '../../contactlocationinformation/contactlocationinformation.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import {ChemconnectdatastructureComponent} from '../../chemconnectdatastructure/chemconnectdatastructure.component';
-import { CatalogbaseComponent } from '../../../primitives/catalogbase/catalogbase.component';
+import { CatalogbaseComponent } from 'systemprimitives';
 import { UserinterfaceconstantsService } from 'systemconstants';
 
 @Component({
