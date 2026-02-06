@@ -1,12 +1,12 @@
 import { Component, ViewChild, Input } from '@angular/core';
-import { SetofcontactinfodataComponent } from '../catalogbaseobjects/setofcontactinfodata/setofcontactinfodata.component';
-import { SetofdataobjectlinksComponent } from 'systemprimitives';
-import { SetofsitereferencesComponent } from 'systemprimitives';
-import { DatasetreferenceComponent } from 'systemprimitives';
-import { SimpledatabaseobjectstructureComponent } from 'systemprimitives';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CatalogrecordbaseComponent } from 'systemprimitives';
 import { CommonModule } from '@angular/common';
+import { SetofdataobjectlinksComponent } from '../../basecomponents/setofdataobjectlinks/setofdataobjectlinks.component';
+import { SetofsitereferencesComponent } from '../../basecomponents/setofsitereferences/setofsitereferences.component';
+import { DatasetreferenceComponent } from '../../basecomponents/references/datasetreference/datasetreference.component';
+import { SimpledatabaseobjectstructureComponent } from '../simpledatabaseobjectstructure/simpledatabaseobjectstructure.component';
+import { CatalogrecordbaseComponent } from '../../basecomponents/catalogrecordbase/catalogrecordbase.component';
+import { SetofcontactinfodataComponent } from '../../basecomponents/setofcontactinfodata/setofcontactinfodata.component';
 
 @Component({
 	selector: 'app-chemconnectdatastructure',

@@ -1,22 +1,22 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { OntologycatalogService } from 'systemprimitives';
 import { FormBuilder, Validators, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MenuItemComponent } from 'systemprimitives';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { UserinterfaceconstantsService } from 'systemconstants';
-import { MenutreeserviceService } from 'systemprimitives';
-import { NavItem } from 'systemprimitives';
-import { CatalogbaseComponent } from 'systemprimitives';
-import { NameofpersonComponent } from '../../catalogbaseobjects/nameofperson/nameofperson.component';
+import { NameofpersonComponent } from '../nameofperson/nameofperson.component';
 import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
-import { ContactlocationinformationComponent } from '../../contactlocationinformation/contactlocationinformation.component';
+import { ContactlocationinformationComponent } from '../contactlocationinformation/contactlocationinformation.component';
 import {ChemconnectdatastructureComponent} from '../../chemconnectdatastructure/chemconnectdatastructure.component';
+import { OntologycatalogService } from '../../../services/ontologycatalog.service';
+import { MenuItemComponent } from '../../../menu-item/menu-item.component';
+import { MenutreeserviceService } from '../../../services/menutreeservice.service';
+import { NavItem } from '../../../nav-item';
+import { CatalogbaseComponent } from '../../catalogbase/catalogbase.component';
 
 @Component({
 	selector: 'app-databaseperson',

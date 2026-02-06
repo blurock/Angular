@@ -1,7 +1,6 @@
 import { Component, OnInit,ViewChild} from '@angular/core';
 import { UntypedFormBuilder, Validators, FormGroup, FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import {SessiondatamanagementService} from 'systemprimitives';
 import { Router } from '@angular/router';
 import {MatStepperModule} from '@angular/material/stepper'
 import {MatFormFieldModule} from '@angular/material/form-field'; 
@@ -10,13 +9,13 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { CommonModule} from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
-import {IdentifiersService} from 'systemconstants';
-import { OntologycatalogService } from 'systemprimitives';
 import { Ontologyconstants } from 'systemconstants';
-import { NavItem } from 'systemprimitives';
-import { MenutreeserviceService } from 'systemprimitives';
-import {MenuItemComponent} from 'systemprimitives';
-import { RuntransactiondialogComponent } from 'systemprimitives';
+import { NavItem } from '../../../nav-item';
+import { MenutreeserviceService } from '../../../services/menutreeservice.service';
+import {MenuItemComponent} from '../../../menu-item/menu-item.component';
+import { RuntransactiondialogComponent } from '../../../dialog/runtransactiondialog/runtransactiondialog.component';
+import {SessiondatamanagementService} from '../../../services/sessiondatamanagement.service';
+import { OntologycatalogService } from '../../../services/ontologycatalog.service';
 
 @Component({
 	selector: 'app-setupuserinformation',

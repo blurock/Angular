@@ -50,4 +50,14 @@ export * from './lib/catalogbase/catalogbase/catalogbase.component'
 export * from './lib/basecomponents/listoffirestoreids/listoffirestoreids.component';
 export * from './lib/basecomponents/listoffirestoreids/firestorelistelement/firestorelistelement.component';
 export * from './lib/catalogbase/simpledatabaseobjectstructure/simpledatabaseobjectstructure.component'
+export * from './lib/catalogbase/user/contactlocationinformation/contactlocationinformation.component'
+export * from './lib/catalogbase/user/databaseperson/databaseperson.component'
+export * from './lib/catalogbase/user/nameofperson/nameofperson.component';
+export * from './lib/catalogbase/chemconnectdatastructure/chemconnectdatastructure.component';
+export * from './lib/basecomponents/setofcontactinfodata/setofcontactinfodata.component';
+export * from './lib/catalogbase/user/useraccount/useraccount.component';
+export * from './lib/catalogbase/datadatadescription/datadatadescription.component';
+export * from './lib/catalogbase/user/setupuserinformation/setupuserinformation.component';
+
+
 

@@ -13,6 +13,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { BrowserModule } from '@angular/platform-browser';
 import { API_CONFIG } from 'systemprimitives';
 import { VISUALIZATION_MAPPING } from 'systemprimitives';
+import { GOOGLE_MAP_KEY } from 'systemprimitives';
 
 const firebaseconst = environment.firebase;
 
@@ -31,6 +32,7 @@ export const appConfig: ApplicationConfig = {
 			{ provide: AuthService, useClass: AuthService },
 			provideFirestore(() => getFirestore()),
 			{ provide: API_CONFIG, useValue: environment.apiURL },
+			{ provide: GOOGLE_MAP_KEY, useValue: environment.googleMapsApiKey },
 			{
 				provide: VISUALIZATION_MAPPING,
 				useValue: {

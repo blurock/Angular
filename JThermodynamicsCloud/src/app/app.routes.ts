@@ -3,7 +3,7 @@ import {HomepageComponent} from './layout/homepage/homepage.component'
 import { SignInComponent } from 'systemprimitives';
 
 import {ToppageComponent} from './layout/toppage/toppage.component';
-import {SetupuserinformationComponent} from './catalogobjects/user/setupuserinformation/setupuserinformation.component';
+import {SetupuserinformationComponent} from 'systemprimitives';
 import {UsercreateGuard} from './usercreate.guard';
 import {UploadstepsComponent} from './upload/uploadsteps/uploadsteps.component';
 import {MoleculeCreatorComponent} from './jsme/moleculecreatorcomponent/moleculecreatorcomponent.component'

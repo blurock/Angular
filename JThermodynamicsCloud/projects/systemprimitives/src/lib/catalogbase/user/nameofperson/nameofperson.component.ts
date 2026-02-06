@@ -1,17 +1,17 @@
 import { Component, OnInit, Input, EventEmitter, Output, SimpleChanges, OnChanges } from '@angular/core';
-import { Ontologyconstants } from 'systemconstants';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { MenutreeserviceService } from 'systemprimitives';
-import { NavItem } from 'systemprimitives';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MenuItemComponent } from 'systemprimitives';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { Ontologyconstants } from 'systemconstants';
+import { MenutreeserviceService } from '../../../services/menutreeservice.service';
+import { NavItem } from '../../../nav-item';
+import { MenuItemComponent } from '../../../menu-item/menu-item.component';
 
 @Component({
 	selector: 'app-nameofperson',

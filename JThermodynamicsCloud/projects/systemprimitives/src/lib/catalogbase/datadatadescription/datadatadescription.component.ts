@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, ViewChild, SimpleChanges, OnChanges, AfterViewInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Ontologyconstants } from 'systemconstants';
-import { CatalogconceptpurposeComponent } from '../../catalogobjects/catalogconceptpurpose/catalogconceptpurpose.component';
-import { KeywordlistprimitiveComponent } from 'systemprimitives';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,6 +8,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgIf } from '@angular/common';
+import { CatalogconceptpurposeComponent } from '../catalogconceptpurpose/catalogconceptpurpose.component';
+import { KeywordlistprimitiveComponent } from '../../keywordlistprimitive/keywordlistprimitive.component';
+
 @Component({
 	selector: 'app-datadatadescription',
 	templateUrl: './datadatadescription.component.html',

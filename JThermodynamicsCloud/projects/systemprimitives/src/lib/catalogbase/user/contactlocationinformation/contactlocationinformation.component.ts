@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Ontologyconstants } from 'systemconstants';
-import { LocationserviceService } from '../../services/locationservice.service';
+import { LocationserviceService } from '../../../services/locationservice.service';
 
 @Component({
   selector: 'app-contactlocationinformation',

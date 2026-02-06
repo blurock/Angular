@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { AuthService } from 'systemprimitives';
+import { AuthService } from './auth.service';
+import {GOOGLE_MAP_KEY} from '../tokens';
 
 @Injectable({
 	providedIn: 'root'
@@ -11,13 +11,14 @@ import { AuthService } from 'systemprimitives';
 export class LocationserviceService {
 
 	constructor(public authService: AuthService,
-		private httpClient: HttpClient) {
+		private httpClient: HttpClient,
+	@Inject(GOOGLE_MAP_KEY) private mapkey: string) {
 
 	}
 
 
 	getLocationFromText(searchstring: string): Observable<any> {
-		const apiKey = environment.googleMapsApiKey;
+		const apiKey = this.mapkey;
 		const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(searchstring)}&key=${apiKey}`;
 
 		return this.httpClient.get(url).pipe(

@@ -7,7 +7,7 @@ import { IdentifiersService } from 'systemconstants';
 import { SetofdataobjectlinksComponent } from 'systemprimitives';
 import { SetofsitereferencesComponent } from 'systemprimitives';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
+import { DatadatadescriptionComponent } from 'systemprimitives';
 import { GcsblobfileinformationstagingComponent } from '../gcsblobfileinformationstaging/gcsblobfileinformationstaging.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
