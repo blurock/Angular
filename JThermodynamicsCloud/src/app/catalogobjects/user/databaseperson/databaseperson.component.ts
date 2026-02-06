@@ -1,10 +1,6 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { OntologycatalogService } from 'systemprimitives';
-import { NameofpersonComponent } from '../../catalogbaseobjects/nameofperson/nameofperson.component';
-import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
 import { FormBuilder, Validators, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { NavItem } from 'systemprimitives';
-import { MenutreeserviceService } from 'systemprimitives';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -12,11 +8,15 @@ import { MenuItemComponent } from 'systemprimitives';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
-import { ContactlocationinformationComponent } from '../../contactlocationinformation/contactlocationinformation.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
-import {ChemconnectdatastructureComponent} from '../../chemconnectdatastructure/chemconnectdatastructure.component';
-import { CatalogbaseComponent } from 'systemprimitives';
 import { UserinterfaceconstantsService } from 'systemconstants';
+import { MenutreeserviceService } from 'systemprimitives';
+import { NavItem } from 'systemprimitives';
+import { CatalogbaseComponent } from 'systemprimitives';
+import { NameofpersonComponent } from '../../catalogbaseobjects/nameofperson/nameofperson.component';
+import { DatadatadescriptionComponent } from '../../datadatadescription/datadatadescription.component';
+import { ContactlocationinformationComponent } from '../../contactlocationinformation/contactlocationinformation.component';
+import {ChemconnectdatastructureComponent} from '../../chemconnectdatastructure/chemconnectdatastructure.component';
 
 @Component({
 	selector: 'app-databaseperson',

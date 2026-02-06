@@ -1,7 +1,7 @@
 import { Component, ViewChild, ComponentRef, ViewContainerRef, Output, EventEmitter, Input, AfterViewInit, ChangeDetectorRef, Inject } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { CatalogbaseComponent } from '../../basecomponents/catalogbase/catalogbase.component';
+import { CatalogbaseComponent } from '../../catalogbase/catalogbase/catalogbase.component';
 import { MatCardModule } from '@angular/material/card';
 import { Ontologyconstants } from 'systemconstants';
 import { VISUALIZATION_MAPPING, LazyVisualizationRegistry } from '../visualization-registry';

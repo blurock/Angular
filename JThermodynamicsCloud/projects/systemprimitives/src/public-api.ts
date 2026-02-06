@@ -46,7 +46,7 @@ export * from './lib/dialog/findspecifictransactionindataset/findspecifictransac
 export * from './lib/basecomponents/catalogactivitybase/catalogactivitybase.component';
 export * from './lib/visualization/visualization-registry';
 export * from './lib/visualization/generalcatalogobjectvisualization/generalcatalogobjectvisualization.component';
-export * from './lib/basecomponents/catalogbase/catalogbase.component'
+export * from './lib/catalogbase/catalogbase/catalogbase.component'
 export * from './lib/basecomponents/listoffirestoreids/listoffirestoreids.component';
 export * from './lib/basecomponents/listoffirestoreids/firestorelistelement/firestorelistelement.component';
 export * from './lib/catalogbase/simpledatabaseobjectstructure/simpledatabaseobjectstructure.component'
