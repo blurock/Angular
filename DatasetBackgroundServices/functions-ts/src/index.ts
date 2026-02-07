@@ -7,4 +7,5 @@ export const helloWorld = functions.https.onRequest((request, response) => {
  });
 */
 export { runTransaction } from "./runtransaction";
+export { getCatalogObjectInfo } from "./getcatalogobjectinfo";
 //export { getUser, updateProfile } from "./userLogic";

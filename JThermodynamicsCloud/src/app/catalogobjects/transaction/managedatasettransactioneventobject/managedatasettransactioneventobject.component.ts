@@ -1,22 +1,23 @@
 import { Component, OnInit, AfterViewInit, ViewContainerRef, ComponentRef, ViewChild, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ManageuserserviceService } from 'systemprimitives';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { TransactionobjectheaderComponent } from '../transactionobjectheader/transactionobjectheader.component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { CatalogactivitybaseComponent } from 'systemprimitives';
 import { ComponentType } from '@angular/cdk/portal';
-import { UserinterfaceconstantsService } from 'systemconstants';
-import { Ontologyconstants } from 'systemconstants';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+
+import { Ontologyconstants } from 'systemconstants';
+import { UserinterfaceconstantsService } from 'systemconstants';
+import { ManageuserserviceService } from 'systemprimitives';
+import { CatalogactivitybaseComponent } from 'systemprimitives';
 import { TransactionresultheaderComponent } from '../transactionresultheader/transactionresultheader.component';
 import { TransactioneventobjectComponent } from '../transactioneventobject/transactioneventobject.component';
+import { TransactionobjectheaderComponent } from '../transactionobjectheader/transactionobjectheader.component';
 
 import { ActivityinformationinterpretdisassociationenergyComponent } from 'activitydata';
 import { ActivityinformationinterpretmetaatomComponent } from 'activitydata';

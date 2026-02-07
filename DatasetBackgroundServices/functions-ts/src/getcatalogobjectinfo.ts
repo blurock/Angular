@@ -5,7 +5,7 @@ import { OAuth2Client } from "google-auth-library";
 const client = new OAuth2Client();
 const FUNCTION_URL = process.env.RUN_TRANSACTION_URL || "";
 
-export const runTransaction = onRequest(async (req, res) => {
+export const getCatalogObjectInfo = onRequest(async (req, res) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader?.startsWith("Bearer ")) {
