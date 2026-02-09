@@ -6,6 +6,10 @@ export const helloWorld = functions.https.onRequest((request, response) => {
    response.send("Hello from Firebase!");
  });
 */
+
+import { initializeApp } from "firebase-admin/app";
+initializeApp(); // Best practice to have this at the top
+
 export { runTransaction } from "./runtransaction";
 export { getCatalogObjectInfo } from "./getcatalogobjectinfo";
 //export { getUser, updateProfile } from "./userLogic";

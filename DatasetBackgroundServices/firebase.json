@@ -6,17 +6,7 @@
       {
         "codebase": "ts-backend",
         "source": "functions-ts",
-        "runtime": "nodejs20",
-		"ignore": [
-		  "node_modules",
-		  ".git",
-		  "firebase-debug.log"
-		]
-      },
-      {
-        "codebase": "js-utils",
-        "source": "functions-js",
-        "runtime": "nodejs20",
+        "runtime": "nodejs22",
 		"ignore": [
 		  "node_modules",
 		  ".git",
@@ -24,6 +14,7 @@
 		]
       }
     ],
+	
   "emulators": {
     "auth": {
       "host": "localhost",

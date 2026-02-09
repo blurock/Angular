@@ -1,51 +1,56 @@
 import { onRequest } from "firebase-functions/v2/https";
+import { defineString } from "firebase-functions/params";
 import { OAuth2Client } from "google-auth-library";
+import * as logger from 'firebase-functions/logger';
 
-// The Audience is the URL of your Cloud Function
+const javaBackendUrl = defineString('JAVA_BACKEND_URL', { default: 'http://localhost:8080' });
+const runFunctionUrl = defineString('RUN_FUNCTION_URL', { default: 'http://localhost:5001' });
 const client = new OAuth2Client();
-const FUNCTION_URL = process.env.RUN_TRANSACTION_URL || "";
 
-export const getCatalogObjectInfo = onRequest(async (req, res) => {
+export const getCatalogObjectInfo = onRequest(async (req, res): Promise<void> => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader?.startsWith("Bearer ")) {
     res.status(401).send("Unauthorized: Missing Token");
-    return;
+    return; // Returns void
   }
 
-  const idToken = authHeader.split("Bearer ")[1];
-
   try {
-    // 1. Verify the OIDC Token
-    // In production, this checks the signature and expiration
-    let callerEmail = "emulator-user";
-    
-    if (!process.env.FUNCTIONS_EMULATOR) {
-      const ticket = await client.verifyIdToken({
-        idToken: idToken,
-        audience: FUNCTION_URL,
-      });
-      const payload = ticket.getPayload();
-      callerEmail = payload?.email || "unknown";
+    const idToken = authHeader.split("Bearer ")[1];
+    await client.verifyIdToken({
+      idToken: idToken,
+	  audience: runFunctionUrl.value(),
+    });
+
+    const catalogName = req.body.catalogname || req.query.catalogname;
+    if (!catalogName) {
+      res.status(400).send("Bad Request: Missing catalogname");
+      return; // Returns void
     }
 
-    console.log(`Verified request from: ${callerEmail}`);
+	const targetUrl = `${javaBackendUrl.value()}/cataloginfo?catalogname=${encodeURIComponent(catalogName)}`;
+	logger.info(`Fetching catalog info from: ${targetUrl}`, { detail: "extra info" });
+    const backendResponse = await fetch(targetUrl);
+    
+    if (!backendResponse.ok) {
+      res.status(backendResponse.status).send("Backend Error");
+      return; // Returns void
+    }
 
-    // 2. Extract Data
-    const { uid, ...transactionData } = req.body;
-
-    // 3. Process the transaction
-    // You now have the 'uid' (End User) and 'callerEmail' (Service Account)
-    console.log(`Processing transaction for End User: ${uid}`);
+    const data = await backendResponse.json();
 
     res.status(200).send({
       status: "success",
-      processedBy: callerEmail,
-      data: transactionData
+      payload: data
     });
+    return; // Explicitly return void to satisfy TS7030
 
-  } catch (error) {
-    console.error("Token verification failed:", error);
-    res.status(403).send("Forbidden: Invalid Token");
+  } catch (error: any) {
+    console.error("Function Error:", error.message);
+    res.status(500).send({
+      error: "Internal Server Error",
+      details: error.message
+    });
+    return; // Explicitly return void
   }
 });
